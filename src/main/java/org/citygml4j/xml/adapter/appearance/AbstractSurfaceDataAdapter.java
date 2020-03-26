@@ -6,10 +6,8 @@ import org.citygml4j.model.appearance.AbstractSurfaceData;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
+import org.citygml4j.xml.adapter.core.AbstractFeatureAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.GMLBuilderHelper;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -23,7 +21,7 @@ import org.xmlobjects.xml.TextContent;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> extends AbstractFeatureAdapter<T> implements ADEPropertyBuilder<T> {
+public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> extends AbstractFeatureAdapter<T> {
     private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractSurfaceData"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfSurfaceData"),
@@ -34,10 +32,10 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI()) && "isFront".equals(name.getLocalPart())) {
             reader.getTextContent().ifBoolean(object::setIsFront);
-        } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI()))
-            super.buildChildObject(object, name, attributes, reader);
-        else
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
             buildADEProperty(object, name, reader);
+        else
+            super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override

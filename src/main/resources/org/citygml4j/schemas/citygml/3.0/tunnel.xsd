@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:tun="http://www.opengis.net/citygml/tunnel/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/tunnel/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Tunnel module supports representation of thematic and spatial aspects of tunnels, tunnel parts, tunnel installations, and interior tunnel structures.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTunnel" type="anyType"/>
   <element abstract="true" name="AbstractTunnel" substitutionGroup="con:AbstractConstruction" type="tun:AbstractTunnelType">
     <annotation>
       <documentation>AbstractTunnel is an abstract superclass representing the common attributes and associations of the classes Tunnel and TunnelPart.</documentation>
@@ -15,20 +17,23 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of the actual usage of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the Tunnel or TunnelPart.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the Tunnel or TunnelPart.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the Tunnel or TunnelPart.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelConstructiveElement">
+            <annotation>
+              <documentation>Relates the constructive elements to the Tunnel or TunnelPart.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -41,7 +46,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelInstallation">
             <annotation>
-              <documentation>SIG3D: Relation between Tunnel or TunnelPart and TunnelInstallation.</documentation>
+              <documentation>Relates the installation objects to the Tunnel or TunnelPart.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -55,7 +60,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="hollowSpace">
             <annotation>
-              <documentation>SIG3D: Relation between Tunnel or TunnelPart and HollowSpace.</documentation>
+              <documentation>Relates the hollow spaces to the Tunnel or TunnelPart.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -68,6 +73,9 @@
             </complexType>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelFurniture">
+            <annotation>
+              <documentation>Relates the furniture objects to the Tunnel or TunnelPart.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -83,6 +91,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTunnel" type="anyType"/>
   <complexType name="AbstractTunnelPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:AbstractTunnel"/>
@@ -90,7 +99,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfHollowSpace" type="anyType"/>
   <element name="HollowSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tun:HollowSpaceType">
     <annotation>
       <documentation>A HollowSpace is a space within a Tunnel or TunnelPart intended for certain functions (e.g. transport or passage ways, service rooms, emergency shelters). A HollowSpace is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces).</documentation>
@@ -102,22 +110,22 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of HollowSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the HollowSpace.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of HollowSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the HollowSpace.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of HollowSpace as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the HollowSpace.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelFurniture">
             <annotation>
-              <documentation>SIG3D: Relation between HollowSpace and TunnelFurniture.</documentation>
+              <documentation>Relates the furniture objects to the HollowSpace.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">tun:TunnelFurniture</targetElement>
               </appinfo>
@@ -133,7 +141,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelInstallation">
             <annotation>
-              <documentation>SIG3D: Relation between HollowSpace and TunnelInstallation.</documentation>
+              <documentation>Relates the installation objects to the HollowSpace.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">tun:TunnelInstallation</targetElement>
               </appinfo>
@@ -152,6 +160,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfHollowSpace" type="anyType"/>
   <complexType name="HollowSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="tun:HollowSpace"/>
@@ -159,7 +168,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnel" type="anyType"/>
   <element name="Tunnel" substitutionGroup="tun:AbstractTunnel" type="tun:TunnelType">
     <annotation>
       <documentation>A Tunnel represents a horizontal or sloping enclosed passage way of a certain length, mainly underground or underwater. [cf. ISO 6707-1]</documentation>
@@ -171,7 +179,7 @@
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelPart">
             <annotation>
-              <documentation>Relation between Tunnel and TunnelPart.</documentation>
+              <documentation>Relates the tunnel parts to the Tunnel.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -189,6 +197,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnel" type="anyType"/>
   <complexType name="TunnelPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:Tunnel"/>
@@ -196,7 +205,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelConstructiveElement" type="anyType"/>
   <element name="TunnelConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="tun:TunnelConstructiveElementType">
     <annotation>
       <documentation>A TunnelConstructiveElement is an element of a Tunnel which is essential from a structural point of view. Examples are walls, slabs, beams.</documentation>
@@ -206,14 +214,27 @@
     <complexContent>
       <extension base="con:AbstractConstructiveElementType">
         <sequence>
-          <element minOccurs="0" name="class" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the TunnelConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the TunnelConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the TunnelConstructiveElement.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnelConstructiveElement"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelConstructiveElement" type="anyType"/>
   <complexType name="TunnelConstructiveElementPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelConstructiveElement"/>
@@ -221,7 +242,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelFurniture" type="anyType"/>
   <element name="TunnelFurniture" substitutionGroup="con:AbstractFurniture" type="tun:TunnelFurnitureType">
     <annotation>
       <documentation>A TunnelFurniture is an equipment for occupant use, usually not fixed to the tunnel. [cf. ISO 6707-1]</documentation>
@@ -233,17 +253,17 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the TunnelFurniture.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the TunnelFurniture.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the TunnelFurniture.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnelFurniture"/>
@@ -251,6 +271,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelFurniture" type="anyType"/>
   <complexType name="TunnelFurniturePropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelFurniture"/>
@@ -258,7 +279,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelInstallation" type="anyType"/>
   <element name="TunnelInstallation" substitutionGroup="con:AbstractInstallation" type="tun:TunnelInstallationType">
     <annotation>
       <documentation>A TunnelInstallation is a permanent part of a Tunnel (inside and/or outside) which does not have the significance of a TunnelPart. In contrast to TunnelConstructiveElement, a TunnelInstallation is not essential from a structural point of view. Examples are stairs, antennas or railings.</documentation>
@@ -270,17 +290,17 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the TunnelInstallation.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the TunnelInstallation.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the TunnelInstallation.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnelInstallation"/>
@@ -288,6 +308,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelInstallation" type="anyType"/>
   <complexType name="TunnelInstallationPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelInstallation"/>
@@ -295,7 +316,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelPart" type="anyType"/>
   <element name="TunnelPart" substitutionGroup="tun:AbstractTunnel" type="tun:TunnelPartType">
     <annotation>
       <documentation>A TunnelPart is a physical or functional subdivision of a Tunnel. It would be considered a Tunnel, if it were not part of a collection of other TunnelParts.</documentation>
@@ -310,6 +330,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelPart" type="anyType"/>
   <complexType name="TunnelPartPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelPart"/>

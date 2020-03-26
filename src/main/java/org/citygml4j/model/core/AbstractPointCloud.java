@@ -1,16 +1,13 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.util.Envelopes;
-import org.citygml4j.visitor.Visitable;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractPointCloud extends AbstractFeature implements CityGMLObject, Visitable {
+public abstract class AbstractPointCloud extends AbstractFeature {
     private List<ADEPropertyOfAbstractPointCloud<?>> adeProperties;
 
     public List<ADEPropertyOfAbstractPointCloud<?>> getADEPropertiesOfAbstractPointCloud() {

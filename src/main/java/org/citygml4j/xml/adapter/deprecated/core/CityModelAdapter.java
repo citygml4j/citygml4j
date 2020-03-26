@@ -4,6 +4,8 @@ import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityModel;
 import org.citygml4j.model.core.ADEPropertyOfCityModel;
 import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
+import org.citygml4j.model.core.AbstractFeature;
+import org.citygml4j.model.core.AbstractFeatureProperty;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
@@ -11,17 +13,15 @@ import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
 import org.citygml4j.xml.adapter.core.AbstractAppearancePropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractFeaturePropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.GMLBuilderHelper;
 import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.adapter.feature.FeatureArrayPropertyAdapter;
-import org.xmlobjects.gml.adapter.feature.FeaturePropertyAdapter;
 import org.xmlobjects.gml.model.common.GenericElement;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.feature.FeatureArrayProperty;
-import org.xmlobjects.gml.model.feature.FeatureProperty;
 import org.xmlobjects.gml.util.GMLConstants;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -58,15 +58,17 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> implemen
         } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "featureMember":
-                    object.getFeatureMembers().add(reader.getObjectUsingBuilder(FeaturePropertyAdapter.class));
+                    object.getFeatureMembers().add(reader.getObjectUsingBuilder(AbstractFeaturePropertyAdapter.class));
                     break;
                 case "featureMembers":
                     FeatureArrayProperty<?> featureMembers = reader.getObjectUsingBuilder(FeatureArrayPropertyAdapter.class);
-                    for (AbstractFeature feature : featureMembers.getObjects())
-                        object.getFeatureMembers().add(new FeatureProperty<>(feature));
+                    for (org.xmlobjects.gml.model.feature.AbstractFeature feature : featureMembers.getObjects()) {
+                        if (feature instanceof AbstractFeature)
+                            object.getFeatureMembers().add(new AbstractFeatureProperty((AbstractFeature) feature));
+                    }
 
                     for (GenericElement element : featureMembers.getGenericElements())
-                        object.getFeatureMembers().add(new FeatureProperty<>(element));
+                        object.getFeatureMembers().add(new AbstractFeatureProperty(element));
                     break;
                 default:
                     super.buildChildObject(object, name, attributes, reader);
@@ -99,8 +101,8 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> implemen
         for (AbstractAppearanceProperty property : object.getAppearanceMembers())
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
 
-        for (FeatureProperty<?> property : object.getFeatureMembers())
-            writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, FeaturePropertyAdapter.class, namespaces);
+        for (AbstractFeatureProperty property : object.getFeatureMembers())
+            writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
 
         for (ADEPropertyOfCityModel<?> property : object.getADEPropertiesOfCityModel())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

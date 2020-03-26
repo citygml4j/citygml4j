@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/construction/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Construction module supports representation of key elements of different types of constructions. These key elements include construction surfaces (e.g floor and ceiling), windows and doors, constructive elements (e.g. beams and slabs), installations, and furniture.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstruction" type="anyType"/>
   <element abstract="true" name="AbstractConstruction" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructionType">
     <annotation>
       <documentation>AbstractConstruction is the abstract superclass for objects that are manufactured by humans from construction materials, are connected to earth and are intended to be permanent. A connection with the ground also exists when the construction rests by its own weight on the ground or is moveable limited on stationary rails or if the construction  is intended to be used mainly stationary.</documentation>
@@ -14,40 +16,45 @@
         <sequence>
           <element minOccurs="0" name="conditionOfConstruction" type="con:ConditionOfConstructionValueType">
             <annotation>
-              <documentation>[INSPIRE] Status of the construction.</documentation>
+              <documentation>Indicates the life-cycle status of the construction. [cf. INSPIRE]</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="dateOfConstruction" type="date">
             <annotation>
-              <documentation>Date of completion of a construction.</documentation>
+              <documentation>Indicates the date at which the construction was completed.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="dateOfDemolition" type="date">
             <annotation>
-              <documentation>Date of demolition of a construction.</documentation>
+              <documentation>Indicates the date at which the construction was demolished.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="constructionEvent" type="con:ConstructionEventPropertyType">
             <annotation>
-              <documentation>Date of renovation of a construction.</documentation>
+              <documentation>Describes specific events in the life-time of the construction.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="elevation" type="con:ElevationPropertyType">
             <annotation>
-              <documentation>[INSPIRE] Vertically-constrained dimensional property consisting of an absolute measure referenced to a well-defined surface which is commonly taken as origin (geoïd, water level, etc.).</documentation>
+              <documentation>Specifies qualified elevations of the construction in relation to a well-defined surface which is commonly taken as origin (e.g. geoid or water level). [cf. INSPIRE]</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="height" type="con:HeightPropertyType">
             <annotation>
-              <documentation>[INSPIRE] Height above ground.</documentation>
+              <documentation>Specifies qualified heights of the construction above ground or below ground. [cf. INSPIRE]</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType">
+            <annotation>
+              <documentation>Provides qualified information on the residency of persons, animals, or other moveable objects in the construction.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfAbstractConstruction"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstruction" type="anyType"/>
   <complexType name="AbstractConstructionPropertyType">
     <sequence minOccurs="0">
       <element ref="con:AbstractConstruction"/>
@@ -55,7 +62,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstructionSurface" type="anyType"/>
   <element abstract="true" name="AbstractConstructionSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractConstructionSurfaceType">
     <annotation>
       <documentation>AbstractConstructionSurface is the abstract superclass for different kinds of surfaces that bound a construction.</documentation>
@@ -65,12 +71,17 @@
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="fillingSurface" type="con:AbstractFillingSurfacePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="fillingSurface" type="con:AbstractFillingSurfacePropertyType">
+            <annotation>
+              <documentation>Relates to the surfaces that seal the openings of the construction surface.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfAbstractConstructionSurface"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstructionSurface" type="anyType"/>
   <complexType name="AbstractConstructionSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:AbstractConstructionSurface"/>
@@ -78,7 +89,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstructiveElement" type="anyType"/>
   <element abstract="true" name="AbstractConstructiveElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructiveElementType">
     <annotation>
       <documentation>AbstractConstructiveElement is the abstract superclass for the representation of volumetric elements of a construction. Examples are walls, beams, slabs.</documentation>
@@ -88,13 +98,22 @@
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
         <sequence>
-          <element minOccurs="0" name="isStructuralElement" type="boolean"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="filling" type="con:AbstractFillingElementPropertyType"/>
+          <element minOccurs="0" name="isStructuralElement" type="boolean">
+            <annotation>
+              <documentation>Indicates whether the constructive element is essential from a structural point of view. A structural element cannot be omitted without collapsing of the construction. Examples are pylons and anchorages of bridges.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="filling" type="con:AbstractFillingElementPropertyType">
+            <annotation>
+              <documentation>Relates to the elements that fill the opening of the constructive element.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfAbstractConstructiveElement"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractConstructiveElement" type="anyType"/>
   <complexType name="AbstractConstructiveElementPropertyType">
     <sequence minOccurs="0">
       <element ref="con:AbstractConstructiveElement"/>
@@ -102,7 +121,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFillingElement" type="anyType"/>
   <element abstract="true" name="AbstractFillingElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFillingElementType">
     <annotation>
       <documentation>AbstractFillingElement is the abstract superclass for different kinds of elements that fill the openings of constructive elements.</documentation>
@@ -117,6 +135,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFillingElement" type="anyType"/>
   <complexType name="AbstractFillingElementPropertyType">
     <sequence minOccurs="0">
       <element ref="con:AbstractFillingElement"/>
@@ -124,7 +143,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFillingSurface" type="anyType"/>
   <element abstract="true" name="AbstractFillingSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractFillingSurfaceType">
     <annotation>
       <documentation>AbstractFillingSurface is the abstract superclass for different kinds of surfaces that seal openings filled by filling elements.</documentation>
@@ -139,6 +157,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFillingSurface" type="anyType"/>
   <complexType name="AbstractFillingSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:AbstractFillingSurface"/>
@@ -146,7 +165,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFurniture" type="anyType"/>
   <element abstract="true" name="AbstractFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFurnitureType">
     <annotation>
       <documentation>AbstractFurniture is the abstract superclass for the representation of furniture objects of a construction.</documentation>
@@ -161,6 +179,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFurniture" type="anyType"/>
   <complexType name="AbstractFurniturePropertyType">
     <sequence minOccurs="0">
       <element ref="con:AbstractFurniture"/>
@@ -168,7 +187,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractInstallation" type="anyType"/>
   <element abstract="true" name="AbstractInstallation" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractInstallationType">
     <annotation>
       <documentation>AbstractInstallation is the abstract superclass for the representation of installation objects of a construction.</documentation>
@@ -178,12 +196,17 @@
     <complexContent>
       <extension base="core:AbstractOccupiedSpaceType">
         <sequence>
-          <element minOccurs="0" name="relationToConstruction" type="con:RelationToConstructionType"/>
+          <element minOccurs="0" name="relationToConstruction" type="con:RelationToConstructionType">
+            <annotation>
+              <documentation>Indicates whether the installation is located inside and/or outside of the construction.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfAbstractInstallation"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractInstallation" type="anyType"/>
   <complexType name="AbstractInstallationPropertyType">
     <sequence minOccurs="0">
       <element ref="con:AbstractInstallation"/>
@@ -191,7 +214,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCeilingSurface" type="anyType"/>
   <element name="CeilingSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:CeilingSurfaceType">
     <annotation>
       <documentation>A CeilingSurface is a surface that represents the interior ceiling of a construction. An example is the ceiling of a room.</documentation>
@@ -206,6 +228,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfCeilingSurface" type="anyType"/>
   <complexType name="CeilingSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:CeilingSurface"/>
@@ -220,32 +243,32 @@
     <restriction base="string">
       <enumeration value="declined">
         <annotation>
-          <documentation>[INSPIRE] The construction cannot be used under normal conditions, though its main elements (walls, roof) are still present.</documentation>
+          <documentation>Indicates that the construction cannot be used under normal conditions, though its main elements (walls, roof) are still present. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
       <enumeration value="demolished">
         <annotation>
-          <documentation>[INSPIRE] The construction has been demolished. There are no more visible remains.</documentation>
+          <documentation>Indicates that the construction has been demolished. There are no more visible remains. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
       <enumeration value="functional">
         <annotation>
-          <documentation>[INSPIRE] The construction is functional.</documentation>
+          <documentation>Indicates that the construction is functional. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
       <enumeration value="projected">
         <annotation>
-          <documentation>[INSPIRE] The construction is being designed. Construction has not yet started.</documentation>
+          <documentation>Indicates that the construction is being designed. Construction works have not yet started. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
       <enumeration value="ruin">
         <annotation>
-          <documentation>[INSPIRE] The construction has been partly demolished and some main elements (roof, walls) have been destroyed. There are some visible remains of the construction.</documentation>
+          <documentation>Indicates that the construction has been partly demolished and some main elements (roof, walls) have been destroyed. There are some visible remains of the construction. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
       <enumeration value="underConstruction">
         <annotation>
-          <documentation>[INSPIRE] The construction is under construction and not yet functional. This applies only to the initial construction of the construction and not to maintenance work.</documentation>
+          <documentation>Indicates that the construction is under construction and not yet functional. This applies only to the initial construction works of the construction and not to maintenance work. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
     </restriction>
@@ -257,9 +280,21 @@
   </element>
   <complexType name="ConstructionEventType">
     <sequence>
-      <element name="event" type="gml:CodeType"/>
-      <element name="dateOfEvent" type="date"/>
-      <element minOccurs="0" name="description" type="string"/>
+      <element name="event" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the specific event type.</documentation>
+        </annotation>
+      </element>
+      <element name="dateOfEvent" type="date">
+        <annotation>
+          <documentation>Specifies the date at which the event took or will take place.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="description" type="string">
+        <annotation>
+          <documentation>Provides additional information on the event.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="ConstructionEventPropertyType">
@@ -267,7 +302,6 @@
       <element ref="con:ConstructionEvent"/>
     </sequence>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfDoor" type="anyType"/>
   <element name="Door" substitutionGroup="con:AbstractFillingElement" type="con:DoorType">
     <annotation>
       <documentation>A Door is a construction for closing an opening intended primarily for access or egress or both. [cf. ISO 6707-1]</documentation>
@@ -277,12 +311,24 @@
     <complexContent>
       <extension base="con:AbstractFillingElementType">
         <sequence>
-          <element minOccurs="0" name="class" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the Door.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the Door.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the Door.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
             <annotation>
-              <documentation>SIG3D: Relation between Door and Address.</documentation>
+              <documentation>Relates to the addresses that are assigned to the Door.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfDoor"/>
@@ -290,6 +336,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfDoor" type="anyType"/>
   <complexType name="DoorPropertyType">
     <sequence minOccurs="0">
       <element ref="con:Door"/>
@@ -297,7 +344,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfDoorSurface" type="anyType"/>
   <element name="DoorSurface" substitutionGroup="con:AbstractFillingSurface" type="con:DoorSurfaceType">
     <annotation>
       <documentation>A DoorSurface is either a boundary surface of a Door feature or a surface that seals an opening filled by a door.</documentation>
@@ -307,12 +353,17 @@
     <complexContent>
       <extension base="con:AbstractFillingSurfaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
+            <annotation>
+              <documentation>Relates to the addresses that are assigned to the DoorSurface.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfDoorSurface"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfDoorSurface" type="anyType"/>
   <complexType name="DoorSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:DoorSurface"/>
@@ -329,12 +380,12 @@
     <sequence>
       <element name="elevationReference" type="gml:CodeType">
         <annotation>
-          <documentation>[INSPIRE] Element where the elevation was measured.</documentation>
+          <documentation>Specifies the level from which the elevation was measured. [cf. INSPIRE]</documentation>
         </annotation>
       </element>
       <element name="elevationValue" type="gml:DirectPositionType">
         <annotation>
-          <documentation>[INSPIRE] Value of the elevation.</documentation>
+          <documentation>Specifies the value of the elevation. [cf. INSPIRE]</documentation>
         </annotation>
       </element>
     </sequence>
@@ -344,7 +395,6 @@
       <element ref="con:Elevation"/>
     </sequence>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfFloorSurface" type="anyType"/>
   <element name="FloorSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:FloorSurfaceType">
     <annotation>
       <documentation>A FloorSurface is surface that represents the interior floor of a construction. An example is the floor of a room.</documentation>
@@ -359,6 +409,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfFloorSurface" type="anyType"/>
   <complexType name="FloorSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:FloorSurface"/>
@@ -366,7 +417,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGroundSurface" type="anyType"/>
   <element name="GroundSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:GroundSurfaceType">
     <annotation>
       <documentation>A GroundSurface is a surface that represents the ground plate of a construction. The polygon defining the ground plate is congruent with the footprint of the construction.</documentation>
@@ -381,6 +431,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfGroundSurface" type="anyType"/>
   <complexType name="GroundSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:GroundSurface"/>
@@ -397,22 +448,22 @@
     <sequence>
       <element name="highReference" type="gml:CodeType">
         <annotation>
-          <documentation>[INSPIRE] Element used as the high reference.</documentation>
+          <documentation>Indicates the high point used to calculate the value of the height. [cf. INSPIRE]</documentation>
         </annotation>
       </element>
       <element name="lowReference" type="gml:CodeType">
         <annotation>
-          <documentation>[INSPIRE] Element as the low reference.</documentation>
+          <documentation>Indicates the low point used to calculate the value of the height. [cf. INSPIRE]</documentation>
         </annotation>
       </element>
       <element name="status" type="con:HeightStatusValueType">
         <annotation>
-          <documentation>[INSPIRE] The way the height has been captured.</documentation>
+          <documentation>Indicates the way the height has been captured. [cf. INSPIRE]</documentation>
         </annotation>
       </element>
       <element name="value" type="gml:LengthType">
         <annotation>
-          <documentation>[INSPIRE] Value of the height above ground.</documentation>
+          <documentation>Specifies the value of the height above or below ground. [cf. INSPIRE]</documentation>
         </annotation>
       </element>
     </sequence>
@@ -429,17 +480,16 @@
     <restriction base="string">
       <enumeration value="estimated">
         <annotation>
-          <documentation>[INSPIRE] The height has been estimated and not measured.</documentation>
+          <documentation>Indicates that the height has been estimated and not measured. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
       <enumeration value="measured">
         <annotation>
-          <documentation>[INSPIRE] The height has been (directly or indirectly) measured.</documentation>
+          <documentation>Indicates that the height has been (directly or indirectly) measured. [cf. INSPIRE]</documentation>
         </annotation>
       </enumeration>
     </restriction>
   </simpleType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfInteriorWallSurface" type="anyType"/>
   <element name="InteriorWallSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:InteriorWallSurfaceType">
     <annotation>
       <documentation>An InteriorWallSurface is a surface that is visible from inside a construction. An example is the wall of a room.</documentation>
@@ -454,6 +504,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfInteriorWallSurface" type="anyType"/>
   <complexType name="InteriorWallSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:InteriorWallSurface"/>
@@ -461,7 +512,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfOtherConstruction" type="anyType"/>
   <element name="OtherConstruction" substitutionGroup="con:AbstractConstruction" type="con:OtherConstructionType">
     <annotation>
       <documentation>An OtherConstruction is a construction that is not covered by any of the other subclasses of AbstractConstruction.</documentation>
@@ -471,14 +521,27 @@
     <complexContent>
       <extension base="con:AbstractConstructionType">
         <sequence>
-          <element minOccurs="0" name="class" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the OtherConstruction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the OtherConstruction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the OtherConstruction.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfOtherConstruction"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfOtherConstruction" type="anyType"/>
   <complexType name="OtherConstructionPropertyType">
     <sequence minOccurs="0">
       <element ref="con:OtherConstruction"/>
@@ -486,7 +549,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfOuterCeilingSurface" type="anyType"/>
   <element name="OuterCeilingSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:OuterCeilingSurfaceType">
     <annotation>
       <documentation>An OuterCeilingSurface is a surface that belongs to the outer building shell with the orientation pointing downwards. An example is the ceiling of a loggia.</documentation>
@@ -501,6 +563,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfOuterCeilingSurface" type="anyType"/>
   <complexType name="OuterCeilingSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:OuterCeilingSurface"/>
@@ -508,7 +571,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfOuterFloorSurface" type="anyType"/>
   <element name="OuterFloorSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:OuterFloorSurfaceType">
     <annotation>
       <documentation>An OuterFloorSurface is a surface that belongs to the outer construction shell with the orientation pointing upwards. An example is the floor of a loggia.</documentation>
@@ -523,6 +585,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfOuterFloorSurface" type="anyType"/>
   <complexType name="OuterFloorSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:OuterFloorSurface"/>
@@ -535,12 +598,23 @@
       <documentation>RelationToConstruction is an enumeration used to describe whether an installation is positioned inside and/or outside of a construction.</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="inside"/>
-      <enumeration value="outside"/>
-      <enumeration value="bothInsideAndOutside"/>
+      <enumeration value="inside">
+        <annotation>
+          <documentation>Indicates that the installation is positioned inside of the construction.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="outside">
+        <annotation>
+          <documentation>Indicates that the installation is positioned outside of the construction.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="bothInsideAndOutside">
+        <annotation>
+          <documentation>Indicates that the installation is positioned inside as well as outside of the construction.</documentation>
+        </annotation>
+      </enumeration>
     </restriction>
   </simpleType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfRoofSurface" type="anyType"/>
   <element name="RoofSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:RoofSurfaceType">
     <annotation>
       <documentation>A RoofSurface is a surface that delimits major roof parts of a construction.</documentation>
@@ -555,6 +629,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfRoofSurface" type="anyType"/>
   <complexType name="RoofSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:RoofSurface"/>
@@ -562,7 +637,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWallSurface" type="anyType"/>
   <element name="WallSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:WallSurfaceType">
     <annotation>
       <documentation>A WallSurface is a surface that is part of the building facade visible from the outside.</documentation>
@@ -577,6 +651,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfWallSurface" type="anyType"/>
   <complexType name="WallSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:WallSurface"/>
@@ -584,7 +659,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWindow" type="anyType"/>
   <element name="Window" substitutionGroup="con:AbstractFillingElement" type="con:WindowType">
     <annotation>
       <documentation>A Window is a construction for closing an opening in a wall  or roof, primarily intended to admit light and/or provide ventilation. [cf. ISO  6707-1]</documentation>
@@ -594,14 +668,27 @@
     <complexContent>
       <extension base="con:AbstractFillingElementType">
         <sequence>
-          <element minOccurs="0" name="class" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the Window.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the Window.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the Window.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="con:AbstractGenericApplicationPropertyOfWindow"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfWindow" type="anyType"/>
   <complexType name="WindowPropertyType">
     <sequence minOccurs="0">
       <element ref="con:Window"/>
@@ -609,7 +696,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWindowSurface" type="anyType"/>
   <element name="WindowSurface" substitutionGroup="con:AbstractFillingSurface" type="con:WindowSurfaceType">
     <annotation>
       <documentation>A WindowSurface is either a boundary surface of a Window feature or a surface that seals an opening filled by a window.</documentation>
@@ -624,6 +710,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfWindowSurface" type="anyType"/>
   <complexType name="WindowSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="con:WindowSurface"/>

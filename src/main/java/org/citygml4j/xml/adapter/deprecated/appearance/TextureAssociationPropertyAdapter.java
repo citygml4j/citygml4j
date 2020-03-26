@@ -30,7 +30,7 @@ public class TextureAssociationPropertyAdapter extends AbstractPropertyAdapter<T
         super.initializeObject(object, name, attributes, reader);
         if (object.getHref() == null) {
             object.setObject(new TextureAssociation());
-            attributes.getValue("uri").ifPresent(object.getObject()::setURI);
+            attributes.getValue("uri").ifPresent(object.getObject()::setTarget);
         } else
             attributes.getValue("uri").ifPresent(v -> object.getLocalProperties().set(DeprecatedProperties.TARGET_URI, v));
     }
@@ -39,7 +39,7 @@ public class TextureAssociationPropertyAdapter extends AbstractPropertyAdapter<T
     public void buildChildObject(TextureAssociationProperty object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (object.getObject() == null) {
             object.setObject(new TextureAssociation());
-            object.getObject().setURI(object.getLocalProperties().get(DeprecatedProperties.TARGET_URI, String.class));
+            object.getObject().setTarget(object.getLocalProperties().get(DeprecatedProperties.TARGET_URI, String.class));
         }
 
         AbstractTextureParameterization textureParameterization = reader.getObject(AbstractTextureParameterization.class);
@@ -52,7 +52,7 @@ public class TextureAssociationPropertyAdapter extends AbstractPropertyAdapter<T
     public void initializeElement(Element element, TextureAssociationProperty object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.initializeElement(element, object, namespaces, writer);
         if (object.getObject() != null)
-            element.addAttribute("uri", object.getObject().getURI());
+            element.addAttribute("uri", object.getObject().getTarget());
         else if (object.getLocalProperties().contains(DeprecatedProperties.TARGET_URI))
             element.addAttribute("uri", object.getLocalProperties().get(DeprecatedProperties.TARGET_URI, String.class));
     }

@@ -6,12 +6,9 @@ import org.citygml4j.model.core.Address;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.GMLBuilderHelper;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiPointPropertyAdapter;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -30,7 +27,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "Address", namespaceURI = CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE),
         @XMLElement(name = "Address", namespaceURI = CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE)
 })
-public class AddressAdapter extends AbstractFeatureAdapter<Address> implements ADEPropertyBuilder<Address> {
+public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAddress"),
             new QName(CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfAddress"),
@@ -48,15 +45,17 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> implements A
             switch (name.getLocalPart()) {
                 case "xalAddress":
                     object.setXALAddress(reader.getObjectUsingBuilder(XALAddressPropertyAdapter.class));
-                    break;
+                    return;
                 case "multiPoint":
                     object.setMultiPoint(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
-                    break;
+                    return;
             }
-        } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI()))
-            super.buildChildObject(object, name, attributes, reader);
-        else
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
+            return;
+        }
+
+        super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override

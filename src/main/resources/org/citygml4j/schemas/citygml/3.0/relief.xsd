@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:dem="http://www.opengis.net/citygml/relief/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/relief/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Relief module supports representation of the terrain. CityGML supports terrain representations at different levels of detail, reflecting different accuracies or resolutions. Terrain may be specified as a regular raster or grid, as a TIN, by break lines, and/or by mass points.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractReliefComponent" type="anyType"/>
   <element abstract="true" name="AbstractReliefComponent" substitutionGroup="core:AbstractSpaceBoundary" type="dem:AbstractReliefComponentType">
     <annotation>
       <documentation>An AbstractReliefComponent represents an element of the terrain surface - either a TIN, a Grid, mass points or break lines.</documentation>
@@ -14,12 +16,12 @@
         <sequence>
           <element name="lod" type="core:IntegerBetween0and3Type">
             <annotation>
-              <documentation>SIG3D: Number denoting the LOD of the relief component. The LOD concept for the relief is defined in chapter ...</documentation>
+              <documentation>Indicates the Level of Detail of the terrain component.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="extent" type="gml:SurfacePropertyType">
             <annotation>
-              <documentation>SIG3D: Polygon (optionally with holes) denoting the extent where the relief component is valid.</documentation>
+              <documentation>Indicates the geometrical extent of the terrain component. The geometrical extent is provided as a 2D Surface geometry.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfAbstractReliefComponent"/>
@@ -27,6 +29,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractReliefComponent" type="anyType"/>
   <complexType name="AbstractReliefComponentPropertyType">
     <sequence minOccurs="0">
       <element ref="dem:AbstractReliefComponent"/>
@@ -34,7 +37,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBreaklineRelief" type="anyType"/>
   <element name="BreaklineRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:BreaklineReliefType">
     <annotation>
       <documentation>A BreaklineRelief represents a terrain component with 3D lines. These lines denote break lines or ridge/valley lines.</documentation>
@@ -46,12 +48,12 @@
         <sequence>
           <element minOccurs="0" name="ridgeOrValleyLines" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>SIG3D: Relation to 3D lines (gml:MultiCurve) denoting ridge or valley lines.</documentation>
+              <documentation>Relates to the 3D MultiCurve geometry of the MassPointRelief. This association role is used to represent ridge or valley lines.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="breaklines" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>SIG3D: Relation to 3D lines (gml:MultiCurve) denoting break lines.</documentation>
+              <documentation>Relates to the 3D MultiCurve geometry of the MassPointRelief. This association role is used to represent break lines.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfBreaklineRelief"/>
@@ -59,6 +61,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBreaklineRelief" type="anyType"/>
   <complexType name="BreaklineReliefPropertyType">
     <sequence minOccurs="0">
       <element ref="dem:BreaklineRelief"/>
@@ -66,7 +69,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfMassPointRelief" type="anyType"/>
   <element name="MassPointRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:MassPointReliefType">
     <annotation>
       <documentation>A MassPointRelief represents a terrain component as a collection of 3D points.</documentation>
@@ -76,13 +78,22 @@
     <complexContent>
       <extension base="dem:AbstractReliefComponentType">
         <sequence>
-          <element minOccurs="0" name="reliefPoints" type="gml:MultiPointPropertyType"/>
-          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType"/>
+          <element minOccurs="0" name="reliefPoints" type="gml:MultiPointPropertyType">
+            <annotation>
+              <documentation>Relates to the 3D MultiPoint geometry of the MassPointRelief.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType">
+            <annotation>
+              <documentation>Relates to the 3D PointCloud of the MassPointRelief.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dem:AbstractGenericApplicationPropertyOfMassPointRelief"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfMassPointRelief" type="anyType"/>
   <complexType name="MassPointReliefPropertyType">
     <sequence minOccurs="0">
       <element ref="dem:MassPointRelief"/>
@@ -90,7 +101,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfRasterRelief" type="anyType"/>
   <element name="RasterRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:RasterReliefType">
     <annotation>
       <documentation>A RasterRelief represents a terrain component as a regular raster or grid.</documentation>
@@ -101,6 +111,9 @@
       <extension base="dem:AbstractReliefComponentType">
         <sequence>
           <element name="grid">
+            <annotation>
+              <documentation>Relates to the DiscreteGridPointCoverage of the RasterRelief.</documentation>
+            </annotation>
             <complexType>
               <sequence minOccurs="0">
                 <element ref="gml:RectifiedGridCoverage"/>
@@ -114,6 +127,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfRasterRelief" type="anyType"/>
   <complexType name="RasterReliefPropertyType">
     <sequence minOccurs="0">
       <element ref="dem:RasterRelief"/>
@@ -121,7 +135,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfReliefFeature" type="anyType"/>
   <element name="ReliefFeature" substitutionGroup="core:AbstractSpaceBoundary" type="dem:ReliefFeatureType">
     <annotation>
       <documentation>A ReliefFeature is a collection of terrain components representing the Earth's surface, a.k.a. the Digital Terrain Model.</documentation>
@@ -133,12 +146,12 @@
         <sequence>
           <element name="lod" type="core:IntegerBetween0and3Type">
             <annotation>
-              <documentation>SIG3D: Number denoting the LOD of the relief feature. The LOD concept for the relief is defined in chapter ...</documentation>
+              <documentation>Indicates the Level of Detail of the ReliefFeature.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" name="reliefComponent">
             <annotation>
-              <documentation>SIG3D: Relation of a ReliefFeature to its components.</documentation>
+              <documentation>Relates to the terrain components that are part of the ReliefFeature.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -156,6 +169,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfReliefFeature" type="anyType"/>
   <complexType name="ReliefFeaturePropertyType">
     <sequence minOccurs="0">
       <element ref="dem:ReliefFeature"/>
@@ -163,7 +177,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTINRelief" type="anyType"/>
   <element name="TINRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:TINReliefType">
     <annotation>
       <documentation>A TINRelief represents a terrain component as a triangulated irregular network.</documentation>
@@ -174,6 +187,9 @@
       <extension base="dem:AbstractReliefComponentType">
         <sequence>
           <element name="tin">
+            <annotation>
+              <documentation>Relates to the triangulated surface of the TINRelief.</documentation>
+            </annotation>
             <complexType>
               <sequence minOccurs="0">
                 <element ref="gml:TriangulatedSurface"/>
@@ -187,6 +203,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTINRelief" type="anyType"/>
   <complexType name="TINReliefPropertyType">
     <sequence minOccurs="0">
       <element ref="dem:TINRelief"/>

@@ -75,6 +75,8 @@ import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.AbstractDynamizer;
 import org.citygml4j.model.core.AbstractDynamizerProperty;
+import org.citygml4j.model.core.AbstractFeature;
+import org.citygml4j.model.core.AbstractFeatureProperty;
 import org.citygml4j.model.core.AbstractFeatureWithLifespan;
 import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
@@ -206,7 +208,6 @@ import org.xmlobjects.gml.model.coverage.MultiPointCoverage;
 import org.xmlobjects.gml.model.coverage.MultiSolidCoverage;
 import org.xmlobjects.gml.model.coverage.MultiSurfaceCoverage;
 import org.xmlobjects.gml.model.coverage.RectifiedGridCoverage;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.feature.AbstractFeatureMember;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
@@ -227,8 +228,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     boolean shouldWalk = true;
 
     public ObjectWalker() {
-        ADERegistry regi = ADERegistry.getInstance();
-        if (regi.hasADEContexts()) {
+        ADERegistry registry = ADERegistry.getInstance();
+        if (registry.hasADEContexts()) {
             for (ADEContext context : ADERegistry.getInstance().getADEContexts())
                 withADEWalker(context.getADEWalker());
         }
@@ -266,13 +267,20 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         visit((AbstractGML) geometry);
     }
 
-    public void visit(AbstractFeature feature) {
+    public void visit(org.xmlobjects.gml.model.feature.AbstractFeature feature) {
         visit((AbstractGML) feature);
 
         visit(feature.getLocation());
 
         for (GenericElement genericElement : feature.getGenericProperties())
             visit(genericElement);
+    }
+
+    public void visit(AbstractFeature feature) {
+        visit((org.xmlobjects.gml.model.feature.AbstractFeature) feature);
+
+        for (ADEProperty<?> property : new ArrayList<>(feature.getADEPropertiesOfAbstractFeature()))
+            visit(property);
     }
 
     public void visit(AbstractAppearance appearance) {
@@ -425,7 +433,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     }
 
     public void visit(AbstractCoverage<?> coverage) {
-        visit((AbstractFeature) coverage);
+        visit((org.xmlobjects.gml.model.feature.AbstractFeature) coverage);
 
         visit(coverage.getDomainSet());
 
@@ -966,7 +974,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractAppearanceProperty property : new ArrayList<>(cityModel.getAppearanceMembers()))
             visit(property);
 
-        for (FeatureProperty<?> property : new ArrayList<>(cityModel.getFeatureMembers()))
+        for (AbstractFeatureProperty property : new ArrayList<>(cityModel.getFeatureMembers()))
             visit(property);
 
         for (AbstractVersionProperty property : new ArrayList<>(cityModel.getVersionMembers()))
@@ -1216,7 +1224,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             visit(property);
 
         visit(implicitGeometry.getReferencePoint());
-        visit(implicitGeometry.getRelativeGMLGeometry());
+        visit(implicitGeometry.getRelativeGeometry());
     }
 
     @Override

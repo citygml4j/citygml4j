@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:dyn="http://www.opengis.net/citygml/dynamizer/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/dynamizer/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Dynamizer module supports the injection of timeseries data for individual attributes of CityGML features. Timeseries data can either be retrieved from external Sensor APIs (e.g. OGC SensorThings API, OGC Sensor Observation Services, MQTT, proprietary platforms), external standardized timeseries files (e.g. OGC TimeseriesML or OGC Observations &amp; Measurements), external tabulated files (e.g CSV) or can be represented inline as basic time-value pairs.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAtomicTimeseries" type="anyType"/>
   <element abstract="true" name="AbstractAtomicTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:AbstractAtomicTimeseriesType">
     <annotation>
       <documentation>AbstractAtomicTimeseries represents the attributes and relationships that are common to all kinds of atomic timeseries (GenericTimeseries, TabulatedFileTimeseries, StandardFileTimeseries). An atomic timeseries represents time-varying data of a specific data type for a single contiguous time interval.</documentation>
@@ -12,13 +14,22 @@
     <complexContent>
       <extension base="dyn:AbstractTimeseriesType">
         <sequence>
-          <element name="observationProperty" type="string"/>
-          <element minOccurs="0" name="uom" type="string"/>
+          <element name="observationProperty" type="string">
+            <annotation>
+              <documentation>Specifies the phenomenon for which the atomic timeseries provides observation values.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="uom" type="string">
+            <annotation>
+              <documentation>Specifies the unit of measurement of the observation values.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAbstractAtomicTimeseries"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAtomicTimeseries" type="anyType"/>
   <complexType name="AbstractAtomicTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:AbstractAtomicTimeseries"/>
@@ -26,23 +37,31 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTimeseries" type="anyType"/>
-  <element abstract="true" name="AbstractTimeseries" substitutionGroup="gml:AbstractFeature" type="dyn:AbstractTimeseriesType">
+  <element abstract="true" name="AbstractTimeseries" substitutionGroup="core:AbstractFeature" type="dyn:AbstractTimeseriesType">
     <annotation>
       <documentation>AbstractTimeseries is the abstract superclass representing any type of timeseries data.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractTimeseriesType">
     <complexContent>
-      <extension base="gml:AbstractFeatureType">
+      <extension base="core:AbstractFeatureType">
         <sequence>
-          <element minOccurs="0" name="firstTimestamp" type="gml:TimePositionType"/>
-          <element minOccurs="0" name="lastTimestamp" type="gml:TimePositionType"/>
+          <element minOccurs="0" name="firstTimestamp" type="gml:TimePositionType">
+            <annotation>
+              <documentation>Specifies the beginning of the timeseries.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lastTimestamp" type="gml:TimePositionType">
+            <annotation>
+              <documentation>Specifies the end of the timeseries.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAbstractTimeseries"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTimeseries" type="anyType"/>
   <complexType name="AbstractTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:AbstractTimeseries"/>
@@ -50,7 +69,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCompositeTimeseries" type="anyType"/>
   <element name="CompositeTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:CompositeTimeseriesType">
     <annotation>
       <documentation>A CompositeTimeseries is a (possibly recursive) aggregation of atomic and composite timeseries. The components of a composite timeseries must have non-overlapping time intervals.</documentation>
@@ -60,12 +78,17 @@
     <complexContent>
       <extension base="dyn:AbstractTimeseriesType">
         <sequence>
-          <element maxOccurs="unbounded" name="component" type="dyn:TimeseriesComponentPropertyType"/>
+          <element maxOccurs="unbounded" name="component" type="dyn:TimeseriesComponentPropertyType">
+            <annotation>
+              <documentation>Relates to the atomic and composite timeseries that are part of the CompositeTimeseries. The referenced timeseries are sequentially ordered.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfCompositeTimeseries"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfCompositeTimeseries" type="anyType"/>
   <complexType name="CompositeTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:CompositeTimeseries"/>
@@ -73,7 +96,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfDynamizer" type="anyType"/>
   <element name="Dynamizer" substitutionGroup="core:AbstractDynamizer" type="dyn:DynamizerType">
     <annotation>
       <documentation>A Dynamizer is an object that injects timeseries data for an individual attribute of the city object in which it is included. The timeseries data overrides the static value of the referenced city object attribute in order to represent dynamic, i.e. time-dependent, variations of its value.</documentation>
@@ -83,10 +105,25 @@
     <complexContent>
       <extension base="core:AbstractDynamizerType">
         <sequence>
-          <element name="attributeRef" type="string"/>
-          <element minOccurs="0" name="startTime" type="gml:TimePositionType"/>
-          <element minOccurs="0" name="endTime" type="gml:TimePositionType"/>
+          <element name="attributeRef" type="string">
+            <annotation>
+              <documentation>Specifies the attribute of a CityGML feature whose value is overridden or replaced by the (dynamic) values specified by the Dynamizer.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="startTime" type="gml:TimePositionType">
+            <annotation>
+              <documentation>Specifies the beginning of the time span for which the Dynamizer provides dynamic values.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="endTime" type="gml:TimePositionType">
+            <annotation>
+              <documentation>Specifies the end of the time span for which the Dynamizer provides dynamic values.</documentation>
+            </annotation>
+          </element>
           <element minOccurs="0" name="dynamicData">
+            <annotation>
+              <documentation>Relates to the timeseries data that is given either inline within a CityGML dataset or by a link to an external file containing timeseries data.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -98,12 +135,17 @@
               </complexContent>
             </complexType>
           </element>
-          <element minOccurs="0" name="sensorConnection" type="dyn:SensorConnectionPropertyType"/>
+          <element minOccurs="0" name="sensorConnection" type="dyn:SensorConnectionPropertyType">
+            <annotation>
+              <documentation>Relates to the sensor API that delivers timeseries data.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfDynamizer"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfDynamizer" type="anyType"/>
   <complexType name="DynamizerPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:Dynamizer"/>
@@ -111,7 +153,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericTimeseries" type="anyType"/>
   <element name="GenericTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:GenericTimeseriesType">
     <annotation>
       <documentation>A GenericTimeseries represents time-varying data in the form of embedded time-value-pairs of a specific data type for a single contiguous time interval.</documentation>
@@ -121,13 +162,22 @@
     <complexContent>
       <extension base="dyn:AbstractAtomicTimeseriesType">
         <sequence>
-          <element name="valueType" type="dyn:TimeseriesTypeValueType"/>
-          <element maxOccurs="unbounded" name="timeValuePair" type="dyn:TimeValuePairPropertyType"/>
+          <element name="valueType" type="dyn:TimeseriesTypeValueType">
+            <annotation>
+              <documentation>Indicates the specific type of all time-value-pairs that are part of the GenericTimeseries.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="timeValuePair" type="dyn:TimeValuePairPropertyType">
+            <annotation>
+              <documentation>Relates to the time-value-pairs that are part of the GenericTimeseries.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfGenericTimeseries"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericTimeseries" type="anyType"/>
   <complexType name="GenericTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:GenericTimeseries"/>
@@ -142,20 +192,76 @@
   </element>
   <complexType name="SensorConnectionType">
     <sequence>
-      <element name="connectionType" type="gml:CodeType"/>
-      <element name="observationProperty" type="string"/>
-      <element minOccurs="0" name="uom" type="string"/>
-      <element minOccurs="0" name="sensorID" type="string"/>
-      <element minOccurs="0" name="sensorName" type="string"/>
-      <element minOccurs="0" name="observationID" type="string"/>
-      <element minOccurs="0" name="datastreamID" type="string"/>
-      <element minOccurs="0" name="baseURL" type="anyURI"/>
-      <element minOccurs="0" name="authType" type="gml:CodeType"/>
-      <element minOccurs="0" name="mqttServer" type="string"/>
-      <element minOccurs="0" name="mqttTopic" type="string"/>
-      <element minOccurs="0" name="linkToObservation" type="string"/>
-      <element minOccurs="0" name="linkToSensorDescription" type="string"/>
-      <element minOccurs="0" name="sensorLocation" type="core:AbstractCityObjectPropertyType"/>
+      <element name="connectionType" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the type of Sensor API to which the SensorConnection refers.</documentation>
+        </annotation>
+      </element>
+      <element name="observationProperty" type="string">
+        <annotation>
+          <documentation>Specifies the phenomenon for which the SensorConnection provides observations.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="uom" type="string">
+        <annotation>
+          <documentation>Specifies the unit of measurement of the observations.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="sensorID" type="string">
+        <annotation>
+          <documentation>Specifies the unique identifier of the sensor from which the SensorConnection retrieves observations.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="sensorName" type="string">
+        <annotation>
+          <documentation>Specifies the name of the sensor from which the SensorConnection retrieves observations.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="observationID" type="string">
+        <annotation>
+          <documentation>Specifies the unique identifier of the observation that is retrieved by the SensorConnection.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="datastreamID" type="string">
+        <annotation>
+          <documentation>Specifies the datastream that is retrieved by the SensorConnection.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="baseURL" type="anyURI">
+        <annotation>
+          <documentation>Specifies the base URL of the Sensor API request.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="authType" type="gml:CodeType">
+        <annotation>
+          <documentation>Specifies the type of authentication required to be able to access the Sensor API.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="mqttServer" type="string">
+        <annotation>
+          <documentation>Specifies the name of the MQTT Server. This attribute is relevant when the MQTT Protocol is used to connect to a Sensor API.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="mqttTopic" type="string">
+        <annotation>
+          <documentation>Names the specific datastream that is retrieved by the SensorConnection.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="linkToObservation" type="string">
+        <annotation>
+          <documentation>Specifies the complete URL to the observation request.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="linkToSensorDescription" type="string">
+        <annotation>
+          <documentation>Specifies the complete URL to the sensor description request.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="sensorLocation" type="core:AbstractCityObjectPropertyType">
+        <annotation>
+          <documentation>Relates the sensor to the city object where it is located.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="SensorConnectionPropertyType">
@@ -163,7 +269,6 @@
       <element ref="dyn:SensorConnection"/>
     </sequence>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfStandardFileTimeseries" type="anyType"/>
   <element name="StandardFileTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:StandardFileTimeseriesType">
     <annotation>
       <documentation>A StandardFileTimeseries represents time-varying data for a single contiguous time interval. The data is provided in an external file referenced in the StandardFileTimeseries. The data within the external file shall be encoded according to a dedicated format for the representation of timeseries data, for example, the OGC TimeseriesML or OGC Observations &amp; Measurements standard. The data type of the data has to be specified within the external file.</documentation>
@@ -173,14 +278,27 @@
     <complexContent>
       <extension base="dyn:AbstractAtomicTimeseriesType">
         <sequence>
-          <element name="fileLocation" type="anyURI"/>
-          <element name="fileType" type="gml:CodeType"/>
-          <element minOccurs="0" name="mimeType" type="gml:CodeType"/>
+          <element name="fileLocation" type="anyURI">
+            <annotation>
+              <documentation>Specifies the URI that points to the external timeseries file.</documentation>
+            </annotation>
+          </element>
+          <element name="fileType" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the format used to represent the timeseries data.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="mimeType" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the MIME type of the external timeseries file.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfStandardFileTimeseries"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfStandardFileTimeseries" type="anyType"/>
   <complexType name="StandardFileTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:StandardFileTimeseries"/>
@@ -188,7 +306,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTabulatedFileTimeseries" type="anyType"/>
   <element name="TabulatedFileTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:TabulatedFileTimeseriesType">
     <annotation>
       <documentation>A TabulatedFileTimeseries represents time-varying data of a specific data type for a single contiguous time interval. The data is provided in an external file referenced in the TabulatedFileTimeseries. The file shall contain table structured data using an appropriate file format like comma separated values (CSV), Microsoft Excel (XLSX) or Google Spreadsheet. The timestamps and the values are given in specific columns of the table. Each row represents a single time-value-pair. A subset of rows can be selected using the idColumn and idValue attributes.</documentation>
@@ -198,25 +315,82 @@
     <complexContent>
       <extension base="dyn:AbstractAtomicTimeseriesType">
         <sequence>
-          <element name="fileLocation" type="anyURI"/>
-          <element name="fileType" type="gml:CodeType"/>
-          <element minOccurs="0" name="mimeType" type="gml:CodeType"/>
-          <element name="valueType" type="dyn:TimeseriesTypeValueType"/>
-          <element minOccurs="0" name="numberOfHeaderLines" type="integer"/>
-          <element name="fieldSeparator" type="string"/>
-          <element minOccurs="0" name="decimalSymbol" type="string"/>
-          <element minOccurs="0" name="idColumnNo" type="integer"/>
-          <element minOccurs="0" name="idColumnName" type="string"/>
-          <element minOccurs="0" name="idValue" type="string"/>
-          <element minOccurs="0" name="timeColumnNo" type="integer"/>
-          <element minOccurs="0" name="timeColumnName" type="string"/>
-          <element minOccurs="0" name="valueColumnNo" type="integer"/>
-          <element minOccurs="0" name="valueColumnName" type="string"/>
+          <element name="fileLocation" type="anyURI">
+            <annotation>
+              <documentation>Specifies the URI that points to the external timeseries file.</documentation>
+            </annotation>
+          </element>
+          <element name="fileType" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the format used to represent the timeseries data.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="mimeType" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the MIME type of the external timeseries file.</documentation>
+            </annotation>
+          </element>
+          <element name="valueType" type="dyn:TimeseriesTypeValueType">
+            <annotation>
+              <documentation>Indicates the specific type of the timeseries data.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="numberOfHeaderLines" type="integer">
+            <annotation>
+              <documentation>Indicates the number of lines at the beginning of the tabulated file that represent headers.</documentation>
+            </annotation>
+          </element>
+          <element name="fieldSeparator" type="string">
+            <annotation>
+              <documentation>Indicates which symbol is used to separate the individual values in the tabulated file.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="decimalSymbol" type="string">
+            <annotation>
+              <documentation>Indicates which symbol is used to separate the integer part from the fractional part of a decimal number.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="idColumnNo" type="integer">
+            <annotation>
+              <documentation>Specifies the number of the column that stores the identifier of the time-value-pair.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="idColumnName" type="string">
+            <annotation>
+              <documentation>Specifies the name of the column that stores the identifier of the time-value-pair.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="idValue" type="string">
+            <annotation>
+              <documentation>Specifies the value of the identifier for which the time-value-pairs are to be selected.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="timeColumnNo" type="integer">
+            <annotation>
+              <documentation>Specifies the number of the column that stores the timestamp of the time-value-pair.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="timeColumnName" type="string">
+            <annotation>
+              <documentation>Specifies the name of the column that stores the timestamp of the time-value-pair.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="valueColumnNo" type="integer">
+            <annotation>
+              <documentation>Specifies the number of the column that stores the value of the time-value-pair.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="valueColumnName" type="string">
+            <annotation>
+              <documentation>Specifies the name of the column that stores the value of the time-value-pair.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfTabulatedFileTimeseries"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfTabulatedFileTimeseries" type="anyType"/>
   <complexType name="TabulatedFileTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:TabulatedFileTimeseries"/>
@@ -231,14 +405,45 @@
   </element>
   <complexType name="TimeValuePairType">
     <sequence>
-      <element name="timestamp" type="gml:TimePositionType"/>
-      <element minOccurs="0" name="intValue" type="integer"/>
-      <element minOccurs="0" name="doubleValue" type="double"/>
-      <element minOccurs="0" name="stringValue" type="string"/>
-      <element minOccurs="0" name="geometryValue" type="gml:GeometryPropertyType"/>
-      <element minOccurs="0" name="uriValue" type="anyURI"/>
-      <element minOccurs="0" name="boolValue" type="boolean"/>
+      <element name="timestamp" type="gml:TimePositionType">
+        <annotation>
+          <documentation>Specifies the timepoint at which the value of the TimeValuePair is valid.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="intValue" type="integer">
+        <annotation>
+          <documentation>Specifies the "Integer" value of the TimeValuePair.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="doubleValue" type="double">
+        <annotation>
+          <documentation>Specifies the "Double" value of the TimeValuePair.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="stringValue" type="string">
+        <annotation>
+          <documentation>Specifies the "String" value of the TimeValuePair.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="geometryValue" type="gml:GeometryPropertyType">
+        <annotation>
+          <documentation>Specifies the geometry value of the TimeValuePair.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="uriValue" type="anyURI">
+        <annotation>
+          <documentation>Specifies the "URI" value of the TimeValuePair.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="boolValue" type="boolean">
+        <annotation>
+          <documentation>Specifies the "Boolean" value of the TimeValuePair.</documentation>
+        </annotation>
+      </element>
       <element minOccurs="0" name="implicitGeometryValue">
+        <annotation>
+          <documentation>Specifies the "ImplicitGeometry" value of the TimeValuePair.</documentation>
+        </annotation>
         <complexType>
           <complexContent>
             <extension base="gml:AbstractMemberType">
@@ -251,6 +456,9 @@
         </complexType>
       </element>
       <element minOccurs="0" name="appearanceValue">
+        <annotation>
+          <documentation>Specifies the "Appearance" value of the TimeValuePair.</documentation>
+        </annotation>
         <complexType>
           <complexContent>
             <extension base="gml:AbstractFeatureMemberType">
@@ -276,9 +484,21 @@
   </element>
   <complexType name="TimeseriesComponentType">
     <sequence>
-      <element name="repetitions" type="integer"/>
-      <element minOccurs="0" name="additionalGap" type="duration"/>
-      <element name="timeseries" type="dyn:AbstractTimeseriesPropertyType"/>
+      <element name="repetitions" type="integer">
+        <annotation>
+          <documentation>Specifies how often the timeseries that is referenced by the TimeseriesComponent should be iterated.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="additionalGap" type="duration">
+        <annotation>
+          <documentation>Specifies how much extra time is added after all repetitions as an additional gap.</documentation>
+        </annotation>
+      </element>
+      <element name="timeseries" type="dyn:AbstractTimeseriesPropertyType">
+        <annotation>
+          <documentation>Relates a timeseries to the TimeseriesComponent.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="TimeseriesComponentPropertyType">
@@ -291,14 +511,46 @@
       <documentation>TimeseriesTypeValue enumerates the possible value types for GenericTimeseries and TimeValuePair.</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="integer"/>
-      <enumeration value="double"/>
-      <enumeration value="string"/>
-      <enumeration value="geometry"/>
-      <enumeration value="uri"/>
-      <enumeration value="bool"/>
-      <enumeration value="implicitGeometry"/>
-      <enumeration value="appearance"/>
+      <enumeration value="integer">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries are of type "Integer".</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="double">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries  are of type "Double".</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="string">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries are of type "String".</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="geometry">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries are geometries.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="uri">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries are of type "URI".</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="bool">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries are of type "Boolean".</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="implicitGeometry">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries are of type "ImplicitGeometry".</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="appearance">
+        <annotation>
+          <documentation>Indicates that the values of the GenericTimeseries are of type "Appearance".</documentation>
+        </annotation>
+      </enumeration>
     </restriction>
   </simpleType>
 </schema>

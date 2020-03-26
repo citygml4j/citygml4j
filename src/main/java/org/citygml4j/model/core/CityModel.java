@@ -2,7 +2,6 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.xmlobjects.gml.model.feature.FeatureProperty;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -13,7 +12,7 @@ public class CityModel extends AbstractFeatureWithLifespan {
     private EngineeringCRSProperty engineeringCRS;
     private List<AbstractCityObjectProperty> cityObjectMembers;
     private List<AbstractAppearanceProperty> appearanceMembers;
-    private List<FeatureProperty<?>> featureMembers;
+    private List<AbstractFeatureProperty> featureMembers;
     private List<AbstractVersionProperty> versionMembers;
     private List<AbstractVersionTransitionProperty> versionTransitionMembers;
     private List<ADEPropertyOfCityModel<?>> adeProperties;
@@ -48,14 +47,14 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.appearanceMembers = asChild(appearanceMembers);
     }
 
-    public List<FeatureProperty<?>> getFeatureMembers() {
+    public List<AbstractFeatureProperty> getFeatureMembers() {
         if (featureMembers == null)
             featureMembers = new ChildList<>(this);
 
         return featureMembers;
     }
 
-    public void setFeatureMembers(List<FeatureProperty<?>> featureMembers) {
+    public void setFeatureMembers(List<AbstractFeatureProperty> featureMembers) {
         this.featureMembers = asChild(featureMembers);
     }
 
@@ -104,7 +103,7 @@ public class CityModel extends AbstractFeatureWithLifespan {
         }
 
         if (featureMembers != null) {
-            for (FeatureProperty<?> property : featureMembers) {
+            for (AbstractFeatureProperty property : featureMembers) {
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }

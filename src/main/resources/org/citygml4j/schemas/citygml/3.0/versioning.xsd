@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/versioning/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Versioning module supports representation of multiple versions of CityGML features within a single CityGML model. In addition, also the version transitions and transactions that lead to the different versions can be represented.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
@@ -9,9 +12,21 @@
   </element>
   <complexType name="TransactionType">
     <sequence>
-      <element name="type" type="vers:TransactionTypeValueType"/>
-      <element minOccurs="0" name="oldFeature" type="core:AbstractFeatureWithLifespanPropertyType"/>
-      <element minOccurs="0" name="newFeature" type="core:AbstractFeatureWithLifespanPropertyType"/>
+      <element name="type" type="vers:TransactionTypeValueType">
+        <annotation>
+          <documentation>Indicates the specific type of the Transaction.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="oldFeature" type="core:AbstractFeatureWithLifespanPropertyType">
+        <annotation>
+          <documentation>Relates to the version of the city object prior to the Transaction.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="newFeature" type="core:AbstractFeatureWithLifespanPropertyType">
+        <annotation>
+          <documentation>Relates to the version of the city object subsequent to the Transaction.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="TransactionPropertyType">
@@ -24,9 +39,21 @@
       <documentation>TransactionTypeValue enumerates the three possible types of transactions: insert, delete, or replace.</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="insert"/>
-      <enumeration value="delete"/>
-      <enumeration value="replace"/>
+      <enumeration value="insert">
+        <annotation>
+          <documentation>Indicates that the feature referenced from the Transaction via the "newFeature" association has been newly created; the association "oldFeature" is empty in this case.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="delete">
+        <annotation>
+          <documentation>Indicates that the feature referenced from the Transaction via the "oldFeature" association ceases to exist; the association "newFeature" is empty in this case.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="replace">
+        <annotation>
+          <documentation>Indicates that the feature referenced from the Transaction via the "oldFeature" association has been replaced by the feature referenced via the "newFeature" association.</documentation>
+        </annotation>
+      </enumeration>
     </restriction>
   </simpleType>
   <simpleType name="TransitionTypeValueType">
@@ -34,14 +61,33 @@
       <documentation>TransitionTypeValue enumerates the different kinds of version transitions. “planned” and “fork” should be used in cases when from one city model version multiple successor versions are being created. “realized” and “merge” should be used when different city model versions are converging into a common successor version.</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="planned"/>
-      <enumeration value="realized"/>
-      <enumeration value="historicalSuccession"/>
-      <enumeration value="fork"/>
-      <enumeration value="merge"/>
+      <enumeration value="planned">
+        <annotation>
+          <documentation>Indicates that the successor version of the city model represents a planning state for a possible future of the city.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="realized">
+        <annotation>
+          <documentation>Indicates that the predecessor version is the chosen one from a number of possible planning versions.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="historicalSuccession">
+        <annotation>
+          <documentation>Indicates that the successor version reflects updates on the city model over time (historical timeline). It shall only be used for at most one version transition outgoing from a city model version.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="fork">
+        <annotation>
+          <documentation>Indicates other reasons to create alternative city model versions, for example, when different parties are updating parts of the city model or to reflect the results of different simulation runs.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="merge">
+        <annotation>
+          <documentation>Indicates other reasons to converge multiple versions back into a common city model version.</documentation>
+        </annotation>
+      </enumeration>
     </restriction>
   </simpleType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersion" type="anyType"/>
   <element name="Version" substitutionGroup="core:AbstractVersion" type="vers:VersionType">
     <annotation>
       <documentation>Version represents a defined state of a city model consisting of the dedicated versions of all city object instances that belong to the respective city model version. Versions can have names, a description and can be labeled with an arbitrary number of user defined tags.</documentation>
@@ -51,8 +97,15 @@
     <complexContent>
       <extension base="core:AbstractVersionType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="tag" type="string"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="tag" type="string">
+            <annotation>
+              <documentation>Allows for adding keywords to the city model version.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" name="versionMember">
+            <annotation>
+              <documentation>Relates to all city objects that are part of the city model version.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -69,6 +122,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersion" type="anyType"/>
   <complexType name="VersionPropertyType">
     <sequence minOccurs="0">
       <element ref="vers:Version"/>
@@ -76,7 +130,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersionTransition" type="anyType"/>
   <element name="VersionTransition" substitutionGroup="core:AbstractVersionTransition" type="vers:VersionTransitionType">
     <annotation>
       <documentation>VersionTransition describes the change of the state of a city model from one version to another. Version transitions can have names, a description and can be further qualified by a type and a reason.</documentation>
@@ -86,17 +139,42 @@
     <complexContent>
       <extension base="core:AbstractVersionTransitionType">
         <sequence>
-          <element minOccurs="0" name="reason" type="string"/>
-          <element name="clonePredecessor" type="boolean"/>
-          <element minOccurs="0" name="type" type="vers:TransitionTypeValueType"/>
-          <element minOccurs="0" name="from" type="vers:VersionPropertyType"/>
-          <element minOccurs="0" name="to" type="vers:VersionPropertyType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="transaction" type="vers:TransactionPropertyType"/>
+          <element minOccurs="0" name="reason" type="string">
+            <annotation>
+              <documentation>Specifies why the VersionTransition has been carried out.</documentation>
+            </annotation>
+          </element>
+          <element name="clonePredecessor" type="boolean">
+            <annotation>
+              <documentation>Indicates whether the set of city object instances belonging to the successor version of the city model is either explicitly enumerated within the successor version object (attribute clonePredecessor=false),  or has to be derived from the modifications of the city model provided as a list of transactions on the city object versions contained in the predecessor version (attribute clonePredecessor=true).</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="type" type="vers:TransitionTypeValueType">
+            <annotation>
+              <documentation>Indicates the specific type of the VersionTransition.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="from" type="vers:VersionPropertyType">
+            <annotation>
+              <documentation>Relates to the predecessor version of the VersionTransition.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="to" type="vers:VersionPropertyType">
+            <annotation>
+              <documentation>Relates to the sucessor version of the VersionTransition.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="transaction" type="vers:TransactionPropertyType">
+            <annotation>
+              <documentation>Relates to all transactions that have been applied as part of the VersionTransition.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="vers:AbstractGenericApplicationPropertyOfVersionTransition"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersionTransition" type="anyType"/>
   <complexType name="VersionTransitionPropertyType">
     <sequence minOccurs="0">
       <element ref="vers:VersionTransition"/>

@@ -19,7 +19,7 @@ public class ImplicitGeometry extends AbstractGML implements CityGMLObject, Visi
     private Code mimeType;
     private String libraryObject;
     private PointProperty referencePoint;
-    private GeometryProperty<?> relativeGMLGeometry;
+    private GeometryProperty<?> relativeGeometry;
     private List<AbstractAppearanceProperty> appearances;
 
     public ImplicitGeometry() {
@@ -61,12 +61,12 @@ public class ImplicitGeometry extends AbstractGML implements CityGMLObject, Visi
         this.referencePoint = asChild(referencePoint);
     }
 
-    public GeometryProperty<?> getRelativeGMLGeometry() {
-        return relativeGMLGeometry;
+    public GeometryProperty<?> getRelativeGeometry() {
+        return relativeGeometry;
     }
 
-    public void setRelativeGMLGeometry(GeometryProperty<?> relativeGMLGeometry) {
-        this.relativeGMLGeometry = asChild(relativeGMLGeometry);
+    public void setRelativeGeometry(GeometryProperty<?> relativeGeometry) {
+        this.relativeGeometry = asChild(relativeGeometry);
     }
 
     public List<AbstractAppearanceProperty> getAppearances() {
@@ -83,12 +83,12 @@ public class ImplicitGeometry extends AbstractGML implements CityGMLObject, Visi
     public Envelope computeEnvelope() {
         Envelope envelope = new Envelope();
 
-        if (relativeGMLGeometry != null
-                && relativeGMLGeometry.getObject() != null
+        if (relativeGeometry != null
+                && relativeGeometry.getObject() != null
                 && transformationMatrix != null
                 && referencePoint != null
                 && getReferencePoint().getObject() != null) {
-            Envelope relative = relativeGMLGeometry.getObject().computeEnvelope();
+            Envelope relative = relativeGeometry.getObject().computeEnvelope();
             if (relative.isValid()) {
                 Matrix matrix = transformationMatrix.getValue().copy();
 

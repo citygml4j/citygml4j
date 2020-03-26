@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bldg="http://www.opengis.net/citygml/building/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/building/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Building module supports representation of thematic and spatial aspects of buildings, building parts, building installations, building subdivisions, and interior building structures.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuilding" type="anyType"/>
   <element abstract="true" name="AbstractBuilding" substitutionGroup="con:AbstractConstruction" type="bldg:AbstractBuildingType">
     <annotation>
       <documentation>AbstractBuilding is an abstract superclass representing the common attributes and associations of the classes Building and BuildingPart.</documentation>
@@ -15,45 +17,48 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of Building or BuildingPart as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the Building or BuildingPart.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of Building or BuildingPart as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the Building or BuildingPart.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of Building or BuildingPart as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the Building or BuildingPart.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="roofType" type="gml:CodeType">
             <annotation>
-              <documentation>bSI: Basic configuration of the roof in terms of the different roof shapes.</documentation>
+              <documentation>Indicates the shape of the roof of the Building or BuildingPart.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="storeysAboveGround" type="integer">
             <annotation>
-              <documentation>SIG3D: Number of storeys mainly above ground.</documentation>
+              <documentation>Indicates the number of storeys positioned above ground level.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="storeysBelowGround" type="integer">
             <annotation>
-              <documentation>SIG3D: Number of storeys mainly below ground.</documentation>
+              <documentation>Indicates the number of storeys positioned below ground level.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="storeyHeightsAboveGround" type="gml:MeasureOrNilReasonListType">
             <annotation>
-              <documentation>SIG3D: List of heights for each storey above ground.</documentation>
+              <documentation>Lists the heights of each storey above ground. The first value in the list denotes the height of the storey closest to the ground level, the last value denotes the height furthest away.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="storeyHeightsBelowGround" type="gml:MeasureOrNilReasonListType">
             <annotation>
-              <documentation>SIG3D: List of heights for each storey below ground.</documentation>
+              <documentation>Lists the height of each storey below ground. The first value in the list denotes the height of the storey closest to the ground level, the last value denotes the height furthest away.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingConstructiveElement">
+            <annotation>
+              <documentation>Relates the constructive elements to the Building or BuildingPart.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -66,7 +71,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingInstallation">
             <annotation>
-              <documentation>SIG3D: Relation between Building or BuildingPart and BuildingInstallation.</documentation>
+              <documentation>Relates the installation objects to the Building or BuildingPart.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -80,7 +85,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingRoom">
             <annotation>
-              <documentation>SIG3D: Relation between Building or BuildingPart and Room.</documentation>
+              <documentation>Relates the rooms to the Building or BuildingPart.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -93,6 +98,9 @@
             </complexType>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingFurniture">
+            <annotation>
+              <documentation>Relates the furniture objects to the Building or BuildingPart.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -104,6 +112,9 @@
             </complexType>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingSubdivision">
+            <annotation>
+              <documentation>Relates the logical subdivisions to the Building or BuildingPart.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -116,7 +127,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
             <annotation>
-              <documentation>SIG3D: Relation between Building or BuildingPart and Address</documentation>
+              <documentation>Relates the addresses to the Building or BuildingPart.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfAbstractBuilding"/>
@@ -124,6 +135,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuilding" type="anyType"/>
   <complexType name="AbstractBuildingPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:AbstractBuilding"/>
@@ -131,7 +143,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuildingSubdivision" type="anyType"/>
   <element abstract="true" name="AbstractBuildingSubdivision" substitutionGroup="core:AbstractLogicalSpace" type="bldg:AbstractBuildingSubdivisionType">
     <annotation>
       <documentation>AbstractBuildingSubdivision is the abstract superclass for different kinds of logical building subdivisions.</documentation>
@@ -141,21 +152,34 @@
     <complexContent>
       <extension base="core:AbstractLogicalSpaceType">
         <sequence>
-          <element minOccurs="0" name="class" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the building subdivision.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the building subdivision.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the building subdivision.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" name="elevation" type="con:ElevationPropertyType">
             <annotation>
-              <documentation>[INSPIRE] Vertically-constrained dimensional property consisting of an absolute measure referenced to a well-defined surface which is commonly taken as origin (geoïd, water level, etc.).</documentation>
+              <documentation>Specifies qualified elevations of the building subdivision in relation to a well-defined surface which is commonly taken as origin (e.g. geoid or water level). [cf. INSPIRE]</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="sortKey" type="double">
             <annotation>
-              <documentation>Defines an order among the building unit objects, e.g. for sorting storeys.</documentation>
+              <documentation>Defines an order among the objects that belong to the building subdivision. An example is the sorting of storeys.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingConstructiveElement" type="gml:ReferenceType">
             <annotation>
+              <documentation>Relates the constructive elements to the building subdivision.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingConstructiveElement</targetElement>
               </appinfo>
@@ -163,6 +187,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingFurniture">
             <annotation>
+              <documentation>Relates the furniture objects to the building subdivision.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingFurniture</targetElement>
               </appinfo>
@@ -178,6 +203,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingInstallation">
             <annotation>
+              <documentation>Relates the installation objects to the building subdivision.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingInstallation</targetElement>
               </appinfo>
@@ -193,6 +219,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingRoom" type="gml:ReferenceType">
             <annotation>
+              <documentation>Relates the rooms to the building subdivision.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingRoom</targetElement>
               </appinfo>
@@ -203,6 +230,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuildingSubdivision" type="anyType"/>
   <complexType name="AbstractBuildingSubdivisionPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:AbstractBuildingSubdivision"/>
@@ -210,7 +238,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuilding" type="anyType"/>
   <element name="Building" substitutionGroup="bldg:AbstractBuilding" type="bldg:BuildingType">
     <annotation>
       <documentation>A Building is a free-standing, self-supporting construction that is roofed, usually walled, and can be entered by humans and is normally designed to stand permanently in one place. It is intended for human occupancy (e.g. a place of work or recreation), habitation and/or shelter of humans, animals or things.</documentation>
@@ -222,7 +249,7 @@
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingPart">
             <annotation>
-              <documentation>Relation between Building and BuildingPart.</documentation>
+              <documentation>Relates the building parts to the Building.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -240,6 +267,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuilding" type="anyType"/>
   <complexType name="BuildingPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:Building"/>
@@ -247,7 +275,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingConstructiveElement" type="anyType"/>
   <element name="BuildingConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="bldg:BuildingConstructiveElementType">
     <annotation>
       <documentation>A BuildingConstructiveElement is an element of a Building which is essential from a structural point of view. Examples are walls, slabs, staircases, beams.</documentation>
@@ -257,14 +284,27 @@
     <complexContent>
       <extension base="con:AbstractConstructiveElementType">
         <sequence>
-          <element minOccurs="0" name="class" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BuildingConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BuildingConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BuildingConstructiveElement.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingConstructiveElement"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingConstructiveElement" type="anyType"/>
   <complexType name="BuildingConstructiveElementPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingConstructiveElement"/>
@@ -272,7 +312,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingFurniture" type="anyType"/>
   <element name="BuildingFurniture" substitutionGroup="con:AbstractFurniture" type="bldg:BuildingFurnitureType">
     <annotation>
       <documentation>A BuildingFurniture is an equipment for occupant use, usually not fixed to the building. [cf. ISO 6707-1]</documentation>
@@ -284,17 +323,17 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of BuildingFurniture as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the BuildingFurniture.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of BuildingFurniture as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the BuildingFurniture.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of BuildingFurniture as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the BuildingFurniture.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingFurniture"/>
@@ -302,6 +341,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingFurniture" type="anyType"/>
   <complexType name="BuildingFurniturePropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingFurniture"/>
@@ -309,7 +349,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingInstallation" type="anyType"/>
   <element name="BuildingInstallation" substitutionGroup="con:AbstractInstallation" type="bldg:BuildingInstallationType">
     <annotation>
       <documentation>A BuildingInstallation is a permanent part of a Building (inside and/or outside) which has not the significance of a BuildingPart. Examples are stairs, antennas, balconies or small roofs.</documentation>
@@ -321,17 +360,17 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of BuildingInstallation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the BuildingInstallation.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of BuildingInstallation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the BuildingInstallation.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of BuildingInstallation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the BuildingInstallation.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingInstallation"/>
@@ -339,6 +378,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingInstallation" type="anyType"/>
   <complexType name="BuildingInstallationPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingInstallation"/>
@@ -346,7 +386,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingPart" type="anyType"/>
   <element name="BuildingPart" substitutionGroup="bldg:AbstractBuilding" type="bldg:BuildingPartType">
     <annotation>
       <documentation>A BuildingPart is a physical or functional subdivision of a Building. It would be considered a Building, if it were not part of a collection of other BuildingParts.</documentation>
@@ -361,6 +400,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingPart" type="anyType"/>
   <complexType name="BuildingPartPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingPart"/>
@@ -368,7 +408,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingRoom" type="anyType"/>
   <element name="BuildingRoom" substitutionGroup="core:AbstractUnoccupiedSpace" type="bldg:BuildingRoomType">
     <annotation>
       <documentation>A BuildingRoom is a space within a Building or BuildingPart intended for human occupancy (e.g. a place of work or recreation) and/or containment of animals or things. A BuildingRoom is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces).</documentation>
@@ -380,27 +419,27 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of Room as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the BuildingRoom.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Function of Room as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the BuildingRoom.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Usage of Room as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the BuildingRoom.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="roomHeight" type="bldg:RoomHeightPropertyType">
             <annotation>
-              <documentation>Height of the room.</documentation>
+              <documentation>Specifies qualified heights of the BuildingRoom.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingFurniture">
             <annotation>
-              <documentation>SIG3D: Relation between Room and BuildingFurniture</documentation>
+              <documentation>Relates the furniture objects to the BuildingRoom.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingFurniture</targetElement>
               </appinfo>
@@ -416,7 +455,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingInstallation">
             <annotation>
-              <documentation>SIG3D: Relation between Room and IntBuildingInstallation</documentation>
+              <documentation>Relates the installation objects to the BuildingRoom.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingInstallation</targetElement>
               </appinfo>
@@ -435,6 +474,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingRoom" type="anyType"/>
   <complexType name="BuildingRoomPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingRoom"/>
@@ -442,7 +482,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingUnit" type="anyType"/>
   <element name="BuildingUnit" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:BuildingUnitType">
     <annotation>
       <documentation>A BuildingUnit is a logical subdivision of a Building. BuildingUnits are formed according to some homogeneous property like function, ownership, management, or accessability. They may be separately sold, rented out, inherited, managed, etc.</documentation>
@@ -454,6 +493,7 @@
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" name="storey" type="gml:ReferenceType">
             <annotation>
+              <documentation>Relates to the storeys on which the BuildingUnit is located.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:Storey</targetElement>
                 <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">bldg:buildingUnit</reversePropertyName>
@@ -462,7 +502,7 @@
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
             <annotation>
-              <documentation>SIG3D: Relation between BuildingUnit and Address.</documentation>
+              <documentation>Relates to the addresses that are assigned to the BuildingUnit.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingUnit"/>
@@ -470,6 +510,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingUnit" type="anyType"/>
   <complexType name="BuildingUnitPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingUnit"/>
@@ -486,22 +527,22 @@
     <sequence>
       <element name="highReference" type="gml:CodeType">
         <annotation>
-          <documentation>[INSPIRE] Element used as the high reference.</documentation>
+          <documentation>Indicates the high point used to calculate the value of the room height.</documentation>
         </annotation>
       </element>
       <element name="lowReference" type="gml:CodeType">
         <annotation>
-          <documentation>[INSPIRE] Element as the low reference.</documentation>
+          <documentation>Indicates the low point used to calculate the value of the room height.</documentation>
         </annotation>
       </element>
       <element name="status" type="con:HeightStatusValueType">
         <annotation>
-          <documentation>[INSPIRE] The way the height has been captured.</documentation>
+          <documentation>Indicates the way the room height has been captured.</documentation>
         </annotation>
       </element>
       <element name="value" type="gml:LengthType">
         <annotation>
-          <documentation>Value of the room height.</documentation>
+          <documentation>Specifies the value of the room height.</documentation>
         </annotation>
       </element>
     </sequence>
@@ -511,7 +552,6 @@
       <element ref="bldg:RoomHeight"/>
     </sequence>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfStorey" type="anyType"/>
   <element name="Storey" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:StoreyType">
     <annotation>
       <documentation>A Storey is a horizontal section of a Building.</documentation>
@@ -523,6 +563,7 @@
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" name="buildingUnit" type="gml:ReferenceType">
             <annotation>
+              <documentation>Relates to the building units that belong to the Storey.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingUnit</targetElement>
                 <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">bldg:storey</reversePropertyName>
@@ -534,6 +575,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfStorey" type="anyType"/>
   <complexType name="StoreyPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:Storey"/>

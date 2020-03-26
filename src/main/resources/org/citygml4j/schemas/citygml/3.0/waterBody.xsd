@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:wtr="http://www.opengis.net/citygml/waterbody/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/waterbody/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The WaterBody module supports representation of the thematic aspects and 3D geometry of rivers, canals, lakes, and basins. It does, however, not inherit any hydrological or other dynamic aspects of fluid flow.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractWaterBoundarySurface" type="anyType"/>
   <element abstract="true" name="AbstractWaterBoundarySurface" substitutionGroup="core:AbstractThematicSurface" type="wtr:AbstractWaterBoundarySurfaceType">
     <annotation>
       <documentation>AbstractWaterBoundarySurface is the abstract superclass for all kinds of thematic surfaces bounding a water body.</documentation>
@@ -17,6 +19,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractWaterBoundarySurface" type="anyType"/>
   <complexType name="AbstractWaterBoundarySurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:AbstractWaterBoundarySurface"/>
@@ -24,7 +27,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterBody" type="anyType"/>
   <element name="WaterBody" substitutionGroup="core:AbstractOccupiedSpace" type="wtr:WaterBodyType">
     <annotation>
       <documentation>A WaterBody represents significant and permanent or semi-permanent accumulations of surface water, usually covering a part of the Earth.</documentation>
@@ -36,17 +38,17 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of WaterBody as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the WaterBody.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specified function of WaterBody as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the WaterBody.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Actual usage of WaterBody as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the WaterBody.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="wtr:AbstractGenericApplicationPropertyOfWaterBody"/>
@@ -54,6 +56,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterBody" type="anyType"/>
   <complexType name="WaterBodyPropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:WaterBody"/>
@@ -61,7 +64,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterGroundSurface" type="anyType"/>
   <element name="WaterGroundSurface" substitutionGroup="wtr:AbstractWaterBoundarySurface" type="wtr:WaterGroundSurfaceType">
     <annotation>
       <documentation>A WaterGroundSurface represents the exterior boundary surface of the submerged bottom of a water body.</documentation>
@@ -76,6 +78,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterGroundSurface" type="anyType"/>
   <complexType name="WaterGroundSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:WaterGroundSurface"/>
@@ -83,7 +86,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterSurface" type="anyType"/>
   <element name="WaterSurface" substitutionGroup="wtr:AbstractWaterBoundarySurface" type="wtr:WaterSurfaceType">
     <annotation>
       <documentation>A WaterSurface represents the upper exterior interface between a water body and the atmosphere.</documentation>
@@ -95,7 +97,7 @@
         <sequence>
           <element minOccurs="0" name="waterLevel" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Codelist of the WaterSurface property waterLevel.</documentation>
+              <documentation>Specifies the level of the WaterSurface.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="wtr:AbstractGenericApplicationPropertyOfWaterSurface"/>
@@ -103,6 +105,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterSurface" type="anyType"/>
   <complexType name="WaterSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:WaterSurface"/>

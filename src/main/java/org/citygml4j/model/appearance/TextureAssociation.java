@@ -6,23 +6,23 @@ import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractGML;
 
 public class TextureAssociation extends AbstractGML implements CityGMLObject, Visitable {
-    private String uri;
+    private String target;
     private AbstractTextureParameterizationProperty textureParameterization;
 
     public TextureAssociation() {
     }
 
-    public TextureAssociation(String uri, AbstractTextureParameterizationProperty textureParameterization) {
-        this.uri = uri;
+    public TextureAssociation(String target, AbstractTextureParameterizationProperty textureParameterization) {
+        this.target = target;
         setTextureParameterization(textureParameterization);
     }
 
-    public String getURI() {
-        return uri;
+    public String getTarget() {
+        return target;
     }
 
-    public void setURI(String uri) {
-        this.uri = uri;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     public AbstractTextureParameterizationProperty getTextureParameterization() {

@@ -6,10 +6,7 @@ import org.citygml4j.model.core.AbstractPointCloud;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.GMLBuilderHelper;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -21,15 +18,15 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractPointCloudAdapter<T extends AbstractPointCloud> extends AbstractFeatureAdapter<T> implements ADEPropertyBuilder<T> {
+public abstract class AbstractPointCloudAdapter<T extends AbstractPointCloud> extends AbstractFeatureAdapter<T> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractPointCloud");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI()))
-            super.buildChildObject(object, name, attributes, reader);
-        else
+        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
             buildADEProperty(object, name, reader);
+        else
+            super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override

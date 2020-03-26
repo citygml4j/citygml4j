@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/cityobjectgroup/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The CityObjectGroup module supports grouping of city objects. Arbitrary city objects may be aggregated in groups according to user-defined criteria. A group may be further classified by application-specific attributes.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityObjectGroup" type="anyType"/>
   <element name="CityObjectGroup" substitutionGroup="core:AbstractLogicalSpace" type="grp:CityObjectGroupType">
     <annotation>
       <documentation>A CityObjectGroup represents an application-specific aggregation of city objects according to some user-defined criteria. Examples for groups are the buildings in a specific region, the result of a query, or objects put together for visualization purposes. Each member of a group may be qualified by a role name, reflecting the role each city object plays in the context of the group.</documentation>
@@ -14,22 +16,22 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: General semantical meaning of the aggregation. Classification of the aggregation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the CityObjectGroup.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Specific semantic meaning of the aggregation. Function of the aggregation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the CityObjectGroup.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Usage of the aggregation as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual usages of the CityObjectGroup.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="groupMember">
             <annotation>
-              <documentation>SIG3D: Reference to a city object.</documentation>
+              <documentation>Relates to the city objects that are part of the CityObjectGroup.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -44,7 +46,7 @@
           </element>
           <element minOccurs="0" name="parent" type="core:AbstractCityObjectPropertyType">
             <annotation>
-              <documentation>SIG3D: Reference to an AbstractCityObject related to the aggregation as a whole (e.g. the corresponding building object for the aggregation of rooms to a storey).</documentation>
+              <documentation>Relates to a city object to which the CityObjectGroup belongs.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="grp:AbstractGenericApplicationPropertyOfCityObjectGroup"/>
@@ -52,6 +54,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityObjectGroup" type="anyType"/>
   <complexType name="CityObjectGroupPropertyType">
     <sequence minOccurs="0">
       <element ref="grp:CityObjectGroup"/>
@@ -61,7 +64,7 @@
   </complexType>
   <element name="Role" substitutionGroup="gml:AbstractGML" type="grp:RoleType">
     <annotation>
-      <documentation>Role qualifies the function of the city object within the CityObjectGroup.</documentation>
+      <documentation>Role qualifies the function of a city object within the CityObjectGroup.</documentation>
     </annotation>
   </element>
   <complexType name="RoleType">
@@ -70,12 +73,12 @@
         <sequence>
           <element name="role" type="string">
             <annotation>
-              <documentation>SIG3D: Description of the role.</documentation>
+              <documentation>Describes the role the city object plays within the CityObjectGroup.</documentation>
             </annotation>
           </element>
           <element name="groupMember">
             <annotation>
-              <documentation>SIG3D: Reference to a city object.</documentation>
+              <documentation>Relates to the city objects that are part of the CityObjectGroup.</documentation>
             </annotation>
             <complexType>
               <complexContent>

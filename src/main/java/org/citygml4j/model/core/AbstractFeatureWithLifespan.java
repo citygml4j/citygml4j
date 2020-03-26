@@ -1,10 +1,6 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.util.Envelopes;
-import org.citygml4j.visitor.Visitable;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -12,7 +8,7 @@ import org.xmlobjects.model.ChildList;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-public abstract class AbstractFeatureWithLifespan extends AbstractFeature implements CityGMLObject, Visitable {
+public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
     private OffsetDateTime creationDate;
     private OffsetDateTime terminationDate;
     private OffsetDateTime validFrom;
@@ -64,8 +60,7 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature implem
 
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        if (this instanceof ADEObject)
-            Envelopes.updateEnvelope((ADEObject) this, envelope, options);
+        super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractFeatureWithLifespan<?> property : adeProperties)

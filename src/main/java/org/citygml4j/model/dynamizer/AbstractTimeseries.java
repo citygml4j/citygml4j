@@ -1,8 +1,6 @@
 package org.citygml4j.model.dynamizer;
 
-import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.visitor.Visitable;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
+import org.citygml4j.model.core.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.temporal.TimePosition;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -10,7 +8,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public abstract class AbstractTimeseries extends AbstractFeature implements CityGMLObject, Visitable {
+public abstract class AbstractTimeseries extends AbstractFeature {
     private TimePosition firstTimestamp;
     private TimePosition lastTimestamp;
     private List<ADEPropertyOfAbstractTimeseries<?>> adeProperties;

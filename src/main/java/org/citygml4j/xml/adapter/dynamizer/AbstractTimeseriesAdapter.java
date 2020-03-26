@@ -6,10 +6,8 @@ import org.citygml4j.model.dynamizer.AbstractTimeseries;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
-import org.citygml4j.xml.adapter.ade.ADEPropertyBuilder;
+import org.citygml4j.xml.adapter.core.AbstractFeatureAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.GMLBuilderHelper;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureAdapter;
 import org.xmlobjects.gml.adapter.temporal.TimePositionAdapter;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -23,7 +21,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> extends AbstractFeatureAdapter<T> implements ADEPropertyBuilder<T> {
+public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> extends AbstractFeatureAdapter<T> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractTimeseries");
 
     @Override
@@ -37,10 +35,10 @@ public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> ex
                     object.setLastTimestamp(reader.getObjectUsingBuilder(TimePositionAdapter.class));
                     break;
             }
-        } else if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI()))
-            super.buildChildObject(object, name, attributes, reader);
-        else
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
             buildADEProperty(object, name, reader);
+        else
+            super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override

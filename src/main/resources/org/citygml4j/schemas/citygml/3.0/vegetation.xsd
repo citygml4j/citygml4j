@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:veg="http://www.opengis.net/citygml/vegetation/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/vegetation/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Vegetation module supports representation of vegetation objects with vegetation-specific thematic classes. CityGML’s vegetation model distinguishes between solitary vegetation objects like trees, and vegetation areas which represent biotopes like forests or other plant communities.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVegetationObject" type="anyType"/>
   <element abstract="true" name="AbstractVegetationObject" substitutionGroup="core:AbstractOccupiedSpace" type="veg:AbstractVegetationObjectType">
     <annotation>
       <documentation>AbstractVegetationObject is the abstract superclass for all kinds of vegetation objects.</documentation>
@@ -17,6 +19,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVegetationObject" type="anyType"/>
   <complexType name="AbstractVegetationObjectPropertyType">
     <sequence minOccurs="0">
       <element ref="veg:AbstractVegetationObject"/>
@@ -24,7 +27,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfPlantCover" type="anyType"/>
   <element name="PlantCover" substitutionGroup="veg:AbstractVegetationObject" type="veg:PlantCoverType">
     <annotation>
       <documentation>A PlantCover represents a space covered by vegetation.</documentation>
@@ -36,31 +38,40 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of PlantCover as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the PlantCover.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Function of PlantCover as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the PlantCover.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Usage of PlantCover as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the PlantCover.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="averageHeight" type="gml:LengthType">
             <annotation>
-              <documentation>SIG3D: Average value of the heights of the grown-up plants</documentation>
+              <documentation>Specifies the average height of the PlantCover.</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="minHeight" type="gml:LengthType"/>
-          <element minOccurs="0" name="maxHeight" type="gml:LengthType"/>
+          <element minOccurs="0" name="minHeight" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the minimum height of the PlantCover.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="maxHeight" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the maximum height of the PlantCover.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="veg:AbstractGenericApplicationPropertyOfPlantCover"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfPlantCover" type="anyType"/>
   <complexType name="PlantCoverPropertyType">
     <sequence minOccurs="0">
       <element ref="veg:PlantCover"/>
@@ -68,7 +79,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfSolitaryVegetationObject" type="anyType"/>
   <element name="SolitaryVegetationObject" substitutionGroup="veg:AbstractVegetationObject" type="veg:SolitaryVegetationObjectType">
     <annotation>
       <documentation>A SolitaryVegetationObject represents individual vegetation objects, e.g. trees or bushes.</documentation>
@@ -80,46 +90,55 @@
         <sequence>
           <element minOccurs="0" name="class" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Classification of SolitaryVegetationObject as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Indicates the specific type of the SolitaryVegetationObject.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Function of SolitaryVegetationObject as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the intended purposes of the SolitaryVegetationObject.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Usage of SolitaryVegetationObject as given by the relevant national regulations, information communities, or specific applications.</documentation>
+              <documentation>Specifies the actual uses of the SolitaryVegetationObject.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="species" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Botanical classification of the SolitaryVegetationObject</documentation>
+              <documentation>Indicates the botanical name of the SolitaryVegetationObject.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="height" type="gml:LengthType">
             <annotation>
-              <documentation>SIG3D: Distance between the highest point of the vegetation object and the lowest point of the terrain at the bottom of the object.</documentation>
+              <documentation>Distance between the highest point of the vegetation object and the lowest point of the terrain at the bottom of the object.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="trunkDiameter" type="gml:LengthType">
             <annotation>
-              <documentation>SIG3D: Value of the trunk's diameter</documentation>
+              <documentation>Specifies the diameter of the SolitaryCityObject's trunk.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="crownDiameter" type="gml:LengthType">
             <annotation>
-              <documentation>SIG3D: Maximal diameter of the crown.</documentation>
+              <documentation>Specifies the diameter of the SolitaryCityObject's crown.</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="rootBallDiameter" type="gml:LengthType"/>
-          <element minOccurs="0" name="maxRootBallDepth" type="gml:LengthType"/>
+          <element minOccurs="0" name="rootBallDiameter" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the diameter of the SolitaryCityObject's root ball.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="maxRootBallDepth" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the vertical distance between the lowest point of the SolitaryVegetationObject's root ball and the terrain surface.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="veg:AbstractGenericApplicationPropertyOfSolitaryVegetationObject"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfSolitaryVegetationObject" type="anyType"/>
   <complexType name="SolitaryVegetationObjectPropertyType">
     <sequence minOccurs="0">
       <element ref="veg:SolitaryVegetationObject"/>

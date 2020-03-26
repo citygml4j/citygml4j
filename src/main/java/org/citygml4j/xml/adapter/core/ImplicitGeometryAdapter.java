@@ -53,8 +53,9 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
                 case "referencePoint":
                     object.setReferencePoint(reader.getObjectUsingBuilder(PointPropertyAdapter.class));
                     break;
+                case "relativeGeometry":
                 case "relativeGMLGeometry":
-                    object.setRelativeGMLGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
+                    object.setRelativeGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     break;
                 case "appearance":
                     object.getAppearances().add(reader.getObjectUsingBuilder(AbstractAppearancePropertyAdapter.class));
@@ -87,8 +88,8 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
             if (object.getReferencePoint() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "referencePoint"), object.getReferencePoint(), PointPropertyAdapter.class, namespaces);
 
-            if (object.getRelativeGMLGeometry() != null)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "relativeGMLGeometry"), object.getRelativeGMLGeometry(), GeometryPropertyAdapter.class, namespaces);
+            if (object.getRelativeGeometry() != null)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "relativeGeometry"), object.getRelativeGeometry(), GeometryPropertyAdapter.class, namespaces);
 
             for (AbstractAppearanceProperty member : object.getAppearances())
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
@@ -102,8 +103,8 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
             if (object.getLibraryObject() != null)
                 writer.writeElement(Element.of(coreNamespace, "libraryObject").addTextContent(object.getLibraryObject()));
 
-            if (object.getRelativeGMLGeometry() != null)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "relativeGMLGeometry"), object.getRelativeGMLGeometry(), GeometryPropertyAdapter.class, namespaces);
+            if (object.getRelativeGeometry() != null)
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "relativeGMLGeometry"), object.getRelativeGeometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (object.getReferencePoint() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "referencePoint"), object.getReferencePoint(), PointPropertyAdapter.class, namespaces);

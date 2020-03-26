@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Core module defines the basic components of the CityGML data model. The Core module defines abstract base classes that define the core properties of more specialized thematic classes defined in other modules. The Core module also defines concrete classes that are common to other modules, for example basic data types.</documentation>
+  </annotation>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xal/2.0/xAL.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAppearance" type="anyType"/>
   <element abstract="true" name="AbstractAppearance" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractAppearanceType">
     <annotation>
       <documentation>AbstractAppearance is the abstract superclass to represent any kind of appearance objects.</documentation>
@@ -17,6 +19,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAppearance" type="anyType"/>
   <complexType name="AbstractAppearancePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractAppearance"/>
@@ -24,7 +27,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractCityObject" type="anyType"/>
   <element abstract="true" name="AbstractCityObject" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractCityObjectType">
     <annotation>
       <documentation>AbstractCityObject is the abstract superclass of all thematic classes within the CityGML data model.</documentation>
@@ -34,9 +36,14 @@
     <complexContent>
       <extension base="core:AbstractFeatureWithLifespanType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="externalReference" type="core:ExternalReferencePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="externalReference" type="core:ExternalReferencePropertyType">
+            <annotation>
+              <documentation>References external objects in other information systems that have a relation to the city object.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" name="generalizesTo" type="gml:ReferenceType">
             <annotation>
+              <documentation>Relates generalized representations of the same real-world object in different Levels of Detail to the city object. The direction of this relation is from the city object to the corresponding generalized city objects.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractCityObject</targetElement>
               </appinfo>
@@ -44,16 +51,23 @@
           </element>
           <element minOccurs="0" name="relativeToTerrain" type="core:RelativeToTerrainType">
             <annotation>
-              <documentation>SIG3D: Vertical position of the AbstractCityObject relative to the surrounding terrain.</documentation>
+              <documentation>Describes the vertical position of the city object relative to the surrounding terrain.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="relativeToWater" type="core:RelativeToWaterType">
             <annotation>
-              <documentation>SIG3D: Vertical position of the AbstractCityObject relative to a surrounding water surface.</documentation>
+              <documentation>Describes the vertical position of the city object relative to the surrounding water surface.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="relatedTo" type="core:CityObjectRelationPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="relatedTo" type="core:CityObjectRelationPropertyType">
+            <annotation>
+              <documentation>Relates other city objects to the city object. It also describes how the city objects are related to each other.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" name="appearance">
+            <annotation>
+              <documentation>Relates appearances to the city object.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
@@ -65,13 +79,22 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="core:AbstractGenericAttributePropertyType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="dynamizer" type="core:AbstractDynamizerPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="core:AbstractGenericAttributePropertyType">
+            <annotation>
+              <documentation>Relates generic attributes to the city object.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="dynamizer" type="core:AbstractDynamizerPropertyType">
+            <annotation>
+              <documentation>Relates Dynamizer objects to the city object. These allow timeseries data to override static attribute values of the city object.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractCityObject"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractCityObject" type="anyType"/>
   <complexType name="AbstractCityObjectPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractCityObject"/>
@@ -79,7 +102,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractDynamizer" type="anyType"/>
   <element abstract="true" name="AbstractDynamizer" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractDynamizerType">
     <annotation>
       <documentation>AbstractDynamizer is the abstract superclass to represent Dynamizer objects.</documentation>
@@ -94,6 +116,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractDynamizer" type="anyType"/>
   <complexType name="AbstractDynamizerPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractDynamizer"/>
@@ -101,25 +124,63 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFeatureWithLifespan" type="anyType"/>
-  <element abstract="true" name="AbstractFeatureWithLifespan" substitutionGroup="gml:AbstractFeature" type="core:AbstractFeatureWithLifespanType">
+  <element abstract="true" name="AbstractFeature" substitutionGroup="gml:AbstractFeature" type="core:AbstractFeatureType">
+    <annotation>
+      <documentation>AbstractFeature is the abstract superclass of all feature types within the CityGML data model.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractFeatureType">
+    <complexContent>
+      <extension base="gml:AbstractFeatureType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractFeature"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFeature" type="anyType"/>
+  <complexType name="AbstractFeaturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="core:AbstractFeature"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractFeatureWithLifespan" substitutionGroup="core:AbstractFeature" type="core:AbstractFeatureWithLifespanType">
     <annotation>
       <documentation>AbstractFeatureWithLifespan is the base class for all CityGML features.  It allows the optional specification of the real-world and database times for the existence of each feature.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractFeatureWithLifespanType">
     <complexContent>
-      <extension base="gml:AbstractFeatureType">
+      <extension base="core:AbstractFeatureType">
         <sequence>
-          <element minOccurs="0" name="creationDate" type="dateTime"/>
-          <element minOccurs="0" name="terminationDate" type="dateTime"/>
-          <element minOccurs="0" name="validFrom" type="dateTime"/>
-          <element minOccurs="0" name="validTo" type="dateTime"/>
+          <element minOccurs="0" name="creationDate" type="dateTime">
+            <annotation>
+              <documentation>Indicates the date at which a CityGML feature was added to the CityModel.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="terminationDate" type="dateTime">
+            <annotation>
+              <documentation>Indicates the date at which a CityGML feature was removed from the CityModel.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="validFrom" type="dateTime">
+            <annotation>
+              <documentation>Indicates the date at wich a CityGML feature started to exist in the real world.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="validTo" type="dateTime">
+            <annotation>
+              <documentation>Indicates the date at wich a CityGML feature ended to exist in the real world.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractFeatureWithLifespan"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFeatureWithLifespan" type="anyType"/>
   <complexType name="AbstractFeatureWithLifespanPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractFeatureWithLifespan"/>
@@ -140,7 +201,6 @@
       <element ref="core:AbstractGenericAttribute"/>
     </sequence>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractLogicalSpace" type="anyType"/>
   <element abstract="true" name="AbstractLogicalSpace" substitutionGroup="core:AbstractSpace" type="core:AbstractLogicalSpaceType">
     <annotation>
       <documentation>AbstractLogicalSpace is the abstract superclass for all types of logical spaces. Logical space refers to spaces that are not bounded by physical surfaces but are defined according to thematic considerations.</documentation>
@@ -155,6 +215,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractLogicalSpace" type="anyType"/>
   <complexType name="AbstractLogicalSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractLogicalSpace"/>
@@ -162,7 +223,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractOccupiedSpace" type="anyType"/>
   <element abstract="true" name="AbstractOccupiedSpace" substitutionGroup="core:AbstractPhysicalSpace" type="core:AbstractOccupiedSpaceType">
     <annotation>
       <documentation>AbstractOccupiedSpace is the abstract superclass for all types of physically occupied spaces. Occupied space refers to spaces that are partially or entirely filled with matter.</documentation>
@@ -174,17 +234,17 @@
         <sequence>
           <element minOccurs="0" name="lod1ImplicitRepresentation" type="core:ImplicitGeometryPropertyType">
             <annotation>
-              <documentation>Relation to LOD1 implicit geometry of AbstractOccupiedSpace.</documentation>
+              <documentation>Relates to an implicit geometry that represents the occupied space in Level of Detail 1.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod2ImplicitRepresentation" type="core:ImplicitGeometryPropertyType">
             <annotation>
-              <documentation>Relation to LOD2 implicit geometry of AbstractOccupiedSpace.</documentation>
+              <documentation>Relates to an implicit geometry that represents the occupied space in Level of Detail 2.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod3ImplicitRepresentation" type="core:ImplicitGeometryPropertyType">
             <annotation>
-              <documentation>Relation to LOD3 implicit geometry of AbstractOccupiedSpace.</documentation>
+              <documentation>Relates to an implicit geometry that represents the occupied space in Level of Detail 3.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractOccupiedSpace"/>
@@ -192,6 +252,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractOccupiedSpace" type="anyType"/>
   <complexType name="AbstractOccupiedSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractOccupiedSpace"/>
@@ -199,7 +260,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPhysicalSpace" type="anyType"/>
   <element abstract="true" name="AbstractPhysicalSpace" substitutionGroup="core:AbstractSpace" type="core:AbstractPhysicalSpaceType">
     <annotation>
       <documentation>AbstractPhysicalSpace is the abstract superclass for all types of physical spaces. Physical space refers to spaces that are fully or partially bounded by physical objects.</documentation>
@@ -211,25 +271,30 @@
         <sequence>
           <element minOccurs="0" name="lod1TerrainIntersectionCurve" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>SIG 3D: Relation to intersection curve(s) between an LOD1 AbstractPhysicalSpace and a terrain (LOD1 or LOD2 or LOD3).</documentation>
+              <documentation>Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 1.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod2TerrainIntersectionCurve" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>SIG 3D: Relation to intersection curve(s) between an LOD2 AbstractPhysicalSpace and a terrain (LOD1 or LOD2 or LOD3).</documentation>
+              <documentation>Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 2.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod3TerrainIntersectionCurve" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>SIG 3D: Relation to intersection curve(s) between an LOD3 AbstractPhysicalSpace and a terrain (LOD1 or LOD2 or LOD3).</documentation>
+              <documentation>Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 3.</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType"/>
+          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType">
+            <annotation>
+              <documentation>Relates to a 3D PointCloud that represents the physical space.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractPhysicalSpace"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPhysicalSpace" type="anyType"/>
   <complexType name="AbstractPhysicalSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractPhysicalSpace"/>
@@ -237,21 +302,21 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPointCloud" type="anyType"/>
-  <element abstract="true" name="AbstractPointCloud" substitutionGroup="gml:AbstractFeature" type="core:AbstractPointCloudType">
+  <element abstract="true" name="AbstractPointCloud" substitutionGroup="core:AbstractFeature" type="core:AbstractPointCloudType">
     <annotation>
       <documentation>AbstractPointCloud is the abstract superclass to represent PointCloud objects.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractPointCloudType">
     <complexContent>
-      <extension base="gml:AbstractFeatureType">
+      <extension base="core:AbstractFeatureType">
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractPointCloud"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPointCloud" type="anyType"/>
   <complexType name="AbstractPointCloudPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractPointCloud"/>
@@ -259,7 +324,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSpace" type="anyType"/>
   <element abstract="true" name="AbstractSpace" substitutionGroup="core:AbstractCityObject" type="core:AbstractSpaceType">
     <annotation>
       <documentation>AbstractSpace is the abstract superclass for all types of spaces. A space is an entity of volumetric extent in the real world.</documentation>
@@ -271,60 +335,72 @@
         <sequence>
           <element minOccurs="0" name="spaceType" type="core:SpaceTypeType">
             <annotation>
-              <documentation>Degree of openness of an abstract space.</documentation>
+              <documentation>Specifies the degree of openness of a space.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="volume" type="core:QualifiedVolumePropertyType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType"/>
-          <element maxOccurs="unbounded" minOccurs="0" name="boundary" type="core:AbstractSpaceBoundaryPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="volume" type="core:QualifiedVolumePropertyType">
+            <annotation>
+              <documentation>Specifies qualified volumes related to the space.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType">
+            <annotation>
+              <documentation>Specifies qualified areas related to the space.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="boundary" type="core:AbstractSpaceBoundaryPropertyType">
+            <annotation>
+              <documentation>Relates to surfaces that bound the space.</documentation>
+            </annotation>
+          </element>
           <element minOccurs="0" name="lod0Point" type="gml:PointPropertyType">
             <annotation>
-              <documentation>Relation to a  LOD0 point geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D Point geometry that represents the space in Level of Detail 0.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod0MultiSurface" type="gml:MultiSurfacePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD0 surface geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 0.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod0MultiCurve" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD0 curve geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 0.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod1Solid" type="gml:SolidPropertyType">
             <annotation>
-              <documentation>Relation to a  LOD1 solid geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D Solid geometry that represents the space in Level of Detail 1.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod2Solid" type="gml:SolidPropertyType">
             <annotation>
-              <documentation>Relation to a  LOD2 solid geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D Solid geometry that represents the space in Level of Detail 2.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod2MultiSurface" type="gml:MultiSurfacePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD2 surface geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 2.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod2MultiCurve" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD2 curve geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 2.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod3Solid" type="gml:SolidPropertyType">
             <annotation>
-              <documentation>Relation to a  LOD3 solid geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D Solid geometry that represents the space in Level of Detail 3.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod3MultiSurface" type="gml:MultiSurfacePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD3 surface geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 3.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod3MultiCurve" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD3 curve geometry of AbstractSpace.</documentation>
+              <documentation>Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 3.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractSpace"/>
@@ -332,6 +408,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSpace" type="anyType"/>
   <complexType name="AbstractSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractSpace"/>
@@ -339,7 +416,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSpaceBoundary" type="anyType"/>
   <element abstract="true" name="AbstractSpaceBoundary" substitutionGroup="core:AbstractCityObject" type="core:AbstractSpaceBoundaryType">
     <annotation>
       <documentation>AbstractSpaceBoundary is the abstract superclass for all types of space boundaries. A space boundary is an entity with areal extent in the real world. Space boundaries are objects that bound a Space. They also realize the contact between adjacent spaces.</documentation>
@@ -354,6 +430,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSpaceBoundary" type="anyType"/>
   <complexType name="AbstractSpaceBoundaryPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractSpaceBoundary"/>
@@ -361,7 +438,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractThematicSurface" type="anyType"/>
   <element abstract="true" name="AbstractThematicSurface" substitutionGroup="core:AbstractSpaceBoundary" type="core:AbstractThematicSurfaceType">
     <annotation>
       <documentation>AbstractThematicSurface is the abstract superclass for all types of thematic surfaces.</documentation>
@@ -371,38 +447,47 @@
     <complexContent>
       <extension base="core:AbstractSpaceBoundaryType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="area" type="core:QualifiedAreaPropertyType">
+            <annotation>
+              <documentation>Specifies qualified areas related to the thematic surface.</documentation>
+            </annotation>
+          </element>
           <element minOccurs="0" name="lod0MultiCurve" type="gml:MultiCurvePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD0 curve geometry of AbstractThematicSurface.</documentation>
+              <documentation>Relates to a 3D MultiCurve geometry that represents the thematic surface in Level of Detail 0.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod0MultiSurface" type="gml:MultiSurfacePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD0 surface geometry of AbstractThematicSurface.</documentation>
+              <documentation>Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 0.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod1MultiSurface" type="gml:MultiSurfacePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD1 surface geometry of AbstractThematicSurface.</documentation>
+              <documentation>Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 1.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod2MultiSurface" type="gml:MultiSurfacePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD2 surface geometry of AbstractThematicSurface.</documentation>
+              <documentation>Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 2.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="lod3MultiSurface" type="gml:MultiSurfacePropertyType">
             <annotation>
-              <documentation>Relation to a  LOD3 surface geometry of AbstractThematicSurface.</documentation>
+              <documentation>Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 3.</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType"/>
+          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType">
+            <annotation>
+              <documentation>Relates to a 3D PointCloud that represents the thematic surface.</documentation>
+            </annotation>
+          </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractThematicSurface"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractThematicSurface" type="anyType"/>
   <complexType name="AbstractThematicSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractThematicSurface"/>
@@ -410,7 +495,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractUnoccupiedSpace" type="anyType"/>
   <element abstract="true" name="AbstractUnoccupiedSpace" substitutionGroup="core:AbstractPhysicalSpace" type="core:AbstractUnoccupiedSpaceType">
     <annotation>
       <documentation>AbstractUnoccupiedSpace is the abstract superclass for all types of physically unoccupied spaces. Unoccupied space refers to spaces that are entirely or mostly free of matter.</documentation>
@@ -425,6 +509,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractUnoccupiedSpace" type="anyType"/>
   <complexType name="AbstractUnoccupiedSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractUnoccupiedSpace"/>
@@ -432,7 +517,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersion" type="anyType"/>
   <element abstract="true" name="AbstractVersion" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractVersionType">
     <annotation>
       <documentation>AbstractVersion is the abstract superclass to represent Version objects.</documentation>
@@ -447,6 +531,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersion" type="anyType"/>
   <complexType name="AbstractVersionPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractVersion"/>
@@ -454,7 +539,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersionTransition" type="anyType"/>
   <element abstract="true" name="AbstractVersionTransition" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractVersionTransitionType">
     <annotation>
       <documentation>AbstractVersionTransition is the abstract superclass to represent VersionTransition objects.</documentation>
@@ -469,6 +553,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersionTransition" type="anyType"/>
   <complexType name="AbstractVersionTransitionPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractVersionTransition"/>
@@ -476,19 +561,18 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAddress" type="anyType"/>
-  <element name="Address" substitutionGroup="gml:AbstractFeature" type="core:AddressType">
+  <element name="Address" substitutionGroup="core:AbstractFeature" type="core:AddressType">
     <annotation>
       <documentation>Address represents an address of a city object.</documentation>
     </annotation>
   </element>
   <complexType name="AddressType">
     <complexContent>
-      <extension base="gml:AbstractFeatureType">
+      <extension base="core:AbstractFeatureType">
         <sequence>
           <element name="xalAddress">
             <annotation>
-              <documentation>SIG3D: Relation to an OASIS address object.</documentation>
+              <documentation>Relates an OASIS address object to the Address.</documentation>
             </annotation>
             <complexType>
               <sequence>
@@ -498,7 +582,7 @@
           </element>
           <element minOccurs="0" name="multiPoint" type="gml:MultiPointPropertyType">
             <annotation>
-              <documentation>SIG3D: Spatial reference of the address, e. g. positions of building entrances.</documentation>
+              <documentation>Relates to the MultiPoint geometry of the Address. The geometry relates the address spatially to a city object.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAddress"/>
@@ -506,6 +590,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfAddress" type="anyType"/>
   <complexType name="AddressPropertyType">
     <sequence minOccurs="0">
       <element ref="core:Address"/>
@@ -513,7 +598,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityModel" type="anyType"/>
   <element name="CityModel" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:CityModelType">
     <annotation>
       <documentation>CityModel is the container for all objects belonging to a city model.</documentation>
@@ -524,6 +608,9 @@
       <extension base="core:AbstractFeatureWithLifespanType">
         <sequence>
           <element minOccurs="0" name="engineeringCRS">
+            <annotation>
+              <documentation>Specifies the local coordinate reference system of the CityModel.</documentation>
+            </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractMetadataPropertyType">
@@ -535,12 +622,17 @@
               </complexContent>
             </complexType>
           </element>
-          <group maxOccurs="unbounded" minOccurs="0" ref="core:CityModelMemberGroup"/>
+          <group maxOccurs="unbounded" minOccurs="0" ref="core:CityModelMemberGroup">
+            <annotation>
+              <documentation>Relates to all objects that are part of the CityModel.</documentation>
+            </annotation>
+          </group>
           <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfCityModel"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityModel" type="anyType"/>
   <complexType name="CityModelPropertyType">
     <sequence minOccurs="0">
       <element ref="core:CityModel"/>
@@ -549,8 +641,14 @@
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
   <group name="CityModelMemberGroup">
+    <annotation>
+      <documentation>CityModelMember is a union type that enumerates the different types of objects that can occur as members of a city model.</documentation>
+    </annotation>
     <choice>
       <element name="cityObjectMember">
+        <annotation>
+          <documentation>Specifies the city objects that are part of the CityModel.</documentation>
+        </annotation>
         <complexType>
           <complexContent>
             <extension base="gml:AbstractFeatureMemberType">
@@ -563,6 +661,9 @@
         </complexType>
       </element>
       <element name="appearanceMember">
+        <annotation>
+          <documentation>Specifies the appearances of the CityModel.</documentation>
+        </annotation>
         <complexType>
           <complexContent>
             <extension base="gml:AbstractFeatureMemberType">
@@ -575,6 +676,9 @@
         </complexType>
       </element>
       <element name="versionMember">
+        <annotation>
+          <documentation>Specifies the different versions of the CityModel.</documentation>
+        </annotation>
         <complexType>
           <complexContent>
             <extension base="gml:AbstractFeatureMemberType">
@@ -587,6 +691,9 @@
         </complexType>
       </element>
       <element name="versionTransitionMember">
+        <annotation>
+          <documentation>Specifies the transitions between the different versions of the CityModel.</documentation>
+        </annotation>
         <complexType>
           <complexContent>
             <extension base="gml:AbstractFeatureMemberType">
@@ -598,7 +705,21 @@
           </complexContent>
         </complexType>
       </element>
-      <element name="featureMember" type="gml:FeaturePropertyType"/>
+      <element name="featureMember">
+        <annotation>
+          <documentation>Specifies the feature objects that are part of the CityModel. It allows to include objects that are not derived from a class defined in the CityGML data model, but from the ISO 19109 class AnyFeature.</documentation>
+        </annotation>
+        <complexType>
+          <complexContent>
+            <extension base="gml:AbstractFeatureMemberType">
+              <sequence minOccurs="0">
+                <element ref="core:AbstractFeature"/>
+              </sequence>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
     </choice>
   </group>
   <element name="CityObjectRelation" substitutionGroup="gml:AbstractGML" type="core:CityObjectRelationType">
@@ -610,9 +731,21 @@
     <complexContent>
       <extension base="gml:AbstractGMLType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="core:AbstractGenericAttributePropertyType"/>
-          <element name="relationType" type="gml:CodeType"/>
-          <element name="relatedTo" type="core:AbstractCityObjectPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="genericAttribute" type="core:AbstractGenericAttributePropertyType">
+            <annotation>
+              <documentation>Relates generic attributes to the CityObjectRelation.</documentation>
+            </annotation>
+          </element>
+          <element name="relationType" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the CityObjectRelation.</documentation>
+            </annotation>
+          </element>
+          <element name="relatedTo" type="core:AbstractCityObjectPropertyType">
+            <annotation>
+              <documentation>Relates other city objects to the city object. It also describes how the city objects are related to each other.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
@@ -624,7 +757,6 @@
     <attributeGroup ref="gml:AssociationAttributeGroup"/>
     <attributeGroup ref="gml:OwnershipAttributeGroup"/>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfClosureSurface" type="anyType"/>
   <element name="ClosureSurface" substitutionGroup="core:AbstractThematicSurface" type="core:ClosureSurfaceType">
     <annotation>
       <documentation>ClosureSurface is a special type of thematic surface used to close holes in volumetric objects. Closure surfaces are virtual (non-physical) surfaces.</documentation>
@@ -639,6 +771,7 @@
       </extension>
     </complexContent>
   </complexType>
+  <element abstract="true" name="AbstractGenericApplicationPropertyOfClosureSurface" type="anyType"/>
   <complexType name="ClosureSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:ClosureSurface"/>
@@ -670,15 +803,19 @@
     <sequence>
       <element name="targetResource" type="anyURI">
         <annotation>
-          <documentation>SIG3D: Referenced object in the external information system or data set.</documentation>
+          <documentation>Specifies the URI that points to the object in the external information system.</documentation>
         </annotation>
       </element>
       <element minOccurs="0" name="informationSystem" type="anyURI">
         <annotation>
-          <documentation>SIG3D: URL or URN of the information system or data set.</documentation>
+          <documentation>Specifies the URI that points to the external information system.</documentation>
         </annotation>
       </element>
-      <element minOccurs="0" name="relationType" type="anyURI"/>
+      <element minOccurs="0" name="relationType" type="anyURI">
+        <annotation>
+          <documentation>Specifies an URI that additionally qualifies the ExternalReference. The URI can point to a definition from an external ontology (e.g. the sameAs relation from OWL) and allows for mapping the ExternalReference to RDF triples.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="ExternalReferencePropertyType">
@@ -697,30 +834,34 @@
         <sequence>
           <element name="transformationMatrix" type="core:TransformationMatrix4x4Type">
             <annotation>
-              <documentation>SIG3D: Mathematical transformation (translation, rotation and scaling) between the prototype geometry and the actual spatial position of the object.</documentation>
+              <documentation>Specifies the mathematical transformation (translation, rotation, and scaling) between the prototypical geometry and the actual spatial position of the object.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="mimeType" type="gml:CodeType">
             <annotation>
-              <documentation>SIG3D: Mime type of the referenced external geometric object (attribute libraryObject).</documentation>
+              <documentation>Specifies the MIME type of the external file that stores the prototypical geometry.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="libraryObject" type="anyURI">
             <annotation>
-              <documentation>SIG3D: External link to a prototype geometry.</documentation>
+              <documentation>Specifies the URI that points to the prototypical geometry stored in an external file.</documentation>
             </annotation>
           </element>
           <element name="referencePoint" type="gml:PointPropertyType">
             <annotation>
-              <documentation>SIG3D: Base point of the object in the world coordinate system.</documentation>
+              <documentation>Relates to a 3D Point geometry that represents the base point of the object in the world coordinate system.</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="relativeGMLGeometry" type="gml:GeometryPropertyType">
+          <element minOccurs="0" name="relativeGeometry" type="gml:GeometryPropertyType">
             <annotation>
-              <documentation>SIG3D: Geometry of the prototype, specified in a local coordinate system.</documentation>
+              <documentation>Relates to a prototypical geometry in a local coordinate system stored inline with the city model.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="appearance" type="core:AbstractAppearancePropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="appearance" type="core:AbstractAppearancePropertyType">
+            <annotation>
+              <documentation>Relates appearances to the ImplicitGeometry.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
@@ -748,9 +889,21 @@
   </element>
   <complexType name="OccupancyType">
     <sequence>
-      <element name="numberOfOccupants" type="integer"/>
-      <element minOccurs="0" name="interval" type="gml:CodeType"/>
-      <element minOccurs="0" name="occupantType" type="gml:CodeType"/>
+      <element name="numberOfOccupants" type="integer">
+        <annotation>
+          <documentation>Indicates the number of occupants contained by a feature.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="interval" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the time period the occupants are contained by a feature.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="occupantType" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the specific type of the occupants that are contained by a feature.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="OccupancyPropertyType">
@@ -765,8 +918,16 @@
   </element>
   <complexType name="QualifiedAreaType">
     <sequence>
-      <element name="area" type="gml:AreaType"/>
-      <element name="typeOfArea" type="gml:CodeType"/>
+      <element name="area" type="gml:AreaType">
+        <annotation>
+          <documentation>Specifies the value of the QualifiedArea.</documentation>
+        </annotation>
+      </element>
+      <element name="typeOfArea" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the specific type of the QualifiedArea.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="QualifiedAreaPropertyType">
@@ -781,8 +942,16 @@
   </element>
   <complexType name="QualifiedVolumeType">
     <sequence>
-      <element name="volume" type="gml:VolumeType"/>
-      <element name="typeOfVolume" type="gml:CodeType"/>
+      <element name="volume" type="gml:VolumeType">
+        <annotation>
+          <documentation>Specifies the value of the QualifiedVolume.</documentation>
+        </annotation>
+      </element>
+      <element name="typeOfVolume" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the specific type of the QualifiedVolume.</documentation>
+        </annotation>
+      </element>
     </sequence>
   </complexType>
   <complexType name="QualifiedVolumePropertyType">
@@ -797,27 +966,27 @@
     <restriction base="string">
       <enumeration value="entirelyAboveTerrain">
         <annotation>
-          <documentation>SIG3D: Object is located entirely above terrain.</documentation>
+          <documentation>Indicates that the city object is located entirely above the terrain.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="substantiallyAboveTerrain">
         <annotation>
-          <documentation>SIG3D:  Most, but not all parts of the object are located above terrain.</documentation>
+          <documentation>Indicates that the city object is for the most part located above the terrain.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="substantiallyAboveAndBelowTerrain">
         <annotation>
-          <documentation>SIG3D: Parts of the object are located above terrain, and other parts below terrain.</documentation>
+          <documentation>Indicates that the city object is located half above the terrain and half below the terrain.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="substantiallyBelowTerrain">
         <annotation>
-          <documentation>SIG3D: Most, but not all parts of the object are located below terrain.</documentation>
+          <documentation>Indicates that the city object is for the most part located below the terrain.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="entirelyBelowTerrain">
         <annotation>
-          <documentation>SIG3D: All parts of the object are located below terrain.</documentation>
+          <documentation>Indicates that the city object is located entirely below the terrain.</documentation>
         </annotation>
       </enumeration>
     </restriction>
@@ -829,32 +998,32 @@
     <restriction base="string">
       <enumeration value="entirelyAboveWaterSurface">
         <annotation>
-          <documentation>SIG3D: Object is located entirely above water surface.</documentation>
+          <documentation>Indicates that the city object is located entirely above the water surface.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="substantiallyAboveWaterSurface">
         <annotation>
-          <documentation>SIG3D: Most, but not all parts of the object are located above water surface.</documentation>
+          <documentation>Indicates that the city object is for the most part located above the water surface.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="substantiallyAboveAndBelowWaterSurface">
         <annotation>
-          <documentation>SIG3D: Parts of the object are located above water surface, and other parts below water surface.</documentation>
+          <documentation>Indicates that the city object is located half above the water surface and half below the water surface.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="substantiallyBelowWaterSurface">
         <annotation>
-          <documentation>SIG3D: Most, but not all parts of the object are located below water surface.</documentation>
+          <documentation>Indicates that the city object is for the most part located below the water surface.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="entirelyBelowWaterSurface">
         <annotation>
-          <documentation>SIG3D: All parts of the object are located below water surface.</documentation>
+          <documentation>Indicates that the city object is located entirely below the water surface.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="temporarilyAboveAndBelowWaterSurface">
         <annotation>
-          <documentation>SIG3D: The height of the water surface is varying and the object temporily is located above or below water level.</documentation>
+          <documentation>Indicates that city object is temporarily located above or below the water level, because the height of the water surface is varying.</documentation>
         </annotation>
       </enumeration>
     </restriction>
@@ -866,17 +1035,17 @@
     <restriction base="string">
       <enumeration value="closed">
         <annotation>
-          <documentation>boundaries at all sides</documentation>
+          <documentation>Indicates that the space has boundaries at the bottom, at the top, and on all sides.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="open">
         <annotation>
-          <documentation>boundary at the bottom only</documentation>
+          <documentation>Indicates that the space has at maximum a boundary at the bottom.</documentation>
         </annotation>
       </enumeration>
       <enumeration value="semiOpen">
         <annotation>
-          <documentation>at least one side has a boundary</documentation>
+          <documentation>Indicates that the space has a boundary at the bottom and on at least one side.</documentation>
         </annotation>
       </enumeration>
     </restriction>
