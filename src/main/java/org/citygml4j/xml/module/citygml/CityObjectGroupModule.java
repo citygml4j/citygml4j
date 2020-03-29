@@ -12,19 +12,22 @@ public class CityObjectGroupModule extends CityGMLModule {
         v3_0 = new CityObjectGroupModule(
                 CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE,
                 "grp",
-                "http://schemas.opengis.net/citygml/cityobjectgroup/3.0/cityObjectGroup.xsd"
+                "http://schemas.opengis.net/citygml/cityobjectgroup/3.0/cityObjectGroup.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new CityObjectGroupModule(
                 CityGMLConstants.CITYGML_2_0_CITYOBJECTGROUP_NAMESPACE,
                 "grp",
-                "http://schemas.opengis.net/citygml/cityobjectgroup/2.0/cityObjectGroup.xsd"
+                "http://schemas.opengis.net/citygml/cityobjectgroup/2.0/cityObjectGroup.xsd",
+                CityGMLVersion.v2_0
         );
 
         v1_0 = new CityObjectGroupModule(
                 CityGMLConstants.CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE,
                 "grp",
-                "http://schemas.opengis.net/citygml/cityobjectgroup/1.0/cityObjectGroup.xsd"
+                "http://schemas.opengis.net/citygml/cityobjectgroup/1.0/cityObjectGroup.xsd",
+                CityGMLVersion.v1_0
         );
     }
 
@@ -39,7 +42,7 @@ public class CityObjectGroupModule extends CityGMLModule {
         }
     }
 
-    private CityObjectGroupModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private CityObjectGroupModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

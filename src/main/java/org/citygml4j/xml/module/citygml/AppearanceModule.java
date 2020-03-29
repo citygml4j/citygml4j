@@ -12,19 +12,22 @@ public class AppearanceModule extends CityGMLModule {
         v3_0 = new AppearanceModule(
                 CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE,
                 "app",
-                "http://schemas.opengis.net/citygml/appearance/3.0/appearance.xsd"
+                "http://schemas.opengis.net/citygml/appearance/3.0/appearance.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new AppearanceModule(
                 CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE,
                 "app",
-                "http://schemas.opengis.net/citygml/appearance/2.0/appearance.xsd"
+                "http://schemas.opengis.net/citygml/appearance/2.0/appearance.xsd",
+                CityGMLVersion.v2_0
         );
 
         v1_0 = new AppearanceModule(
                 CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE,
                 "app",
-                "http://schemas.opengis.net/citygml/appearance/1.0/appearance.xsd"
+                "http://schemas.opengis.net/citygml/appearance/1.0/appearance.xsd",
+                CityGMLVersion.v1_0
         );
     }
 
@@ -39,7 +42,7 @@ public class AppearanceModule extends CityGMLModule {
         }
     }
 
-    private AppearanceModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private AppearanceModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

@@ -11,13 +11,15 @@ public class BridgeModule extends CityGMLModule {
         v3_0 = new BridgeModule(
                 CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE,
                 "brid",
-                "http://schemas.opengis.net/citygml/bridge/3.0/bridge.xsd"
+                "http://schemas.opengis.net/citygml/bridge/3.0/bridge.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new BridgeModule(
                 CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE,
                 "brid",
-                "http://schemas.opengis.net/citygml/bridge/2.0/bridge.xsd"
+                "http://schemas.opengis.net/citygml/bridge/2.0/bridge.xsd",
+                CityGMLVersion.v2_0
         );
     }
 
@@ -32,7 +34,7 @@ public class BridgeModule extends CityGMLModule {
         }
     }
 
-    private BridgeModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private BridgeModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

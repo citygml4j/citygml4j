@@ -17,42 +17,59 @@
  * limitations under the License.
  */
 
-package reading_citygml.simple_reader;
+package reading_citygml;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.building.Building;
+import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.CityModel;
+import org.citygml4j.xml.module.citygml.CityGMLModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
+import util.Logger;
 import util.Util;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SimpleReader {
 
     public static void main(String[] args) throws Exception {
-        Util.log("start");
+        Logger log = Logger.start(SimpleReader.class);
+
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory();
 
-        Util.log("read");
-        try (CityGMLReader reader = in.createCityGMLReader(new File("datasets", "lod2_buildings_v3.gml"))) {
+        Path file = Paths.get(Util.SAMPLE_DATA_DIR, "lod2_buildings_v3.gml");
+        log.print("Reading file " + file.getFileName() + " into main memory");
+
+        try (CityGMLReader reader = in.createCityGMLReader(file)) {
             CityGMLObject object = reader.next();
 
-            CityGMLModules.getCityGMLModule(reader.getName().getNamespaceURI());
+            String localName = reader.getName().getLocalPart();
+            CityGMLModule module = CityGMLModules.getCityGMLModule(reader.getName().getNamespaceURI());
 
-            if (object instanceof CityModel) {
+            if (object instanceof CityModel && module != null) {
                 CityModel cityModel = (CityModel) object;
 
+                log.print("Found " + localName + " version " + module.getCityGMLVersion());
+                log.print("Counting top-level buildings");
+
+                int count = 0;
                 for (AbstractCityObjectProperty cityObjectMember : cityModel.getCityObjectMembers()) {
-                    System.out.println(cityObjectMember.getObject());
+                    AbstractCityObject cityObject = cityObjectMember.getObject();
+                    if (cityObject instanceof Building)
+                        count++;
                 }
+
+                log.print("The city model contains " + count + " building objects");
             }
         }
-        
-        Util.log("finish");
+
+        log.finish();
     }
 }

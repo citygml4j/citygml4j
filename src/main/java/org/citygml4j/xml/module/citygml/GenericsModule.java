@@ -12,19 +12,22 @@ public class GenericsModule extends CityGMLModule {
         v3_0 = new GenericsModule(
                 CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE,
                 "gen",
-                "http://schemas.opengis.net/citygml/generics/3.0/generics.xsd"
+                "http://schemas.opengis.net/citygml/generics/3.0/generics.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new GenericsModule(
                 CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE,
                 "gen",
-                "http://schemas.opengis.net/citygml/generics/2.0/generics.xsd"
+                "http://schemas.opengis.net/citygml/generics/2.0/generics.xsd",
+                CityGMLVersion.v2_0
         );
 
         v1_0 = new GenericsModule(
                 CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE,
                 "gen",
-                "http://schemas.opengis.net/citygml/generics/1.0/generics.xsd"
+                "http://schemas.opengis.net/citygml/generics/1.0/generics.xsd",
+                CityGMLVersion.v1_0
         );
     }
 
@@ -39,7 +42,7 @@ public class GenericsModule extends CityGMLModule {
         }
     }
 
-    private GenericsModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private GenericsModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

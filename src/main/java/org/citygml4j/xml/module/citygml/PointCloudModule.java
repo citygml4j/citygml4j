@@ -10,7 +10,8 @@ public class PointCloudModule extends CityGMLModule {
         v3_0 = new PointCloudModule(
                 CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE,
                 "pnt",
-                "http://schemas.opengis.net/citygml/pointcloud/3.0/pointCloud.xsd"
+                "http://schemas.opengis.net/citygml/pointcloud/3.0/pointCloud.xsd",
+                CityGMLVersion.v3_0
         );
     }
 
@@ -18,7 +19,7 @@ public class PointCloudModule extends CityGMLModule {
         return version == CityGMLVersion.v3_0 ? v3_0 : null;
     }
 
-    private PointCloudModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private PointCloudModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

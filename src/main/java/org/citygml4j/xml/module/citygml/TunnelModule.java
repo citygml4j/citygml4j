@@ -11,13 +11,15 @@ public class TunnelModule extends CityGMLModule {
         v3_0 = new TunnelModule(
                 CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE,
                 "tun",
-                "http://schemas.opengis.net/citygml/tunnel/3.0/tunnel.xsd"
+                "http://schemas.opengis.net/citygml/tunnel/3.0/tunnel.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new TunnelModule(
                 CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE,
                 "tun",
-                "http://schemas.opengis.net/citygml/tunnel/2.0/tunnel.xsd"
+                "http://schemas.opengis.net/citygml/tunnel/2.0/tunnel.xsd",
+                CityGMLVersion.v2_0
         );
     }
 
@@ -32,7 +34,7 @@ public class TunnelModule extends CityGMLModule {
         }
     }
 
-    private TunnelModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private TunnelModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

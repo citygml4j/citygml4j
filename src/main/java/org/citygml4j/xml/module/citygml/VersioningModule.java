@@ -10,7 +10,8 @@ public class VersioningModule extends CityGMLModule {
         v3_0 = new VersioningModule(
                 CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE,
                 "ver",
-                "http://schemas.opengis.net/citygml/versioning/3.0/versioning.xsd"
+                "http://schemas.opengis.net/citygml/versioning/3.0/versioning.xsd",
+                CityGMLVersion.v3_0
         );
     }
 
@@ -18,7 +19,7 @@ public class VersioningModule extends CityGMLModule {
         return version == CityGMLVersion.v3_0 ? v3_0 : null;
     }
 
-    private VersioningModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private VersioningModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

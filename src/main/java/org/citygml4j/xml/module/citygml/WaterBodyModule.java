@@ -12,19 +12,22 @@ public class WaterBodyModule extends CityGMLModule {
         v3_0 = new WaterBodyModule(
                 CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE,
                 "wtr",
-                "http://schemas.opengis.net/citygml/waterbody/3.0/waterBody.xsd"
+                "http://schemas.opengis.net/citygml/waterbody/3.0/waterBody.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new WaterBodyModule(
                 CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE,
                 "wtr",
-                "http://schemas.opengis.net/citygml/waterbody/2.0/waterBody.xsd"
+                "http://schemas.opengis.net/citygml/waterbody/2.0/waterBody.xsd",
+                CityGMLVersion.v2_0
         );
 
         v1_0 = new WaterBodyModule(
                 CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE,
                 "wtr",
-                "http://schemas.opengis.net/citygml/waterbody/1.0/waterBody.xsd"
+                "http://schemas.opengis.net/citygml/waterbody/1.0/waterBody.xsd",
+                CityGMLVersion.v1_0
         );
     }
 
@@ -39,7 +42,7 @@ public class WaterBodyModule extends CityGMLModule {
         }
     }
 
-    private WaterBodyModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private WaterBodyModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

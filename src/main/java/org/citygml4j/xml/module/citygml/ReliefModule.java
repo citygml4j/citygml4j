@@ -12,19 +12,22 @@ public class ReliefModule extends CityGMLModule {
         v3_0 = new ReliefModule(
                 CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE,
                 "dem",
-                "http://schemas.opengis.net/citygml/relief/3.0/relief.xsd"
+                "http://schemas.opengis.net/citygml/relief/3.0/relief.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new ReliefModule(
                 CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE,
                 "dem",
-                "http://schemas.opengis.net/citygml/relief/2.0/relief.xsd"
+                "http://schemas.opengis.net/citygml/relief/2.0/relief.xsd",
+                CityGMLVersion.v2_0
         );
 
         v1_0 = new ReliefModule(
                 CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE,
                 "dem",
-                "http://schemas.opengis.net/citygml/relief/1.0/relief.xsd"
+                "http://schemas.opengis.net/citygml/relief/1.0/relief.xsd",
+                CityGMLVersion.v1_0
         );
     }
 
@@ -39,7 +42,7 @@ public class ReliefModule extends CityGMLModule {
         }
     }
 
-    private ReliefModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private ReliefModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

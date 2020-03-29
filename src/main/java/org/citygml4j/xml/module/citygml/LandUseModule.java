@@ -12,19 +12,22 @@ public class LandUseModule extends CityGMLModule {
         v3_0 = new LandUseModule(
                 CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE,
                 "luse",
-                "http://schemas.opengis.net/citygml/landuse/3.0/landUse.xsd"
+                "http://schemas.opengis.net/citygml/landuse/3.0/landUse.xsd",
+                CityGMLVersion.v3_0
         );
 
         v2_0 = new LandUseModule(
                 CityGMLConstants.CITYGML_2_0_LANDUSE_NAMESPACE,
                 "luse",
-                "http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd"
+                "http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd",
+                CityGMLVersion.v2_0
         );
 
         v1_0 = new LandUseModule(
                 CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE,
                 "luse",
-                "http://schemas.opengis.net/citygml/landuse/1.0/landUse.xsd"
+                "http://schemas.opengis.net/citygml/landuse/1.0/landUse.xsd",
+                CityGMLVersion.v1_0
         );
     }
 
@@ -39,7 +42,7 @@ public class LandUseModule extends CityGMLModule {
         }
     }
 
-    private LandUseModule(String namespaceURI, String namespacePrefix, String schemaLocation) {
-        super(namespaceURI, namespacePrefix, schemaLocation);
+    private LandUseModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }
