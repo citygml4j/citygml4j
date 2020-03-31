@@ -66,10 +66,12 @@ public class CityGMLChunkReader extends CityGMLReader {
 
                     if (skipUntil == 0 && eventType == XMLStreamConstants.START_ELEMENT) {
                         ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
-                        if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(builder))) {
+                        if (builder != null
+                                && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(builder))
+                                && shouldChunk(reader.getName())) {
                             if (current == null)
                                 current = new CityGMLChunk(reader.getName(), factory);
-                            else if (shouldChunk(reader.getName())) {
+                            else {
                                 chunks.push(current);
                                 current = new CityGMLChunk(reader.getName(), factory, current);
                                 initialize = true;
@@ -160,20 +162,25 @@ public class CityGMLChunkReader extends CityGMLReader {
     }
 
     private boolean shouldChunk(QName name) {
-        QName property = current.getLastElement();
-        if (chunkMode == ChunkMode.PER_COLLECTION_MEMBER) {
-            Set<String> properties = this.properties.get(property.getNamespaceURI());
-            if (properties == null || !properties.contains(property.getLocalPart()))
-                return false;
-        }
+        if (chunkMode == ChunkMode.NO_CHUNKING)
+            return current == null;
 
-        if (keepInlineAppearance
-                && name.getLocalPart().equals("Appearance")
-                && CityGMLModules.isCityGMLNamespace(name.getNamespaceURI())
-                && (!property.getLocalPart().equals("appearanceMember")
-                || !CityGMLModules.isCityGMLNamespace(property.getNamespaceURI()))) {
-            skipUntil = reader.getDepth();
-            return false;
+        if (current != null) {
+            QName property = current.getLastElement();
+            if (chunkMode == ChunkMode.PER_COLLECTION_MEMBER) {
+                Set<String> properties = this.properties.get(property.getNamespaceURI());
+                if (properties == null || !properties.contains(property.getLocalPart()))
+                    return false;
+            }
+
+            if (keepInlineAppearance
+                    && name.getLocalPart().equals("Appearance")
+                    && CityGMLModules.isCityGMLNamespace(name.getNamespaceURI())
+                    && (!property.getLocalPart().equals("appearanceMember")
+                    || !CityGMLModules.isCityGMLNamespace(property.getNamespaceURI()))) {
+                skipUntil = reader.getDepth();
+                return false;
+            }
         }
 
         Set<String> excludes = this.excludes.get(name.getNamespaceURI());
