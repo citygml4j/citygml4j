@@ -24,6 +24,7 @@ import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
+import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.xml.module.citygml.CityGMLModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
@@ -48,13 +49,13 @@ public class SimpleReader {
         log.print("Reading file " + file.getFileName() + " into main memory");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
-            CityGMLObject object = reader.next();
+            AbstractFeature feature = reader.next();
 
             String localName = reader.getName().getLocalPart();
             CityGMLModule module = CityGMLModules.getCityGMLModule(reader.getName().getNamespaceURI());
 
-            if (object instanceof CityModel && module != null) {
-                CityModel cityModel = (CityModel) object;
+            if (feature instanceof CityModel && module != null) {
+                CityModel cityModel = (CityModel) feature;
 
                 log.print("Found " + localName + " version " + module.getCityGMLVersion());
                 log.print("Counting top-level buildings");

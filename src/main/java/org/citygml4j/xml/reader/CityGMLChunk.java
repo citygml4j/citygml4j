@@ -1,6 +1,6 @@
 package org.citygml4j.xml.reader;
 
-import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xml.sax.Attributes;
@@ -92,11 +92,11 @@ public class CityGMLChunk {
         buffer.send(handler, release);
     }
 
-    public CityGMLObject build(boolean release) throws CityGMLReadException {
+    public AbstractFeature build(boolean release) throws CityGMLReadException {
         try {
             XMLReader reader = factory.createReader(buffer.toXMLStreamReader(release));
             reader.nextTag();
-            return reader.getObject(CityGMLObject.class);
+            return reader.getObject(AbstractFeature.class);
         } catch (XMLReadException | ObjectBuildException e) {
             throw new CityGMLReadException("Caused by:", e);
         }

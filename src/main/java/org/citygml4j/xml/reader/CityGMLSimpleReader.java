@@ -1,11 +1,11 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.core.AbstractFeature;
 import org.xml.sax.SAXException;
 import org.xmlobjects.XMLObjects;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
-import org.xmlobjects.gml.model.feature.AbstractFeature;
 import org.xmlobjects.stream.EventType;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -55,11 +55,11 @@ public class CityGMLSimpleReader extends CityGMLReader {
     }
 
     @Override
-    public CityGMLObject next() throws CityGMLReadException {
+    public AbstractFeature next() throws CityGMLReadException {
         if (hasNext()) {
             try {
                 return transformer == null ?
-                        reader.getObject(CityGMLObject.class) :
+                        reader.getObject(AbstractFeature.class) :
                         nextChunk().build(true);
             } catch (ObjectBuildException | XMLReadException e) {
                 throw new CityGMLReadException("Caused by:", e);

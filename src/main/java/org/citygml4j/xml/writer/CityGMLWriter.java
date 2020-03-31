@@ -1,7 +1,7 @@
 package org.citygml4j.xml.writer;
 
-import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.model.CityGMLVersion;
+import org.citygml4j.model.core.AbstractFeature;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
@@ -16,9 +16,9 @@ public class CityGMLWriter extends AbstractCityGMLWriter<CityGMLWriter> {
         super(writer, version, factory);
     }
 
-    public void write(CityGMLObject object) throws CityGMLWriteException {
+    public void write(AbstractFeature feature) throws CityGMLWriteException {
         if (!isValid)
-            throw new CityGMLWriteException("CityGMLWriter cannot be used to write more than one object.");
+            throw new CityGMLWriteException("CityGMLWriter cannot be used to write more than one feature.");
 
         try {
             XMLWriter writer;
@@ -29,7 +29,7 @@ public class CityGMLWriter extends AbstractCityGMLWriter<CityGMLWriter> {
                 writer = this.writer;
 
             writer.writeStartDocument();
-            writer.writeObject(object, namespaces);
+            writer.writeObject(feature, namespaces);
             writer.writeEndDocument();
         } catch (ObjectSerializeException | XMLWriteException e) {
             throw new CityGMLWriteException("Caused by:", e);
