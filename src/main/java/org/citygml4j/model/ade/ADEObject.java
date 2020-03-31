@@ -1,10 +1,11 @@
 package org.citygml4j.model.ade;
 
-import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.citygml4j.visitor.Visitable;
+import org.xmlobjects.model.Child;
+import org.xmlobjects.util.copy.Copyable;
 
-public interface ADEObject extends CityGMLObject, Visitable {
+public interface ADEObject extends Child, Copyable, Visitable {
 
     @Override
     default void accept(ObjectVisitor visitor) {
