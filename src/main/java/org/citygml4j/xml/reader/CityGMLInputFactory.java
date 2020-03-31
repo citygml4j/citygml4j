@@ -1,6 +1,9 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.xml.module.citygml.AppearanceModule;
+import org.citygml4j.xml.module.citygml.CoreModule;
+import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
@@ -81,7 +84,24 @@ public class CityGMLInputFactory {
 
     public CityGMLInputFactory useChunkMode(ChunkMode chunkMode) {
         this.chunkMode = Objects.requireNonNull(chunkMode, "The chunk mode must not be null.");
+
+        if (ChunkMode.CHUNK_BY_PROPERTIES.contains(chunkMode))
+            setDefaultChunkProperties(chunkMode);
+
         return this;
+    }
+
+    public Set<QName> getChunkProperties() {
+        return properties;
+    }
+
+    public CityGMLInputFactory chunkAtProperty(QName property) {
+        properties.add(property);
+        return this;
+    }
+
+    public CityGMLInputFactory chunkAtProperty(String namespaceURI, String localPart) {
+        return chunkAtProperty(new QName(namespaceURI, localPart));
     }
 
     public boolean isKeepInlineAppearance() {
@@ -93,7 +113,7 @@ public class CityGMLInputFactory {
         return this;
     }
 
-    public Set<QName> getExlcudesFromChunking() {
+    public Set<QName> getExcludesFromChunking() {
         return excludes;
     }
 
@@ -104,19 +124,6 @@ public class CityGMLInputFactory {
 
     public CityGMLInputFactory excludeFromChunking(String namespaceURI, String localPart) {
         return excludeFromChunking(new QName(namespaceURI, localPart));
-    }
-
-    public Set<QName> getPropertiesForChunking() {
-        return properties;
-    }
-
-    public CityGMLInputFactory chunkAtProperty(QName name) {
-        properties.add(name);
-        return this;
-    }
-
-    public CityGMLInputFactory chunkAtProperty(String namespaceURI, String localPart) {
-        return chunkAtProperty(new QName(namespaceURI, localPart));
     }
 
     public TransformerPipeline getTransformer() {
@@ -278,5 +285,28 @@ public class CityGMLInputFactory {
             idCreator = DefaultIdCreator.newInstance();
 
         return this;
+    }
+
+    private void setDefaultChunkProperties(ChunkMode chunkMode) {
+        if (chunkMode == ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS) {
+            // default CityGML 3.0 collection properties
+            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "cityObjectMember");
+            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "appearanceMember");
+            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "featureMember");
+            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "versionMember");
+            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "versionTransitionMember");
+
+            // default CityGML 2.0 collection properties
+            chunkAtProperty(CoreModule.v2_0.getNamespaceURI(), "cityObjectMember");
+            chunkAtProperty(AppearanceModule.v2_0.getNamespaceURI(), "appearanceMember");
+
+            // default CityGML 1.0 collection properties
+            chunkAtProperty(CoreModule.v1_0.getNamespaceURI(), "cityObjectMember");
+            chunkAtProperty(AppearanceModule.v1_0.getNamespaceURI(), "appearanceMember");
+
+            // default GML collection properties
+            chunkAtProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
+            chunkAtProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMembers");
+        }
     }
 }

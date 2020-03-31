@@ -1,10 +1,7 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
-import org.citygml4j.xml.module.citygml.CityObjectGroupModule;
-import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.module.gml.XLinkModule;
 import org.xml.sax.SAXException;
@@ -50,8 +47,6 @@ public class CityGMLChunkReader extends CityGMLReader {
         this.chunkMode = chunkMode;
         this.factory = factory;
         streamReader = reader.getStreamReader();
-
-        initialize();
     }
 
     @Override
@@ -167,7 +162,7 @@ public class CityGMLChunkReader extends CityGMLReader {
 
         if (current != null) {
             QName property = current.getLastElement();
-            if (chunkMode == ChunkMode.PER_COLLECTION_MEMBER) {
+            if (ChunkMode.CHUNK_BY_PROPERTIES.contains(chunkMode)) {
                 Set<String> properties = this.properties.get(property.getNamespaceURI());
                 if (properties == null || !properties.contains(property.getLocalPart()))
                     return false;
@@ -206,14 +201,11 @@ public class CityGMLChunkReader extends CityGMLReader {
         chunks.getFirst().getSAXBuffer().addAttribute(XLinkModule.v1_0.getNamespaceURI(), "href", "xlink:href", "CDATA", "#" + gmlId);
     }
 
-    CityGMLChunkReader chunkAtProperty(String namespaceURI, String localName) {
-        properties.computeIfAbsent(namespaceURI, v -> new HashSet<>()).add(localName);
-        return this;
-    }
-
     CityGMLChunkReader chunkAtProperties(Collection<QName> properties) {
-        if (properties != null)
-            properties.forEach(p -> chunkAtProperty(p.getNamespaceURI(), p.getLocalPart()));
+        if (properties != null) {
+            for (QName property : properties)
+                this.properties.computeIfAbsent(property.getNamespaceURI(), v -> new HashSet<>()).add(property.getLocalPart());
+        }
 
         return this;
     }
@@ -235,34 +227,5 @@ public class CityGMLChunkReader extends CityGMLReader {
     CityGMLChunkReader withIdCreator(IdCreator idCreator) {
         this.idCreator = idCreator;
         return this;
-    }
-
-    private void initialize() {
-        if (chunkMode == ChunkMode.PER_COLLECTION_MEMBER) {
-            // default CityGML 3.0 collection properties
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "cityObjectMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "appearanceMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "featureMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "versionMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "versionTransitionMember");
-            chunkAtProperty(CityObjectGroupModule.v3_0.getNamespaceURI(), "groupMember");
-            chunkAtProperty(CityObjectGroupModule.v3_0.getNamespaceURI(), "parent");
-
-            // default CityGML 2.0 collection properties
-            chunkAtProperty(CoreModule.v2_0.getNamespaceURI(), "cityObjectMember");
-            chunkAtProperty(AppearanceModule.v2_0.getNamespaceURI(), "appearanceMember");
-            chunkAtProperty(CityObjectGroupModule.v2_0.getNamespaceURI(), "groupMember");
-            chunkAtProperty(CityObjectGroupModule.v2_0.getNamespaceURI(), "parent");
-
-            // default CityGML 1.0 collection properties
-            chunkAtProperty(CoreModule.v1_0.getNamespaceURI(), "cityObjectMember");
-            chunkAtProperty(AppearanceModule.v1_0.getNamespaceURI(), "appearanceMember");
-            chunkAtProperty(CityObjectGroupModule.v1_0.getNamespaceURI(), "groupMember");
-            chunkAtProperty(CityObjectGroupModule.v1_0.getNamespaceURI(), "parent");
-
-            // default GML collection properties
-            chunkAtProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
-            chunkAtProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMembers");
-        }
     }
 }
