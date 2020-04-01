@@ -19,6 +19,10 @@
 
 package util;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Util {
-    public final static String SAMPLE_DATA_DIR = "datasets";
+    public final static Path SAMPLE_DATA_DIR = Paths.get("input", "datasets");
+    public final static Path STYLESHEETS_DIR = Paths.get("input", "stylesheets");
 }

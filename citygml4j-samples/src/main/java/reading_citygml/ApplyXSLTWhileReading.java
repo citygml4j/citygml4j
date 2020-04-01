@@ -20,23 +20,19 @@
 package reading_citygml;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.model.building.Building;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.CityModel;
-import org.citygml4j.xml.module.citygml.CityGMLModule;
-import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
+import org.citygml4j.xml.transform.TransformerPipeline;
 import util.Logger;
 import util.Util;
 
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
-public class SimpleReader {
+public class ApplyXSLTWhileReading {
 
     public static void main(String[] args) throws Exception {
         Logger log = Logger.start(SimpleReader.class);
@@ -45,32 +41,27 @@ public class SimpleReader {
 
         CityGMLInputFactory in = context.createCityGMLInputFactory();
 
-        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
+        Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_building_v2.gml");
         log.print("Reading file " + file.getFileName() + " into main memory");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
-            AbstractFeature feature = reader.next();
+            CityModel cityModel = (CityModel) reader.next();
+            Building building = (Building) cityModel.getCityObjectMembers().get(0).getObject();
+            log.print("The building has address information: " + !building.getAddresses().isEmpty());
+        }
 
-            String localName = reader.getName().getLocalPart();
-            CityGMLModule module = CityGMLModules.getCityGMLModule(reader.getName().getNamespaceURI());
+        File stylesheet = Util.STYLESHEETS_DIR.resolve("RemoveAddress.xsl").toFile();
+        TransformerPipeline pipeline = TransformerPipeline.newInstance(new StreamSource(stylesheet));
 
-            if (feature instanceof CityModel && module != null) {
-                CityModel cityModel = (CityModel) feature;
+        in.withTransformer(pipeline);
 
-                log.print("Found " + localName + " version " + module.getCityGMLVersion());
-                log.print("Counting top-level buildings");
-
-                int count = 0;
-                for (AbstractCityObjectProperty cityObjectMember : cityModel.getCityObjectMembers()) {
-                    AbstractCityObject cityObject = cityObjectMember.getObject();
-                    if (cityObject instanceof Building)
-                        count++;
-                }
-
-                log.print("The city model contains " + count + " building objects");
-            }
+        try (CityGMLReader reader = in.createCityGMLReader(file)) {
+            CityModel cityModel = (CityModel) reader.next();
+            Building building = (Building) cityModel.getCityObjectMembers().get(0).getObject();
+            log.print("The building has address information: " + !building.getAddresses().isEmpty());
         }
 
         log.finish();
     }
+
 }
