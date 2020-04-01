@@ -270,7 +270,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(org.xmlobjects.gml.model.feature.AbstractFeature feature) {
         visit((AbstractGML) feature);
 
-        visit(feature.getLocation());
+        if (feature.getLocation() != null)
+            visit(feature.getLocation());
 
         for (GenericElement genericElement : feature.getGenericProperties())
             visit(genericElement);
@@ -321,11 +322,20 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             for (BridgePartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBridgeParts()))
                 visit(property);
 
-            visit(deprecatedProperties.getLod1MultiSurface());
-            visit(deprecatedProperties.getLod4MultiCurve());
-            visit(deprecatedProperties.getLod4MultiSurface());
-            visit(deprecatedProperties.getLod4Solid());
-            visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
+            if (deprecatedProperties.getLod1MultiSurface() != null)
+                visit(deprecatedProperties.getLod1MultiSurface());
+
+            if (deprecatedProperties.getLod4MultiCurve() != null)
+                visit(deprecatedProperties.getLod4MultiCurve());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
+
+            if (deprecatedProperties.getLod4Solid() != null)
+                visit(deprecatedProperties.getLod4Solid());
+
+            if (deprecatedProperties.getLod4TerrainIntersectionCurve() != null)
+                visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(bridge.getADEPropertiesOfAbstractBridge()))
@@ -359,12 +369,23 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             for (BuildingPartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBuildingParts()))
                 visit(property);
 
-            visit(deprecatedProperties.getLod0RoofEdge());
-            visit(deprecatedProperties.getLod1MultiSurface());
-            visit(deprecatedProperties.getLod4MultiCurve());
-            visit(deprecatedProperties.getLod4MultiSurface());
-            visit(deprecatedProperties.getLod4Solid());
-            visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
+            if (deprecatedProperties.getLod0RoofEdge() != null)
+                visit(deprecatedProperties.getLod0RoofEdge());
+
+            if (deprecatedProperties.getLod1MultiSurface() != null)
+                visit(deprecatedProperties.getLod1MultiSurface());
+
+            if (deprecatedProperties.getLod4MultiCurve() != null)
+                visit(deprecatedProperties.getLod4MultiCurve());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
+
+            if (deprecatedProperties.getLod4Solid() != null)
+                visit(deprecatedProperties.getLod4Solid());
+
+            if (deprecatedProperties.getLod4TerrainIntersectionCurve() != null)
+                visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(building.getADEPropertiesOfAbstractBuilding()))
@@ -435,7 +456,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractCoverage<?> coverage) {
         visit((org.xmlobjects.gml.model.feature.AbstractFeature) coverage);
 
-        visit(coverage.getDomainSet());
+        if (coverage.getDomainSet() != null)
+            visit(coverage.getDomainSet());
 
         if (coverage.getRangeSet() != null && coverage.getRangeSet().getValueArrays() != null) {
             for (ValueArray valueArray : coverage.getRangeSet().getValueArrays()) {
@@ -476,8 +498,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (fillingSurface.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractFillingSurface deprecatedProperties = fillingSurface.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod3ImplicitRepresentation());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod3ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod3ImplicitRepresentation());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(fillingSurface.getADEPropertiesOfAbstractFillingSurface()))
@@ -508,9 +533,14 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractOccupiedSpace occupiedSpace) {
         visit((AbstractPhysicalSpace) occupiedSpace);
 
-        visit(occupiedSpace.getLod1ImplicitRepresentation());
-        visit(occupiedSpace.getLod2ImplicitRepresentation());
-        visit(occupiedSpace.getLod3ImplicitRepresentation());
+        if (occupiedSpace.getLod1ImplicitRepresentation() != null)
+            visit(occupiedSpace.getLod1ImplicitRepresentation());
+
+        if (occupiedSpace.getLod2ImplicitRepresentation() != null)
+            visit(occupiedSpace.getLod2ImplicitRepresentation());
+
+        if (occupiedSpace.getLod3ImplicitRepresentation() != null)
+            visit(occupiedSpace.getLod3ImplicitRepresentation());
 
         for (ADEProperty<?> property : new ArrayList<>(occupiedSpace.getADEPropertiesOfAbstractOccupiedSpace()))
             visit(property);
@@ -519,10 +549,17 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractPhysicalSpace physicalSpace) {
         visit((AbstractSpace) physicalSpace);
 
-        visit(physicalSpace.getPointCloud());
-        visit(physicalSpace.getLod1TerrainIntersectionCurve());
-        visit(physicalSpace.getLod2TerrainIntersectionCurve());
-        visit(physicalSpace.getLod3TerrainIntersectionCurve());
+        if (physicalSpace.getPointCloud() != null)
+            visit(physicalSpace.getPointCloud());
+
+        if (physicalSpace.getLod1TerrainIntersectionCurve() != null)
+            visit(physicalSpace.getLod1TerrainIntersectionCurve());
+
+        if (physicalSpace.getLod2TerrainIntersectionCurve() != null)
+            visit(physicalSpace.getLod2TerrainIntersectionCurve());
+
+        if (physicalSpace.getLod3TerrainIntersectionCurve() != null)
+            visit(physicalSpace.getLod3TerrainIntersectionCurve());
 
         for (ADEProperty<?> property : new ArrayList<>(physicalSpace.getADEPropertiesOfAbstractPhysicalSpace()))
             visit(property);
@@ -538,7 +575,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractReliefComponent reliefComponent) {
         visit((AbstractSpaceBoundary) reliefComponent);
 
-        visit(reliefComponent.getExtent());
+        if (reliefComponent.getExtent() != null)
+            visit(reliefComponent.getExtent());
 
         for (ADEProperty<?> property : new ArrayList<>(reliefComponent.getADEPropertiesOfAbstractReliefComponent()))
             visit(property);
@@ -550,16 +588,35 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractSpaceBoundaryProperty property : new ArrayList<>(space.getBoundaries()))
             visit(property);
 
-        visit(space.getLod0Point());
-        visit(space.getLod0MultiSurface());
-        visit(space.getLod0MultiCurve());
-        visit(space.getLod1Solid());
-        visit(space.getLod2Solid());
-        visit(space.getLod2MultiSurface());
-        visit(space.getLod2MultiCurve());
-        visit(space.getLod3Solid());
-        visit(space.getLod3MultiSurface());
-        visit(space.getLod3MultiCurve());
+        if (space.getLod0Point() != null)
+            visit(space.getLod0Point());
+
+        if (space.getLod0MultiSurface() != null)
+            visit(space.getLod0MultiSurface());
+
+        if (space.getLod0MultiCurve() != null)
+            visit(space.getLod0MultiCurve());
+
+        if (space.getLod1Solid() != null)
+            visit(space.getLod1Solid());
+
+        if (space.getLod2Solid() != null)
+            visit(space.getLod2Solid());
+
+        if (space.getLod2MultiSurface() != null)
+            visit(space.getLod2MultiSurface());
+
+        if (space.getLod2MultiCurve() != null)
+            visit(space.getLod2MultiCurve());
+
+        if (space.getLod3Solid() != null)
+            visit(space.getLod3Solid());
+
+        if (space.getLod3MultiSurface() != null)
+            visit(space.getLod3MultiSurface());
+
+        if (space.getLod3MultiCurve() != null)
+            visit(space.getLod3MultiCurve());
 
         for (ADEProperty<?> property : new ArrayList<>(space.getADEPropertiesOfAbstractSpace()))
             visit(property);
@@ -589,17 +646,29 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractThematicSurface thematicSurface) {
         visit((AbstractSpaceBoundary) thematicSurface);
 
-        visit(thematicSurface.getPointCloud());
-        visit(thematicSurface.getLod0MultiCurve());
-        visit(thematicSurface.getLod0MultiSurface());
-        visit(thematicSurface.getLod1MultiSurface());
-        visit(thematicSurface.getLod2MultiSurface());
-        visit(thematicSurface.getLod3MultiSurface());
+        if (thematicSurface.getPointCloud() != null)
+            visit(thematicSurface.getPointCloud());
+
+        if (thematicSurface.getLod0MultiCurve() != null)
+            visit(thematicSurface.getLod0MultiCurve());
+
+        if (thematicSurface.getLod0MultiSurface() != null)
+            visit(thematicSurface.getLod0MultiSurface());
+
+        if (thematicSurface.getLod1MultiSurface() != null)
+            visit(thematicSurface.getLod1MultiSurface());
+
+        if (thematicSurface.getLod2MultiSurface() != null)
+            visit(thematicSurface.getLod2MultiSurface());
+
+        if (thematicSurface.getLod3MultiSurface() != null)
+            visit(thematicSurface.getLod3MultiSurface());
 
         if (thematicSurface.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractThematicSurface deprecatedProperties = thematicSurface.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod4MultiSurface());
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(thematicSurface.getADEPropertiesOfAbstractThematicSurface()))
@@ -631,9 +700,14 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (transportationSpace.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractTransportationSpace deprecatedProperties = transportationSpace.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod0Network());
-            visit(deprecatedProperties.getLod1MultiSurface());
-            visit(deprecatedProperties.getLod4MultiSurface());
+            if (deprecatedProperties.getLod0Network() != null)
+                visit(deprecatedProperties.getLod0Network());
+
+            if (deprecatedProperties.getLod1MultiSurface() != null)
+                visit(deprecatedProperties.getLod1MultiSurface());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(transportationSpace.getADEPropertiesOfAbstractTransportationSpace()))
@@ -661,11 +735,20 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             for (TunnelPartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfTunnelParts()))
                 visit(property);
 
-            visit(deprecatedProperties.getLod1MultiSurface());
-            visit(deprecatedProperties.getLod4MultiCurve());
-            visit(deprecatedProperties.getLod4MultiSurface());
-            visit(deprecatedProperties.getLod4Solid());
-            visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
+            if (deprecatedProperties.getLod1MultiSurface() != null)
+                visit(deprecatedProperties.getLod1MultiSurface());
+
+            if (deprecatedProperties.getLod4MultiCurve() != null)
+                visit(deprecatedProperties.getLod4MultiCurve());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
+
+            if (deprecatedProperties.getLod4Solid() != null)
+                visit(deprecatedProperties.getLod4Solid());
+
+            if (deprecatedProperties.getLod4TerrainIntersectionCurve() != null)
+                visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(tunnel.getADEPropertiesOfAbstractTunnel()))
@@ -711,7 +794,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Address address) {
         visit((AbstractFeature) address);
 
-        visit(address.getMultiPoint());
+        if (address.getMultiPoint() != null)
+            visit(address.getMultiPoint());
 
         for (ADEProperty<?> property : new ArrayList<>(address.getADEPropertiesOfAddress()))
             visit(property);
@@ -748,8 +832,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(BreaklineRelief breaklineRelief) {
         visit((AbstractReliefComponent) breaklineRelief);
 
-        visit(breaklineRelief.getRidgeOrValleyLines());
-        visit(breaklineRelief.getBreaklines());
+        if (breaklineRelief.getRidgeOrValleyLines() != null)
+            visit(breaklineRelief.getRidgeOrValleyLines());
+
+        if (breaklineRelief.getBreaklines() != null)
+            visit(breaklineRelief.getBreaklines());
 
         for (ADEProperty<?> property : new ArrayList<>(breaklineRelief.getADEPropertiesOfBreaklineRelief()))
             visit(property);
@@ -773,12 +860,23 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (bridgeConstructiveElement.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBridgeConstructiveElement deprecatedProperties = bridgeConstructiveElement.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod1Geometry());
-            visit(deprecatedProperties.getLod2Geometry());
-            visit(deprecatedProperties.getLod3Geometry());
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod1Geometry() != null)
+                visit(deprecatedProperties.getLod1Geometry());
+
+            if (deprecatedProperties.getLod2Geometry() != null)
+                visit(deprecatedProperties.getLod2Geometry());
+
+            if (deprecatedProperties.getLod3Geometry() != null)
+                visit(deprecatedProperties.getLod3Geometry());
+
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4TerrainIntersectionCurve() != null)
+                visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(bridgeConstructiveElement.getADEPropertiesOfBridgeConstructiveElement()))
@@ -792,8 +890,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (bridgeFurniture.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBridgeFurniture deprecatedProperties = bridgeFurniture.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(bridgeFurniture.getADEPropertiesOfBridgeFurniture()))
@@ -807,10 +908,17 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (bridgeInstallation.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBridgeInstallation deprecatedProperties = bridgeInstallation.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod2Geometry());
-            visit(deprecatedProperties.getLod3Geometry());
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod2Geometry() != null)
+                visit(deprecatedProperties.getLod2Geometry());
+
+            if (deprecatedProperties.getLod3Geometry() != null)
+                visit(deprecatedProperties.getLod3Geometry());
+
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(bridgeInstallation.getADEPropertiesOfBridgeInstallation()))
@@ -838,8 +946,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (bridgeRoom.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBridgeRoom deprecatedProperties = bridgeRoom.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod4Solid());
-            visit(deprecatedProperties.getLod4MultiSurface());
+            if (deprecatedProperties.getLod4Solid() != null)
+                visit(deprecatedProperties.getLod4Solid());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(bridgeRoom.getADEPropertiesOfBridgeRoom()))
@@ -872,8 +983,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (buildingFurniture.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBuildingFurniture deprecatedProperties = buildingFurniture.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(buildingFurniture.getADEPropertiesOfBuildingFurniture()))
@@ -887,10 +1001,17 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (buildingInstallation.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBuildingInstallation deprecatedProperties = buildingInstallation.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod2Geometry());
-            visit(deprecatedProperties.getLod3Geometry());
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod2Geometry() != null)
+                visit(deprecatedProperties.getLod2Geometry());
+
+            if (deprecatedProperties.getLod3Geometry() != null)
+                visit(deprecatedProperties.getLod3Geometry());
+
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(buildingInstallation.getADEPropertiesOfBuildingInstallation()))
@@ -918,8 +1039,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (buildingRoom.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBuildingRoom deprecatedProperties = buildingRoom.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod4Solid());
-            visit(deprecatedProperties.getLod4MultiSurface());
+            if (deprecatedProperties.getLod4Solid() != null)
+                visit(deprecatedProperties.getLod4Solid());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(buildingRoom.getADEPropertiesOfBuildingRoom()))
@@ -952,12 +1076,23 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (cityFurniture.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfCityFurniture deprecatedProperties = cityFurniture.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod1Geometry());
-            visit(deprecatedProperties.getLod2Geometry());
-            visit(deprecatedProperties.getLod3Geometry());
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod1Geometry() != null)
+                visit(deprecatedProperties.getLod1Geometry());
+
+            if (deprecatedProperties.getLod2Geometry() != null)
+                visit(deprecatedProperties.getLod2Geometry());
+
+            if (deprecatedProperties.getLod3Geometry() != null)
+                visit(deprecatedProperties.getLod3Geometry());
+
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4TerrainIntersectionCurve() != null)
+                visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(cityFurniture.getADEPropertiesOfCityFurniture()))
@@ -994,12 +1129,14 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (RoleProperty property : new ArrayList<>(cityObjectGroup.getGroupMembers()))
             visit(property);
 
-        visit(cityObjectGroup.getGroupParent());
+        if (cityObjectGroup.getGroupParent() != null)
+            visit(cityObjectGroup.getGroupParent());
 
         if (cityObjectGroup.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfCityObjectGroup deprecatedProperties = cityObjectGroup.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getGeometry());
+            if (deprecatedProperties.getGeometry() != null)
+                visit(deprecatedProperties.getGeometry());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(cityObjectGroup.getADEPropertiesOfCityObjectGroup()))
@@ -1010,7 +1147,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(CityObjectRelation cityObjectRelation) {
         visit((AbstractGML) cityObjectRelation);
 
-        visit(cityObjectRelation.getRelatedTo());
+        if (cityObjectRelation.getRelatedTo() != null)
+            visit(cityObjectRelation.getRelatedTo());
     }
 
     @Override
@@ -1083,7 +1221,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Dynamizer dynamizer) {
         visit((AbstractDynamizer) dynamizer);
 
-        visit(dynamizer.getDynamicData());
+        if (dynamizer.getDynamicData() != null)
+            visit(dynamizer.getDynamicData());
 
         for (ADEProperty<?> property : new ArrayList<>(dynamizer.getADEPropertiesOfDynamizer()))
             visit(property);
@@ -1112,15 +1251,32 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (genericOccupiedSpace.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfGenericOccupiedSpace deprecatedProperties = genericOccupiedSpace.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod0Geometry());
-            visit(deprecatedProperties.getLod1Geometry());
-            visit(deprecatedProperties.getLod2Geometry());
-            visit(deprecatedProperties.getLod3Geometry());
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod0TerrainIntersectionCurve());
-            visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
-            visit(deprecatedProperties.getLod0ImplicitRepresentation());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod0Geometry() != null)
+                visit(deprecatedProperties.getLod0Geometry());
+
+            if (deprecatedProperties.getLod1Geometry() != null)
+                visit(deprecatedProperties.getLod1Geometry());
+
+            if (deprecatedProperties.getLod2Geometry() != null)
+                visit(deprecatedProperties.getLod2Geometry());
+
+            if (deprecatedProperties.getLod3Geometry() != null)
+                visit(deprecatedProperties.getLod3Geometry());
+
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod0TerrainIntersectionCurve() != null)
+                visit(deprecatedProperties.getLod0TerrainIntersectionCurve());
+
+            if (deprecatedProperties.getLod4TerrainIntersectionCurve() != null)
+                visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
+
+            if (deprecatedProperties.getLod0ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod0ImplicitRepresentation());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(genericOccupiedSpace.getADEPropertiesOfGenericOccupiedSpace()))
@@ -1160,7 +1316,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(GeoreferencedTexture georeferencedTexture) {
         visit((AbstractTexture) georeferencedTexture);
 
-        visit(georeferencedTexture.getReferencePoint());
+        if (georeferencedTexture.getReferencePoint() != null)
+            visit(georeferencedTexture.getReferencePoint());
 
         for (ADEProperty<?> property : new ArrayList<>(georeferencedTexture.getADEPropertiesOfGeoreferencedTexture()))
             visit(property);
@@ -1208,8 +1365,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (hollowSpace.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfHollowSpace deprecatedProperties = hollowSpace.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod4Solid());
-            visit(deprecatedProperties.getLod4MultiSurface());
+            if (deprecatedProperties.getLod4Solid() != null)
+                visit(deprecatedProperties.getLod4Solid());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(hollowSpace.getADEPropertiesOfHollowSpace()))
@@ -1223,8 +1383,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractAppearanceProperty property : new ArrayList<>(implicitGeometry.getAppearances()))
             visit(property);
 
-        visit(implicitGeometry.getReferencePoint());
-        visit(implicitGeometry.getRelativeGeometry());
+        if (implicitGeometry.getReferencePoint() != null)
+            visit(implicitGeometry.getReferencePoint());
+
+        if (implicitGeometry.getRelativeGeometry() != null)
+            visit(implicitGeometry.getRelativeGeometry());
     }
 
     @Override
@@ -1263,8 +1426,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(MassPointRelief massPointRelief) {
         visit((AbstractReliefComponent) massPointRelief);
 
-        visit(massPointRelief.getPointCloud());
-        visit(massPointRelief.getReliefPoints());
+        if (massPointRelief.getPointCloud() != null)
+            visit(massPointRelief.getPointCloud());
+
+        if (massPointRelief.getReliefPoints() != null)
+            visit(massPointRelief.getReliefPoints());
 
         for (ADEProperty<?> property : new ArrayList<>(massPointRelief.getADEPropertiesOfMassPointRelief()))
             visit(property);
@@ -1329,12 +1495,23 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (plantCover.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfPlantCover deprecatedProperties = plantCover.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod1MultiSurface());
-            visit(deprecatedProperties.getLod4MultiSurface());
-            visit(deprecatedProperties.getLod1MultiSolid());
-            visit(deprecatedProperties.getLod2MultiSolid());
-            visit(deprecatedProperties.getLod3MultiSolid());
-            visit(deprecatedProperties.getLod4MultiSolid());
+            if (deprecatedProperties.getLod1MultiSurface() != null)
+                visit(deprecatedProperties.getLod1MultiSurface());
+
+            if (deprecatedProperties.getLod4MultiSurface() != null)
+                visit(deprecatedProperties.getLod4MultiSurface());
+
+            if (deprecatedProperties.getLod1MultiSolid() != null)
+                visit(deprecatedProperties.getLod1MultiSolid());
+
+            if (deprecatedProperties.getLod2MultiSolid() != null)
+                visit(deprecatedProperties.getLod2MultiSolid());
+
+            if (deprecatedProperties.getLod3MultiSolid() != null)
+                visit(deprecatedProperties.getLod3MultiSolid());
+
+            if (deprecatedProperties.getLod4MultiSolid() != null)
+                visit(deprecatedProperties.getLod4MultiSolid());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(plantCover.getADEPropertiesOfPlantCover()))
@@ -1345,7 +1522,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(PointCloud pointCloud) {
         visit((AbstractPointCloud) pointCloud);
 
-        visit(pointCloud.getPoints());
+        if (pointCloud.getPoints() != null)
+            visit(pointCloud.getPoints());
 
         for (ADEProperty<?> property : new ArrayList<>(pointCloud.getADEPropertiesOfPointCloud()))
             visit(property);
@@ -1369,7 +1547,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(RasterRelief rasterRelief) {
         visit((AbstractReliefComponent) rasterRelief);
 
-        visit(rasterRelief.getGrid());
+        if (rasterRelief.getGrid() != null)
+            visit(rasterRelief.getGrid());
 
         for (ADEProperty<?> property : new ArrayList<>(rasterRelief.getADEPropertiesOfRasterRelief()))
             visit(property);
@@ -1408,7 +1587,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Role role) {
         visit((AbstractGML) role);
 
-        visit(role.getGroupMember());
+        if (role.getGroupMember() != null)
+            visit(role.getGroupMember());
     }
 
     @Override
@@ -1434,11 +1614,20 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (solitaryVegetationObject.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfSolitaryVegetationObject deprecatedProperties = solitaryVegetationObject.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod1Geometry());
-            visit(deprecatedProperties.getLod2Geometry());
-            visit(deprecatedProperties.getLod3Geometry());
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod1Geometry() != null)
+                visit(deprecatedProperties.getLod1Geometry());
+
+            if (deprecatedProperties.getLod2Geometry() != null)
+                visit(deprecatedProperties.getLod2Geometry());
+
+            if (deprecatedProperties.getLod3Geometry() != null)
+                visit(deprecatedProperties.getLod3Geometry());
+
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(solitaryVegetationObject.getADEPropertiesOfSolitaryVegetationObject()))
@@ -1491,15 +1680,19 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(TimePeriod timePeriod) {
         visit((AbstractGML) timePeriod);
 
-        visit(timePeriod.getBegin());
-        visit(timePeriod.getEnd());
+        if (timePeriod.getBegin() != null)
+            visit(timePeriod.getBegin());
+
+        if (timePeriod.getEnd() != null)
+            visit(timePeriod.getEnd());
     }
 
     @Override
     public void visit(TINRelief tinRelief) {
         visit((AbstractReliefComponent) tinRelief);
 
-        visit(tinRelief.getTin());
+        if (tinRelief.getTin() != null)
+            visit(tinRelief.getTin());
 
         for (ADEProperty<?> property : new ArrayList<>(tinRelief.getADEPropertiesOfTINRelief()))
             visit(property);
@@ -1578,8 +1771,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (tunnelFurniture.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfTunnelFurniture deprecatedProperties = tunnelFurniture.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(tunnelFurniture.getADEPropertiesOfTunnelFurniture()))
@@ -1593,10 +1789,17 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (tunnelInstallation.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfTunnelInstallation deprecatedProperties = tunnelInstallation.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod2Geometry());
-            visit(deprecatedProperties.getLod3Geometry());
-            visit(deprecatedProperties.getLod4Geometry());
-            visit(deprecatedProperties.getLod4ImplicitRepresentation());
+            if (deprecatedProperties.getLod2Geometry() != null)
+                visit(deprecatedProperties.getLod2Geometry());
+
+            if (deprecatedProperties.getLod3Geometry() != null)
+                visit(deprecatedProperties.getLod3Geometry());
+
+            if (deprecatedProperties.getLod4Geometry() != null)
+                visit(deprecatedProperties.getLod4Geometry());
+
+            if (deprecatedProperties.getLod4ImplicitRepresentation() != null)
+                visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(tunnelInstallation.getADEPropertiesOfTunnelInstallation()))
@@ -1631,8 +1834,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(VersionTransition versionTransition) {
         visit((AbstractVersionTransition) versionTransition);
 
-        visit(versionTransition.getFrom());
-        visit(versionTransition.getTo());
+        if (versionTransition.getFrom() != null)
+            visit(versionTransition.getFrom());
+
+        if (versionTransition.getTo() != null)
+            visit(versionTransition.getTo());
 
         for (ADEProperty<?> property : new ArrayList<>(versionTransition.getADEPropertiesOfVersionTransition()))
             visit(property);
@@ -1653,9 +1859,14 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (waterBody.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfWaterBody deprecatedProperties = waterBody.getDeprecatedProperties();
 
-            visit(deprecatedProperties.getLod1MultiCurve());
-            visit(deprecatedProperties.getLod1MultiSurface());
-            visit(deprecatedProperties.getLod4Solid());
+            if (deprecatedProperties.getLod1MultiCurve() != null)
+                visit(deprecatedProperties.getLod1MultiCurve());
+
+            if (deprecatedProperties.getLod1MultiSurface() != null)
+                visit(deprecatedProperties.getLod1MultiSurface());
+
+            if (deprecatedProperties.getLod4Solid() != null)
+                visit(deprecatedProperties.getLod4Solid());
         }
 
         for (ADEProperty<?> property : new ArrayList<>(waterBody.getADEPropertiesOfWaterBody()))
