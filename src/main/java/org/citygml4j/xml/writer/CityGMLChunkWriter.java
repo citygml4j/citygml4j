@@ -11,7 +11,7 @@ import org.citygml4j.model.core.CityModel;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
-import org.citygml4j.xml.reader.ObjectInfo;
+import org.citygml4j.xml.reader.FeatureInfo;
 import org.xml.sax.ContentHandler;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -64,17 +64,17 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         return this;
     }
 
-    public CityGMLChunkWriter withCityModel(ObjectInfo objectInfo) {
-        if (objectInfo != null) {
+    public CityGMLChunkWriter withCityModel(FeatureInfo featureInfo) {
+        if (featureInfo != null) {
             cityModel = new CityModel();
-            cityModel.setId(objectInfo.getId());
-            cityModel.setMetaDataProperties(objectInfo.getMetaDataProperties());
-            cityModel.setDescription(objectInfo.getDescription());
-            cityModel.setDescriptionReference(objectInfo.getDescriptionReference());
-            cityModel.setIdentifier(objectInfo.getIdentifier());
-            cityModel.setNames(objectInfo.getNames());
-            cityModel.setBoundedBy(objectInfo.getBoundedBy());
-            cityModel.setEngineeringCRS(objectInfo.getEngineeringCRS());
+            cityModel.setId(featureInfo.getId());
+            cityModel.setMetaDataProperties(featureInfo.getMetaDataProperties());
+            cityModel.setDescription(featureInfo.getDescription());
+            cityModel.setDescriptionReference(featureInfo.getDescriptionReference());
+            cityModel.setIdentifier(featureInfo.getIdentifier());
+            cityModel.setNames(featureInfo.getNames());
+            cityModel.setBoundedBy(featureInfo.getBoundedBy());
+            cityModel.setEngineeringCRS(featureInfo.getEngineeringCRS());
         }
 
         return this;

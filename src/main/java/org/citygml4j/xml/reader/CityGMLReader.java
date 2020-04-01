@@ -38,7 +38,7 @@ public abstract class CityGMLReader implements AutoCloseable {
         return false;
     }
 
-    public ObjectInfo getParentInfo() throws CityGMLReadException {
+    public FeatureInfo getParentInfo() throws CityGMLReadException {
         return null;
     }
 

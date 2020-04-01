@@ -7,7 +7,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
@@ -25,7 +24,7 @@ public class CityGMLChunk {
     private final XMLReaderFactory factory;
     private final CityGMLChunk parent;
 
-    private ObjectInfo objectInfo;
+    private FeatureInfo featureInfo;
     private SAXBuffer buffer;
     private StAXStream2SAX mapper;
     private QName lastElement;
@@ -102,24 +101,24 @@ public class CityGMLChunk {
         }
     }
 
-    ObjectInfo getObjectInfo() throws CityGMLReadException {
-        if (objectInfo == null) {
+    FeatureInfo getFeatureInfo() throws CityGMLReadException {
+        if (featureInfo == null) {
             try {
-                ObjectInfoBuffer buffer = new ObjectInfoBuffer();
+                FeatureInfoBuffer buffer = new FeatureInfoBuffer();
                 send(buffer, false);
                 buffer.complete();
 
                 XMLReader reader = factory.createReader(buffer.toXMLStreamReader(true));
                 reader.nextTag();
-                AbstractGML object = reader.getObject(AbstractGML.class);
+                AbstractFeature object = reader.getObject(AbstractFeature.class);
                 if (object != null)
-                    objectInfo = new ObjectInfo(firstElement, object, parent);
+                    featureInfo = new FeatureInfo(firstElement, object, parent);
             } catch (SAXException | XMLReadException | ObjectBuildException e) {
                 throw new CityGMLReadException("Caused by:", e);
             }
         }
 
-        return objectInfo;
+        return featureInfo;
     }
 
     void transform(TransformerPipeline pipeline) throws TransformerException {
@@ -151,7 +150,7 @@ public class CityGMLChunk {
         }
     }
 
-    private static class ObjectInfoBuffer extends SAXBuffer {
+    private static class FeatureInfoBuffer extends SAXBuffer {
         int depth = 0;
         boolean shouldBuffer = true;
 

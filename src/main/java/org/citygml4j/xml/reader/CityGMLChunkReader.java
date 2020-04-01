@@ -145,8 +145,8 @@ public class CityGMLChunkReader extends CityGMLReader {
     }
 
     @Override
-    public ObjectInfo getParentInfo() throws CityGMLReadException {
-        return current != null ? current.getObjectInfo() : null;
+    public FeatureInfo getParentInfo() throws CityGMLReadException {
+        return current != null ? current.getFeatureInfo() : null;
     }
 
     @Override
