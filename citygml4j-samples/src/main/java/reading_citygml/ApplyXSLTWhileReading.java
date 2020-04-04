@@ -23,6 +23,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
+import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import util.Logger;
@@ -35,33 +36,34 @@ import java.nio.file.Path;
 public class ApplyXSLTWhileReading {
 
     public static void main(String[] args) throws Exception {
-        Logger log = Logger.start(SimpleReader.class);
+        Logger log = Logger.start(ApplyXSLTWhileReading.class);
 
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory();
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_building_v2.gml");
-        log.print("Reading file " + file.getFileName() + " into main memory");
+        log.print("Reading the building from the file " + file.getFileName());
 
-        try (CityGMLReader reader = in.createCityGMLReader(file)) {
-            CityModel cityModel = (CityModel) reader.next();
-            Building building = (Building) cityModel.getCityObjectMembers().get(0).getObject();
-            log.print("The building has address information: " + !building.getAddresses().isEmpty());
-        }
+        Building building = readBuilding(in, file);
+        log.print("The building has address information: " + !building.getAddresses().isEmpty());
 
-        File stylesheet = Util.STYLESHEETS_DIR.resolve("RemoveAddress.xsl").toFile();
+        log.print("Reading the building once more and applying an XSLT stylesheet to remove its addresses");
+        File stylesheet = Util.STYLESHEETS_DIR.resolve("AddressRemover.xsl").toFile();
         TransformerPipeline pipeline = TransformerPipeline.newInstance(new StreamSource(stylesheet));
 
         in.withTransformer(pipeline);
 
-        try (CityGMLReader reader = in.createCityGMLReader(file)) {
-            CityModel cityModel = (CityModel) reader.next();
-            Building building = (Building) cityModel.getCityObjectMembers().get(0).getObject();
-            log.print("The building has address information: " + !building.getAddresses().isEmpty());
-        }
+        building = readBuilding(in, file);
+        log.print("The building has address information: " + !building.getAddresses().isEmpty());
 
         log.finish();
     }
 
+    public static Building readBuilding(CityGMLInputFactory in, Path file) throws CityGMLReadException {
+        try (CityGMLReader reader = in.createCityGMLReader(file)) {
+            CityModel cityModel = (CityModel) reader.next();
+            return (Building) cityModel.getCityObjectMembers().get(0).getObject();
+        }
+    }
 }

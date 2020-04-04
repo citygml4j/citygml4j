@@ -43,7 +43,7 @@ public class ChunkReader {
                 .useChunkMode(ChunkMode.CHUNK_BY_FEATURES);
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_building_v2.gml");
-        log.print("Reading file " + file.getFileName() + " chunk-wise");
+        log.print("Reading the file " + file.getFileName() + " chunk-wise feature by feature");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             while (reader.hasNext()) {

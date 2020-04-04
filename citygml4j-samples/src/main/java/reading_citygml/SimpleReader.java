@@ -20,7 +20,6 @@
 package reading_citygml;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
@@ -34,7 +33,6 @@ import util.Logger;
 import util.Util;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class SimpleReader {
 
@@ -46,7 +44,7 @@ public class SimpleReader {
         CityGMLInputFactory in = context.createCityGMLInputFactory();
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
-        log.print("Reading file " + file.getFileName() + " into main memory");
+        log.print("Reading the file " + file.getFileName() + " into main memory");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             AbstractFeature feature = reader.next();
