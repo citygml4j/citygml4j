@@ -41,6 +41,6 @@ public class Logger {
 
     public void finish() {
         Duration elapsed = Duration.between(start, Instant.now());
-        print("Sample citygml4j program finished after " + elapsed.toSecondsPart() + "." + elapsed.toMillisPart() + "s");
+        print("Sample citygml4j program finished after " + elapsed.getSeconds() + "." + (elapsed.getNano() / 1000_000) + "s");
     }
 }

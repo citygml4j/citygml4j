@@ -6,13 +6,13 @@ allprojects {
     group 'org.citygml4j'
     version '0.9.0'
 
-    java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-    }
-
     repositories {
         jcenter()
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {

@@ -48,7 +48,7 @@ public class ApplyXSLTWhileReading {
         Building building = readBuilding(in, file);
         log.print("The building has address information: " + !building.getAddresses().isEmpty());
 
-        log.print("Reading the building once more and applying an XSLT stylesheet to remove its addresses");
+        log.print("Reading the building once more and removing its address using an XSLT stylesheet");
         File stylesheet = Util.STYLESHEETS_DIR.resolve("AddressRemover.xsl").toFile();
         TransformerPipeline pipeline = TransformerPipeline.newInstance(new StreamSource(stylesheet));
 
