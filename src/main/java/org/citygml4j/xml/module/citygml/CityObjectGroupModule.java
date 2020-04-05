@@ -8,6 +8,10 @@ public class CityObjectGroupModule extends CityGMLModule {
     public static final CityObjectGroupModule v2_0;
     public static final CityObjectGroupModule v1_0;
 
+    private CityObjectGroupModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new CityObjectGroupModule(
                 CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE,
@@ -40,9 +44,5 @@ public class CityObjectGroupModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private CityObjectGroupModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

@@ -8,6 +8,10 @@ public class GenericsModule extends CityGMLModule {
     public static final GenericsModule v2_0;
     public static final GenericsModule v1_0;
 
+    private GenericsModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new GenericsModule(
                 CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE,
@@ -40,9 +44,5 @@ public class GenericsModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private GenericsModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

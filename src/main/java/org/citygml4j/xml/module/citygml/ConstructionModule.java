@@ -6,6 +6,10 @@ import org.citygml4j.util.CityGMLConstants;
 public class ConstructionModule extends CityGMLModule {
     public static final ConstructionModule v3_0;
 
+    private ConstructionModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new ConstructionModule(
                 CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE,
@@ -17,9 +21,5 @@ public class ConstructionModule extends CityGMLModule {
 
     public static ConstructionModule of(CityGMLVersion version) {
         return version == CityGMLVersion.v3_0 ? v3_0 : null;
-    }
-
-    private ConstructionModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

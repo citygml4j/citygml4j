@@ -8,6 +8,10 @@ public class WaterBodyModule extends CityGMLModule {
     public static final WaterBodyModule v2_0;
     public static final WaterBodyModule v1_0;
 
+    private WaterBodyModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new WaterBodyModule(
                 CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE,
@@ -40,9 +44,5 @@ public class WaterBodyModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private WaterBodyModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

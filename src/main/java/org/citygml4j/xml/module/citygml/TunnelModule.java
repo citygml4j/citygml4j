@@ -7,6 +7,10 @@ public class TunnelModule extends CityGMLModule {
     public static final TunnelModule v3_0;
     public static final TunnelModule v2_0;
 
+    private TunnelModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new TunnelModule(
                 CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE,
@@ -32,9 +36,5 @@ public class TunnelModule extends CityGMLModule {
             default:
                 return null;
         }
-    }
-
-    private TunnelModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

@@ -8,6 +8,10 @@ public class LandUseModule extends CityGMLModule {
     public static final LandUseModule v2_0;
     public static final LandUseModule v1_0;
 
+    private LandUseModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new LandUseModule(
                 CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE,
@@ -40,9 +44,5 @@ public class LandUseModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private LandUseModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

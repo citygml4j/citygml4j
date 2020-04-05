@@ -8,6 +8,10 @@ public class ReliefModule extends CityGMLModule {
     public static final ReliefModule v2_0;
     public static final ReliefModule v1_0;
 
+    private ReliefModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new ReliefModule(
                 CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE,
@@ -40,9 +44,5 @@ public class ReliefModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private ReliefModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

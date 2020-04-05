@@ -8,6 +8,10 @@ public class CoreModule extends CityGMLModule {
     public static final CoreModule v2_0;
     public static final CoreModule v1_0;
 
+    private CoreModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new CoreModule(
                 CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE,
@@ -40,9 +44,5 @@ public class CoreModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private CoreModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

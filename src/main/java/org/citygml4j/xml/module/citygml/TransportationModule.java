@@ -8,6 +8,10 @@ public class TransportationModule extends CityGMLModule {
     public static final TransportationModule v2_0;
     public static final TransportationModule v1_0;
 
+    private TransportationModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new TransportationModule(
                 CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE,
@@ -40,9 +44,5 @@ public class TransportationModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private TransportationModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

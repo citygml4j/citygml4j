@@ -7,6 +7,10 @@ public class BridgeModule extends CityGMLModule {
     public static final BridgeModule v3_0;
     public static final BridgeModule v2_0;
 
+    private BridgeModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new BridgeModule(
                 CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE,
@@ -32,9 +36,5 @@ public class BridgeModule extends CityGMLModule {
             default:
                 return null;
         }
-    }
-
-    private BridgeModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

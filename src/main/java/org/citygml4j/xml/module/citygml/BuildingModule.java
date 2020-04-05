@@ -8,6 +8,10 @@ public class BuildingModule extends CityGMLModule {
     public static final BuildingModule v2_0;
     public static final BuildingModule v1_0;
 
+    private BuildingModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new BuildingModule(
                 CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE,
@@ -40,9 +44,5 @@ public class BuildingModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private BuildingModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

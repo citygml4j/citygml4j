@@ -8,6 +8,10 @@ public class VegetationModule extends CityGMLModule {
     public static final VegetationModule v2_0;
     public static final VegetationModule v1_0;
 
+    private VegetationModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new VegetationModule(
                 CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE,
@@ -40,9 +44,5 @@ public class VegetationModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private VegetationModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

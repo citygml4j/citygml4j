@@ -6,6 +6,10 @@ import org.citygml4j.util.CityGMLConstants;
 public class PointCloudModule extends CityGMLModule {
     public static final PointCloudModule v3_0;
 
+    private PointCloudModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new PointCloudModule(
                 CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE,
@@ -17,9 +21,5 @@ public class PointCloudModule extends CityGMLModule {
 
     public static PointCloudModule of(CityGMLVersion version) {
         return version == CityGMLVersion.v3_0 ? v3_0 : null;
-    }
-
-    private PointCloudModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }

@@ -8,6 +8,10 @@ public class AppearanceModule extends CityGMLModule {
     public static final AppearanceModule v2_0;
     public static final AppearanceModule v1_0;
 
+    private AppearanceModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
+        super(namespaceURI, namespacePrefix, schemaLocation, version);
+    }
+
     static {
         v3_0 = new AppearanceModule(
                 CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE,
@@ -40,9 +44,5 @@ public class AppearanceModule extends CityGMLModule {
             default:
                 return v3_0;
         }
-    }
-
-    private AppearanceModule(String namespaceURI, String namespacePrefix, String schemaLocation, CityGMLVersion version) {
-        super(namespaceURI, namespacePrefix, schemaLocation, version);
     }
 }
