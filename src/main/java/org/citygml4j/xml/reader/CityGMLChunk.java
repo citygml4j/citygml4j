@@ -101,6 +101,10 @@ public class CityGMLChunk {
         }
     }
 
+    public AbstractFeature build() throws CityGMLReadException {
+        return build(true);
+    }
+
     FeatureInfo getFeatureInfo() throws CityGMLReadException {
         if (featureInfo == null) {
             try {
