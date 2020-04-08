@@ -27,7 +27,7 @@ import java.nio.file.Paths;
 public class Util {
     public final static Path SAMPLE_DATA_DIR = Paths.get("input", "datasets");
     public final static Path STYLESHEETS_DIR = Paths.get("input", "stylesheets");
-    public final static Path OUTPUT_FILE = Paths.get("output", "output.gml");
+    public final static Path OUTPUT_FILE = Paths.get("output", "out.gml");
 
     public static Path getOutputFile() throws IOException {
         Files.createDirectories(OUTPUT_FILE.getParent());

@@ -44,7 +44,7 @@ public class SimpleReader {
         CityGMLInputFactory in = context.createCityGMLInputFactory();
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
-        log.print("Reading the file " + file.getFileName() + " into main memory");
+        log.print("Reading the file " + file + " into main memory");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             AbstractFeature feature = reader.next();

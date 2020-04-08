@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tran="http://www.opengis.net/citygml/transportation/2.0" xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:smil20lang="http://www.w3.org/2001/SMIL20/Language" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/2.0" xmlns:luse="http://www.opengis.net/citygml/landuse/2.0" xmlns:frn="http://www.opengis.net/citygml/cityfurniture/2.0" xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns:tex="http://www.opengis.net/citygml/texturedsurface/2.0" xmlns:smil20="http://www.w3.org/2001/SMIL20/" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:dem="http://www.opengis.net/citygml/relief/2.0" xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0" xmlns:gen="http://www.opengis.net/citygml/generics/2.0" xsi:schemaLocation="http://www.opengis.net/citygml/landuse/2.0 http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd http://www.opengis.net/citygml/cityfurniture/2.0 http://schemas.opengis.net/citygml/cityfurniture/2.0/cityFurniture.xsd http://www.opengis.net/citygml/appearance/2.0 http://schemas.opengis.net/citygml/appearance/2.0/appearance.xsd http://www.opengis.net/citygml/texturedsurface/2.0 http://schemas.opengis.net/citygml/texturedsurface/2.0/texturedSurface.xsd http://www.opengis.net/citygml/transportation/2.0 http://schemas.opengis.net/citygml/transportation/2.0/transportation.xsd http://www.opengis.net/citygml/waterbody/2.0 http://schemas.opengis.net/citygml/waterbody/2.0/waterBody.xsd http://www.opengis.net/citygml/building/2.0 http://schemas.opengis.net/citygml/building/2.0/building.xsd http://www.opengis.net/citygml/relief/2.0 http://schemas.opengis.net/citygml/relief/2.0/relief.xsd http://www.opengis.net/citygml/vegetation/2.0 http://schemas.opengis.net/citygml/vegetation/2.0/vegetation.xsd http://www.opengis.net/citygml/cityobjectgroup/2.0 http://schemas.opengis.net/citygml/cityobjectgroup/2.0/cityObjectGroup.xsd http://www.opengis.net/citygml/generics/2.0 http://schemas.opengis.net/citygml/generics/2.0/generics.xsd" gml:id="UUID_e71fcf70-6f2d-404c-ab5c-301415150061">
+<CityModel gml:id="UUID_e71fcf70-6f2d-404c-ab5c-301415150061" xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns="http://www.opengis.net/citygml/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:frn="http://www.opengis.net/citygml/cityfurniture/2.0" xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/2.0" xmlns:brid="http://www.opengis.net/citygml/bridge/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:luse="http://www.opengis.net/citygml/landuse/2.0" xmlns:tun="http://www.opengis.net/citygml/tunnel/2.0" xmlns:dem="http://www.opengis.net/citygml/relief/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gen="http://www.opengis.net/citygml/generics/2.0" xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0" xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0" xmlns:tran="http://www.opengis.net/citygml/transportation/2.0" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.opengis.net/citygml/building/2.0 http://schemas.opengis.net/citygml/building/2.0/building.xsd http://www.opengis.net/citygml/cityobjectgroup/2.0 http://schemas.opengis.net/citygml/cityobjectgroup/2.0/cityObjectGroup.xsd http://www.opengis.net/citygml/tunnel/2.0 http://schemas.opengis.net/citygml/tunnel/2.0/tunnel.xsd http://www.opengis.net/citygml/waterbody/2.0 http://schemas.opengis.net/citygml/waterbody/2.0/waterBody.xsd http://www.opengis.net/citygml/appearance/2.0 http://schemas.opengis.net/citygml/appearance/2.0/appearance.xsd http://www.opengis.net/citygml/cityfurniture/2.0 http://schemas.opengis.net/citygml/cityfurniture/2.0/cityFurniture.xsd http://www.opengis.net/citygml/bridge/2.0 http://schemas.opengis.net/citygml/bridge/2.0/bridge.xsd http://www.opengis.net/citygml/generics/2.0 http://schemas.opengis.net/citygml/generics/2.0/generics.xsd http://www.opengis.net/citygml/vegetation/2.0 http://schemas.opengis.net/citygml/vegetation/2.0/vegetation.xsd http://www.opengis.net/citygml/relief/2.0 http://schemas.opengis.net/citygml/relief/2.0/relief.xsd http://www.opengis.net/citygml/transportation/2.0 http://schemas.opengis.net/citygml/transportation/2.0/transportation.xsd http://www.opengis.net/citygml/landuse/2.0 http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd">
   <cityObjectMember>
     <bldg:Building gml:id="UUID_4d4d75e4-83e7-46c1-9c1a-1faee756fcd4">
       <gml:name>Teststreet3</gml:name>
       <gml:boundedBy>
-        <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+        <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
           <gml:lowerCorner>202.42961441 244.634403648 -0.693008422852</gml:lowerCorner>
           <gml:upperCorner>218.556788788 256.44312233 21.4020614624</gml:upperCorner>
         </gml:Envelope>
@@ -14,12 +14,6 @@
         <informationSystem>german cadastre</informationSystem>
         <externalObject>
           <name>123456789.3</name>
-        </externalObject>
-      </externalReference>
-      <externalReference>
-        <informationSystem>C:\Dokumente und Einstellungen\nagel\Eigene Dateien\CityGML\maila-push\homepage\Frankfurt_Street_Setting_LOD3\Frankfurt_Street_Setting_LOD3.gml</informationSystem>
-        <externalObject>
-          <name>teststreet3</name>
         </externalObject>
       </externalReference>
       <app:appearance>
@@ -11844,7 +11838,7 @@
           </app:surfaceDataMember>
           <app:surfaceDataMember>
             <app:ParameterizedTexture gml:id="UUID_81a60e35-c168-42f3-94e7-450863a68f7c">
-              <app:imageURI>appearances/testtown-006.JPG</app:imageURI>
+              <app:imageURI>appearances/testtown-006.jpg</app:imageURI>
               <app:mimeType>image/jpeg</app:mimeType>
               <app:textureType>unknown</app:textureType>
               <app:wrapMode>wrap</app:wrapMode>
@@ -12018,7 +12012,7 @@
           </app:surfaceDataMember>
           <app:surfaceDataMember>
             <app:ParameterizedTexture gml:id="UUID_44bed858-541a-4a48-8a9a-afd2db0b581b">
-              <app:imageURI>appearances/testtown-005.PNG</app:imageURI>
+              <app:imageURI>appearances/testtown-005.png</app:imageURI>
               <app:mimeType>image/png</app:mimeType>
               <app:textureType>unknown</app:textureType>
               <app:wrapMode>wrap</app:wrapMode>
@@ -19265,7 +19259,7 @@
         <bldg:BuildingInstallation gml:id="UUID_af622c85-1919-41d4-be79-fb628245a081">
           <gml:name>Rainpipe-1</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>202.706002249 244.792131216 -0.688002894273</gml:lowerCorner>
               <gml:upperCorner>204.268702469 256.440898005 17.8547569246</gml:upperCorner>
             </gml:Envelope>
@@ -19660,7 +19654,7 @@
         <bldg:RoofSurface gml:id="UUID_48b43221-7016-48ff-bd08-a6ac157d3d10">
           <gml:name>Roof-1</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>202.945000992 244.915858688 17.8547592163</gml:lowerCorner>
               <gml:upperCorner>210.917231903 256.44312233 20.9650344849</gml:upperCorner>
             </gml:Envelope>
@@ -21141,7 +21135,7 @@
             <bldg:Window gml:id="UUID_f2a47274-b734-4e5d-934c-97f873200fa5">
               <gml:name>Window-1</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.7784286 254.636528259 18.1374952697</gml:lowerCorner>
                   <gml:upperCorner>204.83632136 255.140726788 19.2466671001</gml:upperCorner>
                 </gml:Envelope>
@@ -21175,7 +21169,7 @@
             <bldg:Window gml:id="UUID_357dd28c-6931-406d-8ec0-69a44aa8cc80">
               <gml:name>Window-2</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.775567465 245.902264145 18.1374956171</gml:lowerCorner>
                   <gml:upperCorner>203.833460357 246.406463815 19.2466674476</gml:upperCorner>
                 </gml:Envelope>
@@ -21209,7 +21203,7 @@
             <bldg:Window gml:id="UUID_9a4f4beb-101c-499e-8764-a717c8ad064f">
               <gml:name>Window-3</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.849996233 246.550504559 18.1374955913</gml:lowerCorner>
                   <gml:upperCorner>203.907889016 247.054704245 19.2466674218</gml:upperCorner>
                 </gml:Envelope>
@@ -21243,7 +21237,7 @@
             <bldg:Window gml:id="UUID_b157cdd3-8b5f-46fc-93f6-07aa5e435810">
               <gml:name>Window-4</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.234965781 249.903328652 18.1374942721</gml:lowerCorner>
                   <gml:upperCorner>204.292858439 250.407528349 19.2466672684</gml:upperCorner>
                 </gml:Envelope>
@@ -21277,7 +21271,7 @@
             <bldg:Window gml:id="UUID_b72f4249-ec4d-4230-bc23-f6316f9cce2b">
               <gml:name>Window-5</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.309399409 250.551587344 18.1374954322</gml:lowerCorner>
                   <gml:upperCorner>204.367292091 251.055785937 19.2466672626</gml:upperCorner>
                 </gml:Envelope>
@@ -21311,7 +21305,7 @@
             <bldg:Window gml:id="UUID_43cca0d6-dd36-438a-99eb-37c5c3ab6936">
               <gml:name>Window-6</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.703995837 253.988270462 18.1374941096</gml:lowerCorner>
                   <gml:upperCorner>204.761888716 254.492469592 19.2466671059</gml:upperCorner>
                 </gml:Envelope>
@@ -21347,7 +21341,7 @@
         <bldg:WallSurface gml:id="UUID_4b6e0c80-5510-4b43-bc3a-68816f90830d">
           <gml:name>Wall-1</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>202.538915024 244.670576515 -0.693008422852</gml:lowerCorner>
               <gml:upperCorner>204.962603912 256.44312233 17.8548812866</gml:upperCorner>
             </gml:Envelope>
@@ -43006,7 +43000,7 @@
             <bldg:Window gml:id="UUID_60bcdaeb-9833-46fc-8174-4564e8dae3e1">
               <gml:name>Window-1</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.37651702 245.826576783 14.4004903138</gml:lowerCorner>
                   <gml:upperCorner>203.507686654 246.968967969 16.3056674582</gml:upperCorner>
                 </gml:Envelope>
@@ -43040,7 +43034,7 @@
             <bldg:Window gml:id="UUID_1d2f4069-4ebd-40fa-b851-847cb819a6f5">
               <gml:name>Window-2</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.854664081 249.990963611 14.4004889422</gml:lowerCorner>
                   <gml:upperCorner>203.985834287 251.133359151 16.3056660866</gml:upperCorner>
                 </gml:Envelope>
@@ -43074,7 +43068,7 @@
             <bldg:Window gml:id="UUID_2a339872-85b4-4036-b78a-ff48952942e1">
               <gml:name>Window-3</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.326220967 254.097886791 14.402643753</gml:lowerCorner>
                   <gml:upperCorner>204.457439237 255.240703136 16.3057455609</gml:upperCorner>
                 </gml:Envelope>
@@ -43108,7 +43102,7 @@
             <bldg:Window gml:id="UUID_aca354b2-22bf-4161-8724-379f127062e9">
               <gml:name>Window-4</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.326268948 254.098308822 11.3690569976</gml:lowerCorner>
                   <gml:upperCorner>204.457438868 255.240702185 13.274233539</gml:upperCorner>
                 </gml:Envelope>
@@ -43142,7 +43136,7 @@
             <bldg:Window gml:id="UUID_d9f82539-eb4a-4ecc-b6ab-aa6b686f2cac">
               <gml:name>Window-5</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.854656652 249.990954494 10.5532996464</gml:lowerCorner>
                   <gml:upperCorner>203.985827114 251.133351067 13.2742337024</gml:upperCorner>
                 </gml:Envelope>
@@ -43194,7 +43188,7 @@
             <bldg:Window gml:id="UUID_7bc9cc76-4aec-40ab-8da5-fd5236504d02">
               <gml:name>Window-6</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.376517035 245.826576899 11.3690573266</gml:lowerCorner>
                   <gml:upperCorner>203.507686669 246.968968085 13.274235074</gml:upperCorner>
                 </gml:Envelope>
@@ -43228,7 +43222,7 @@
             <bldg:Window gml:id="UUID_c1bffd6c-c0cc-49e5-9574-fa3a1555d0ba">
               <gml:name>Window-7</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.326201222 254.097829362 7.95863627801</gml:lowerCorner>
                   <gml:upperCorner>204.457419487 255.240645708 9.86173748293</gml:upperCorner>
                 </gml:Envelope>
@@ -43262,7 +43256,7 @@
             <bldg:Window gml:id="UUID_1956c5d5-2faa-4b56-8045-149516d1cc14">
               <gml:name>Window-8</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.854656815 249.990954611 7.29489015758</gml:lowerCorner>
                   <gml:upperCorner>203.985827328 251.133351183 9.86165770715</gml:upperCorner>
                 </gml:Envelope>
@@ -43314,7 +43308,7 @@
             <bldg:Window gml:id="UUID_460b55e9-87e1-490b-87d4-631c48cfac1a">
               <gml:name>Window-9</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.379025792 245.848508708 7.95854978003</gml:lowerCorner>
                   <gml:upperCorner>203.505150824 246.946969619 9.86165098319</gml:upperCorner>
                 </gml:Envelope>
@@ -43348,7 +43342,7 @@
             <bldg:Window gml:id="UUID_299e75a5-a285-48fd-a478-71a6952c3862">
               <gml:name>Window-10</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.325012424 254.098061701 4.55477171121</gml:lowerCorner>
                   <gml:upperCorner>204.456230689 255.240878046 6.45787261465</gml:upperCorner>
                 </gml:Envelope>
@@ -43382,7 +43376,7 @@
             <bldg:Window gml:id="UUID_9b5a1052-f817-4d6d-b259-656495079581">
               <gml:name>Window-11</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.85344335 249.99109998 4.55469654861</gml:lowerCorner>
                   <gml:upperCorner>203.984613556 251.13349552 6.45987339148</gml:upperCorner>
                 </gml:Envelope>
@@ -43416,7 +43410,7 @@
             <bldg:Window gml:id="UUID_4a306e1b-bbf9-42c5-88cc-799ed7f06738">
               <gml:name>Window-12</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.37650367 245.826570674 4.55469671426</gml:lowerCorner>
                   <gml:upperCorner>203.507673565 246.968965141 6.45987355713</gml:upperCorner>
                 </gml:Envelope>
@@ -43450,7 +43444,7 @@
             <bldg:Window gml:id="UUID_f077e5da-cd3b-467a-bf26-ce8e1d211550">
               <gml:name>Window-13</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.256615519 252.982930317 0.745245858234</gml:lowerCorner>
                   <gml:upperCorner>204.421850503 254.128959687 3.10730774361</gml:upperCorner>
                 </gml:Envelope>
@@ -43916,7 +43910,7 @@
             <bldg:Window gml:id="UUID_17a49438-703d-4b3c-a812-77adb98811fa">
               <gml:name>Window-14</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.807187791 249.177947984 1.54755127909</gml:lowerCorner>
                   <gml:upperCorner>204.189547823 252.213982414 3.1355708499</gml:upperCorner>
                 </gml:Envelope>
@@ -44463,7 +44457,7 @@
             <bldg:Window gml:id="UUID_41a1e63a-21be-4593-b8f3-c9d99b70636b">
               <gml:name>Window-15</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.591059265 247.240832331 0.745246086664</gml:lowerCorner>
                   <gml:upperCorner>203.75629425 248.386861157 3.10730736907</gml:upperCorner>
                 </gml:Envelope>
@@ -44929,7 +44923,7 @@
             <bldg:Door gml:id="UUID_4f01244b-4c31-460e-9fc5-b37213623a0a">
               <gml:name>Door-1</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>204.799845752 255.019252172 0.356838796923</gml:lowerCorner>
                   <gml:upperCorner>204.972987609 256.104992586 3.13540747537</gml:upperCorner>
                 </gml:Envelope>
@@ -45548,7 +45542,7 @@
             <bldg:Door gml:id="UUID_4eb10e46-5808-4c39-acc7-9f1200e937bb">
               <gml:name>Door-2</gml:name>
               <gml:boundedBy>
-                <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+                <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
                   <gml:lowerCorner>203.664284706 245.184394443 0.356838738455</gml:lowerCorner>
                   <gml:upperCorner>203.837426723 246.270134279 3.13540723003</gml:upperCorner>
                 </gml:Envelope>
@@ -46169,7 +46163,7 @@
         <bldg:WallSurface gml:id="UUID_ee108106-3869-4ee1-a0f8-adbc7bc22efa">
           <gml:name>Wall-4</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>215.436763153 245.397134247 -0.68798828125</gml:lowerCorner>
               <gml:upperCorner>218.556788788 254.806910934 17.8553848267</gml:upperCorner>
             </gml:Envelope>
@@ -46266,7 +46260,7 @@
         <bldg:WallSurface gml:id="UUID_4d1379db-8e11-430a-bc85-f71123db0979">
           <gml:name>Wall-3</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>204.395160065 254.806910934 -0.692970275879</gml:lowerCorner>
               <gml:upperCorner>218.506800995 256.42859024 20.9650192261</gml:upperCorner>
             </gml:Envelope>
@@ -46543,7 +46537,7 @@
         <bldg:WallSurface gml:id="UUID_7b78e981-4622-4d56-a6f2-3ffc94876b87">
           <gml:name>Wall-2</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>202.42961441 244.634403648 -0.693008422852</gml:lowerCorner>
               <gml:upperCorner>215.462790833 245.657360497 21.4020614624</gml:upperCorner>
             </gml:Envelope>
@@ -47270,7 +47264,7 @@
         <bldg:RoofSurface gml:id="UUID_b14b1570-e3b2-4bfd-9f11-b66ef697076f">
           <gml:name>Roof-2</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>209.720780716 245.317227783 17.8550338745</gml:lowerCorner>
               <gml:upperCorner>218.556788788 255.679086151 20.9650344849</gml:upperCorner>
             </gml:Envelope>
@@ -47358,7 +47352,7 @@
         <bldg:GroundSurface gml:id="UUID_4297ea64-e18d-48c1-91fb-2dc623ee9dbf">
           <gml:name>Ground-1</gml:name>
           <gml:boundedBy>
-            <gml:Envelope srsDimension="3" srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783">
+            <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:3068,crs:EPSG:6.12:5783" srsDimension="3">
               <gml:lowerCorner>203.038785324 244.676700058 -0.693008422852</gml:lowerCorner>
               <gml:upperCorner>218.556788788 256.422381821 -0.687950134277</gml:upperCorner>
             </gml:Envelope>

@@ -45,7 +45,7 @@ public class MultiThreadedReader {
                 .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_railway_v3.gml");
-        log.print("Reading city model members from the file " + file.getFileName() + " in a multi-threaded way");
+        log.print("Reading city model members from the file " + file + " in a multi-threaded way");
 
         int threads = Runtime.getRuntime().availableProcessors();
         log.print("Starting thread pool with " + threads + " threads");
@@ -58,8 +58,7 @@ public class MultiThreadedReader {
                 service.submit((Callable<Void>) () -> {
                     AbstractFeature feature = chunk.build();
                     log.print("[" + Thread.currentThread().getName() + "]" +
-                            " Found " + feature.getClass().getSimpleName() +
-                            " instance with gml:id " + feature.getId());
+                            " Created " + feature.getClass().getSimpleName() + " object from chunk");
                     return null;
                 });
             }

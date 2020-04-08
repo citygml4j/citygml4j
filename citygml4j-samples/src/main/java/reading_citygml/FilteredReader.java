@@ -42,7 +42,7 @@ public class FilteredReader {
                 .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_railway_v3.gml");
-        log.print("Reading only bridges from the file " + file.getFileName() + " by using a filter");
+        log.print("Reading only bridges from the file " + file + " by using a filter");
 
         CityGMLInputFilter filter = name -> name.getLocalPart().equals("Bridge")
                 && CityGMLModules.isCityGMLNamespace(name.getNamespaceURI());
