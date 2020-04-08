@@ -18,6 +18,11 @@
   ~ limitations under the License.
   -->
 
+<!--
+  ~ This template removes address elements from CityGML 2.0 buildings.
+  ~ Adapt the namespace if you want to apply this template to other
+  ~ CityGML versions.
+  -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
   exclude-result-prefixes="xs" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" version="1.0">
   <xsl:output method="xml" encoding="UTF-8"/>
