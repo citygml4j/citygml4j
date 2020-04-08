@@ -98,8 +98,11 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> implemen
         for (AbstractCityObjectProperty property : object.getCityObjectMembers())
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
 
-        for (AbstractAppearanceProperty property : object.getAppearanceMembers())
-            writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
+        if (!object.getAppearanceMembers().isEmpty()) {
+            String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
+            for (AbstractAppearanceProperty property : object.getAppearanceMembers())
+                writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
+        }
 
         for (AbstractFeatureProperty property : object.getFeatureMembers())
             writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
