@@ -171,6 +171,11 @@ public class CityGMLInputFactory {
         return this;
     }
 
+    public CityGMLInputFactory withProperty(Object value) {
+        factory.withProperty(value);
+        return this;
+    }
+
     public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException {
         try {
             return validate().createReader(factory.createReader(file));

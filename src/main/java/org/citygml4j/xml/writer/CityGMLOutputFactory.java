@@ -46,6 +46,11 @@ public class CityGMLOutputFactory {
         return this;
     }
 
+    public CityGMLOutputFactory withProperty(Object value) {
+        factory.withProperty(value);
+        return this;
+    }
+
     public TransformerPipeline getTransformer() {
         return transformer;
     }
