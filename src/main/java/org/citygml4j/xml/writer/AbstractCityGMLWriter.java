@@ -6,6 +6,8 @@ import org.citygml4j.xml.module.ade.ADEModule;
 import org.citygml4j.xml.module.citygml.CityGMLModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CoreModule;
+import org.citygml4j.xml.module.gml.GMLCompactEncodingModule;
+import org.citygml4j.xml.module.gml.GMLExtendedBaseTypesModule;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
@@ -24,10 +26,15 @@ public abstract class AbstractCityGMLWriter<T extends AbstractCityGMLWriter<?>> 
         this.writer = writer;
         this.version = version;
         this.factory = factory;
-        
+
         namespaces = Namespaces.newInstance();
         for (Module module : CityGMLModules.of(version).getModules())
             namespaces.add(module.getNamespaceURI());
+
+        if (version == CityGMLVersion.v3_0) {
+            namespaces.add(GMLCompactEncodingModule.v3_3.getNamespaceURI())
+                    .add(GMLExtendedBaseTypesModule.v3_3.getNamespaceURI());
+        }
     }
 
     public String getPrefix(String namespaceURI) {
