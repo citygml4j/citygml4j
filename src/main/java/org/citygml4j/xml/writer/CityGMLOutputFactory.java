@@ -2,8 +2,13 @@ package org.citygml4j.xml.writer;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
+import org.citygml4j.xml.converter.DefaultSimpleMultiPointConverter;
+import org.citygml4j.xml.converter.DefaultSimplePolygonConverter;
+import org.citygml4j.xml.converter.DefaultSimpleRectangleConverter;
+import org.citygml4j.xml.converter.DefaultSimpleTriangleConverter;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xml.sax.ContentHandler;
+import org.xmlobjects.gml.util.GMLConstants;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriterFactory;
 import org.xmlobjects.util.Properties;
@@ -52,6 +57,14 @@ public class CityGMLOutputFactory {
 
     public CityGMLOutputFactory withTransformer(TransformerPipeline transformer) {
         this.transformer = transformer;
+        return this;
+    }
+
+    public CityGMLOutputFactory withDefaultCompactEncodingConverters() {
+        factory.withProperty(GMLConstants.SIMPLE_POLYGON_CONVERTER, new DefaultSimplePolygonConverter());
+        factory.withProperty(GMLConstants.SIMPLE_RECTANGLE_CONVERTER, new DefaultSimpleRectangleConverter());
+        factory.withProperty(GMLConstants.SIMPLE_TRIANGLE_CONVERTER, new DefaultSimpleTriangleConverter());
+        factory.withProperty(GMLConstants.SIMPLE_MULTI_POINT_CONVERTER,new DefaultSimpleMultiPointConverter());
         return this;
     }
 
