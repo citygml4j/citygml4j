@@ -58,7 +58,7 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractFeatureWithLifespan.class, object.getADEPropertiesOfAbstractFeatureWithLifespan(),
                 GenericADEPropertyOfAbstractFeatureWithLifespan::of, reader, substitutionGroup))
-            object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override
