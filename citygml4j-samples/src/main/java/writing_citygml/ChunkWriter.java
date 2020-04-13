@@ -35,6 +35,7 @@ import org.xmlobjects.gml.model.geometry.Envelope;
 import util.Logger;
 import util.Util;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,7 +70,7 @@ public class ChunkWriter {
         Path output = Util.getOutputFile();
         log.print("Creating CityGML " + version + " writer for file " + output);
 
-        try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output)) {
+        try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndentString("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()

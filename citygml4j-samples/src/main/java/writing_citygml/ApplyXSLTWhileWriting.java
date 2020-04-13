@@ -35,6 +35,7 @@ import util.Util;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 public class ApplyXSLTWhileWriting {
@@ -63,7 +64,7 @@ public class ApplyXSLTWhileWriting {
         log.print("Creating CityGML " + version + " writer for file " + output);
 
         try (CityGMLReader reader = in.createCityGMLReader(file);
-             CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output)) {
+             CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndentString("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()
