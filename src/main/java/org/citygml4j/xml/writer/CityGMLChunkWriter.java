@@ -91,7 +91,7 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         }
 
         try {
-            XMLWriter writer = getWriter(this.writer.getContentHandler());
+            XMLWriter writer = getWriter(this.writer.getContentHandler(true));
             writer.writeStartDocument();
             writer.writeStartElement(Element.of(namespaceURI, propertyName));
             writer.writeObject(feature, namespaces);
@@ -114,8 +114,6 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
                 cityModel.setADEPropertiesOfCityModel(null);
             } else
                 cityModel = new CityModel();
-
-            writer.writeStartDocument();
 
             SAXFragmentHandler fragmentHandler = new SAXFragmentHandler(
                     writer.getContentHandler(),
@@ -150,8 +148,6 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
             writer.writeStartDocument();
             writer.writeObject(cityModel, namespaces);
             writer.writeEndDocument();
-
-            this.writer.writeEndDocument();
         } catch (XMLWriteException | ObjectSerializeException e) {
             throw new CityGMLWriteException("Caused by:", e);
         }
