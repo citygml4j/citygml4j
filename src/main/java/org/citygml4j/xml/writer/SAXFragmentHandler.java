@@ -55,11 +55,11 @@ public class SAXFragmentHandler implements ContentHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-        if (depth++ == 1 && mode == Mode.FOOTER)
-            shouldHandle = true;
-
         if (shouldHandle)
             parent.startElement(uri, localName, qName, atts);
+
+        if (depth++ == 0 && mode == Mode.FOOTER)
+            shouldHandle = true;
     }
 
     @Override
