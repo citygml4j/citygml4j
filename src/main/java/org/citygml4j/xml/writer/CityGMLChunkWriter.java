@@ -1,7 +1,6 @@
 package org.citygml4j.xml.writer;
 
 import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.core.ADEPropertyOfCityModel;
 import org.citygml4j.model.core.AbstractAppearance;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractFeature;
@@ -13,7 +12,6 @@ import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.reader.FeatureInfo;
 import org.xml.sax.ContentHandler;
-import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
@@ -21,16 +19,11 @@ import org.xmlobjects.stream.XMLWriterFactory;
 import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.xml.Element;
 
-import javax.xml.namespace.QName;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXResult;
-import java.util.List;
 
 public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter> {
-    private SAXFragmentHandler fragmentHandler;
-    private CityModel cityModel = new CityModel();
-    private List<ADEPropertyOfCityModel<?>> adeProperties;
-    private List<GenericElement> genericProperties;
+    private CityModelInfo cityModelInfo;
     private State state = State.INITIAL;
 
     private enum State {
@@ -43,38 +36,31 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         super(writer, version, factory);
     }
 
-    public CityModel getCityModel() {
-        return cityModel;
+    public CityModelInfo getCityModelInfo() {
+        if (cityModelInfo == null)
+            cityModelInfo = new CityModelInfo();
+
+        return cityModelInfo;
     }
 
-    public CityGMLChunkWriter withCityModel(CityModel cityModel) {
-        if (cityModel != null) {
-            this.cityModel = (CityModel) cityModel.shallowCopy(new CopyBuilder());
-            this.cityModel.setCityObjectMembers(null);
-            this.cityModel.setAppearanceMembers(null);
-            this.cityModel.setFeatureMembers(null);
-            this.cityModel.setVersionMembers(null);
-            this.cityModel.setVersionTransitionMembers(null);
-            this.adeProperties = cityModel.getADEPropertiesOfCityModel();
-            this.cityModel.setADEPropertiesOfCityModel(null);
-            this.genericProperties = cityModel.getGenericProperties();
-            this.cityModel.setGenericProperties(null);
-        }
+    public CityGMLChunkWriter withCityModelInfo(CityModel cityModel) {
+        if (cityModel != null)
+            cityModelInfo = new CityModelInfo(cityModel);
 
         return this;
     }
 
-    public CityGMLChunkWriter withCityModel(FeatureInfo featureInfo) {
+    public CityGMLChunkWriter withCityModelInfo(FeatureInfo featureInfo) {
         if (featureInfo != null) {
-            cityModel = new CityModel();
-            cityModel.setId(featureInfo.getId());
-            cityModel.setMetaDataProperties(featureInfo.getMetaDataProperties());
-            cityModel.setDescription(featureInfo.getDescription());
-            cityModel.setDescriptionReference(featureInfo.getDescriptionReference());
-            cityModel.setIdentifier(featureInfo.getIdentifier());
-            cityModel.setNames(featureInfo.getNames());
-            cityModel.setBoundedBy(featureInfo.getBoundedBy());
-            cityModel.setEngineeringCRS(featureInfo.getEngineeringCRS());
+            cityModelInfo = new CityModelInfo();
+            cityModelInfo.setId(featureInfo.getId());
+            cityModelInfo.setMetaDataProperties(featureInfo.getMetaDataProperties());
+            cityModelInfo.setDescription(featureInfo.getDescription());
+            cityModelInfo.setDescriptionReference(featureInfo.getDescriptionReference());
+            cityModelInfo.setIdentifier(featureInfo.getIdentifier());
+            cityModelInfo.setNames(featureInfo.getNames());
+            cityModelInfo.setBoundedBy(featureInfo.getBoundedBy());
+            cityModelInfo.setEngineeringCRS(featureInfo.getEngineeringCRS());
         }
 
         return this;
@@ -122,11 +108,17 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
             throw new CityGMLWriteException("The document has already been started.");
 
         try {
+            CityModel cityModel;
+            if (cityModelInfo != null) {
+                cityModel = (CityModel) cityModelInfo.getCityModel().shallowCopy(new CopyBuilder());
+                cityModel.setADEPropertiesOfCityModel(null);
+            } else
+                cityModel = new CityModel();
+
             writer.writeStartDocument();
 
-            fragmentHandler = new SAXFragmentHandler(
+            SAXFragmentHandler fragmentHandler = new SAXFragmentHandler(
                     writer.getContentHandler(),
-                    new QName(CoreModule.of(version).getNamespaceURI(), "CityModel"),
                     SAXFragmentHandler.Mode.HEADER);
 
             XMLWriter writer = getWriter(fragmentHandler);
@@ -146,33 +138,21 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
             writeHeader();
 
         try {
-            XMLWriter writer = getWriter(this.writer.getContentHandler());
-            if (adeProperties != null) {
-                for (ADEPropertyOfCityModel<?> adeProperty : adeProperties) {
-                    writer.writeStartDocument();
-                    writer.writeObject(adeProperty, namespaces);
-                    writer.writeEndDocument();
-                    resetTransformer();
-                }
-            }
+            CityModel cityModel = new CityModel();
+            if (cityModelInfo != null)
+                cityModel.setADEPropertiesOfCityModel(cityModelInfo.getCityModel().getADEPropertiesOfCityModel());
 
-            if (genericProperties != null) {
-                for (GenericElement genericProperty : genericProperties) {
-                    writer.writeStartDocument();
-                    writer.writeDOMElement(genericProperty.getContent());
-                    writer.writeEndDocument();
-                    resetTransformer();
-                }
-            }
+            SAXFragmentHandler fragmentHandler = new SAXFragmentHandler(
+                    writer.getContentHandler(),
+                    SAXFragmentHandler.Mode.FOOTER);
 
-            fragmentHandler.setMode(SAXFragmentHandler.Mode.FOOTER);
-            writer = getWriter(fragmentHandler);
+            XMLWriter writer = getWriter(fragmentHandler);
             writer.writeStartDocument();
-            writer.writeObject(new CityModel(), namespaces);
+            writer.writeObject(cityModel, namespaces);
             writer.writeEndDocument();
 
             this.writer.writeEndDocument();
-        } catch (XMLWriteException | TransformerException | ObjectSerializeException e) {
+        } catch (XMLWriteException | ObjectSerializeException e) {
             throw new CityGMLWriteException("Caused by:", e);
         }
     }

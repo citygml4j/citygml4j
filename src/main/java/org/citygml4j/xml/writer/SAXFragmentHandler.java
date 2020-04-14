@@ -5,31 +5,23 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-import javax.xml.namespace.QName;
 import java.util.Objects;
 
 public class SAXFragmentHandler implements ContentHandler {
     private final ContentHandler parent;
-    private final QName stopAt;
+    private final Mode mode;
     private boolean shouldHandle;
+    private int depth;
 
     public enum Mode {
         HEADER,
         FOOTER
     }
 
-    public SAXFragmentHandler(ContentHandler parent, QName stopAt, Mode mode) {
+    public SAXFragmentHandler(ContentHandler parent, Mode mode) {
         this.parent = Objects.requireNonNull(parent, "The parent handler must not be null.");
-        this.stopAt = Objects.requireNonNull(stopAt, "The break condition must not be null.");
+        this.mode = mode;
         shouldHandle = mode == Mode.HEADER;
-    }
-
-    public void setMode(Mode mode) {
-        shouldHandle = mode == Mode.HEADER;
-    }
-
-    public SAXFragmentHandler(ContentHandler parent, QName stopAt) {
-        this(parent, stopAt, Mode.HEADER);
     }
 
     @Override
@@ -63,14 +55,17 @@ public class SAXFragmentHandler implements ContentHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+        if (depth++ == 1 && mode == Mode.FOOTER)
+            shouldHandle = true;
+
         if (shouldHandle)
             parent.startElement(uri, localName, qName, atts);
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (stopAt.getLocalPart().equals(localName) && stopAt.getNamespaceURI().equals(uri))
-            shouldHandle = !shouldHandle;
+        if (--depth == 0 && mode == Mode.HEADER)
+            shouldHandle = false;
 
         if (shouldHandle)
             parent.endElement(uri, localName, qName);

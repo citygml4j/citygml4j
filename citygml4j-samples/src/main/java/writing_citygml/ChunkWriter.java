@@ -78,10 +78,10 @@ public class ChunkWriter {
                     .withHeaderComment("File created with citygml4j");
 
             log.print("Setting metadata on the CityModel of the target file");
-            writer.getCityModel().setDescription(new StringOrRef("Collection of tunnel objects"));
+            writer.getCityModelInfo().setDescription(new StringOrRef("Collection of tunnel objects"));
 
             Envelope envelope = new Envelope();
-            writer.getCityModel().setBoundedBy(new BoundingShape(envelope));
+            writer.getCityModelInfo().setBoundedBy(new BoundingShape(envelope));
             tunnels.stream()
                     .map(Tunnel::computeEnvelope)
                     .forEach(envelope::include);
