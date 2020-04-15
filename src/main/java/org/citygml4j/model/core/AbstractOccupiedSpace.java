@@ -1,6 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -89,7 +88,7 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractOccupiedSpace<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

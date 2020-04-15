@@ -1,6 +1,5 @@
 package org.citygml4j.model.waterbody;
 
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -38,7 +37,7 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
 
         if (adeProperties != null) {
             for (ADEPropertyOfWaterSurface<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

@@ -1,7 +1,6 @@
 package org.citygml4j.model.waterbody;
 
 import org.citygml4j.model.core.AbstractThematicSurface;
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -28,7 +27,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractThematicSurfa
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractWaterBoundarySurface<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

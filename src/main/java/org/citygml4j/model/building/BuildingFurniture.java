@@ -4,7 +4,6 @@ import org.citygml4j.model.construction.AbstractFurniture;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingFurniture;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -92,7 +91,7 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
 
         if (adeProperties != null) {
             for (ADEPropertyOfBuildingFurniture<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

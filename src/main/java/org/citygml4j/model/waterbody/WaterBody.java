@@ -6,7 +6,6 @@ import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.waterbody.DeprecatedPropertiesOfWaterBody;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -104,7 +103,7 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
 
         if (adeProperties != null) {
             for (ADEPropertyOfWaterBody<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

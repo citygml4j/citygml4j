@@ -4,7 +4,6 @@ import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfAbstractTunnel;
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -164,7 +163,7 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractTunnel<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

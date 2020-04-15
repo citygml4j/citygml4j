@@ -1,7 +1,6 @@
 package org.citygml4j.model.relief;
 
 import org.citygml4j.model.core.AbstractPointCloudProperty;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
@@ -67,7 +66,7 @@ public class MassPointRelief extends AbstractReliefComponent {
 
         if (adeProperties != null) {
             for (ADEPropertyOfMassPointRelief<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

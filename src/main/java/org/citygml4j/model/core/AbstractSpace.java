@@ -1,6 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
@@ -294,7 +293,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractSpace<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

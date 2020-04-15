@@ -2,7 +2,6 @@ package org.citygml4j.model.construction;
 
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.deprecated.construction.DeprecatedPropertiesOfAbstractFillingSurface;
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -52,7 +51,7 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractFillingSurface<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

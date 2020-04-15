@@ -1,7 +1,6 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -135,7 +134,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractCityObject<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

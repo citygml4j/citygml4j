@@ -1,6 +1,5 @@
 package org.citygml4j.model.construction;
 
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -28,7 +27,7 @@ public class OuterFloorSurface extends AbstractConstructionSurface {
 
         if (adeProperties != null) {
             for (ADEPropertyOfOuterFloorSurface<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

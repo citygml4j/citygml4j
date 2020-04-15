@@ -1,7 +1,6 @@
 package org.citygml4j.model.pointcloud;
 
 import org.citygml4j.model.core.AbstractPointCloud;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -83,7 +82,7 @@ public class PointCloud extends AbstractPointCloud {
 
         if (adeProperties != null) {
             for (ADEPropertyOfPointCloud<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

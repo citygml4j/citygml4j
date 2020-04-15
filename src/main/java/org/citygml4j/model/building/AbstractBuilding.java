@@ -5,7 +5,6 @@ import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.MeasureOrNilReasonList;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -245,7 +244,7 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractBuilding<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

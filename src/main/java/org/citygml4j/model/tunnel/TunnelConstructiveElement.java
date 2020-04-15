@@ -2,7 +2,6 @@ package org.citygml4j.model.tunnel;
 
 import org.citygml4j.model.construction.AbstractConstructiveElement;
 import org.citygml4j.model.core.StandardObjectClassifier;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -70,7 +69,7 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
 
         if (adeProperties != null) {
             for (ADEPropertyOfTunnelConstructiveElement<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

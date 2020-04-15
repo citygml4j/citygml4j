@@ -1,6 +1,5 @@
 package org.citygml4j.model.tunnel;
 
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -47,7 +46,7 @@ public class Tunnel extends AbstractTunnel {
 
         if (adeProperties != null) {
             for (ADEPropertyOfTunnel<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

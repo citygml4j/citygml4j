@@ -4,7 +4,6 @@ import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -63,7 +62,7 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractConstructiveElement<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

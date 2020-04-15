@@ -1,6 +1,5 @@
 package org.citygml4j.model.relief;
 
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -48,7 +47,7 @@ public class TINRelief extends AbstractReliefComponent {
 
         if (adeProperties != null) {
             for (ADEPropertyOfTINRelief<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

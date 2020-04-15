@@ -1,6 +1,5 @@
 package org.citygml4j.model.building;
 
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -47,7 +46,7 @@ public class Building extends AbstractBuilding {
 
         if (adeProperties != null) {
             for (ADEPropertyOfBuilding<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

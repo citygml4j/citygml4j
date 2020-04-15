@@ -1,6 +1,5 @@
 package org.citygml4j.model.building;
 
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -41,7 +40,7 @@ public class Storey extends AbstractBuildingSubdivision {
 
         if (adeProperties != null) {
             for (ADEPropertyOfStorey<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

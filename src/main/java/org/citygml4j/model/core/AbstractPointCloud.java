@@ -1,6 +1,5 @@
 package org.citygml4j.model.core;
 
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -25,7 +24,7 @@ public abstract class AbstractPointCloud extends AbstractFeature {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractPointCloud<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

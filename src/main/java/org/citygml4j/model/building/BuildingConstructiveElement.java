@@ -2,7 +2,6 @@ package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.AbstractConstructiveElement;
 import org.citygml4j.model.core.StandardObjectClassifier;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -70,7 +69,7 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
 
         if (adeProperties != null) {
             for (ADEPropertyOfBuildingConstructiveElement<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

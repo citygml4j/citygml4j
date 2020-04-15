@@ -1,7 +1,6 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.core.AddressProperty;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -54,7 +53,7 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
 
         if (adeProperties != null) {
             for (ADEPropertyOfBuildingUnit<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

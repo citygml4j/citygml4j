@@ -7,7 +7,6 @@ import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.citygml4j.util.Envelopes;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -151,7 +150,7 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractBuildingSubdivision<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 }

@@ -3,7 +3,6 @@ package org.citygml4j.model.transportation;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -48,7 +47,7 @@ public class Intersection extends AbstractTransportationSpace {
 
         if (adeProperties != null) {
             for (ADEPropertyOfIntersection<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 

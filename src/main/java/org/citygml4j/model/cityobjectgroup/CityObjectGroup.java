@@ -7,7 +7,6 @@ import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.cityobjectgroup.DeprecatedPropertiesOfCityObjectGroup;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.citygml4j.util.Envelopes;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -128,7 +127,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
 
         if (adeProperties != null) {
             for (ADEPropertyOfCityObjectGroup<?> property : adeProperties)
-                Envelopes.updateEnvelope(property, envelope, options);
+                updateEnvelope(property, envelope, options);
         }
     }
 
