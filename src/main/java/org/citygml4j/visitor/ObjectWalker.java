@@ -1933,16 +1933,11 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             return;
 
         if (adeObject instanceof AbstractFeature)
-            adeObject.accept(this);
+            visit((AbstractFeature) adeObject);
         else if (adeObject instanceof AbstractGML)
             visit((AbstractGML) adeObject);
-        else if (adeObject instanceof ADEProperty<?>) {
-            Object value = ((ADEProperty<?>) adeObject).getValue();
-            if (value instanceof AbstractAssociation<?>)
-                visitProperty((AbstractAssociation<?>) value);
-            else
-                visitObject(value);
-        }
+        else if (adeObject instanceof ADEProperty<?>)
+            visitObject(((ADEProperty<?>) adeObject).getValue());
     }
 
     public void visit(GenericElement genericElement) {
@@ -1994,6 +1989,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             ((AbstractCoverage<?>) object).accept(this);
         else if (object instanceof AbstractGeometry)
             ((AbstractGeometry) object).accept(this);
+        else if (object instanceof AbstractAssociation<?>)
+            visitProperty((AbstractAssociation<?>) object);
     }
 
     private void visitProperty(AbstractAssociation<?> property) {
