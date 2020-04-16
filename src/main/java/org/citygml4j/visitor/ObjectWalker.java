@@ -1926,17 +1926,18 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
 
     @Override
     public void visit(ADEObject adeObject) {
-        if (adeWalkerHelper.visitObject(adeObject, adeObject.getClass()))
-            return;
+        boolean visited = adeWalkerHelper.visitObject(adeObject, adeObject.getClass());
 
-        if (adeObject instanceof ADEProperty<?>)
-            visitObject(((ADEProperty<?>) adeObject).getValue());
-        else {
-            Class<?> parent = adeObject.getClass().getSuperclass();
-            if (parent != null)
-                adeWalkerHelper.visitObject(adeObject, parent);
+        if (!visited) {
+            if (adeObject instanceof ADEProperty<?>)
+                visitObject(((ADEProperty<?>) adeObject).getValue());
+            else {
+                Class<?> parent = adeObject.getClass().getSuperclass();
+                if (parent != null)
+                    adeWalkerHelper.visitObject(adeObject, parent);
 
-            adeWalkerHelper.visitFields(adeObject);
+                adeWalkerHelper.visitFields(adeObject);
+            }
         }
     }
 
