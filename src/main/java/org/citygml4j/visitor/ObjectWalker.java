@@ -193,6 +193,7 @@ import org.citygml4j.model.waterbody.WaterBody;
 import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterSurface;
 import org.citygml4j.xml.ade.ADEContext;
+import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.gml.model.base.AbstractArrayProperty;
 import org.xmlobjects.gml.model.base.AbstractAssociation;
 import org.xmlobjects.gml.model.base.AbstractGML;
@@ -1931,7 +1932,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (!visited) {
             if (adeObject instanceof ADEProperty<?>)
                 visitObject(((ADEProperty<?>) adeObject).getValue());
-            else {
+            else if (adeObject instanceof GMLObject) {
                 Class<?> parent = adeObject.getClass().getSuperclass();
                 if (parent != null)
                     adeWalkerHelper.visitObject(adeObject, parent);
