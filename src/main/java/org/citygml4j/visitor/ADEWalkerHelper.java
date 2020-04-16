@@ -2,21 +2,27 @@ package org.citygml4j.visitor;
 
 import org.citygml4j.model.ade.ADEObject;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ADEWalkerHelper {
-    private final Deque<ADEWalker> walkers;
-    private final Map<String, AbstractMap.SimpleEntry<ADEWalker, Method>> methods;
+    private final ObjectWalker parent;
+    private final Deque<Walker> walkers = new ArrayDeque<>();
+    private final Map<String, AbstractMap.SimpleEntry<Walker, Method>> methods = new HashMap<>();
+    private final Map<String, Field[]> fields = new HashMap<>();
 
-    ADEWalkerHelper() {
-        walkers = new ArrayDeque<>();
-        methods = new HashMap<>();
+    ADEWalkerHelper(ObjectWalker parent) {
+        this.parent = parent;
+        walkers.addFirst(parent);
     }
 
     void addADEWalker(ADEWalker walker) {
@@ -24,30 +30,27 @@ public class ADEWalkerHelper {
         methods.clear();
     }
 
-    boolean visit(ADEObject adeObject) {
-        ADEWalker walker = null;
+    boolean visitObject(ADEObject adeObject, Class<?> type) {
+        Walker walker = null;
         Method method = null;
 
-        String key = adeObject.getClass().getName() + '.' + "visit";
-        AbstractMap.SimpleEntry<ADEWalker, Method> entry = methods.get(key);
-        if (entry != null) {
-            walker = entry.getKey();
-            method = entry.getValue();
-        } else {
-            for (ADEWalker registeredWalker : walkers) {
-                if (registeredWalker != null) {
-                    try {
-                        method = registeredWalker.getClass().getMethod("visit", adeObject.getClass());
-                        method.setAccessible(true);
-                        walker = registeredWalker;
-
-                        methods.put(key, new AbstractMap.SimpleEntry<>(walker, method));
-                        break;
-                    } catch (NoSuchMethodException e) {
-                        // ignore
-                    }
+        String key = type.getName() + '.' + "visit";
+        AbstractMap.SimpleEntry<Walker, Method> entry = methods.get(key);
+        if (entry == null) {
+            for (Walker candidate : walkers) {
+                try {
+                    method = candidate.getClass().getMethod("visit", type);
+                    method.setAccessible(true);
+                    walker = candidate;
+                    methods.put(key, new AbstractMap.SimpleEntry<>(walker, method));
+                    break;
+                } catch (NoSuchMethodException e) {
+                    // ignore
                 }
             }
+        } else {
+            walker = entry.getKey();
+            method = entry.getValue();
         }
 
         if (method != null) {
@@ -58,7 +61,32 @@ public class ADEWalkerHelper {
             }
 
             return true;
-        } else
+        } else {
+            if (entry == null)
+                methods.put(key, new AbstractMap.SimpleEntry<>(null, null));
+
             return false;
+        }
+    }
+
+    void visitFields(ADEObject adeObject) {
+        Class<?> type = adeObject.getClass();
+        Field[] fields = this.fields.computeIfAbsent(type.getName(), v -> type.getDeclaredFields());
+
+        for (Field field : fields) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(adeObject);
+
+                if (value instanceof Collection<?>)
+                    new ArrayList<>((Collection<?>) value).forEach(parent::visitObject);
+                else if (value instanceof Object[])
+                    Arrays.stream(((Object[]) value)).forEach(parent::visitObject);
+                else if (value != null)
+                    parent.visitObject(value);
+            } catch (Throwable e) {
+                //
+            }
+        }
     }
 }

@@ -223,23 +223,20 @@ import org.xmlobjects.gml.visitor.GeometryWalker;
 
 import java.util.ArrayList;
 
-public abstract class ObjectWalker extends GeometryWalker implements ObjectVisitor {
-    ADEWalkerHelper adeWalkerHelper;
+public abstract class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walker {
+    final ADEWalkerHelper adeWalkerHelper = new ADEWalkerHelper(this);
     boolean shouldWalk = true;
 
     public ObjectWalker() {
         ADERegistry registry = ADERegistry.getInstance();
         if (registry.hasADEContexts()) {
-            for (ADEContext context : ADERegistry.getInstance().getADEContexts())
+            for (ADEContext context : registry.getADEContexts())
                 withADEWalker(context.getADEWalker());
         }
     }
 
     public ObjectWalker withADEWalker(ADEWalker walker) {
         if (walker != null) {
-            if (adeWalkerHelper == null)
-                adeWalkerHelper = new ADEWalkerHelper();
-
             adeWalkerHelper.addADEWalker(walker);
             walker.setParentWalker(this);
         }
@@ -1929,15 +1926,18 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
 
     @Override
     public void visit(ADEObject adeObject) {
-        if (adeWalkerHelper != null && adeWalkerHelper.visit(adeObject))
+        if (adeWalkerHelper.visitObject(adeObject, adeObject.getClass()))
             return;
 
-        if (adeObject instanceof AbstractFeature)
-            visit((AbstractFeature) adeObject);
-        else if (adeObject instanceof AbstractGML)
-            visit((AbstractGML) adeObject);
-        else if (adeObject instanceof ADEProperty<?>)
+        if (adeObject instanceof ADEProperty<?>)
             visitObject(((ADEProperty<?>) adeObject).getValue());
+        else {
+            Class<?> parent = adeObject.getClass().getSuperclass();
+            if (parent != null)
+                adeWalkerHelper.visitObject(adeObject, parent);
+
+            adeWalkerHelper.visitFields(adeObject);
+        }
     }
 
     public void visit(GenericElement genericElement) {
@@ -1980,7 +1980,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         }
     }
 
-    private void visitObject(Object object) {
+    void visitObject(Object object) {
         if (object instanceof ADEObject)
             visit((ADEObject) object);
         else if (object instanceof Visitable)

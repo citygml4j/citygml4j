@@ -1,6 +1,6 @@
 package org.citygml4j.visitor;
 
-public abstract class ADEWalker {
+public abstract class ADEWalker implements Walker {
     protected ObjectWalker walker;
 
     public final ObjectWalker getParentWalker() {
