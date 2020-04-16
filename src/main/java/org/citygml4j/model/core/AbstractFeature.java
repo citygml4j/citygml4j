@@ -80,7 +80,9 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
-                updateEnvelope(field.get(object), envelope, options, visited);
+                Object value = field.get(object);
+                if (value != null)
+                    updateEnvelope(value, envelope, options, visited);
             } catch (Throwable e) {
                 //
             }
