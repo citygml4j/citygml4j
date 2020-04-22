@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package util;
+package helpers;
 
 import java.time.Duration;
 import java.time.Instant;

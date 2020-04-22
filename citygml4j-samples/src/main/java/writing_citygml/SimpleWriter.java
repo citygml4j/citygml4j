@@ -27,8 +27,8 @@ import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.citygml4j.xml.writer.CityGMLWriter;
-import util.Logger;
-import util.Util;
+import helpers.Logger;
+import helpers.Util;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;

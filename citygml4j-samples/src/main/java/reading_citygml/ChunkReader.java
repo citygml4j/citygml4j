@@ -27,8 +27,8 @@ import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.reader.FeatureInfo;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
-import util.Logger;
-import util.Util;
+import helpers.Logger;
+import helpers.Util;
 
 import java.nio.file.Path;
 

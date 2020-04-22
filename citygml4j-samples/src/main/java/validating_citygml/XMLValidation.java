@@ -23,8 +23,8 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
-import util.Logger;
-import util.Util;
+import helpers.Logger;
+import helpers.Util;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
