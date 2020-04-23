@@ -19,6 +19,8 @@
 
 package writing_citygml;
 
+import helpers.Logger;
+import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
@@ -32,8 +34,6 @@ import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.xmlobjects.gml.model.deprecated.StringOrRef;
 import org.xmlobjects.gml.model.feature.BoundingShape;
 import org.xmlobjects.gml.model.geometry.Envelope;
-import helpers.Logger;
-import helpers.Util;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;

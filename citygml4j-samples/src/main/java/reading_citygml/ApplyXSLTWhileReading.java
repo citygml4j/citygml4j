@@ -19,6 +19,8 @@
 
 package reading_citygml;
 
+import helpers.Logger;
+import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.CityModel;
@@ -26,8 +28,6 @@ import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.transform.TransformerPipeline;
-import helpers.Logger;
-import helpers.Util;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;

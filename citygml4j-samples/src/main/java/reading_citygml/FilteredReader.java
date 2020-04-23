@@ -19,6 +19,8 @@
 
 package reading_citygml;
 
+import helpers.Logger;
+import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
@@ -26,8 +28,6 @@ import org.citygml4j.xml.reader.ChunkMode;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLInputFilter;
 import org.citygml4j.xml.reader.CityGMLReader;
-import helpers.Logger;
-import helpers.Util;
 
 import java.nio.file.Path;
 

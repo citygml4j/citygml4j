@@ -19,6 +19,8 @@
 
 package writing_citygml;
 
+import helpers.Logger;
+import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.core.AbstractCityObject;
@@ -30,8 +32,6 @@ import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
-import helpers.Logger;
-import helpers.Util;
 
 import javax.xml.transform.stream.StreamSource;
 import java.io.File;
