@@ -17,24 +17,26 @@
  * limitations under the License.
  */
 
-package util;
+package helpers.ade.test.model;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.citygml4j.model.ade.ADEObject;
+import org.xmlobjects.gml.model.feature.FeatureProperty;
 
-public class Util {
-    public final static Path SAMPLE_DATA_DIR = Paths.get("input", "datasets");
-    public final static Path STYLESHEETS_DIR = Paths.get("input", "stylesheets");
-    public final static Path OUTPUT_DIR = Paths.get("output");
+public class BuildingUnitPartProperty extends FeatureProperty<BuildingUnitPart> implements ADEObject {
 
-    public static Path getOutputFile(String fileName) throws IOException {
-        Files.createDirectories(OUTPUT_DIR);
-        return OUTPUT_DIR.resolve(fileName);
+    public BuildingUnitPartProperty() {
     }
 
-    public static Path getOutputFile() throws IOException {
-        return getOutputFile("out.gml");
+    public BuildingUnitPartProperty(BuildingUnitPart object) {
+        super(object);
+    }
+
+    public BuildingUnitPartProperty(String href) {
+        super(href);
+    }
+
+    @Override
+    public Class<BuildingUnitPart> getTargetType() {
+        return BuildingUnitPart.class;
     }
 }

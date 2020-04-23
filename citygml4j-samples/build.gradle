@@ -10,6 +10,7 @@ java {
 
 dependencies {
     implementation rootProject
+    annotationProcessor rootProject
 }
 
 clean.dependsOn(cleanOutput)

@@ -19,6 +19,8 @@
 
 package reading_citygml;
 
+import helpers.Logger;
+import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.visitor.ObjectWalker;
@@ -27,8 +29,6 @@ import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.reader.FeatureInfo;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
-import util.Logger;
-import util.Util;
 
 import java.nio.file.Path;
 

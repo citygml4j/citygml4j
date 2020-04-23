@@ -6,6 +6,7 @@ import org.citygml4j.xml.module.Module;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.module.gml.XLinkModule;
 import org.citygml4j.xml.module.xal.XALCoreModule;
+import org.xmlobjects.xal.util.XALConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -118,6 +119,10 @@ public class CityGMLModules {
 
     public static boolean isGMLNamespace(String namespaceURI) {
         return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/gml");
+    }
+
+    public static boolean isXALNamespace(String namespaceURI) {
+        return XALConstants.XAL_2_0_NAMESPACE.equals(namespaceURI);
     }
 
     public List<Module> getModules() {

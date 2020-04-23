@@ -19,13 +19,13 @@
 
 package serializing_objects;
 
+import helpers.Logger;
+import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
-import util.Logger;
-import util.Util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
