@@ -79,7 +79,7 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         Class<?> type = object.getClass();
 
         do {
-            Field[] fields = object.getClass().getDeclaredFields();
+            Field[] fields = type.getDeclaredFields();
             for (Field field : fields) {
                 try {
                     field.setAccessible(true);
