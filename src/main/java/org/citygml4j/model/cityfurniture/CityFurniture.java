@@ -3,6 +3,7 @@ package org.citygml4j.model.cityfurniture;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.cityfurniture.DeprecatedPropertiesOfCityFurniture;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -109,6 +110,26 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
         if (adeProperties != null) {
             for (ADEPropertyOfCityFurniture<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfCityFurniture properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(1, properties.getLod1Geometry());
+            geometryInfo.addGeometry(2, properties.getLod2Geometry());
+            geometryInfo.addGeometry(3, properties.getLod3Geometry());
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfCityFurniture<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

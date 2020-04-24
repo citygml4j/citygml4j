@@ -1,6 +1,7 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.AbstractFurniture;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingFurniture;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
@@ -92,6 +93,23 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
         if (adeProperties != null) {
             for (ADEPropertyOfBuildingFurniture<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfBuildingFurniture properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBuildingFurniture<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

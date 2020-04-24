@@ -4,6 +4,7 @@ import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.cityobjectgroup.DeprecatedPropertiesOfCityObjectGroup;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -128,6 +129,22 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
         if (adeProperties != null) {
             for (ADEPropertyOfCityObjectGroup<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfCityObjectGroup properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(properties.getGeometry());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfCityObjectGroup<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

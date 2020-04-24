@@ -98,4 +98,14 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
                 updateEnvelope(property, envelope, options);
         }
     }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractPhysicalSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package org.citygml4j.model.transportation;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -161,6 +162,16 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         if (adeProperties != null) {
             for (ADEPropertyOfTrafficSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfTrafficSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

@@ -161,4 +161,25 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
                 updateEnvelope(property, envelope, options);
         }
     }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        geometryInfo.addGeometry(0, lod0MultiCurve);
+
+        for (int lod = 0; lod < 4; lod++)
+            geometryInfo.addGeometry(lod, getMultiSurface(lod));
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractThematicSurface properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractThematicSurface<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
 }

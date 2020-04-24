@@ -296,4 +296,25 @@ public abstract class AbstractSpace extends AbstractCityObject {
                 updateEnvelope(property, envelope, options);
         }
     }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        geometryInfo.addGeometry(0, lod0Point);
+
+        for (int lod = 0; lod < 4; lod++)
+            geometryInfo.addGeometry(lod, getMultiCurve(lod));
+
+        for (int lod = 0; lod < 4; lod++)
+            geometryInfo.addGeometry(lod, getMultiSurface(lod));
+
+        for (int lod = 0; lod < 4; lod++)
+            geometryInfo.addGeometry(lod, getSolid(lod));
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
 }

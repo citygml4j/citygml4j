@@ -59,6 +59,18 @@ public class Address extends AbstractFeature {
     }
 
     @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        geometryInfo.addGeometry(multiPoint);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAddress<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
+
+    @Override
     public void accept(ObjectVisitor visitor) {
         visitor.visit(this);
     }

@@ -27,4 +27,14 @@ public abstract class AbstractPointCloud extends AbstractFeature {
                 updateEnvelope(property, envelope, options);
         }
     }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractPointCloud<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
 }

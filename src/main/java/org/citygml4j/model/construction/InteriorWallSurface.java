@@ -1,5 +1,6 @@
 package org.citygml4j.model.construction;
 
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -28,6 +29,16 @@ public class InteriorWallSurface extends AbstractConstructionSurface {
         if (adeProperties != null) {
             for (ADEPropertyOfInteriorWallSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfInteriorWallSurface<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

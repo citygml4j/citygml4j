@@ -4,6 +4,7 @@ import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeRoom;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -126,6 +127,23 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
         if (adeProperties != null) {
             for (ADEPropertyOfBridgeRoom<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfBridgeRoom properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4Solid());
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBridgeRoom<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

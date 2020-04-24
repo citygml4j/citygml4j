@@ -1,6 +1,7 @@
 package org.citygml4j.model.bridge;
 
 import org.citygml4j.model.construction.AbstractInstallation;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeInstallation;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -97,6 +98,25 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
         if (adeProperties != null) {
             for (ADEPropertyOfBridgeInstallation<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfBridgeInstallation properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(2, properties.getLod2Geometry());
+            geometryInfo.addGeometry(3, properties.getLod3Geometry());
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBridgeInstallation<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

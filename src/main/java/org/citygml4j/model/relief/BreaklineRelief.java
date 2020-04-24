@@ -1,5 +1,6 @@
 package org.citygml4j.model.relief;
 
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
@@ -72,6 +73,19 @@ public class BreaklineRelief extends AbstractReliefComponent {
         if (adeProperties != null) {
             for (ADEPropertyOfBreaklineRelief<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        geometryInfo.addGeometry(getLod(), ridgeOrValleyLines);
+        geometryInfo.addGeometry(getLod(), breaklines);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBreaklineRelief<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

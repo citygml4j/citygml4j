@@ -32,6 +32,16 @@ public class ClosureSurface extends AbstractThematicSurface {
     }
 
     @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfClosureSurface<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
+
+    @Override
     public void accept(ObjectVisitor visitor) {
         visitor.visit(this);
     }

@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
 public abstract class AbstractMatrix extends GMLObject implements CityGMLObject {
-    private int rows;
-    private int columns;
+    private final int rows;
+    private final int columns;
     private Matrix matrix;
 
     AbstractMatrix(int rows, int columns) {

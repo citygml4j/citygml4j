@@ -1,5 +1,6 @@
 package org.citygml4j.model.vegetation;
 
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfSolitaryVegetationObject;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -154,6 +155,26 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
         if (adeProperties != null) {
             for (ADEPropertyOfSolitaryVegetationObject<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfSolitaryVegetationObject properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(1, properties.getLod1Geometry());
+            geometryInfo.addGeometry(2, properties.getLod2Geometry());
+            geometryInfo.addGeometry(3, properties.getLod3Geometry());
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfSolitaryVegetationObject<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

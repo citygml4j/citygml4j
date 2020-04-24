@@ -29,4 +29,14 @@ public abstract class AbstractLogicalSpace extends AbstractSpace {
                 updateEnvelope(property, envelope, options);
         }
     }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractLogicalSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
 }

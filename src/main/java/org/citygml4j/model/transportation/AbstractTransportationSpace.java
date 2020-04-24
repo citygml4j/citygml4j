@@ -3,6 +3,7 @@ package org.citygml4j.model.transportation;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.deprecated.transportation.DeprecatedPropertiesOfAbstractTransportationSpace;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -146,6 +147,24 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractTransportationSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractTransportationSpace properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(0, properties.getLod0Network());
+            geometryInfo.addGeometry(1, properties.getLod1MultiSurface());
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractTransportationSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

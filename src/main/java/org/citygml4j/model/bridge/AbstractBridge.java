@@ -3,6 +3,7 @@ package org.citygml4j.model.bridge;
 import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AddressProperty;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfAbstractBridge;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -190,6 +191,25 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractBridge<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractBridge properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(1, properties.getLod1MultiSurface());
+            geometryInfo.addGeometry(4, properties.getLod4MultiCurve());
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+            geometryInfo.addGeometry(4, properties.getLod4Solid());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractBridge<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

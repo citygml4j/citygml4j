@@ -3,6 +3,7 @@ package org.citygml4j.model.construction;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -92,6 +93,16 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
         if (adeProperties != null) {
             for (ADEPropertyOfDoor<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfDoor<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

@@ -3,6 +3,7 @@ package org.citygml4j.model.vegetation;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -37,6 +38,16 @@ public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractVegetationObject<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractVegetationObject<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

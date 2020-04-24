@@ -91,4 +91,17 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
                 updateEnvelope(property, envelope, options);
         }
     }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        for (int lod = 1; lod < 4; lod++)
+            geometryInfo.addImplicitGeometry(lod, getImplicitRepresentation(lod));
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractOccupiedSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
+        }
+    }
 }

@@ -112,4 +112,19 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         else if (object instanceof Object[])
             Arrays.stream(((Object[]) object)).forEach(v -> updateEnvelope(v, envelope, options, visited));
     }
+
+    public final GeometryInfo getGeometryInfo() {
+        GeometryInfo geometryInfo = new GeometryInfo();
+        updateGeometryInfo(geometryInfo);
+
+        return geometryInfo;
+    }
+
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+
+    }
+
+    protected final void updateGeometryInfo(ADEProperty<?> property, GeometryInfo geometryInfo) {
+
+    }
 }

@@ -1,6 +1,7 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.construction.AbstractInstallation;
+import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingInstallation;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
@@ -98,6 +99,25 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
         if (adeProperties != null) {
             for (ADEPropertyOfBuildingInstallation<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfBuildingInstallation properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(2, properties.getLod2Geometry());
+            geometryInfo.addGeometry(3, properties.getLod3Geometry());
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBuildingInstallation<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 
