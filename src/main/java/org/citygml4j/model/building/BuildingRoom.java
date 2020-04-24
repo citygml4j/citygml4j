@@ -1,5 +1,6 @@
 package org.citygml4j.model.building;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
@@ -138,6 +139,23 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         if (adeProperties != null) {
             for (ADEPropertyOfBuildingRoom<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfBuildingRoom properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4Solid());
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBuildingRoom<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

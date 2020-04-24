@@ -1,5 +1,6 @@
 package org.citygml4j.model.bridge;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -47,6 +48,16 @@ public class Bridge extends AbstractBridge {
         if (adeProperties != null) {
             for (ADEPropertyOfBridge<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBridge<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

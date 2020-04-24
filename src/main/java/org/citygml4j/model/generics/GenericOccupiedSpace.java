@@ -1,5 +1,6 @@
 package org.citygml4j.model.generics;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
@@ -114,6 +115,28 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
         if (adeProperties != null) {
             for (ADEPropertyOfGenericOccupiedSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfGenericOccupiedSpace properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(0, properties.getLod0Geometry());
+            geometryInfo.addGeometry(1, properties.getLod1Geometry());
+            geometryInfo.addGeometry(2, properties.getLod2Geometry());
+            geometryInfo.addGeometry(3, properties.getLod3Geometry());
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(0, properties.getLod0ImplicitRepresentation());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfGenericOccupiedSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

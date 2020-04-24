@@ -1,5 +1,6 @@
 package org.citygml4j.model.construction;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
@@ -63,6 +64,16 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractConstructiveElement<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractConstructiveElement<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

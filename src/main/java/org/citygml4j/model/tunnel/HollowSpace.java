@@ -1,5 +1,6 @@
 package org.citygml4j.model.tunnel;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
@@ -126,6 +127,23 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
         if (adeProperties != null) {
             for (ADEPropertyOfHollowSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfHollowSpace properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4Solid());
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfHollowSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

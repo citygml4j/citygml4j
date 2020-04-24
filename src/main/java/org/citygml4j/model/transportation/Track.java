@@ -1,5 +1,6 @@
 package org.citygml4j.model.transportation;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -107,6 +108,16 @@ public class Track extends AbstractTransportationSpace implements StandardObject
         if (adeProperties != null) {
             for (ADEPropertyOfTrack<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfTrack<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

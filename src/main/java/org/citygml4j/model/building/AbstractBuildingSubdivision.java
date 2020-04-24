@@ -1,5 +1,6 @@
 package org.citygml4j.model.building;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
@@ -151,6 +152,16 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractBuildingSubdivision<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractBuildingSubdivision<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

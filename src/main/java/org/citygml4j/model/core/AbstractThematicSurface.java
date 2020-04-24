@@ -1,5 +1,6 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractThematicSurface;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
@@ -159,6 +160,27 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractThematicSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        geometryInfo.addGeometry(0, lod0MultiCurve);
+
+        for (int lod = 0; lod < 4; lod++)
+            geometryInfo.addGeometry(lod, getMultiSurface(lod));
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractThematicSurface properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractThematicSurface<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

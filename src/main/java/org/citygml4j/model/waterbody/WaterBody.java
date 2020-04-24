@@ -1,5 +1,6 @@
 package org.citygml4j.model.waterbody;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
@@ -104,6 +105,24 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
         if (adeProperties != null) {
             for (ADEPropertyOfWaterBody<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfWaterBody properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(1, properties.getLod1MultiCurve());
+            geometryInfo.addGeometry(1, properties.getLod1MultiSurface());
+            geometryInfo.addGeometry(4, properties.getLod4Solid());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfWaterBody<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

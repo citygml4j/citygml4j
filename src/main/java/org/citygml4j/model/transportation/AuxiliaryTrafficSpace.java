@@ -1,5 +1,6 @@
 package org.citygml4j.model.transportation;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
@@ -96,6 +97,16 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
         if (adeProperties != null) {
             for (ADEPropertyOfAuxiliaryTrafficSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAuxiliaryTrafficSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

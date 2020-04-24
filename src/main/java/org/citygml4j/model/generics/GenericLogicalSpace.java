@@ -1,5 +1,6 @@
 package org.citygml4j.model.generics;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
@@ -78,6 +79,16 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
         if (adeProperties != null) {
             for (ADEPropertyOfGenericLogicalSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfGenericLogicalSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

@@ -1,5 +1,6 @@
 package org.citygml4j.model.tunnel;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractInstallation;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelInstallation;
@@ -97,6 +98,25 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
         if (adeProperties != null) {
             for (ADEPropertyOfTunnelInstallation<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfTunnelInstallation properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(2, properties.getLod2Geometry());
+            geometryInfo.addGeometry(3, properties.getLod3Geometry());
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfTunnelInstallation<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

@@ -1,5 +1,6 @@
 package org.citygml4j.model.generics;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
@@ -78,6 +79,16 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
         if (adeProperties != null) {
             for (ADEPropertyOfGenericUnoccupiedSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfGenericUnoccupiedSpace<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

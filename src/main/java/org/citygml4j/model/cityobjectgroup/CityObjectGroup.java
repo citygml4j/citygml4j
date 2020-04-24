@@ -1,5 +1,6 @@
 package org.citygml4j.model.cityobjectgroup;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
@@ -128,6 +129,22 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
         if (adeProperties != null) {
             for (ADEPropertyOfCityObjectGroup<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfCityObjectGroup properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(properties.getGeometry());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfCityObjectGroup<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

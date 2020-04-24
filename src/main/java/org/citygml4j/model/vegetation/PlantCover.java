@@ -1,5 +1,6 @@
 package org.citygml4j.model.vegetation;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfPlantCover;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -130,6 +131,27 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
         if (adeProperties != null) {
             for (ADEPropertyOfPlantCover<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfPlantCover properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(1, properties.getLod1MultiSurface());
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+            geometryInfo.addGeometry(1, properties.getLod1MultiSolid());
+            geometryInfo.addGeometry(2, properties.getLod2MultiSolid());
+            geometryInfo.addGeometry(3, properties.getLod3MultiSolid());
+            geometryInfo.addGeometry(4, properties.getLod4MultiSolid());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfPlantCover<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

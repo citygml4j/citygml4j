@@ -1,5 +1,6 @@
 package org.citygml4j.model.tunnel;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractFurniture;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelFurniture;
@@ -91,6 +92,23 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
         if (adeProperties != null) {
             for (ADEPropertyOfTunnelFurniture<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfTunnelFurniture properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4Geometry());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfTunnelFurniture<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

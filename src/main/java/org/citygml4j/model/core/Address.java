@@ -1,5 +1,6 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
@@ -55,6 +56,18 @@ public class Address extends AbstractFeature {
         if (adeProperties != null) {
             for (ADEPropertyOfAddress<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        geometryInfo.addGeometry(multiPoint);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAddress<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

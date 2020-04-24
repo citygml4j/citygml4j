@@ -1,5 +1,6 @@
 package org.citygml4j.model.construction;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.deprecated.construction.DeprecatedPropertiesOfAbstractFillingSurface;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -52,6 +53,24 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
         if (adeProperties != null) {
             for (ADEPropertyOfAbstractFillingSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfAbstractFillingSurface properties = getDeprecatedProperties();
+
+            geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
+            geometryInfo.addImplicitGeometry(3, properties.getLod3ImplicitRepresentation());
+            geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
+        }
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfAbstractFillingSurface<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

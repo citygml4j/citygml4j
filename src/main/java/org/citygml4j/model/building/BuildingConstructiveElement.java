@@ -1,5 +1,6 @@
 package org.citygml4j.model.building;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructiveElement;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -70,6 +71,16 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
         if (adeProperties != null) {
             for (ADEPropertyOfBuildingConstructiveElement<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        if (adeProperties != null) {
+            for (ADEPropertyOfBuildingConstructiveElement<?> property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 
