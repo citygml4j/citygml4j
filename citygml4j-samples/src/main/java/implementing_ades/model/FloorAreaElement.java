@@ -20,13 +20,16 @@
 package helpers.ade.test.model;
 
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.common.Property;
+import org.xmlobjects.gml.model.measures.Area;
 
-public class BuildingUnitElement extends ADEPropertyOfAbstractBuilding<AbstractBuildingUnitProperty> {
+@Property(name = "floorArea")
+public class FloorAreaElement extends ADEPropertyOfAbstractBuilding<Area> {
 
-    public BuildingUnitElement() {
+    public FloorAreaElement() {
     }
 
-    public BuildingUnitElement(AbstractBuildingUnitProperty object) {
+    public FloorAreaElement(Area object) {
         super(object);
     }
 }

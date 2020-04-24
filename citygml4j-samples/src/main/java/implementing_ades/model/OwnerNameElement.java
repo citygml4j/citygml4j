@@ -20,7 +20,9 @@
 package helpers.ade.test.model;
 
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.common.Property;
 
+@Property(name = "ownerName")
 public class OwnerNameElement extends ADEPropertyOfAbstractBuilding<String> {
 
     public OwnerNameElement() {

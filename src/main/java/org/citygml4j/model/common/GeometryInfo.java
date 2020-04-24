@@ -33,7 +33,7 @@ public class GeometryInfo {
     private final Map<Integer, List<GeometryProperty<?>>> geometries = new HashMap<>();
     private final Map<Integer, List<ImplicitGeometryProperty>> implicitGeometries = new HashMap<>();
 
-    protected GeometryInfo() {
+    GeometryInfo() {
     }
 
     public List<GeometryProperty<?>> getGeometries() {

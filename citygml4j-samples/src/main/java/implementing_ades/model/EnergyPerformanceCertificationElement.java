@@ -20,14 +20,15 @@
 package helpers.ade.test.model;
 
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
-import org.xmlobjects.gml.model.measures.Area;
+import org.citygml4j.model.common.Property;
 
-public class FloorAreaElement extends ADEPropertyOfAbstractBuilding<Area> {
+@Property(name = "energyPerformanceCertification")
+public class EnergyPerformanceCertificationElement extends ADEPropertyOfAbstractBuilding<EnergyPerformanceCertificationProperty> {
 
-    public FloorAreaElement() {
+    public EnergyPerformanceCertificationElement() {
     }
 
-    public FloorAreaElement(Area object) {
+    public EnergyPerformanceCertificationElement(EnergyPerformanceCertificationProperty object) {
         super(object);
     }
 }

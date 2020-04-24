@@ -20,13 +20,15 @@
 package helpers.ade.test.model;
 
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.common.Property;
 
-public class EnergyPerformanceCertificationElement extends ADEPropertyOfAbstractBuilding<EnergyPerformanceCertificationProperty> {
+@Property(name = "buildingUnit")
+public class BuildingUnitElement extends ADEPropertyOfAbstractBuilding<AbstractBuildingUnitProperty> {
 
-    public EnergyPerformanceCertificationElement() {
+    public BuildingUnitElement() {
     }
 
-    public EnergyPerformanceCertificationElement(EnergyPerformanceCertificationProperty object) {
+    public BuildingUnitElement(AbstractBuildingUnitProperty object) {
         super(object);
     }
 }

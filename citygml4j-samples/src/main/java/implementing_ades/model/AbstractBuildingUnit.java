@@ -20,16 +20,15 @@
 package helpers.ade.test.model;
 
 import org.citygml4j.model.ade.ADEObject;
+import org.citygml4j.model.common.Property;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -39,9 +38,13 @@ public abstract class AbstractBuildingUnit extends AbstractLogicalSpace implemen
     private List<Code> functions;
     private List<Code> usages;
     private List<EnergyPerformanceCertificationProperty> energyPerformanceCertifications;
+    @Property(lod = 4)
     private SolidProperty lod4Solid;
+    @Property(lod = 1)
     private MultiSurfaceProperty lod1MultiSurface;
+    @Property(lod = 4)
     private MultiSurfaceProperty lod4MultiSurface;
+    @Property(lod = 4)
     private MultiCurveProperty lod4MultiCurve;
     private List<AddressProperty> addresses;
     private List<FacilitiesProperty> equippedWith;
@@ -162,29 +165,5 @@ public abstract class AbstractBuildingUnit extends AbstractLogicalSpace implemen
 
     public void setConsistsOf(List<BuildingUnitPartProperty> consistsOf) {
         this.consistsOf = consistsOf;
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (consistsOf != null) {
-            for (BuildingUnitPartProperty property : consistsOf) {
-                if (property.getObject() != null)
-                    envelope.include(property.getObject().computeEnvelope(options));
-            }
-        }
-
-        if (lod4Solid != null && lod4Solid.getObject() != null)
-            envelope.include(lod4Solid.getObject().computeEnvelope());
-
-        if (lod1MultiSurface != null && lod1MultiSurface.getObject() != null)
-            envelope.include(lod1MultiSurface.getObject().computeEnvelope());
-
-        if (lod4MultiSurface != null && lod4MultiSurface.getObject() != null)
-            envelope.include(lod4MultiSurface.getObject().computeEnvelope());
-
-        if (lod4MultiCurve != null && lod4MultiCurve.getObject() != null)
-            envelope.include(lod4MultiCurve.getObject().computeEnvelope());
     }
 }
