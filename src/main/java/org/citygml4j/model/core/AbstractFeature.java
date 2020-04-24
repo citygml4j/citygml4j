@@ -120,6 +120,8 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
             ((Collection<?>) object).forEach(v -> updateEnvelope(v, envelope, options, visited));
         else if (object instanceof Object[])
             Arrays.stream(((Object[]) object)).forEach(v -> updateEnvelope(v, envelope, options, visited));
+        else if (object instanceof Map<?,?>)
+            ((Map<?, ?>) object).values().forEach(v -> updateEnvelope(v, envelope, options, visited));
     }
 
     public final GeometryInfo getGeometryInfo() {
@@ -178,10 +180,10 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
             geometryInfo.addImplicitGeometry(getLodFromProperty(property, name), (ImplicitGeometryProperty) object);
         else if (object instanceof Collection<?>)
             ((Collection<?>) object).forEach(v -> updateGeometryInfo(v, property, name, geometryInfo));
-        else if (object instanceof Map<?, ?>)
-            ((Map<?, ?>) object).values().forEach(v -> updateGeometryInfo(v, property, name, geometryInfo));
         else if (object instanceof Object[])
             Arrays.stream(((Object[]) object)).forEach(v -> updateGeometryInfo(v, property, name, geometryInfo));
+        else if (object instanceof Map<?, ?>)
+            ((Map<?, ?>) object).values().forEach(v -> updateGeometryInfo(v, property, name, geometryInfo));
     }
 
     private int getLodFromProperty(Property property, String fieldName) {
