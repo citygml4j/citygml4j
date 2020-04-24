@@ -17,10 +17,10 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.adapter;
+package implementing_ades.adapter;
 
-import helpers.ade.test.model.OwnerNameElement;
-import helpers.ade.test.module.TestADEModule;
+import implementing_ades.model.OwnerNameElement;
+import implementing_ades.module.TestADEModule;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;

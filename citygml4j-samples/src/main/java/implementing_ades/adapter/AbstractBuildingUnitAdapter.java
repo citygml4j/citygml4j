@@ -17,13 +17,13 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.adapter;
+package implementing_ades.adapter;
 
-import helpers.ade.test.model.AbstractBuildingUnit;
-import helpers.ade.test.model.BuildingUnitPartProperty;
-import helpers.ade.test.model.EnergyPerformanceCertificationProperty;
-import helpers.ade.test.model.FacilitiesProperty;
-import helpers.ade.test.module.TestADEModule;
+import implementing_ades.model.AbstractBuildingUnit;
+import implementing_ades.model.BuildingUnitPartProperty;
+import implementing_ades.model.EnergyPerformanceCertificationProperty;
+import implementing_ades.model.FacilitiesProperty;
+import implementing_ades.module.TestADEModule;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;

@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.model;
+package implementing_ades.model;
 
 public class DHWFacilities extends Facilities {
 }

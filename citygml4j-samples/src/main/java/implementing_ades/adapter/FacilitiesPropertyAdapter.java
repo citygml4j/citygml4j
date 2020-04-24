@@ -17,9 +17,9 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.adapter;
+package implementing_ades.adapter;
 
-import helpers.ade.test.model.FacilitiesProperty;
+import implementing_ades.model.FacilitiesProperty;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.feature.AbstractFeaturePropertyAdapter;
 

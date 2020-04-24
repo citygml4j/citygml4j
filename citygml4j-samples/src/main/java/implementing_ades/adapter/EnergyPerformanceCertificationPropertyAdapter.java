@@ -17,9 +17,9 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.adapter;
+package implementing_ades.adapter;
 
-import helpers.ade.test.model.EnergyPerformanceCertificationProperty;
+import implementing_ades.model.EnergyPerformanceCertificationProperty;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.AbstractInlinePropertyAdapter;
 

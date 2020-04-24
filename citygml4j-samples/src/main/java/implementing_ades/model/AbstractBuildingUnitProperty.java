@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.model;
+package implementing_ades.model;
 
 import org.citygml4j.model.ade.ADEObject;
 import org.xmlobjects.gml.model.feature.FeatureProperty;

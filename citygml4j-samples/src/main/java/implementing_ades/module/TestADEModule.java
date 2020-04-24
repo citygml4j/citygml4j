@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.module;
+package implementing_ades.module;
 
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.xml.module.ade.ADEModule;

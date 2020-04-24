@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.walker;
+package implementing_ades.walker;
 
-import helpers.ade.test.model.AbstractBuildingUnit;
-import helpers.ade.test.model.BuildingUnit;
-import helpers.ade.test.model.BuildingUnitPart;
-import helpers.ade.test.model.DHWFacilities;
-import helpers.ade.test.model.Facilities;
-import helpers.ade.test.model.IndustrialBuilding;
-import helpers.ade.test.model.IndustrialBuildingPart;
-import helpers.ade.test.model.IndustrialBuildingRoofSurface;
-import helpers.ade.test.model.LightingFacilities;
-import helpers.ade.test.model.OtherConstruction;
+import implementing_ades.model.AbstractBuildingUnit;
+import implementing_ades.model.BuildingUnit;
+import implementing_ades.model.BuildingUnitPart;
+import implementing_ades.model.DHWFacilities;
+import implementing_ades.model.Facilities;
+import implementing_ades.model.IndustrialBuilding;
+import implementing_ades.model.IndustrialBuildingPart;
+import implementing_ades.model.IndustrialBuildingRoofSurface;
+import implementing_ades.model.LightingFacilities;
+import implementing_ades.model.OtherConstruction;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.building.BuildingPart;
 import org.citygml4j.model.construction.AbstractConstruction;

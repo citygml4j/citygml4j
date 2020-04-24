@@ -17,10 +17,10 @@
  * limitations under the License.
  */
 
-package helpers.ade.test;
+package implementing_ades;
 
-import helpers.ade.test.module.TestADEModule;
-import helpers.ade.test.walker.TestADEWalker;
+import implementing_ades.module.TestADEModule;
+import implementing_ades.walker.TestADEWalker;
 import org.citygml4j.visitor.ADEWalker;
 import org.citygml4j.xml.ade.ADEContext;
 import org.citygml4j.xml.module.ade.ADEModule;

@@ -17,10 +17,10 @@
  * limitations under the License.
  */
 
-package helpers.ade.test.adapter;
+package implementing_ades.adapter;
 
-import helpers.ade.test.model.OtherConstruction;
-import helpers.ade.test.module.TestADEModule;
+import implementing_ades.model.OtherConstruction;
+import implementing_ades.module.TestADEModule;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.xml.adapter.deprecated.building.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.core.AbstractSiteAdapter;
