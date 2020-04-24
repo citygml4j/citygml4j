@@ -40,20 +40,23 @@ public class GeometryInfo {
     }
 
     public List<GeometryProperty<?>> getGeometries(int lod) {
-        return geometries.getOrDefault(lod, Collections.emptyList());
+        return lod > Integer.MIN_VALUE ?
+                geometries.getOrDefault(lod, Collections.emptyList()) :
+                Collections.emptyList();
     }
 
     public List<GeometryProperty<?>> getNonLodGeometries() {
-        return getGeometries(-1);
+        return geometries.getOrDefault(Integer.MIN_VALUE, Collections.emptyList());
     }
 
     public void addGeometry(int lod, GeometryProperty<?> property) {
-        if (lod >= 0 && property != null)
+        if (property != null && lod > Integer.MIN_VALUE)
             geometries.computeIfAbsent(lod, v -> new ArrayList<>()).add(property);
     }
 
     public void addGeometry(GeometryProperty<?> property) {
-        addGeometry(-1, property);
+        if (property != null)
+            geometries.computeIfAbsent(Integer.MIN_VALUE, v -> new ArrayList<>()).add(property);
     }
 
     public boolean hasGeometries() {
@@ -61,11 +64,11 @@ public class GeometryInfo {
     }
 
     public boolean hasGeometries(int lod) {
-        return lod >= 0 && geometries.containsKey(lod);
+        return lod > Integer.MIN_VALUE && geometries.containsKey(lod);
     }
 
     public boolean hasNonLodGeometries() {
-        return hasGeometries(-1);
+        return geometries.containsKey(Integer.MIN_VALUE);
     }
 
     public List<ImplicitGeometryProperty> getImplicitGeometries() {
@@ -75,20 +78,23 @@ public class GeometryInfo {
     }
 
     public List<ImplicitGeometryProperty> getImplicitGeometries(int lod) {
-        return implicitGeometries.getOrDefault(lod, Collections.emptyList());
+        return lod > Integer.MIN_VALUE ?
+                implicitGeometries.getOrDefault(lod, Collections.emptyList()) :
+                Collections.emptyList();
     }
 
     public List<ImplicitGeometryProperty> getNonLodImplicitGeometries() {
-        return getImplicitGeometries(-1);
+        return implicitGeometries.getOrDefault(Integer.MIN_VALUE, Collections.emptyList());
     }
 
     public void addImplicitGeometry(int lod, ImplicitGeometryProperty property) {
-        if (lod >= 0 && property != null)
+        if (property != null && lod > Integer.MIN_VALUE)
             implicitGeometries.computeIfAbsent(lod, v -> new ArrayList<>()).add(property);
     }
 
     public void addImplicitGeometry(ImplicitGeometryProperty property) {
-        addImplicitGeometry(-1, property);
+        if (property != null)
+            implicitGeometries.computeIfAbsent(Integer.MIN_VALUE, v -> new ArrayList<>()).add(property);
     }
 
     public boolean hasImplicitGeometries() {
@@ -96,10 +102,10 @@ public class GeometryInfo {
     }
 
     public boolean hasImplicitGeometries(int lod) {
-        return lod >= 0 && implicitGeometries.containsKey(lod);
+        return lod > Integer.MIN_VALUE && implicitGeometries.containsKey(lod);
     }
 
     public boolean hasNonLodImplicitGeometries() {
-        return hasImplicitGeometries(-1);
+        return implicitGeometries.containsKey(Integer.MIN_VALUE);
     }
 }
