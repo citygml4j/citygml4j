@@ -1,7 +1,7 @@
 package org.citygml4j.model.tunnel;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractFurniture;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelFurniture;
 import org.citygml4j.visitor.ObjectVisitor;

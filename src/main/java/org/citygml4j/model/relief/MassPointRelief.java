@@ -1,7 +1,7 @@
 package org.citygml4j.model.relief;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractPointCloudProperty;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;

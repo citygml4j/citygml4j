@@ -1,6 +1,6 @@
 package org.citygml4j.model.vegetation;
 
-import org.citygml4j.model.core.GeometryInfo;
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfSolitaryVegetationObject;
 import org.citygml4j.visitor.ObjectVisitor;

@@ -1,9 +1,9 @@
 package org.citygml4j.model.generics;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.generics.DeprecatedPropertiesOfGenericOccupiedSpace;
 import org.citygml4j.visitor.ObjectVisitor;

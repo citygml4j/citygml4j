@@ -1,8 +1,8 @@
 package org.citygml4j.model.construction;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;

@@ -1,9 +1,9 @@
 package org.citygml4j.model.construction;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;

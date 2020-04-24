@@ -1,5 +1,6 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractThematicSurface;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;

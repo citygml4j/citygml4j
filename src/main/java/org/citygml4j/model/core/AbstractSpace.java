@@ -1,5 +1,6 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;

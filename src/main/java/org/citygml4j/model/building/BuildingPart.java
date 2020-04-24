@@ -1,6 +1,6 @@
 package org.citygml4j.model.building;
 
-import org.citygml4j.model.core.GeometryInfo;
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;

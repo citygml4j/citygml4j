@@ -1,7 +1,7 @@
 package org.citygml4j.model.bridge;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructiveElement;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeConstructiveElement;
 import org.citygml4j.visitor.ObjectVisitor;

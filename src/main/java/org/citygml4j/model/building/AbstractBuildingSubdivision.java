@@ -1,11 +1,11 @@
 package org.citygml4j.model.building;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.base.Reference;

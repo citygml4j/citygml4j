@@ -1,5 +1,6 @@
 package org.citygml4j.model.core;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.Envelope;

@@ -17,8 +17,9 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.core;
+package org.citygml4j.model.common;
 
+import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 
 import java.util.ArrayList;
@@ -32,9 +33,6 @@ import java.util.stream.Collectors;
 public class GeometryInfo {
     private final Map<Integer, List<GeometryProperty<?>>> geometries = new HashMap<>();
     private final Map<Integer, List<ImplicitGeometryProperty>> implicitGeometries = new HashMap<>();
-
-    GeometryInfo() {
-    }
 
     public List<GeometryProperty<?>> getGeometries() {
         return geometries.values().stream()

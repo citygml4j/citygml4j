@@ -1,10 +1,10 @@
 package org.citygml4j.model.building;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingRoom;
 import org.citygml4j.model.generics.GenericThematicSurface;
