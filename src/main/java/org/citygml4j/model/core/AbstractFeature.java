@@ -76,17 +76,21 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
     }
 
     private void updateEnvelope(GMLObject object, Envelope envelope, EnvelopeOptions options, Set<Object> visited) {
-        Field[] fields = object.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            try {
-                field.setAccessible(true);
-                Object value = field.get(object);
-                if (value != null)
-                    updateEnvelope(value, envelope, options, visited);
-            } catch (Throwable e) {
-                //
+        Class<?> type = object.getClass();
+
+        do {
+            Field[] fields = object.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    Object value = field.get(object);
+                    if (value != null)
+                        updateEnvelope(value, envelope, options, visited);
+                } catch (Throwable e) {
+                    //
+                }
             }
-        }
+        } while ((type = type.getSuperclass()) != Object.class && ADEObject.class.isAssignableFrom(type));
     }
 
     private void updateEnvelope(Object object, Envelope envelope, EnvelopeOptions options, Set<Object> visited) {
