@@ -33,6 +33,9 @@ public class GeometryInfo {
     private final Map<Integer, List<GeometryProperty<?>>> geometries = new HashMap<>();
     private final Map<Integer, List<ImplicitGeometryProperty>> implicitGeometries = new HashMap<>();
 
+    protected GeometryInfo() {
+    }
+
     public List<GeometryProperty<?>> getGeometries() {
         return geometries.values().stream()
                 .flatMap(Collection::stream)
@@ -50,13 +53,12 @@ public class GeometryInfo {
     }
 
     public void addGeometry(int lod, GeometryProperty<?> property) {
-        if (property != null && lod > Integer.MIN_VALUE)
+        if (property != null)
             geometries.computeIfAbsent(lod, v -> new ArrayList<>()).add(property);
     }
 
     public void addGeometry(GeometryProperty<?> property) {
-        if (property != null)
-            geometries.computeIfAbsent(Integer.MIN_VALUE, v -> new ArrayList<>()).add(property);
+        addGeometry(Integer.MIN_VALUE, property);
     }
 
     public boolean hasGeometries() {
@@ -88,13 +90,12 @@ public class GeometryInfo {
     }
 
     public void addImplicitGeometry(int lod, ImplicitGeometryProperty property) {
-        if (property != null && lod > Integer.MIN_VALUE)
+        if (property != null)
             implicitGeometries.computeIfAbsent(lod, v -> new ArrayList<>()).add(property);
     }
 
     public void addImplicitGeometry(ImplicitGeometryProperty property) {
-        if (property != null)
-            implicitGeometries.computeIfAbsent(Integer.MIN_VALUE, v -> new ArrayList<>()).add(property);
+        addImplicitGeometry(Integer.MIN_VALUE, property);
     }
 
     public boolean hasImplicitGeometries() {
