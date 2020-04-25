@@ -26,13 +26,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GeometryInfo {
     private final Map<Integer, List<GeometryProperty<?>>> geometries = new HashMap<>();
     private final Map<Integer, List<ImplicitGeometryProperty>> implicitGeometries = new HashMap<>();
+
+    public Set<Integer> getLods() {
+        Set<Integer> lods = new HashSet<>(geometries.keySet());
+        lods.addAll(implicitGeometries.keySet());
+
+        return lods;
+    }
 
     public List<GeometryProperty<?>> getGeometries() {
         return geometries.values().stream()
