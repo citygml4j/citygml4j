@@ -26,6 +26,7 @@ import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
+import org.xmlobjects.gml.model.feature.FeatureProperty;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -35,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SerializingObjects {
 
@@ -71,8 +73,10 @@ public class SerializingObjects {
                 Map<String, Integer> counter = new HashMap<>();
 
                 log.print("Counting city object members of the de-serialized object");
-                cityModel.getCityObjectMembers()
-                        .forEach(member -> counter.merge(member.getObject().getClass().getSimpleName(), 1, Integer::sum));
+                cityModel.getCityObjectMembers().stream()
+                        .map(FeatureProperty::getObject)
+                        .filter(Objects::nonNull)
+                        .forEach(o -> counter.merge(o.getClass().getSimpleName(), 1, Integer::sum));
 
                 counter.entrySet().stream()
                         .sorted(Map.Entry.comparingByKey())
