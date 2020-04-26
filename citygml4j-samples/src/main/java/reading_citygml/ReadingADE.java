@@ -63,7 +63,6 @@ public class ReadingADE {
             while (reader.hasNext()) {
                 AbstractFeature feature = reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + feature.getId());
-
                 log.print("    class: " + feature.getClass().getName());
                 log.print("    is ADE: " + (feature instanceof ADEObject));
 

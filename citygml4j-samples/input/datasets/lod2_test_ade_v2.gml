@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<CityModel xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:gml="http://www.opengis.net/gml"
+<CityModel gml:id="UUID_e71fcf70-6f2d-404c-ab5c-301415150062" xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:gml="http://www.opengis.net/gml"
   xmlns:test="http://www.citygml.org/ade/TestADE/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/citygml/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
   xsi:schemaLocation="http://www.citygml.org/ade/TestADE/1.0 ../schemas/test-ade.xsd">
   <gml:name>TestADE sample dataset</gml:name>
