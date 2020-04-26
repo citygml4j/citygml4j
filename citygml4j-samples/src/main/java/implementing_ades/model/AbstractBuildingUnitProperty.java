@@ -27,7 +27,7 @@ public class AbstractBuildingUnitProperty extends FeatureProperty<AbstractBuildi
     public AbstractBuildingUnitProperty() {
     }
 
-    public AbstractBuildingUnitProperty(BuildingUnitPart object) {
+    public AbstractBuildingUnitProperty(AbstractBuildingUnit object) {
         super(object);
     }
 
