@@ -22,6 +22,7 @@ package serializing_objects;
 import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -74,7 +75,7 @@ public class SerializingObjects {
 
                 log.print("Counting city object members of the de-serialized object");
                 cityModel.getCityObjectMembers().stream()
-                        .map(FeatureProperty::getObject)
+                        .map(AbstractCityObjectProperty::getObject)
                         .filter(Objects::nonNull)
                         .forEach(o -> counter.merge(o.getClass().getSimpleName(), 1, Integer::sum));
 
