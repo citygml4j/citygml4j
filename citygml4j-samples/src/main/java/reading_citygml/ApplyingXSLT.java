@@ -33,10 +33,10 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.nio.file.Path;
 
-public class ApplyXSLTWhileReading {
+public class ApplyingXSLT {
 
     public static void main(String[] args) throws Exception {
-        Logger log = Logger.start(ApplyXSLTWhileReading.class);
+        Logger log = Logger.start(ApplyingXSLT.class);
 
         CityGMLContext context = CityGMLContext.newInstance();
 

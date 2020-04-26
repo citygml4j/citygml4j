@@ -38,10 +38,10 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
-public class ApplyXSLTWhileWriting {
+public class ApplyingXSLT {
 
     public static void main(String[] args) throws Exception {
-        Logger log = Logger.start(ApplyXSLTWhileWriting.class);
+        Logger log = Logger.start(ApplyingXSLT.class);
 
         CityGMLContext context = CityGMLContext.newInstance();
 
