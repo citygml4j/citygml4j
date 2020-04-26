@@ -57,7 +57,7 @@ public class ReadingADE {
                 .useChunkMode(ChunkMode.CHUNK_BY_FEATURES);
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_test_ade_v2.gml");
-        log.print("Reading TestADE file " + file + " into main memory");
+        log.print("Reading the TestADE file " + file + " into main memory");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             while (reader.hasNext()) {

@@ -66,7 +66,7 @@ public class WritingADE {
                 .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
-        log.print("Reading the first building from file " + file);
+        log.print("Reading the first building from the file " + file);
 
         Building building = null;
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
