@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<CityModel gml:id="UUID_e71fcf70-6f2d-404c-ab5c-301415150062" xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:gml="http://www.opengis.net/gml"
-  xmlns:test="http://www.citygml.org/ade/TestADE/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/citygml/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+<CityModel gml:id="UUID_e71fcf70-6f2d-404c-ab5c-301415150062" xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
+  xmlns:gml="http://www.opengis.net/gml" xmlns:test="http://www.citygml.org/ade/TestADE/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.opengis.net/citygml/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
   xsi:schemaLocation="http://www.citygml.org/ade/TestADE/1.0 ../schemas/test-ade.xsd">
   <gml:name>TestADE sample dataset</gml:name>
   <gml:boundedBy>
     <gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG::25832,crs:EPSG::5783" srsDimension="3">
-      <gml:lowerCorner>458868.0 5438343.0 112.0</gml:lowerCorner>
-      <gml:upperCorner>458892.0 5438362.0 117.0</gml:upperCorner>
+      <gml:lowerCorner>458875.0 5438350.0 112.0</gml:lowerCorner>
+      <gml:upperCorner>458887.5 5438355.0 117.0</gml:upperCorner>
     </gml:Envelope>
   </gml:boundedBy>
   <cityObjectMember>
-    <test:IndustrialBuilding gml:id="GML_7b1a5a6f-ddad-4c3d-a507-3eb9ee0a8e68">
+    <bldg:Building gml:id="GML_7b1a5a6f-ddad-4c3d-a507-3eb9ee0a8e68">
       <bldg:function codeSpace="http://www.sig3d.org/codelists/standard/building/2.0/_AbstractBuilding_function.xml">1000</bldg:function>
       <bldg:yearOfConstruction>1985</bldg:yearOfConstruction>
       <bldg:roofType codeSpace="http://www.sig3d.org/codelists/standard/building/2.0/_AbstractBuilding_roofType.xml">1030</bldg:roofType>
@@ -274,7 +274,113 @@
       </test:buildingUnit>
       <test:floorArea uom="m2">50</test:floorArea>
       <test:ownerName>Smith</test:ownerName>
-      <test:remark>Example IndustrialBuilding LOD2</test:remark>
-    </test:IndustrialBuilding>
+    </bldg:Building>
+  </cityObjectMember>
+  <cityObjectMember>
+    <test:OtherConstruction>
+      <gml:name>Shed modelled as other construction</gml:name>
+      <test:boundedBy>
+        <bldg:WallSurface>
+          <bldg:lod2MultiSurface>
+            <gml:MultiSurface>
+              <gml:surfaceMember>
+                <gml:Polygon gml:id="GML_dab75f49-f6f8-4490-b86b-450b613e1fc2">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList>458887.5 5438355.0 114.3 458887.5 5438351.0 114.5 458887.5 5438351.0 112.0 458887.5 5438355.0 112.0 458887.5 5438355.0 114.3</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gml:surfaceMember>
+            </gml:MultiSurface>
+          </bldg:lod2MultiSurface>
+        </bldg:WallSurface>
+      </test:boundedBy>
+      <test:boundedBy>
+        <bldg:WallSurface>
+          <bldg:lod2MultiSurface>
+            <gml:MultiSurface>
+              <gml:surfaceMember>
+                <gml:Polygon gml:id="GML_f3f56c7b-7e59-47bc-ba03-d841032f1a37">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList>458885.0 5438351.0 114.5 458885.0 5438351.0 112.0 458887.5 5438351.0 112.0 458887.5 5438351.0 114.5 458885.0 5438351.0 114.5</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gml:surfaceMember>
+            </gml:MultiSurface>
+          </bldg:lod2MultiSurface>
+        </bldg:WallSurface>
+      </test:boundedBy>
+      <test:boundedBy>
+        <bldg:WallSurface>
+          <bldg:lod2MultiSurface>
+            <gml:MultiSurface>
+              <gml:surfaceMember>
+                <gml:Polygon gml:id="GML_9f0465e6-f316-4f89-a9bd-eb21934ffe84">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList>458885.0 5438355.0 112.0 458885.0 5438351.0 112.0 458885.0 5438351.0 114.5 458885.0 5438355.0 114.3 458885.0 5438355.0 112.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gml:surfaceMember>
+            </gml:MultiSurface>
+          </bldg:lod2MultiSurface>
+        </bldg:WallSurface>
+      </test:boundedBy>
+      <test:boundedBy>
+        <bldg:WallSurface>
+          <bldg:lod2MultiSurface>
+            <gml:MultiSurface>
+              <gml:surfaceMember>
+                <gml:Polygon gml:id="GML_5339468c-b2cb-4a99-9eb5-8b0660fb26d3">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList>458887.5 5438355.0 112.0 458885.0 5438355.0 112.0 458885.0 5438355.0 114.3 458887.5 5438355.0 114.3 458887.5 5438355.0 112.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gml:surfaceMember>
+            </gml:MultiSurface>
+          </bldg:lod2MultiSurface>
+        </bldg:WallSurface>
+      </test:boundedBy>
+      <test:boundedBy>
+        <bldg:GroundSurface>
+          <bldg:lod2MultiSurface>
+            <gml:MultiSurface>
+              <gml:surfaceMember>
+                <gml:Polygon gml:id="GML_2e1ff653-b62b-41ee-9f99-d6852ae7d567">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList>458887.5 5438351.0 112.0 458885.0 5438351.0 112.0 458885.0 5438355.0 112.0 458887.5 5438355.0 112.0 458887.5 5438351.0 112.0</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gml:surfaceMember>
+            </gml:MultiSurface>
+          </bldg:lod2MultiSurface>
+        </bldg:GroundSurface>
+      </test:boundedBy>
+      <test:boundedBy>
+        <bldg:RoofSurface>
+          <bldg:lod2MultiSurface>
+            <gml:MultiSurface>
+              <gml:surfaceMember>
+                <gml:Polygon gml:id="GML_7996bef1-f045-4704-be27-db27430d4f70">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:posList>458885.0 5438355.0 114.3 458885.0 5438351.0 114.5 458887.5 5438351.0 114.5 458887.5 5438355.0 114.3 458885.0 5438355.0 114.3</gml:posList>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gml:surfaceMember>
+            </gml:MultiSurface>
+          </bldg:lod2MultiSurface>
+        </bldg:RoofSurface>
+      </test:boundedBy>
+    </test:OtherConstruction>
   </cityObjectMember>
 </CityModel>

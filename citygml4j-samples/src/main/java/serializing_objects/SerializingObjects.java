@@ -27,7 +27,6 @@ import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
-import org.xmlobjects.gml.model.feature.FeatureProperty;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
