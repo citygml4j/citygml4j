@@ -52,7 +52,7 @@ public class TransformerPipeline {
         return newInstance(templates);
     }
 
-    public static synchronized SAXTransformerFactory getTransformerFactory() {
+    static synchronized SAXTransformerFactory getTransformerFactory() {
         if (factory == null)
             factory = (SAXTransformerFactory) TransformerFactory.newInstance();
 

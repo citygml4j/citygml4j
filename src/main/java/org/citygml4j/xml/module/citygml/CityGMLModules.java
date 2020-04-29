@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CityGMLModules {
     public static final CityGMLModules v3_0;
@@ -137,6 +139,12 @@ public class CityGMLModules {
             module = ADERegistry.getInstance().getADEModule(namespaceURI, version);
 
         return module;
+    }
+
+    public Set<String> getNamespaces() {
+        return getModules().stream()
+                .map(Module::getNamespaceURI)
+                .collect(Collectors.toSet());
     }
 
     public CityGMLVersion getCityGMLVersion() {
