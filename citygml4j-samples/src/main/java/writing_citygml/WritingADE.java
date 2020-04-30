@@ -37,6 +37,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
+import org.citygml4j.util.GeometryFactory;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.ChunkMode;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -44,12 +45,8 @@ import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.xmlobjects.gml.model.basictypes.Measure;
-import org.xmlobjects.gml.model.geometry.DirectPositionList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
-import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
-import org.xmlobjects.gml.model.geometry.primitives.Polygon;
-import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -100,12 +97,8 @@ public class WritingADE {
         log.print("Adding a building unit with LoD2 geometry and lighting facility");
         BuildingUnit buildingUnit = new BuildingUnit();
 
-        DirectPositionList posList = new DirectPositionList(6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 6.0, 8.0, 0.0, 6.0, 0.0, 0.0);
-        posList.setSrsDimension(3);
-        LinearRing linearRing = new LinearRing(posList);
-        Polygon polygon = new Polygon(linearRing);
-        MultiSurface multiSurface = new MultiSurface();
-        multiSurface.getSurfaceMember().add(new SurfaceProperty(polygon));
+        GeometryFactory factory = GeometryFactory.newInstance();
+        MultiSurface multiSurface = factory.createMultiSurface(new double[][]{{6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 6.0, 8.0, 0.0, 6.0, 0.0, 0.0}}, 3);
         buildingUnit.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
 
         LightingFacilities lightingFacilities = new LightingFacilities();

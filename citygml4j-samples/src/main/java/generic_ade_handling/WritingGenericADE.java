@@ -27,6 +27,7 @@ import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBuilding;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
+import org.citygml4j.util.GeometryFactory;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.ChunkMode;
@@ -39,11 +40,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xmlobjects.XMLObjects;
 import org.xmlobjects.gml.model.GMLObject;
-import org.xmlobjects.gml.model.geometry.DirectPositionList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
-import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
-import org.xmlobjects.gml.model.geometry.primitives.Polygon;
-import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
@@ -85,9 +82,9 @@ public class WritingGenericADE {
         }
 
         log.print("Enriching the building with TestADE properties and features");
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        Document document = factory.newDocumentBuilder().newDocument();
+        DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+        domFactory.setNamespaceAware(true);
+        Document document = domFactory.newDocumentBuilder().newDocument();
 
         log.print("Adding an owner name");
         Element ownerName = document.createElementNS(TestADEModule.NAMESPACE_1_0, "ownerName");
@@ -106,12 +103,8 @@ public class WritingGenericADE {
         Node buildingUnit = buildingUnitProperty.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "BuildingUnit"));
 
         Node lod2MultiSurfaceProperty = buildingUnit.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "lod2MultiSurface"));
-        DirectPositionList posList = new DirectPositionList(6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 6.0, 8.0, 0.0, 6.0, 0.0, 0.0);
-        posList.setSrsDimension(3);
-        LinearRing linearRing = new LinearRing(posList);
-        Polygon polygon = new Polygon(linearRing);
-        MultiSurface multiSurface = new MultiSurface();
-        multiSurface.getSurfaceMember().add(new SurfaceProperty(polygon));
+        GeometryFactory geometryFactory = GeometryFactory.newInstance();
+        MultiSurface multiSurface = geometryFactory.createMultiSurface(new double[][]{{6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 6.0, 8.0, 0.0, 6.0, 0.0, 0.0}}, 3);
         appendChild(lod2MultiSurfaceProperty, multiSurface, CityGMLVersion.v2_0, context.getXMLObjects());
 
         Node equippedWith = buildingUnit.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "equippedWith"));

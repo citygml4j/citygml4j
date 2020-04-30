@@ -68,7 +68,7 @@ public class ChunkWriter {
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
         Path output = Util.getOutputFile();
-        log.print("Creating CityGML " + version + " writer for file " + output);
+        log.print("Creating CityGML " + version + " writer for the file " + output);
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndentString("  ")
