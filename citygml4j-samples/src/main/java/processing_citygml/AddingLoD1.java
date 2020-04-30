@@ -25,7 +25,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.AbstractSpace;
-import org.citygml4j.util.GeometryFactory;
+import org.citygml4j.util.geometry.GeometryFactory;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.ChunkMode;
 import org.citygml4j.xml.reader.CityGMLInputFactory;

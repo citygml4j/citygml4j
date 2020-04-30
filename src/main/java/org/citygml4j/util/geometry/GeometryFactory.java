@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package org.citygml4j.util;
+package org.citygml4j.util.geometry;
 
 import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.DirectPositionList;

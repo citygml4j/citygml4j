@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package org.citygml4j.util;
+package org.citygml4j.util.geometry;
 
 public class GeometryException extends RuntimeException {
 

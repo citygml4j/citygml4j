@@ -27,7 +27,7 @@ import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBuilding;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.util.GeometryFactory;
+import org.citygml4j.util.geometry.GeometryFactory;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.ChunkMode;
