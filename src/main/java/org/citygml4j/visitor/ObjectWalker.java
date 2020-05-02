@@ -324,6 +324,18 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (bridge.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBridge deprecatedProperties = bridge.getDeprecatedProperties();
 
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getOuterBridgeConstructions()))
+                visit(reference);
+
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getOuterBridgeInstallations()))
+                visit(reference);
+
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorBridgeInstallations()))
+                visit(reference);
+
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorBridgeRooms()))
+                visit(reference);
+
             for (BridgePartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBridgeParts()))
                 visit(property);
 
@@ -371,6 +383,15 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (building.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBuilding deprecatedProperties = building.getDeprecatedProperties();
 
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getOuterBuildingInstallations()))
+                visit(reference);
+
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorBuildingInstallations()))
+                visit(reference);
+
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorRooms()))
+                visit(reference);
+
             for (BuildingPartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBuildingParts()))
                 visit(property);
 
@@ -400,12 +421,27 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractBuildingSubdivision buildingSubdivision) {
         visit((AbstractLogicalSpace) buildingSubdivision);
 
+        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingConstructiveElements()))
+            visit(reference);
+
+        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingFurniture()))
+            visit(reference);
+
+        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingInstallations()))
+            visit(reference);
+
+        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingRooms()))
+            visit(reference);
+
         for (ADEProperty<?> property : new ArrayList<>(buildingSubdivision.getADEPropertiesOfAbstractBuildingSubdivision()))
             visit(property);
     }
 
     public void visit(AbstractCityObject cityObject) {
         visit((AbstractFeatureWithLifespan) cityObject);
+
+        for (Reference reference : new ArrayList<>(cityObject.getGeneralizesTo()))
+            visit(reference);
 
         for (CityObjectRelationProperty property : new ArrayList<>(cityObject.getRelatedTo()))
             visit(property);
@@ -737,6 +773,15 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (tunnel.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractTunnel deprecatedProperties = tunnel.getDeprecatedProperties();
 
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getOuterTunnelInstallations()))
+                visit(reference);
+
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorTunnelInstallations()))
+                visit(reference);
+
+            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorHollowSpaces()))
+                visit(reference);
+
             for (TunnelPartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfTunnelParts()))
                 visit(property);
 
@@ -1058,6 +1103,9 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     @Override
     public void visit(BuildingUnit buildingUnit) {
         visit((AbstractBuildingSubdivision) buildingUnit);
+
+        for (Reference reference : new ArrayList<>(buildingUnit.getStoreys()))
+            visit(reference);
 
         for (AddressProperty property : new ArrayList<>(buildingUnit.getAddresses()))
             visit(property);
@@ -1658,6 +1706,9 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     @Override
     public void visit(Storey storey) {
         visit((AbstractBuildingSubdivision) storey);
+
+        for (Reference reference : new ArrayList<>(storey.getBuildingUnits()))
+            visit(reference);
 
         for (ADEProperty<?> property : new ArrayList<>(storey.getADEPropertiesOfStorey()))
             visit(property);
