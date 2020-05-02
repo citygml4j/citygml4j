@@ -199,6 +199,8 @@ import org.xmlobjects.gml.model.base.AbstractAssociation;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
 import org.xmlobjects.gml.model.base.AbstractInlineProperty;
+import org.xmlobjects.gml.model.base.AbstractProperty;
+import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.gml.model.coverage.AbstractContinuousCoverage;
 import org.xmlobjects.gml.model.coverage.AbstractCoverage;
@@ -212,6 +214,11 @@ import org.xmlobjects.gml.model.coverage.RectifiedGridCoverage;
 import org.xmlobjects.gml.model.feature.AbstractFeatureMember;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
+import org.xmlobjects.gml.model.geometry.AbstractInlineGeometryProperty;
+import org.xmlobjects.gml.model.geometry.GeometryArrayProperty;
+import org.xmlobjects.gml.model.geometry.GeometryProperty;
+import org.xmlobjects.gml.model.geometry.primitives.AbstractSurfacePatch;
+import org.xmlobjects.gml.model.geometry.primitives.SurfacePatchArrayProperty;
 import org.xmlobjects.gml.model.temporal.TimeInstant;
 import org.xmlobjects.gml.model.temporal.TimeInstantProperty;
 import org.xmlobjects.gml.model.temporal.TimePeriod;
@@ -1945,44 +1952,21 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(GenericElement genericElement) {
     }
 
-    public void visit(AbstractArrayProperty<?> property) {
-        if (property != null) {
-            for (Object object : property.getObjects()) {
-                if (shouldWalk)
-                    visitObject(object);
-            }
-        }
-    }
-
-    public void visit(AbstractInlineOrByReferenceProperty<?> property) {
-        if (shouldWalk && property != null && property.getObject() != null)
-            visitObject(property.getObject());
-    }
-
-    public void visit(AbstractInlineProperty<?> property) {
-        if (shouldWalk && property != null && property.getObject() != null)
-            visitObject(property.getObject());
-    }
-
     public void visit(FeatureProperty<?> property) {
-        if (shouldWalk && property != null) {
-            if (property.getObject() != null)
-                visitObject(property.getObject());
-            else if (property.getGenericElement() != null)
-                visit(property.getGenericElement());
-        }
+        visit((AbstractProperty<?>) property);
+
+        if (shouldWalk && property != null && property.getGenericElement() != null)
+            visit(property.getGenericElement());
     }
 
     public void visit(AbstractFeatureMember<?> member) {
-        if (shouldWalk && member != null) {
-            if (member.getObject() != null)
-                visitObject(member.getObject());
-            else if (member.getGenericElement() != null)
-                visit(member.getGenericElement());
-        }
+        visit((AbstractInlineProperty<?>) member);
+
+        if (shouldWalk && member != null && member.getGenericElement() != null)
+            visit(member.getGenericElement());
     }
 
-    void visitObject(Object object) {
+    protected void visitObject(Object object) {
         if (object instanceof ADEObject)
             visit((ADEObject) object);
         else if (object instanceof Visitable)
@@ -1991,6 +1975,8 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             ((AbstractCoverage<?>) object).accept(this);
         else if (object instanceof AbstractGeometry)
             ((AbstractGeometry) object).accept(this);
+        else if (object instanceof AbstractSurfacePatch)
+            ((AbstractSurfacePatch) object).accept(this);
         else if (object instanceof AbstractAssociation<?>)
             visitProperty((AbstractAssociation<?>) object);
     }
@@ -1998,14 +1984,26 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     private void visitProperty(AbstractAssociation<?> property) {
         if (property instanceof FeatureProperty<?>)
             visit((FeatureProperty<?>) property);
+        else if (property instanceof GeometryProperty<?>)
+            visit((GeometryProperty<?>) property);
         else if (property instanceof AbstractFeatureMember<?>)
             visit((AbstractFeatureMember<?>) property);
-        else if (property instanceof AbstractArrayProperty<?>)
-            visit((AbstractArrayProperty<?>) property);
-        else if (property instanceof AbstractInlineOrByReferenceProperty<?>)
-            visit((AbstractInlineOrByReferenceProperty<?>) property);
+        else if (property instanceof Reference)
+            visit((Reference) property);
+        else if (property instanceof GeometryArrayProperty<?>)
+            visit((GeometryArrayProperty<?>) property);
+        else if (property instanceof SurfacePatchArrayProperty<?>)
+            visit((SurfacePatchArrayProperty<?>) property);
+        else if (property instanceof AbstractInlineGeometryProperty<?>)
+            visit((AbstractInlineGeometryProperty<?>) property);
         else if (property instanceof AbstractInlineProperty<?>)
             visit((AbstractInlineProperty<?>) property);
+        else if (property instanceof AbstractProperty<?>)
+            visit((AbstractProperty<?>) property);
+        else if (property instanceof AbstractInlineOrByReferenceProperty<?>)
+            visit((AbstractInlineOrByReferenceProperty<?>) property);
+        else if (property instanceof AbstractArrayProperty<?>)
+            visit((AbstractArrayProperty<?>) property);
     }
 
     private void visit(Value value) {
