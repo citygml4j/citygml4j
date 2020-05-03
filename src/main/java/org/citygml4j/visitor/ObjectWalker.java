@@ -10,6 +10,7 @@ import org.citygml4j.model.appearance.Appearance;
 import org.citygml4j.model.appearance.GeoreferencedTexture;
 import org.citygml4j.model.appearance.ParameterizedTexture;
 import org.citygml4j.model.appearance.TextureAssociation;
+import org.citygml4j.model.appearance.TextureAssociationProperty;
 import org.citygml4j.model.appearance.X3DMaterial;
 import org.citygml4j.model.bridge.AbstractBridge;
 import org.citygml4j.model.bridge.Bridge;
@@ -1536,6 +1537,9 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     @Override
     public void visit(ParameterizedTexture parameterizedTexture) {
         visit((AbstractTexture) parameterizedTexture);
+
+        for (TextureAssociationProperty property : new ArrayList<>(parameterizedTexture.getTextureParameterizations()))
+            visit(property);
 
         for (ADEProperty<?> property : new ArrayList<>(parameterizedTexture.getADEPropertiesOfParameterizedTexture()))
             visit(property);
