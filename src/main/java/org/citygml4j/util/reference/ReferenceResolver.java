@@ -19,6 +19,10 @@
 
 package org.citygml4j.util.reference;
 
+import org.citygml4j.model.appearance.GeometryReference;
+import org.citygml4j.model.appearance.GeoreferencedTexture;
+import org.citygml4j.model.appearance.TextureAssociation;
+import org.citygml4j.model.appearance.X3DMaterial;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.visitor.Visitable;
@@ -52,8 +56,8 @@ public class ReferenceResolver {
     }
 
     public <T> T resolveReference(String reference, Visitable object, Class<T> type) {
-        final String id = getIdFromReference(reference);
-        final AbstractGML[] target = new AbstractGML[1];
+        String id = getIdFromReference(reference);
+        AbstractGML[] target = new AbstractGML[1];
 
         object.accept(new ObjectWalker() {
             @Override
@@ -76,7 +80,7 @@ public class ReferenceResolver {
     }
 
     public void resolveReferences(Visitable object) {
-        final Map<String, List<AbstractAssociation<?>>> properties = new HashMap<>();
+        Map<String, List<AbstractAssociation<?>>> properties = new HashMap<>();
 
         object.accept(new ObjectWalker() {
             @Override
@@ -88,7 +92,32 @@ public class ReferenceResolver {
             @Override
             public void visit(Reference reference) {
                 collect(reference, reference.getHref());
-                super.visit(reference);
+            }
+
+            @Override
+            public void visit(TextureAssociation textureAssociation) {
+                if (textureAssociation.getTarget() != null)
+                    collect(textureAssociation.getTarget(), textureAssociation.getTarget().getURI());
+            }
+
+            @Override
+            public void visit(GeoreferencedTexture georeferencedTexture) {
+                for (GeometryReference target : georeferencedTexture.getTargets()) {
+                    if (target != null)
+                        collect(target, target.getURI());
+                }
+
+                super.visit(georeferencedTexture);
+            }
+
+            @Override
+            public void visit(X3DMaterial x3dMaterial) {
+                for (GeometryReference target : x3dMaterial.getTargets()) {
+                    if (target != null)
+                        collect(target, target.getURI());
+                }
+
+                super.visit(x3dMaterial);
             }
 
             private void collect(AbstractAssociation<?> association, String reference) {
