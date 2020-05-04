@@ -4,25 +4,34 @@ import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractGML;
+import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 
 public class TextureAssociation extends AbstractGML implements CityGMLObject, Visitable {
-    private String target;
+    private GeometryReference target;
     private AbstractTextureParameterizationProperty textureParameterization;
 
     public TextureAssociation() {
     }
 
-    public TextureAssociation(String target, AbstractTextureParameterizationProperty textureParameterization) {
-        this.target = target;
+    public TextureAssociation(GeometryReference target, AbstractTextureParameterizationProperty textureParameterization) {
+        setTarget(target);
         setTextureParameterization(textureParameterization);
     }
 
-    public String getTarget() {
+    public TextureAssociation(String target, AbstractTextureParameterizationProperty textureParameterization) {
+        this(new GeometryReference(target), textureParameterization);
+    }
+
+    public TextureAssociation(AbstractGeometry target, AbstractTextureParameterizationProperty textureParameterization) {
+        this(new GeometryReference(target), textureParameterization);
+    }
+
+    public GeometryReference getTarget() {
         return target;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
+    public void setTarget(GeometryReference target) {
+        this.target = asChild(target);
     }
 
     public AbstractTextureParameterizationProperty getTextureParameterization() {

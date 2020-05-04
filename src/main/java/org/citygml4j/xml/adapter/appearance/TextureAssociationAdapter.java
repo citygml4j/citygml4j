@@ -1,5 +1,6 @@
 package org.citygml4j.xml.adapter.appearance;
 
+import org.citygml4j.model.appearance.GeometryReference;
 import org.citygml4j.model.appearance.TextureAssociation;
 import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
@@ -29,7 +30,7 @@ public class TextureAssociationAdapter extends AbstractGMLAdapter<TextureAssocia
         if (CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "target":
-                    reader.getTextContent().ifPresent(object::setTarget);
+                    reader.getTextContent().ifPresent(v -> object.setTarget(new GeometryReference(v)));
                     break;
                 case "textureParameterization":
                     object.setTextureParameterization(reader.getObjectUsingBuilder(AbstractTextureParameterizationPropertyAdapter.class));
@@ -48,7 +49,8 @@ public class TextureAssociationAdapter extends AbstractGMLAdapter<TextureAssocia
     public void writeChildElements(TextureAssociation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "target").addTextContent(object.getTarget()));
+        String target = object.getTarget() != null ? object.getTarget().getURI() : null;
+        writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "target").addTextContent(target));
 
         if (object.getTextureParameterization() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "textureParameterization"), object.getTextureParameterization(), AbstractTextureParameterizationPropertyAdapter.class, namespaces);

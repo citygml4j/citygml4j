@@ -3,7 +3,6 @@ package org.citygml4j.model.appearance;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class X3DMaterial extends AbstractSurfaceData {
@@ -14,7 +13,7 @@ public class X3DMaterial extends AbstractSurfaceData {
     private Double shininess;
     private Double transparency;
     private Boolean isSmooth;
-    private List<String> targets;
+    private List<GeometryReference> targets;
     private List<ADEPropertyOfX3DMaterial<?>> adeProperties;
 
     public Double getAmbientIntensity() {
@@ -104,15 +103,15 @@ public class X3DMaterial extends AbstractSurfaceData {
         isSmooth = smooth;
     }
 
-    public List<String> getTargets() {
+    public List<GeometryReference> getTargets() {
         if (targets == null)
-            targets = new ArrayList<>();
+            targets = new ChildList<>(this);
 
         return targets;
     }
 
-    public void setTargets(List<String> targets) {
-        this.targets = targets;
+    public void setTargets(List<GeometryReference> targets) {
+        this.targets = asChild(targets);
     }
 
     public List<ADEPropertyOfX3DMaterial<?>> getADEPropertiesOfX3DMaterial() {

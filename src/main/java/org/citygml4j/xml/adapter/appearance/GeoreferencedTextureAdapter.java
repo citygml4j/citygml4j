@@ -2,6 +2,7 @@ package org.citygml4j.xml.adapter.appearance;
 
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfGeoreferencedTexture;
 import org.citygml4j.model.appearance.ADEPropertyOfGeoreferencedTexture;
+import org.citygml4j.model.appearance.GeometryReference;
 import org.citygml4j.model.appearance.GeoreferencedTexture;
 import org.citygml4j.model.core.TransformationMatrix2x2;
 import org.citygml4j.util.CityGMLConstants;
@@ -54,7 +55,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
                     reader.getTextContent().ifDoubleList(v -> object.setOrientation(TransformationMatrix2x2.ofRowMajorList(v)));
                     return;
                 case "target":
-                    reader.getTextContent().ifPresent(object.getTargets()::add);
+                    reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -91,8 +92,10 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
         if (object.getOrientation() != null)
             writer.writeElement(Element.of(appearanceNamespace, "orientation").addTextContent(TextContent.ofDoubleList(object.getOrientation().toRowMajorList())));
 
-        for (String target : object.getTargets())
-            writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target));
+        for (GeometryReference target : object.getTargets()) {
+            if (target != null)
+                writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getURI()));
+        }
 
         for (ADEPropertyOfGeoreferencedTexture<?> property : object.getADEPropertiesOfGeoreferencedTexture())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);

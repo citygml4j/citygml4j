@@ -3,6 +3,7 @@ package org.citygml4j.xml.adapter.appearance;
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfX3DMaterial;
 import org.citygml4j.model.appearance.ADEPropertyOfX3DMaterial;
 import org.citygml4j.model.appearance.Color;
+import org.citygml4j.model.appearance.GeometryReference;
 import org.citygml4j.model.appearance.X3DMaterial;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
@@ -65,7 +66,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
                     reader.getTextContent().ifBoolean(object::setIsSmooth);
                     return;
                 case "target":
-                    reader.getTextContent().ifPresent(object.getTargets()::add);
+                    reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -114,8 +115,10 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
         if (object.isSetIsSmooth())
             writer.writeElement(Element.of(appearanceNamespace, "isSmooth").addTextContent(TextContent.ofBoolean(object.getIsSmooth())));
 
-        for (String target : object.getTargets())
-            writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target));
+        for (GeometryReference target : object.getTargets()) {
+            if (target != null)
+                writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getURI()));
+        }
 
         for (ADEPropertyOfX3DMaterial<?> property : object.getADEPropertiesOfX3DMaterial())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
