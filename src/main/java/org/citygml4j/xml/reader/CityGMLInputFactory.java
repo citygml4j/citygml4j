@@ -144,21 +144,21 @@ public class CityGMLInputFactory {
         return this;
     }
 
-    public XMLReporter getReporter() {
-        return factory.getReporter();
+    public XMLReporter getXMLReporter() {
+        return factory.getXMLReporter();
     }
 
-    public CityGMLInputFactory withReporter(XMLReporter reporter) {
-        factory.withReporter(reporter);
+    public CityGMLInputFactory withXMLReporter(XMLReporter reporter) {
+        factory.withXMLReporter(reporter);
         return this;
     }
 
-    public XMLResolver getResolver() {
-        return factory.getResolver();
+    public XMLResolver getXMLResolver() {
+        return factory.getXMLResolver();
     }
 
-    public CityGMLInputFactory withResolver(XMLResolver resolver) {
-        factory.withResolver(resolver);
+    public CityGMLInputFactory withXMLResolver(XMLResolver resolver) {
+        factory.withXMLResolver(resolver);
         return this;
     }
 
