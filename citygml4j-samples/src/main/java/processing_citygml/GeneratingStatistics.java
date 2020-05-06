@@ -22,6 +22,7 @@ package processing_citygml;
 import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -49,15 +50,21 @@ public class GeneratingStatistics {
             feature = reader.next();
         }
 
+        log.print("Walking through the dataset and counting features, geometries and present LoDs");
+
         Map<String, Integer> features = new TreeMap<>();
         Map<String, Integer> geometries = new TreeMap<>();
-
-        log.print("Walking through the dataset and counting features and geometries");
+        Map<Integer, Integer> lods = new TreeMap<>();
 
         feature.accept(new ObjectWalker() {
             @Override
             public void visit(AbstractFeature feature) {
                 features.merge(feature.getClass().getSimpleName(), 1, Integer::sum);
+
+                GeometryInfo geometryInfo = feature.getGeometryInfo();
+                for (int lod = 0; lod < 4; lod++)
+                    lods.merge(lod, geometryInfo.hasGeometries(lod) ? 1 : 0, Integer::sum);
+
                 super.visit(feature);
             }
 
@@ -68,10 +75,13 @@ public class GeneratingStatistics {
             }
         });
 
-        log.print("-- The dataset contains the following features:");
+        log.print("-- Features present in the dataset:");
         features.forEach((key, value) -> log.print(key + ": " + value + " instance(s)"));
 
-        log.print("-- The dataset contains the following geometries:");
+        log.print("-- LoDs present in the dataset:");
+        lods.forEach((key, value) -> log.print(key + ": " + value + " instance(s)"));
+
+        log.print("-- Geometries present in the dataset:");
         geometries.forEach((key, value) -> log.print(key + ": " + value + " instance(s)"));
 
         log.finish();
