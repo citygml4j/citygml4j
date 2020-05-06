@@ -62,10 +62,10 @@ public class CityGMLChunkReader extends CityGMLReader {
                         ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
                         if (builder != null && shouldChunk(reader.getName())) {
                             if (current == null)
-                                current = new CityGMLChunk(reader.getName(), factory);
+                                current = new CityGMLChunk(reader.getName(), factory, resolver);
                             else {
                                 chunks.push(current);
-                                current = new CityGMLChunk(reader.getName(), factory, current);
+                                current = new CityGMLChunk(reader.getName(), factory, current, resolver);
                                 initialize = true;
                             }
                         }

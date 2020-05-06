@@ -1,6 +1,7 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.core.AbstractFeature;
+import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xml.sax.Attributes;
@@ -23,6 +24,7 @@ public class CityGMLChunk {
     private final QName firstElement;
     private final XMLReaderFactory factory;
     private final CityGMLChunk parent;
+    private final ReferenceResolver resolver;
 
     private FeatureInfo featureInfo;
     private SAXBuffer buffer;
@@ -30,17 +32,18 @@ public class CityGMLChunk {
     private QName lastElement;
     private int depth = 0;
 
-    CityGMLChunk(QName firstElement, XMLReaderFactory factory, CityGMLChunk parent) {
+    CityGMLChunk(QName firstElement, XMLReaderFactory factory, CityGMLChunk parent, ReferenceResolver resolver) {
         this.firstElement = lastElement = firstElement;
         this.factory = factory;
         this.parent = parent;
+        this.resolver = resolver;
 
         buffer = new SAXBuffer().assumeMixedContent(false);
         mapper = new StAXStream2SAX(buffer);
     }
 
-    CityGMLChunk(QName firstElement, XMLReaderFactory factory) {
-        this(firstElement, factory, null);
+    CityGMLChunk(QName firstElement, XMLReaderFactory factory, ReferenceResolver resolver) {
+        this(firstElement, factory, null, resolver);
     }
 
     boolean isComplete() {
@@ -95,7 +98,12 @@ public class CityGMLChunk {
         try {
             XMLReader reader = factory.createReader(buffer.toXMLStreamReader(release));
             reader.nextTag();
-            return reader.getObject(AbstractFeature.class);
+
+            AbstractFeature feature = reader.getObject(AbstractFeature.class);
+            if (feature != null && resolver != null)
+                resolver.resolveReferences(feature);
+
+            return feature;
         } catch (XMLReadException | ObjectBuildException e) {
             throw new CityGMLReadException("Caused by:", e);
         }

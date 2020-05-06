@@ -1,6 +1,7 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
@@ -39,6 +40,7 @@ public class CityGMLInputFactory {
     private Set<QName> excludes = new HashSet<>();
     private Set<QName> properties = new HashSet<>();
     private TransformerPipeline transformer;
+    private ReferenceResolver resolver;
     private IdCreator idCreator;
 
     public CityGMLInputFactory(CityGMLContext context) throws CityGMLReadException {
@@ -132,6 +134,15 @@ public class CityGMLInputFactory {
 
     public CityGMLInputFactory withTransformer(TransformerPipeline transformer) {
         this.transformer = transformer;
+        return this;
+    }
+
+    public ReferenceResolver getReferenceResolver() {
+        return resolver;
+    }
+
+    public CityGMLInputFactory withReferenceResolver(ReferenceResolver resolver) {
+        this.resolver = resolver;
         return this;
     }
 
@@ -270,6 +281,7 @@ public class CityGMLInputFactory {
             }
 
             reader.transformer = transformer != null ? new TransformerPipeline(transformer) : null;
+            reader.resolver = resolver;
 
             return reader;
         } catch (TransformerConfigurationException e) {
