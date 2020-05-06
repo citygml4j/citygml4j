@@ -51,7 +51,7 @@ public class AddingLoD1 {
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
         log.print("Reading the file " + file + " chunk-wise by city model members");
-        log.print("Adding a simplified LoD1 representation based on the bounding box to each feature");
+        log.print("Adding a simplified LoD1 representation to each feature based on its bounding box");
 
         CityGMLVersion version = CityGMLVersion.v3_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
