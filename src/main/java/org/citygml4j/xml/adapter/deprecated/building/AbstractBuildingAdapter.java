@@ -11,7 +11,6 @@ import org.citygml4j.model.building.BuildingRoomMember;
 import org.citygml4j.model.building.BuildingRoomProperty;
 import org.citygml4j.model.construction.Height;
 import org.citygml4j.model.construction.HeightProperty;
-import org.citygml4j.model.construction.HeightStatusValue;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
@@ -35,7 +34,6 @@ import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapte
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
 import org.xmlobjects.gml.adapter.measures.LengthAdapter;
 import org.xmlobjects.gml.model.base.Reference;
-import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -74,11 +72,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.setRoofType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "measuredHeight":
-                    object.getHeights().add(new HeightProperty(new Height(
-                            new Code("highestRoofEdge"),
-                            new Code("lowestGroundPoint"),
-                            HeightStatusValue.MEASURED,
-                            reader.getObjectUsingBuilder(LengthAdapter.class))));
+                    object.getHeights().add(new HeightProperty(Height.ofMeasuredHeight(reader.getObjectUsingBuilder(LengthAdapter.class))));
                     return;
                 case "storeysAboveGround":
                     reader.getTextContent().ifInteger(object::setStoreysAboveGround);

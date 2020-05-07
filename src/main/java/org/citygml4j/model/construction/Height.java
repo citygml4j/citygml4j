@@ -21,6 +21,14 @@ public class Height extends GMLObject implements CityGMLObject {
         setValue(value);
     }
 
+    public static Height ofMeasuredHeight(Length value) {
+        return new Height(
+                new Code("highestRoofEdge"),
+                new Code("lowestGroundPoint"),
+                HeightStatusValue.MEASURED,
+                value);
+    }
+
     public Code getHighReference() {
         return highReference;
     }
