@@ -8,6 +8,8 @@ plugins {
 allprojects {
     group 'org.citygml4j'
     version '0.9.1'
+    description 'The Open Source Java API for CityGML'
+    ext.date = new Date()
 
     repositories {
         jcenter()
@@ -22,6 +24,35 @@ dependencies {
     api 'org.xmlobjects.gml:gml-objects:0.9.1-b20200705-1534'
     api 'org.xmlobjects.xal:xal-objects:0.9.1-b20200705-1534'
     annotationProcessor 'org.xmlobjects.gml:gml-objects:0.9.1-b20200705-1534'
+}
+
+javadoc {
+    options {
+        overview "$buildDir/tmp/javadoc/overview.html"
+        header "citygml4j $project.version"
+        bottom """
+            <a target="_blank" href="https://github.com/citygml4j/citygml4j/issues">Report a bug or suggest an enhancement</a><br />
+            citygml4j is open source and licensed under the <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a><br />
+            Official website and more information at: <a target="_blank" href="https://github.com/citygml4j">https://github.com/citygml4j</a><br />
+            Copyright &copy; 2013-${date.format('yyyy')}<br />
+            Claus Nagel &lt;claus.nagel@gmail.com&gt;
+            """.replaceAll("[\r|\n]+", "")
+        addStringOption('doctitle', project.name + ' - ' + project.description)
+    }
+
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+
+    doFirst {
+        copy {
+            from 'resources/javadoc/overview.html'
+            into "$buildDir/tmp/javadoc"
+            filter(ReplaceTokens, tokens: [
+                    version: project.version
+            ])
+        }
+    }
 }
 
 jar {
