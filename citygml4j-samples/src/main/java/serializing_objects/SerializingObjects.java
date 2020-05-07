@@ -34,9 +34,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class SerializingObjects {
 
@@ -70,7 +70,7 @@ public class SerializingObjects {
 
             if (object instanceof CityModel) {
                 CityModel cityModel = (CityModel) object;
-                Map<String, Integer> counter = new HashMap<>();
+                Map<String, Integer> counter = new TreeMap<>();
 
                 log.print("Counting city object members of the de-serialized object");
                 cityModel.getCityObjectMembers().stream()
@@ -78,9 +78,7 @@ public class SerializingObjects {
                         .filter(Objects::nonNull)
                         .forEach(o -> counter.merge(o.getClass().getSimpleName(), 1, Integer::sum));
 
-                counter.entrySet().stream()
-                        .sorted(Map.Entry.comparingByKey())
-                        .forEach(e -> log.print(e.getKey() + ": " + e.getValue()));
+                counter.forEach((key, value) -> log.print(key + ": " + value + " instance(s)"));
             }
         }
 
