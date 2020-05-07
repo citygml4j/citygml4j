@@ -19,6 +19,7 @@
 
 package org.citygml4j.util.geometry;
 
+import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.DirectPositionList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
@@ -35,6 +36,7 @@ import org.xmlobjects.gml.model.geometry.primitives.Shell;
 import org.xmlobjects.gml.model.geometry.primitives.ShellProperty;
 import org.xmlobjects.gml.model.geometry.primitives.Solid;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import org.xmlobjects.gml.util.id.IdCreator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +45,7 @@ import java.util.stream.Collectors;
 public class GeometryFactory {
     private boolean setSrsDimension = true;
     private boolean setCount;
+    private IdCreator idCreator;
 
     private GeometryFactory() {
     }
@@ -69,8 +72,17 @@ public class GeometryFactory {
         return this;
     }
 
+    public IdCreator getIdCreator() {
+        return idCreator;
+    }
+
+    public GeometryFactory withIdCreator(IdCreator idCreator) {
+        this.idCreator = idCreator;
+        return this;
+    }
+
     public Point createPoint(List<Double> coordinates, int dimension) {
-        return new Point(createDirectPosition(coordinates, dimension));
+        return postprocess(new Point(createDirectPosition(coordinates, dimension)));
     }
 
     public Point createPoint(double[] coordinates, int dimension) {
@@ -78,11 +90,11 @@ public class GeometryFactory {
     }
 
     public MultiPoint createMultiPoint(List<Point> points) {
-        return new MultiPoint(points.stream().map(PointProperty::new).collect(Collectors.toList()));
+        return postprocess(new MultiPoint(points.stream().map(PointProperty::new).collect(Collectors.toList())));
     }
 
     public MultiPoint createMultiPoint(Point... points) {
-        return new MultiPoint(Arrays.stream(points).map(PointProperty::new).collect(Collectors.toList()));
+        return postprocess(new MultiPoint(Arrays.stream(points).map(PointProperty::new).collect(Collectors.toList())));
     }
 
     public MultiPoint createMultiPoint(List<List<Double>> coordinates, int dimension) {
@@ -94,7 +106,7 @@ public class GeometryFactory {
     }
 
     public LineString createLineString(List<Double> coordinates, int dimension) {
-        return new LineString(createDirectPositionList(coordinates, dimension));
+        return postprocess(new LineString(createDirectPositionList(coordinates, dimension)));
     }
 
     public LineString createLineString(double[] coordinates, int dimension) {
@@ -102,11 +114,11 @@ public class GeometryFactory {
     }
 
     public MultiCurve createMultiCurve(List<LineString> lineStrings) {
-        return new MultiCurve(lineStrings.stream().map(CurveProperty::new).collect(Collectors.toList()));
+        return postprocess(new MultiCurve(lineStrings.stream().map(CurveProperty::new).collect(Collectors.toList())));
     }
 
     public MultiCurve createMultiCurve(LineString... lineStrings) {
-        return new MultiCurve(Arrays.stream(lineStrings).map(CurveProperty::new).collect(Collectors.toList()));
+        return postprocess(new MultiCurve(Arrays.stream(lineStrings).map(CurveProperty::new).collect(Collectors.toList())));
     }
 
     public MultiCurve createMultiCurve(List<List<Double>> coordinates, int dimension) {
@@ -118,7 +130,7 @@ public class GeometryFactory {
     }
 
     public Polygon createPolygon(LinearRing linearRing) {
-        return new Polygon(linearRing);
+        return postprocess(new Polygon(linearRing));
     }
 
     public Polygon createPolygon(List<Double> coordinates, int dimension) {
@@ -132,7 +144,7 @@ public class GeometryFactory {
     public Polygon createPolygon(LinearRing exterior, List<LinearRing> interiors) {
         Polygon polygon = new Polygon(exterior);
         interiors.stream().map(AbstractRingProperty::new).forEach(polygon.getInterior()::add);
-        return polygon;
+        return postprocess(polygon);
     }
 
     public Polygon createPolygon(LinearRing exterior, LinearRing... interiors) {
@@ -150,11 +162,11 @@ public class GeometryFactory {
     }
 
     public MultiSurface createMultiSurface(List<Polygon> polygons) {
-        return new MultiSurface(polygons.stream().map(SurfaceProperty::new).collect(Collectors.toList()));
+        return postprocess(new MultiSurface(polygons.stream().map(SurfaceProperty::new).collect(Collectors.toList())));
     }
 
     public MultiSurface createMultiSurface(Polygon... polygons) {
-        return new MultiSurface(Arrays.stream(polygons).map(SurfaceProperty::new).collect(Collectors.toList()));
+        return postprocess(new MultiSurface(Arrays.stream(polygons).map(SurfaceProperty::new).collect(Collectors.toList())));
     }
 
     public MultiSurface createMultiSurface(List<List<Double>> coordinates, int dimension) {
@@ -166,37 +178,37 @@ public class GeometryFactory {
     }
 
     public Solid createSolid(Shell shell) {
-        return new Solid(shell);
+        return postprocess(new Solid(shell));
     }
 
     public Solid createSolid(Shell exterior, List<Shell> interiors) {
         Solid solid = new Solid(exterior);
         interiors.stream().map(ShellProperty::new).forEach(solid.getInterior()::add);
-        return solid;
+        return postprocess(solid);
     }
 
     public Solid createSolid(List<Polygon> polygons) {
-        return new Solid(createShell(polygons));
+        return postprocess(new Solid(createShell(polygons)));
     }
 
     public Solid createSolid(Polygon... polygons) {
-        return new Solid(createShell(polygons));
+        return postprocess(new Solid(createShell(polygons)));
     }
 
     public Solid createSolid(List<List<Double>> coordinates, int dimension) {
-        return new Solid(createShell(coordinates, dimension));
+        return postprocess(new Solid(createShell(coordinates, dimension)));
     }
 
     public Solid createSolid(double[][] coordinates, int dimension) {
-        return new Solid(createShell(coordinates, dimension));
+        return postprocess(new Solid(createShell(coordinates, dimension)));
     }
 
     public Shell createShell(List<Polygon> polygons) {
-        return new Shell(polygons.stream().map(SurfaceProperty::new).collect(Collectors.toList()));
+        return postprocess(new Shell(polygons.stream().map(SurfaceProperty::new).collect(Collectors.toList())));
     }
 
     public Shell createShell(Polygon... polygons) {
-        return new Shell(Arrays.stream(polygons).map(SurfaceProperty::new).collect(Collectors.toList()));
+        return postprocess(new Shell(Arrays.stream(polygons).map(SurfaceProperty::new).collect(Collectors.toList())));
     }
 
     public Shell createShell(List<List<Double>> coordinates, int dimension) {
@@ -224,7 +236,7 @@ public class GeometryFactory {
                 coordinates.add(coordinates.get(i));
         }
 
-        return new LinearRing(createDirectPositionList(coordinates, dimension));
+        return postprocess(new LinearRing(createDirectPositionList(coordinates, dimension)));
     }
 
     public LinearRing createLinearRing(double[] coordinates, int dimension) {
@@ -264,5 +276,12 @@ public class GeometryFactory {
 
     public DirectPosition createDirectPosition(double[] coordinates, int dimension) {
         return createDirectPosition(Arrays.stream(coordinates).boxed().collect(Collectors.toList()), dimension);
+    }
+
+    private <T extends AbstractGeometry> T postprocess(T object) {
+        if (idCreator != null)
+            object.setId(idCreator.createId());
+
+        return object;
     }
 }
