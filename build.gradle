@@ -1,5 +1,8 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'java-library'
+    id 'distribution'
 }
 
 allprojects {
@@ -16,7 +19,26 @@ java {
 }
 
 dependencies {
-    api 'org.xmlobjects.gml:gml-objects:0.9.1-b20200408-1623'
-    api 'org.xmlobjects.xal:xal-objects:0.9.1-b20200408-1623'
-    annotationProcessor 'org.xmlobjects.gml:gml-objects:0.9.1-b20200408-1623'
+    api 'org.xmlobjects.gml:gml-objects:0.9.1-b20200705-1534'
+    api 'org.xmlobjects.xal:xal-objects:0.9.1-b20200705-1534'
+    annotationProcessor 'org.xmlobjects.gml:gml-objects:0.9.1-b20200705-1534'
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Automatic-Module-Name': project.group
+        )
+    }
+}
+
+distributions.main.contents {
+    into('lib') {
+        from jar
+        from configurations.compileClasspath
+    }
+    into('samples') {
+        from tasks.getByPath(':citygml4j-samples:copySamples').outputs
+    }
 }

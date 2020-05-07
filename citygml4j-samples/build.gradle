@@ -14,3 +14,48 @@ dependencies {
 }
 
 clean.dependsOn(cleanOutput)
+
+task copySamples {
+    def outputsDir = file("$buildDir/samples")
+    outputs.dir outputsDir
+
+    inputs.dir "src/main/java"
+    inputs.dir "input"
+    inputs.dir "$rootProject.projectDir/gradle"
+
+    doLast {
+        copy {
+            from "src/main/java"
+            into "$outputsDir/src/main/java"
+        }
+        copy {
+            from "input"
+            into "$outputsDir/input"
+        }
+        copy {
+            from "$rootProject.projectDir/gradle"
+            into "$outputsDir/gradle"
+        }
+        copy {
+            from "$rootProject.projectDir"
+            into "$outputsDir"
+            include "gradlew*"
+        }
+        copy {
+            from "samples.gradle"
+            into "$outputsDir"
+        }
+
+        def buildFile = file("$outputsDir/build.gradle")
+        buildFile.write "plugins {\n"
+        buildFile << "    id 'java'\n"
+        buildFile << "}\n\n"
+        buildFile << "apply from: 'samples.gradle'\n\n"
+        buildFile << "dependencies {\n"
+        buildFile << "    implementation fileTree(dir: '../lib', include: '*.jar')\n"
+        buildFile << "}\n\n"
+        buildFile << "clean.dependsOn(cleanOutput)"
+
+        file("$outputsDir/settings.gradle").text = ''
+    }
+}
