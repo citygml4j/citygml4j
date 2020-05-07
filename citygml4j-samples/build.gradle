@@ -19,17 +19,17 @@ task copySamples {
     def outputsDir = file("$buildDir/samples")
     outputs.dir outputsDir
 
-    inputs.dir "src/main/java"
-    inputs.dir "input"
+    inputs.dir 'src/main/java'
+    inputs.dir 'input'
     inputs.dir "$rootProject.projectDir/gradle"
 
     doLast {
         copy {
-            from "src/main/java"
+            from 'src/main/java'
             into "$outputsDir/src/main/java"
         }
         copy {
-            from "input"
+            from 'input'
             into "$outputsDir/input"
         }
         copy {
@@ -39,10 +39,10 @@ task copySamples {
         copy {
             from "$rootProject.projectDir"
             into "$outputsDir"
-            include "gradlew*"
+            include 'gradlew*'
         }
         copy {
-            from "samples.gradle"
+            from 'samples.gradle'
             into "$outputsDir"
         }
 
