@@ -4,7 +4,7 @@ import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.AbstractPropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -27,31 +27,25 @@ public class RolePropertyAdapter extends AbstractPropertyAdapter<RoleProperty> {
 
     @Override
     public void initializeObject(RoleProperty object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        super.initializeObject(object, name, attributes, reader);
-        if (object.getHref() == null) {
-            object.setObject(new Role());
-            attributes.getValue("role").ifPresent(object.getObject()::setRole);
-        } else
-            attributes.getValue("role").ifPresent(v -> object.getLocalProperties().set(DeprecatedProperties.ROLE, v));
+        object.setObject(new Role(attributes.getValue("role").get(), new AbstractCityObjectProperty()));
+        reader.getOrCreateBuilder(AbstractCityObjectPropertyAdapter.class).initializeObject(object.getObject().getGroupMember(), name, attributes, reader);
     }
 
     @Override
     public void buildChildObject(RoleProperty object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (object.getObject() == null) {
-            object.setObject(new Role());
-            object.getObject().setRole(object.getLocalProperties().get(DeprecatedProperties.ROLE, String.class));
-        }
-
-        object.getObject().setGroupMember(new AbstractCityObjectProperty(reader.getObject(AbstractCityObject.class)));
+        object.getObject().getGroupMember().setObject(reader.getObject(AbstractCityObject.class));
     }
 
     @Override
     public void initializeElement(Element element, RoleProperty object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        super.initializeElement(element, object, namespaces, writer);
-        if (object.getObject() != null)
-            element.addAttribute("role", object.getObject().getRole());
-        else if (object.getLocalProperties().contains(DeprecatedProperties.ROLE))
-            element.addAttribute("role", object.getLocalProperties().get(DeprecatedProperties.ROLE, String.class));
+        if (object.getObject() != null) {
+            if (object.getObject().getRole() != null
+                    && !object.getObject().getRole().isEmpty())
+                element.addAttribute("role", object.getObject().getRole());
+
+            if (object.getObject().getGroupMember() != null)
+                writer.getOrCreateSerializer(AbstractCityObjectPropertyAdapter.class).initializeElement(element, object.getObject().getGroupMember(), namespaces, writer);
+        }
     }
 
     @Override
