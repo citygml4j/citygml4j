@@ -52,16 +52,16 @@ public class ChunkReader {
 
                 if (reader.hasParentInfo()) {
                     FeatureInfo info = reader.getParentInfo();
-                    log.print("    parent: " + info.getTypeName().getLocalPart());
+                    log.print("- parent: " + info.getTypeName().getLocalPart());
                     while ((info = info.getParentInfo()) != null)
-                        log.print("    transitive parent: " + info.getTypeName().getLocalPart());
+                        log.print("- transitive parent: " + info.getTypeName().getLocalPart());
                 }
 
                 feature.accept(new ObjectWalker() {
                     @Override
                     public void visit(FeatureProperty<?> property) {
                         if (property.getHref() != null)
-                            log.print("    child: " + property.getHref());
+                            log.print("- child: " + property.getHref());
                     }
                 });
             }

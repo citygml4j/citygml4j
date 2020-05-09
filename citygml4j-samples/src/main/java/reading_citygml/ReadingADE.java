@@ -63,12 +63,12 @@ public class ReadingADE {
             while (reader.hasNext()) {
                 AbstractFeature feature = reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + feature.getId());
-                log.print("    class: " + feature.getClass().getName());
-                log.print("    is ADE: " + (feature instanceof ADEObject));
+                log.print("- class: " + feature.getClass().getName());
+                log.print("- is ADE: " + (feature instanceof ADEObject));
 
                 GeometryInfo geometryInfo = feature.getGeometryInfo();
                 for (int lod = 0; lod < 5; lod++)
-                    log.print("    has LoD " + lod + " geometry: " + geometryInfo.hasGeometries(lod));
+                    log.print("- has LoD " + lod + " geometry: " + geometryInfo.hasGeometries(lod));
             }
         }
 
