@@ -10,7 +10,7 @@
     </gml:Envelope>
   </gml:boundedBy>
   <cityObjectMember>
-    <bldg:Building gml:id="GML_7b1a5a6f-ddad-4c3d-a507-3eb9ee0a8e68">
+    <bldg:Building gml:id="UUID_2a80f5a0-1c75-4805-8623-ecbedbe10837">
       <bldg:function codeSpace="http://www.sig3d.org/codelists/standard/building/2.0/_AbstractBuilding_function.xml">1000</bldg:function>
       <bldg:yearOfConstruction>1985</bldg:yearOfConstruction>
       <bldg:roofType codeSpace="http://www.sig3d.org/codelists/standard/building/2.0/_AbstractBuilding_roofType.xml">1030</bldg:roofType>
@@ -33,7 +33,7 @@
         </gml:Solid>
       </bldg:lod2Solid>
       <bldg:boundedBy>
-        <bldg:GroundSurface>
+        <bldg:GroundSurface gml:id="UUID_88a61b2d-a7d6-4ee2-8ec0-46e81aa85a40">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -50,7 +50,7 @@
         </bldg:GroundSurface>
       </bldg:boundedBy>
       <bldg:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_0bc282ac-466b-4a79-9da0-3ce4117a975e">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -67,7 +67,7 @@
         </bldg:WallSurface>
       </bldg:boundedBy>
       <bldg:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_db2dea47-bdd9-46c6-8604-0dea6320ed4f">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -84,7 +84,7 @@
         </bldg:WallSurface>
       </bldg:boundedBy>
       <bldg:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_2abce9a0-dd66-4d78-bfe7-63436d91176c">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -101,7 +101,7 @@
         </bldg:WallSurface>
       </bldg:boundedBy>
       <bldg:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_60e666cf-2a5f-4519-a924-a6c27cd09027">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -118,7 +118,7 @@
         </bldg:WallSurface>
       </bldg:boundedBy>
       <bldg:boundedBy>
-        <test:IndustrialBuildingRoofSurface>
+        <test:IndustrialBuildingRoofSurface gml:id="UUID_8b6a6cdf-e36e-4e49-9339-1cf6e2734a1c">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -135,7 +135,7 @@
         </test:IndustrialBuildingRoofSurface>
       </bldg:boundedBy>
       <bldg:boundedBy>
-        <test:IndustrialBuildingRoofSurface>
+        <test:IndustrialBuildingRoofSurface gml:id="UUID_f0318c53-3ccf-4289-bec1-f70ed0703e68">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -152,7 +152,7 @@
         </test:IndustrialBuildingRoofSurface>
       </bldg:boundedBy>
       <bldg:address>
-        <Address>
+        <Address gml:id="UUID_29b81673-b857-45b1-ae1e-b2624be322dd">
           <xalAddress>
             <xAL:AddressDetails>
               <xAL:Country>
@@ -188,7 +188,7 @@
         </test:EnergyPerformanceCertification>
       </test:energyPerformanceCertification>
       <test:buildingUnit>
-        <test:BuildingUnit>
+        <test:BuildingUnit gml:id="UUID_3069e701-eeac-4086-b8e2-1cd2147aa2f8">
           <test:lod2Solid>
             <gml:Solid>
               <gml:exterior>
@@ -277,10 +277,10 @@
     </bldg:Building>
   </cityObjectMember>
   <cityObjectMember>
-    <test:OtherConstruction>
+    <test:OtherConstruction gml:id="UUID_a7611eae-e5d3-4946-b292-07140c04d950">
       <gml:name>Shed modelled as other construction</gml:name>
       <test:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_1751eb74-8a01-4090-88e9-b201b9c10e19">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -297,7 +297,7 @@
         </bldg:WallSurface>
       </test:boundedBy>
       <test:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_a8344c68-e90d-48ed-8aeb-ad1f072f1332">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -314,7 +314,7 @@
         </bldg:WallSurface>
       </test:boundedBy>
       <test:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_30336063-c0c7-4dc7-bd59-f21af443380a">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -331,7 +331,7 @@
         </bldg:WallSurface>
       </test:boundedBy>
       <test:boundedBy>
-        <bldg:WallSurface>
+        <bldg:WallSurface gml:id="UUID_710d5d18-ba71-41c1-a870-c967b341c9e8">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -348,7 +348,7 @@
         </bldg:WallSurface>
       </test:boundedBy>
       <test:boundedBy>
-        <bldg:GroundSurface>
+        <bldg:GroundSurface gml:id="UUID_03144224-3c14-4d66-ac26-f0b1391b4933">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
@@ -365,7 +365,7 @@
         </bldg:GroundSurface>
       </test:boundedBy>
       <test:boundedBy>
-        <bldg:RoofSurface>
+        <bldg:RoofSurface gml:id="UUID_78c08cc9-0947-4525-975b-906d8d27589f">
           <bldg:lod2MultiSurface>
             <gml:MultiSurface>
               <gml:surfaceMember>
