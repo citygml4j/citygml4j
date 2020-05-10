@@ -51,18 +51,13 @@ public class ResolvingReferences {
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
         log.print("Reading the first building from the file " + file + " and resolving its XLink references");
 
-        Building building = null;
-        try (CityGMLReader reader = in.createCityGMLReader(file)) {
-            while (reader.hasNext()) {
-                AbstractFeature feature = reader.next();
-                if (feature instanceof Building) {
-                    building = (Building) feature;
-                    log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + feature.getId());
-                    break;
-                }
-            }
-
-            if (building == null)
+        Building building;
+        try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),
+                name -> name.getLocalPart().equals("Building"))) {
+            if (reader.hasNext()) {
+                building = (Building) reader.next();
+                log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
+            } else
                 throw new Exception("Failed to read a building from file " + file);
         }
 

@@ -28,6 +28,7 @@ import implementing_ades.walker.TestADEWalker;
 import org.citygml4j.ADERegistry;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.ade.ADEObject;
+import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.xml.reader.ChunkMode;
@@ -52,11 +53,14 @@ public class ADEObjectWalker {
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_test_ade_v2.gml");
         log.print("Reading the first building from the TestADE file " + file + " using a filtered reader");
 
-        AbstractFeature feature;
+        Building building;
         try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),
                 name -> name.getLocalPart().equals("Building"))) {
-            feature = reader.next();
-            log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + feature.getId());
+            if (reader.hasNext()) {
+                building = (Building) reader.next();
+                log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
+            } else
+                throw new Exception("Failed to read a building from file " + file);
         }
 
         log.print("Using an object walker to visit the building and its nested objects including ADE objects");
@@ -69,7 +73,7 @@ public class ADEObjectWalker {
             }
         };
 
-        feature.accept(walker);
+        building.accept(walker);
 
         log.print("Revisiting all objects.");
         log.print("This time we also apply an ADE object walker to make use of the explicit visit methods for ADE objects");
@@ -87,7 +91,7 @@ public class ADEObjectWalker {
             }
         };
 
-        feature.accept(walker.withADEWalker(adeWalker));
+        building.accept(walker.withADEWalker(adeWalker));
 
         log.finish();
     }
