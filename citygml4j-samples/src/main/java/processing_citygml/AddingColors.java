@@ -144,7 +144,7 @@ public class AddingColors {
                     appearance.getSurfaceData().add(new AbstractSurfaceDataProperty(grey));
 
                 if (!appearance.getSurfaceData().isEmpty()) {
-                    log.print("Adding an appearance with " + appearance.getSurfaceData().size() + " X3D materials to the city object");
+                    log.print("Adding an appearance with " + appearance.getSurfaceData().size() + " X3D material(s) to the city object");
                     cityObject.getAppearances().add(new AbstractAppearanceProperty(appearance));
                 }
             }
