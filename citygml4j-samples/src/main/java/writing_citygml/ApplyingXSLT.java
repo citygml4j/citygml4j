@@ -26,7 +26,7 @@ import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.module.citygml.CoreModule;
-import org.citygml4j.xml.reader.ChunkMode;
+import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.transform.TransformerPipeline;
@@ -46,7 +46,7 @@ public class ApplyingXSLT {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
+                .withChunking(ChunkingOptions.chunkByCityModelMembers());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
         log.print("Reading the file " + file + " chunk-wise by city model members");
@@ -70,7 +70,7 @@ public class ApplyingXSLT {
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI());
 
-            log.print("Applying the stylesheet to each feature while writing the target file");
+            log.print("Applying the stylesheet to each feature while writing the output file");
             while (reader.hasNext()) {
                 AbstractFeature feature = reader.next();
 

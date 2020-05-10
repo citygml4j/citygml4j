@@ -31,7 +31,7 @@ import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.visitor.ObjectWalker;
-import org.citygml4j.xml.reader.ChunkMode;
+import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 
@@ -48,10 +48,10 @@ public class ADEObjectWalker {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
+                .withChunking(ChunkingOptions.chunkByCityModelMembers());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_test_ade_v2.gml");
-        log.print("Reading the first building from the TestADE file " + file + " using a filtered reader");
+        log.print("Reading the first building from the TestADE file " + file + " by using a filtered reader");
 
         Building building;
         try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),

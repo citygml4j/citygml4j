@@ -27,7 +27,7 @@ import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.core.AbstractSpace;
 import org.citygml4j.util.geometry.GeometryFactory;
 import org.citygml4j.xml.module.citygml.CoreModule;
-import org.citygml4j.xml.reader.ChunkMode;
+import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
@@ -47,7 +47,7 @@ public class AddingLoD1 {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
+                .withChunking(ChunkingOptions.chunkByCityModelMembers());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
         log.print("Reading the file " + file + " chunk-wise by city model members");

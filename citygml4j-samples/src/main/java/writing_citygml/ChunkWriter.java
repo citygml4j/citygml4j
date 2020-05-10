@@ -77,7 +77,7 @@ public class ChunkWriter {
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
                     .withHeaderComment("File created with citygml4j");
 
-            log.print("Setting metadata on the CityModel of the target file");
+            log.print("Setting metadata on the CityModel of the output file");
             writer.getCityModelInfo().setDescription(new StringOrRef("Collection of tunnel objects"));
 
             Envelope envelope = new Envelope();

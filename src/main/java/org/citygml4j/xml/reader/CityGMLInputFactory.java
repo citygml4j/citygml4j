@@ -2,9 +2,6 @@ package org.citygml4j.xml.reader;
 
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.util.reference.ReferenceResolver;
-import org.citygml4j.xml.module.citygml.AppearanceModule;
-import org.citygml4j.xml.module.citygml.CoreModule;
-import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
@@ -15,7 +12,6 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
 import org.xmlobjects.util.Properties;
 
-import javax.xml.namespace.QName;
 import javax.xml.stream.XMLReporter;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamReader;
@@ -25,9 +21,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 public class CityGMLInputFactory {
     public static final String FAIL_ON_MISSING_ADE_SCHEMA = "org.citygml4j.failOnMissingADESchema";
@@ -35,10 +28,7 @@ public class CityGMLInputFactory {
     private final CityGMLContext context;
     private final XMLReaderFactory factory;
 
-    private ChunkMode chunkMode = ChunkMode.NO_CHUNKING;
-    private boolean keepInlineAppearance = true;
-    private Set<QName> excludes = new HashSet<>();
-    private Set<QName> properties = new HashSet<>();
+    private ChunkingOptions chunkingOptions;
     private TransformerPipeline transformer;
     private ReferenceResolver resolver;
     private IdCreator idCreator;
@@ -80,52 +70,13 @@ public class CityGMLInputFactory {
         return this;
     }
 
-    public ChunkMode getChunkMode() {
-        return chunkMode;
+    public ChunkingOptions getChunkingOptions() {
+        return chunkingOptions;
     }
 
-    public CityGMLInputFactory useChunkMode(ChunkMode chunkMode) {
-        this.chunkMode = Objects.requireNonNull(chunkMode, "The chunk mode must not be null.");
-
-        if (ChunkMode.CHUNK_BY_PROPERTIES.contains(chunkMode))
-            setDefaultChunkProperties(chunkMode);
-
+    public CityGMLInputFactory withChunking(ChunkingOptions chunkingOptions) {
+        this.chunkingOptions = chunkingOptions;
         return this;
-    }
-
-    public Set<QName> getChunkProperties() {
-        return properties;
-    }
-
-    public CityGMLInputFactory chunkAtProperty(QName property) {
-        properties.add(property);
-        return this;
-    }
-
-    public CityGMLInputFactory chunkAtProperty(String namespaceURI, String localPart) {
-        return chunkAtProperty(new QName(namespaceURI, localPart));
-    }
-
-    public boolean isKeepInlineAppearance() {
-        return keepInlineAppearance;
-    }
-
-    public CityGMLInputFactory keepInlineAppearance(boolean keepInlineAppearance) {
-        this.keepInlineAppearance = keepInlineAppearance;
-        return this;
-    }
-
-    public Set<QName> getExcludesFromChunking() {
-        return excludes;
-    }
-
-    public CityGMLInputFactory excludeFromChunking(QName name) {
-        excludes.add(name);
-        return this;
-    }
-
-    public CityGMLInputFactory excludeFromChunking(String namespaceURI, String localPart) {
-        return excludeFromChunking(new QName(namespaceURI, localPart));
     }
 
     public TransformerPipeline getTransformer() {
@@ -269,16 +220,9 @@ public class CityGMLInputFactory {
 
     private CityGMLReader createReader(XMLReader xmlReader) throws CityGMLReadException {
         try {
-            CityGMLReader reader;
-            if (chunkMode == ChunkMode.NO_CHUNKING)
-                reader = new CityGMLSimpleReader(xmlReader, factory);
-            else {
-                reader = new CityGMLChunkReader(xmlReader, chunkMode, factory)
-                        .keepInlineAppearance(keepInlineAppearance)
-                        .excludeFromChunking(excludes)
-                        .chunkAtProperties(properties)
-                        .withIdCreator(idCreator);
-            }
+            CityGMLReader reader = chunkingOptions == null ?
+                    new CityGMLSimpleReader(xmlReader, factory) :
+                    new CityGMLChunkReader(xmlReader, chunkingOptions, idCreator, factory);
 
             reader.transformer = transformer != null ? new TransformerPipeline(transformer) : null;
             reader.resolver = resolver;
@@ -293,32 +237,9 @@ public class CityGMLInputFactory {
         if (isCreateGenericADEContent() && getSchemaHandler() == null)
             factory.withSchemaHandler(context.getDefaultSchemaHandler());
 
-        if (chunkMode != ChunkMode.NO_CHUNKING && idCreator == null)
+        if (chunkingOptions != null && idCreator == null)
             idCreator = DefaultIdCreator.newInstance();
 
         return this;
-    }
-
-    private void setDefaultChunkProperties(ChunkMode chunkMode) {
-        if (chunkMode == ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS) {
-            // default CityGML 3.0 collection properties
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "cityObjectMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "appearanceMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "featureMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "versionMember");
-            chunkAtProperty(CoreModule.v3_0.getNamespaceURI(), "versionTransitionMember");
-
-            // default CityGML 2.0 collection properties
-            chunkAtProperty(CoreModule.v2_0.getNamespaceURI(), "cityObjectMember");
-            chunkAtProperty(AppearanceModule.v2_0.getNamespaceURI(), "appearanceMember");
-
-            // default CityGML 1.0 collection properties
-            chunkAtProperty(CoreModule.v1_0.getNamespaceURI(), "cityObjectMember");
-            chunkAtProperty(AppearanceModule.v1_0.getNamespaceURI(), "appearanceMember");
-
-            // default GML collection properties
-            chunkAtProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
-            chunkAtProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMembers");
-        }
     }
 }

@@ -29,7 +29,7 @@ import org.citygml4j.model.building.Building;
 import org.citygml4j.util.geometry.GeometryFactory;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CoreModule;
-import org.citygml4j.xml.reader.ChunkMode;
+import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
@@ -60,10 +60,10 @@ public class WritingGenericADE {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
+                .withChunking(ChunkingOptions.chunkByCityModelMembers());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
-        log.print("Reading the first building from the file " + file + " using a filtered reader");
+        log.print("Reading the first building from the file " + file + " by using a filtered reader");
 
         Building building;
         try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),

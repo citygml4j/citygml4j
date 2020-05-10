@@ -23,7 +23,7 @@ import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.xml.reader.ChunkMode;
+import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLChunk;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -42,7 +42,7 @@ public class MultiThreadedReader {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS);
+                .withChunking(ChunkingOptions.chunkByCityModelMembers());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_railway_v3.gml");
         log.print("Reading city model members from the file " + file + " in a multi-threaded way");

@@ -28,7 +28,7 @@ import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.util.reference.ReferenceResolver;
-import org.citygml4j.xml.reader.ChunkMode;
+import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
@@ -45,7 +45,7 @@ public class ResolvingReferences {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .useChunkMode(ChunkMode.CHUNK_BY_CITY_MODEL_MEMBERS)
+                .withChunking(ChunkingOptions.chunkByCityModelMembers())
                 .withReferenceResolver(ReferenceResolver.newInstance());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");

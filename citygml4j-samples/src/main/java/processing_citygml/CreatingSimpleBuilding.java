@@ -110,7 +110,7 @@ public class CreatingSimpleBuilding {
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
                     .withHeaderComment("File created with citygml4j");
 
-            log.print("Setting metadata on the CityModel of the target file");
+            log.print("Setting metadata on the CityModel of the output file");
             writer.getCityModelInfo().setBoundedBy(new BoundingShape(envelope));
 
             log.print("Writing the building object to the file");
