@@ -33,6 +33,7 @@ import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
+import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
 
 import java.nio.file.Path;
@@ -60,7 +61,7 @@ public class ADEObjectWalker {
                 building = (Building) reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
             } else
-                throw new Exception("Failed to read a building from file " + file);
+                throw new CityGMLReadException("Failed to read a building from file " + file);
         }
 
         log.print("Using an object walker to visit the building and its nested objects including ADE objects");

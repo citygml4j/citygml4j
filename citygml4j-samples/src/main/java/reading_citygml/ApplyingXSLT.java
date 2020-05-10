@@ -23,7 +23,7 @@ import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.building.Building;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -40,7 +40,8 @@ public class ApplyingXSLT {
 
         CityGMLContext context = CityGMLContext.newInstance();
 
-        CityGMLInputFactory in = context.createCityGMLInputFactory();
+        CityGMLInputFactory in = context.createCityGMLInputFactory()
+                .withChunking(ChunkingOptions.chunkByCityModelMembers());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_building_v2.gml");
         log.print("Reading the building from the file " + file);
@@ -62,9 +63,12 @@ public class ApplyingXSLT {
     }
 
     public static Building readBuilding(CityGMLInputFactory in, Path file) throws CityGMLReadException {
-        try (CityGMLReader reader = in.createCityGMLReader(file)) {
-            CityModel cityModel = (CityModel) reader.next();
-            return (Building) cityModel.getCityObjectMembers().get(0).getObject();
+        try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),
+                name -> name.getLocalPart().equals("Building"))) {
+            if (reader.hasNext())
+                return (Building) reader.next();
+            else
+                throw new CityGMLReadException("Failed to read a building from file " + file);
         }
     }
 }

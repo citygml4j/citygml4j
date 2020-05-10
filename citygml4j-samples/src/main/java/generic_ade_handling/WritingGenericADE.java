@@ -31,6 +31,7 @@ import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
+import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
@@ -72,7 +73,7 @@ public class WritingGenericADE {
                 building = (Building) reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
             } else
-                throw new Exception("Failed to read a building from file " + file);
+                throw new CityGMLReadException("Failed to read a building from file " + file);
         }
 
         log.print("Enriching the building with TestADE properties and features");

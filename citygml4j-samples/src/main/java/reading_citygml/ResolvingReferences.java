@@ -30,6 +30,7 @@ import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
+import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.primitives.AbstractSurface;
@@ -58,7 +59,7 @@ public class ResolvingReferences {
                 building = (Building) reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
             } else
-                throw new Exception("Failed to read a building from file " + file);
+                throw new CityGMLReadException("Failed to read a building from file " + file);
         }
 
         log.print("Iterating through the thematic boundary surfaces of the building");
