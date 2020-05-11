@@ -3,6 +3,8 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'java-library'
     id 'distribution'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.8.4'
 }
 
 allprojects {
@@ -18,6 +20,8 @@ allprojects {
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
+    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
@@ -74,5 +78,58 @@ distributions.main.contents {
     }
     into('samples') {
         from tasks.getByPath(':citygml4j-samples:copySamples').outputs
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            pom {
+                name = project.name
+                description = project.description
+                url = 'https://github.com/citygml4j'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'clausnagel'
+                        name = 'Claus Nagel'
+                        email = 'claus.nagel@gmail.com'
+                        roles = ['architect', 'developer']
+                        timezone = '+1'
+                    }
+                }
+                scm {
+                    url = 'https://github.com/citygml4j/citygml4j'
+                    connection = 'scm:git:https://github.com/citygml4j/citygml4j.git'
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+    publications = ['mavenJava']
+    pkg {
+        repo = 'maven'
+        name = project.name
+        desc = project.description
+        websiteUrl = 'https://github.com/citygml4j'
+        vcsUrl = 'https://github.com/citygml4j/citygml4j.git'
+        issueTrackerUrl = 'https://github.com/citygml4j/citygml4j/issues'
+        labels = ['citygml', 'java', 'ade', 'gis', 'ogc', 'parsing', 'writing']
+        licenses = ['Apache-2.0']
+        version {
+            name = project.version
+        }
     }
 }
