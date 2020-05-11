@@ -78,14 +78,14 @@ public class ReadingGenericADE {
                     for (ADEProperty<?> property : building.getADEPropertiesOfAbstractBuilding()) {
                         if (property instanceof ADEGenericProperty) {
                             Element element = ((ADEGenericProperty) property).getValue();
-                            log.print(indent(2) + "-- with ADE property " + element.getLocalName() + " {" + element.getNamespaceURI() + "}");
+                            log.print(indent(2) + "- with ADE property " + element.getLocalName() + " {" + element.getNamespaceURI() + "}");
                             printADEInfo(handler, element, cityObjectType, featureType, geometryType, 5);
                         }
                     }
                 }
             } else if (member.isSetGenericElement()) {
                 GenericElement genericElement = member.getGenericElement();
-                log.print("Found ADE member " + genericElement.getLocalName() + " {" + genericElement.getNamespaceURI() + "}");
+                log.print("Found ADE feature " + genericElement.getLocalName() + " {" + genericElement.getNamespaceURI() + "}");
                 printADEInfo(handler, genericElement.getContent(), cityObjectType, featureType, geometryType, 2);
             }
         }
