@@ -93,6 +93,7 @@ public class CopyingObjects {
 
         Path output = Util.getOutputFile();
         log.print("Writing the bridge as CityGML " + version + " file " + output);
+        
         try (CityGMLWriter writer = out.createCityGMLWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndentString("  ")
                     .withDefaultSchemaLocations()
