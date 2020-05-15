@@ -54,9 +54,10 @@ public class AccessingLoD4 {
         Building building;
         try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),
                 name -> name.getLocalPart().equals("Building"))) {
-            if (reader.hasNext())
+            if (reader.hasNext()) {
                 building = (Building) reader.next();
-            else
+                log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
+            } else
                 throw new CityGMLReadException("Failed to read a building from file " + file);
         }
 
