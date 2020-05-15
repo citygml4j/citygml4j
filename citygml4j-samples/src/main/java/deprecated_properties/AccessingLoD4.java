@@ -74,13 +74,10 @@ public class AccessingLoD4 {
         log.print("Accessing all geometries of the building using a GeometryInfo helper");
         GeometryInfo geometryInfo = building.getGeometryInfo();
         for (int lod = 0; lod < 5; lod++) {
-            boolean hasGeometry = geometryInfo.hasGeometries(lod);
-            log.print("Building has an LoD " + lod + " geometry: " + hasGeometry);
-            if (hasGeometry) {
-                for (GeometryProperty<?> property : geometryInfo.getGeometries(lod)) {
-                    if (property.getObject() != null)
-                        log.print("- Found a " + property.getObject().getClass().getSimpleName() + " geometry object");
-                }
+            log.print("Building has an LoD " + lod + " geometry: " + geometryInfo.hasGeometries(lod));
+            for (GeometryProperty<?> property : geometryInfo.getGeometries(lod)) {
+                if (property.getObject() != null)
+                    log.print("- Found a " + property.getObject().getClass().getSimpleName() + " geometry object");
             }
         }
 
