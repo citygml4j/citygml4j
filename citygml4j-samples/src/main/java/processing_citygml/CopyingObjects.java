@@ -49,7 +49,7 @@ public class CopyingObjects {
                 .withChunking(ChunkingOptions.chunkByCityModelMembers());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_railway_v3.gml");
-        log.print("Reading the first tunnel from the file " + file);
+        log.print("Reading the first building from the file " + file);
 
         Building building;
         try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),
