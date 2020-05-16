@@ -31,8 +31,8 @@ import org.citygml4j.xml.reader.ChunkingOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
+import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
-import org.citygml4j.xml.writer.CityGMLWriter;
 import org.xmlobjects.util.copy.CopyBuilder;
 
 import java.nio.charset.StandardCharsets;
@@ -93,13 +93,13 @@ public class CopyingObjects {
 
         Path output = Util.getOutputFile();
         log.print("Writing the bridge as CityGML " + version + " file " + output);
-        
-        try (CityGMLWriter writer = out.createCityGMLWriter(output, StandardCharsets.UTF_8.name())) {
+
+        try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndentString("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
-                    .write(bridge);
+                    .writeMember(bridge);
         }
 
         log.finish();
