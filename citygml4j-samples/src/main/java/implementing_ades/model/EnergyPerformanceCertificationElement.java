@@ -20,9 +20,7 @@
 package implementing_ades.model;
 
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
-import org.citygml4j.model.common.Property;
 
-@Property(name = "energyPerformanceCertification")
 public class EnergyPerformanceCertificationElement extends ADEPropertyOfAbstractBuilding<EnergyPerformanceCertificationProperty> {
 
     public EnergyPerformanceCertificationElement() {

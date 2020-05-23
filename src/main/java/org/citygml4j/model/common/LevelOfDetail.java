@@ -28,7 +28,6 @@ import java.lang.annotation.Target;
 @Documented
 @Target(value = {ElementType.TYPE, ElementType.FIELD})
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface Property {
-    String name() default "";
-    int lod() default Integer.MIN_VALUE;
+public @interface LevelOfDetail {
+    int value();
 }

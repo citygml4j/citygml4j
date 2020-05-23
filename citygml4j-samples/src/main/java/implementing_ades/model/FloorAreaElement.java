@@ -20,10 +20,8 @@
 package implementing_ades.model;
 
 import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
-import org.citygml4j.model.common.Property;
 import org.xmlobjects.gml.model.measures.Area;
 
-@Property(name = "floorArea")
 public class FloorAreaElement extends ADEPropertyOfAbstractBuilding<Area> {
 
     public FloorAreaElement() {

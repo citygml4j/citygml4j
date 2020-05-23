@@ -21,7 +21,7 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
-import org.citygml4j.model.common.Property;
+import org.citygml4j.model.common.LevelOfDetail;
 import org.citygml4j.util.CityGMLPatterns;
 import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
@@ -45,8 +45,8 @@ public class ADEGeometryInfoBuilder {
             for (Field field : fields) {
                 try {
                     field.setAccessible(true);
-                    Property property = field.isAnnotationPresent(Property.class) ?
-                            field.getAnnotation(Property.class) :
+                    LevelOfDetail property = field.isAnnotationPresent(LevelOfDetail.class) ?
+                            field.getAnnotation(LevelOfDetail.class) :
                             null;
 
                     updateGeometryInfo(field.get(object), property, field.getName(), geometryInfo);
@@ -57,25 +57,24 @@ public class ADEGeometryInfoBuilder {
         } while ((type = type.getSuperclass()) != Object.class && ADEObject.class.isAssignableFrom(type));
     }
 
-    static void updateGeometryInfo(Object object, Property property, String name, GeometryInfo geometryInfo) {
+    static void updateGeometryInfo(Object object, LevelOfDetail lod, String name, GeometryInfo geometryInfo) {
         if (object instanceof GeometryProperty<?>)
-            geometryInfo.addGeometry(getLodFromProperty(property, name), (GeometryProperty<?>) object);
+            geometryInfo.addGeometry(getLodFromProperty(lod, name), (GeometryProperty<?>) object);
         else if (object instanceof ImplicitGeometryProperty)
-            geometryInfo.addImplicitGeometry(getLodFromProperty(property, name), (ImplicitGeometryProperty) object);
+            geometryInfo.addImplicitGeometry(getLodFromProperty(lod, name), (ImplicitGeometryProperty) object);
         else if (object instanceof Collection<?>)
-            ((Collection<?>) object).forEach(v -> updateGeometryInfo(v, property, name, geometryInfo));
+            ((Collection<?>) object).forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
         else if (object instanceof Object[])
-            Arrays.stream(((Object[]) object)).forEach(v -> updateGeometryInfo(v, property, name, geometryInfo));
+            Arrays.stream(((Object[]) object)).forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
         else if (object instanceof Map<?, ?>)
-            ((Map<?, ?>) object).values().forEach(v -> updateGeometryInfo(v, property, name, geometryInfo));
+            ((Map<?, ?>) object).values().forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
     }
 
-    static int getLodFromProperty(Property property, String fieldName) {
-        if (property != null && property.lod() != Integer.MIN_VALUE)
-            return property.lod();
+    static int getLodFromProperty(LevelOfDetail property, String fieldName) {
+        if (property != null)
+            return property.value();
         else {
-            String propertyName = property != null && !property.name().isEmpty() ? property.name() : fieldName;
-            Matcher matcher = CityGMLPatterns.LOD_FROM_PROPERTY_NAME.matcher(propertyName);
+            Matcher matcher = CityGMLPatterns.LOD_FROM_PROPERTY_NAME.matcher(fieldName);
             if (matcher.matches()) {
                 try {
                     return Integer.parseInt(matcher.group(1));

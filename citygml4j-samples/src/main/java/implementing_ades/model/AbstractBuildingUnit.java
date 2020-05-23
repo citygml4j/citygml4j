@@ -20,7 +20,7 @@
 package implementing_ades.model;
 
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.common.Property;
+import org.citygml4j.model.common.LevelOfDetail;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AddressProperty;
@@ -38,13 +38,13 @@ public abstract class AbstractBuildingUnit extends AbstractLogicalSpace implemen
     private List<Code> functions;
     private List<Code> usages;
     private List<EnergyPerformanceCertificationProperty> energyPerformanceCertifications;
-    @Property(lod = 4)
+    @LevelOfDetail(value = 4)
     private SolidProperty lod4Solid;
-    @Property(lod = 1)
+    @LevelOfDetail(value = 1)
     private MultiSurfaceProperty lod1MultiSurface;
-    @Property(lod = 4)
+    @LevelOfDetail(value = 4)
     private MultiSurfaceProperty lod4MultiSurface;
-    @Property(lod = 4)
+    @LevelOfDetail(value = 4)
     private MultiCurveProperty lod4MultiCurve;
     private List<AddressProperty> addresses;
     private List<FacilitiesProperty> equippedWith;
