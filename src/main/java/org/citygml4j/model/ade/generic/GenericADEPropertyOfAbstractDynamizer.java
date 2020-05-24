@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.core.ADEPropertyOfAbstractDynamizer;
+import org.citygml4j.model.core.ADEOfAbstractDynamizer;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAbstractDynamizer extends ADEPropertyOfAbstractDynamizer<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAbstractDynamizer extends ADEOfAbstractDynamizer<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAbstractDynamizer(Element value) {
         super(value);

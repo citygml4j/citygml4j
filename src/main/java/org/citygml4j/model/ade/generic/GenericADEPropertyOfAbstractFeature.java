@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.core.ADEPropertyOfAbstractFeature;
+import org.citygml4j.model.core.ADEOfAbstractFeature;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAbstractFeature extends ADEPropertyOfAbstractFeature<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAbstractFeature extends ADEOfAbstractFeature<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAbstractFeature(Element value) {
         super(value);

@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.generics.ADEPropertyOfGenericUnoccupiedSpace;
+import org.citygml4j.model.generics.ADEOfGenericUnoccupiedSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfGenericUnoccupiedSpace extends ADEPropertyOfGenericUnoccupiedSpace<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfGenericUnoccupiedSpace extends ADEOfGenericUnoccupiedSpace<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfGenericUnoccupiedSpace(Element value) {
         super(value);

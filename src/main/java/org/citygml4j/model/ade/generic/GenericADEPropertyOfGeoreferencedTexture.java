@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.appearance.ADEPropertyOfGeoreferencedTexture;
+import org.citygml4j.model.appearance.ADEOfGeoreferencedTexture;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfGeoreferencedTexture extends ADEPropertyOfGeoreferencedTexture<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfGeoreferencedTexture extends ADEOfGeoreferencedTexture<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfGeoreferencedTexture(Element value) {
         super(value);

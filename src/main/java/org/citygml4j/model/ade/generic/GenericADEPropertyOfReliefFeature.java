@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.relief.ADEPropertyOfReliefFeature;
+import org.citygml4j.model.relief.ADEOfReliefFeature;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfReliefFeature extends ADEPropertyOfReliefFeature<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfReliefFeature extends ADEOfReliefFeature<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfReliefFeature(Element value) {
         super(value);

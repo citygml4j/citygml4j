@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.transportation.ADEPropertyOfClearanceSpace;
+import org.citygml4j.model.transportation.ADEOfClearanceSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfClearanceSpace extends ADEPropertyOfClearanceSpace<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfClearanceSpace extends ADEOfClearanceSpace<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfClearanceSpace(Element value) {
         super(value);

@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.tunnel.ADEPropertyOfTunnelPart;
+import org.citygml4j.model.tunnel.ADEOfTunnelPart;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfTunnelPart extends ADEPropertyOfTunnelPart<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfTunnelPart extends ADEOfTunnelPart<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfTunnelPart(Element value) {
         super(value);

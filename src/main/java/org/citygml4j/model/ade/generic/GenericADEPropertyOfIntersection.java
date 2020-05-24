@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.transportation.ADEPropertyOfIntersection;
+import org.citygml4j.model.transportation.ADEOfIntersection;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfIntersection extends ADEPropertyOfIntersection<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfIntersection extends ADEOfIntersection<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfIntersection(Element value) {
         super(value);

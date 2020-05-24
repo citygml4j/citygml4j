@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.core.ADEPropertyOfAddress;
+import org.citygml4j.model.core.ADEOfAddress;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAddress extends ADEPropertyOfAddress<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAddress extends ADEOfAddress<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAddress(Element value) {
         super(value);

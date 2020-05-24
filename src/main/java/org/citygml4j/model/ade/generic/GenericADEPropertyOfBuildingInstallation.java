@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.building.ADEPropertyOfBuildingInstallation;
+import org.citygml4j.model.building.ADEOfBuildingInstallation;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfBuildingInstallation extends ADEPropertyOfBuildingInstallation<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfBuildingInstallation extends ADEOfBuildingInstallation<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfBuildingInstallation(Element value) {
         super(value);

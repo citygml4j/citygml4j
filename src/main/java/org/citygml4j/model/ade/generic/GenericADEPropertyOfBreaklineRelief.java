@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.relief.ADEPropertyOfBreaklineRelief;
+import org.citygml4j.model.relief.ADEOfBreaklineRelief;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfBreaklineRelief extends ADEPropertyOfBreaklineRelief<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfBreaklineRelief extends ADEOfBreaklineRelief<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfBreaklineRelief(Element value) {
         super(value);

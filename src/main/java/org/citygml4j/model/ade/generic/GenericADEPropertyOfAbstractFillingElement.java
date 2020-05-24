@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.construction.ADEPropertyOfAbstractFillingElement;
+import org.citygml4j.model.construction.ADEOfAbstractFillingElement;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAbstractFillingElement extends ADEPropertyOfAbstractFillingElement<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAbstractFillingElement extends ADEOfAbstractFillingElement<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAbstractFillingElement(Element value) {
         super(value);

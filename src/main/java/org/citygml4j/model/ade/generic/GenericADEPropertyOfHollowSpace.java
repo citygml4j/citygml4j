@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.tunnel.ADEPropertyOfHollowSpace;
+import org.citygml4j.model.tunnel.ADEOfHollowSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfHollowSpace extends ADEPropertyOfHollowSpace<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfHollowSpace extends ADEOfHollowSpace<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfHollowSpace(Element value) {
         super(value);

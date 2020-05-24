@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.bridge.ADEPropertyOfBridgeFurniture;
+import org.citygml4j.model.bridge.ADEOfBridgeFurniture;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfBridgeFurniture extends ADEPropertyOfBridgeFurniture<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfBridgeFurniture extends ADEOfBridgeFurniture<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfBridgeFurniture(Element value) {
         super(value);

@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.landuse.ADEPropertyOfLandUse;
+import org.citygml4j.model.landuse.ADEOfLandUse;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfLandUse extends ADEPropertyOfLandUse<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfLandUse extends ADEOfLandUse<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfLandUse(Element value) {
         super(value);

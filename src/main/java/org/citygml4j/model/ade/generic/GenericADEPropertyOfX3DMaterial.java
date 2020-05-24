@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.appearance.ADEPropertyOfX3DMaterial;
+import org.citygml4j.model.appearance.ADEOfX3DMaterial;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfX3DMaterial extends ADEPropertyOfX3DMaterial<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfX3DMaterial extends ADEOfX3DMaterial<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfX3DMaterial(Element value) {
         super(value);

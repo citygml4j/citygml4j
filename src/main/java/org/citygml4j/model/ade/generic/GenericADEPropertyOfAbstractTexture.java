@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.appearance.ADEPropertyOfAbstractTexture;
+import org.citygml4j.model.appearance.ADEOfAbstractTexture;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAbstractTexture extends ADEPropertyOfAbstractTexture<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAbstractTexture extends ADEOfAbstractTexture<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAbstractTexture(Element value) {
         super(value);

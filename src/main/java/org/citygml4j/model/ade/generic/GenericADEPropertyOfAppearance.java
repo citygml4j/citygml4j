@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.appearance.ADEPropertyOfAppearance;
+import org.citygml4j.model.appearance.ADEOfAppearance;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAppearance extends ADEPropertyOfAppearance<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAppearance extends ADEOfAppearance<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAppearance(Element value) {
         super(value);

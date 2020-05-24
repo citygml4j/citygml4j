@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.versioning.ADEPropertyOfVersionTransition;
+import org.citygml4j.model.versioning.ADEOfVersionTransition;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfVersionTransition extends ADEPropertyOfVersionTransition<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfVersionTransition extends ADEOfVersionTransition<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfVersionTransition(Element value) {
         super(value);

@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.cityobjectgroup.ADEPropertyOfCityObjectGroup;
+import org.citygml4j.model.cityobjectgroup.ADEOfCityObjectGroup;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfCityObjectGroup extends ADEPropertyOfCityObjectGroup<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfCityObjectGroup extends ADEOfCityObjectGroup<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfCityObjectGroup(Element value) {
         super(value);

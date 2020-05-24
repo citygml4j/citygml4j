@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.vegetation.ADEPropertyOfSolitaryVegetationObject;
+import org.citygml4j.model.vegetation.ADEOfSolitaryVegetationObject;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfSolitaryVegetationObject extends ADEPropertyOfSolitaryVegetationObject<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfSolitaryVegetationObject extends ADEOfSolitaryVegetationObject<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfSolitaryVegetationObject(Element value) {
         super(value);

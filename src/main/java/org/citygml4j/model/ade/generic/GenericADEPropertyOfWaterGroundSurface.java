@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.waterbody.ADEPropertyOfWaterGroundSurface;
+import org.citygml4j.model.waterbody.ADEOfWaterGroundSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfWaterGroundSurface extends ADEPropertyOfWaterGroundSurface<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfWaterGroundSurface extends ADEOfWaterGroundSurface<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfWaterGroundSurface(Element value) {
         super(value);

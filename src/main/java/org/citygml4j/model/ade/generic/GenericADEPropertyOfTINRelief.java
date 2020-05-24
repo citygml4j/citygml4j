@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.relief.ADEPropertyOfTINRelief;
+import org.citygml4j.model.relief.ADEOfTINRelief;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfTINRelief extends ADEPropertyOfTINRelief<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfTINRelief extends ADEOfTINRelief<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfTINRelief(Element value) {
         super(value);

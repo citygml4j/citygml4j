@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.relief.ADEPropertyOfMassPointRelief;
+import org.citygml4j.model.relief.ADEOfMassPointRelief;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfMassPointRelief extends ADEPropertyOfMassPointRelief<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfMassPointRelief extends ADEOfMassPointRelief<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfMassPointRelief(Element value) {
         super(value);

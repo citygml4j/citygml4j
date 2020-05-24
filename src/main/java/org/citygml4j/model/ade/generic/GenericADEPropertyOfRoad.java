@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.transportation.ADEPropertyOfRoad;
+import org.citygml4j.model.transportation.ADEOfRoad;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfRoad extends ADEPropertyOfRoad<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfRoad extends ADEOfRoad<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfRoad(Element value) {
         super(value);

@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.transportation.ADEPropertyOfTrack;
+import org.citygml4j.model.transportation.ADEOfTrack;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfTrack extends ADEPropertyOfTrack<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfTrack extends ADEOfTrack<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfTrack(Element value) {
         super(value);

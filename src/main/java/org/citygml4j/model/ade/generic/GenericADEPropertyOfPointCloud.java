@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.pointcloud.ADEPropertyOfPointCloud;
+import org.citygml4j.model.pointcloud.ADEOfPointCloud;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfPointCloud extends ADEPropertyOfPointCloud<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfPointCloud extends ADEOfPointCloud<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfPointCloud(Element value) {
         super(value);

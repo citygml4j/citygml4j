@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.core.ADEPropertyOfClosureSurface;
+import org.citygml4j.model.core.ADEOfClosureSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfClosureSurface extends ADEPropertyOfClosureSurface<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfClosureSurface extends ADEOfClosureSurface<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfClosureSurface(Element value) {
         super(value);

@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.transportation.ADEPropertyOfHoleSurface;
+import org.citygml4j.model.transportation.ADEOfHoleSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfHoleSurface extends ADEPropertyOfHoleSurface<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfHoleSurface extends ADEOfHoleSurface<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfHoleSurface(Element value) {
         super(value);

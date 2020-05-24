@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
+import org.citygml4j.model.core.ADEOfAbstractThematicSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAbstractThematicSurface extends ADEPropertyOfAbstractThematicSurface<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAbstractThematicSurface extends ADEOfAbstractThematicSurface<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAbstractThematicSurface(Element value) {
         super(value);

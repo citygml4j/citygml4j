@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.dynamizer.ADEPropertyOfStandardFileTimeseries;
+import org.citygml4j.model.dynamizer.ADEOfStandardFileTimeseries;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfStandardFileTimeseries extends ADEPropertyOfStandardFileTimeseries<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfStandardFileTimeseries extends ADEOfStandardFileTimeseries<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfStandardFileTimeseries(Element value) {
         super(value);

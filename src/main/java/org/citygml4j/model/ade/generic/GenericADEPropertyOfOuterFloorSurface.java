@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.construction.ADEPropertyOfOuterFloorSurface;
+import org.citygml4j.model.construction.ADEOfOuterFloorSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfOuterFloorSurface extends ADEPropertyOfOuterFloorSurface<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfOuterFloorSurface extends ADEOfOuterFloorSurface<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfOuterFloorSurface(Element value) {
         super(value);

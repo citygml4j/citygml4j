@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.core.ADEPropertyOfAbstractFeatureWithLifespan;
+import org.citygml4j.model.core.ADEOfAbstractFeatureWithLifespan;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAbstractFeatureWithLifespan extends ADEPropertyOfAbstractFeatureWithLifespan<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAbstractFeatureWithLifespan extends ADEOfAbstractFeatureWithLifespan<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAbstractFeatureWithLifespan(Element value) {
         super(value);

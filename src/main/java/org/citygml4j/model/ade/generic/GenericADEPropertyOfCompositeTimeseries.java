@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.dynamizer.ADEPropertyOfCompositeTimeseries;
+import org.citygml4j.model.dynamizer.ADEOfCompositeTimeseries;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfCompositeTimeseries extends ADEPropertyOfCompositeTimeseries<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfCompositeTimeseries extends ADEOfCompositeTimeseries<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfCompositeTimeseries(Element value) {
         super(value);

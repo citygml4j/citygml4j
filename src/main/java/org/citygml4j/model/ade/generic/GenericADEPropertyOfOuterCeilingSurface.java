@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.construction.ADEPropertyOfOuterCeilingSurface;
+import org.citygml4j.model.construction.ADEOfOuterCeilingSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfOuterCeilingSurface extends ADEPropertyOfOuterCeilingSurface<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfOuterCeilingSurface extends ADEOfOuterCeilingSurface<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfOuterCeilingSurface(Element value) {
         super(value);

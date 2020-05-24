@@ -1,9 +1,9 @@
 package org.citygml4j.model.ade.generic;
 
-import org.citygml4j.model.transportation.ADEPropertyOfAuxiliaryTrafficSpace;
+import org.citygml4j.model.transportation.ADEOfAuxiliaryTrafficSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEPropertyOfAuxiliaryTrafficSpace extends ADEPropertyOfAuxiliaryTrafficSpace<Element> implements ADEGenericProperty {
+public class GenericADEPropertyOfAuxiliaryTrafficSpace extends ADEOfAuxiliaryTrafficSpace<Element> implements ADEGenericProperty {
 
     private GenericADEPropertyOfAuxiliaryTrafficSpace(Element value) {
         super(value);
