@@ -2023,6 +2023,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
             visit(member.getGenericElement());
     }
 
+    @Override
     protected void visitObject(Object object) {
         if (object instanceof ADEObject)
             visit((ADEObject) object);
