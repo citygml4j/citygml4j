@@ -20,7 +20,7 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
     private List<TunnelInstallationMember> tunnelInstallations;
     private List<HollowSpaceMember> hollowSpaces;
     private List<TunnelFurnitureMember> tunnelFurniture;
-    private List<ADEPropertyOfAbstractTunnel<?>> adeProperties;
+    private List<ADEOfAbstractTunnel> adeOfAbstractTunnel;
 
     @Override
     public Code getClassifier() {
@@ -112,15 +112,15 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         return new DeprecatedPropertiesOfAbstractTunnel();
     }
 
-    public List<ADEPropertyOfAbstractTunnel<?>> getADEPropertiesOfAbstractTunnel() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractTunnel> getADEOfAbstractTunnel() {
+        if (adeOfAbstractTunnel == null)
+            adeOfAbstractTunnel = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractTunnel;
     }
 
-    public void setADEPropertiesOfAbstractTunnel(List<ADEPropertyOfAbstractTunnel<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractTunnel(List<ADEOfAbstractTunnel> adeOfAbstractTunnel) {
+        this.adeOfAbstractTunnel = asChild(adeOfAbstractTunnel);
     }
 
     @Override
@@ -163,7 +163,7 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractTunnel<?> property : adeProperties)
+            for (ADEOfAbstractTunnel<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -182,7 +182,7 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractTunnel<?> property : adeProperties)
+            for (ADEOfAbstractTunnel<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

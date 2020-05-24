@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DoorSurface extends AbstractFillingSurface {
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfDoorSurface<?>> adeProperties;
+    private List<ADEOfDoorSurface> adeOfDoorSurface;
 
     public List<AddressProperty> getAddresses() {
         if (addresses == null)
@@ -24,15 +24,15 @@ public class DoorSurface extends AbstractFillingSurface {
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfDoorSurface<?>> getADEPropertiesOfDoorSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfDoorSurface> getADEOfDoorSurface() {
+        if (adeOfDoorSurface == null)
+            adeOfDoorSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfDoorSurface;
     }
 
-    public void setADEPropertiesOfDoorSurface(List<ADEPropertyOfDoorSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfDoorSurface(List<ADEOfDoorSurface> adeOfDoorSurface) {
+        this.adeOfDoorSurface = asChild(adeOfDoorSurface);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class DoorSurface extends AbstractFillingSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfDoorSurface<?> property : adeProperties)
+            for (ADEOfDoorSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -50,7 +50,7 @@ public class DoorSurface extends AbstractFillingSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfDoorSurface<?> property : adeProperties)
+            for (ADEOfDoorSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

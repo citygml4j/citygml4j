@@ -17,7 +17,7 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfGenericLogicalSpace<?>> adeProperties;
+    private List<ADEOfGenericLogicalSpace> adeOfGenericLogicalSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -61,15 +61,15 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfGenericLogicalSpace<?>> getADEPropertiesOfGenericLogicalSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfGenericLogicalSpace> getADEOfGenericLogicalSpace() {
+        if (adeOfGenericLogicalSpace == null)
+            adeOfGenericLogicalSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfGenericLogicalSpace;
     }
 
-    public void setADEPropertiesOfGenericLogicalSpace(List<ADEPropertyOfGenericLogicalSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfGenericLogicalSpace(List<ADEOfGenericLogicalSpace> adeOfGenericLogicalSpace) {
+        this.adeOfGenericLogicalSpace = asChild(adeOfGenericLogicalSpace);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericLogicalSpace<?> property : adeProperties)
+            for (ADEOfGenericLogicalSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -87,7 +87,7 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericLogicalSpace<?> property : adeProperties)
+            for (ADEOfGenericLogicalSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

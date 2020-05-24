@@ -13,7 +13,7 @@ import java.util.List;
 public class MassPointRelief extends AbstractReliefComponent {
     private MultiPointProperty reliefPoints;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEPropertyOfMassPointRelief<?>> adeProperties;
+    private List<ADEOfMassPointRelief> adeOfMassPointRelief;
 
     public MassPointRelief() {
     }
@@ -44,15 +44,15 @@ public class MassPointRelief extends AbstractReliefComponent {
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEPropertyOfMassPointRelief<?>> getADEPropertiesOfMassPointRelief() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfMassPointRelief> getADEOfMassPointRelief() {
+        if (adeOfMassPointRelief == null)
+            adeOfMassPointRelief = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfMassPointRelief;
     }
 
-    public void setADEPropertiesOfMassPointRelief(List<ADEPropertyOfMassPointRelief<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfMassPointRelief(List<ADEOfMassPointRelief> adeOfMassPointRelief) {
+        this.adeOfMassPointRelief = asChild(adeOfMassPointRelief);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MassPointRelief extends AbstractReliefComponent {
             envelope.include(pointCloud.getObject().computeEnvelope(options));
 
         if (adeProperties != null) {
-            for (ADEPropertyOfMassPointRelief<?> property : adeProperties)
+            for (ADEOfMassPointRelief<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -78,7 +78,7 @@ public class MassPointRelief extends AbstractReliefComponent {
         geometryInfo.addGeometry(getLod(), reliefPoints);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfMassPointRelief<?> property : adeProperties)
+            for (ADEOfMassPointRelief<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

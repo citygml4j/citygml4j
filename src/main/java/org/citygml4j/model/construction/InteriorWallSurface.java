@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class InteriorWallSurface extends AbstractConstructionSurface {
-    private List<ADEPropertyOfInteriorWallSurface<?>> adeProperties;
+    private List<ADEOfInteriorWallSurface> adeOfInteriorWallSurface;
 
-    public List<ADEPropertyOfInteriorWallSurface<?>> getADEPropertiesOfInteriorWallSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfInteriorWallSurface> getADEOfInteriorWallSurface() {
+        if (adeOfInteriorWallSurface == null)
+            adeOfInteriorWallSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfInteriorWallSurface;
     }
 
-    public void setADEPropertiesOfInteriorWallSurface(List<ADEPropertyOfInteriorWallSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfInteriorWallSurface(List<ADEOfInteriorWallSurface> adeOfInteriorWallSurface) {
+        this.adeOfInteriorWallSurface = asChild(adeOfInteriorWallSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class InteriorWallSurface extends AbstractConstructionSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfInteriorWallSurface<?> property : adeProperties)
+            for (ADEOfInteriorWallSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class InteriorWallSurface extends AbstractConstructionSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfInteriorWallSurface<?> property : adeProperties)
+            for (ADEOfInteriorWallSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

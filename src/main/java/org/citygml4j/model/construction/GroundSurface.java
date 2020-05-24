@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class GroundSurface extends AbstractConstructionSurface {
-    private List<ADEPropertyOfGroundSurface<?>> adeProperties;
+    private List<ADEOfGroundSurface> adeOfGroundSurface;
 
-    public List<ADEPropertyOfGroundSurface<?>> getADEPropertiesOfGroundSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfGroundSurface> getADEOfGroundSurface() {
+        if (adeOfGroundSurface == null)
+            adeOfGroundSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfGroundSurface;
     }
 
-    public void setADEPropertiesOfGroundSurface(List<ADEPropertyOfGroundSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfGroundSurface(List<ADEOfGroundSurface> adeOfGroundSurface) {
+        this.adeOfGroundSurface = asChild(adeOfGroundSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class GroundSurface extends AbstractConstructionSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGroundSurface<?> property : adeProperties)
+            for (ADEOfGroundSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class GroundSurface extends AbstractConstructionSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGroundSurface<?> property : adeProperties)
+            for (ADEOfGroundSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

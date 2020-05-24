@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ClearanceSpace extends AbstractUnoccupiedSpace {
     private Code classifier;
-    private List<ADEPropertyOfClearanceSpace<?>> adeProperties;
+    private List<ADEOfClearanceSpace> adeOfClearanceSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -31,15 +31,15 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfClearanceSpace<?>> getADEPropertiesOfClearanceSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfClearanceSpace> getADEOfClearanceSpace() {
+        if (adeOfClearanceSpace == null)
+            adeOfClearanceSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfClearanceSpace;
     }
 
-    public void setADEPropertiesOfClearanceSpace(List<ADEPropertyOfClearanceSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfClearanceSpace(List<ADEOfClearanceSpace> adeOfClearanceSpace) {
+        this.adeOfClearanceSpace = asChild(adeOfClearanceSpace);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfClearanceSpace<?> property : adeProperties)
+            for (ADEOfClearanceSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -57,7 +57,7 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfClearanceSpace<?> property : adeProperties)
+            for (ADEOfClearanceSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Tunnel extends AbstractTunnel {
     private List<TunnelPartProperty> tunnelParts;
-    private List<ADEPropertyOfTunnel<?>> adeProperties;
+    private List<ADEOfTunnel> adeOfTunnel;
 
     public List<TunnelPartProperty> getTunnelParts() {
         if (tunnelParts == null)
@@ -23,15 +23,15 @@ public class Tunnel extends AbstractTunnel {
         this.tunnelParts = asChild(tunnelParts);
     }
 
-    public List<ADEPropertyOfTunnel<?>> getADEPropertiesOfTunnel() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTunnel> getADEOfTunnel() {
+        if (adeOfTunnel == null)
+            adeOfTunnel = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTunnel;
     }
 
-    public void setADEPropertiesOfTunnel(List<ADEPropertyOfTunnel<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTunnel(List<ADEOfTunnel> adeOfTunnel) {
+        this.adeOfTunnel = asChild(adeOfTunnel);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Tunnel extends AbstractTunnel {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTunnel<?> property : adeProperties)
+            for (ADEOfTunnel<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -56,7 +56,7 @@ public class Tunnel extends AbstractTunnel {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTunnel<?> property : adeProperties)
+            for (ADEOfTunnel<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

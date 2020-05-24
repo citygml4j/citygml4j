@@ -11,7 +11,7 @@ import java.util.List;
 public class Version extends AbstractVersion {
     private List<String> tags;
     private List<AbstractFeatureWithLifespanProperty> versionMembers;
-    private List<ADEPropertyOfVersion<?>> adeProperties;
+    private List<ADEOfVersion> adeOfVersion;
 
     public List<String> getTags() {
         if (tags == null)
@@ -35,15 +35,15 @@ public class Version extends AbstractVersion {
         this.versionMembers = asChild(versionMembers);
     }
 
-    public List<ADEPropertyOfVersion<?>> getADEPropertiesOfVersion() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfVersion> getADEOfVersion() {
+        if (adeOfVersion == null)
+            adeOfVersion = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfVersion;
     }
 
-    public void setADEPropertiesOfVersion(List<ADEPropertyOfVersion<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfVersion(List<ADEOfVersion> adeOfVersion) {
+        this.adeOfVersion = asChild(adeOfVersion);
     }
 
     @Override

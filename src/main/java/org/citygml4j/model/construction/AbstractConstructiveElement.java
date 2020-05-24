@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace {
     private Boolean isStructuralElement;
     private List<AbstractFillingElementProperty> fillings;
-    private List<ADEPropertyOfAbstractConstructiveElement<?>> adeProperties;
+    private List<ADEOfAbstractConstructiveElement> adeOfAbstractConstructiveElement;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -46,15 +46,15 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
         this.fillings = asChild(fillings);
     }
 
-    public List<ADEPropertyOfAbstractConstructiveElement<?>> getADEPropertiesOfAbstractConstructiveElement() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractConstructiveElement> getADEOfAbstractConstructiveElement() {
+        if (adeOfAbstractConstructiveElement == null)
+            adeOfAbstractConstructiveElement = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractConstructiveElement;
     }
 
-    public void setADEPropertiesOfAbstractConstructiveElement(List<ADEPropertyOfAbstractConstructiveElement<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractConstructiveElement(List<ADEOfAbstractConstructiveElement> adeOfAbstractConstructiveElement) {
+        this.adeOfAbstractConstructiveElement = asChild(adeOfAbstractConstructiveElement);
     }
 
     @Override
@@ -62,7 +62,7 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractConstructiveElement<?> property : adeProperties)
+            for (ADEOfAbstractConstructiveElement<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -72,7 +72,7 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractConstructiveElement<?> property : adeProperties)
+            for (ADEOfAbstractConstructiveElement<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

@@ -25,7 +25,7 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     private List<TrafficSpaceProperty> predecessors;
     private List<TrafficSpaceProperty> successors;
     private List<ClearanceSpaceProperty> clearanceSpaces;
-    private List<ADEPropertyOfTrafficSpace<?>> adeProperties;
+    private List<ADEOfTrafficSpace> adeOfTrafficSpace;
 
     public TrafficSpace() {
     }
@@ -137,15 +137,15 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         this.clearanceSpaces = asChild(clearanceSpaces);
     }
 
-    public List<ADEPropertyOfTrafficSpace<?>> getADEPropertiesOfTrafficSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTrafficSpace> getADEOfTrafficSpace() {
+        if (adeOfTrafficSpace == null)
+            adeOfTrafficSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTrafficSpace;
     }
 
-    public void setADEPropertiesOfTrafficSpace(List<ADEPropertyOfTrafficSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTrafficSpace(List<ADEOfTrafficSpace> adeOfTrafficSpace) {
+        this.adeOfTrafficSpace = asChild(adeOfTrafficSpace);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTrafficSpace<?> property : adeProperties)
+            for (ADEOfTrafficSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -170,7 +170,7 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTrafficSpace<?> property : adeProperties)
+            for (ADEOfTrafficSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

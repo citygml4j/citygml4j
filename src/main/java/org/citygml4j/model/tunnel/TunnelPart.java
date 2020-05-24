@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class TunnelPart extends AbstractTunnel {
-    private List<ADEPropertyOfTunnelPart<?>> adeProperties;
+    private List<ADEOfTunnelPart> adeOfTunnelPart;
 
-    public List<ADEPropertyOfTunnelPart<?>> getADEPropertiesOfTunnelPart() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTunnelPart> getADEOfTunnelPart() {
+        if (adeOfTunnelPart == null)
+            adeOfTunnelPart = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTunnelPart;
     }
 
-    public void setADEPropertiesOfTunnelPart(List<ADEPropertyOfTunnelPart<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTunnelPart(List<ADEOfTunnelPart> adeOfTunnelPart) {
+        this.adeOfTunnelPart = asChild(adeOfTunnelPart);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class TunnelPart extends AbstractTunnel {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTunnelPart<?> property : adeProperties)
+            for (ADEOfTunnelPart<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class TunnelPart extends AbstractTunnel {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTunnelPart<?> property : adeProperties)
+            for (ADEOfTunnelPart<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

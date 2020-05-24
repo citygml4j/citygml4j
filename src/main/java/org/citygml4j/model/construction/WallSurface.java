@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class WallSurface extends AbstractConstructionSurface {
-    private List<ADEPropertyOfWallSurface<?>> adeProperties;
+    private List<ADEOfWallSurface> adeOfWallSurface;
 
-    public List<ADEPropertyOfWallSurface<?>> getADEPropertiesOfWallSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfWallSurface> getADEOfWallSurface() {
+        if (adeOfWallSurface == null)
+            adeOfWallSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfWallSurface;
     }
 
-    public void setADEPropertiesOfWallSurface(List<ADEPropertyOfWallSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfWallSurface(List<ADEOfWallSurface> adeOfWallSurface) {
+        this.adeOfWallSurface = asChild(adeOfWallSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class WallSurface extends AbstractConstructionSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWallSurface<?> property : adeProperties)
+            for (ADEOfWallSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class WallSurface extends AbstractConstructionSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWallSurface<?> property : adeProperties)
+            for (ADEOfWallSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

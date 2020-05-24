@@ -13,7 +13,7 @@ public class VersionTransition extends AbstractVersionTransition {
     private VersionProperty from;
     private VersionProperty to;
     private List<TransactionProperty> transactions;
-    private List<ADEPropertyOfVersionTransition<?>> adeProperties;
+    private List<ADEOfVersionTransition> adeOfVersionTransition;
 
     public VersionTransition() {
     }
@@ -79,15 +79,15 @@ public class VersionTransition extends AbstractVersionTransition {
         this.transactions = asChild(transactions);
     }
 
-    public List<ADEPropertyOfVersionTransition<?>> getADEPropertiesOfVersionTransition() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfVersionTransition> getADEOfVersionTransition() {
+        if (adeOfVersionTransition == null)
+            adeOfVersionTransition = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfVersionTransition;
     }
 
-    public void setADEPropertiesOfVersionTransition(List<ADEPropertyOfVersionTransition<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfVersionTransition(List<ADEOfVersionTransition> adeOfVersionTransition) {
+        this.adeOfVersionTransition = asChild(adeOfVersionTransition);
     }
 
     @Override

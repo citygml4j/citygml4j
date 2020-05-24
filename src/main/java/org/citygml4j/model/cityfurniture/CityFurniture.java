@@ -19,7 +19,7 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfCityFurniture<?>> adeProperties;
+    private List<ADEOfCityFurniture> adeOfCityFurniture;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -73,15 +73,15 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
         return new DeprecatedPropertiesOfCityFurniture();
     }
 
-    public List<ADEPropertyOfCityFurniture<?>> getADEPropertiesOfCityFurniture() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfCityFurniture> getADEOfCityFurniture() {
+        if (adeOfCityFurniture == null)
+            adeOfCityFurniture = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfCityFurniture;
     }
 
-    public void setADEPropertiesOfCityFurniture(List<ADEPropertyOfCityFurniture<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfCityFurniture(List<ADEOfCityFurniture> adeOfCityFurniture) {
+        this.adeOfCityFurniture = asChild(adeOfCityFurniture);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfCityFurniture<?> property : adeProperties)
+            for (ADEOfCityFurniture<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -128,7 +128,7 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfCityFurniture<?> property : adeProperties)
+            for (ADEOfCityFurniture<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

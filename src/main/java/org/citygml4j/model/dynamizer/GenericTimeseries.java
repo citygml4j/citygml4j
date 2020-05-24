@@ -8,7 +8,7 @@ import java.util.List;
 public class GenericTimeseries extends AbstractAtomicTimeseries {
     private TimeseriesValue valueType;
     private List<TimeValuePairProperty> timeValuePairs;
-    private List<ADEPropertyOfGenericTimeseries<?>> adeProperties;
+    private List<ADEOfGenericTimeseries> adeOfGenericTimeseries;
 
     public GenericTimeseries() {
     }
@@ -37,15 +37,15 @@ public class GenericTimeseries extends AbstractAtomicTimeseries {
         this.timeValuePairs = asChild(timeValuePairs);
     }
 
-    public List<ADEPropertyOfGenericTimeseries<?>> getADEPropertiesOfGenericTimeseries() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfGenericTimeseries> getADEOfGenericTimeseries() {
+        if (adeOfGenericTimeseries == null)
+            adeOfGenericTimeseries = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfGenericTimeseries;
     }
 
-    public void setADEPropertiesOfGenericTimeseries(List<ADEPropertyOfGenericTimeseries<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfGenericTimeseries(List<ADEOfGenericTimeseries> adeOfGenericTimeseries) {
+        this.adeOfGenericTimeseries = asChild(adeOfGenericTimeseries);
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.List;
 public class ReliefFeature extends AbstractSpaceBoundary {
     private int lod;
     private List<AbstractReliefComponentProperty> reliefComponents;
-    private List<ADEPropertyOfReliefFeature<?>> adeProperties;
+    private List<ADEOfReliefFeature> adeOfReliefFeature;
 
     public ReliefFeature() {
     }
@@ -42,15 +42,15 @@ public class ReliefFeature extends AbstractSpaceBoundary {
         this.reliefComponents = asChild(reliefComponents);
     }
 
-    public List<ADEPropertyOfReliefFeature<?>> getADEPropertiesOfReliefFeature() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfReliefFeature> getADEOfReliefFeature() {
+        if (adeOfReliefFeature == null)
+            adeOfReliefFeature = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfReliefFeature;
     }
 
-    public void setADEPropertiesOfReliefFeature(List<ADEPropertyOfReliefFeature<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfReliefFeature(List<ADEOfReliefFeature> adeOfReliefFeature) {
+        this.adeOfReliefFeature = asChild(adeOfReliefFeature);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ReliefFeature extends AbstractSpaceBoundary {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfReliefFeature<?> property : adeProperties)
+            for (ADEOfReliefFeature<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -75,7 +75,7 @@ public class ReliefFeature extends AbstractSpaceBoundary {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfReliefFeature<?> property : adeProperties)
+            for (ADEOfReliefFeature<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

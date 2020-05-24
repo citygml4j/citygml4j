@@ -8,23 +8,23 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractPointCloud extends AbstractFeature {
-    private List<ADEPropertyOfAbstractPointCloud<?>> adeProperties;
+    private List<ADEOfAbstractPointCloud> adeOfAbstractPointCloud;
 
-    public List<ADEPropertyOfAbstractPointCloud<?>> getADEPropertiesOfAbstractPointCloud() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractPointCloud> getADEOfAbstractPointCloud() {
+        if (adeOfAbstractPointCloud == null)
+            adeOfAbstractPointCloud = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractPointCloud;
     }
 
-    public void setADEPropertiesOfAbstractPointCloud(List<ADEPropertyOfAbstractPointCloud<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractPointCloud(List<ADEOfAbstractPointCloud> adeOfAbstractPointCloud) {
+        this.adeOfAbstractPointCloud = asChild(adeOfAbstractPointCloud);
     }
 
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractPointCloud<?> property : adeProperties)
+            for (ADEOfAbstractPointCloud<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -34,7 +34,7 @@ public abstract class AbstractPointCloud extends AbstractFeature {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractPointCloud<?> property : adeProperties)
+            for (ADEOfAbstractPointCloud<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

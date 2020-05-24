@@ -16,7 +16,7 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfWaterway<?>> adeProperties;
+    private List<ADEOfWaterway> adeOfWaterway;
 
     @Override
     public Code getClassifier() {
@@ -76,15 +76,15 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfWaterway<?>> getADEPropertiesOfWaterway() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfWaterway> getADEOfWaterway() {
+        if (adeOfWaterway == null)
+            adeOfWaterway = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfWaterway;
     }
 
-    public void setADEPropertiesOfWaterway(List<ADEPropertyOfWaterway<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfWaterway(List<ADEOfWaterway> adeOfWaterway) {
+        this.adeOfWaterway = asChild(adeOfWaterway);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterway<?> property : adeProperties)
+            for (ADEOfWaterway<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -116,7 +116,7 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterway<?> property : adeProperties)
+            for (ADEOfWaterway<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

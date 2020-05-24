@@ -19,7 +19,7 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
     private List<Code> functions;
     private List<Code> usages;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfDoor<?>> adeProperties;
+    private List<ADEOfDoor> adeOfDoor;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -75,15 +75,15 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfDoor<?>> getADEPropertiesOfDoor() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfDoor> getADEOfDoor() {
+        if (adeOfDoor == null)
+            adeOfDoor = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfDoor;
     }
 
-    public void setADEPropertiesOfDoor(List<ADEPropertyOfDoor<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfDoor(List<ADEOfDoor> adeOfDoor) {
+        this.adeOfDoor = asChild(adeOfDoor);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfDoor<?> property : adeProperties)
+            for (ADEOfDoor<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -101,7 +101,7 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfDoor<?> property : adeProperties)
+            for (ADEOfDoor<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

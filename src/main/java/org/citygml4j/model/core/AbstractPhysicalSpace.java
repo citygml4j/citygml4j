@@ -13,7 +13,7 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
     private MultiCurveProperty lod2TerrainIntersectionCurve;
     private MultiCurveProperty lod3TerrainIntersectionCurve;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEPropertyOfAbstractPhysicalSpace<?>> adeProperties;
+    private List<ADEOfAbstractPhysicalSpace> adeOfAbstractPhysicalSpace;
 
     public MultiCurveProperty getLod1TerrainIntersectionCurve() {
         return lod1TerrainIntersectionCurve;
@@ -47,15 +47,15 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEPropertyOfAbstractPhysicalSpace<?>> getADEPropertiesOfAbstractPhysicalSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractPhysicalSpace> getADEOfAbstractPhysicalSpace() {
+        if (adeOfAbstractPhysicalSpace == null)
+            adeOfAbstractPhysicalSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractPhysicalSpace;
     }
 
-    public void setADEPropertiesOfAbstractPhysicalSpace(List<ADEPropertyOfAbstractPhysicalSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractPhysicalSpace(List<ADEOfAbstractPhysicalSpace> adeOfAbstractPhysicalSpace) {
+        this.adeOfAbstractPhysicalSpace = asChild(adeOfAbstractPhysicalSpace);
     }
 
     public MultiCurveProperty getTerrainIntersectionCurve(int lod) {
@@ -95,7 +95,7 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
             envelope.include(pointCloud.getObject().computeEnvelope(options));
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractPhysicalSpace<?> property : adeProperties)
+            for (ADEOfAbstractPhysicalSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -105,7 +105,7 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractPhysicalSpace<?> property : adeProperties)
+            for (ADEOfAbstractPhysicalSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

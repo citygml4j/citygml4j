@@ -8,17 +8,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractSpaceBoundary extends AbstractCityObject {
-    private List<ADEPropertyOfAbstractSpaceBoundary<?>> adeProperties;
+    private List<ADEOfAbstractSpaceBoundary> adeOfAbstractSpaceBoundary;
 
-    public List<ADEPropertyOfAbstractSpaceBoundary<?>> getADEPropertiesOfAbstractSpaceBoundary() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractSpaceBoundary> getADEOfAbstractSpaceBoundary() {
+        if (adeOfAbstractSpaceBoundary == null)
+            adeOfAbstractSpaceBoundary = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractSpaceBoundary;
     }
 
-    public void setADEPropertiesOfAbstractSpaceBoundary(List<ADEPropertyOfAbstractSpaceBoundary<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractSpaceBoundary(List<ADEOfAbstractSpaceBoundary> adeOfAbstractSpaceBoundary) {
+        this.adeOfAbstractSpaceBoundary = asChild(adeOfAbstractSpaceBoundary);
     }
 
     @Override
@@ -26,7 +26,7 @@ public abstract class AbstractSpaceBoundary extends AbstractCityObject {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractSpaceBoundary<?> property : adeProperties)
+            for (ADEOfAbstractSpaceBoundary<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -36,7 +36,7 @@ public abstract class AbstractSpaceBoundary extends AbstractCityObject {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractSpaceBoundary<?> property : adeProperties)
+            for (ADEOfAbstractSpaceBoundary<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

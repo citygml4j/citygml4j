@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TINRelief extends AbstractReliefComponent {
     private TinProperty tin;
-    private List<ADEPropertyOfTINRelief<?>> adeProperties;
+    private List<ADEOfTINRelief> adeOfTINRelief;
 
     public TINRelief() {
     }
@@ -28,15 +28,15 @@ public class TINRelief extends AbstractReliefComponent {
         this.tin = asChild(tin);
     }
 
-    public List<ADEPropertyOfTINRelief<?>> getADEPropertiesOfTINRelief() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTINRelief> getADEOfTINRelief() {
+        if (adeOfTINRelief == null)
+            adeOfTINRelief = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTINRelief;
     }
 
-    public void setADEPropertiesOfTINRelief(List<ADEPropertyOfTINRelief<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTINRelief(List<ADEOfTINRelief> adeOfTINRelief) {
+        this.adeOfTINRelief = asChild(adeOfTINRelief);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class TINRelief extends AbstractReliefComponent {
             envelope.include(tin.getObject().computeEnvelope());
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTINRelief<?> property : adeProperties)
+            for (ADEOfTINRelief<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -59,7 +59,7 @@ public class TINRelief extends AbstractReliefComponent {
         geometryInfo.addGeometry(getLod(), tin);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTINRelief<?> property : adeProperties)
+            for (ADEOfTINRelief<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

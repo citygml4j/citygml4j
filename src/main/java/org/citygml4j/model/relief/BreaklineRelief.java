@@ -12,7 +12,7 @@ import java.util.List;
 public class BreaklineRelief extends AbstractReliefComponent {
     private MultiCurveProperty ridgeOrValleyLines;
     private MultiCurveProperty breaklines;
-    private List<ADEPropertyOfBreaklineRelief<?>> adeProperties;
+    private List<ADEOfBreaklineRelief> adeOfBreaklineRelief;
 
     public BreaklineRelief() {
     }
@@ -49,15 +49,15 @@ public class BreaklineRelief extends AbstractReliefComponent {
         this.breaklines = asChild(breaklines);
     }
 
-    public List<ADEPropertyOfBreaklineRelief<?>> getADEPropertiesOfBreaklineRelief() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBreaklineRelief> getADEOfBreaklineRelief() {
+        if (adeOfBreaklineRelief == null)
+            adeOfBreaklineRelief = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBreaklineRelief;
     }
 
-    public void setADEPropertiesOfBreaklineRelief(List<ADEPropertyOfBreaklineRelief<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBreaklineRelief(List<ADEOfBreaklineRelief> adeOfBreaklineRelief) {
+        this.adeOfBreaklineRelief = asChild(adeOfBreaklineRelief);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
             envelope.include(breaklines.getObject().computeEnvelope());
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBreaklineRelief<?> property : adeProperties)
+            for (ADEOfBreaklineRelief<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -84,7 +84,7 @@ public class BreaklineRelief extends AbstractReliefComponent {
         geometryInfo.addGeometry(getLod(), breaklines);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBreaklineRelief<?> property : adeProperties)
+            for (ADEOfBreaklineRelief<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

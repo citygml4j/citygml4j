@@ -8,17 +8,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractLogicalSpace extends AbstractSpace {
-    private List<ADEPropertyOfAbstractLogicalSpace<?>> adeProperties;
+    private List<ADEOfAbstractLogicalSpace> adeOfAbstractLogicalSpace;
 
-    public List<ADEPropertyOfAbstractLogicalSpace<?>> getADEPropertiesOfAbstractLogicalSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractLogicalSpace> getADEOfAbstractLogicalSpace() {
+        if (adeOfAbstractLogicalSpace == null)
+            adeOfAbstractLogicalSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractLogicalSpace;
     }
 
-    public void setADEPropertiesOfAbstractLogicalSpace(List<ADEPropertyOfAbstractLogicalSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractLogicalSpace(List<ADEOfAbstractLogicalSpace> adeOfAbstractLogicalSpace) {
+        this.adeOfAbstractLogicalSpace = asChild(adeOfAbstractLogicalSpace);
     }
 
     @Override
@@ -26,7 +26,7 @@ public abstract class AbstractLogicalSpace extends AbstractSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractLogicalSpace<?> property : adeProperties)
+            for (ADEOfAbstractLogicalSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -36,7 +36,7 @@ public abstract class AbstractLogicalSpace extends AbstractSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractLogicalSpace<?> property : adeProperties)
+            for (ADEOfAbstractLogicalSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

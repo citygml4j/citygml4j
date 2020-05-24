@@ -23,7 +23,7 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
     private List<BridgeRoomMember> bridgeRooms;
     private List<BridgeFurnitureMember> bridgeFurniture;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfAbstractBridge<?>> adeProperties;
+    private List<ADEOfAbstractBridge> adeOfAbstractBridge;
 
     @Override
     public Code getClassifier() {
@@ -138,15 +138,15 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         return new DeprecatedPropertiesOfAbstractBridge();
     }
 
-    public List<ADEPropertyOfAbstractBridge<?>> getADEPropertiesOfAbstractBridge() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractBridge> getADEOfAbstractBridge() {
+        if (adeOfAbstractBridge == null)
+            adeOfAbstractBridge = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractBridge;
     }
 
-    public void setADEPropertiesOfAbstractBridge(List<ADEPropertyOfAbstractBridge<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractBridge(List<ADEOfAbstractBridge> adeOfAbstractBridge) {
+        this.adeOfAbstractBridge = asChild(adeOfAbstractBridge);
     }
 
     @Override
@@ -189,7 +189,7 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractBridge<?> property : adeProperties)
+            for (ADEOfAbstractBridge<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -208,7 +208,7 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractBridge<?> property : adeProperties)
+            for (ADEOfAbstractBridge<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

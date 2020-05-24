@@ -23,7 +23,7 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
     private List<RoomHeightProperty> roomHeights;
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<BuildingInstallationProperty> buildingInstallations;
-    private List<ADEPropertyOfBuildingRoom<?>> adeProperties;
+    private List<ADEOfBuildingRoom> adeOfBuildingRoom;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -111,15 +111,15 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         return new DeprecatedPropertiesOfBuildingRoom();
     }
 
-    public List<ADEPropertyOfBuildingRoom<?>> getADEPropertiesOfBuildingRoom() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBuildingRoom> getADEOfBuildingRoom() {
+        if (adeOfBuildingRoom == null)
+            adeOfBuildingRoom = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBuildingRoom;
     }
 
-    public void setADEPropertiesOfBuildingRoom(List<ADEPropertyOfBuildingRoom<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBuildingRoom(List<ADEOfBuildingRoom> adeOfBuildingRoom) {
+        this.adeOfBuildingRoom = asChild(adeOfBuildingRoom);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingRoom<?> property : adeProperties)
+            for (ADEOfBuildingRoom<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -154,7 +154,7 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingRoom<?> property : adeProperties)
+            for (ADEOfBuildingRoom<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

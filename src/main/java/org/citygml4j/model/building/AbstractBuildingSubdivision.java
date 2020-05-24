@@ -26,7 +26,7 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     private List<Reference> buildingFurniture;
     private List<Reference> buildingInstallations;
     private List<Reference> buildingRooms;
-    private List<ADEPropertyOfAbstractBuildingSubdivision<?>> adeProperties;
+    private List<ADEOfAbstractBuildingSubdivision> adeOfAbstractBuildingSubdivision;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -134,15 +134,15 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         this.buildingRooms = asChild(buildingRooms);
     }
 
-    public List<ADEPropertyOfAbstractBuildingSubdivision<?>> getADEPropertiesOfAbstractBuildingSubdivision() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractBuildingSubdivision> getADEOfAbstractBuildingSubdivision() {
+        if (adeOfAbstractBuildingSubdivision == null)
+            adeOfAbstractBuildingSubdivision = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractBuildingSubdivision;
     }
 
-    public void setADEPropertiesOfAbstractBuildingSubdivision(List<ADEPropertyOfAbstractBuildingSubdivision<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractBuildingSubdivision(List<ADEOfAbstractBuildingSubdivision> adeOfAbstractBuildingSubdivision) {
+        this.adeOfAbstractBuildingSubdivision = asChild(adeOfAbstractBuildingSubdivision);
     }
 
     @Override
@@ -150,7 +150,7 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractBuildingSubdivision<?> property : adeProperties)
+            for (ADEOfAbstractBuildingSubdivision<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -160,7 +160,7 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractBuildingSubdivision<?> property : adeProperties)
+            for (ADEOfAbstractBuildingSubdivision<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

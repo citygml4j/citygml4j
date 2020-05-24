@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RasterRelief extends AbstractReliefComponent {
     private GridProperty grid;
-    private List<ADEPropertyOfRasterRelief<?>> adeProperties;
+    private List<ADEOfRasterRelief> adeOfRasterRelief;
 
     public RasterRelief() {
     }
@@ -28,15 +28,15 @@ public class RasterRelief extends AbstractReliefComponent {
         this.grid = asChild(grid);
     }
 
-    public List<ADEPropertyOfRasterRelief<?>> getADEPropertiesOfRasterRelief() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfRasterRelief> getADEOfRasterRelief() {
+        if (adeOfRasterRelief == null)
+            adeOfRasterRelief = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfRasterRelief;
     }
 
-    public void setADEPropertiesOfRasterRelief(List<ADEPropertyOfRasterRelief<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfRasterRelief(List<ADEOfRasterRelief> adeOfRasterRelief) {
+        this.adeOfRasterRelief = asChild(adeOfRasterRelief);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RasterRelief extends AbstractReliefComponent {
             envelope.include(grid.getObject().computeEnvelope(options));
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRasterRelief<?> property : adeProperties)
+            for (ADEOfRasterRelief<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -57,7 +57,7 @@ public class RasterRelief extends AbstractReliefComponent {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRasterRelief<?> property : adeProperties)
+            for (ADEOfRasterRelief<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

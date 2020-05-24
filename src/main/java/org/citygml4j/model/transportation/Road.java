@@ -16,7 +16,7 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfRoad<?>> adeProperties;
+    private List<ADEOfRoad> adeOfRoad;
 
     @Override
     public Code getClassifier() {
@@ -76,15 +76,15 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfRoad<?>> getADEPropertiesOfRoad() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfRoad> getADEOfRoad() {
+        if (adeOfRoad == null)
+            adeOfRoad = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfRoad;
     }
 
-    public void setADEPropertiesOfRoad(List<ADEPropertyOfRoad<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfRoad(List<ADEOfRoad> adeOfRoad) {
+        this.adeOfRoad = asChild(adeOfRoad);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRoad<?> property : adeProperties)
+            for (ADEOfRoad<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -116,7 +116,7 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRoad<?> property : adeProperties)
+            for (ADEOfRoad<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

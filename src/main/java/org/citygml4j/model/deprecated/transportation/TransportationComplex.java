@@ -14,7 +14,7 @@ public class TransportationComplex extends AbstractTransportationSpace implement
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfTransportationComplex<?>> adeProperties;
+    private List<ADEOfTransportationComplex> adeOfTransportationComplex;
 
     @Override
     public Code getClassifier() {
@@ -52,15 +52,15 @@ public class TransportationComplex extends AbstractTransportationSpace implement
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfTransportationComplex<?>> getADEPropertiesOfTransportationComplex() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTransportationComplex> getADEOfTransportationComplex() {
+        if (adeOfTransportationComplex == null)
+            adeOfTransportationComplex = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTransportationComplex;
     }
 
-    public void setADEPropertiesOfTransportationComplex(List<ADEPropertyOfTransportationComplex<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTransportationComplex(List<ADEOfTransportationComplex> adeOfTransportationComplex) {
+        this.adeOfTransportationComplex = asChild(adeOfTransportationComplex);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TransportationComplex extends AbstractTransportationSpace implement
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTransportationComplex<?> property : adeProperties)
+            for (ADEOfTransportationComplex<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }

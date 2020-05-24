@@ -12,7 +12,7 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
-    private List<ADEPropertyOfAbstractFillingElement<?>> adeProperties;
+    private List<ADEOfAbstractFillingElement> adeOfAbstractFillingElement;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -21,15 +21,15 @@ public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
                 || boundary instanceof GenericThematicSurface;
     }
 
-    public List<ADEPropertyOfAbstractFillingElement<?>> getADEPropertiesOfAbstractFillingElement() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractFillingElement> getADEOfAbstractFillingElement() {
+        if (adeOfAbstractFillingElement == null)
+            adeOfAbstractFillingElement = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractFillingElement;
     }
 
-    public void setADEPropertiesOfAbstractFillingElement(List<ADEPropertyOfAbstractFillingElement<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractFillingElement(List<ADEOfAbstractFillingElement> adeOfAbstractFillingElement) {
+        this.adeOfAbstractFillingElement = asChild(adeOfAbstractFillingElement);
     }
 
     @Override
@@ -37,7 +37,7 @@ public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFillingElement<?> property : adeProperties)
+            for (ADEOfAbstractFillingElement<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -47,7 +47,7 @@ public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFillingElement<?> property : adeProperties)
+            for (ADEOfAbstractFillingElement<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

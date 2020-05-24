@@ -14,7 +14,7 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfTunnelConstructiveElement<?>> adeProperties;
+    private List<ADEOfTunnelConstructiveElement> adeOfTunnelConstructiveElement;
 
     @Override
     public Code getClassifier() {
@@ -52,15 +52,15 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfTunnelConstructiveElement<?>> getADEPropertiesOfTunnelConstructiveElement() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTunnelConstructiveElement> getADEOfTunnelConstructiveElement() {
+        if (adeOfTunnelConstructiveElement == null)
+            adeOfTunnelConstructiveElement = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTunnelConstructiveElement;
     }
 
-    public void setADEPropertiesOfTunnelConstructiveElement(List<ADEPropertyOfTunnelConstructiveElement<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTunnelConstructiveElement(List<ADEOfTunnelConstructiveElement> adeOfTunnelConstructiveElement) {
+        this.adeOfTunnelConstructiveElement = asChild(adeOfTunnelConstructiveElement);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTunnelConstructiveElement<?> property : adeProperties)
+            for (ADEOfTunnelConstructiveElement<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }

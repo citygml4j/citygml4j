@@ -34,17 +34,17 @@ import java.util.IdentityHashMap;
 import java.util.List;
 
 public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.AbstractFeature implements CityGMLObject, Visitable {
-    private List<ADEPropertyOfAbstractFeature<?>> adeProperties;
+    private List<ADEOfAbstractFeature> adeOfAbstractFeature;
 
-    public List<ADEPropertyOfAbstractFeature<?>> getADEPropertiesOfAbstractFeature() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractFeature> getADEOfAbstractFeature() {
+        if (adeOfAbstractFeature == null)
+            adeOfAbstractFeature = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractFeature;
     }
 
-    public void setADEPropertiesOfAbstractFeature(List<ADEPropertyOfAbstractFeature<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractFeature(List<ADEOfAbstractFeature> adeOfAbstractFeature) {
+        this.adeOfAbstractFeature = asChild(adeOfAbstractFeature);
     }
 
     @Override
@@ -59,7 +59,7 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFeature<?> property : adeProperties)
+            for (ADEOfAbstractFeature<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -86,7 +86,7 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFeature<?> property : adeProperties)
+            for (ADEOfAbstractFeature<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

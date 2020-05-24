@@ -22,7 +22,7 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
     private List<Code> usages;
     private List<TunnelFurnitureProperty> tunnelFurniture;
     private List<TunnelInstallationProperty> tunnelInstallations;
-    private List<ADEPropertyOfHollowSpace<?>> adeProperties;
+    private List<ADEOfHollowSpace> adeOfHollowSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -99,15 +99,15 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
         return new DeprecatedPropertiesOfHollowSpace();
     }
 
-    public List<ADEPropertyOfHollowSpace<?>> getADEPropertiesOfHollowSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfHollowSpace> getADEOfHollowSpace() {
+        if (adeOfHollowSpace == null)
+            adeOfHollowSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfHollowSpace;
     }
 
-    public void setADEPropertiesOfHollowSpace(List<ADEPropertyOfHollowSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfHollowSpace(List<ADEOfHollowSpace> adeOfHollowSpace) {
+        this.adeOfHollowSpace = asChild(adeOfHollowSpace);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfHollowSpace<?> property : adeProperties)
+            for (ADEOfHollowSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -142,7 +142,7 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfHollowSpace<?> property : adeProperties)
+            for (ADEOfHollowSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

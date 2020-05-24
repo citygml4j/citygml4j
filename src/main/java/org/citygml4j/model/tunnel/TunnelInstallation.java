@@ -16,7 +16,7 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfTunnelInstallation<?>> adeProperties;
+    private List<ADEOfTunnelInstallation> adeOfTunnelInstallation;
 
     @Override
     public Code getClassifier() {
@@ -64,15 +64,15 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
         return new DeprecatedPropertiesOfTunnelInstallation();
     }
 
-    public List<ADEPropertyOfTunnelInstallation<?>> getADEPropertiesOfTunnelInstallation() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTunnelInstallation> getADEOfTunnelInstallation() {
+        if (adeOfTunnelInstallation == null)
+            adeOfTunnelInstallation = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTunnelInstallation;
     }
 
-    public void setADEPropertiesOfTunnelInstallation(List<ADEPropertyOfTunnelInstallation<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTunnelInstallation(List<ADEOfTunnelInstallation> adeOfTunnelInstallation) {
+        this.adeOfTunnelInstallation = asChild(adeOfTunnelInstallation);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTunnelInstallation<?> property : adeProperties)
+            for (ADEOfTunnelInstallation<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -115,7 +115,7 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTunnelInstallation<?> property : adeProperties)
+            for (ADEOfTunnelInstallation<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

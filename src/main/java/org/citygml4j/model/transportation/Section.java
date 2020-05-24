@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Section extends AbstractTransportationSpace {
     private Code classifier;
-    private List<ADEPropertyOfSection<?>> adeProperties;
+    private List<ADEOfSection> adeOfSection;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -31,15 +31,15 @@ public class Section extends AbstractTransportationSpace {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfSection<?>> getADEPropertiesOfSection() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfSection> getADEOfSection() {
+        if (adeOfSection == null)
+            adeOfSection = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfSection;
     }
 
-    public void setADEPropertiesOfSection(List<ADEPropertyOfSection<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfSection(List<ADEOfSection> adeOfSection) {
+        this.adeOfSection = asChild(adeOfSection);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Section extends AbstractTransportationSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfSection<?> property : adeProperties)
+            for (ADEOfSection<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -57,7 +57,7 @@ public class Section extends AbstractTransportationSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfSection<?> property : adeProperties)
+            for (ADEOfSection<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

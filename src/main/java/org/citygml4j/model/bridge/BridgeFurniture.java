@@ -16,7 +16,7 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBridgeFurniture<?>> adeProperties;
+    private List<ADEOfBridgeFurniture> adeOfBridgeFurniture;
 
     @Override
     public Code getClassifier() {
@@ -64,15 +64,15 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
         return new DeprecatedPropertiesOfBridgeFurniture();
     }
 
-    public List<ADEPropertyOfBridgeFurniture<?>> getADEPropertiesOfBridgeFurniture() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBridgeFurniture> getADEOfBridgeFurniture() {
+        if (adeOfBridgeFurniture == null)
+            adeOfBridgeFurniture = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBridgeFurniture;
     }
 
-    public void setADEPropertiesOfBridgeFurniture(List<ADEPropertyOfBridgeFurniture<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBridgeFurniture(List<ADEOfBridgeFurniture> adeOfBridgeFurniture) {
+        this.adeOfBridgeFurniture = asChild(adeOfBridgeFurniture);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgeFurniture<?> property : adeProperties)
+            for (ADEOfBridgeFurniture<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -107,7 +107,7 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgeFurniture<?> property : adeProperties)
+            for (ADEOfBridgeFurniture<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

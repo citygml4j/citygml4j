@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class CeilingSurface extends AbstractConstructionSurface {
-    private List<ADEPropertyOfCeilingSurface<?>> adeProperties;
+    private List<ADEOfCeilingSurface> adeOfCeilingSurface;
 
-    public List<ADEPropertyOfCeilingSurface<?>> getADEPropertiesOfCeilingSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfCeilingSurface> getADEOfCeilingSurface() {
+        if (adeOfCeilingSurface == null)
+            adeOfCeilingSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfCeilingSurface;
     }
 
-    public void setADEPropertiesOfCeilingSurface(List<ADEPropertyOfCeilingSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfCeilingSurface(List<ADEOfCeilingSurface> adeOfCeilingSurface) {
+        this.adeOfCeilingSurface = asChild(adeOfCeilingSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class CeilingSurface extends AbstractConstructionSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfCeilingSurface<?> property : adeProperties)
+            for (ADEOfCeilingSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class CeilingSurface extends AbstractConstructionSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfCeilingSurface<?> property : adeProperties)
+            for (ADEOfCeilingSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

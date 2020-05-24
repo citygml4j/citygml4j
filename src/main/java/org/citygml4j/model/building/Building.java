@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Building extends AbstractBuilding {
     private List<BuildingPartProperty> buildingParts;
-    private List<ADEPropertyOfBuilding<?>> adeProperties;
+    private List<ADEOfBuilding> adeOfBuilding;
 
     public List<BuildingPartProperty> getBuildingParts() {
         if (buildingParts == null)
@@ -23,15 +23,15 @@ public class Building extends AbstractBuilding {
         this.buildingParts = asChild(buildingParts);
     }
 
-    public List<ADEPropertyOfBuilding<?>> getADEPropertiesOfBuilding() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBuilding> getADEOfBuilding() {
+        if (adeOfBuilding == null)
+            adeOfBuilding = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBuilding;
     }
 
-    public void setADEPropertiesOfBuilding(List<ADEPropertyOfBuilding<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBuilding(List<ADEOfBuilding> adeOfBuilding) {
+        this.adeOfBuilding = asChild(adeOfBuilding);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Building extends AbstractBuilding {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuilding<?> property : adeProperties)
+            for (ADEOfBuilding<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -56,7 +56,7 @@ public class Building extends AbstractBuilding {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuilding<?> property : adeProperties)
+            for (ADEOfBuilding<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

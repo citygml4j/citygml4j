@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.appearance;
 
 import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractSurfaceData;
-import org.citygml4j.model.appearance.ADEPropertyOfAbstractSurfaceData;
+import org.citygml4j.model.appearance.ADEOfAbstractSurfaceData;
 import org.citygml4j.model.appearance.AbstractSurfaceData;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
@@ -40,7 +40,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractSurfaceData.class, object.getADEPropertiesOfAbstractSurfaceData(),
+        if (!CityGMLBuilderHelper.addADEProperty(name, ADEOfAbstractSurfaceData.class, object.getADEPropertiesOfAbstractSurfaceData(),
                 GenericADEPropertyOfAbstractSurfaceData::of, reader, substitutionGroups))
             object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
     }
@@ -52,7 +52,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
         if (object.isSetIsFront())
             writer.writeElement(Element.of(CityGMLSerializerHelper.getAppearanceNamespace(namespaces), "isFront").addTextContent(TextContent.ofBoolean(object.getIsFront())));
 
-        for (ADEPropertyOfAbstractSurfaceData<?> property : object.getADEPropertiesOfAbstractSurfaceData())
+        for (ADEOfAbstractSurfaceData<?> property : object.getADEPropertiesOfAbstractSurfaceData())
             CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
     }
 }

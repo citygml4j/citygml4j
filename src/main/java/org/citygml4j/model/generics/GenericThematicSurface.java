@@ -15,7 +15,7 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfGenericThematicSurface<?>> adeProperties;
+    private List<ADEOfGenericThematicSurface> adeOfGenericThematicSurface;
 
     @Override
     public Code getClassifier() {
@@ -53,15 +53,15 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfGenericThematicSurface<?>> getADEPropertiesOfGenericThematicSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfGenericThematicSurface> getADEOfGenericThematicSurface() {
+        if (adeOfGenericThematicSurface == null)
+            adeOfGenericThematicSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfGenericThematicSurface;
     }
 
-    public void setADEPropertiesOfGenericThematicSurface(List<ADEPropertyOfGenericThematicSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfGenericThematicSurface(List<ADEOfGenericThematicSurface> adeOfGenericThematicSurface) {
+        this.adeOfGenericThematicSurface = asChild(adeOfGenericThematicSurface);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericThematicSurface<?> property : adeProperties)
+            for (ADEOfGenericThematicSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -79,7 +79,7 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericThematicSurface<?> property : adeProperties)
+            for (ADEOfGenericThematicSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

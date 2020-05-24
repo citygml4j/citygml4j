@@ -10,17 +10,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class HoleSurface extends AbstractThematicSurface {
-    private List<ADEPropertyOfHoleSurface<?>> adeProperties;
+    private List<ADEOfHoleSurface> adeOfHoleSurface;
 
-    public List<ADEPropertyOfHoleSurface<?>> getADEPropertiesOfHoleSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfHoleSurface> getADEOfHoleSurface() {
+        if (adeOfHoleSurface == null)
+            adeOfHoleSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfHoleSurface;
     }
 
-    public void setADEPropertiesOfHoleSurface(List<ADEPropertyOfHoleSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfHoleSurface(List<ADEOfHoleSurface> adeOfHoleSurface) {
+        this.adeOfHoleSurface = asChild(adeOfHoleSurface);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class HoleSurface extends AbstractThematicSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfHoleSurface<?> property : adeProperties)
+            for (ADEOfHoleSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -38,7 +38,7 @@ public class HoleSurface extends AbstractThematicSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfHoleSurface<?> property : adeProperties)
+            for (ADEOfHoleSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

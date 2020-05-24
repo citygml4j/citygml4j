@@ -15,7 +15,7 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfLandUse<?>> adeProperties;
+    private List<ADEOfLandUse> adeOfLandUse;
 
     @Override
     public Code getClassifier() {
@@ -53,15 +53,15 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfLandUse<?>> getADEPropertiesOfLandUse() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfLandUse> getADEOfLandUse() {
+        if (adeOfLandUse == null)
+            adeOfLandUse = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfLandUse;
     }
 
-    public void setADEPropertiesOfLandUse(List<ADEPropertyOfLandUse<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfLandUse(List<ADEOfLandUse> adeOfLandUse) {
+        this.adeOfLandUse = asChild(adeOfLandUse);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfLandUse<?> property : adeProperties)
+            for (ADEOfLandUse<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -79,7 +79,7 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfLandUse<?> property : adeProperties)
+            for (ADEOfLandUse<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

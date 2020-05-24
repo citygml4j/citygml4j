@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Intersection extends AbstractTransportationSpace {
     private Code classifier;
-    private List<ADEPropertyOfIntersection<?>> adeProperties;
+    private List<ADEOfIntersection> adeOfIntersection;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -31,15 +31,15 @@ public class Intersection extends AbstractTransportationSpace {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfIntersection<?>> getADEPropertiesOfIntersection() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfIntersection> getADEOfIntersection() {
+        if (adeOfIntersection == null)
+            adeOfIntersection = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfIntersection;
     }
 
-    public void setADEPropertiesOfIntersection(List<ADEPropertyOfIntersection<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfIntersection(List<ADEOfIntersection> adeOfIntersection) {
+        this.adeOfIntersection = asChild(adeOfIntersection);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Intersection extends AbstractTransportationSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfIntersection<?> property : adeProperties)
+            for (ADEOfIntersection<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -57,7 +57,7 @@ public class Intersection extends AbstractTransportationSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfIntersection<?> property : adeProperties)
+            for (ADEOfIntersection<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

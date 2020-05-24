@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractWaterBoundarySurface extends AbstractThematicSurface {
-    private List<ADEPropertyOfAbstractWaterBoundarySurface<?>> adeProperties;
+    private List<ADEOfAbstractWaterBoundarySurface> adeOfAbstractWaterBoundarySurface;
 
-    public List<ADEPropertyOfAbstractWaterBoundarySurface<?>> getADEPropertiesOfAbstractWaterBoundarySurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractWaterBoundarySurface> getADEOfAbstractWaterBoundarySurface() {
+        if (adeOfAbstractWaterBoundarySurface == null)
+            adeOfAbstractWaterBoundarySurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractWaterBoundarySurface;
     }
 
-    public void setADEPropertiesOfAbstractWaterBoundarySurface(List<ADEPropertyOfAbstractWaterBoundarySurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractWaterBoundarySurface(List<ADEOfAbstractWaterBoundarySurface> adeOfAbstractWaterBoundarySurface) {
+        this.adeOfAbstractWaterBoundarySurface = asChild(adeOfAbstractWaterBoundarySurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractThematicSurfa
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractWaterBoundarySurface<?> property : adeProperties)
+            for (ADEOfAbstractWaterBoundarySurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public abstract class AbstractWaterBoundarySurface extends AbstractThematicSurfa
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractWaterBoundarySurface<?> property : adeProperties)
+            for (ADEOfAbstractWaterBoundarySurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

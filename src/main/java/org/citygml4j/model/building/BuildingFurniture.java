@@ -17,7 +17,7 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBuildingFurniture<?>> adeProperties;
+    private List<ADEOfBuildingFurniture> adeOfBuildingFurniture;
 
     @Override
     public Code getClassifier() {
@@ -65,15 +65,15 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
         return new DeprecatedPropertiesOfBuildingFurniture();
     }
 
-    public List<ADEPropertyOfBuildingFurniture<?>> getADEPropertiesOfBuildingFurniture() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBuildingFurniture> getADEOfBuildingFurniture() {
+        if (adeOfBuildingFurniture == null)
+            adeOfBuildingFurniture = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBuildingFurniture;
     }
 
-    public void setADEPropertiesOfBuildingFurniture(List<ADEPropertyOfBuildingFurniture<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBuildingFurniture(List<ADEOfBuildingFurniture> adeOfBuildingFurniture) {
+        this.adeOfBuildingFurniture = asChild(adeOfBuildingFurniture);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingFurniture<?> property : adeProperties)
+            for (ADEOfBuildingFurniture<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -108,7 +108,7 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingFurniture<?> property : adeProperties)
+            for (ADEOfBuildingFurniture<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class WaterSurface extends AbstractWaterBoundarySurface {
     private Code waterLevel;
-    private List<ADEPropertyOfWaterSurface<?>> adeProperties;
+    private List<ADEOfWaterSurface> adeOfWaterSurface;
 
     public Code getWaterLevel() {
         return waterLevel;
@@ -21,15 +21,15 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
         this.waterLevel = asChild(waterLevel);
     }
 
-    public List<ADEPropertyOfWaterSurface<?>> getADEPropertiesOfWaterSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfWaterSurface> getADEOfWaterSurface() {
+        if (adeOfWaterSurface == null)
+            adeOfWaterSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfWaterSurface;
     }
 
-    public void setADEPropertiesOfWaterSurface(List<ADEPropertyOfWaterSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfWaterSurface(List<ADEOfWaterSurface> adeOfWaterSurface) {
+        this.adeOfWaterSurface = asChild(adeOfWaterSurface);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterSurface<?> property : adeProperties)
+            for (ADEOfWaterSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -47,7 +47,7 @@ public class WaterSurface extends AbstractWaterBoundarySurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterSurface<?> property : adeProperties)
+            for (ADEOfWaterSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

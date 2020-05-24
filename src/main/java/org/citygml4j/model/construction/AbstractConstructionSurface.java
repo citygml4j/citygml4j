@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class AbstractConstructionSurface extends AbstractThematicSurface {
     private List<AbstractFillingSurfaceProperty> fillingSurfaces;
-    private List<ADEPropertyOfAbstractConstructionSurface<?>> adeProperties;
+    private List<ADEOfAbstractConstructionSurface> adeOfAbstractConstructionSurface;
 
     public List<AbstractFillingSurfaceProperty> getFillingSurfaces() {
         if (fillingSurfaces == null)
@@ -23,15 +23,15 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
         this.fillingSurfaces = asChild(fillingSurfaces);
     }
 
-    public List<ADEPropertyOfAbstractConstructionSurface<?>> getADEPropertiesOfAbstractConstructionSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractConstructionSurface> getADEOfAbstractConstructionSurface() {
+        if (adeOfAbstractConstructionSurface == null)
+            adeOfAbstractConstructionSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractConstructionSurface;
     }
 
-    public void setADEPropertiesOfAbstractConstructionSurface(List<ADEPropertyOfAbstractConstructionSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractConstructionSurface(List<ADEOfAbstractConstructionSurface> adeOfAbstractConstructionSurface) {
+        this.adeOfAbstractConstructionSurface = asChild(adeOfAbstractConstructionSurface);
     }
 
     @Override
@@ -39,7 +39,7 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractConstructionSurface<?> property : adeProperties)
+            for (ADEOfAbstractConstructionSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -49,7 +49,7 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractConstructionSurface<?> property : adeProperties)
+            for (ADEOfAbstractConstructionSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

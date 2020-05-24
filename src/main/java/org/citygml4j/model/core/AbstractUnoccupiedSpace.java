@@ -8,17 +8,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractUnoccupiedSpace extends AbstractPhysicalSpace {
-    private List<ADEPropertyOfAbstractUnoccupiedSpace<?>> adeProperties;
+    private List<ADEOfAbstractUnoccupiedSpace> adeOfAbstractUnoccupiedSpace;
 
-    public List<ADEPropertyOfAbstractUnoccupiedSpace<?>> getADEPropertiesOfAbstractUnoccupiedSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractUnoccupiedSpace> getADEOfAbstractUnoccupiedSpace() {
+        if (adeOfAbstractUnoccupiedSpace == null)
+            adeOfAbstractUnoccupiedSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractUnoccupiedSpace;
     }
 
-    public void setADEPropertiesOfAbstractUnoccupiedSpace(List<ADEPropertyOfAbstractUnoccupiedSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractUnoccupiedSpace(List<ADEOfAbstractUnoccupiedSpace> adeOfAbstractUnoccupiedSpace) {
+        this.adeOfAbstractUnoccupiedSpace = asChild(adeOfAbstractUnoccupiedSpace);
     }
 
     @Override
@@ -26,7 +26,7 @@ public abstract class AbstractUnoccupiedSpace extends AbstractPhysicalSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractUnoccupiedSpace<?> property : adeProperties)
+            for (ADEOfAbstractUnoccupiedSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -36,7 +36,7 @@ public abstract class AbstractUnoccupiedSpace extends AbstractPhysicalSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractUnoccupiedSpace<?> property : adeProperties)
+            for (ADEOfAbstractUnoccupiedSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

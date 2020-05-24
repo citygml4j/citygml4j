@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class AbstractSurfaceData extends AbstractFeature {
     private Boolean isFront;
-    private List<ADEPropertyOfAbstractSurfaceData<?>> adeProperties;
+    private List<ADEOfAbstractSurfaceData> adeOfAbstractSurfaceData;
 
     public Boolean getIsFront() {
         return isFront != null ? isFront : true;
@@ -23,15 +23,15 @@ public abstract class AbstractSurfaceData extends AbstractFeature {
         isFront = front;
     }
 
-    public List<ADEPropertyOfAbstractSurfaceData<?>> getADEPropertiesOfAbstractSurfaceData() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractSurfaceData> getADEOfAbstractSurfaceData() {
+        if (adeOfAbstractSurfaceData == null)
+            adeOfAbstractSurfaceData = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractSurfaceData;
     }
 
-    public void setADEPropertiesOfAbstractSurfaceData(List<ADEPropertyOfAbstractSurfaceData<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractSurfaceData(List<ADEOfAbstractSurfaceData> adeOfAbstractSurfaceData) {
+        this.adeOfAbstractSurfaceData = asChild(adeOfAbstractSurfaceData);
     }
 
     @Override

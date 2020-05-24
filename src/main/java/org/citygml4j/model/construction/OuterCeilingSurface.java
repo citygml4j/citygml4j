@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class OuterCeilingSurface extends AbstractConstructionSurface {
-    private List<ADEPropertyOfOuterCeilingSurface<?>> adeProperties;
+    private List<ADEOfOuterCeilingSurface> adeOfOuterCeilingSurface;
 
-    public List<ADEPropertyOfOuterCeilingSurface<?>> getADEPropertiesOfOuterCeilingSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfOuterCeilingSurface> getADEOfOuterCeilingSurface() {
+        if (adeOfOuterCeilingSurface == null)
+            adeOfOuterCeilingSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfOuterCeilingSurface;
     }
 
-    public void setADEPropertiesOfOuterCeilingSurface(List<ADEPropertyOfOuterCeilingSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfOuterCeilingSurface(List<ADEOfOuterCeilingSurface> adeOfOuterCeilingSurface) {
+        this.adeOfOuterCeilingSurface = asChild(adeOfOuterCeilingSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class OuterCeilingSurface extends AbstractConstructionSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfOuterCeilingSurface<?> property : adeProperties)
+            for (ADEOfOuterCeilingSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class OuterCeilingSurface extends AbstractConstructionSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfOuterCeilingSurface<?> property : adeProperties)
+            for (ADEOfOuterCeilingSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

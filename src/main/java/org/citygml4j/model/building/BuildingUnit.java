@@ -13,7 +13,7 @@ import java.util.List;
 public class BuildingUnit extends AbstractBuildingSubdivision {
     private List<Reference> storeys;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfBuildingUnit<?>> adeProperties;
+    private List<ADEOfBuildingUnit> adeOfBuildingUnit;
 
     public List<Reference> getStoreys() {
         if (storeys == null)
@@ -37,15 +37,15 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
         this.addresses = asChild(addresses);
     }
 
-    public List<ADEPropertyOfBuildingUnit<?>> getADEPropertiesOfBuildingUnit() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBuildingUnit> getADEOfBuildingUnit() {
+        if (adeOfBuildingUnit == null)
+            adeOfBuildingUnit = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBuildingUnit;
     }
 
-    public void setADEPropertiesOfBuildingUnit(List<ADEPropertyOfBuildingUnit<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBuildingUnit(List<ADEOfBuildingUnit> adeOfBuildingUnit) {
+        this.adeOfBuildingUnit = asChild(adeOfBuildingUnit);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingUnit<?> property : adeProperties)
+            for (ADEOfBuildingUnit<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -63,7 +63,7 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingUnit<?> property : adeProperties)
+            for (ADEOfBuildingUnit<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

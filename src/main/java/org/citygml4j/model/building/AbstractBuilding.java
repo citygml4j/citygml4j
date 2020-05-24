@@ -29,7 +29,7 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
     private List<BuildingFurnitureMember> buildingFurniture;
     private List<AbstractBuildingSubdivisionMember> buildingSubdivisions;
     private List<AddressProperty> addresses;
-    private List<ADEPropertyOfAbstractBuilding<?>> adeProperties;
+    private List<ADEOfAbstractBuilding> adeOfAbstractBuilding;
 
     @Override
     public Code getClassifier() {
@@ -183,15 +183,15 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         return new DeprecatedPropertiesOfAbstractBuilding();
     }
 
-    public List<ADEPropertyOfAbstractBuilding<?>> getADEPropertiesOfAbstractBuilding() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractBuilding> getADEOfAbstractBuilding() {
+        if (adeOfAbstractBuilding == null)
+            adeOfAbstractBuilding = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractBuilding;
     }
 
-    public void setADEPropertiesOfAbstractBuilding(List<ADEPropertyOfAbstractBuilding<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractBuilding(List<ADEOfAbstractBuilding> adeOfAbstractBuilding) {
+        this.adeOfAbstractBuilding = asChild(adeOfAbstractBuilding);
     }
 
     @Override
@@ -244,7 +244,7 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractBuilding<?> property : adeProperties)
+            for (ADEOfAbstractBuilding<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -264,7 +264,7 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractBuilding<?> property : adeProperties)
+            for (ADEOfAbstractBuilding<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

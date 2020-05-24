@@ -26,7 +26,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private SolidProperty lod3Solid;
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
-    private List<ADEPropertyOfAbstractSpace<?>> adeProperties;
+    private List<ADEOfAbstractSpace> adeOfAbstractSpace;
 
     public abstract boolean isValidBoundary(AbstractSpaceBoundary boundary);
 
@@ -162,15 +162,15 @@ public abstract class AbstractSpace extends AbstractCityObject {
         this.lod3MultiCurve = asChild(lod3MultiCurve);
     }
 
-    public List<ADEPropertyOfAbstractSpace<?>> getADEPropertiesOfAbstractSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractSpace> getADEOfAbstractSpace() {
+        if (adeOfAbstractSpace == null)
+            adeOfAbstractSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractSpace;
     }
 
-    public void setADEPropertiesOfAbstractSpace(List<ADEPropertyOfAbstractSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractSpace(List<ADEOfAbstractSpace> adeOfAbstractSpace) {
+        this.adeOfAbstractSpace = asChild(adeOfAbstractSpace);
     }
 
     public SolidProperty getSolid(int lod) {
@@ -293,7 +293,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractSpace<?> property : adeProperties)
+            for (ADEOfAbstractSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -314,7 +314,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
             geometryInfo.addGeometry(lod, getSolid(lod));
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractSpace<?> property : adeProperties)
+            for (ADEOfAbstractSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

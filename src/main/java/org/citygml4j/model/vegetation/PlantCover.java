@@ -19,7 +19,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
     private Length averageHeight;
     private Length minHeight;
     private Length maxHeight;
-    private List<ADEPropertyOfPlantCover<?>> adeProperties;
+    private List<ADEOfPlantCover> adeOfPlantCover;
 
     @Override
     public Code getClassifier() {
@@ -91,15 +91,15 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
         return new DeprecatedPropertiesOfPlantCover();
     }
 
-    public List<ADEPropertyOfPlantCover<?>> getADEPropertiesOfPlantCover() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfPlantCover> getADEOfPlantCover() {
+        if (adeOfPlantCover == null)
+            adeOfPlantCover = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfPlantCover;
     }
 
-    public void setADEPropertiesOfPlantCover(List<ADEPropertyOfPlantCover<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfPlantCover(List<ADEOfPlantCover> adeOfPlantCover) {
+        this.adeOfPlantCover = asChild(adeOfPlantCover);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfPlantCover<?> property : adeProperties)
+            for (ADEOfPlantCover<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -150,7 +150,7 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfPlantCover<?> property : adeProperties)
+            for (ADEOfPlantCover<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

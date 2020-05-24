@@ -12,7 +12,7 @@ public abstract class AbstractTexture extends AbstractSurfaceData implements Cit
     private TextureType textureType;
     private WrapMode wrapMode;
     private ColorPlusOpacity borderColor;
-    private List<ADEPropertyOfAbstractTexture<?>> adeProperties;
+    private List<ADEOfAbstractTexture> adeOfAbstractTexture;
 
     public String getImageURI() {
         return imageURI;
@@ -54,14 +54,14 @@ public abstract class AbstractTexture extends AbstractSurfaceData implements Cit
         this.borderColor = asChild(borderColor);
     }
 
-    public List<ADEPropertyOfAbstractTexture<?>> getADEPropertiesOfAbstractTexture() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractTexture> getADEOfAbstractTexture() {
+        if (adeOfAbstractTexture == null)
+            adeOfAbstractTexture = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractTexture;
     }
 
-    public void setADEPropertiesOfAbstractTexture(List<ADEPropertyOfAbstractTexture<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractTexture(List<ADEOfAbstractTexture> adeOfAbstractTexture) {
+        this.adeOfAbstractTexture = asChild(adeOfAbstractTexture);
     }
 }

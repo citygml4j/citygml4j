@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class WindowSurface extends AbstractFillingSurface {
-    private List<ADEPropertyOfWindowSurface<?>> adeProperties;
+    private List<ADEOfWindowSurface> adeOfWindowSurface;
 
-    public List<ADEPropertyOfWindowSurface<?>> getADEPropertiesOfWindowSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfWindowSurface> getADEOfWindowSurface() {
+        if (adeOfWindowSurface == null)
+            adeOfWindowSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfWindowSurface;
     }
 
-    public void setADEPropertiesOfWindowSurface(List<ADEPropertyOfWindowSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfWindowSurface(List<ADEOfWindowSurface> adeOfWindowSurface) {
+        this.adeOfWindowSurface = asChild(adeOfWindowSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class WindowSurface extends AbstractFillingSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWindowSurface<?> property : adeProperties)
+            for (ADEOfWindowSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class WindowSurface extends AbstractFillingSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWindowSurface<?> property : adeProperties)
+            for (ADEOfWindowSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

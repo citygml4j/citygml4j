@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class BuildingPart extends AbstractBuilding {
-    private List<ADEPropertyOfBuildingPart<?>> adeProperties;
+    private List<ADEOfBuildingPart> adeOfBuildingPart;
 
-    public List<ADEPropertyOfBuildingPart<?>> getADEPropertiesOfBuildingPart() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBuildingPart> getADEOfBuildingPart() {
+        if (adeOfBuildingPart == null)
+            adeOfBuildingPart = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBuildingPart;
     }
 
-    public void setADEPropertiesOfBuildingPart(List<ADEPropertyOfBuildingPart<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBuildingPart(List<ADEOfBuildingPart> adeOfBuildingPart) {
+        this.adeOfBuildingPart = asChild(adeOfBuildingPart);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class BuildingPart extends AbstractBuilding {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingPart<?> property : adeProperties)
+            for (ADEOfBuildingPart<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class BuildingPart extends AbstractBuilding {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingPart<?> property : adeProperties)
+            for (ADEOfBuildingPart<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

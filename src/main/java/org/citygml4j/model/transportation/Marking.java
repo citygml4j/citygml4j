@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Marking extends AbstractThematicSurface {
     private Code classifier;
-    private List<ADEPropertyOfMarking<?>> adeProperties;
+    private List<ADEOfMarking> adeOfMarking;
 
     public Code getClassifier() {
         return classifier;
@@ -22,15 +22,15 @@ public class Marking extends AbstractThematicSurface {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfMarking<?>> getADEPropertiesOfMarking() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfMarking> getADEOfMarking() {
+        if (adeOfMarking == null)
+            adeOfMarking = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfMarking;
     }
 
-    public void setADEPropertiesOfMarking(List<ADEPropertyOfMarking<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfMarking(List<ADEOfMarking> adeOfMarking) {
+        this.adeOfMarking = asChild(adeOfMarking);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Marking extends AbstractThematicSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfMarking<?> property : adeProperties)
+            for (ADEOfMarking<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -48,7 +48,7 @@ public class Marking extends AbstractThematicSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfMarking<?> property : adeProperties)
+            for (ADEOfMarking<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

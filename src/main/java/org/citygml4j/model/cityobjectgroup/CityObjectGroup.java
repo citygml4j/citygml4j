@@ -22,7 +22,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
     private List<Code> usages;
     private List<RoleProperty> groupMembers;
     private AbstractCityObjectProperty groupParent;
-    private List<ADEPropertyOfCityObjectGroup<?>> adeProperties;
+    private List<ADEOfCityObjectGroup> adeOfCityObjectGroup;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -95,15 +95,15 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
         return new DeprecatedPropertiesOfCityObjectGroup();
     }
 
-    public List<ADEPropertyOfCityObjectGroup<?>> getADEPropertiesOfCityObjectGroup() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfCityObjectGroup> getADEOfCityObjectGroup() {
+        if (adeOfCityObjectGroup == null)
+            adeOfCityObjectGroup = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfCityObjectGroup;
     }
 
-    public void setADEPropertiesOfCityObjectGroup(List<ADEPropertyOfCityObjectGroup<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfCityObjectGroup(List<ADEOfCityObjectGroup> adeOfCityObjectGroup) {
+        this.adeOfCityObjectGroup = asChild(adeOfCityObjectGroup);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfCityObjectGroup<?> property : adeProperties)
+            for (ADEOfCityObjectGroup<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -143,7 +143,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfCityObjectGroup<?> property : adeProperties)
+            for (ADEOfCityObjectGroup<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

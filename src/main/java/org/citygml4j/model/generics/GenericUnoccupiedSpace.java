@@ -17,7 +17,7 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfGenericUnoccupiedSpace<?>> adeProperties;
+    private List<ADEOfGenericUnoccupiedSpace> adeOfGenericUnoccupiedSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -61,15 +61,15 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfGenericUnoccupiedSpace<?>> getADEPropertiesOfGenericUnoccupiedSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfGenericUnoccupiedSpace> getADEOfGenericUnoccupiedSpace() {
+        if (adeOfGenericUnoccupiedSpace == null)
+            adeOfGenericUnoccupiedSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfGenericUnoccupiedSpace;
     }
 
-    public void setADEPropertiesOfGenericUnoccupiedSpace(List<ADEPropertyOfGenericUnoccupiedSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfGenericUnoccupiedSpace(List<ADEOfGenericUnoccupiedSpace> adeOfGenericUnoccupiedSpace) {
+        this.adeOfGenericUnoccupiedSpace = asChild(adeOfGenericUnoccupiedSpace);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericUnoccupiedSpace<?> property : adeProperties)
+            for (ADEOfGenericUnoccupiedSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -87,7 +87,7 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericUnoccupiedSpace<?> property : adeProperties)
+            for (ADEOfGenericUnoccupiedSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

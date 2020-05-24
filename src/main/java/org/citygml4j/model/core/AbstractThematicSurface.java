@@ -18,7 +18,7 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
     private MultiSurfaceProperty lod2MultiSurface;
     private MultiSurfaceProperty lod3MultiSurface;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEPropertyOfAbstractThematicSurface<?>> adeProperties;
+    private List<ADEOfAbstractThematicSurface> adeOfAbstractThematicSurface;
 
     public List<QualifiedAreaProperty> getAreas() {
         if (areas == null)
@@ -89,15 +89,15 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
         return new DeprecatedPropertiesOfAbstractThematicSurface();
     }
 
-    public List<ADEPropertyOfAbstractThematicSurface<?>> getADEPropertiesOfAbstractThematicSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractThematicSurface> getADEOfAbstractThematicSurface() {
+        if (adeOfAbstractThematicSurface == null)
+            adeOfAbstractThematicSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractThematicSurface;
     }
 
-    public void setADEPropertiesOfAbstractThematicSurface(List<ADEPropertyOfAbstractThematicSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractThematicSurface(List<ADEOfAbstractThematicSurface> adeOfAbstractThematicSurface) {
+        this.adeOfAbstractThematicSurface = asChild(adeOfAbstractThematicSurface);
     }
 
     public MultiSurfaceProperty getMultiSurface(int lod) {
@@ -158,7 +158,7 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractThematicSurface<?> property : adeProperties)
+            for (ADEOfAbstractThematicSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -179,7 +179,7 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractThematicSurface<?> property : adeProperties)
+            for (ADEOfAbstractThematicSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

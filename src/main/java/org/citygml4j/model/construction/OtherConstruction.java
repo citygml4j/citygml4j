@@ -14,7 +14,7 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfOtherConstruction<?>> adeProperties;
+    private List<ADEOfOtherConstruction> adeOfOtherConstruction;
 
     @Override
     public Code getClassifier() {
@@ -52,15 +52,15 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfOtherConstruction<?>> getADEPropertiesOfOtherConstruction() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfOtherConstruction> getADEOfOtherConstruction() {
+        if (adeOfOtherConstruction == null)
+            adeOfOtherConstruction = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfOtherConstruction;
     }
 
-    public void setADEPropertiesOfOtherConstruction(List<ADEPropertyOfOtherConstruction<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfOtherConstruction(List<ADEOfOtherConstruction> adeOfOtherConstruction) {
+        this.adeOfOtherConstruction = asChild(adeOfOtherConstruction);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfOtherConstruction<?> property : adeProperties)
+            for (ADEOfOtherConstruction<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -78,7 +78,7 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfOtherConstruction<?> property : adeProperties)
+            for (ADEOfOtherConstruction<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

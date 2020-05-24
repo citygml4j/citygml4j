@@ -19,7 +19,7 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfWaterBody<?>> adeProperties;
+    private List<ADEOfWaterBody> adeOfWaterBody;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -74,15 +74,15 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
         return new DeprecatedPropertiesOfWaterBody();
     }
 
-    public List<ADEPropertyOfWaterBody<?>> getADEPropertiesOfWaterBody() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfWaterBody> getADEOfWaterBody() {
+        if (adeOfWaterBody == null)
+            adeOfWaterBody = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfWaterBody;
     }
 
-    public void setADEPropertiesOfWaterBody(List<ADEPropertyOfWaterBody<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfWaterBody(List<ADEOfWaterBody> adeOfWaterBody) {
+        this.adeOfWaterBody = asChild(adeOfWaterBody);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterBody<?> property : adeProperties)
+            for (ADEOfWaterBody<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -121,7 +121,7 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterBody<?> property : adeProperties)
+            for (ADEOfWaterBody<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

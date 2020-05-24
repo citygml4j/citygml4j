@@ -20,7 +20,7 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
     private List<AuxiliaryTrafficSpaceProperty> auxiliaryTrafficSpaces;
     private List<HoleProperty> holes;
     private List<MarkingProperty> markings;
-    private List<ADEPropertyOfAbstractTransportationSpace<?>> adeProperties;
+    private List<ADEOfAbstractTransportationSpace> adeOfAbstractTransportationSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -101,15 +101,15 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         return new DeprecatedPropertiesOfAbstractTransportationSpace();
     }
 
-    public List<ADEPropertyOfAbstractTransportationSpace<?>> getADEPropertiesOfAbstractTransportationSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractTransportationSpace> getADEOfAbstractTransportationSpace() {
+        if (adeOfAbstractTransportationSpace == null)
+            adeOfAbstractTransportationSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractTransportationSpace;
     }
 
-    public void setADEPropertiesOfAbstractTransportationSpace(List<ADEPropertyOfAbstractTransportationSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractTransportationSpace(List<ADEOfAbstractTransportationSpace> adeOfAbstractTransportationSpace) {
+        this.adeOfAbstractTransportationSpace = asChild(adeOfAbstractTransportationSpace);
     }
 
     @Override
@@ -145,7 +145,7 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractTransportationSpace<?> property : adeProperties)
+            for (ADEOfAbstractTransportationSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -163,7 +163,7 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractTransportationSpace<?> property : adeProperties)
+            for (ADEOfAbstractTransportationSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

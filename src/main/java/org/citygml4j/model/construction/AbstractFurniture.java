@@ -12,7 +12,7 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractFurniture extends AbstractOccupiedSpace {
-    private List<ADEPropertyOfAbstractFurniture<?>> adeProperties;
+    private List<ADEOfAbstractFurniture> adeOfAbstractFurniture;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -20,15 +20,15 @@ public abstract class AbstractFurniture extends AbstractOccupiedSpace {
                 || boundary instanceof GenericThematicSurface;
     }
 
-    public List<ADEPropertyOfAbstractFurniture<?>> getADEPropertiesOfAbstractFurniture() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractFurniture> getADEOfAbstractFurniture() {
+        if (adeOfAbstractFurniture == null)
+            adeOfAbstractFurniture = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractFurniture;
     }
 
-    public void setADEPropertiesOfAbstractFurniture(List<ADEPropertyOfAbstractFurniture<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractFurniture(List<ADEOfAbstractFurniture> adeOfAbstractFurniture) {
+        this.adeOfAbstractFurniture = asChild(adeOfAbstractFurniture);
     }
 
     @Override
@@ -36,7 +36,7 @@ public abstract class AbstractFurniture extends AbstractOccupiedSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFurniture<?> property : adeProperties)
+            for (ADEOfAbstractFurniture<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -46,7 +46,7 @@ public abstract class AbstractFurniture extends AbstractOccupiedSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFurniture<?> property : adeProperties)
+            for (ADEOfAbstractFurniture<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

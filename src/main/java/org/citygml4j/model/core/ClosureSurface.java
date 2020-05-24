@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class ClosureSurface extends AbstractThematicSurface {
-    private List<ADEPropertyOfClosureSurface<?>> adeProperties;
+    private List<ADEOfClosureSurface> adeOfClosureSurface;
 
-    public List<ADEPropertyOfClosureSurface<?>> getADEPropertiesOfClosureSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfClosureSurface> getADEOfClosureSurface() {
+        if (adeOfClosureSurface == null)
+            adeOfClosureSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfClosureSurface;
     }
 
-    public void setADEPropertiesOfClosureSurface(List<ADEPropertyOfClosureSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfClosureSurface(List<ADEOfClosureSurface> adeOfClosureSurface) {
+        this.adeOfClosureSurface = asChild(adeOfClosureSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ClosureSurface extends AbstractThematicSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfClosureSurface<?> property : adeProperties)
+            for (ADEOfClosureSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class ClosureSurface extends AbstractThematicSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfClosureSurface<?> property : adeProperties)
+            for (ADEOfClosureSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

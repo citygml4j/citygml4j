@@ -22,7 +22,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
     private Length crownDiameter;
     private Length rootBallDiameter;
     private Length maxRootBallDepth;
-    private List<ADEPropertyOfSolitaryVegetationObject<?>> adeProperties;
+    private List<ADEOfSolitaryVegetationObject> adeOfSolitaryVegetationObject;
 
     @Override
     public Code getClassifier() {
@@ -118,15 +118,15 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
         return new DeprecatedPropertiesOfSolitaryVegetationObject();
     }
 
-    public List<ADEPropertyOfSolitaryVegetationObject<?>> getADEPropertiesOfSolitaryVegetationObject() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfSolitaryVegetationObject> getADEOfSolitaryVegetationObject() {
+        if (adeOfSolitaryVegetationObject == null)
+            adeOfSolitaryVegetationObject = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfSolitaryVegetationObject;
     }
 
-    public void setADEPropertiesOfSolitaryVegetationObject(List<ADEPropertyOfSolitaryVegetationObject<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfSolitaryVegetationObject(List<ADEOfSolitaryVegetationObject> adeOfSolitaryVegetationObject) {
+        this.adeOfSolitaryVegetationObject = asChild(adeOfSolitaryVegetationObject);
     }
 
     @Override
@@ -153,7 +153,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfSolitaryVegetationObject<?> property : adeProperties)
+            for (ADEOfSolitaryVegetationObject<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -173,7 +173,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfSolitaryVegetationObject<?> property : adeProperties)
+            for (ADEOfSolitaryVegetationObject<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

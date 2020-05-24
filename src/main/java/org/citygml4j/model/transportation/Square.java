@@ -14,7 +14,7 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfSquare<?>> adeProperties;
+    private List<ADEOfSquare> adeOfSquare;
 
     @Override
     public Code getClassifier() {
@@ -52,15 +52,15 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfSquare<?>> getADEPropertiesOfSquare() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfSquare> getADEOfSquare() {
+        if (adeOfSquare == null)
+            adeOfSquare = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfSquare;
     }
 
-    public void setADEPropertiesOfSquare(List<ADEPropertyOfSquare<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfSquare(List<ADEOfSquare> adeOfSquare) {
+        this.adeOfSquare = asChild(adeOfSquare);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfSquare<?> property : adeProperties)
+            for (ADEOfSquare<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -78,7 +78,7 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfSquare<?> property : adeProperties)
+            for (ADEOfSquare<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

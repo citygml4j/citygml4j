@@ -12,7 +12,7 @@ import java.util.List;
 public class Address extends AbstractFeature {
     private XALAddressProperty xalAddress;
     private MultiPointProperty multiPoint;
-    private List<ADEPropertyOfAddress<?>> adeProperties;
+    private List<ADEOfAddress> adeOfAddress;
 
     public Address() {
     }
@@ -37,15 +37,15 @@ public class Address extends AbstractFeature {
         this.multiPoint = asChild(multiPoint);
     }
 
-    public List<ADEPropertyOfAddress<?>> getADEPropertiesOfAddress() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAddress> getADEOfAddress() {
+        if (adeOfAddress == null)
+            adeOfAddress = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAddress;
     }
 
-    public void setADEPropertiesOfAddress(List<ADEPropertyOfAddress<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAddress(List<ADEOfAddress> adeOfAddress) {
+        this.adeOfAddress = asChild(adeOfAddress);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Address extends AbstractFeature {
             envelope.include(multiPoint.getObject().computeEnvelope());
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAddress<?> property : adeProperties)
+            for (ADEOfAddress<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -66,7 +66,7 @@ public class Address extends AbstractFeature {
         geometryInfo.addGeometry(multiPoint);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAddress<?> property : adeProperties)
+            for (ADEOfAddress<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

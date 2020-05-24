@@ -17,7 +17,7 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBuildingInstallation<?>> adeProperties;
+    private List<ADEOfBuildingInstallation> adeOfBuildingInstallation;
 
     @Override
     public Code getClassifier() {
@@ -65,15 +65,15 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
         return new DeprecatedPropertiesOfBuildingInstallation();
     }
 
-    public List<ADEPropertyOfBuildingInstallation<?>> getADEPropertiesOfBuildingInstallation() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBuildingInstallation> getADEOfBuildingInstallation() {
+        if (adeOfBuildingInstallation == null)
+            adeOfBuildingInstallation = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBuildingInstallation;
     }
 
-    public void setADEPropertiesOfBuildingInstallation(List<ADEPropertyOfBuildingInstallation<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBuildingInstallation(List<ADEOfBuildingInstallation> adeOfBuildingInstallation) {
+        this.adeOfBuildingInstallation = asChild(adeOfBuildingInstallation);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingInstallation<?> property : adeProperties)
+            for (ADEOfBuildingInstallation<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -116,7 +116,7 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingInstallation<?> property : adeProperties)
+            for (ADEOfBuildingInstallation<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

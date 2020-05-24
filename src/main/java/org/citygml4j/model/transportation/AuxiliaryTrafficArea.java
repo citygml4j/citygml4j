@@ -16,7 +16,7 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
     private List<Code> functions;
     private List<Code> usages;
     private Code surfaceMaterial;
-    private List<ADEPropertyOfAuxiliaryTrafficArea<?>> adeProperties;
+    private List<ADEOfAuxiliaryTrafficArea> adeOfAuxiliaryTrafficArea;
 
     @Override
     public Code getClassifier() {
@@ -62,15 +62,15 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
         this.surfaceMaterial = asChild(surfaceMaterial);
     }
 
-    public List<ADEPropertyOfAuxiliaryTrafficArea<?>> getADEPropertiesOfAuxiliaryTrafficArea() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAuxiliaryTrafficArea> getADEOfAuxiliaryTrafficArea() {
+        if (adeOfAuxiliaryTrafficArea == null)
+            adeOfAuxiliaryTrafficArea = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAuxiliaryTrafficArea;
     }
 
-    public void setADEPropertiesOfAuxiliaryTrafficArea(List<ADEPropertyOfAuxiliaryTrafficArea<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAuxiliaryTrafficArea(List<ADEOfAuxiliaryTrafficArea> adeOfAuxiliaryTrafficArea) {
+        this.adeOfAuxiliaryTrafficArea = asChild(adeOfAuxiliaryTrafficArea);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAuxiliaryTrafficArea<?> property : adeProperties)
+            for (ADEOfAuxiliaryTrafficArea<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -88,7 +88,7 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAuxiliaryTrafficArea<?> property : adeProperties)
+            for (ADEOfAuxiliaryTrafficArea<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Bridge extends AbstractBridge {
     private List<BridgePartProperty> bridgeParts;
-    private List<ADEPropertyOfBridge<?>> adeProperties;
+    private List<ADEOfBridge> adeOfBridge;
 
     public List<BridgePartProperty> getBridgeParts() {
         if (bridgeParts == null)
@@ -23,15 +23,15 @@ public class Bridge extends AbstractBridge {
         this.bridgeParts = asChild(bridgeParts);
     }
 
-    public List<ADEPropertyOfBridge<?>> getADEPropertiesOfBridge() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBridge> getADEOfBridge() {
+        if (adeOfBridge == null)
+            adeOfBridge = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBridge;
     }
 
-    public void setADEPropertiesOfBridge(List<ADEPropertyOfBridge<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBridge(List<ADEOfBridge> adeOfBridge) {
+        this.adeOfBridge = asChild(adeOfBridge);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Bridge extends AbstractBridge {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridge<?> property : adeProperties)
+            for (ADEOfBridge<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -56,7 +56,7 @@ public class Bridge extends AbstractBridge {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridge<?> property : adeProperties)
+            for (ADEOfBridge<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

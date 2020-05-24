@@ -18,7 +18,7 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfGenericOccupiedSpace<?>> adeProperties;
+    private List<ADEOfGenericOccupiedSpace> adeOfGenericOccupiedSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -72,15 +72,15 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
         return new DeprecatedPropertiesOfGenericOccupiedSpace();
     }
 
-    public List<ADEPropertyOfGenericOccupiedSpace<?>> getADEPropertiesOfGenericOccupiedSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfGenericOccupiedSpace> getADEOfGenericOccupiedSpace() {
+        if (adeOfGenericOccupiedSpace == null)
+            adeOfGenericOccupiedSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfGenericOccupiedSpace;
     }
 
-    public void setADEPropertiesOfGenericOccupiedSpace(List<ADEPropertyOfGenericOccupiedSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfGenericOccupiedSpace(List<ADEOfGenericOccupiedSpace> adeOfGenericOccupiedSpace) {
+        this.adeOfGenericOccupiedSpace = asChild(adeOfGenericOccupiedSpace);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericOccupiedSpace<?> property : adeProperties)
+            for (ADEOfGenericOccupiedSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -135,7 +135,7 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfGenericOccupiedSpace<?> property : adeProperties)
+            for (ADEOfGenericOccupiedSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

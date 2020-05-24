@@ -17,7 +17,7 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfWindow<?>> adeProperties;
+    private List<ADEOfWindow> adeOfWindow;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -62,15 +62,15 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfWindow<?>> getADEPropertiesOfWindow() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfWindow> getADEOfWindow() {
+        if (adeOfWindow == null)
+            adeOfWindow = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfWindow;
     }
 
-    public void setADEPropertiesOfWindow(List<ADEPropertyOfWindow<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfWindow(List<ADEOfWindow> adeOfWindow) {
+        this.adeOfWindow = asChild(adeOfWindow);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWindow<?> property : adeProperties)
+            for (ADEOfWindow<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -88,7 +88,7 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWindow<?> property : adeProperties)
+            for (ADEOfWindow<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

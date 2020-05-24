@@ -13,7 +13,7 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
     private OffsetDateTime terminationDate;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private List<ADEPropertyOfAbstractFeatureWithLifespan<?>> adeProperties;
+    private List<ADEOfAbstractFeatureWithLifespan> adeOfAbstractFeatureWithLifespan;
 
     public OffsetDateTime getCreationDate() {
         return creationDate;
@@ -47,15 +47,15 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
         this.validTo = validTo;
     }
 
-    public List<ADEPropertyOfAbstractFeatureWithLifespan<?>> getADEPropertiesOfAbstractFeatureWithLifespan() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractFeatureWithLifespan> getADEOfAbstractFeatureWithLifespan() {
+        if (adeOfAbstractFeatureWithLifespan == null)
+            adeOfAbstractFeatureWithLifespan = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractFeatureWithLifespan;
     }
 
-    public void setADEPropertiesOfAbstractFeatureWithLifespan(List<ADEPropertyOfAbstractFeatureWithLifespan<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractFeatureWithLifespan(List<ADEOfAbstractFeatureWithLifespan> adeOfAbstractFeatureWithLifespan) {
+        this.adeOfAbstractFeatureWithLifespan = asChild(adeOfAbstractFeatureWithLifespan);
     }
 
     @Override
@@ -63,7 +63,7 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFeatureWithLifespan<?> property : adeProperties)
+            for (ADEOfAbstractFeatureWithLifespan<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -73,7 +73,7 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFeatureWithLifespan<?> property : adeProperties)
+            for (ADEOfAbstractFeatureWithLifespan<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

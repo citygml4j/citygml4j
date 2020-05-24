@@ -7,17 +7,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractAppearance extends AbstractFeatureWithLifespan {
-    private List<ADEPropertyOfAbstractAppearance<?>> adeProperties;
+    private List<ADEOfAbstractAppearance> adeOfAbstractAppearance;
 
-    public List<ADEPropertyOfAbstractAppearance<?>> getADEPropertiesOfAbstractAppearance() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractAppearance> getADEOfAbstractAppearance() {
+        if (adeOfAbstractAppearance == null)
+            adeOfAbstractAppearance = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractAppearance;
     }
 
-    public void setADEPropertiesOfAbstractAppearance(List<ADEPropertyOfAbstractAppearance<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractAppearance(List<ADEOfAbstractAppearance> adeOfAbstractAppearance) {
+        this.adeOfAbstractAppearance = asChild(adeOfAbstractAppearance);
     }
 
     @Override

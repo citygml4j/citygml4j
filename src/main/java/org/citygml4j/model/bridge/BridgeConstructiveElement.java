@@ -16,7 +16,7 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBridgeConstructiveElement<?>> adeProperties;
+    private List<ADEOfBridgeConstructiveElement> adeOfBridgeConstructiveElement;
 
     @Override
     public Code getClassifier() {
@@ -64,15 +64,15 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
         return new DeprecatedPropertiesOfBridgeConstructiveElement();
     }
 
-    public List<ADEPropertyOfBridgeConstructiveElement<?>> getADEPropertiesOfBridgeConstructiveElement() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBridgeConstructiveElement> getADEOfBridgeConstructiveElement() {
+        if (adeOfBridgeConstructiveElement == null)
+            adeOfBridgeConstructiveElement = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBridgeConstructiveElement;
     }
 
-    public void setADEPropertiesOfBridgeConstructiveElement(List<ADEPropertyOfBridgeConstructiveElement<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBridgeConstructiveElement(List<ADEOfBridgeConstructiveElement> adeOfBridgeConstructiveElement) {
+        this.adeOfBridgeConstructiveElement = asChild(adeOfBridgeConstructiveElement);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgeConstructiveElement<?> property : adeProperties)
+            for (ADEOfBridgeConstructiveElement<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -119,7 +119,7 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgeConstructiveElement<?> property : adeProperties)
+            for (ADEOfBridgeConstructiveElement<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

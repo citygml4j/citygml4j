@@ -7,17 +7,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractVersion extends AbstractFeatureWithLifespan {
-    private List<ADEPropertyOfAbstractVersion<?>> adeProperties;
+    private List<ADEOfAbstractVersion> adeOfAbstractVersion;
 
-    public List<ADEPropertyOfAbstractVersion<?>> getADEPropertiesOfAbstractVersion() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractVersion> getADEOfAbstractVersion() {
+        if (adeOfAbstractVersion == null)
+            adeOfAbstractVersion = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractVersion;
     }
 
-    public void setADEPropertiesOfAbstractVersion(List<ADEPropertyOfAbstractVersion<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractVersion(List<ADEOfAbstractVersion> adeOfAbstractVersion) {
+        this.adeOfAbstractVersion = asChild(adeOfAbstractVersion);
     }
 
     @Override

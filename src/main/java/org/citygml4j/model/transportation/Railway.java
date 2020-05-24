@@ -16,7 +16,7 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfRailway<?>> adeProperties;
+    private List<ADEOfRailway> adeOfRailway;
 
     @Override
     public Code getClassifier() {
@@ -76,15 +76,15 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfRailway<?>> getADEPropertiesOfRailway() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfRailway> getADEOfRailway() {
+        if (adeOfRailway == null)
+            adeOfRailway = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfRailway;
     }
 
-    public void setADEPropertiesOfRailway(List<ADEPropertyOfRailway<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfRailway(List<ADEOfRailway> adeOfRailway) {
+        this.adeOfRailway = asChild(adeOfRailway);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRailway<?> property : adeProperties)
+            for (ADEOfRailway<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -116,7 +116,7 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRailway<?> property : adeProperties)
+            for (ADEOfRailway<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

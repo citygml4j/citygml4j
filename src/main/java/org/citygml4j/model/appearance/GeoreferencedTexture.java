@@ -12,7 +12,7 @@ public class GeoreferencedTexture extends AbstractTexture {
     private PointProperty referencePoint;
     private TransformationMatrix2x2 orientation;
     private List<GeometryReference> targets;
-    private List<ADEPropertyOfGeoreferencedTexture<?>> adeProperties;
+    private List<ADEOfGeoreferencedTexture> adeOfGeoreferencedTexture;
 
     public Boolean getPreferWorldFile() {
         return preferWorldFile;
@@ -53,15 +53,15 @@ public class GeoreferencedTexture extends AbstractTexture {
         this.targets = asChild(targets);
     }
 
-    public List<ADEPropertyOfGeoreferencedTexture<?>> getADEPropertiesOfGeoreferencedTexture() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfGeoreferencedTexture> getADEOfGeoreferencedTexture() {
+        if (adeOfGeoreferencedTexture == null)
+            adeOfGeoreferencedTexture = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfGeoreferencedTexture;
     }
 
-    public void setADEPropertiesOfGeoreferencedTexture(List<ADEPropertyOfGeoreferencedTexture<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfGeoreferencedTexture(List<ADEOfGeoreferencedTexture> adeOfGeoreferencedTexture) {
+        this.adeOfGeoreferencedTexture = asChild(adeOfGeoreferencedTexture);
     }
 
     @Override

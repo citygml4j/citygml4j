@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Hole extends AbstractUnoccupiedSpace {
     private Code classifier;
-    private List<ADEPropertyOfHole<?>> adeProperties;
+    private List<ADEOfHole> adeOfHole;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -32,15 +32,15 @@ public class Hole extends AbstractUnoccupiedSpace {
         this.classifier = asChild(classifier);
     }
 
-    public List<ADEPropertyOfHole<?>> getADEPropertiesOfHole() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfHole> getADEOfHole() {
+        if (adeOfHole == null)
+            adeOfHole = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfHole;
     }
 
-    public void setADEPropertiesOfHole(List<ADEPropertyOfHole<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfHole(List<ADEOfHole> adeOfHole) {
+        this.adeOfHole = asChild(adeOfHole);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Hole extends AbstractUnoccupiedSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfHole<?> property : adeProperties)
+            for (ADEOfHole<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -58,7 +58,7 @@ public class Hole extends AbstractUnoccupiedSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfHole<?> property : adeProperties)
+            for (ADEOfHole<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

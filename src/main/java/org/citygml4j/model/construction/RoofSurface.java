@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class RoofSurface extends AbstractConstructionSurface {
-    private List<ADEPropertyOfRoofSurface<?>> adeProperties;
+    private List<ADEOfRoofSurface> adeOfRoofSurface;
 
-    public List<ADEPropertyOfRoofSurface<?>> getADEPropertiesOfRoofSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfRoofSurface> getADEOfRoofSurface() {
+        if (adeOfRoofSurface == null)
+            adeOfRoofSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfRoofSurface;
     }
 
-    public void setADEPropertiesOfRoofSurface(List<ADEPropertyOfRoofSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfRoofSurface(List<ADEOfRoofSurface> adeOfRoofSurface) {
+        this.adeOfRoofSurface = asChild(adeOfRoofSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class RoofSurface extends AbstractConstructionSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRoofSurface<?> property : adeProperties)
+            for (ADEOfRoofSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class RoofSurface extends AbstractConstructionSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfRoofSurface<?> property : adeProperties)
+            for (ADEOfRoofSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

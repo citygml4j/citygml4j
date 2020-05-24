@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class AbstractInstallation extends AbstractOccupiedSpace {
     private RelationToConstruction relationToConstruction;
-    private List<ADEPropertyOfAbstractInstallation<?>> adeProperties;
+    private List<ADEOfAbstractInstallation> adeOfAbstractInstallation;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -30,15 +30,15 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
         this.relationToConstruction = relationToConstruction;
     }
 
-    public List<ADEPropertyOfAbstractInstallation<?>> getADEPropertiesOfAbstractInstallation() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractInstallation> getADEOfAbstractInstallation() {
+        if (adeOfAbstractInstallation == null)
+            adeOfAbstractInstallation = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractInstallation;
     }
 
-    public void setADEPropertiesOfAbstractInstallation(List<ADEPropertyOfAbstractInstallation<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractInstallation(List<ADEOfAbstractInstallation> adeOfAbstractInstallation) {
+        this.adeOfAbstractInstallation = asChild(adeOfAbstractInstallation);
     }
 
     @Override
@@ -46,7 +46,7 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractInstallation<?> property : adeProperties)
+            for (ADEOfAbstractInstallation<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -56,7 +56,7 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractInstallation<?> property : adeProperties)
+            for (ADEOfAbstractInstallation<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

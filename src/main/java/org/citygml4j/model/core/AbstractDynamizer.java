@@ -7,17 +7,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractDynamizer extends AbstractFeatureWithLifespan {
-    private List<ADEPropertyOfAbstractDynamizer<?>> adeProperties;
+    private List<ADEOfAbstractDynamizer> adeOfAbstractDynamizer;
 
-    public List<ADEPropertyOfAbstractDynamizer<?>> getADEPropertiesOfAbstractDynamizer() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractDynamizer> getADEOfAbstractDynamizer() {
+        if (adeOfAbstractDynamizer == null)
+            adeOfAbstractDynamizer = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractDynamizer;
     }
 
-    public void setADEPropertiesOfAbstractDynamizer(List<ADEPropertyOfAbstractDynamizer<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractDynamizer(List<ADEOfAbstractDynamizer> adeOfAbstractDynamizer) {
+        this.adeOfAbstractDynamizer = asChild(adeOfAbstractDynamizer);
     }
 
     @Override

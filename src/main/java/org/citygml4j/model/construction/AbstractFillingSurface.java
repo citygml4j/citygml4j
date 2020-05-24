@@ -10,7 +10,7 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractFillingSurface extends AbstractThematicSurface {
-    private List<ADEPropertyOfAbstractFillingSurface<?>> adeProperties;
+    private List<ADEOfAbstractFillingSurface> adeOfAbstractFillingSurface;
 
     @Override
     public DeprecatedPropertiesOfAbstractFillingSurface getDeprecatedProperties() {
@@ -22,15 +22,15 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
         return new DeprecatedPropertiesOfAbstractFillingSurface();
     }
 
-    public List<ADEPropertyOfAbstractFillingSurface<?>> getADEPropertiesOfAbstractFillingSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractFillingSurface> getADEOfAbstractFillingSurface() {
+        if (adeOfAbstractFillingSurface == null)
+            adeOfAbstractFillingSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractFillingSurface;
     }
 
-    public void setADEPropertiesOfAbstractFillingSurface(List<ADEPropertyOfAbstractFillingSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractFillingSurface(List<ADEOfAbstractFillingSurface> adeOfAbstractFillingSurface) {
+        this.adeOfAbstractFillingSurface = asChild(adeOfAbstractFillingSurface);
     }
 
     @Override
@@ -51,7 +51,7 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFillingSurface<?> property : adeProperties)
+            for (ADEOfAbstractFillingSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -69,7 +69,7 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractFillingSurface<?> property : adeProperties)
+            for (ADEOfAbstractFillingSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

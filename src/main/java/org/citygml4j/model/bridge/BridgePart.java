@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class BridgePart extends AbstractBridge {
-    private List<ADEPropertyOfBridgePart<?>> adeProperties;
+    private List<ADEOfBridgePart> adeOfBridgePart;
 
-    public List<ADEPropertyOfBridgePart<?>> getADEPropertiesOfBridgePart() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBridgePart> getADEOfBridgePart() {
+        if (adeOfBridgePart == null)
+            adeOfBridgePart = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBridgePart;
     }
 
-    public void setADEPropertiesOfBridgePart(List<ADEPropertyOfBridgePart<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBridgePart(List<ADEOfBridgePart> adeOfBridgePart) {
+        this.adeOfBridgePart = asChild(adeOfBridgePart);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class BridgePart extends AbstractBridge {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgePart<?> property : adeProperties)
+            for (ADEOfBridgePart<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class BridgePart extends AbstractBridge {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgePart<?> property : adeProperties)
+            for (ADEOfBridgePart<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

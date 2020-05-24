@@ -12,7 +12,7 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
-    private List<ADEPropertyOfAbstractVegetationObject<?>> adeProperties;
+    private List<ADEOfAbstractVegetationObject> adeOfAbstractVegetationObject;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -20,15 +20,15 @@ public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
                 || boundary instanceof GenericThematicSurface;
     }
 
-    public List<ADEPropertyOfAbstractVegetationObject<?>> getADEPropertiesOfAbstractVegetationObject() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractVegetationObject> getADEOfAbstractVegetationObject() {
+        if (adeOfAbstractVegetationObject == null)
+            adeOfAbstractVegetationObject = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractVegetationObject;
     }
 
-    public void setADEPropertiesOfAbstractVegetationObject(List<ADEPropertyOfAbstractVegetationObject<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractVegetationObject(List<ADEOfAbstractVegetationObject> adeOfAbstractVegetationObject) {
+        this.adeOfAbstractVegetationObject = asChild(adeOfAbstractVegetationObject);
     }
 
     @Override
@@ -36,7 +36,7 @@ public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractVegetationObject<?> property : adeProperties)
+            for (ADEOfAbstractVegetationObject<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -46,7 +46,7 @@ public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractVegetationObject<?> property : adeProperties)
+            for (ADEOfAbstractVegetationObject<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

@@ -15,7 +15,7 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEPropertyOfBuildingConstructiveElement<?>> adeProperties;
+    private List<ADEOfBuildingConstructiveElement> adeOfBuildingConstructiveElement;
 
     @Override
     public Code getClassifier() {
@@ -53,15 +53,15 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
         this.usages = asChild(usages);
     }
 
-    public List<ADEPropertyOfBuildingConstructiveElement<?>> getADEPropertiesOfBuildingConstructiveElement() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBuildingConstructiveElement> getADEOfBuildingConstructiveElement() {
+        if (adeOfBuildingConstructiveElement == null)
+            adeOfBuildingConstructiveElement = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBuildingConstructiveElement;
     }
 
-    public void setADEPropertiesOfBuildingConstructiveElement(List<ADEPropertyOfBuildingConstructiveElement<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBuildingConstructiveElement(List<ADEOfBuildingConstructiveElement> adeOfBuildingConstructiveElement) {
+        this.adeOfBuildingConstructiveElement = asChild(adeOfBuildingConstructiveElement);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingConstructiveElement<?> property : adeProperties)
+            for (ADEOfBuildingConstructiveElement<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -79,7 +79,7 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBuildingConstructiveElement<?> property : adeProperties)
+            for (ADEOfBuildingConstructiveElement<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

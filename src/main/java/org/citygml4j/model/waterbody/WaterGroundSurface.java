@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class WaterGroundSurface extends AbstractWaterBoundarySurface {
-    private List<ADEPropertyOfWaterGroundSurface<?>> adeProperties;
+    private List<ADEOfWaterGroundSurface> adeOfWaterGroundSurface;
 
-    public List<ADEPropertyOfWaterGroundSurface<?>> getADEPropertiesOfWaterGroundSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfWaterGroundSurface> getADEOfWaterGroundSurface() {
+        if (adeOfWaterGroundSurface == null)
+            adeOfWaterGroundSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfWaterGroundSurface;
     }
 
-    public void setADEPropertiesOfWaterGroundSurface(List<ADEPropertyOfWaterGroundSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfWaterGroundSurface(List<ADEOfWaterGroundSurface> adeOfWaterGroundSurface) {
+        this.adeOfWaterGroundSurface = asChild(adeOfWaterGroundSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class WaterGroundSurface extends AbstractWaterBoundarySurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterGroundSurface<?> property : adeProperties)
+            for (ADEOfWaterGroundSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class WaterGroundSurface extends AbstractWaterBoundarySurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfWaterGroundSurface<?> property : adeProperties)
+            for (ADEOfWaterGroundSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

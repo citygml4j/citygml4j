@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class AbstractTimeseries extends AbstractFeature {
     private TimePosition firstTimestamp;
     private TimePosition lastTimestamp;
-    private List<ADEPropertyOfAbstractTimeseries<?>> adeProperties;
+    private List<ADEOfAbstractTimeseries> adeOfAbstractTimeseries;
 
     public TimePosition getFirstTimestamp() {
         return firstTimestamp;
@@ -29,15 +29,15 @@ public abstract class AbstractTimeseries extends AbstractFeature {
         this.lastTimestamp = asChild(lastTimestamp);
     }
 
-    public List<ADEPropertyOfAbstractTimeseries<?>> getADEPropertiesOfAbstractTimeseries() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractTimeseries> getADEOfAbstractTimeseries() {
+        if (adeOfAbstractTimeseries == null)
+            adeOfAbstractTimeseries = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractTimeseries;
     }
 
-    public void setADEPropertiesOfAbstractTimeseries(List<ADEPropertyOfAbstractTimeseries<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractTimeseries(List<ADEOfAbstractTimeseries> adeOfAbstractTimeseries) {
+        this.adeOfAbstractTimeseries = asChild(adeOfAbstractTimeseries);
     }
 
     @Override

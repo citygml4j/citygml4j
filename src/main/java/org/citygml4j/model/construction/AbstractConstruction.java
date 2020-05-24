@@ -21,7 +21,7 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     private List<ElevationProperty> elevations;
     private List<HeightProperty> heights;
     private List<OccupancyProperty> occupancies;
-    private List<ADEPropertyOfAbstractConstruction<?>> adeProperties;
+    private List<ADEOfAbstractConstruction> adeOfAbstractConstruction;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -98,15 +98,15 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
         this.occupancies = asChild(occupancies);
     }
 
-    public List<ADEPropertyOfAbstractConstruction<?>> getADEPropertiesOfAbstractConstruction() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractConstruction> getADEOfAbstractConstruction() {
+        if (adeOfAbstractConstruction == null)
+            adeOfAbstractConstruction = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractConstruction;
     }
 
-    public void setADEPropertiesOfAbstractConstruction(List<ADEPropertyOfAbstractConstruction<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractConstruction(List<ADEOfAbstractConstruction> adeOfAbstractConstruction) {
+        this.adeOfAbstractConstruction = asChild(adeOfAbstractConstruction);
     }
 
     @Override
@@ -114,7 +114,7 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractConstruction<?> property : adeProperties)
+            for (ADEOfAbstractConstruction<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -124,7 +124,7 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractConstruction<?> property : adeProperties)
+            for (ADEOfAbstractConstruction<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
     private int lod;
     private ExtentProperty extent;
-    private List<ADEPropertyOfAbstractReliefComponent<?>> adeProperties;
+    private List<ADEOfAbstractReliefComponent> adeOfAbstractReliefComponent;
 
     public AbstractReliefComponent() {
     }
@@ -36,15 +36,15 @@ public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
         this.extent = asChild(extent);
     }
 
-    public List<ADEPropertyOfAbstractReliefComponent<?>> getADEPropertiesOfAbstractReliefComponent() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractReliefComponent> getADEOfAbstractReliefComponent() {
+        if (adeOfAbstractReliefComponent == null)
+            adeOfAbstractReliefComponent = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractReliefComponent;
     }
 
-    public void setADEPropertiesOfAbstractReliefComponent(List<ADEPropertyOfAbstractReliefComponent<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractReliefComponent(List<ADEOfAbstractReliefComponent> adeOfAbstractReliefComponent) {
+        this.adeOfAbstractReliefComponent = asChild(adeOfAbstractReliefComponent);
     }
 
     @Override
@@ -52,7 +52,7 @@ public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractReliefComponent<?> property : adeProperties)
+            for (ADEOfAbstractReliefComponent<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }

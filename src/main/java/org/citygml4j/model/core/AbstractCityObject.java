@@ -19,7 +19,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private List<AbstractDynamizerProperty> dynamizers;
     private DeprecatedPropertiesOfAbstractCityObject deprecatedProperties;
-    private List<ADEPropertyOfAbstractCityObject<?>> adeProperties;
+    private List<ADEOfAbstractCityObject> adeOfAbstractCityObject;
 
     public List<ExternalReferenceProperty> getExternalReferences() {
         if (externalReferences == null)
@@ -118,15 +118,15 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         return new DeprecatedPropertiesOfAbstractCityObject();
     }
 
-    public List<ADEPropertyOfAbstractCityObject<?>> getADEPropertiesOfAbstractCityObject() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAbstractCityObject> getADEOfAbstractCityObject() {
+        if (adeOfAbstractCityObject == null)
+            adeOfAbstractCityObject = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAbstractCityObject;
     }
 
-    public void setADEPropertiesOfAbstractCityObject(List<ADEPropertyOfAbstractCityObject<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAbstractCityObject(List<ADEOfAbstractCityObject> adeOfAbstractCityObject) {
+        this.adeOfAbstractCityObject = asChild(adeOfAbstractCityObject);
     }
 
     @Override
@@ -134,7 +134,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractCityObject<?> property : adeProperties)
+            for (ADEOfAbstractCityObject<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -144,7 +144,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAbstractCityObject<?> property : adeProperties)
+            for (ADEOfAbstractCityObject<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

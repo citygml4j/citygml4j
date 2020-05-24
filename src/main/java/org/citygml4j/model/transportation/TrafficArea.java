@@ -16,7 +16,7 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
     private List<Code> functions;
     private List<Code> usages;
     private Code surfaceMaterial;
-    private List<ADEPropertyOfTrafficArea<?>> adeProperties;
+    private List<ADEOfTrafficArea> adeOfTrafficArea;
 
     @Override
     public Code getClassifier() {
@@ -62,15 +62,15 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
         this.surfaceMaterial = asChild(surfaceMaterial);
     }
 
-    public List<ADEPropertyOfTrafficArea<?>> getADEPropertiesOfTrafficArea() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTrafficArea> getADEOfTrafficArea() {
+        if (adeOfTrafficArea == null)
+            adeOfTrafficArea = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTrafficArea;
     }
 
-    public void setADEPropertiesOfTrafficArea(List<ADEPropertyOfTrafficArea<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTrafficArea(List<ADEOfTrafficArea> adeOfTrafficArea) {
+        this.adeOfTrafficArea = asChild(adeOfTrafficArea);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTrafficArea<?> property : adeProperties)
+            for (ADEOfTrafficArea<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -88,7 +88,7 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTrafficArea<?> property : adeProperties)
+            for (ADEOfTrafficArea<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

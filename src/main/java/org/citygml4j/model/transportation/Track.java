@@ -16,7 +16,7 @@ public class Track extends AbstractTransportationSpace implements StandardObject
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEPropertyOfTrack<?>> adeProperties;
+    private List<ADEOfTrack> adeOfTrack;
 
     @Override
     public Code getClassifier() {
@@ -76,15 +76,15 @@ public class Track extends AbstractTransportationSpace implements StandardObject
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEPropertyOfTrack<?>> getADEPropertiesOfTrack() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfTrack> getADEOfTrack() {
+        if (adeOfTrack == null)
+            adeOfTrack = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfTrack;
     }
 
-    public void setADEPropertiesOfTrack(List<ADEPropertyOfTrack<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfTrack(List<ADEOfTrack> adeOfTrack) {
+        this.adeOfTrack = asChild(adeOfTrack);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Track extends AbstractTransportationSpace implements StandardObject
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTrack<?> property : adeProperties)
+            for (ADEOfTrack<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -116,7 +116,7 @@ public class Track extends AbstractTransportationSpace implements StandardObject
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfTrack<?> property : adeProperties)
+            for (ADEOfTrack<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

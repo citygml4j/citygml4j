@@ -16,7 +16,7 @@ public class PointCloud extends AbstractPointCloud {
     private String pointFile;
     private String pointFileSrsName;
     private MultiPointProperty points;
-    private List<ADEPropertyOfPointCloud<?>> adeProperties;
+    private List<ADEOfPointCloud> adeOfPointCloud;
 
     public PointCloud() {
     }
@@ -63,15 +63,15 @@ public class PointCloud extends AbstractPointCloud {
         this.points = asChild(points);
     }
 
-    public List<ADEPropertyOfPointCloud<?>> getADEPropertiesOfPointCloud() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfPointCloud> getADEOfPointCloud() {
+        if (adeOfPointCloud == null)
+            adeOfPointCloud = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfPointCloud;
     }
 
-    public void setADEPropertiesOfPointCloud(List<ADEPropertyOfPointCloud<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfPointCloud(List<ADEOfPointCloud> adeOfPointCloud) {
+        this.adeOfPointCloud = asChild(adeOfPointCloud);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class PointCloud extends AbstractPointCloud {
             envelope.include(points.getObject().computeEnvelope());
 
         if (adeProperties != null) {
-            for (ADEPropertyOfPointCloud<?> property : adeProperties)
+            for (ADEOfPointCloud<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -94,7 +94,7 @@ public class PointCloud extends AbstractPointCloud {
         geometryInfo.addGeometry(points);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfPointCloud<?> property : adeProperties)
+            for (ADEOfPointCloud<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

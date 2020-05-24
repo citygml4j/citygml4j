@@ -9,17 +9,17 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class FloorSurface extends AbstractConstructionSurface {
-    private List<ADEPropertyOfFloorSurface<?>> adeProperties;
+    private List<ADEOfFloorSurface> adeOfFloorSurface;
 
-    public List<ADEPropertyOfFloorSurface<?>> getADEPropertiesOfFloorSurface() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfFloorSurface> getADEOfFloorSurface() {
+        if (adeOfFloorSurface == null)
+            adeOfFloorSurface = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfFloorSurface;
     }
 
-    public void setADEPropertiesOfFloorSurface(List<ADEPropertyOfFloorSurface<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfFloorSurface(List<ADEOfFloorSurface> adeOfFloorSurface) {
+        this.adeOfFloorSurface = asChild(adeOfFloorSurface);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class FloorSurface extends AbstractConstructionSurface {
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfFloorSurface<?> property : adeProperties)
+            for (ADEOfFloorSurface<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -37,7 +37,7 @@ public class FloorSurface extends AbstractConstructionSurface {
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfFloorSurface<?> property : adeProperties)
+            for (ADEOfFloorSurface<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

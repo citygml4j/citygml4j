@@ -22,7 +22,7 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
     private List<Code> usages;
     private List<BridgeFurnitureProperty> bridgeFurniture;
     private List<BridgeInstallationProperty> bridgeInstallations;
-    private List<ADEPropertyOfBridgeRoom<?>> adeProperties;
+    private List<ADEOfBridgeRoom> adeOfBridgeRoom;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -99,15 +99,15 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
         return new DeprecatedPropertiesOfBridgeRoom();
     }
 
-    public List<ADEPropertyOfBridgeRoom<?>> getADEPropertiesOfBridgeRoom() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfBridgeRoom> getADEOfBridgeRoom() {
+        if (adeOfBridgeRoom == null)
+            adeOfBridgeRoom = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfBridgeRoom;
     }
 
-    public void setADEPropertiesOfBridgeRoom(List<ADEPropertyOfBridgeRoom<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfBridgeRoom(List<ADEOfBridgeRoom> adeOfBridgeRoom) {
+        this.adeOfBridgeRoom = asChild(adeOfBridgeRoom);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgeRoom<?> property : adeProperties)
+            for (ADEOfBridgeRoom<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -142,7 +142,7 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
         }
 
         if (adeProperties != null) {
-            for (ADEPropertyOfBridgeRoom<?> property : adeProperties)
+            for (ADEOfBridgeRoom<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }

@@ -19,7 +19,7 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
     private List<Code> functions;
     private List<Code> usages;
     private GranularityValue granularity;
-    private List<ADEPropertyOfAuxiliaryTrafficSpace<?>> adeProperties;
+    private List<ADEOfAuxiliaryTrafficSpace> adeOfAuxiliaryTrafficSpace;
 
     public AuxiliaryTrafficSpace() {
     }
@@ -79,15 +79,15 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
         this.granularity = granularity;
     }
 
-    public List<ADEPropertyOfAuxiliaryTrafficSpace<?>> getADEPropertiesOfAuxiliaryTrafficSpace() {
-        if (adeProperties == null)
-            adeProperties = new ChildList<>(this);
+    public List<ADEOfAuxiliaryTrafficSpace> getADEOfAuxiliaryTrafficSpace() {
+        if (adeOfAuxiliaryTrafficSpace == null)
+            adeOfAuxiliaryTrafficSpace = new ChildList<>(this);
 
-        return adeProperties;
+        return adeOfAuxiliaryTrafficSpace;
     }
 
-    public void setADEPropertiesOfAuxiliaryTrafficSpace(List<ADEPropertyOfAuxiliaryTrafficSpace<?>> adeProperties) {
-        this.adeProperties = asChild(adeProperties);
+    public void setADEOfAuxiliaryTrafficSpace(List<ADEOfAuxiliaryTrafficSpace> adeOfAuxiliaryTrafficSpace) {
+        this.adeOfAuxiliaryTrafficSpace = asChild(adeOfAuxiliaryTrafficSpace);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
         super.updateEnvelope(envelope, options);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAuxiliaryTrafficSpace<?> property : adeProperties)
+            for (ADEOfAuxiliaryTrafficSpace<?> property : adeProperties)
                 updateEnvelope(property, envelope, options);
         }
     }
@@ -105,7 +105,7 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
         super.updateGeometryInfo(geometryInfo);
 
         if (adeProperties != null) {
-            for (ADEPropertyOfAuxiliaryTrafficSpace<?> property : adeProperties)
+            for (ADEOfAuxiliaryTrafficSpace<?> property : adeProperties)
                 updateGeometryInfo(property, geometryInfo);
         }
     }
