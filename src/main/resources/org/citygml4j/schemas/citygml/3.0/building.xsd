@@ -6,6 +6,136 @@
   <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractBuilding" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfAbstractBuildingType">
+    <annotation>
+      <documentation>ADEOfAbstractBuilding acts as a hook to define properties within an ADE that are to be added to AbstractBuilding.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractBuildingType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractBuildingPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfAbstractBuilding"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractBuildingSubdivision" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfAbstractBuildingSubdivisionType">
+    <annotation>
+      <documentation>ADEOfAbstractBuildingSubdivision acts as a hook to define properties within an ADE that are to be added to AbstractBuildingSubdivision.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractBuildingSubdivisionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractBuildingSubdivisionPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfAbstractBuildingSubdivision"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuilding" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingType">
+    <annotation>
+      <documentation>ADEOfBuilding acts as a hook to define properties within an ADE that are to be added to a Building.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuilding"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingConstructiveElement" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingConstructiveElementType">
+    <annotation>
+      <documentation>ADEOfBuildingConstructiveElement acts as a hook to define properties within an ADE that are to be added to a BuildingConstructiveElement.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingConstructiveElementType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingConstructiveElementPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingConstructiveElement"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingFurniture" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingFurnitureType">
+    <annotation>
+      <documentation>ADEOfBuildingFurniture acts as a hook to define properties within an ADE that are to be added to a BuildingFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingFurniturePropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingFurniture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingInstallation" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingInstallationType">
+    <annotation>
+      <documentation>ADEOfBuildingInstallation acts as a hook to define properties within an ADE that are to be added to a BuildingInstallation.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingInstallationType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingInstallationPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingInstallation"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingPart" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingPartType">
+    <annotation>
+      <documentation>ADEOfBuildingPart acts as a hook to define properties within an ADE that are to be added to a BuildingPart.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingPartType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingPartPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingPart"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingRoom" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingRoomType">
+    <annotation>
+      <documentation>ADEOfBuildingRoom acts as a hook to define properties within an ADE that are to be added to a BuildingRoom.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingRoomType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingRoomPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingRoom"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingUnit" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingUnitType">
+    <annotation>
+      <documentation>ADEOfBuildingUnit acts as a hook to define properties within an ADE that are to be added to a BuildingUnit.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingUnitType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingUnitPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingUnit"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfStorey" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfStoreyType">
+    <annotation>
+      <documentation>ADEOfStorey acts as a hook to define properties within an ADE that are to be added to a Storey.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfStoreyType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfStoreyPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfStorey"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractBuilding" substitutionGroup="con:AbstractConstruction" type="bldg:AbstractBuildingType">
     <annotation>
       <documentation>AbstractBuilding is an abstract superclass representing the common attributes and associations of the classes Building and BuildingPart.</documentation>
@@ -130,12 +260,15 @@
               <documentation>Relates the addresses to the Building or BuildingPart.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfAbstractBuilding"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractBuilding" type="bldg:ADEOfAbstractBuildingPropertyType">
+            <annotation>
+              <documentation>Augments AbstractBuilding with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuilding" type="anyType"/>
   <complexType name="AbstractBuildingPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:AbstractBuilding"/>
@@ -225,12 +358,15 @@
               </appinfo>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfAbstractBuildingSubdivision"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractBuildingSubdivision" type="bldg:ADEOfAbstractBuildingSubdivisionPropertyType">
+            <annotation>
+              <documentation>Augments AbstractBuildingSubdivision with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBuildingSubdivision" type="anyType"/>
   <complexType name="AbstractBuildingSubdivisionPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:AbstractBuildingSubdivision"/>
@@ -262,12 +398,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuilding"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuilding" type="bldg:ADEOfBuildingPropertyType">
+            <annotation>
+              <documentation>Augments the Building with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuilding" type="anyType"/>
   <complexType name="BuildingPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:Building"/>
@@ -299,12 +438,15 @@
               <documentation>Specifies the actual uses of the BuildingConstructiveElement.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingConstructiveElement"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingConstructiveElement" type="bldg:ADEOfBuildingConstructiveElementPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingConstructiveElement with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingConstructiveElement" type="anyType"/>
   <complexType name="BuildingConstructiveElementPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingConstructiveElement"/>
@@ -336,12 +478,15 @@
               <documentation>Specifies the actual uses of the BuildingFurniture.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingFurniture"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingFurniture" type="bldg:ADEOfBuildingFurniturePropertyType">
+            <annotation>
+              <documentation>Augments the BuildingFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingFurniture" type="anyType"/>
   <complexType name="BuildingFurniturePropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingFurniture"/>
@@ -373,12 +518,15 @@
               <documentation>Specifies the actual uses of the BuildingInstallation.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingInstallation"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingInstallation" type="bldg:ADEOfBuildingInstallationPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingInstallation with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingInstallation" type="anyType"/>
   <complexType name="BuildingInstallationPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingInstallation"/>
@@ -395,12 +543,15 @@
     <complexContent>
       <extension base="bldg:AbstractBuildingType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingPart"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingPart" type="bldg:ADEOfBuildingPartPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingPart with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingPart" type="anyType"/>
   <complexType name="BuildingPartPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingPart"/>
@@ -469,12 +620,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingRoom"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingRoom" type="bldg:ADEOfBuildingRoomPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingRoom with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingRoom" type="anyType"/>
   <complexType name="BuildingRoomPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingRoom"/>
@@ -505,12 +659,15 @@
               <documentation>Relates to the addresses that are assigned to the BuildingUnit.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfBuildingUnit"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingUnit" type="bldg:ADEOfBuildingUnitPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingUnit with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBuildingUnit" type="anyType"/>
   <complexType name="BuildingUnitPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:BuildingUnit"/>
@@ -570,12 +727,15 @@
               </appinfo>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="bldg:AbstractGenericApplicationPropertyOfStorey"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfStorey" type="bldg:ADEOfStoreyPropertyType">
+            <annotation>
+              <documentation>Augments the Storey with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfStorey" type="anyType"/>
   <complexType name="StoreyPropertyType">
     <sequence minOccurs="0">
       <element ref="bldg:Storey"/>

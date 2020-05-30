@@ -5,6 +5,214 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractTransportationSpace" substitutionGroup="gml:AbstractObject" type="tran:ADEOfAbstractTransportationSpaceType">
+    <annotation>
+      <documentation>ADEOfAbstractTransportationSpace acts as a hook to define properties within an ADE that are to be added to AbstractTransportationSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractTransportationSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractTransportationSpacePropertyType">
+    <sequence>
+      <element ref="tran:ADEOfAbstractTransportationSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAuxiliaryTrafficArea" substitutionGroup="gml:AbstractObject" type="tran:ADEOfAuxiliaryTrafficAreaType">
+    <annotation>
+      <documentation>ADEOfAuxiliaryTrafficAra acts as a hook to define properties within an ADE that are to be added to an AuxiliaryTrafficArea.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAuxiliaryTrafficAreaType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAuxiliaryTrafficAreaPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfAuxiliaryTrafficArea"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAuxiliaryTrafficSpace" substitutionGroup="gml:AbstractObject" type="tran:ADEOfAuxiliaryTrafficSpaceType">
+    <annotation>
+      <documentation>ADEOfAuxiliaryTrafficSpace acts as a hook to define properties within an ADE that are to be added to an AuxiliaryTrafficSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAuxiliaryTrafficSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAuxiliaryTrafficSpacePropertyType">
+    <sequence>
+      <element ref="tran:ADEOfAuxiliaryTrafficSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfClearanceSpace" substitutionGroup="gml:AbstractObject" type="tran:ADEOfClearanceSpaceType">
+    <annotation>
+      <documentation>ADEOfClearanceSpace acts as a hook to define properties within an ADE that are to be added to a ClearanceSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfClearanceSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfClearanceSpacePropertyType">
+    <sequence>
+      <element ref="tran:ADEOfClearanceSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfHole" substitutionGroup="gml:AbstractObject" type="tran:ADEOfHoleType">
+    <annotation>
+      <documentation>ADEOfHole acts as a hook to define properties within an ADE that are to be added to a Hole.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfHoleType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfHolePropertyType">
+    <sequence>
+      <element ref="tran:ADEOfHole"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfHoleSurface" substitutionGroup="gml:AbstractObject" type="tran:ADEOfHoleSurfaceType">
+    <annotation>
+      <documentation>ADEOfHoleSurface acts as a hook to define properties within an ADE that are to be added to a HoleSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfHoleSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfHoleSurfacePropertyType">
+    <sequence>
+      <element ref="tran:ADEOfHoleSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfIntersection" substitutionGroup="gml:AbstractObject" type="tran:ADEOfIntersectionType">
+    <annotation>
+      <documentation>ADEOfIntersection acts as a hook to define properties within an ADE that are to be added to an Intersection.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfIntersectionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfIntersectionPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfIntersection"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfMarking" substitutionGroup="gml:AbstractObject" type="tran:ADEOfMarkingType">
+    <annotation>
+      <documentation>ADEOfMarking acts as a hook to define properties within an ADE that are to be added to a Marking.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfMarkingType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfMarkingPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfMarking"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfRailway" substitutionGroup="gml:AbstractObject" type="tran:ADEOfRailwayType">
+    <annotation>
+      <documentation>ADEOfRailway acts as a hook to define properties within an ADE that are to be added to a Railway.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfRailwayType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfRailwayPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfRailway"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfRoad" substitutionGroup="gml:AbstractObject" type="tran:ADEOfRoadType">
+    <annotation>
+      <documentation>ADEOfRoad acts as a hook to define properties within an ADE that are to be added to a Road.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfRoadType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfRoadPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfRoad"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfSection" substitutionGroup="gml:AbstractObject" type="tran:ADEOfSectionType">
+    <annotation>
+      <documentation>ADEOfSection acts as a hook to define properties within an ADE that are to be added to a Section.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfSectionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfSectionPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfSection"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfSquare" substitutionGroup="gml:AbstractObject" type="tran:ADEOfSquareType">
+    <annotation>
+      <documentation>ADEOfSquare acts as a hook to define properties within an ADE that are to be added to a Square.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfSquareType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfSquarePropertyType">
+    <sequence>
+      <element ref="tran:ADEOfSquare"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTrack" substitutionGroup="gml:AbstractObject" type="tran:ADEOfTrackType">
+    <annotation>
+      <documentation>ADEOfTrack acts as a hook to define properties within an ADE that are to be added to a Track.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTrackType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTrackPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfTrack"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTrafficArea" substitutionGroup="gml:AbstractObject" type="tran:ADEOfTrafficAreaType">
+    <annotation>
+      <documentation>ADEOfTrafficArea acts as a hook to define properties within an ADE that are to be added to a TrafficArea.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTrafficAreaType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTrafficAreaPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfTrafficArea"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTrafficSpace" substitutionGroup="gml:AbstractObject" type="tran:ADEOfTrafficSpaceType">
+    <annotation>
+      <documentation>ADEOfTrafficSpace acts as a hook to define properties within an ADE that are to be added to a TrafficSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTrafficSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTrafficSpacePropertyType">
+    <sequence>
+      <element ref="tran:ADEOfTrafficSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfWaterway" substitutionGroup="gml:AbstractObject" type="tran:ADEOfWaterwayType">
+    <annotation>
+      <documentation>ADEOfWaterway acts as a hook to define properties within an ADE that are to be added to a Waterway.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfWaterwayType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfWaterwayPropertyType">
+    <sequence>
+      <element ref="tran:ADEOfWaterway"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractTransportationSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="tran:AbstractTransportationSpaceType">
     <annotation>
       <documentation>AbstractTransportationSpace is the abstract superclass of transportation objects such as Roads, Tracks, Railways, Waterways or Squares.</documentation>
@@ -84,12 +292,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAbstractTransportationSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractTransportationSpace" type="tran:ADEOfAbstractTransportationSpacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractTransportationSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTransportationSpace" type="anyType"/>
   <complexType name="AbstractTransportationSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="tran:AbstractTransportationSpace"/>
@@ -126,12 +337,15 @@
               <documentation>Specifies the type of pavement of the AuxiliaryTrafficArea.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAuxiliaryTrafficArea"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAuxiliaryTrafficArea" type="tran:ADEOfAuxiliaryTrafficAreaPropertyType">
+            <annotation>
+              <documentation>Augments the AuxiliaryTrafficArea with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAuxiliaryTrafficArea" type="anyType"/>
   <complexType name="AuxiliaryTrafficAreaPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:AuxiliaryTrafficArea"/>
@@ -168,12 +382,15 @@
               <documentation>Defines whether auxiliary traffic spaces are represented by individual ways or by individual lanes, depending on the desired level of detail.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfAuxiliaryTrafficSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAuxiliaryTrafficSpace" type="tran:ADEOfAuxiliaryTrafficSpacePropertyType">
+            <annotation>
+              <documentation>Augments the AuxiliaryTrafficSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAuxiliaryTrafficSpace" type="anyType"/>
   <complexType name="AuxiliaryTrafficSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="tran:AuxiliaryTrafficSpace"/>
@@ -195,12 +412,15 @@
               <documentation>Indicates the specific type of the ClearanceSpace.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfClearanceSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfClearanceSpace" type="tran:ADEOfClearanceSpacePropertyType">
+            <annotation>
+              <documentation>Augments the ClearanceSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfClearanceSpace" type="anyType"/>
   <complexType name="ClearanceSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="tran:ClearanceSpace"/>
@@ -239,12 +459,15 @@
               <documentation>Indicates the specific type of the Hole.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfHole"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfHole" type="tran:ADEOfHolePropertyType">
+            <annotation>
+              <documentation>Augments the Hole with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfHole" type="anyType"/>
   <complexType name="HolePropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Hole"/>
@@ -261,12 +484,15 @@
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfHoleSurface"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfHoleSurface" type="tran:ADEOfHoleSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the HoleSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfHoleSurface" type="anyType"/>
   <complexType name="HoleSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="tran:HoleSurface"/>
@@ -288,12 +514,15 @@
               <documentation>Indicates the specific type of the Intersection.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfIntersection"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfIntersection" type="tran:ADEOfIntersectionPropertyType">
+            <annotation>
+              <documentation>Augments the Intersection with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfIntersection" type="anyType"/>
   <complexType name="IntersectionPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Intersection"/>
@@ -315,12 +544,15 @@
               <documentation>Indicates the specific type of the Marking.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfMarking"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfMarking" type="tran:ADEOfMarkingPropertyType">
+            <annotation>
+              <documentation>Augments the Marking with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfMarking" type="anyType"/>
   <complexType name="MarkingPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Marking"/>
@@ -382,12 +614,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfRailway"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfRailway" type="tran:ADEOfRailwayPropertyType">
+            <annotation>
+              <documentation>Augments the Railway with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfRailway" type="anyType"/>
   <complexType name="RailwayPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Railway"/>
@@ -449,12 +684,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfRoad"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfRoad" type="tran:ADEOfRoadPropertyType">
+            <annotation>
+              <documentation>Augments the Road with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfRoad" type="anyType"/>
   <complexType name="RoadPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Road"/>
@@ -476,12 +714,15 @@
               <documentation>Indicates the specific type of the Section.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfSection"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfSection" type="tran:ADEOfSectionPropertyType">
+            <annotation>
+              <documentation>Augments the Section with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfSection" type="anyType"/>
   <complexType name="SectionPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Section"/>
@@ -513,12 +754,15 @@
               <documentation>Specifies the actual uses of the Square.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfSquare"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfSquare" type="tran:ADEOfSquarePropertyType">
+            <annotation>
+              <documentation>Augments the Square with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfSquare" type="anyType"/>
   <complexType name="SquarePropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Square"/>
@@ -580,12 +824,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrack"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTrack" type="tran:ADEOfTrackPropertyType">
+            <annotation>
+              <documentation>Augments the Track with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTrack" type="anyType"/>
   <complexType name="TrackPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Track"/>
@@ -622,12 +869,15 @@
               <documentation>Specifies the type of pavement of the TrafficArea.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrafficArea"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTrafficArea" type="tran:ADEOfTrafficAreaPropertyType">
+            <annotation>
+              <documentation>Augments the TrafficArea with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTrafficArea" type="anyType"/>
   <complexType name="TrafficAreaPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:TrafficArea"/>
@@ -721,12 +971,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfTrafficSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTrafficSpace" type="tran:ADEOfTrafficSpacePropertyType">
+            <annotation>
+              <documentation>Augments the TrafficSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTrafficSpace" type="anyType"/>
   <complexType name="TrafficSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="tran:TrafficSpace"/>
@@ -788,12 +1041,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tran:AbstractGenericApplicationPropertyOfWaterway"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfWaterway" type="tran:ADEOfWaterwayPropertyType">
+            <annotation>
+              <documentation>Augments the Waterway with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterway" type="anyType"/>
   <complexType name="WaterwayPropertyType">
     <sequence minOccurs="0">
       <element ref="tran:Waterway"/>

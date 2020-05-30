@@ -5,6 +5,19 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfCityFurniture" substitutionGroup="gml:AbstractObject" type="frn:ADEOfCityFurnitureType">
+    <annotation>
+      <documentation>ADEOfCityFurniture acts as a hook to define properties within an ADE that are to be added to a CityFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfCityFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfCityFurniturePropertyType">
+    <sequence>
+      <element ref="frn:ADEOfCityFurniture"/>
+    </sequence>
+  </complexType>
   <element name="CityFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="frn:CityFurnitureType">
     <annotation>
       <documentation>CityFurniture is an object or piece of equipment installed in the outdoor environment for various purposes. Examples include street signs, traffic signals, street lamps, benches, fountains.</documentation>
@@ -29,12 +42,15 @@
               <documentation>Specifies the actual uses of the CityFurniture.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="frn:AbstractGenericApplicationPropertyOfCityFurniture"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfCityFurniture" type="frn:ADEOfCityFurniturePropertyType">
+            <annotation>
+              <documentation>Augments the CityFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityFurniture" type="anyType"/>
   <complexType name="CityFurniturePropertyType">
     <sequence minOccurs="0">
       <element ref="frn:CityFurniture"/>

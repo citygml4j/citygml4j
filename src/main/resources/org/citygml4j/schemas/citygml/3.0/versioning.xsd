@@ -5,6 +5,32 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfVersion" substitutionGroup="gml:AbstractObject" type="vers:ADEOfVersionType">
+    <annotation>
+      <documentation>ADEOfVersion acts as a hook to define properties within an ADE that are to be added to a Version.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfVersionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfVersionPropertyType">
+    <sequence>
+      <element ref="vers:ADEOfVersion"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfVersionTransition" substitutionGroup="gml:AbstractObject" type="vers:ADEOfVersionTransitionType">
+    <annotation>
+      <documentation>ADEOfVersionTransition acts as a hook to define properties within an ADE that are to be added to a VersionTransition.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfVersionTransitionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfVersionTransitionPropertyType">
+    <sequence>
+      <element ref="vers:ADEOfVersionTransition"/>
+    </sequence>
+  </complexType>
   <element name="Transaction" substitutionGroup="gml:AbstractObject" type="vers:TransactionType">
     <annotation>
       <documentation>Transaction represents a modification of the city model by the creation, termination, or replacement of a specific city object. While the creation of a city object also marks its first object version, the termination marks the end of existence of a real world object and, hence, also terminates the final version of a city object. The replacement of a city object means that a specific version of it is replaced by a new version.</documentation>
@@ -117,12 +143,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="vers:AbstractGenericApplicationPropertyOfVersion"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfVersion" type="vers:ADEOfVersionPropertyType">
+            <annotation>
+              <documentation>Augments the Version with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersion" type="anyType"/>
   <complexType name="VersionPropertyType">
     <sequence minOccurs="0">
       <element ref="vers:Version"/>
@@ -169,12 +198,15 @@
               <documentation>Relates to all transactions that have been applied as part of the VersionTransition.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="vers:AbstractGenericApplicationPropertyOfVersionTransition"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfVersionTransition" type="vers:ADEOfVersionTransitionPropertyType">
+            <annotation>
+              <documentation>Augments the VersionTransition with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfVersionTransition" type="anyType"/>
   <complexType name="VersionTransitionPropertyType">
     <sequence minOccurs="0">
       <element ref="vers:VersionTransition"/>

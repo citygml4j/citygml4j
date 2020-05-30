@@ -5,6 +5,84 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractSurfaceData" substitutionGroup="gml:AbstractObject" type="app:ADEOfAbstractSurfaceDataType">
+    <annotation>
+      <documentation>ADEOfAbstractSurfaceData acts as a hook to define properties within an ADE that are to be added to AbstractSurfaceData.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractSurfaceDataType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractSurfaceDataPropertyType">
+    <sequence>
+      <element ref="app:ADEOfAbstractSurfaceData"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractTexture" substitutionGroup="gml:AbstractObject" type="app:ADEOfAbstractTextureType">
+    <annotation>
+      <documentation>ADEOfAbstractTexture acts as a hook to define properties within an ADE that are to be added to AbstractTexture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractTextureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractTexturePropertyType">
+    <sequence>
+      <element ref="app:ADEOfAbstractTexture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAppearance" substitutionGroup="gml:AbstractObject" type="app:ADEOfAppearanceType">
+    <annotation>
+      <documentation>ADEOfAppearance acts as a hook to define properties within an ADE that are to be added to an Appearance.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAppearanceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAppearancePropertyType">
+    <sequence>
+      <element ref="app:ADEOfAppearance"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGeoreferencedTexture" substitutionGroup="gml:AbstractObject" type="app:ADEOfGeoreferencedTextureType">
+    <annotation>
+      <documentation>ADEOfGeoreferencedTexture acts as a hook to define properties within an ADE that are to be added to a GeoreferencedTexture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGeoreferencedTextureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGeoreferencedTexturePropertyType">
+    <sequence>
+      <element ref="app:ADEOfGeoreferencedTexture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfParameterizedTexture" substitutionGroup="gml:AbstractObject" type="app:ADEOfParameterizedTextureType">
+    <annotation>
+      <documentation>ADEOfParameterizedTexture acts as a hook to define properties within an ADE that are to be added to a ParameterizedTexture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfParameterizedTextureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfParameterizedTexturePropertyType">
+    <sequence>
+      <element ref="app:ADEOfParameterizedTexture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfX3DMaterial" substitutionGroup="gml:AbstractObject" type="app:ADEOfX3DMaterialType">
+    <annotation>
+      <documentation>ADEOfX3DMaterial acts as a hook to define properties within an ADE that are to be added to an X3DMaterial.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfX3DMaterialType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfX3DMaterialPropertyType">
+    <sequence>
+      <element ref="app:ADEOfX3DMaterial"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractSurfaceData" substitutionGroup="core:AbstractFeature" type="app:AbstractSurfaceDataType">
     <annotation>
       <documentation>AbstractSurfaceData is the abstract superclass for different kinds of textures and material.</documentation>
@@ -19,12 +97,15 @@
               <documentation>Indicates whether the texture or material is assigned to the front side or the back side of the surface geometry object.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfAbstractSurfaceData"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractSurfaceData" type="app:ADEOfAbstractSurfaceDataPropertyType">
+            <annotation>
+              <documentation>Augments AbstractSurfaceData with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSurfaceData" type="anyType"/>
   <complexType name="AbstractSurfaceDataPropertyType">
     <sequence minOccurs="0">
       <element ref="app:AbstractSurfaceData"/>
@@ -66,12 +147,15 @@
               <documentation>Specifies the color of that part of the surface that is not covered by the texture.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfAbstractTexture"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractTexture" type="app:ADEOfAbstractTexturePropertyType">
+            <annotation>
+              <documentation>Augments AbstractTexture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTexture" type="anyType"/>
   <complexType name="AbstractTexturePropertyType">
     <sequence minOccurs="0">
       <element ref="app:AbstractTexture"/>
@@ -121,12 +205,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfAppearance"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAppearance" type="app:ADEOfAppearancePropertyType">
+            <annotation>
+              <documentation>Augments the Appearance with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAppearance" type="anyType"/>
   <complexType name="AppearancePropertyType">
     <sequence minOccurs="0">
       <element ref="app:Appearance"/>
@@ -180,12 +267,15 @@
               <documentation>Specifies the URI that points to the surface geometry objects to which the texture is applied.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfGeoreferencedTexture"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGeoreferencedTexture" type="app:ADEOfGeoreferencedTexturePropertyType">
+            <annotation>
+              <documentation>Augments the GeoreferencedTexture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGeoreferencedTexture" type="anyType"/>
   <complexType name="GeoreferencedTexturePropertyType">
     <sequence minOccurs="0">
       <element ref="app:GeoreferencedTexture"/>
@@ -207,12 +297,15 @@
               <documentation>Relates to the texture coordinates or transformation matrices used for parameterization.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfParameterizedTexture"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfParameterizedTexture" type="app:ADEOfParameterizedTexturePropertyType">
+            <annotation>
+              <documentation>Augments the ParameterizedTexture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfParameterizedTexture" type="anyType"/>
   <complexType name="ParameterizedTexturePropertyType">
     <sequence minOccurs="0">
       <element ref="app:ParameterizedTexture"/>
@@ -405,12 +498,15 @@
               <documentation>Specifies the URI that points to the surface geometry objects to which the material is applied.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="app:AbstractGenericApplicationPropertyOfX3DMaterial"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfX3DMaterial" type="app:ADEOfX3DMaterialPropertyType">
+            <annotation>
+              <documentation>Augments the X3DMaterial with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfX3DMaterial" type="anyType"/>
   <complexType name="X3DMaterialPropertyType">
     <sequence minOccurs="0">
       <element ref="app:X3DMaterial"/>

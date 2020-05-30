@@ -5,6 +5,240 @@
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" schemaLocation="../../xal/2.0/xAL.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractAppearance" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractAppearanceType">
+    <annotation>
+      <documentation>ADEOfAbstractAppearance acts as a hook to define properties within an ADE that are to be added to AbstractAppearance.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractAppearanceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractAppearancePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractAppearance"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractCityObject" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractCityObjectType">
+    <annotation>
+      <documentation>ADEOfAbstractCityObject acts as a hook to define properties within an ADE that are to be added to AbstractCityObject.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractCityObjectType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractCityObjectPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractCityObject"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractDynamizer" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractDynamizerType">
+    <annotation>
+      <documentation>ADEOfAbstractDynamizer acts as a hook to define properties within an ADE that are to be added to AbstractDynamizer.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractDynamizerType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractDynamizerPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractDynamizer"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractFeature" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractFeatureType">
+    <annotation>
+      <documentation>ADEOfAbstractFeature acts as a hook to define properties within an ADE that are to be added to AbstractFeature.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractFeatureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractFeaturePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractFeature"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractFeatureWithLifespan" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractFeatureWithLifespanType">
+    <annotation>
+      <documentation>ADEOfAbstractFeatureWithLifespan acts as a hook to define properties within an ADE that are to be added to AbstractFeatureWithLifespan.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractFeatureWithLifespanType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractFeatureWithLifespanPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractFeatureWithLifespan"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractLogicalSpace" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractLogicalSpaceType">
+    <annotation>
+      <documentation>ADEOfAbstractLogicalSpace acts as a hook to define properties within an ADE that are to be added to AbstractLogicalSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractLogicalSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractLogicalSpacePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractLogicalSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractOccupiedSpace" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractOccupiedSpaceType">
+    <annotation>
+      <documentation>ADEOfAbstractOccupiedSpace acts as a hook to define properties within an ADE that are to be added to AbstractOccupiedSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractOccupiedSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractOccupiedSpacePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractOccupiedSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractPhysicalSpace" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractPhysicalSpaceType">
+    <annotation>
+      <documentation>ADEOfAbstractPhysicalSpace acts as a hook to define properties within an ADE that are to be added to AbstractPhysicalSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractPhysicalSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractPhysicalSpacePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractPhysicalSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractPointCloud" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractPointCloudType">
+    <annotation>
+      <documentation>ADEOfAbstractPointCloud acts as a hook to define properties within an ADE that are to be added to AbstractPointCloud.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractPointCloudType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractPointCloudPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractPointCloud"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractSpace" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractSpaceType">
+    <annotation>
+      <documentation>ADEOfAbstractSpace acts as a hook to define properties within an ADE that are to be added to AbstractSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractSpacePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractSpaceBoundary" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractSpaceBoundaryType">
+    <annotation>
+      <documentation>ADEOfAbstractSpaceBoundary acts as a hook to define properties within an ADE that are to be added to AbstractSpaceBoundary.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractSpaceBoundaryType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractSpaceBoundaryPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractSpaceBoundary"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractThematicSurface" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractThematicSurfaceType">
+    <annotation>
+      <documentation>ADEOfAbstractThematicSurface acts as a hook to define properties within an ADE that are to be added to AbstractThematicSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractThematicSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractThematicSurfacePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractThematicSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractUnoccupiedSpace" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractUnoccupiedSpaceType">
+    <annotation>
+      <documentation>ADEOfAbstractUnoccupiedSpace acts as a hook to define properties within an ADE that are to be added to AbstractUnoccupiedSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractUnoccupiedSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractUnoccupiedSpacePropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractUnoccupiedSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractVersion" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractVersionType">
+    <annotation>
+      <documentation>ADEOfAbstractVersion acts as a hook to define properties within an ADE that are to be added to AbstractVersion.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractVersionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractVersionPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractVersion"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractVersionTransition" substitutionGroup="gml:AbstractObject" type="core:ADEOfAbstractVersionTransitionType">
+    <annotation>
+      <documentation>ADEOfAbstractVersionTransition acts as a hook to define properties within an ADE that are to be added to AbstractVersionTransition.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractVersionTransitionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractVersionTransitionPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAbstractVersionTransition"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAddress" substitutionGroup="gml:AbstractObject" type="core:ADEOfAddressType">
+    <annotation>
+      <documentation>ADEOfAddress acts as a hook to define properties within an ADE that are to be added to an Address.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAddressType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAddressPropertyType">
+    <sequence>
+      <element ref="core:ADEOfAddress"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfCityModel" substitutionGroup="gml:AbstractObject" type="core:ADEOfCityModelType">
+    <annotation>
+      <documentation>ADEOfCityModel acts as a hook to define properties within an ADE that are to be added to a CityModel.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfCityModelType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfCityModelPropertyType">
+    <sequence>
+      <element ref="core:ADEOfCityModel"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfClosureSurface" substitutionGroup="gml:AbstractObject" type="core:ADEOfClosureSurfaceType">
+    <annotation>
+      <documentation>ADEOfClosureSurface acts as a hook to define properties within an ADE that are to be added to a ClosureSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfClosureSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfClosureSurfacePropertyType">
+    <sequence>
+      <element ref="core:ADEOfClosureSurface"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractAppearance" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractAppearanceType">
     <annotation>
       <documentation>AbstractAppearance is the abstract superclass to represent any kind of appearance objects.</documentation>
@@ -14,12 +248,15 @@
     <complexContent>
       <extension base="core:AbstractFeatureWithLifespanType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractAppearance"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractAppearance" type="core:ADEOfAbstractAppearancePropertyType">
+            <annotation>
+              <documentation>Augments AbstractAppearance with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAppearance" type="anyType"/>
   <complexType name="AbstractAppearancePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractAppearance"/>
@@ -89,12 +326,15 @@
               <documentation>Relates Dynamizer objects to the city object. These allow timeseries data to override static attribute values of the city object.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractCityObject"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractCityObject" type="core:ADEOfAbstractCityObjectPropertyType">
+            <annotation>
+              <documentation>Augments AbstractCityObject with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractCityObject" type="anyType"/>
   <complexType name="AbstractCityObjectPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractCityObject"/>
@@ -111,12 +351,15 @@
     <complexContent>
       <extension base="core:AbstractFeatureWithLifespanType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractDynamizer"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractDynamizer" type="core:ADEOfAbstractDynamizerPropertyType">
+            <annotation>
+              <documentation>Augments AbstractDynamizer with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractDynamizer" type="anyType"/>
   <complexType name="AbstractDynamizerPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractDynamizer"/>
@@ -133,12 +376,15 @@
     <complexContent>
       <extension base="gml:AbstractFeatureType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractFeature"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractFeature" type="core:ADEOfAbstractFeaturePropertyType">
+            <annotation>
+              <documentation>Augments AbstractFeature with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFeature" type="anyType"/>
   <complexType name="AbstractFeaturePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractFeature"/>
@@ -175,12 +421,15 @@
               <documentation>Indicates the date at wich a CityGML feature ended to exist in the real world.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractFeatureWithLifespan"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractFeatureWithLifespan" type="core:ADEOfAbstractFeatureWithLifespanPropertyType">
+            <annotation>
+              <documentation>Augments AbstractFeatureWithLifespan with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractFeatureWithLifespan" type="anyType"/>
   <complexType name="AbstractFeatureWithLifespanPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractFeatureWithLifespan"/>
@@ -210,12 +459,15 @@
     <complexContent>
       <extension base="core:AbstractSpaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractLogicalSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractLogicalSpace" type="core:ADEOfAbstractLogicalSpacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractLogicalSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractLogicalSpace" type="anyType"/>
   <complexType name="AbstractLogicalSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractLogicalSpace"/>
@@ -247,12 +499,15 @@
               <documentation>Relates to an implicit geometry that represents the occupied space in Level of Detail 3.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractOccupiedSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractOccupiedSpace" type="core:ADEOfAbstractOccupiedSpacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractOccupiedSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractOccupiedSpace" type="anyType"/>
   <complexType name="AbstractOccupiedSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractOccupiedSpace"/>
@@ -289,12 +544,15 @@
               <documentation>Relates to a 3D PointCloud that represents the physical space.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractPhysicalSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractPhysicalSpace" type="core:ADEOfAbstractPhysicalSpacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractPhysicalSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPhysicalSpace" type="anyType"/>
   <complexType name="AbstractPhysicalSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractPhysicalSpace"/>
@@ -311,12 +569,15 @@
     <complexContent>
       <extension base="core:AbstractFeatureType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractPointCloud"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractPointCloud" type="core:ADEOfAbstractPointCloudPropertyType">
+            <annotation>
+              <documentation>Augments AbstractPointCloud with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractPointCloud" type="anyType"/>
   <complexType name="AbstractPointCloudPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractPointCloud"/>
@@ -403,12 +664,15 @@
               <documentation>Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 3.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractSpace" type="core:ADEOfAbstractSpacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSpace" type="anyType"/>
   <complexType name="AbstractSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractSpace"/>
@@ -425,12 +689,15 @@
     <complexContent>
       <extension base="core:AbstractCityObjectType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractSpaceBoundary"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractSpaceBoundary" type="core:ADEOfAbstractSpaceBoundaryPropertyType">
+            <annotation>
+              <documentation>Augments AbstractSpaceBoundary with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractSpaceBoundary" type="anyType"/>
   <complexType name="AbstractSpaceBoundaryPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractSpaceBoundary"/>
@@ -482,12 +749,15 @@
               <documentation>Relates to a 3D PointCloud that represents the thematic surface.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractThematicSurface"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractThematicSurface" type="core:ADEOfAbstractThematicSurfacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractThematicSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractThematicSurface" type="anyType"/>
   <complexType name="AbstractThematicSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractThematicSurface"/>
@@ -504,12 +774,15 @@
     <complexContent>
       <extension base="core:AbstractPhysicalSpaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractUnoccupiedSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractUnoccupiedSpace" type="core:ADEOfAbstractUnoccupiedSpacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractUnoccupiedSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractUnoccupiedSpace" type="anyType"/>
   <complexType name="AbstractUnoccupiedSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractUnoccupiedSpace"/>
@@ -526,12 +799,15 @@
     <complexContent>
       <extension base="core:AbstractFeatureWithLifespanType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractVersion"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractVersion" type="core:ADEOfAbstractVersionPropertyType">
+            <annotation>
+              <documentation>Augments AbstractVersion with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersion" type="anyType"/>
   <complexType name="AbstractVersionPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractVersion"/>
@@ -548,12 +824,15 @@
     <complexContent>
       <extension base="core:AbstractFeatureWithLifespanType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAbstractVersionTransition"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractVersionTransition" type="core:ADEOfAbstractVersionTransitionPropertyType">
+            <annotation>
+              <documentation>Augments AbstractVersionTransition with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractVersionTransition" type="anyType"/>
   <complexType name="AbstractVersionTransitionPropertyType">
     <sequence minOccurs="0">
       <element ref="core:AbstractVersionTransition"/>
@@ -585,12 +864,15 @@
               <documentation>Relates to the MultiPoint geometry of the Address. The geometry relates the address spatially to a city object.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfAddress"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAddress" type="core:ADEOfAddressPropertyType">
+            <annotation>
+              <documentation>Augments the Address with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAddress" type="anyType"/>
   <complexType name="AddressPropertyType">
     <sequence minOccurs="0">
       <element ref="core:Address"/>
@@ -627,12 +909,15 @@
               <documentation>Relates to all objects that are part of the CityModel.</documentation>
             </annotation>
           </group>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfCityModel"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfCityModel" type="core:ADEOfCityModelPropertyType">
+            <annotation>
+              <documentation>Augments the CityModel with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityModel" type="anyType"/>
   <complexType name="CityModelPropertyType">
     <sequence minOccurs="0">
       <element ref="core:CityModel"/>
@@ -766,12 +1051,15 @@
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="core:AbstractGenericApplicationPropertyOfClosureSurface"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfClosureSurface" type="core:ADEOfClosureSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the ClosureSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfClosureSurface" type="anyType"/>
   <complexType name="ClosureSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="core:ClosureSurface"/>

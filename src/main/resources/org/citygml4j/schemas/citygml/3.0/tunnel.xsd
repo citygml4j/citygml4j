@@ -6,6 +6,97 @@
   <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractTunnel" substitutionGroup="gml:AbstractObject" type="tun:ADEOfAbstractTunnelType">
+    <annotation>
+      <documentation>ADEOfAbstractTunnel acts as a hook to define properties within an ADE that are to be added to AbstractTunnel.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractTunnelType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractTunnelPropertyType">
+    <sequence>
+      <element ref="tun:ADEOfAbstractTunnel"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfHollowSpace" substitutionGroup="gml:AbstractObject" type="tun:ADEOfHollowSpaceType">
+    <annotation>
+      <documentation>ADEOfHollowSpace acts as a hook to define properties within an ADE that are to be added to a HollowSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfHollowSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfHollowSpacePropertyType">
+    <sequence>
+      <element ref="tun:ADEOfHollowSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTunnel" substitutionGroup="gml:AbstractObject" type="tun:ADEOfTunnelType">
+    <annotation>
+      <documentation>ADEOfTunnel acts as a hook to define properties within an ADE that are to be added to a Tunnel.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTunnelType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTunnelPropertyType">
+    <sequence>
+      <element ref="tun:ADEOfTunnel"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTunnelConstructiveElement" substitutionGroup="gml:AbstractObject" type="tun:ADEOfTunnelConstructiveElementType">
+    <annotation>
+      <documentation>ADEOfTunnelConstructiveElement acts as a hook to define properties within an ADE that are to be added to a TunnelConstructiveElement.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTunnelConstructiveElementType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTunnelConstructiveElementPropertyType">
+    <sequence>
+      <element ref="tun:ADEOfTunnelConstructiveElement"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTunnelFurniture" substitutionGroup="gml:AbstractObject" type="tun:ADEOfTunnelFurnitureType">
+    <annotation>
+      <documentation>ADEOfTunnelFurniture acts as a hook to define properties within an ADE that are to be added to a TunnelFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTunnelFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTunnelFurniturePropertyType">
+    <sequence>
+      <element ref="tun:ADEOfTunnelFurniture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTunnelInstallation" substitutionGroup="gml:AbstractObject" type="tun:ADEOfTunnelInstallationType">
+    <annotation>
+      <documentation>ADEOfTunnelInstallation acts as a hook to define properties within an ADE that are to be added to a TunnelInstallation.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTunnelInstallationType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTunnelInstallationPropertyType">
+    <sequence>
+      <element ref="tun:ADEOfTunnelInstallation"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTunnelPart" substitutionGroup="gml:AbstractObject" type="tun:ADEOfTunnelPartType">
+    <annotation>
+      <documentation>ADEOfTunnelPart acts as a hook to define properties within an ADE that are to be added to a TunnelPart.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTunnelPartType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTunnelPartPropertyType">
+    <sequence>
+      <element ref="tun:ADEOfTunnelPart"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractTunnel" substitutionGroup="con:AbstractConstruction" type="tun:AbstractTunnelType">
     <annotation>
       <documentation>AbstractTunnel is an abstract superclass representing the common attributes and associations of the classes Tunnel and TunnelPart.</documentation>
@@ -86,12 +177,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfAbstractTunnel"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractTunnel" type="tun:ADEOfAbstractTunnelPropertyType">
+            <annotation>
+              <documentation>Augments AbstractTunnel with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTunnel" type="anyType"/>
   <complexType name="AbstractTunnelPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:AbstractTunnel"/>
@@ -155,12 +249,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfHollowSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfHollowSpace" type="tun:ADEOfHollowSpacePropertyType">
+            <annotation>
+              <documentation>Augments the HollowSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfHollowSpace" type="anyType"/>
   <complexType name="HollowSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="tun:HollowSpace"/>
@@ -192,12 +289,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnel"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTunnel" type="tun:ADEOfTunnelPropertyType">
+            <annotation>
+              <documentation>Augments the Tunnel with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnel" type="anyType"/>
   <complexType name="TunnelPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:Tunnel"/>
@@ -229,12 +329,15 @@
               <documentation>Specifies the actual uses of the TunnelConstructiveElement.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnelConstructiveElement"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTunnelConstructiveElement" type="tun:ADEOfTunnelConstructiveElementPropertyType">
+            <annotation>
+              <documentation>Augments the TunnelConstructiveElement with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelConstructiveElement" type="anyType"/>
   <complexType name="TunnelConstructiveElementPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelConstructiveElement"/>
@@ -266,12 +369,15 @@
               <documentation>Specifies the actual uses of the TunnelFurniture.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnelFurniture"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTunnelFurniture" type="tun:ADEOfTunnelFurniturePropertyType">
+            <annotation>
+              <documentation>Augments the TunnelFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelFurniture" type="anyType"/>
   <complexType name="TunnelFurniturePropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelFurniture"/>
@@ -303,12 +409,15 @@
               <documentation>Specifies the actual uses of the TunnelInstallation.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnelInstallation"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTunnelInstallation" type="tun:ADEOfTunnelInstallationPropertyType">
+            <annotation>
+              <documentation>Augments the TunnelInstallation with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelInstallation" type="anyType"/>
   <complexType name="TunnelInstallationPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelInstallation"/>
@@ -325,12 +434,15 @@
     <complexContent>
       <extension base="tun:AbstractTunnelType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="tun:AbstractGenericApplicationPropertyOfTunnelPart"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTunnelPart" type="tun:ADEOfTunnelPartPropertyType">
+            <annotation>
+              <documentation>Augments the TunnelPart with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTunnelPart" type="anyType"/>
   <complexType name="TunnelPartPropertyType">
     <sequence minOccurs="0">
       <element ref="tun:TunnelPart"/>

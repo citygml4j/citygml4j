@@ -5,6 +5,97 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractAtomicTimeseries" substitutionGroup="gml:AbstractObject" type="dyn:ADEOfAbstractAtomicTimeseriesType">
+    <annotation>
+      <documentation>ADEOfAbstractAtomicTimeseries acts as a hook to define properties within an ADE that are to be added to AbstractAtomicTimeseries.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractAtomicTimeseriesType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractAtomicTimeseriesPropertyType">
+    <sequence>
+      <element ref="dyn:ADEOfAbstractAtomicTimeseries"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractTimeseries" substitutionGroup="gml:AbstractObject" type="dyn:ADEOfAbstractTimeseriesType">
+    <annotation>
+      <documentation>ADEOfAbstractTimeseries acts as a hook to define properties within an ADE that are to be added to AbstractTimeseries.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractTimeseriesType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractTimeseriesPropertyType">
+    <sequence>
+      <element ref="dyn:ADEOfAbstractTimeseries"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfCompositeTimeseries" substitutionGroup="gml:AbstractObject" type="dyn:ADEOfCompositeTimeseriesType">
+    <annotation>
+      <documentation>ADEOfCompositeTimeseries acts as a hook to define properties within an ADE that are to be added to a CompositeTimeseries.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfCompositeTimeseriesType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfCompositeTimeseriesPropertyType">
+    <sequence>
+      <element ref="dyn:ADEOfCompositeTimeseries"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfDynamizer" substitutionGroup="gml:AbstractObject" type="dyn:ADEOfDynamizerType">
+    <annotation>
+      <documentation>ADEOfDynamizer acts as a hook to define properties within an ADE that are to be added to a Dynamizer.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfDynamizerType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfDynamizerPropertyType">
+    <sequence>
+      <element ref="dyn:ADEOfDynamizer"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGenericTimeseries" substitutionGroup="gml:AbstractObject" type="dyn:ADEOfGenericTimeseriesType">
+    <annotation>
+      <documentation>ADEOfGenericTimeseries acts as a hook to define properties within an ADE that are to be added to a GenericTimeseries.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericTimeseriesType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericTimeseriesPropertyType">
+    <sequence>
+      <element ref="dyn:ADEOfGenericTimeseries"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfStandardFileTimeseries" substitutionGroup="gml:AbstractObject" type="dyn:ADEOfStandardFileTimeseriesType">
+    <annotation>
+      <documentation>ADEOfStandardFileTimeseries acts as a hook to define properties within an ADE that are to be added to a StandardFileTimeseries.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfStandardFileTimeseriesType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfStandardFileTimeseriesPropertyType">
+    <sequence>
+      <element ref="dyn:ADEOfStandardFileTimeseries"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTabulatedFileTimeseries" substitutionGroup="gml:AbstractObject" type="dyn:ADEOfTabulatedFileTimeseriesType">
+    <annotation>
+      <documentation>ADEOfTabulatedFileTimeseries acts as a hook to define properties within an ADE that are to be added to a TabulatedFileTimeseries.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTabulatedFileTimeseriesType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTabulatedFileTimeseriesPropertyType">
+    <sequence>
+      <element ref="dyn:ADEOfTabulatedFileTimeseries"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractAtomicTimeseries" substitutionGroup="dyn:AbstractTimeseries" type="dyn:AbstractAtomicTimeseriesType">
     <annotation>
       <documentation>AbstractAtomicTimeseries represents the attributes and relationships that are common to all kinds of atomic timeseries (GenericTimeseries, TabulatedFileTimeseries, StandardFileTimeseries). An atomic timeseries represents time-varying data of a specific data type for a single contiguous time interval.</documentation>
@@ -24,12 +115,15 @@
               <documentation>Specifies the unit of measurement of the observation values.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAbstractAtomicTimeseries"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractAtomicTimeseries" type="dyn:ADEOfAbstractAtomicTimeseriesPropertyType">
+            <annotation>
+              <documentation>Augments AbstractAtomicTimeseries with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractAtomicTimeseries" type="anyType"/>
   <complexType name="AbstractAtomicTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:AbstractAtomicTimeseries"/>
@@ -56,12 +150,15 @@
               <documentation>Specifies the end of the timeseries.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfAbstractTimeseries"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractTimeseries" type="dyn:ADEOfAbstractTimeseriesPropertyType">
+            <annotation>
+              <documentation>Augments AbstractTimeseries with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractTimeseries" type="anyType"/>
   <complexType name="AbstractTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:AbstractTimeseries"/>
@@ -83,12 +180,15 @@
               <documentation>Relates to the atomic and composite timeseries that are part of the CompositeTimeseries. The referenced timeseries are sequentially ordered.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfCompositeTimeseries"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfCompositeTimeseries" type="dyn:ADEOfCompositeTimeseriesPropertyType">
+            <annotation>
+              <documentation>Augments the CompositeTimeseries with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCompositeTimeseries" type="anyType"/>
   <complexType name="CompositeTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:CompositeTimeseries"/>
@@ -140,12 +240,15 @@
               <documentation>Relates to the sensor API that delivers timeseries data.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfDynamizer"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfDynamizer" type="dyn:ADEOfDynamizerPropertyType">
+            <annotation>
+              <documentation>Augments the Dynamizer with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfDynamizer" type="anyType"/>
   <complexType name="DynamizerPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:Dynamizer"/>
@@ -172,12 +275,15 @@
               <documentation>Relates to the time-value-pairs that are part of the GenericTimeseries.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfGenericTimeseries"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericTimeseries" type="dyn:ADEOfGenericTimeseriesPropertyType">
+            <annotation>
+              <documentation>Augments the GenericTimeseries with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericTimeseries" type="anyType"/>
   <complexType name="GenericTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:GenericTimeseries"/>
@@ -293,12 +399,15 @@
               <documentation>Specifies the MIME type of the external timeseries file.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfStandardFileTimeseries"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfStandardFileTimeseries" type="dyn:ADEOfStandardFileTimeseriesPropertyType">
+            <annotation>
+              <documentation>Augments the StandardFileTimeseries with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfStandardFileTimeseries" type="anyType"/>
   <complexType name="StandardFileTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:StandardFileTimeseries"/>
@@ -385,12 +494,15 @@
               <documentation>Specifies the name of the column that stores the value of the time-value-pair.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="dyn:AbstractGenericApplicationPropertyOfTabulatedFileTimeseries"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTabulatedFileTimeseries" type="dyn:ADEOfTabulatedFileTimeseriesPropertyType">
+            <annotation>
+              <documentation>Augments the TabulatedFileTimeseries with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfTabulatedFileTimeseries" type="anyType"/>
   <complexType name="TabulatedFileTimeseriesPropertyType">
     <sequence minOccurs="0">
       <element ref="dyn:TabulatedFileTimeseries"/>

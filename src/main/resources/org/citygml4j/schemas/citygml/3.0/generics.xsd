@@ -5,6 +5,86 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfGenericLogicalSpace" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericLogicalSpaceType">
+    <annotation>
+      <documentation>ADEOfGenericLogicalSpace acts as a hook to define properties within an ADE that are to be added to a GenericLogicalSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericLogicalSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericLogicalSpacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericLogicalSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGenericOccupiedSpace" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericOccupiedSpaceType">
+    <annotation>
+      <documentation>ADEOfGenericOccupiedSpace acts as a hook to define properties within an ADE that are to be added to a GenericOccupiedSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericOccupiedSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericOccupiedSpacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericOccupiedSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGenericThematicSurface" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericThematicSurfaceType">
+    <annotation>
+      <documentation>ADEOfGenericThematicSurface acts as a hook to define properties within an ADE that are to be added to a GenericThematicSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericThematicSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericThematicSurfacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericThematicSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGenericUnoccupiedSpace" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericUnoccupiedSpaceType">
+    <annotation>
+      <documentation>ADEOfGenericUnoccupiedSpace acts as a hook to define properties within an ADE that are to be added to a GenericUnoccupiedSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericUnoccupiedSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericUnoccupiedSpacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericUnoccupiedSpace"/>
+    </sequence>
+  </complexType>
+  <element name="CodeAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:CodeAttributeType">
+    <annotation>
+      <documentation>CodeAttribute is a data type used to define generic attributes of type "Code".</documentation>
+    </annotation>
+  </element>
+  <complexType name="CodeAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the CodeAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the "Code" value.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CodeAttributePropertyType">
+    <sequence>
+      <element ref="gen:CodeAttribute"/>
+    </sequence>
+  </complexType>
   <element name="DateAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:DateAttributeType">
     <annotation>
       <documentation>DateAttribute is a data type used to define generic attributes of type "Date".</documentation>
@@ -118,12 +198,15 @@
               <documentation>Specifies the actual uses of the GenericLogicalSpace.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericLogicalSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericLogicalSpace" type="gen:ADEOfGenericLogicalSpacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericLogicalSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericLogicalSpace" type="anyType"/>
   <complexType name="GenericLogicalSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="gen:GenericLogicalSpace"/>
@@ -155,12 +238,15 @@
               <documentation>Specifies the actual uses of the GenericOccupiedSpace.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericOccupiedSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericOccupiedSpace" type="gen:ADEOfGenericOccupiedSpacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericOccupiedSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericOccupiedSpace" type="anyType"/>
   <complexType name="GenericOccupiedSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="gen:GenericOccupiedSpace"/>
@@ -192,12 +278,15 @@
               <documentation>Specifies the actual uses of the GenericThematicSurface.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericThematicSurface"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericThematicSurface" type="gen:ADEOfGenericThematicSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericThematicSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericThematicSurface" type="anyType"/>
   <complexType name="GenericThematicSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="gen:GenericThematicSurface"/>
@@ -229,12 +318,15 @@
               <documentation>Specifies the actual uses of the GenericUnoccupiedSpace.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="gen:AbstractGenericApplicationPropertyOfGenericUnoccupiedSpace"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericUnoccupiedSpace" type="gen:ADEOfGenericUnoccupiedSpacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericUnoccupiedSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfGenericUnoccupiedSpace" type="anyType"/>
   <complexType name="GenericUnoccupiedSpacePropertyType">
     <sequence minOccurs="0">
       <element ref="gen:GenericUnoccupiedSpace"/>

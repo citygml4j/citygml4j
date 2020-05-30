@@ -5,6 +5,19 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfCityObjectGroup" substitutionGroup="gml:AbstractObject" type="grp:ADEOfCityObjectGroupType">
+    <annotation>
+      <documentation>ADEOfCityObjectGroup acts as a hook to define properties within an ADE that are to be added to a CityObjectGroup.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfCityObjectGroupType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfCityObjectGroupPropertyType">
+    <sequence>
+      <element ref="grp:ADEOfCityObjectGroup"/>
+    </sequence>
+  </complexType>
   <element name="CityObjectGroup" substitutionGroup="core:AbstractLogicalSpace" type="grp:CityObjectGroupType">
     <annotation>
       <documentation>A CityObjectGroup represents an application-specific aggregation of city objects according to some user-defined criteria. Examples for groups are the buildings in a specific region, the result of a query, or objects put together for visualization purposes. Each member of a group may be qualified by a role name, reflecting the role each city object plays in the context of the group.</documentation>
@@ -49,12 +62,15 @@
               <documentation>Relates to a city object to which the CityObjectGroup belongs.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="grp:AbstractGenericApplicationPropertyOfCityObjectGroup"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfCityObjectGroup" type="grp:ADEOfCityObjectGroupPropertyType">
+            <annotation>
+              <documentation>Augments the CityObjectGroup with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfCityObjectGroup" type="anyType"/>
   <complexType name="CityObjectGroupPropertyType">
     <sequence minOccurs="0">
       <element ref="grp:CityObjectGroup"/>
@@ -71,7 +87,7 @@
     <complexContent>
       <extension base="gml:AbstractGMLType">
         <sequence>
-          <element name="role" type="string">
+          <element minOccurs="0" name="role" type="string">
             <annotation>
               <documentation>Describes the role the city object plays within the CityObjectGroup.</documentation>
             </annotation>

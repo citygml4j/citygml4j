@@ -5,6 +5,58 @@
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractWaterBoundarySurface" substitutionGroup="gml:AbstractObject" type="wtr:ADEOfAbstractWaterBoundarySurfaceType">
+    <annotation>
+      <documentation>ADEOfAbstractWaterBoundarySurface acts as a hook to define properties within an ADE that are to be added to AbstractWaterBoundarySurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractWaterBoundarySurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractWaterBoundarySurfacePropertyType">
+    <sequence>
+      <element ref="wtr:ADEOfAbstractWaterBoundarySurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfWaterBody" substitutionGroup="gml:AbstractObject" type="wtr:ADEOfWaterBodyType">
+    <annotation>
+      <documentation>ADEOfWaterBody acts as a hook to define properties within an ADE that are to be added to a WaterBody.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfWaterBodyType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfWaterBodyPropertyType">
+    <sequence>
+      <element ref="wtr:ADEOfWaterBody"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfWaterGroundSurface" substitutionGroup="gml:AbstractObject" type="wtr:ADEOfWaterGroundSurfaceType">
+    <annotation>
+      <documentation>ADEOfWaterGroundSurface acts as a hook to define properties within an ADE that are to be added to a WaterGroundSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfWaterGroundSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfWaterGroundSurfacePropertyType">
+    <sequence>
+      <element ref="wtr:ADEOfWaterGroundSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfWaterSurface" substitutionGroup="gml:AbstractObject" type="wtr:ADEOfWaterSurfaceType">
+    <annotation>
+      <documentation>ADEOfWaterSurface acts as a hook to define properties within an ADE that are to be added to a WaterSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfWaterSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfWaterSurfacePropertyType">
+    <sequence>
+      <element ref="wtr:ADEOfWaterSurface"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractWaterBoundarySurface" substitutionGroup="core:AbstractThematicSurface" type="wtr:AbstractWaterBoundarySurfaceType">
     <annotation>
       <documentation>AbstractWaterBoundarySurface is the abstract superclass for all kinds of thematic surfaces bounding a water body.</documentation>
@@ -14,12 +66,15 @@
     <complexContent>
       <extension base="core:AbstractThematicSurfaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="wtr:AbstractGenericApplicationPropertyOfAbstractWaterBoundarySurface"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractWaterBoundarySurface" type="wtr:ADEOfAbstractWaterBoundarySurfacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractWaterBoundarySurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractWaterBoundarySurface" type="anyType"/>
   <complexType name="AbstractWaterBoundarySurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:AbstractWaterBoundarySurface"/>
@@ -51,12 +106,15 @@
               <documentation>Specifies the actual uses of the WaterBody.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="wtr:AbstractGenericApplicationPropertyOfWaterBody"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfWaterBody" type="wtr:ADEOfWaterBodyPropertyType">
+            <annotation>
+              <documentation>Augments the WaterBody with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterBody" type="anyType"/>
   <complexType name="WaterBodyPropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:WaterBody"/>
@@ -73,12 +131,15 @@
     <complexContent>
       <extension base="wtr:AbstractWaterBoundarySurfaceType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="wtr:AbstractGenericApplicationPropertyOfWaterGroundSurface"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfWaterGroundSurface" type="wtr:ADEOfWaterGroundSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the WaterGroundSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterGroundSurface" type="anyType"/>
   <complexType name="WaterGroundSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:WaterGroundSurface"/>
@@ -100,12 +161,15 @@
               <documentation>Specifies the level of the WaterSurface.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="wtr:AbstractGenericApplicationPropertyOfWaterSurface"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfWaterSurface" type="wtr:ADEOfWaterSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the WaterSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfWaterSurface" type="anyType"/>
   <complexType name="WaterSurfacePropertyType">
     <sequence minOccurs="0">
       <element ref="wtr:WaterSurface"/>

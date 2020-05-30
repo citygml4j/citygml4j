@@ -6,6 +6,97 @@
   <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractBridge" substitutionGroup="gml:AbstractObject" type="brid:ADEOfAbstractBridgeType">
+    <annotation>
+      <documentation>ADEOfAbstractBridge acts as a hook to define properties within an ADE that are to be added to AbstractBridge.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractBridgeType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractBridgePropertyType">
+    <sequence>
+      <element ref="brid:ADEOfAbstractBridge"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridge" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeType">
+    <annotation>
+      <documentation>ADEOfBridge acts as a hook to define properties within an ADE that are to be added to a Bridge.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgePropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridge"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeConstructiveElement" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeConstructiveElementType">
+    <annotation>
+      <documentation>ADEOfBridgeConstructiveElement acts as a hook to define properties within an ADE that are to be added to a BridgeConstructiveElement.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeConstructiveElementType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeConstructiveElementPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeConstructiveElement"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeFurniture" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeFurnitureType">
+    <annotation>
+      <documentation>ADEOfBridgeFurniture acts as a hook to define properties within an ADE that are to be added to a BridgeFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeFurniturePropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeFurniture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeInstallation" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeInstallationType">
+    <annotation>
+      <documentation>ADEOfBridgeInstallation acts as a hook to define properties within an ADE that are to be added to a BridgeInstallation.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeInstallationType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeInstallationPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeInstallation"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgePart" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgePartType">
+    <annotation>
+      <documentation>ADEOfBridgePart acts as a hook to define properties within an ADE that are to be added to a BridgePart.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgePartType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgePartPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgePart"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeRoom" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeRoomType">
+    <annotation>
+      <documentation>ADEOfBridgeRoom acts as a hook to define properties within an ADE that are to be added to a BridgeRoom.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeRoomType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeRoomPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeRoom"/>
+    </sequence>
+  </complexType>
   <element abstract="true" name="AbstractBridge" substitutionGroup="con:AbstractConstruction" type="brid:AbstractBridgeType">
     <annotation>
       <documentation>AbstractBridge is an abstract superclass representing the common attributes and associations of the classes Bridge and BridgePart.</documentation>
@@ -96,12 +187,15 @@
               <documentation>Relates the addresses to the Bridge or BridgePart.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="brid:AbstractGenericApplicationPropertyOfAbstractBridge"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractBridge" type="brid:ADEOfAbstractBridgePropertyType">
+            <annotation>
+              <documentation>Augments AbstractBridge with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfAbstractBridge" type="anyType"/>
   <complexType name="AbstractBridgePropertyType">
     <sequence minOccurs="0">
       <element ref="brid:AbstractBridge"/>
@@ -133,12 +227,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="brid:AbstractGenericApplicationPropertyOfBridge"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridge" type="brid:ADEOfBridgePropertyType">
+            <annotation>
+              <documentation>Augments the Bridge with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBridge" type="anyType"/>
   <complexType name="BridgePropertyType">
     <sequence minOccurs="0">
       <element ref="brid:Bridge"/>
@@ -170,12 +267,15 @@
               <documentation>Specifies the actual uses of the BridgeConstructiveElement.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="brid:AbstractGenericApplicationPropertyOfBridgeConstructiveElement"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeConstructiveElement" type="brid:ADEOfBridgeConstructiveElementPropertyType">
+            <annotation>
+              <documentation>Augments the BridgeConstructiveElement with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeConstructiveElement" type="anyType"/>
   <complexType name="BridgeConstructiveElementPropertyType">
     <sequence minOccurs="0">
       <element ref="brid:BridgeConstructiveElement"/>
@@ -207,12 +307,15 @@
               <documentation>Specifies the actual uses of the BridgeFurniture.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="brid:AbstractGenericApplicationPropertyOfBridgeFurniture"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeFurniture" type="brid:ADEOfBridgeFurniturePropertyType">
+            <annotation>
+              <documentation>Augments the BridgeFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeFurniture" type="anyType"/>
   <complexType name="BridgeFurniturePropertyType">
     <sequence minOccurs="0">
       <element ref="brid:BridgeFurniture"/>
@@ -244,12 +347,15 @@
               <documentation>Specifies the actual uses of the BridgeInstallation.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="brid:AbstractGenericApplicationPropertyOfBridgeInstallation"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeInstallation" type="brid:ADEOfBridgeInstallationPropertyType">
+            <annotation>
+              <documentation>Augments the BridgeInstallation with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeInstallation" type="anyType"/>
   <complexType name="BridgeInstallationPropertyType">
     <sequence minOccurs="0">
       <element ref="brid:BridgeInstallation"/>
@@ -266,12 +372,15 @@
     <complexContent>
       <extension base="brid:AbstractBridgeType">
         <sequence>
-          <element maxOccurs="unbounded" minOccurs="0" ref="brid:AbstractGenericApplicationPropertyOfBridgePart"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgePart" type="brid:ADEOfBridgePartPropertyType">
+            <annotation>
+              <documentation>Augments the BridgePart with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgePart" type="anyType"/>
   <complexType name="BridgePartPropertyType">
     <sequence minOccurs="0">
       <element ref="brid:BridgePart"/>
@@ -335,12 +444,15 @@
               </complexContent>
             </complexType>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" ref="brid:AbstractGenericApplicationPropertyOfBridgeRoom"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeRoom" type="brid:ADEOfBridgeRoomPropertyType">
+            <annotation>
+              <documentation>Augments the BridgeRoom with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element abstract="true" name="AbstractGenericApplicationPropertyOfBridgeRoom" type="anyType"/>
   <complexType name="BridgeRoomPropertyType">
     <sequence minOccurs="0">
       <element ref="brid:BridgeRoom"/>
