@@ -1,5 +1,6 @@
 package org.citygml4j.model.relief;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -51,9 +52,19 @@ public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
+        if (adeOfAbstractReliefComponent != null) {
+            for (ADEOfAbstractReliefComponent container : adeOfAbstractReliefComponent)
+                updateEnvelope(container, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
         if (adeProperties != null) {
             for (ADEOfAbstractReliefComponent<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 }

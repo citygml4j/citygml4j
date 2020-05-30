@@ -45,9 +45,9 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractInstallation<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractInstallation != null) {
+            for (ADEOfAbstractInstallation container : adeOfAbstractInstallation)
+                updateEnvelope(container, envelope, options);
         }
     }
 

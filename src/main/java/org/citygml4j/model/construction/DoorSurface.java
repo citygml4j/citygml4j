@@ -39,9 +39,9 @@ public class DoorSurface extends AbstractFillingSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfDoorSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfDoorSurface != null) {
+            for (ADEOfDoorSurface container : adeOfDoorSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

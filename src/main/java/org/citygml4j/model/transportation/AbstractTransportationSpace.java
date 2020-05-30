@@ -144,9 +144,9 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
 
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractTransportationSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractTransportationSpace != null) {
+            for (ADEOfAbstractTransportationSpace container : adeOfAbstractTransportationSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

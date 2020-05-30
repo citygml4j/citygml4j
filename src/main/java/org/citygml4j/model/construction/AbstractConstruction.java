@@ -113,9 +113,9 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractConstruction<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractConstruction != null) {
+            for (ADEOfAbstractConstruction container : adeOfAbstractConstruction)
+                updateEnvelope(container, envelope, options);
         }
     }
 

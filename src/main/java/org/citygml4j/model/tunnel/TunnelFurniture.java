@@ -89,9 +89,9 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfTunnelFurniture<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTunnelFurniture != null) {
+            for (ADEOfTunnelFurniture container : adeOfTunnelFurniture)
+                updateEnvelope(container, envelope, options);
         }
     }
 

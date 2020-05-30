@@ -136,9 +136,9 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingRoom<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBuildingRoom != null) {
+            for (ADEOfBuildingRoom container : adeOfBuildingRoom)
+                updateEnvelope(container, envelope, options);
         }
     }
 

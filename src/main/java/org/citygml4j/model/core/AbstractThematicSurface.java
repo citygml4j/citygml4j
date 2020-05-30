@@ -157,9 +157,9 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractThematicSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractThematicSurface != null) {
+            for (ADEOfAbstractThematicSurface container : adeOfAbstractThematicSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

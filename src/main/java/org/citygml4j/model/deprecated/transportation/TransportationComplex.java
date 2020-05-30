@@ -1,5 +1,6 @@
 package org.citygml4j.model.deprecated.transportation;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.transportation.AbstractTransportationSpace;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -67,9 +68,19 @@ public class TransportationComplex extends AbstractTransportationSpace implement
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
+        if (adeOfTransportationComplex != null) {
+            for (ADEOfTransportationComplex container : adeOfTransportationComplex)
+                updateEnvelope(container, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
         if (adeProperties != null) {
             for (ADEOfTransportationComplex<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

@@ -108,9 +108,9 @@ public class CityModel extends AbstractFeatureWithLifespan {
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfCityModel<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfCityModel != null) {
+            for (ADEOfCityModel container : adeOfCityModel)
+                updateEnvelope(container, envelope, options);
         }
     }
 

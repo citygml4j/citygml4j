@@ -68,9 +68,9 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingConstructiveElement<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBuildingConstructiveElement != null) {
+            for (ADEOfBuildingConstructiveElement container : adeOfBuildingConstructiveElement)
+                updateEnvelope(container, envelope, options);
         }
     }
 

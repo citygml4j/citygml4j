@@ -133,9 +133,9 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractCityObject<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractCityObject != null) {
+            for (ADEOfAbstractCityObject container : adeOfAbstractCityObject)
+                updateEnvelope(container, envelope, options);
         }
     }
 

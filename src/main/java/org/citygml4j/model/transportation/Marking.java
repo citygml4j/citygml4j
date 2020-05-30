@@ -37,9 +37,9 @@ public class Marking extends AbstractThematicSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfMarking<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfMarking != null) {
+            for (ADEOfMarking container : adeOfMarking)
+                updateEnvelope(container, envelope, options);
         }
     }
 

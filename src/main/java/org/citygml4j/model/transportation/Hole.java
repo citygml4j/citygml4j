@@ -47,9 +47,9 @@ public class Hole extends AbstractUnoccupiedSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfHole<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfHole != null) {
+            for (ADEOfHole container : adeOfHole)
+                updateEnvelope(container, envelope, options);
         }
     }
 

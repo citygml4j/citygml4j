@@ -46,9 +46,9 @@ public class Intersection extends AbstractTransportationSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfIntersection<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfIntersection != null) {
+            for (ADEOfIntersection container : adeOfIntersection)
+                updateEnvelope(container, envelope, options);
         }
     }
 

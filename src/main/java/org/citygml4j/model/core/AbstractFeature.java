@@ -22,6 +22,7 @@ package org.citygml4j.model.core;
 import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.ade.ADEProperty;
+import org.citygml4j.model.ade.ADEPropertyContainer;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.LevelOfDetail;
 import org.citygml4j.visitor.Visitable;
@@ -58,14 +59,14 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFeature<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractFeature != null) {
+            for (ADEOfAbstractFeature container : adeOfAbstractFeature)
+                updateEnvelope(container, envelope, options);
         }
     }
 
-    protected final void updateEnvelope(ADEProperty<?> property, Envelope envelope, EnvelopeOptions options) {
-        ADEEnvelopeBuilder.updateEnvelope(property.getValue(), envelope, options, Collections.newSetFromMap(new IdentityHashMap<>()));
+    protected final void updateEnvelope(ADEPropertyContainer container, Envelope envelope, EnvelopeOptions options) {
+        ADEEnvelopeBuilder.updateEnvelope(container, envelope, options, Collections.newSetFromMap(new IdentityHashMap<>()));
     }
 
     public final GeometryInfo getGeometryInfo() {

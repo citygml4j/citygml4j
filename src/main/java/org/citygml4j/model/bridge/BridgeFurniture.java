@@ -89,9 +89,9 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeFurniture<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBridgeFurniture != null) {
+            for (ADEOfBridgeFurniture container : adeOfBridgeFurniture)
+                updateEnvelope(container, envelope, options);
         }
     }
 

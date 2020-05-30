@@ -26,9 +26,9 @@ public class BridgePart extends AbstractBridge {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfBridgePart<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBridgePart != null) {
+            for (ADEOfBridgePart container : adeOfBridgePart)
+                updateEnvelope(container, envelope, options);
         }
     }
 

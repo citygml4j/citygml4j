@@ -105,9 +105,9 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfRailway<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfRailway != null) {
+            for (ADEOfRailway container : adeOfRailway)
+                updateEnvelope(container, envelope, options);
         }
     }
 

@@ -26,9 +26,9 @@ public class TunnelPart extends AbstractTunnel {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfTunnelPart<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTunnelPart != null) {
+            for (ADEOfTunnelPart container : adeOfTunnelPart)
+                updateEnvelope(container, envelope, options);
         }
     }
 

@@ -188,9 +188,9 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractBridge<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractBridge != null) {
+            for (ADEOfAbstractBridge container : adeOfAbstractBridge)
+                updateEnvelope(container, envelope, options);
         }
     }
 

@@ -68,9 +68,9 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfGenericThematicSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfGenericThematicSurface != null) {
+            for (ADEOfGenericThematicSurface container : adeOfGenericThematicSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

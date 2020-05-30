@@ -25,9 +25,9 @@ public abstract class AbstractLogicalSpace extends AbstractSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractLogicalSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractLogicalSpace != null) {
+            for (ADEOfAbstractLogicalSpace container : adeOfAbstractLogicalSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

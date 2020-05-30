@@ -67,9 +67,9 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfSquare<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfSquare != null) {
+            for (ADEOfSquare container : adeOfSquare)
+                updateEnvelope(container, envelope, options);
         }
     }
 

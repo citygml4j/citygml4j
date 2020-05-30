@@ -105,9 +105,9 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfWaterway<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfWaterway != null) {
+            for (ADEOfWaterway container : adeOfWaterway)
+                updateEnvelope(container, envelope, options);
         }
     }
 

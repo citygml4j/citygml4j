@@ -95,9 +95,9 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfTunnelInstallation<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTunnelInstallation != null) {
+            for (ADEOfTunnelInstallation container : adeOfTunnelInstallation)
+                updateEnvelope(container, envelope, options);
         }
     }
 

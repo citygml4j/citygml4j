@@ -76,9 +76,9 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfGenericLogicalSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfGenericLogicalSpace != null) {
+            for (ADEOfGenericLogicalSpace container : adeOfGenericLogicalSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

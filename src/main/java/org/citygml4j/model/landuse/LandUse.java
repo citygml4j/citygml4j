@@ -68,9 +68,9 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfLandUse<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfLandUse != null) {
+            for (ADEOfLandUse container : adeOfLandUse)
+                updateEnvelope(container, envelope, options);
         }
     }
 

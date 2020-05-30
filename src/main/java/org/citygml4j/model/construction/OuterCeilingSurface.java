@@ -26,9 +26,9 @@ public class OuterCeilingSurface extends AbstractConstructionSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfOuterCeilingSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfOuterCeilingSurface != null) {
+            for (ADEOfOuterCeilingSurface container : adeOfOuterCeilingSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

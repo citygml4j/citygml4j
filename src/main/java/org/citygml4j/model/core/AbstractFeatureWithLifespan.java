@@ -62,9 +62,9 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFeatureWithLifespan<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractFeatureWithLifespan != null) {
+            for (ADEOfAbstractFeatureWithLifespan container : adeOfAbstractFeatureWithLifespan)
+                updateEnvelope(container, envelope, options);
         }
     }
 

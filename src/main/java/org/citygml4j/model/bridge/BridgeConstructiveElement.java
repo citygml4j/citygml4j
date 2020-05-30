@@ -98,9 +98,9 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeConstructiveElement<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBridgeConstructiveElement != null) {
+            for (ADEOfBridgeConstructiveElement container : adeOfBridgeConstructiveElement)
+                updateEnvelope(container, envelope, options);
         }
     }
 

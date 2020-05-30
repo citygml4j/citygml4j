@@ -61,9 +61,9 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractConstructiveElement<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractConstructiveElement != null) {
+            for (ADEOfAbstractConstructiveElement container : adeOfAbstractConstructiveElement)
+                updateEnvelope(container, envelope, options);
         }
     }
 

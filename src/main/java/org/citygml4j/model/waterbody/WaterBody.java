@@ -102,9 +102,9 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfWaterBody<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfWaterBody != null) {
+            for (ADEOfWaterBody container : adeOfWaterBody)
+                updateEnvelope(container, envelope, options);
         }
     }
 

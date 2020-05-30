@@ -26,9 +26,9 @@ public class FloorSurface extends AbstractConstructionSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfFloorSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfFloorSurface != null) {
+            for (ADEOfFloorSurface container : adeOfFloorSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

@@ -45,9 +45,9 @@ public class Bridge extends AbstractBridge {
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridge<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBridge != null) {
+            for (ADEOfBridge container : adeOfBridge)
+                updateEnvelope(container, envelope, options);
         }
     }
 

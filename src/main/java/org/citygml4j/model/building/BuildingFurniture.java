@@ -90,9 +90,9 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingFurniture<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBuildingFurniture != null) {
+            for (ADEOfBuildingFurniture container : adeOfBuildingFurniture)
+                updateEnvelope(container, envelope, options);
         }
     }
 

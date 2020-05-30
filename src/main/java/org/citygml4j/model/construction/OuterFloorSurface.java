@@ -26,9 +26,9 @@ public class OuterFloorSurface extends AbstractConstructionSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfOuterFloorSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfOuterFloorSurface != null) {
+            for (ADEOfOuterFloorSurface container : adeOfOuterFloorSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

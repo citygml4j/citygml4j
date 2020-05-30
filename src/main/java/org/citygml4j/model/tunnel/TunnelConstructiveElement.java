@@ -1,5 +1,6 @@
 package org.citygml4j.model.tunnel;
 
+import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructiveElement;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -67,9 +68,19 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
+        if (adeOfTunnelConstructiveElement != null) {
+            for (ADEOfTunnelConstructiveElement container : adeOfTunnelConstructiveElement)
+                updateEnvelope(container, envelope, options);
+        }
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
         if (adeProperties != null) {
             for (ADEOfTunnelConstructiveElement<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 

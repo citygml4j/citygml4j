@@ -26,9 +26,9 @@ public abstract class AbstractWaterBoundarySurface extends AbstractThematicSurfa
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractWaterBoundarySurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractWaterBoundarySurface != null) {
+            for (ADEOfAbstractWaterBoundarySurface container : adeOfAbstractWaterBoundarySurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

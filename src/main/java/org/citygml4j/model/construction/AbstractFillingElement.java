@@ -36,9 +36,9 @@ public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFillingElement<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractFillingElement != null) {
+            for (ADEOfAbstractFillingElement container : adeOfAbstractFillingElement)
+                updateEnvelope(container, envelope, options);
         }
     }
 

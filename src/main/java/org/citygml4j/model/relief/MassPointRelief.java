@@ -65,9 +65,9 @@ public class MassPointRelief extends AbstractReliefComponent {
         if (pointCloud != null && pointCloud.getObject() != null)
             envelope.include(pointCloud.getObject().computeEnvelope(options));
 
-        if (adeProperties != null) {
-            for (ADEOfMassPointRelief<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfMassPointRelief != null) {
+            for (ADEOfMassPointRelief container : adeOfMassPointRelief)
+                updateEnvelope(container, envelope, options);
         }
     }
 

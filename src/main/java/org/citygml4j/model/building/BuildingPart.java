@@ -26,9 +26,9 @@ public class BuildingPart extends AbstractBuilding {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingPart<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBuildingPart != null) {
+            for (ADEOfBuildingPart container : adeOfBuildingPart)
+                updateEnvelope(container, envelope, options);
         }
     }
 

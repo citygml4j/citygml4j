@@ -67,9 +67,9 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfOtherConstruction<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfOtherConstruction != null) {
+            for (ADEOfOtherConstruction container : adeOfOtherConstruction)
+                updateEnvelope(container, envelope, options);
         }
     }
 

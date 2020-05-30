@@ -20,7 +20,6 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.ade.ADEProperty;
 import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.gml.model.base.AbstractArrayProperty;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
@@ -72,8 +71,6 @@ public class ADEEnvelopeBuilder {
             updateEnvelope(((AbstractInlineOrByReferenceProperty<?>) object).getObject(), envelope, options, visited);
         else if (object instanceof AbstractInlineProperty<?>)
             updateEnvelope(((AbstractInlineProperty<?>) object).getObject(), envelope, options, visited);
-        else if (object instanceof ADEProperty<?>)
-            updateEnvelope(((ADEProperty<?>) object).getValue(), envelope, options, visited);
         else if (object instanceof GMLObject)
             updateEnvelope((GMLObject) object, envelope, options, visited);
         else if (object instanceof Collection<?>)

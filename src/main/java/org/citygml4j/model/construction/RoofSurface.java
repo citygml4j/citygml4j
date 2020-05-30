@@ -26,9 +26,9 @@ public class RoofSurface extends AbstractConstructionSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfRoofSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfRoofSurface != null) {
+            for (ADEOfRoofSurface container : adeOfRoofSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

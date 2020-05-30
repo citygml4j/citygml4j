@@ -45,9 +45,9 @@ public class Building extends AbstractBuilding {
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBuilding<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBuilding != null) {
+            for (ADEOfBuilding container : adeOfBuilding)
+                updateEnvelope(container, envelope, options);
         }
     }
 

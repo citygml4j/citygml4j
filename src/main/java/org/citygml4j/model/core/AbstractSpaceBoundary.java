@@ -25,9 +25,9 @@ public abstract class AbstractSpaceBoundary extends AbstractCityObject {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractSpaceBoundary<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractSpaceBoundary != null) {
+            for (ADEOfAbstractSpaceBoundary container : adeOfAbstractSpaceBoundary)
+                updateEnvelope(container, envelope, options);
         }
     }
 

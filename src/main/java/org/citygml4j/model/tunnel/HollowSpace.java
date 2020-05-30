@@ -124,9 +124,9 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfHollowSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfHollowSpace != null) {
+            for (ADEOfHollowSpace container : adeOfHollowSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

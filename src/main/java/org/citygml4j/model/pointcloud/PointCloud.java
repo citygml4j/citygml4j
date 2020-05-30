@@ -81,9 +81,9 @@ public class PointCloud extends AbstractPointCloud {
         if (points != null && points.getObject() != null)
             envelope.include(points.getObject().computeEnvelope());
 
-        if (adeProperties != null) {
-            for (ADEOfPointCloud<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfPointCloud != null) {
+            for (ADEOfPointCloud container : adeOfPointCloud)
+                updateEnvelope(container, envelope, options);
         }
     }
 

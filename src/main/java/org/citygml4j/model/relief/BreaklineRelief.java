@@ -70,9 +70,9 @@ public class BreaklineRelief extends AbstractReliefComponent {
         if (breaklines != null && breaklines.getObject() != null)
             envelope.include(breaklines.getObject().computeEnvelope());
 
-        if (adeProperties != null) {
-            for (ADEOfBreaklineRelief<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBreaklineRelief != null) {
+            for (ADEOfBreaklineRelief container : adeOfBreaklineRelief)
+                updateEnvelope(container, envelope, options);
         }
     }
 

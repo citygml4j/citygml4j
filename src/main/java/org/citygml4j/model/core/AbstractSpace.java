@@ -292,9 +292,9 @@ public abstract class AbstractSpace extends AbstractCityObject {
                 envelope.include(solidProperty.getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractSpace != null) {
+            for (ADEOfAbstractSpace container : adeOfAbstractSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

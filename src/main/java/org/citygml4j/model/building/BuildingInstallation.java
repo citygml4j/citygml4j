@@ -96,9 +96,9 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingInstallation<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBuildingInstallation != null) {
+            for (ADEOfBuildingInstallation container : adeOfBuildingInstallation)
+                updateEnvelope(container, envelope, options);
         }
     }
 

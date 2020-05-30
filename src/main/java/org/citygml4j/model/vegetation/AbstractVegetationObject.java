@@ -35,9 +35,9 @@ public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractVegetationObject<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractVegetationObject != null) {
+            for (ADEOfAbstractVegetationObject container : adeOfAbstractVegetationObject)
+                updateEnvelope(container, envelope, options);
         }
     }
 

@@ -21,5 +21,5 @@ package org.citygml4j.model.ade;
 
 import org.xmlobjects.gml.model.GMLObject;
 
-public abstract class ADEContainer extends GMLObject implements ADEObject {
+public abstract class ADEPropertyContainer extends GMLObject implements ADEObject {
 }

@@ -87,9 +87,9 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
                 envelope.include(property.getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractOccupiedSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractOccupiedSpace != null) {
+            for (ADEOfAbstractOccupiedSpace container : adeOfAbstractOccupiedSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

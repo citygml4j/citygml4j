@@ -39,9 +39,9 @@ public class Storey extends AbstractBuildingSubdivision {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfStorey<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfStorey != null) {
+            for (ADEOfStorey container : adeOfStorey)
+                updateEnvelope(container, envelope, options);
         }
     }
 

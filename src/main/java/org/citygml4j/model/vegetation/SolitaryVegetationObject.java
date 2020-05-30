@@ -152,9 +152,9 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfSolitaryVegetationObject<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfSolitaryVegetationObject != null) {
+            for (ADEOfSolitaryVegetationObject container : adeOfSolitaryVegetationObject)
+                updateEnvelope(container, envelope, options);
         }
     }
 

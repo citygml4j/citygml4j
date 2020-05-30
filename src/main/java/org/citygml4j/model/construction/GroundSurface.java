@@ -26,9 +26,9 @@ public class GroundSurface extends AbstractConstructionSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfGroundSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfGroundSurface != null) {
+            for (ADEOfGroundSurface container : adeOfGroundSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

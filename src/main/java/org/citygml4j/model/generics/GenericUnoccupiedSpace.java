@@ -76,9 +76,9 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfGenericUnoccupiedSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfGenericUnoccupiedSpace != null) {
+            for (ADEOfGenericUnoccupiedSpace container : adeOfGenericUnoccupiedSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

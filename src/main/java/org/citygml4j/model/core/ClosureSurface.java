@@ -26,9 +26,9 @@ public class ClosureSurface extends AbstractThematicSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfClosureSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfClosureSurface != null) {
+            for (ADEOfClosureSurface container : adeOfClosureSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

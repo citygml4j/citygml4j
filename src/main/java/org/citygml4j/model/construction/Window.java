@@ -77,9 +77,9 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfWindow<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfWindow != null) {
+            for (ADEOfWindow container : adeOfWindow)
+                updateEnvelope(container, envelope, options);
         }
     }
 

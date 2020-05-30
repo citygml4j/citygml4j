@@ -27,9 +27,9 @@ public class HoleSurface extends AbstractThematicSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfHoleSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfHoleSurface != null) {
+            for (ADEOfHoleSurface container : adeOfHoleSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

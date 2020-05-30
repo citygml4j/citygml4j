@@ -128,9 +128,9 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
                 envelope.include(properties.getLod4MultiSolid().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfPlantCover<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfPlantCover != null) {
+            for (ADEOfPlantCover container : adeOfPlantCover)
+                updateEnvelope(container, envelope, options);
         }
     }
 

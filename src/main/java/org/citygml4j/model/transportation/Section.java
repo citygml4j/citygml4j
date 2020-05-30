@@ -46,9 +46,9 @@ public class Section extends AbstractTransportationSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfSection<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfSection != null) {
+            for (ADEOfSection container : adeOfSection)
+                updateEnvelope(container, envelope, options);
         }
     }
 

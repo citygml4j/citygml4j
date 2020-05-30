@@ -26,9 +26,9 @@ public class WallSurface extends AbstractConstructionSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfWallSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfWallSurface != null) {
+            for (ADEOfWallSurface container : adeOfWallSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

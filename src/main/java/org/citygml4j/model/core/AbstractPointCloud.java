@@ -23,9 +23,9 @@ public abstract class AbstractPointCloud extends AbstractFeature {
 
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        if (adeProperties != null) {
-            for (ADEOfAbstractPointCloud<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractPointCloud != null) {
+            for (ADEOfAbstractPointCloud container : adeOfAbstractPointCloud)
+                updateEnvelope(container, envelope, options);
         }
     }
 

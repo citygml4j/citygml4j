@@ -94,9 +94,9 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
         if (pointCloud != null && pointCloud.getObject() != null)
             envelope.include(pointCloud.getObject().computeEnvelope(options));
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractPhysicalSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractPhysicalSpace != null) {
+            for (ADEOfAbstractPhysicalSpace container : adeOfAbstractPhysicalSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

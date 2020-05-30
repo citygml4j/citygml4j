@@ -45,9 +45,9 @@ public class Tunnel extends AbstractTunnel {
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfTunnel<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTunnel != null) {
+            for (ADEOfTunnel container : adeOfTunnel)
+                updateEnvelope(container, envelope, options);
         }
     }
 

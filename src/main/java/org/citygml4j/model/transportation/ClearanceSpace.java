@@ -46,9 +46,9 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfClearanceSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfClearanceSpace != null) {
+            for (ADEOfClearanceSpace container : adeOfClearanceSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

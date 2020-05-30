@@ -52,9 +52,9 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingUnit<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBuildingUnit != null) {
+            for (ADEOfBuildingUnit container : adeOfBuildingUnit)
+                updateEnvelope(container, envelope, options);
         }
     }
 

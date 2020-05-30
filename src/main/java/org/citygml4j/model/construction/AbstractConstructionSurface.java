@@ -38,9 +38,9 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractConstructionSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractConstructionSurface != null) {
+            for (ADEOfAbstractConstructionSurface container : adeOfAbstractConstructionSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

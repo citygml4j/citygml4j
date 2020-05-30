@@ -26,9 +26,9 @@ public class WindowSurface extends AbstractFillingSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfWindowSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfWindowSurface != null) {
+            for (ADEOfWindowSurface container : adeOfWindowSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

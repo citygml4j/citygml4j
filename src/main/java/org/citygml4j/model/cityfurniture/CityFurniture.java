@@ -107,9 +107,9 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfCityFurniture<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfCityFurniture != null) {
+            for (ADEOfCityFurniture container : adeOfCityFurniture)
+                updateEnvelope(container, envelope, options);
         }
     }
 

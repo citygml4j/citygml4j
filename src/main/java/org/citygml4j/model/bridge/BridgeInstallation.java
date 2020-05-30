@@ -95,9 +95,9 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeInstallation<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBridgeInstallation != null) {
+            for (ADEOfBridgeInstallation container : adeOfBridgeInstallation)
+                updateEnvelope(container, envelope, options);
         }
     }
 

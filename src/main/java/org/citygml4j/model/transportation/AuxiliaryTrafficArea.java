@@ -77,9 +77,9 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAuxiliaryTrafficArea<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAuxiliaryTrafficArea != null) {
+            for (ADEOfAuxiliaryTrafficArea container : adeOfAuxiliaryTrafficArea)
+                updateEnvelope(container, envelope, options);
         }
     }
 

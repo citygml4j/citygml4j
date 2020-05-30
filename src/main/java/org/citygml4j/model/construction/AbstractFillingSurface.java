@@ -50,9 +50,9 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFillingSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractFillingSurface != null) {
+            for (ADEOfAbstractFillingSurface container : adeOfAbstractFillingSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 

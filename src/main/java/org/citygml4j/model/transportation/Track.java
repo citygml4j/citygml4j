@@ -105,9 +105,9 @@ public class Track extends AbstractTransportationSpace implements StandardObject
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfTrack<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTrack != null) {
+            for (ADEOfTrack container : adeOfTrack)
+                updateEnvelope(container, envelope, options);
         }
     }
 

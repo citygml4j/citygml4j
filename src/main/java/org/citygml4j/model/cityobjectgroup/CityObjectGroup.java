@@ -126,9 +126,9 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
                 envelope.include(properties.getGeometry().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfCityObjectGroup<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfCityObjectGroup != null) {
+            for (ADEOfCityObjectGroup container : adeOfCityObjectGroup)
+                updateEnvelope(container, envelope, options);
         }
     }
 

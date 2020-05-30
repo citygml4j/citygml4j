@@ -162,9 +162,9 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractTunnel<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractTunnel != null) {
+            for (ADEOfAbstractTunnel container : adeOfAbstractTunnel)
+                updateEnvelope(container, envelope, options);
         }
     }
 

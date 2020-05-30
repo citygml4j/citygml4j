@@ -149,9 +149,9 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractBuildingSubdivision<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractBuildingSubdivision != null) {
+            for (ADEOfAbstractBuildingSubdivision container : adeOfAbstractBuildingSubdivision)
+                updateEnvelope(container, envelope, options);
         }
     }
 

@@ -94,9 +94,9 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAuxiliaryTrafficSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAuxiliaryTrafficSpace != null) {
+            for (ADEOfAuxiliaryTrafficSpace container : adeOfAuxiliaryTrafficSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

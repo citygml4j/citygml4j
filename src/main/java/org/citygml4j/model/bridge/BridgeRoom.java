@@ -124,9 +124,9 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeRoom<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfBridgeRoom != null) {
+            for (ADEOfBridgeRoom container : adeOfBridgeRoom)
+                updateEnvelope(container, envelope, options);
         }
     }
 

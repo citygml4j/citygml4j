@@ -90,9 +90,9 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfDoor<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfDoor != null) {
+            for (ADEOfDoor container : adeOfDoor)
+                updateEnvelope(container, envelope, options);
         }
     }
 

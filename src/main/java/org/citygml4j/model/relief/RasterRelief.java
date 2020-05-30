@@ -46,9 +46,9 @@ public class RasterRelief extends AbstractReliefComponent {
         if (grid != null && grid.getObject() != null)
             envelope.include(grid.getObject().computeEnvelope(options));
 
-        if (adeProperties != null) {
-            for (ADEOfRasterRelief<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfRasterRelief != null) {
+            for (ADEOfRasterRelief container : adeOfRasterRelief)
+                updateEnvelope(container, envelope, options);
         }
     }
 

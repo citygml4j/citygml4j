@@ -77,9 +77,9 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfTrafficArea<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTrafficArea != null) {
+            for (ADEOfTrafficArea container : adeOfTrafficArea)
+                updateEnvelope(container, envelope, options);
         }
     }
 

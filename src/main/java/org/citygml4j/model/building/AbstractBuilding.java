@@ -243,9 +243,9 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractBuilding<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractBuilding != null) {
+            for (ADEOfAbstractBuilding container : adeOfAbstractBuilding)
+                updateEnvelope(container, envelope, options);
         }
     }
 

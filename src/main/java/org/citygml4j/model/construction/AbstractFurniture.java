@@ -35,9 +35,9 @@ public abstract class AbstractFurniture extends AbstractOccupiedSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFurniture<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractFurniture != null) {
+            for (ADEOfAbstractFurniture container : adeOfAbstractFurniture)
+                updateEnvelope(container, envelope, options);
         }
     }
 

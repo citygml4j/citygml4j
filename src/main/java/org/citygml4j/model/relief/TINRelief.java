@@ -46,9 +46,9 @@ public class TINRelief extends AbstractReliefComponent {
         if (tin != null && tin.getObject() != null)
             envelope.include(tin.getObject().computeEnvelope());
 
-        if (adeProperties != null) {
-            for (ADEOfTINRelief<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTINRelief != null) {
+            for (ADEOfTINRelief container : adeOfTINRelief)
+                updateEnvelope(container, envelope, options);
         }
     }
 

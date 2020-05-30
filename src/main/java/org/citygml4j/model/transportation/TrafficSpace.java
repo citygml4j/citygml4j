@@ -159,9 +159,9 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfTrafficSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfTrafficSpace != null) {
+            for (ADEOfTrafficSpace container : adeOfTrafficSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

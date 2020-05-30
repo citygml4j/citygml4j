@@ -112,9 +112,9 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfGenericOccupiedSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfGenericOccupiedSpace != null) {
+            for (ADEOfGenericOccupiedSpace container : adeOfGenericOccupiedSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

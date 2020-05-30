@@ -64,9 +64,9 @@ public class ReliefFeature extends AbstractSpaceBoundary {
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfReliefFeature<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfReliefFeature != null) {
+            for (ADEOfReliefFeature container : adeOfReliefFeature)
+                updateEnvelope(container, envelope, options);
         }
     }
 

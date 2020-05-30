@@ -105,9 +105,9 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfRoad<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfRoad != null) {
+            for (ADEOfRoad container : adeOfRoad)
+                updateEnvelope(container, envelope, options);
         }
     }
 

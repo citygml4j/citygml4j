@@ -53,9 +53,9 @@ public class Address extends AbstractFeature {
         if (multiPoint != null && multiPoint.getObject() != null)
             envelope.include(multiPoint.getObject().computeEnvelope());
 
-        if (adeProperties != null) {
-            for (ADEOfAddress<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAddress != null) {
+            for (ADEOfAddress container : adeOfAddress)
+                updateEnvelope(container, envelope, options);
         }
     }
 

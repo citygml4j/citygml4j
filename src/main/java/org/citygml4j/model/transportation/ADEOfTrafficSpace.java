@@ -1,6 +1,6 @@
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEPropertyContainer;
 
-public abstract class ADEOfTrafficSpace extends ADEContainer {
+public abstract class ADEOfTrafficSpace extends ADEPropertyContainer {
 }

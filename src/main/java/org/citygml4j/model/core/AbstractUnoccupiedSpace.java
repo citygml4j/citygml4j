@@ -25,9 +25,9 @@ public abstract class AbstractUnoccupiedSpace extends AbstractPhysicalSpace {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractUnoccupiedSpace<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfAbstractUnoccupiedSpace != null) {
+            for (ADEOfAbstractUnoccupiedSpace container : adeOfAbstractUnoccupiedSpace)
+                updateEnvelope(container, envelope, options);
         }
     }
 

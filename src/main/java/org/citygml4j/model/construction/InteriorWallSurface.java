@@ -26,9 +26,9 @@ public class InteriorWallSurface extends AbstractConstructionSurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfInteriorWallSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfInteriorWallSurface != null) {
+            for (ADEOfInteriorWallSurface container : adeOfInteriorWallSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 
