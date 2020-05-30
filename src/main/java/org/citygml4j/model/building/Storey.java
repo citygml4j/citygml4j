@@ -49,9 +49,9 @@ public class Storey extends AbstractBuildingSubdivision {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfStorey<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfStorey != null) {
+            for (ADEOfStorey container : adeOfStorey)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

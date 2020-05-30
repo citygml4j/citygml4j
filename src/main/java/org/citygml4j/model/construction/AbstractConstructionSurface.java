@@ -48,9 +48,9 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractConstructionSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractConstructionSurface != null) {
+            for (ADEOfAbstractConstructionSurface container : adeOfAbstractConstructionSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

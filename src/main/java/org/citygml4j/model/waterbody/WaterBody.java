@@ -120,9 +120,9 @@ public class WaterBody extends AbstractOccupiedSpace implements StandardObjectCl
             geometryInfo.addGeometry(4, properties.getLod4Solid());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfWaterBody<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfWaterBody != null) {
+            for (ADEOfWaterBody container : adeOfWaterBody)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

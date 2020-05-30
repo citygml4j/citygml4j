@@ -149,9 +149,9 @@ public class PlantCover extends AbstractVegetationObject implements StandardObje
             geometryInfo.addGeometry(4, properties.getLod4MultiSolid());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfPlantCover<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfPlantCover != null) {
+            for (ADEOfPlantCover container : adeOfPlantCover)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

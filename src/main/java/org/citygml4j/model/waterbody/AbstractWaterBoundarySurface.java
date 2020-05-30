@@ -36,9 +36,9 @@ public abstract class AbstractWaterBoundarySurface extends AbstractThematicSurfa
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractWaterBoundarySurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractWaterBoundarySurface != null) {
+            for (ADEOfAbstractWaterBoundarySurface container : adeOfAbstractWaterBoundarySurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

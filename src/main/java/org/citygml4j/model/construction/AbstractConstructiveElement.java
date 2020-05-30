@@ -71,9 +71,9 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractConstructiveElement<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractConstructiveElement != null) {
+            for (ADEOfAbstractConstructiveElement container : adeOfAbstractConstructiveElement)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

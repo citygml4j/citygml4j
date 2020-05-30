@@ -36,9 +36,9 @@ public class InteriorWallSurface extends AbstractConstructionSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfInteriorWallSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfInteriorWallSurface != null) {
+            for (ADEOfInteriorWallSurface container : adeOfInteriorWallSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

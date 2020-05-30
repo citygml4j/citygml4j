@@ -55,9 +55,9 @@ public class Tunnel extends AbstractTunnel {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfTunnel<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTunnel != null) {
+            for (ADEOfTunnel container : adeOfTunnel)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

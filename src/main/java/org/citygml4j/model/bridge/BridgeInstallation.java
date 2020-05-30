@@ -114,9 +114,9 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeInstallation<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBridgeInstallation != null) {
+            for (ADEOfBridgeInstallation container : adeOfBridgeInstallation)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

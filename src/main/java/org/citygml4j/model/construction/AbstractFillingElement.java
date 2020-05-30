@@ -46,9 +46,9 @@ public abstract class AbstractFillingElement extends AbstractOccupiedSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFillingElement<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractFillingElement != null) {
+            for (ADEOfAbstractFillingElement container : adeOfAbstractFillingElement)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

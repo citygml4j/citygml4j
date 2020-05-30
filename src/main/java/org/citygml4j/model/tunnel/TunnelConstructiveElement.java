@@ -78,9 +78,9 @@ public class TunnelConstructiveElement extends AbstractConstructiveElement imple
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfTunnelConstructiveElement<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTunnelConstructiveElement != null) {
+            for (ADEOfTunnelConstructiveElement container : adeOfTunnelConstructiveElement)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

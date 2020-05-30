@@ -58,9 +58,9 @@ public class TINRelief extends AbstractReliefComponent {
 
         geometryInfo.addGeometry(getLod(), tin);
 
-        if (adeProperties != null) {
-            for (ADEOfTINRelief<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTINRelief != null) {
+            for (ADEOfTINRelief container : adeOfTINRelief)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

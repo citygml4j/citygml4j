@@ -141,9 +141,9 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeRoom<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBridgeRoom != null) {
+            for (ADEOfBridgeRoom container : adeOfBridgeRoom)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

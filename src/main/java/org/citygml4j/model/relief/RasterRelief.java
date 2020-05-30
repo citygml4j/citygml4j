@@ -56,9 +56,9 @@ public class RasterRelief extends AbstractReliefComponent {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfRasterRelief<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfRasterRelief != null) {
+            for (ADEOfRasterRelief container : adeOfRasterRelief)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

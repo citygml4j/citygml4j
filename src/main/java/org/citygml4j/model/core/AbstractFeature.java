@@ -21,10 +21,8 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.ade.ADEProperty;
 import org.citygml4j.model.ade.ADEPropertyContainer;
 import org.citygml4j.model.common.GeometryInfo;
-import org.citygml4j.model.common.LevelOfDetail;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -86,17 +84,13 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
             }
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFeature<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractFeature != null) {
+            for (ADEOfAbstractFeature container : adeOfAbstractFeature)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 
-    protected final void updateGeometryInfo(ADEProperty<?> property, GeometryInfo geometryInfo) {
-        LevelOfDetail lod = property.getClass().isAnnotationPresent(LevelOfDetail.class) ?
-                property.getClass().getAnnotation(LevelOfDetail.class) :
-                null;
-
-        ADEGeometryInfoBuilder.updateGeometryInfo(property.getValue(), lod, "", geometryInfo);
+    protected final void updateGeometryInfo(ADEPropertyContainer container, GeometryInfo geometryInfo) {
+        ADEGeometryInfoBuilder.updateGeometryInfo(container, geometryInfo);
     }
 }

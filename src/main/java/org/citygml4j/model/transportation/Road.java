@@ -115,9 +115,9 @@ public class Road extends AbstractTransportationSpace implements StandardObjectC
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfRoad<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfRoad != null) {
+            for (ADEOfRoad container : adeOfRoad)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

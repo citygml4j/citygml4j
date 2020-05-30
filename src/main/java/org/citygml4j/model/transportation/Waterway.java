@@ -115,9 +115,9 @@ public class Waterway extends AbstractTransportationSpace implements StandardObj
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfWaterway<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfWaterway != null) {
+            for (ADEOfWaterway container : adeOfWaterway)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

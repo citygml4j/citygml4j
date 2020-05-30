@@ -72,9 +72,9 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFeatureWithLifespan<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractFeatureWithLifespan != null) {
+            for (ADEOfAbstractFeatureWithLifespan container : adeOfAbstractFeatureWithLifespan)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

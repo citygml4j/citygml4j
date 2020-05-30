@@ -87,9 +87,9 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfTrafficArea<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTrafficArea != null) {
+            for (ADEOfTrafficArea container : adeOfTrafficArea)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

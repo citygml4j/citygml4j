@@ -36,9 +36,9 @@ public class WindowSurface extends AbstractFillingSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfWindowSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfWindowSurface != null) {
+            for (ADEOfWindowSurface container : adeOfWindowSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -162,9 +162,9 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractTransportationSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractTransportationSpace != null) {
+            for (ADEOfAbstractTransportationSpace container : adeOfAbstractTransportationSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

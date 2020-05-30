@@ -263,9 +263,9 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
             geometryInfo.addGeometry(4, properties.getLod4Solid());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractBuilding<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractBuilding != null) {
+            for (ADEOfAbstractBuilding container : adeOfAbstractBuilding)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

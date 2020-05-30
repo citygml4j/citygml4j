@@ -123,9 +123,9 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractConstruction<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractConstruction != null) {
+            for (ADEOfAbstractConstruction container : adeOfAbstractConstruction)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

@@ -78,9 +78,9 @@ public class GenericThematicSurface extends AbstractThematicSurface implements S
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfGenericThematicSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfGenericThematicSurface != null) {
+            for (ADEOfGenericThematicSurface container : adeOfGenericThematicSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

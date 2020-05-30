@@ -56,9 +56,9 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfClearanceSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfClearanceSpace != null) {
+            for (ADEOfClearanceSpace container : adeOfClearanceSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

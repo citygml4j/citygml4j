@@ -104,9 +104,9 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractPhysicalSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractPhysicalSpace != null) {
+            for (ADEOfAbstractPhysicalSpace container : adeOfAbstractPhysicalSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

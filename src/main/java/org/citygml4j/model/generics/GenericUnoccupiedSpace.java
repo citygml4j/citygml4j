@@ -86,9 +86,9 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements S
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfGenericUnoccupiedSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfGenericUnoccupiedSpace != null) {
+            for (ADEOfGenericUnoccupiedSpace container : adeOfGenericUnoccupiedSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

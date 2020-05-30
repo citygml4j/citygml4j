@@ -87,9 +87,9 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAuxiliaryTrafficArea<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAuxiliaryTrafficArea != null) {
+            for (ADEOfAuxiliaryTrafficArea container : adeOfAuxiliaryTrafficArea)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

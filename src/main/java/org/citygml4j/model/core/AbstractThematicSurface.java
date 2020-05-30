@@ -178,9 +178,9 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractThematicSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractThematicSurface != null) {
+            for (ADEOfAbstractThematicSurface container : adeOfAbstractThematicSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

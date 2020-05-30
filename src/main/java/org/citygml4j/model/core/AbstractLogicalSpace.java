@@ -35,9 +35,9 @@ public abstract class AbstractLogicalSpace extends AbstractSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractLogicalSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractLogicalSpace != null) {
+            for (ADEOfAbstractLogicalSpace container : adeOfAbstractLogicalSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

@@ -45,9 +45,9 @@ public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractVegetationObject<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractVegetationObject != null) {
+            for (ADEOfAbstractVegetationObject container : adeOfAbstractVegetationObject)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

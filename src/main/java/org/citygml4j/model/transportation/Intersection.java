@@ -56,9 +56,9 @@ public class Intersection extends AbstractTransportationSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfIntersection<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfIntersection != null) {
+            for (ADEOfIntersection container : adeOfIntersection)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -115,9 +115,9 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingInstallation<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBuildingInstallation != null) {
+            for (ADEOfBuildingInstallation container : adeOfBuildingInstallation)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

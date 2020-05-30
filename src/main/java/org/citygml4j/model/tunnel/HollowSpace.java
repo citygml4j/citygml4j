@@ -141,9 +141,9 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfHollowSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfHollowSpace != null) {
+            for (ADEOfHollowSpace container : adeOfHollowSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

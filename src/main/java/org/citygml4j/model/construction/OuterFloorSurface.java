@@ -36,9 +36,9 @@ public class OuterFloorSurface extends AbstractConstructionSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfOuterFloorSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfOuterFloorSurface != null) {
+            for (ADEOfOuterFloorSurface container : adeOfOuterFloorSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

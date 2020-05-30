@@ -77,9 +77,9 @@ public class Square extends AbstractTransportationSpace implements StandardObjec
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfSquare<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfSquare != null) {
+            for (ADEOfSquare container : adeOfSquare)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

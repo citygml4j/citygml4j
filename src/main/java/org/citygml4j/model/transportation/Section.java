@@ -56,9 +56,9 @@ public class Section extends AbstractTransportationSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfSection<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfSection != null) {
+            for (ADEOfSection container : adeOfSection)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -74,9 +74,9 @@ public class ReliefFeature extends AbstractSpaceBoundary {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfReliefFeature<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfReliefFeature != null) {
+            for (ADEOfReliefFeature container : adeOfReliefFeature)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

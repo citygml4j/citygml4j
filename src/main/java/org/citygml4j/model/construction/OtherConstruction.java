@@ -77,9 +77,9 @@ public class OtherConstruction extends AbstractConstruction implements StandardO
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfOtherConstruction<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfOtherConstruction != null) {
+            for (ADEOfOtherConstruction container : adeOfOtherConstruction)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

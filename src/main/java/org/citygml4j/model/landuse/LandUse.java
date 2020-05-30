@@ -78,9 +78,9 @@ public class LandUse extends AbstractThematicSurface implements StandardObjectCl
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfLandUse<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfLandUse != null) {
+            for (ADEOfLandUse container : adeOfLandUse)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

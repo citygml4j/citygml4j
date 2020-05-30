@@ -78,9 +78,9 @@ public class TransportationComplex extends AbstractTransportationSpace implement
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfTransportationComplex<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTransportationComplex != null) {
+            for (ADEOfTransportationComplex container : adeOfTransportationComplex)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

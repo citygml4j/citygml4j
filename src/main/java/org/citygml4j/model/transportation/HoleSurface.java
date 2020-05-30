@@ -37,9 +37,9 @@ public class HoleSurface extends AbstractThematicSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfHoleSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfHoleSurface != null) {
+            for (ADEOfHoleSurface container : adeOfHoleSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

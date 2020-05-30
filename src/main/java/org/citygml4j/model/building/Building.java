@@ -55,9 +55,9 @@ public class Building extends AbstractBuilding {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfBuilding<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBuilding != null) {
+            for (ADEOfBuilding container : adeOfBuilding)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

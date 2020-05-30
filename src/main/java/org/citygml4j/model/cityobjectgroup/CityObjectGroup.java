@@ -142,9 +142,9 @@ public class CityObjectGroup extends AbstractLogicalSpace implements StandardObj
             geometryInfo.addGeometry(properties.getGeometry());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfCityObjectGroup<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfCityObjectGroup != null) {
+            for (ADEOfCityObjectGroup container : adeOfCityObjectGroup)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

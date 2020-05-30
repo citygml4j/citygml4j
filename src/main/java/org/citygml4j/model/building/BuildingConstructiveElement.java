@@ -78,9 +78,9 @@ public class BuildingConstructiveElement extends AbstractConstructiveElement imp
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingConstructiveElement<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBuildingConstructiveElement != null) {
+            for (ADEOfBuildingConstructiveElement container : adeOfBuildingConstructiveElement)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

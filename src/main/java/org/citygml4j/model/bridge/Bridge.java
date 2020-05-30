@@ -55,9 +55,9 @@ public class Bridge extends AbstractBridge {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfBridge<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBridge != null) {
+            for (ADEOfBridge container : adeOfBridge)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

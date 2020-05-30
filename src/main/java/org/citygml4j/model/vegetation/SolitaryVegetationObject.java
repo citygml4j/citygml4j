@@ -172,9 +172,9 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfSolitaryVegetationObject<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfSolitaryVegetationObject != null) {
+            for (ADEOfSolitaryVegetationObject container : adeOfSolitaryVegetationObject)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

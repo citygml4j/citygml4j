@@ -93,9 +93,9 @@ public class PointCloud extends AbstractPointCloud {
 
         geometryInfo.addGeometry(points);
 
-        if (adeProperties != null) {
-            for (ADEOfPointCloud<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfPointCloud != null) {
+            for (ADEOfPointCloud container : adeOfPointCloud)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

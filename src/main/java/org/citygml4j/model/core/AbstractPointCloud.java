@@ -33,9 +33,9 @@ public abstract class AbstractPointCloud extends AbstractFeature {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractPointCloud<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractPointCloud != null) {
+            for (ADEOfAbstractPointCloud container : adeOfAbstractPointCloud)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

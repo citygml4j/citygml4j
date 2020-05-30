@@ -49,9 +49,9 @@ public class DoorSurface extends AbstractFillingSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfDoorSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfDoorSurface != null) {
+            for (ADEOfDoorSurface container : adeOfDoorSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

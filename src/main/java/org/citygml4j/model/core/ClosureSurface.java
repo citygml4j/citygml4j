@@ -36,9 +36,9 @@ public class ClosureSurface extends AbstractThematicSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfClosureSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfClosureSurface != null) {
+            for (ADEOfClosureSurface container : adeOfClosureSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

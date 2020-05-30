@@ -65,9 +65,9 @@ public class Address extends AbstractFeature {
 
         geometryInfo.addGeometry(multiPoint);
 
-        if (adeProperties != null) {
-            for (ADEOfAddress<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAddress != null) {
+            for (ADEOfAddress container : adeOfAddress)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

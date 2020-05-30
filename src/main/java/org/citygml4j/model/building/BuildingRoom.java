@@ -153,9 +153,9 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingRoom<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBuildingRoom != null) {
+            for (ADEOfBuildingRoom container : adeOfBuildingRoom)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

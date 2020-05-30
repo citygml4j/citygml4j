@@ -87,9 +87,9 @@ public class Window extends AbstractFillingElement implements StandardObjectClas
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfWindow<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfWindow != null) {
+            for (ADEOfWindow container : adeOfWindow)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

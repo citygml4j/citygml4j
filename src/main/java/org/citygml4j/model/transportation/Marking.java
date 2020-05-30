@@ -47,9 +47,9 @@ public class Marking extends AbstractThematicSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfMarking<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfMarking != null) {
+            for (ADEOfMarking container : adeOfMarking)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

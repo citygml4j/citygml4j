@@ -169,9 +169,9 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfTrafficSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTrafficSpace != null) {
+            for (ADEOfTrafficSpace container : adeOfTrafficSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

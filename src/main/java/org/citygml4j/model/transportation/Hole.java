@@ -57,9 +57,9 @@ public class Hole extends AbstractUnoccupiedSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfHole<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfHole != null) {
+            for (ADEOfHole container : adeOfHole)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

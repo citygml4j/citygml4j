@@ -100,9 +100,9 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfDoor<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfDoor != null) {
+            for (ADEOfDoor container : adeOfDoor)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -36,9 +36,9 @@ public class GroundSurface extends AbstractConstructionSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfGroundSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfGroundSurface != null) {
+            for (ADEOfGroundSurface container : adeOfGroundSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

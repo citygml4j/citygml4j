@@ -104,9 +104,9 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAuxiliaryTrafficSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAuxiliaryTrafficSpace != null) {
+            for (ADEOfAuxiliaryTrafficSpace container : adeOfAuxiliaryTrafficSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

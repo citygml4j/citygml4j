@@ -100,9 +100,9 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
         for (int lod = 1; lod < 4; lod++)
             geometryInfo.addImplicitGeometry(lod, getImplicitRepresentation(lod));
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractOccupiedSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractOccupiedSpace != null) {
+            for (ADEOfAbstractOccupiedSpace container : adeOfAbstractOccupiedSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

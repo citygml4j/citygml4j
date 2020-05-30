@@ -106,9 +106,9 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfTunnelFurniture<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTunnelFurniture != null) {
+            for (ADEOfTunnelFurniture container : adeOfTunnelFurniture)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

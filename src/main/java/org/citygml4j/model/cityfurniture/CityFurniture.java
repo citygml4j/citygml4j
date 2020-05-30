@@ -127,9 +127,9 @@ public class CityFurniture extends AbstractOccupiedSpace implements StandardObje
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfCityFurniture<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfCityFurniture != null) {
+            for (ADEOfCityFurniture container : adeOfCityFurniture)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

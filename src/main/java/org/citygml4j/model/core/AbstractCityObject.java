@@ -143,9 +143,9 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractCityObject<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractCityObject != null) {
+            for (ADEOfAbstractCityObject container : adeOfAbstractCityObject)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

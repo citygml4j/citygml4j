@@ -118,9 +118,9 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeConstructiveElement<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBridgeConstructiveElement != null) {
+            for (ADEOfBridgeConstructiveElement container : adeOfBridgeConstructiveElement)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

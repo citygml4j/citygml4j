@@ -83,9 +83,9 @@ public class BreaklineRelief extends AbstractReliefComponent {
         geometryInfo.addGeometry(getLod(), ridgeOrValleyLines);
         geometryInfo.addGeometry(getLod(), breaklines);
 
-        if (adeProperties != null) {
-            for (ADEOfBreaklineRelief<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBreaklineRelief != null) {
+            for (ADEOfBreaklineRelief container : adeOfBreaklineRelief)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

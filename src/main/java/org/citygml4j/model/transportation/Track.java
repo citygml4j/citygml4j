@@ -115,9 +115,9 @@ public class Track extends AbstractTransportationSpace implements StandardObject
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfTrack<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTrack != null) {
+            for (ADEOfTrack container : adeOfTrack)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

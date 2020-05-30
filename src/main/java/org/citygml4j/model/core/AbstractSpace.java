@@ -313,9 +313,9 @@ public abstract class AbstractSpace extends AbstractCityObject {
         for (int lod = 0; lod < 4; lod++)
             geometryInfo.addGeometry(lod, getSolid(lod));
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractSpace != null) {
+            for (ADEOfAbstractSpace container : adeOfAbstractSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

@@ -35,9 +35,9 @@ public abstract class AbstractSpaceBoundary extends AbstractCityObject {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractSpaceBoundary<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractSpaceBoundary != null) {
+            for (ADEOfAbstractSpaceBoundary container : adeOfAbstractSpaceBoundary)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

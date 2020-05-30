@@ -77,9 +77,9 @@ public class MassPointRelief extends AbstractReliefComponent {
 
         geometryInfo.addGeometry(getLod(), reliefPoints);
 
-        if (adeProperties != null) {
-            for (ADEOfMassPointRelief<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfMassPointRelief != null) {
+            for (ADEOfMassPointRelief container : adeOfMassPointRelief)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

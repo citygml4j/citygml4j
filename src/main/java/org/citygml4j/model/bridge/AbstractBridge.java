@@ -207,9 +207,9 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
             geometryInfo.addGeometry(4, properties.getLod4Solid());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractBridge<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractBridge != null) {
+            for (ADEOfAbstractBridge container : adeOfAbstractBridge)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

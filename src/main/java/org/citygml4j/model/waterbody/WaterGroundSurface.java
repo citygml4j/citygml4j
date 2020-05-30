@@ -26,9 +26,9 @@ public class WaterGroundSurface extends AbstractWaterBoundarySurface {
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (adeProperties != null) {
-            for (ADEOfWaterGroundSurface<?> property : adeProperties)
-                updateEnvelope(property, envelope, options);
+        if (adeOfWaterGroundSurface != null) {
+            for (ADEOfWaterGroundSurface container : adeOfWaterGroundSurface)
+                updateEnvelope(container, envelope, options);
         }
     }
 
@@ -36,9 +36,9 @@ public class WaterGroundSurface extends AbstractWaterBoundarySurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfWaterGroundSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfWaterGroundSurface != null) {
+            for (ADEOfWaterGroundSurface container : adeOfWaterGroundSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

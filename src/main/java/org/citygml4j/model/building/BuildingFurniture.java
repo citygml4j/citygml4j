@@ -107,9 +107,9 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingFurniture<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBuildingFurniture != null) {
+            for (ADEOfBuildingFurniture container : adeOfBuildingFurniture)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

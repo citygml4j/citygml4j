@@ -36,9 +36,9 @@ public class WallSurface extends AbstractConstructionSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfWallSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfWallSurface != null) {
+            for (ADEOfWallSurface container : adeOfWallSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

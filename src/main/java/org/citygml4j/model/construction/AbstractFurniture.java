@@ -45,9 +45,9 @@ public abstract class AbstractFurniture extends AbstractOccupiedSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFurniture<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractFurniture != null) {
+            for (ADEOfAbstractFurniture container : adeOfAbstractFurniture)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

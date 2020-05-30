@@ -35,9 +35,9 @@ public abstract class AbstractUnoccupiedSpace extends AbstractPhysicalSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractUnoccupiedSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractUnoccupiedSpace != null) {
+            for (ADEOfAbstractUnoccupiedSpace container : adeOfAbstractUnoccupiedSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

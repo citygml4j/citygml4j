@@ -134,9 +134,9 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements Stand
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfGenericOccupiedSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfGenericOccupiedSpace != null) {
+            for (ADEOfGenericOccupiedSpace container : adeOfGenericOccupiedSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

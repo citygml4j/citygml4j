@@ -114,9 +114,9 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfTunnelInstallation<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfTunnelInstallation != null) {
+            for (ADEOfTunnelInstallation container : adeOfTunnelInstallation)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -181,9 +181,9 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
             geometryInfo.addGeometry(4, properties.getLod4Solid());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractTunnel<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractTunnel != null) {
+            for (ADEOfAbstractTunnel container : adeOfAbstractTunnel)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

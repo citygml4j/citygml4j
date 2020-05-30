@@ -62,9 +62,9 @@ public abstract class AbstractReliefComponent extends AbstractSpaceBoundary {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractReliefComponent<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractReliefComponent != null) {
+            for (ADEOfAbstractReliefComponent container : adeOfAbstractReliefComponent)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

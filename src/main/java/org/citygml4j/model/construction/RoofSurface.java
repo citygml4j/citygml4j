@@ -36,9 +36,9 @@ public class RoofSurface extends AbstractConstructionSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfRoofSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfRoofSurface != null) {
+            for (ADEOfRoofSurface container : adeOfRoofSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

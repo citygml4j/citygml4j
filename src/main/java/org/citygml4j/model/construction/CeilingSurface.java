@@ -36,9 +36,9 @@ public class CeilingSurface extends AbstractConstructionSurface {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfCeilingSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfCeilingSurface != null) {
+            for (ADEOfCeilingSurface container : adeOfCeilingSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

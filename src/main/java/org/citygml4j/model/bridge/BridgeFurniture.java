@@ -106,9 +106,9 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfBridgeFurniture<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBridgeFurniture != null) {
+            for (ADEOfBridgeFurniture container : adeOfBridgeFurniture)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

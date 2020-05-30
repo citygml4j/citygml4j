@@ -55,9 +55,9 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractInstallation<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractInstallation != null) {
+            for (ADEOfAbstractInstallation container : adeOfAbstractInstallation)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

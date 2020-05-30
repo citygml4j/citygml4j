@@ -62,9 +62,9 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfBuildingUnit<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfBuildingUnit != null) {
+            for (ADEOfBuildingUnit container : adeOfBuildingUnit)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

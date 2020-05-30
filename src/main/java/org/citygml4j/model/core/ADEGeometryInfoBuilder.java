@@ -45,11 +45,11 @@ public class ADEGeometryInfoBuilder {
             for (Field field : fields) {
                 try {
                     field.setAccessible(true);
-                    LevelOfDetail property = field.isAnnotationPresent(LevelOfDetail.class) ?
+                    LevelOfDetail lod = field.isAnnotationPresent(LevelOfDetail.class) ?
                             field.getAnnotation(LevelOfDetail.class) :
                             null;
 
-                    updateGeometryInfo(field.get(object), property, field.getName(), geometryInfo);
+                    updateGeometryInfo(field.get(object), lod, field.getName(), geometryInfo);
                 } catch (Throwable e) {
                     //
                 }

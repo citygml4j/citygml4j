@@ -159,9 +159,9 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractBuildingSubdivision<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractBuildingSubdivision != null) {
+            for (ADEOfAbstractBuildingSubdivision container : adeOfAbstractBuildingSubdivision)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

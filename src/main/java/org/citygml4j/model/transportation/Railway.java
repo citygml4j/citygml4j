@@ -115,9 +115,9 @@ public class Railway extends AbstractTransportationSpace implements StandardObje
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfRailway<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfRailway != null) {
+            for (ADEOfRailway container : adeOfRailway)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

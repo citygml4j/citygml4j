@@ -86,9 +86,9 @@ public class GenericLogicalSpace extends AbstractLogicalSpace implements Standar
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
         super.updateGeometryInfo(geometryInfo);
 
-        if (adeProperties != null) {
-            for (ADEOfGenericLogicalSpace<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfGenericLogicalSpace != null) {
+            for (ADEOfGenericLogicalSpace container : adeOfGenericLogicalSpace)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 

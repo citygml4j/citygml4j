@@ -68,9 +68,9 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
         }
 
-        if (adeProperties != null) {
-            for (ADEOfAbstractFillingSurface<?> property : adeProperties)
-                updateGeometryInfo(property, geometryInfo);
+        if (adeOfAbstractFillingSurface != null) {
+            for (ADEOfAbstractFillingSurface container : adeOfAbstractFillingSurface)
+                updateGeometryInfo(container, geometryInfo);
         }
     }
 }
