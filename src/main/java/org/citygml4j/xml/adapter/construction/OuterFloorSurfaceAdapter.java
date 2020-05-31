@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfOuterFloorSurface;
-import org.citygml4j.model.construction.ADEPropertyOfOuterFloorSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfOuterFloorSurface;
+import org.citygml4j.model.construction.ADEOfOuterFloorSurface;
 import org.citygml4j.model.construction.OuterFloorSurface;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "OuterFloorSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter<OuterFloorSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfOuterFloorSurface");
 
     @Override
     public OuterFloorSurface createObject(QName name) throws ObjectBuildException {
@@ -30,17 +29,10 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
 
     @Override
     public void buildChildObject(OuterFloorSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
-            buildADEProperty(object, name, reader);
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfOuterFloorSurface".equals(name.getLocalPart()))
+            ADEBuilderHelper.addADEContainer(ADEOfOuterFloorSurface.class, object.getADEOfOuterFloorSurface(), GenericADEOfOuterFloorSurface::new, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(OuterFloorSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfOuterFloorSurface.class, object.getADEPropertiesOfOuterFloorSurface(),
-                GenericADEPropertyOfOuterFloorSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -52,7 +44,7 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
     public void writeChildElements(OuterFloorSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfOuterFloorSurface<?> property : object.getADEPropertiesOfOuterFloorSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfOuterFloorSurface container : object.getADEOfOuterFloorSurface())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfOuterFloorSurface"), container, namespaces, writer);
     }
 }

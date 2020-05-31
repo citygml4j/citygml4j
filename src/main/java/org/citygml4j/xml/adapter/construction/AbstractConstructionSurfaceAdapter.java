@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractConstructionSurface;
-import org.citygml4j.model.construction.ADEPropertyOfAbstractConstructionSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractConstructionSurface;
+import org.citygml4j.model.construction.ADEOfAbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractFillingSurfaceProperty;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,26 +21,21 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConstructionSurface> extends AbstractThematicSurfaceAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractConstructionSurface");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (name.getNamespaceURI().equals(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE) && "fillingSurface".equals(name.getLocalPart())) {
-            object.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (name.getNamespaceURI().equals(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
+            switch (name.getLocalPart()) {
+                case "fillingSurface":
+                    object.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
+                    return;
+                case "adeOfAbstractConstructionSurface":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstructionSurface.class, object.getADEOfAbstractConstructionSurface(), GenericADEOfAbstractConstructionSurface::new, reader);
+                    return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractConstructionSurface.class, object.getADEPropertiesOfAbstractConstructionSurface(),
-                GenericADEPropertyOfAbstractConstructionSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -51,8 +46,8 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
             for (AbstractFillingSurfaceProperty property : object.getFillingSurfaces())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "fillingSurface"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractConstructionSurface<?> property : object.getADEPropertiesOfAbstractConstructionSurface())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfAbstractConstructionSurface container : object.getADEOfAbstractConstructionSurface())
+                ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructionSurface"), container, namespaces, writer);
         }
     }
 }

@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractCityObject;
-import org.citygml4j.model.core.ADEPropertyOfAbstractCityObject;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractCityObject;
+import org.citygml4j.model.core.ADEOfAbstractCityObject;
 import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
@@ -16,6 +16,8 @@ import org.citygml4j.model.core.RelativeToWater;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.model.base.Reference;
@@ -32,7 +34,6 @@ import javax.xml.namespace.QName;
 
 public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> extends AbstractFeatureWithLifespanAdapter<T> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractCityObject"),
             new QName(CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfCityObject"),
             new QName(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfCityObject")
     };
@@ -78,6 +79,9 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 case "dynamizer":
                     object.getDynamizers().add(reader.getObjectUsingBuilder(AbstractDynamizerPropertyAdapter.class));
                     return;
+                case "adeOfAbstractCityObject":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractCityObject.class, object.getADEOfAbstractCityObject(), GenericADEOfAbstractCityObject::new, reader);
+                    return;
             }
         } else if (CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())
                 || CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())) {
@@ -97,8 +101,8 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractCityObject.class, object.getADEPropertiesOfAbstractCityObject(),
-                GenericADEPropertyOfAbstractCityObject::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractCityObject.class, object.getADEOfAbstractCityObject(),
+                GenericADEOfAbstractCityObject::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -157,7 +161,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "dynamizer"), property, AbstractDynamizerPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfAbstractCityObject<?> property : object.getADEPropertiesOfAbstractCityObject())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractCityObject container : object.getADEOfAbstractCityObject())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(coreNamespace, "adeOfAbstractCityObject") : null, container, namespaces, writer);
     }
 }

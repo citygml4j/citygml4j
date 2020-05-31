@@ -1,13 +1,15 @@
 package org.citygml4j.xml.adapter.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeInstallation;
-import org.citygml4j.model.bridge.ADEPropertyOfBridgeInstallation;
+import org.citygml4j.model.ade.generic.GenericADEOfBridgeInstallation;
+import org.citygml4j.model.bridge.ADEOfBridgeInstallation;
 import org.citygml4j.model.bridge.BridgeInstallation;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractInstallationAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
@@ -34,7 +36,6 @@ import javax.xml.namespace.QName;
 })
 public class BridgeInstallationAdapter extends AbstractInstallationAdapter<BridgeInstallation> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "AbstractGenericApplicationPropertyOfBridgeInstallation"),
             new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeInstallation"),
             new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfIntBridgeInstallation")
     };
@@ -82,6 +83,9 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
+                case "adeOfBridgeInstallation":
+                    ADEBuilderHelper.addADEContainer(ADEOfBridgeInstallation.class, object.getADEOfBridgeInstallation(), GenericADEOfBridgeInstallation::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -93,8 +97,8 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
 
     @Override
     public void buildADEProperty(BridgeInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridgeInstallation.class, object.getADEPropertiesOfBridgeInstallation(),
-                GenericADEPropertyOfBridgeInstallation::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeInstallation.class, object.getADEOfBridgeInstallation(),
+                GenericADEOfBridgeInstallation::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -111,10 +115,11 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
     public void writeChildElements(BridgeInstallation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace)) {
+        if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
 
             if (!isInterior) {
@@ -147,7 +152,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfBridgeInstallation<?> property : object.getADEPropertiesOfBridgeInstallation())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBridgeInstallation container : object.getADEOfBridgeInstallation())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeInstallation") : null, container, namespaces, writer);
     }
 }

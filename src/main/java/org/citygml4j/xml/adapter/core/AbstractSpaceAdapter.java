@@ -1,15 +1,16 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractSpace;
-import org.citygml4j.model.core.ADEPropertyOfAbstractSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractSpace;
+import org.citygml4j.model.core.ADEOfAbstractSpace;
 import org.citygml4j.model.core.AbstractSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.QualifiedAreaProperty;
 import org.citygml4j.model.core.QualifiedVolumeProperty;
 import org.citygml4j.model.core.SpaceType;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
@@ -27,7 +28,6 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends AbstractCityObjectAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractSpace");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
@@ -74,20 +74,13 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                 case "lod3MultiCurve":
                     object.setLod3MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
+                case "adeOfAbstractSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractSpace.class, object.getADEOfAbstractSpace(), GenericADEOfAbstractSpace::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractSpace.class, object.getADEPropertiesOfAbstractSpace(),
-                GenericADEPropertyOfAbstractSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -138,8 +131,8 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             if (object.getLod3MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3MultiCurve"), object.getLod3MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractSpace<?> property : object.getADEPropertiesOfAbstractSpace())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfAbstractSpace container : object.getADEOfAbstractSpace())
+                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractSpace"), container, namespaces, writer);
         }
     }
 }

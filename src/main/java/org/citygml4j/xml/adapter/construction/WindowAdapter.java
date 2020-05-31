@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWindow;
-import org.citygml4j.model.construction.ADEPropertyOfWindow;
+import org.citygml4j.model.ade.generic.GenericADEOfWindow;
+import org.citygml4j.model.construction.ADEOfWindow;
 import org.citygml4j.model.construction.Window;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +23,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Window", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfWindow");
 
     @Override
     public Window createObject(QName name) throws ObjectBuildException {
@@ -30,22 +31,16 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
 
     @Override
     public void buildChildObject(Window object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())
-                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader)) {
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                return;
+            else if ("adeOfWindow".equals(name.getLocalPart())) {
+                ADEBuilderHelper.addADEContainer(ADEOfWindow.class, object.getADEOfWindow(), GenericADEOfWindow::new, reader);
+                return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Window object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWindow.class, object.getADEPropertiesOfWindow(),
-                GenericADEPropertyOfWindow::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -59,7 +54,7 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfWindow<?> property : object.getADEPropertiesOfWindow())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWindow container : object.getADEOfWindow())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfWindow"), container, namespaces, writer);
     }
 }

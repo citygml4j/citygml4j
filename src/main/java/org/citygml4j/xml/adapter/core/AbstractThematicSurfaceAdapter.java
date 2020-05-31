@@ -1,12 +1,13 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractThematicSurface;
-import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractThematicSurface;
+import org.citygml4j.model.core.ADEOfAbstractThematicSurface;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.QualifiedAreaProperty;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
@@ -22,7 +23,6 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicSurface> extends AbstractSpaceBoundaryAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractThematicSurface");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
@@ -49,20 +49,13 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
                 case "pointCloud":
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
+                case "adeOfAbstractThematicSurface":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(), GenericADEOfAbstractThematicSurface::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractThematicSurface.class, object.getADEPropertiesOfAbstractThematicSurface(),
-                GenericADEPropertyOfAbstractThematicSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -92,8 +85,8 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
             if (object.getPointCloud() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractThematicSurface<?> property : object.getADEPropertiesOfAbstractThematicSurface())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfAbstractThematicSurface container : object.getADEOfAbstractThematicSurface())
+                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractThematicSurface"), container, namespaces, writer);
         }
     }
 }

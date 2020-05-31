@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeRoom;
-import org.citygml4j.model.bridge.ADEPropertyOfBridgeRoom;
+import org.citygml4j.model.ade.generic.GenericADEOfBridgeRoom;
+import org.citygml4j.model.bridge.ADEOfBridgeRoom;
 import org.citygml4j.model.bridge.BridgeFurnitureProperty;
 import org.citygml4j.model.bridge.BridgeInstallationProperty;
 import org.citygml4j.model.bridge.BridgeRoom;
@@ -9,6 +9,8 @@ import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.deprecated.bridge.AbstractBoundarySurfacePropertyAdapter;
@@ -33,10 +35,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "BridgeRoom", namespaceURI = CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE)
 })
 public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom> {
-    private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "AbstractGenericApplicationPropertyOfBridgeRoom"),
-            new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeRoom")
-    };
+    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeRoom");
 
     @Override
     public BridgeRoom createObject(QName name) throws ObjectBuildException {
@@ -67,6 +66,9 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
+                case "adeOfBridgeRoom":
+                    ADEBuilderHelper.addADEContainer(ADEOfBridgeRoom.class, object.getADEOfBridgeRoom(), GenericADEOfBridgeRoom::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -78,8 +80,8 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
 
     @Override
     public void buildADEProperty(BridgeRoom object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridgeRoom.class, object.getADEPropertiesOfBridgeRoom(),
-                GenericADEPropertyOfBridgeRoom::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeRoom.class, object.getADEOfBridgeRoom(),
+                GenericADEOfBridgeRoom::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -113,7 +115,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
         for (BridgeInstallationProperty property : object.getBridgeInstallations())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeInstallation" : "bridgeRoomInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBridgeRoom<?> property : object.getADEPropertiesOfBridgeRoom())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBridgeRoom container : object.getADEOfBridgeRoom())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeRoom") : null, container, namespaces, writer);
     }
 }

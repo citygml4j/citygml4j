@@ -1,13 +1,15 @@
 package org.citygml4j.xml.adapter.appearance;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfX3DMaterial;
-import org.citygml4j.model.appearance.ADEPropertyOfX3DMaterial;
+import org.citygml4j.model.ade.generic.GenericADEOfX3DMaterial;
+import org.citygml4j.model.appearance.ADEOfX3DMaterial;
 import org.citygml4j.model.appearance.Color;
 import org.citygml4j.model.appearance.GeometryReference;
 import org.citygml4j.model.appearance.X3DMaterial;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -30,7 +32,6 @@ import javax.xml.namespace.QName;
 })
 public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfX3DMaterial"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfX3DMaterial"),
             new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfX3DMaterial")
     };
@@ -68,6 +69,9 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
                 case "target":
                     reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
                     return;
+                case "adeOfX3DMaterial":
+                    ADEBuilderHelper.addADEContainer(ADEOfX3DMaterial.class, object.getADEOfX3DMaterial(), GenericADEOfX3DMaterial::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -79,8 +83,8 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
 
     @Override
     public void buildADEProperty(X3DMaterial object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfX3DMaterial.class, object.getADEPropertiesOfX3DMaterial(),
-                GenericADEPropertyOfX3DMaterial::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfX3DMaterial.class, object.getADEOfX3DMaterial(),
+                GenericADEOfX3DMaterial::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -93,6 +97,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
     public void writeChildElements(X3DMaterial object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
 
         if (object.isSetAmbientIntensity())
             writer.writeElement(Element.of(appearanceNamespace, "ambientIntensity").addTextContent(TextContent.ofDouble(object.getAmbientIntensity())));
@@ -120,7 +125,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
                 writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getURI()));
         }
 
-        for (ADEPropertyOfX3DMaterial<?> property : object.getADEPropertiesOfX3DMaterial())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfX3DMaterial container : object.getADEOfX3DMaterial())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfX3DMaterial") : null, container, namespaces, writer);
     }
 }

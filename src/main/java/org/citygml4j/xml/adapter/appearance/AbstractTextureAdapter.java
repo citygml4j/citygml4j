@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.appearance;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTexture;
-import org.citygml4j.model.appearance.ADEPropertyOfAbstractTexture;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractTexture;
+import org.citygml4j.model.appearance.ADEOfAbstractTexture;
 import org.citygml4j.model.appearance.AbstractTexture;
 import org.citygml4j.model.appearance.ColorPlusOpacity;
 import org.citygml4j.model.appearance.TextureType;
@@ -9,6 +9,8 @@ import org.citygml4j.model.appearance.WrapMode;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -25,7 +27,6 @@ import javax.xml.namespace.QName;
 
 public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends AbstractSurfaceDataAdapter<T> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractTexture"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfTexture"),
             new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfTexture")
     };
@@ -49,6 +50,9 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
                 case "borderColor":
                     reader.getTextContent().ifDoubleList(v -> object.setBorderColor(ColorPlusOpacity.fromList(v)));
                     return;
+                case "adeOfAbstractTexture":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTexture.class, object.getADEOfAbstractTexture(), GenericADEOfAbstractTexture::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -60,8 +64,8 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTexture.class, object.getADEPropertiesOfAbstractTexture(),
-                GenericADEPropertyOfAbstractTexture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTexture.class, object.getADEOfAbstractTexture(),
+                GenericADEOfAbstractTexture::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -69,6 +73,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
 
         if (object.getImageURI() != null)
             writer.writeElement(Element.of(appearanceNamespace, "imageURI").addTextContent(object.getImageURI()));
@@ -85,7 +90,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
         if (object.getBorderColor() != null)
             writer.writeElement(Element.of(appearanceNamespace, "borderColor").addTextContent(TextContent.ofDoubleList(object.getBorderColor().toList())));
 
-        for (ADEPropertyOfAbstractTexture<?> property : object.getADEPropertiesOfAbstractTexture())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractTexture container : object.getADEOfAbstractTexture())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractTexture") : null, container, namespaces, writer);
     }
 }

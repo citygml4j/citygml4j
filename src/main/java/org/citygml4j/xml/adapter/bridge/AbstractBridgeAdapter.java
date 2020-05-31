@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBridge;
-import org.citygml4j.model.bridge.ADEPropertyOfAbstractBridge;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractBridge;
+import org.citygml4j.model.bridge.ADEOfAbstractBridge;
 import org.citygml4j.model.bridge.AbstractBridge;
 import org.citygml4j.model.bridge.BridgeConstructiveElementMember;
 import org.citygml4j.model.bridge.BridgeFurnitureMember;
@@ -11,6 +11,8 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractConstructionAdapter;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -27,7 +29,6 @@ import org.xmlobjects.xml.TextContent;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends AbstractConstructionAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractBridge");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
@@ -54,20 +55,13 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                 case "address":
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
+                case "adeOfAbstractBridge":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBridge.class, object.getADEOfAbstractBridge(), GenericADEOfAbstractBridge::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractBridge.class, object.getADEPropertiesOfAbstractBridge(),
-                GenericADEPropertyOfAbstractBridge::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -94,7 +88,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractBridge<?> property : object.getADEPropertiesOfAbstractBridge())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractBridge container : object.getADEOfAbstractBridge())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfAbstractBridge"), container, namespaces, writer);
     }
 }

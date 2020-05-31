@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfGroundSurface;
-import org.citygml4j.model.construction.ADEPropertyOfGroundSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfGroundSurface;
+import org.citygml4j.model.construction.ADEOfGroundSurface;
 import org.citygml4j.model.construction.GroundSurface;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "GroundSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class GroundSurfaceAdapter extends AbstractConstructionSurfaceAdapter<GroundSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfGroundSurface");
 
     @Override
     public GroundSurface createObject(QName name) throws ObjectBuildException {
@@ -30,17 +29,10 @@ public class GroundSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Gro
 
     @Override
     public void buildChildObject(GroundSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
-            buildADEProperty(object, name, reader);
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfGroundSurface".equals(name.getLocalPart()))
+            ADEBuilderHelper.addADEContainer(ADEOfGroundSurface.class, object.getADEOfGroundSurface(), GenericADEOfGroundSurface::new, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(GroundSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfGroundSurface.class, object.getADEPropertiesOfGroundSurface(),
-                GenericADEPropertyOfGroundSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -52,7 +44,7 @@ public class GroundSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Gro
     public void writeChildElements(GroundSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfGroundSurface<?> property : object.getADEPropertiesOfGroundSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfGroundSurface container : object.getADEOfGroundSurface())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfGroundSurface"), container, namespaces, writer);
     }
 }

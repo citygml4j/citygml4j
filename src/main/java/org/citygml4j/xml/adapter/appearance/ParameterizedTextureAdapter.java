@@ -1,12 +1,14 @@
 package org.citygml4j.xml.adapter.appearance;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfParameterizedTexture;
-import org.citygml4j.model.appearance.ADEPropertyOfParameterizedTexture;
+import org.citygml4j.model.ade.generic.GenericADEOfParameterizedTexture;
+import org.citygml4j.model.appearance.ADEOfParameterizedTexture;
 import org.citygml4j.model.appearance.ParameterizedTexture;
 import org.citygml4j.model.appearance.TextureAssociationProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -28,7 +30,6 @@ import javax.xml.namespace.QName;
 })
 public class ParameterizedTextureAdapter extends AbstractTextureAdapter<ParameterizedTexture> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfParameterizedTexture"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfParameterizedTexture"),
             new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfParameterizedTexture")
     };
@@ -48,6 +49,9 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                 case "target":
                     object.getTextureParameterizations().add(reader.getObjectUsingBuilder(org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationPropertyAdapter.class));
                     return;
+                case "adeOfParameterizedTexture":
+                    ADEBuilderHelper.addADEContainer(ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(), GenericADEOfParameterizedTexture::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -59,8 +63,8 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
 
     @Override
     public void buildADEProperty(ParameterizedTexture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfParameterizedTexture.class, object.getADEPropertiesOfParameterizedTexture(),
-                GenericADEPropertyOfParameterizedTexture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(),
+                GenericADEOfParameterizedTexture::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -82,7 +86,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), property, org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfParameterizedTexture<?> property : object.getADEPropertiesOfParameterizedTexture())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfParameterizedTexture container : object.getADEOfParameterizedTexture())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfParameterizedTexture") : null, container, namespaces, writer);
     }
 }

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridgeFurniture;
-import org.citygml4j.model.bridge.ADEPropertyOfBridgeFurniture;
+import org.citygml4j.model.ade.generic.GenericADEOfBridgeFurniture;
+import org.citygml4j.model.bridge.ADEOfBridgeFurniture;
 import org.citygml4j.model.bridge.BridgeFurniture;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractFurnitureAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -28,10 +30,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "BridgeFurniture", namespaceURI = CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE)
 })
 public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurniture> {
-    private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "AbstractGenericApplicationPropertyOfBridgeFurniture"),
-            new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeFurniture")
-    };
+    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeFurniture");
 
     @Override
     public BridgeFurniture createObject(QName name) throws ObjectBuildException {
@@ -51,6 +50,9 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
                 case "lod4ImplicitRepresentation":
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
+                case "adeOfBridgeFurniture":
+                    ADEBuilderHelper.addADEContainer(ADEOfBridgeFurniture.class, object.getADEOfBridgeFurniture(), GenericADEOfBridgeFurniture::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -62,8 +64,8 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
 
     @Override
     public void buildADEProperty(BridgeFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridgeFurniture.class, object.getADEPropertiesOfBridgeFurniture(),
-                GenericADEPropertyOfBridgeFurniture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeFurniture.class, object.getADEOfBridgeFurniture(),
+                GenericADEOfBridgeFurniture::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -76,10 +78,11 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
     public void writeChildElements(BridgeFurniture object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace)) {
+        if (!isCityGML3) {
             if (object.getDeprecatedProperties().getLod4Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
@@ -87,7 +90,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfBridgeFurniture<?> property : object.getADEPropertiesOfBridgeFurniture())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBridgeFurniture container : object.getADEOfBridgeFurniture())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeFurniture") : null, container, namespaces, writer);
     }
 }

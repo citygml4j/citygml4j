@@ -1,12 +1,14 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfDoor;
-import org.citygml4j.model.construction.ADEPropertyOfDoor;
+import org.citygml4j.model.ade.generic.GenericADEOfDoor;
+import org.citygml4j.model.construction.ADEOfDoor;
 import org.citygml4j.model.construction.Door;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -23,7 +25,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Door", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfDoor");
 
     @Override
     public Door createObject(QName name) throws ObjectBuildException {
@@ -35,23 +36,18 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI())) {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
-            else if ("address".equals(name.getLocalPart())) {
-                object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
-                return;
+
+            switch (name.getLocalPart()) {
+                case "address":
+                    object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
+                    return;
+                case "adeOfDoor":
+                    ADEBuilderHelper.addADEContainer(ADEOfDoor.class, object.getADEOfDoor(), GenericADEOfDoor::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Door object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfDoor.class, object.getADEPropertiesOfDoor(),
-                GenericADEPropertyOfDoor::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -68,7 +64,7 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfDoor<?> property : object.getADEPropertiesOfDoor())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfDoor container : object.getADEOfDoor())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoor"), container, namespaces, writer);
     }
 }

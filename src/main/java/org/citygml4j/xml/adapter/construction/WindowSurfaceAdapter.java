@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWindowSurface;
-import org.citygml4j.model.construction.ADEPropertyOfWindowSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfWindowSurface;
+import org.citygml4j.model.construction.ADEOfWindowSurface;
 import org.citygml4j.model.construction.WindowSurface;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "WindowSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfWindowSurface");
 
     @Override
     public WindowSurface createObject(QName name) throws ObjectBuildException {
@@ -30,17 +29,10 @@ public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSu
 
     @Override
     public void buildChildObject(WindowSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
-            buildADEProperty(object, name, reader);
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfWindowSurface".equals(name.getLocalPart()))
+            ADEBuilderHelper.addADEContainer(ADEOfWindowSurface.class, object.getADEOfWindowSurface(), GenericADEOfWindowSurface::new, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(WindowSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWindowSurface.class, object.getADEPropertiesOfWindowSurface(),
-                GenericADEPropertyOfWindowSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -52,7 +44,7 @@ public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSu
     public void writeChildElements(WindowSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfWindowSurface<?> property : object.getADEPropertiesOfWindowSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWindowSurface container : object.getADEOfWindowSurface())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfWindowSurface"), container, namespaces, writer);
     }
 }

@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWallSurface;
-import org.citygml4j.model.construction.ADEPropertyOfWallSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfWallSurface;
+import org.citygml4j.model.construction.ADEOfWallSurface;
 import org.citygml4j.model.construction.WallSurface;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "WallSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class WallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<WallSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfWallSurface");
 
     @Override
     public WallSurface createObject(QName name) throws ObjectBuildException {
@@ -30,17 +29,10 @@ public class WallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<WallS
 
     @Override
     public void buildChildObject(WallSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
-            buildADEProperty(object, name, reader);
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfWallSurface".equals(name.getLocalPart()))
+            ADEBuilderHelper.addADEContainer(ADEOfWallSurface.class, object.getADEOfWallSurface(), GenericADEOfWallSurface::new, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(WallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWallSurface.class, object.getADEPropertiesOfWallSurface(),
-                GenericADEPropertyOfWallSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -52,7 +44,7 @@ public class WallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<WallS
     public void writeChildElements(WallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfWallSurface<?> property : object.getADEPropertiesOfWallSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWallSurface container : object.getADEOfWallSurface())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfWallSurface"), container, namespaces, writer);
     }
 }

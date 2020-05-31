@@ -1,11 +1,12 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractOccupiedSpace;
-import org.citygml4j.model.core.ADEPropertyOfAbstractOccupiedSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractOccupiedSpace;
+import org.citygml4j.model.core.ADEOfAbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -19,7 +20,6 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpace> extends AbstractPhysicalSpaceAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractOccupiedSpace");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
@@ -34,20 +34,13 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
                 case "lod3ImplicitRepresentation":
                     object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
+                case "adeOfAbstractOccupiedSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractOccupiedSpace.class, object.getADEOfAbstractOccupiedSpace(), GenericADEOfAbstractOccupiedSpace::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractOccupiedSpace.class, object.getADEPropertiesOfAbstractOccupiedSpace(),
-                GenericADEPropertyOfAbstractOccupiedSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -65,8 +58,8 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractOccupiedSpace<?> property : object.getADEPropertiesOfAbstractOccupiedSpace())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfAbstractOccupiedSpace container : object.getADEOfAbstractOccupiedSpace())
+                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractOccupiedSpace"), container, namespaces, writer);
         }
     }
 }

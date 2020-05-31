@@ -1,12 +1,14 @@
 package org.citygml4j.xml.adapter.appearance;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAppearance;
-import org.citygml4j.model.appearance.ADEPropertyOfAppearance;
+import org.citygml4j.model.ade.generic.GenericADEOfAppearance;
+import org.citygml4j.model.appearance.ADEOfAppearance;
 import org.citygml4j.model.appearance.AbstractSurfaceDataProperty;
 import org.citygml4j.model.appearance.Appearance;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractAppearanceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -29,7 +31,6 @@ import javax.xml.namespace.QName;
 })
 public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "AbstractGenericApplicationPropertyOfAppearance"),
             new QName(CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfAppearance"),
             new QName(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE, "_GenericApplicationPropertyOfAppearance")
     };
@@ -50,6 +51,9 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
                 case "surfaceDataMember":
                     object.getSurfaceData().add(reader.getObjectUsingBuilder(AbstractSurfaceDataPropertyAdapter.class));
                     return;
+                case "adeOfAppearance":
+                    ADEBuilderHelper.addADEContainer(ADEOfAppearance.class, object.getADEOfAppearance(), GenericADEOfAppearance::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -61,8 +65,8 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
 
     @Override
     public void buildADEProperty(Appearance object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAppearance.class, object.getADEPropertiesOfAppearance(),
-                GenericADEPropertyOfAppearance::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAppearance.class, object.getADEOfAppearance(),
+                GenericADEOfAppearance::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -75,16 +79,17 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
     public void writeChildElements(Appearance object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
 
         if (object.getTheme() != null)
             writer.writeElement(Element.of(appearanceNamespace, "theme").addTextContent(object.getTheme()));
 
         for (AbstractSurfaceDataProperty property : object.getSurfaceData())
             writer.writeElementUsingSerializer(
-                    Element.of(appearanceNamespace, CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(appearanceNamespace) ? "surfaceData" : "surfaceDataMember"),
+                    Element.of(appearanceNamespace, isCityGML3 ? "surfaceData" : "surfaceDataMember"),
                     property, AbstractSurfaceDataPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAppearance<?> property : object.getADEPropertiesOfAppearance())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAppearance container : object.getADEOfAppearance())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAppearance") : null, container, namespaces, writer);
     }
 }

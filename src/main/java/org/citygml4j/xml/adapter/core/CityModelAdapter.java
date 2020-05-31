@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityModel;
-import org.citygml4j.model.core.ADEPropertyOfCityModel;
+import org.citygml4j.model.ade.generic.GenericADEOfCityModel;
+import org.citygml4j.model.core.ADEOfCityModel;
 import org.citygml4j.model.core.AbstractAppearanceProperty;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.AbstractFeatureProperty;
@@ -9,8 +9,8 @@ import org.citygml4j.model.core.AbstractVersionProperty;
 import org.citygml4j.model.core.AbstractVersionTransitionProperty;
 import org.citygml4j.model.core.CityModel;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -26,7 +26,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "CityModel", namespaceURI = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE)
 public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityModel> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfCityModel");
 
     @Override
     public CityModel createObject(QName name) throws ObjectBuildException {
@@ -55,20 +54,13 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                 case "engineeringCRS":
                     object.setEngineeringCRS(reader.getObjectUsingBuilder(EngineeringCRSPropertyAdapter.class));
                     return;
+                case "adeOfCityModel":
+                    ADEBuilderHelper.addADEContainer(ADEOfCityModel.class, object.getADEOfCityModel(), GenericADEOfCityModel::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(CityModel object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCityModel.class, object.getADEPropertiesOfCityModel(),
-                GenericADEPropertyOfCityModel::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -98,7 +90,7 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
         for (AbstractFeatureProperty property : object.getFeatureMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfCityModel<?> property : object.getADEPropertiesOfCityModel())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfCityModel container : object.getADEOfCityModel())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfCityModel"), container, namespaces, writer);
     }
 }

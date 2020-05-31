@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfInteriorWallSurface;
-import org.citygml4j.model.construction.ADEPropertyOfInteriorWallSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfInteriorWallSurface;
+import org.citygml4j.model.construction.ADEOfInteriorWallSurface;
 import org.citygml4j.model.construction.InteriorWallSurface;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "InteriorWallSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class InteriorWallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<InteriorWallSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfInteriorWallSurface");
 
     @Override
     public InteriorWallSurface createObject(QName name) throws ObjectBuildException {
@@ -30,17 +29,10 @@ public class InteriorWallSurfaceAdapter extends AbstractConstructionSurfaceAdapt
 
     @Override
     public void buildChildObject(InteriorWallSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
-            buildADEProperty(object, name, reader);
+        if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfInteriorWallSurface".equals(name.getLocalPart()))
+            ADEBuilderHelper.addADEContainer(ADEOfInteriorWallSurface.class, object.getADEOfInteriorWallSurface(), GenericADEOfInteriorWallSurface::new, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(InteriorWallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfInteriorWallSurface.class, object.getADEPropertiesOfInteriorWallSurface(),
-                GenericADEPropertyOfInteriorWallSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -52,7 +44,7 @@ public class InteriorWallSurfaceAdapter extends AbstractConstructionSurfaceAdapt
     public void writeChildElements(InteriorWallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfInteriorWallSurface<?> property : object.getADEPropertiesOfInteriorWallSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfInteriorWallSurface container : object.getADEOfInteriorWallSurface())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfInteriorWallSurface"), container, namespaces, writer);
     }
 }

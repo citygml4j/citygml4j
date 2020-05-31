@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.construction;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractConstruction;
-import org.citygml4j.model.construction.ADEPropertyOfAbstractConstruction;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractConstruction;
+import org.citygml4j.model.construction.ADEOfAbstractConstruction;
 import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.model.construction.ConditionOfConstructionValue;
 import org.citygml4j.model.construction.ConstructionEventProperty;
@@ -9,8 +9,8 @@ import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.model.construction.HeightProperty;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.core.OccupancyPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -30,7 +30,6 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 public abstract class AbstractConstructionAdapter<T extends AbstractConstruction> extends AbstractOccupiedSpaceAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractConstruction");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
@@ -57,20 +56,13 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
                 case "occupancy":
                     object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
                     return;
+                case "adeOfAbstractConstruction":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstruction.class, object.getADEOfAbstractConstruction(), GenericADEOfAbstractConstruction::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractConstruction.class, object.getADEPropertiesOfAbstractConstruction(),
-                GenericADEPropertyOfAbstractConstruction::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -99,8 +91,8 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
             for (OccupancyProperty property : object.getOccupancies())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractConstruction<?> property : object.getADEPropertiesOfAbstractConstruction())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfAbstractConstruction container : object.getADEOfAbstractConstruction())
+                ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstruction"), container, namespaces, writer);
         }
     }
 }

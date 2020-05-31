@@ -1,11 +1,12 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractPhysicalSpace;
-import org.citygml4j.model.core.ADEPropertyOfAbstractPhysicalSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractPhysicalSpace;
+import org.citygml4j.model.core.ADEOfAbstractPhysicalSpace;
 import org.citygml4j.model.core.AbstractPhysicalSpace;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -20,7 +21,6 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpace> extends AbstractSpaceAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractPhysicalSpace");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
@@ -38,20 +38,13 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
                 case "pointCloud":
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
+                case "adeOfAbstractPhysicalSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractPhysicalSpace.class, object.getADEOfAbstractPhysicalSpace(), GenericADEOfAbstractPhysicalSpace::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractPhysicalSpace.class, object.getADEPropertiesOfAbstractPhysicalSpace(),
-                GenericADEPropertyOfAbstractPhysicalSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -69,8 +62,8 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
             if (object.getLod3TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3TerrainIntersectionCurve"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (ADEPropertyOfAbstractPhysicalSpace<?> property : object.getADEPropertiesOfAbstractPhysicalSpace())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfAbstractPhysicalSpace container : object.getADEOfAbstractPhysicalSpace())
+                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractPhysicalSpace"), container, namespaces, writer);
         }
     }
 }

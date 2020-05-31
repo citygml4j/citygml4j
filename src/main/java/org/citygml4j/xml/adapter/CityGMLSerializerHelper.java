@@ -1,7 +1,5 @@
 package org.citygml4j.xml.adapter;
 
-import org.citygml4j.model.ade.ADEProperty;
-import org.citygml4j.model.ade.generic.ADEGenericProperty;
 import org.citygml4j.model.core.AbstractSpace;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.util.CityGMLConstants;
@@ -155,12 +153,5 @@ public class CityGMLSerializerHelper {
         }
 
         return false;
-    }
-
-    public static void serializeADEProperty(ADEProperty<?> property, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        if (property instanceof ADEGenericProperty)
-            writer.writeDOMElement(((ADEGenericProperty) property).getValue());
-        else
-            writer.writeObject(property, namespaces);
     }
 }

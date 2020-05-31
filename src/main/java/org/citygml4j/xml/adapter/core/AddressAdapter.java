@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAddress;
-import org.citygml4j.model.core.ADEPropertyOfAddress;
+import org.citygml4j.model.ade.generic.GenericADEOfAddress;
+import org.citygml4j.model.core.ADEOfAddress;
 import org.citygml4j.model.core.Address;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -29,7 +31,6 @@ import javax.xml.namespace.QName;
 })
 public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "AbstractGenericApplicationPropertyOfAddress"),
             new QName(CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfAddress"),
             new QName(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE, "_GenericApplicationPropertyOfAddress")
     };
@@ -49,6 +50,9 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
                 case "multiPoint":
                     object.setMultiPoint(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
                     return;
+                case "adeOfAddress":
+                    ADEBuilderHelper.addADEContainer(ADEOfAddress.class, object.getADEOfAddress(), GenericADEOfAddress::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -60,8 +64,8 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
 
     @Override
     public void buildADEProperty(Address object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAddress.class, object.getADEPropertiesOfAddress(),
-                GenericADEPropertyOfAddress::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAddress.class, object.getADEOfAddress(),
+                GenericADEOfAddress::new, reader, substitutionGroups))
             object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
     }
 
@@ -74,6 +78,7 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     public void writeChildElements(Address object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace);
 
         if (object.getXALAddress() != null)
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "xalAddress"), object.getXALAddress(), XALAddressPropertyAdapter.class, namespaces);
@@ -81,7 +86,7 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
         if (object.getMultiPoint() != null)
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "multiPoint"), object.getMultiPoint(), MultiPointPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAddress<?> property : object.getADEPropertiesOfAddress())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAddress container : object.getADEOfAddress())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(coreNamespace, "adeOfAddress") : null, container, namespaces, writer);
     }
 }
