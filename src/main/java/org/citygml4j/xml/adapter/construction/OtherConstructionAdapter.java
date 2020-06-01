@@ -8,6 +8,7 @@ import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
+import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -20,6 +21,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
+@XMLElement(name = "OtherConstruction", namespaceURI = CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)
 public class OtherConstructionAdapter extends AbstractConstructionAdapter<OtherConstruction> {
 
     @Override
@@ -43,7 +45,7 @@ public class OtherConstructionAdapter extends AbstractConstructionAdapter<OtherC
 
     @Override
     public Element createElement(OtherConstruction object, Namespaces namespaces) throws ObjectSerializeException {
-        return null;
+        return Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "OtherConstruction");
     }
 
     @Override
