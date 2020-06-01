@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfSquare;
-import org.citygml4j.model.transportation.ADEPropertyOfSquare;
+import org.citygml4j.model.ade.generic.GenericADEOfSquare;
+import org.citygml4j.model.transportation.ADEOfSquare;
 import org.citygml4j.model.transportation.Square;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class SquareAdapter extends AbstractTransportationObjectAdapter<Square> {
 
     @Override
     public void buildADEProperty(Square object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfSquare.class, object.getADEPropertiesOfSquare(),
-                GenericADEPropertyOfSquare::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfSquare.class, object.getADEOfSquare(),
+                GenericADEOfSquare::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class SquareAdapter extends AbstractTransportationObjectAdapter<Square> {
     public void writeChildElements(Square object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfSquare<?> property : object.getADEPropertiesOfSquare())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfSquare container : object.getADEOfSquare())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

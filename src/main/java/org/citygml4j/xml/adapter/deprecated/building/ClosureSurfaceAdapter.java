@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfClosureSurface;
-import org.citygml4j.model.core.ADEPropertyOfClosureSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfClosureSurface;
+import org.citygml4j.model.core.ADEOfClosureSurface;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
 
     @Override
     public void buildADEProperty(ClosureSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfClosureSurface.class, object.getADEPropertiesOfClosureSurface(),
-                GenericADEPropertyOfClosureSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfClosureSurface.class, object.getADEOfClosureSurface(),
+                GenericADEOfClosureSurface::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
     public void writeChildElements(ClosureSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfClosureSurface<?> property : object.getADEPropertiesOfClosureSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfClosureSurface container : object.getADEOfClosureSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

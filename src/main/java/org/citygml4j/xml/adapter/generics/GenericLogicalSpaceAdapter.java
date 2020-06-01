@@ -53,7 +53,7 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
     public void writeChildElements(GenericLogicalSpace object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
         for (ADEOfGenericLogicalSpace container : object.getADEOfGenericLogicalSpace())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericLogicalSpace"), container, namespaces, writer);

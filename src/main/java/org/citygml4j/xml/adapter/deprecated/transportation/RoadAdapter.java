@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfRoad;
-import org.citygml4j.model.transportation.ADEPropertyOfRoad;
+import org.citygml4j.model.ade.generic.GenericADEOfRoad;
+import org.citygml4j.model.transportation.ADEOfRoad;
 import org.citygml4j.model.transportation.Road;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
 
     @Override
     public void buildADEProperty(Road object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfRoad.class, object.getADEPropertiesOfRoad(),
-                GenericADEPropertyOfRoad::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfRoad.class, object.getADEOfRoad(),
+                GenericADEOfRoad::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
     public void writeChildElements(Road object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfRoad<?> property : object.getADEPropertiesOfRoad())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfRoad container : object.getADEOfRoad())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

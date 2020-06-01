@@ -1,9 +1,9 @@
 package org.citygml4j.xml.adapter.deprecated.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTunnel;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractTunnel;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.tunnel.ADEPropertyOfAbstractTunnel;
+import org.citygml4j.model.tunnel.ADEOfAbstractTunnel;
 import org.citygml4j.model.tunnel.AbstractTunnel;
 import org.citygml4j.model.tunnel.HollowSpaceMember;
 import org.citygml4j.model.tunnel.HollowSpaceProperty;
@@ -14,6 +14,8 @@ import org.citygml4j.model.tunnel.TunnelPartProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.core.AbstractSiteAdapter;
 import org.citygml4j.xml.adapter.tunnel.HollowSpaceMemberAdapter;
@@ -157,8 +159,8 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTunnel.class, object.getADEPropertiesOfAbstractTunnel(),
-                GenericADEPropertyOfAbstractTunnel::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTunnel.class, object.getADEOfAbstractTunnel(),
+                GenericADEOfAbstractTunnel::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -167,7 +169,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         super.writeChildElements(object, namespaces, writer);
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
         if (object.getDateOfConstruction() != null)
             writer.writeElement(Element.of(tunnelNamespace, "yearOfConstruction").addTextContent(TextContent.ofGYear(OffsetDateTime.of(object.getDateOfConstruction(), LocalTime.MIN, ZoneOffset.UTC))));
@@ -253,7 +255,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         for (TunnelPartProperty property : object.getDeprecatedProperties().getConsistsOfTunnelParts())
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractTunnel<?> property : object.getADEPropertiesOfAbstractTunnel())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractTunnel container : object.getADEOfAbstractTunnel())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

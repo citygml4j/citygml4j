@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTrack;
-import org.citygml4j.model.transportation.ADEPropertyOfTrack;
+import org.citygml4j.model.ade.generic.GenericADEOfTrack;
+import org.citygml4j.model.transportation.ADEOfTrack;
 import org.citygml4j.model.transportation.Track;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,9 +47,10 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
 
     @Override
     public void buildADEProperty(Track object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTrack.class, object.getADEPropertiesOfTrack(),
-                GenericADEPropertyOfTrack::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTrack.class, object.getADEOfTrack(),
+                GenericADEOfTrack::new, reader, substitutionGroups)) {
             super.buildADEProperty(object, name, reader);
+        }
     }
 
     @Override
@@ -59,7 +62,7 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
     public void writeChildElements(Track object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfTrack<?> property : object.getADEPropertiesOfTrack())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTrack container : object.getADEOfTrack())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

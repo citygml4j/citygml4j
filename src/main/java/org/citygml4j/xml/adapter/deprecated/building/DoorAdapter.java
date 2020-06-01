@@ -1,12 +1,14 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfDoorSurface;
-import org.citygml4j.model.construction.ADEPropertyOfDoorSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfDoorSurface;
+import org.citygml4j.model.construction.ADEOfDoorSurface;
 import org.citygml4j.model.construction.DoorSurface;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -52,8 +54,8 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
 
     @Override
     public void buildADEProperty(DoorSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfDoorSurface.class, object.getADEPropertiesOfDoorSurface(),
-                GenericADEPropertyOfDoorSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfDoorSurface.class, object.getADEOfDoorSurface(),
+                GenericADEOfDoorSurface::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -70,7 +72,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfDoorSurface<?> property : object.getADEPropertiesOfDoorSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfDoorSurface container : object.getADEOfDoorSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

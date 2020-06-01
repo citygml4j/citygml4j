@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBridge;
-import org.citygml4j.model.bridge.ADEPropertyOfBridge;
+import org.citygml4j.model.ade.generic.GenericADEOfBridge;
+import org.citygml4j.model.bridge.ADEOfBridge;
 import org.citygml4j.model.bridge.Bridge;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -38,8 +40,8 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
 
     @Override
     public void buildADEProperty(Bridge object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBridge.class, object.getADEPropertiesOfBridge(),
-                GenericADEPropertyOfBridge::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridge.class, object.getADEOfBridge(),
+                GenericADEOfBridge::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -52,7 +54,7 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
     public void writeChildElements(Bridge object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfBridge<?> property : object.getADEPropertiesOfBridge())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBridge container : object.getADEOfBridge())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnelPart;
-import org.citygml4j.model.tunnel.ADEPropertyOfTunnelPart;
+import org.citygml4j.model.ade.generic.GenericADEOfTunnelPart;
+import org.citygml4j.model.tunnel.ADEOfTunnelPart;
 import org.citygml4j.model.tunnel.TunnelPart;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -38,8 +40,8 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
 
     @Override
     public void buildADEProperty(TunnelPart object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTunnelPart.class, object.getADEPropertiesOfTunnelPart(),
-                GenericADEPropertyOfTunnelPart::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelPart.class, object.getADEOfTunnelPart(),
+                GenericADEOfTunnelPart::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -52,7 +54,7 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
     public void writeChildElements(TunnelPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfTunnelPart<?> property : object.getADEPropertiesOfTunnelPart())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTunnelPart container : object.getADEOfTunnelPart())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

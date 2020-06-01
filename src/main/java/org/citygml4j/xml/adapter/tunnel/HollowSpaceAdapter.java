@@ -96,7 +96,7 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
         if (!isCityGML3) {
             if (object.getDeprecatedProperties().getLod4Solid() != null)

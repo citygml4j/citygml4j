@@ -1,9 +1,9 @@
 package org.citygml4j.xml.adapter.deprecated.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTransportationSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractTransportationSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
-import org.citygml4j.model.transportation.ADEPropertyOfAbstractTransportationSpace;
+import org.citygml4j.model.transportation.ADEOfAbstractTransportationSpace;
 import org.citygml4j.model.transportation.AbstractTransportationSpace;
 import org.citygml4j.model.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.model.transportation.AuxiliaryTrafficSpace;
@@ -15,6 +15,8 @@ import org.citygml4j.model.transportation.TrafficSpaceProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -99,8 +101,8 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTransportationSpace.class, object.getADEPropertiesOfAbstractTransportationSpace(),
-                GenericADEPropertyOfAbstractTransportationSpace::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTransportationSpace.class, object.getADEOfAbstractTransportationSpace(),
+                GenericADEOfAbstractTransportationSpace::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -110,7 +112,7 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
         String transportationNamespace = CityGMLSerializerHelper.getTransportationNamespace(namespaces);
 
         if (object instanceof StandardObjectClassifier)
-            CityGMLSerializerHelper.serializeStandardObjectClassifier((StandardObjectClassifier) object, transportationNamespace, namespaces, writer);
+            CityGMLSerializerHelper.writeStandardObjectClassifier((StandardObjectClassifier) object, transportationNamespace, namespaces, writer);
 
         for (TrafficSpaceProperty property : object.getTrafficSpaces()) {
             if (property.getObject() != null) {
@@ -149,8 +151,8 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
         if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractTransportationSpace<?> property : object.getADEPropertiesOfAbstractTransportationSpace())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractTransportationSpace container : object.getADEOfAbstractTransportationSpace())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 
     private MultiCurveProperty getMultiCurveProperty(CompositeCurve src) {

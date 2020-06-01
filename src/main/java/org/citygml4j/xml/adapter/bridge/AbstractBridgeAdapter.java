@@ -68,7 +68,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, namespaces, writer);
 
         if (object.isSetIsMovable())
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "isMovable").addTextContent(TextContent.ofBoolean(object.getIsMovable())));

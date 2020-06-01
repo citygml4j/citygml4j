@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractFillingSurface;
-import org.citygml4j.model.construction.ADEPropertyOfAbstractFillingSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractFillingSurface;
+import org.citygml4j.model.construction.ADEOfAbstractFillingSurface;
 import org.citygml4j.model.construction.AbstractFillingSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -51,8 +53,8 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractFillingSurface.class, object.getADEPropertiesOfAbstractFillingSurface(),
-                GenericADEPropertyOfAbstractFillingSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractFillingSurface.class, object.getADEOfAbstractFillingSurface(),
+                GenericADEOfAbstractFillingSurface::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -73,7 +75,7 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
         if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractFillingSurface<?> property : object.getADEPropertiesOfAbstractFillingSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractFillingSurface container : object.getADEOfAbstractFillingSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

@@ -1,13 +1,16 @@
 package org.citygml4j.xml.adapter.deprecated.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractThematicSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractThematicSurface;
+import org.citygml4j.model.construction.ADEOfAbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.AbstractFillingSurfaceProperty;
-import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
+import org.citygml4j.model.core.ADEOfAbstractThematicSurface;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractFillingSurfacePropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -54,8 +57,8 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractThematicSurface.class, object.getADEPropertiesOfAbstractThematicSurface(),
-                GenericADEPropertyOfAbstractThematicSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(),
+                GenericADEOfAbstractThematicSurface::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -76,9 +79,12 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
         if (object instanceof AbstractConstructionSurface) {
             for (AbstractFillingSurfaceProperty property : ((AbstractConstructionSurface) object).getFillingSurfaces())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
+
+            for (ADEOfAbstractConstructionSurface container : ((AbstractConstructionSurface) object).getADEOfAbstractConstructionSurface())
+                ADESerializerHelper.writeADEProperty(container, namespaces, writer);
         }
 
-        for (ADEPropertyOfAbstractThematicSurface<?> property : object.getADEPropertiesOfAbstractThematicSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractThematicSurface container : object.getADEOfAbstractThematicSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

@@ -1,15 +1,15 @@
 package org.citygml4j.xml.adapter.deprecated.waterbody;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractThematicSurface;
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractWaterBoundarySurface;
-import org.citygml4j.model.core.ADEPropertyOfAbstractThematicSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractThematicSurface;
+import org.citygml4j.model.core.ADEOfAbstractThematicSurface;
 import org.citygml4j.model.core.AbstractThematicSurface;
-import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.waterbody.ADEPropertyOfAbstractWaterBoundarySurface;
+import org.citygml4j.model.waterbody.ADEOfAbstractWaterBoundarySurface;
 import org.citygml4j.model.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.primitives.SurfacePropertyAdapter;
@@ -54,15 +54,8 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            if (object instanceof AbstractWaterBoundarySurface) {
-                AbstractWaterBoundarySurface boundarySurface = (AbstractWaterBoundarySurface) object;
-                if (CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractWaterBoundarySurface.class, boundarySurface.getADEPropertiesOfAbstractWaterBoundarySurface(),
-                        GenericADEPropertyOfAbstractWaterBoundarySurface::of, reader, substitutionGroups))
-                    return;
-            } else {
-                buildADEProperty(object, name, reader);
-                return;
-            }
+            buildADEProperty(object, name, reader);
+            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
@@ -70,8 +63,8 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractThematicSurface.class, object.getADEPropertiesOfAbstractThematicSurface(),
-                GenericADEPropertyOfAbstractThematicSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(),
+                GenericADEOfAbstractThematicSurface::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -91,12 +84,12 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
 
         if (object instanceof AbstractWaterBoundarySurface) {
             AbstractWaterBoundarySurface boundarySurface = (AbstractWaterBoundarySurface) object;
-            for (ADEPropertyOfAbstractWaterBoundarySurface<?> property : boundarySurface.getADEPropertiesOfAbstractWaterBoundarySurface())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
-        } else if (object instanceof ClosureSurface) {
-            for (ADEPropertyOfAbstractThematicSurface<?> property : object.getADEPropertiesOfAbstractThematicSurface())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfAbstractWaterBoundarySurface container : boundarySurface.getADEOfAbstractWaterBoundarySurface())
+                ADESerializerHelper.writeADEProperty(container, namespaces, writer);
         }
+
+        for (ADEOfAbstractThematicSurface container : object.getADEOfAbstractThematicSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 
     private MultiSurfaceProperty getMultiSurfaceProperty(SurfaceProperty src) {

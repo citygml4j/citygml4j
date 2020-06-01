@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfOuterFloorSurface;
-import org.citygml4j.model.construction.ADEPropertyOfOuterFloorSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfOuterFloorSurface;
+import org.citygml4j.model.construction.ADEOfOuterFloorSurface;
 import org.citygml4j.model.construction.OuterFloorSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -38,8 +40,8 @@ public class OuterFloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Out
 
     @Override
     public void buildADEProperty(OuterFloorSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfOuterFloorSurface.class, object.getADEPropertiesOfOuterFloorSurface(),
-                GenericADEPropertyOfOuterFloorSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfOuterFloorSurface.class, object.getADEOfOuterFloorSurface(),
+                GenericADEOfOuterFloorSurface::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -52,7 +54,7 @@ public class OuterFloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Out
     public void writeChildElements(OuterFloorSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfOuterFloorSurface<?> property : object.getADEPropertiesOfOuterFloorSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfOuterFloorSurface container : object.getADEOfOuterFloorSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBuilding;
-import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractBuilding;
+import org.citygml4j.model.building.ADEOfAbstractBuilding;
 import org.citygml4j.model.building.AbstractBuilding;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.building.BuildingInstallationMember;
@@ -17,6 +17,8 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.building.BuildingInstallationMemberAdapter;
 import org.citygml4j.xml.adapter.building.BuildingInstallationPropertyAdapter;
 import org.citygml4j.xml.adapter.building.BuildingPartPropertyAdapter;
@@ -194,8 +196,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractBuilding.class, object.getADEPropertiesOfAbstractBuilding(),
-                GenericADEPropertyOfAbstractBuilding::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractBuilding.class, object.getADEOfAbstractBuilding(),
+                GenericADEOfAbstractBuilding::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -204,7 +206,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (object.getDateOfConstruction() != null)
             writer.writeElement(Element.of(buildingNamespace, "yearOfConstruction").addTextContent(TextContent.ofGYear(OffsetDateTime.of(object.getDateOfConstruction(), LocalTime.MIN, ZoneOffset.UTC))));
@@ -320,7 +322,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractBuilding<?> property : object.getADEPropertiesOfAbstractBuilding())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractBuilding container : object.getADEOfAbstractBuilding())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

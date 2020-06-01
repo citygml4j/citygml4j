@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.deprecated.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBridge;
-import org.citygml4j.model.bridge.ADEPropertyOfAbstractBridge;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractBridge;
+import org.citygml4j.model.bridge.ADEOfAbstractBridge;
 import org.citygml4j.model.bridge.AbstractBridge;
 import org.citygml4j.model.bridge.Bridge;
 import org.citygml4j.model.bridge.BridgeConstructiveElementMember;
@@ -17,6 +17,8 @@ import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.bridge.BridgeConstructiveElementMemberAdapter;
 import org.citygml4j.xml.adapter.bridge.BridgeConstructiveElementPropertyAdapter;
 import org.citygml4j.xml.adapter.bridge.BridgeInstallationMemberAdapter;
@@ -180,8 +182,8 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractBridge.class, object.getADEPropertiesOfAbstractBridge(),
-                GenericADEPropertyOfAbstractBridge::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractBridge.class, object.getADEOfAbstractBridge(),
+                GenericADEOfAbstractBridge::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -190,7 +192,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         super.writeChildElements(object, namespaces, writer);
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (object.getDateOfConstruction() != null)
             writer.writeElement(Element.of(bridgeNamespace, "yearOfConstruction").addTextContent(TextContent.ofGYear(OffsetDateTime.of(object.getDateOfConstruction(), LocalTime.MIN, ZoneOffset.UTC))));
@@ -288,7 +290,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractBridge<?> property : object.getADEPropertiesOfAbstractBridge())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractBridge container : object.getADEOfAbstractBridge())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

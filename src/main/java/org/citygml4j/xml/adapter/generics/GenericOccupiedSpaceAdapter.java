@@ -121,28 +121,28 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
         super.writeChildElements(object, namespaces, writer);
         String genericsNamespace = CityGMLSerializerHelper.getGenericsNamespace(namespaces);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, genericsNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, genericsNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace)) {
             if (object.getDeprecatedProperties().getLod0Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0Geometry"), object.getDeprecatedProperties().getLod0Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
-                CityGMLSerializerHelper.serializeDefaultGeometry(object, 0, "lod0Geometry", genericsNamespace, namespaces, writer);
+                CityGMLSerializerHelper.writeDefaultGeometry(object, 0, "lod0Geometry", genericsNamespace, namespaces, writer);
 
             if (object.getDeprecatedProperties().getLod1Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod1Geometry"), object.getDeprecatedProperties().getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
-                CityGMLSerializerHelper.serializeDefaultGeometry(object, 1, "lod1Geometry", genericsNamespace, namespaces, writer);
+                CityGMLSerializerHelper.writeDefaultGeometry(object, 1, "lod1Geometry", genericsNamespace, namespaces, writer);
 
             if (object.getDeprecatedProperties().getLod2Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
-                CityGMLSerializerHelper.serializeDefaultGeometry(object, 2, "lod2Geometry", genericsNamespace, namespaces, writer);
+                CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", genericsNamespace, namespaces, writer);
 
             if (object.getDeprecatedProperties().getLod3Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
-                CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod3Geometry", genericsNamespace, namespaces, writer);
+                CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", genericsNamespace, namespaces, writer);
 
             if (object.getDeprecatedProperties().getLod4Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);

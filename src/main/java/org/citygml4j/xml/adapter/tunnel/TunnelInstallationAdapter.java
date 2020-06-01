@@ -118,7 +118,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
         if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
@@ -127,12 +127,12 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
                 if (object.getDeprecatedProperties().getLod2Geometry() != null)
                     writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
-                    CityGMLSerializerHelper.serializeDefaultGeometry(object, 2, "lod2Geometry", tunnelNamespace, namespaces, writer);
+                    CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", tunnelNamespace, namespaces, writer);
 
                 if (object.getDeprecatedProperties().getLod3Geometry() != null)
                     writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
-                    CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod3Geometry", tunnelNamespace, namespaces, writer);
+                    CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", tunnelNamespace, namespaces, writer);
             }
 
             if (object.getDeprecatedProperties().getLod4Geometry() != null)

@@ -84,7 +84,7 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (!isCityGML3) {
             if (object.getDeprecatedProperties().getLod4Geometry() != null)

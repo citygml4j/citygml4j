@@ -53,7 +53,7 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
     public void writeChildElements(GenericThematicSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
         for (ADEOfGenericThematicSurface container : object.getADEOfGenericThematicSurface())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericThematicSurface"), container, namespaces, writer);

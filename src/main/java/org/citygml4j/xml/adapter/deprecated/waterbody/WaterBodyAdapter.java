@@ -1,12 +1,14 @@
 package org.citygml4j.xml.adapter.deprecated.waterbody;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWaterBody;
+import org.citygml4j.model.ade.generic.GenericADEOfWaterBody;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.waterbody.ADEPropertyOfWaterBody;
+import org.citygml4j.model.waterbody.ADEOfWaterBody;
 import org.citygml4j.model.waterbody.WaterBody;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -88,8 +90,8 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
 
     @Override
     public void buildADEProperty(WaterBody object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWaterBody.class, object.getADEPropertiesOfWaterBody(),
-                GenericADEPropertyOfWaterBody::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWaterBody.class, object.getADEOfWaterBody(),
+                GenericADEOfWaterBody::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -103,7 +105,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         super.writeChildElements(object, namespaces, writer);
         String waterBodyNamespace = CityGMLSerializerHelper.getWaterBodyNamespace(namespaces);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, waterBodyNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, waterBodyNamespace, namespaces, writer);
 
         if (object.getLod0MultiCurve() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiCurve"), object.getLod0MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -132,7 +134,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractWaterBoundarySurfacePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfWaterBody<?> property : object.getADEPropertiesOfWaterBody())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWaterBody container : object.getADEOfWaterBody())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

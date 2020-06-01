@@ -59,7 +59,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
 
         for (TunnelConstructiveElementMember member : object.getTunnelConstructiveElements())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelConstructiveElement"), member, TunnelConstructiveElementMemberAdapter.class, namespaces);

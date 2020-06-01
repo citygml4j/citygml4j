@@ -53,7 +53,7 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
     public void writeChildElements(GenericUnoccupiedSpace object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
         for (ADEOfGenericUnoccupiedSpace container : object.getADEOfGenericUnoccupiedSpace())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericUnoccupiedSpace"), container, namespaces, writer);

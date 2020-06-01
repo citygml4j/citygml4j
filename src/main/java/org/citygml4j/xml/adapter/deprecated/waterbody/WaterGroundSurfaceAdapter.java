@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.waterbody;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWaterGroundSurface;
-import org.citygml4j.model.waterbody.ADEPropertyOfWaterGroundSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfWaterGroundSurface;
+import org.citygml4j.model.waterbody.ADEOfWaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
 
     @Override
     public void buildADEProperty(WaterGroundSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWaterGroundSurface.class, object.getADEPropertiesOfWaterGroundSurface(),
-                GenericADEPropertyOfWaterGroundSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWaterGroundSurface.class, object.getADEOfWaterGroundSurface(),
+                GenericADEOfWaterGroundSurface::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     public void writeChildElements(WaterGroundSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfWaterGroundSurface<?> property : object.getADEPropertiesOfWaterGroundSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWaterGroundSurface container : object.getADEOfWaterGroundSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingPart;
-import org.citygml4j.model.building.ADEPropertyOfBuildingPart;
+import org.citygml4j.model.ade.generic.GenericADEOfBuildingPart;
+import org.citygml4j.model.building.ADEOfBuildingPart;
 import org.citygml4j.model.building.BuildingPart;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
 
     @Override
     public void buildADEProperty(BuildingPart object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingPart.class, object.getADEPropertiesOfBuildingPart(),
-                GenericADEPropertyOfBuildingPart::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuildingPart.class, object.getADEOfBuildingPart(),
+                GenericADEOfBuildingPart::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     public void writeChildElements(BuildingPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfBuildingPart<?> property : object.getADEPropertiesOfBuildingPart())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBuildingPart container : object.getADEOfBuildingPart())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

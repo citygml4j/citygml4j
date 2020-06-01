@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnel;
-import org.citygml4j.model.tunnel.ADEPropertyOfTunnel;
+import org.citygml4j.model.ade.generic.GenericADEOfTunnel;
+import org.citygml4j.model.tunnel.ADEOfTunnel;
 import org.citygml4j.model.tunnel.Tunnel;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -38,8 +40,8 @@ public class TunnelAdapter extends AbstractTunnelAdapter<Tunnel> {
 
     @Override
     public void buildADEProperty(Tunnel object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTunnel.class, object.getADEPropertiesOfTunnel(),
-                GenericADEPropertyOfTunnel::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnel.class, object.getADEOfTunnel(),
+                GenericADEOfTunnel::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -52,7 +54,7 @@ public class TunnelAdapter extends AbstractTunnelAdapter<Tunnel> {
     public void writeChildElements(Tunnel object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfTunnel<?> property : object.getADEPropertiesOfTunnel())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTunnel container : object.getADEOfTunnel())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

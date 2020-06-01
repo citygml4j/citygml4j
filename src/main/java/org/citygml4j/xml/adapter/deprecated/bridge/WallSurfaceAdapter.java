@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.bridge;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWallSurface;
-import org.citygml4j.model.construction.ADEPropertyOfWallSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfWallSurface;
+import org.citygml4j.model.construction.ADEOfWallSurface;
 import org.citygml4j.model.construction.WallSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -38,8 +40,8 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
 
     @Override
     public void buildADEProperty(WallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWallSurface.class, object.getADEPropertiesOfWallSurface(),
-                GenericADEPropertyOfWallSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWallSurface.class, object.getADEOfWallSurface(),
+                GenericADEOfWallSurface::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -52,7 +54,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
     public void writeChildElements(WallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfWallSurface<?> property : object.getADEPropertiesOfWallSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWallSurface container : object.getADEOfWallSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

@@ -129,7 +129,7 @@ public class CityGMLSerializerHelper {
             return CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE;
     }
 
-    public static void serializeStandardObjectClassifier(StandardObjectClassifier object, String namespaceURI, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public static void writeStandardObjectClassifier(StandardObjectClassifier object, String namespaceURI, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(namespaceURI, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
@@ -140,7 +140,7 @@ public class CityGMLSerializerHelper {
             writer.writeElementUsingSerializer(Element.of(namespaceURI, "usage"), usage, CodeAdapter.class, namespaces);
     }
 
-    public static boolean serializeDefaultGeometry(AbstractSpace object, int lod, String propertyName, String namespaceURI, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public static boolean writeDefaultGeometry(AbstractSpace object, int lod, String propertyName, String namespaceURI, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getSolid(lod) != null) {
             writer.writeElementUsingSerializer(Element.of(namespaceURI, propertyName), object.getSolid(lod), SolidPropertyAdapter.class, namespaces);
             return true;

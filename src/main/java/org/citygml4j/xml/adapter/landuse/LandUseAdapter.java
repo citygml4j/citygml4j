@@ -92,7 +92,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
         String landUseNamespace = CityGMLSerializerHelper.getLandUseNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE.equals(landUseNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, landUseNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, landUseNamespace, namespaces, writer);
 
         if (!isCityGML3) {
             if (object.getLod0MultiSurface() != null)

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfRoofSurface;
-import org.citygml4j.model.construction.ADEPropertyOfRoofSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfRoofSurface;
+import org.citygml4j.model.construction.ADEOfRoofSurface;
 import org.citygml4j.model.construction.RoofSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurfa
 
     @Override
     public void buildADEProperty(RoofSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfRoofSurface.class, object.getADEPropertiesOfRoofSurface(),
-                GenericADEPropertyOfRoofSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfRoofSurface.class, object.getADEOfRoofSurface(),
+                GenericADEOfRoofSurface::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurfa
     public void writeChildElements(RoofSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfRoofSurface<?> property : object.getADEPropertiesOfRoofSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfRoofSurface container : object.getADEOfRoofSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

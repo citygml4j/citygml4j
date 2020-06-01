@@ -111,7 +111,7 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
             CityModel cityModel;
             if (cityModelInfo != null) {
                 cityModel = (CityModel) cityModelInfo.getCityModel().shallowCopy(new CopyBuilder());
-                cityModel.setADEPropertiesOfCityModel(null);
+                cityModel.setADEOfCityModel(null);
             } else
                 cityModel = new CityModel();
 
@@ -138,7 +138,7 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         try {
             CityModel cityModel = new CityModel();
             if (cityModelInfo != null)
-                cityModel.setADEPropertiesOfCityModel(cityModelInfo.getCityModel().getADEPropertiesOfCityModel());
+                cityModel.setADEOfCityModel(cityModelInfo.getCityModel().getADEOfCityModel());
 
             SAXFragmentHandler fragmentHandler = new SAXFragmentHandler(
                     writer.getContentHandler(),

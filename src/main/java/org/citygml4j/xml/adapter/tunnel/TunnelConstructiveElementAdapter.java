@@ -53,7 +53,7 @@ public class TunnelConstructiveElementAdapter extends AbstractConstructiveElemen
     public void writeChildElements(TunnelConstructiveElement object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
 
         for (ADEOfTunnelConstructiveElement container : object.getADEOfTunnelConstructiveElement())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnelConstructiveElement"), container, namespaces, writer);

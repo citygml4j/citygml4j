@@ -53,7 +53,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
     public void writeChildElements(WaterBody object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, namespaces, writer);
 
         for (ADEOfWaterBody container : object.getADEOfWaterBody())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterBody"), container, namespaces, writer);

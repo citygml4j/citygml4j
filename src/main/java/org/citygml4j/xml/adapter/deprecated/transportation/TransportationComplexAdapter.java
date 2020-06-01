@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTransportationComplex;
-import org.citygml4j.model.deprecated.transportation.ADEPropertyOfTransportationComplex;
+import org.citygml4j.model.ade.generic.GenericADEOfTransportationComplex;
+import org.citygml4j.model.deprecated.transportation.ADEOfTransportationComplex;
 import org.citygml4j.model.deprecated.transportation.TransportationComplex;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class TransportationComplexAdapter extends AbstractTransportationObjectAd
 
     @Override
     public void buildADEProperty(TransportationComplex object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTransportationComplex.class, object.getADEPropertiesOfTransportationComplex(),
-                GenericADEPropertyOfTransportationComplex::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTransportationComplex.class, object.getADEOfTransportationComplex(),
+                GenericADEOfTransportationComplex::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class TransportationComplexAdapter extends AbstractTransportationObjectAd
     public void writeChildElements(TransportationComplex object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfTransportationComplex<?> property : object.getADEPropertiesOfTransportationComplex())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTransportationComplex container : object.getADEOfTransportationComplex())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

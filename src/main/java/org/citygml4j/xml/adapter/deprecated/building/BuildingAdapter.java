@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuilding;
-import org.citygml4j.model.building.ADEPropertyOfBuilding;
+import org.citygml4j.model.ade.generic.GenericADEOfBuilding;
+import org.citygml4j.model.building.ADEOfBuilding;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
 
     @Override
     public void buildADEProperty(Building object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuilding.class, object.getADEPropertiesOfBuilding(),
-                GenericADEPropertyOfBuilding::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuilding.class, object.getADEOfBuilding(),
+                GenericADEOfBuilding::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     public void writeChildElements(Building object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfBuilding<?> property : object.getADEPropertiesOfBuilding())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBuilding container : object.getADEOfBuilding())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

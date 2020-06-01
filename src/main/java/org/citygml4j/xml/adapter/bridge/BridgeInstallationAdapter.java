@@ -117,7 +117,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
@@ -126,12 +126,12 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                 if (object.getDeprecatedProperties().getLod2Geometry() != null)
                     writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
-                    CityGMLSerializerHelper.serializeDefaultGeometry(object, 2, "lod2Geometry", bridgeNamespace, namespaces, writer);
+                    CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", bridgeNamespace, namespaces, writer);
 
                 if (object.getDeprecatedProperties().getLod3Geometry() != null)
                     writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
-                    CityGMLSerializerHelper.serializeDefaultGeometry(object, 3, "lod3Geometry", bridgeNamespace, namespaces, writer);
+                    CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", bridgeNamespace, namespaces, writer);
             }
 
             if (object.getDeprecatedProperties().getLod4Geometry() != null)

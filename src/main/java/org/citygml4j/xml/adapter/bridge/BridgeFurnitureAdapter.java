@@ -80,7 +80,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(bridgeNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (!isCityGML3) {
             if (object.getDeprecatedProperties().getLod4Geometry() != null)

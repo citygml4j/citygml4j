@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfCeilingSurface;
-import org.citygml4j.model.construction.ADEPropertyOfCeilingSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfCeilingSurface;
+import org.citygml4j.model.construction.ADEOfCeilingSurface;
 import org.citygml4j.model.construction.CeilingSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -45,8 +47,8 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
 
     @Override
     public void buildADEProperty(CeilingSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCeilingSurface.class, object.getADEPropertiesOfCeilingSurface(),
-                GenericADEPropertyOfCeilingSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfCeilingSurface.class, object.getADEOfCeilingSurface(),
+                GenericADEOfCeilingSurface::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -59,7 +61,7 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
     public void writeChildElements(CeilingSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfCeilingSurface<?> property : object.getADEPropertiesOfCeilingSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfCeilingSurface container : object.getADEOfCeilingSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }

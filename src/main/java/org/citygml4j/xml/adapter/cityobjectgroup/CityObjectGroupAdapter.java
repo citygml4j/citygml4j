@@ -91,7 +91,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         String cityObjectGroupNamespace = CityGMLSerializerHelper.getCityObjectGroupNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE.equals(cityObjectGroupNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, cityObjectGroupNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, cityObjectGroupNamespace, namespaces, writer);
 
         for (RoleProperty property : object.getGroupMembers()) {
             if (isCityGML3)

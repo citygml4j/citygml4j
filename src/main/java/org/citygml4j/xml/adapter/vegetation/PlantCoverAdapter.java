@@ -120,7 +120,7 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
         String vegetationNamespace = CityGMLSerializerHelper.getVegetationNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
 
-        CityGMLSerializerHelper.serializeStandardObjectClassifier(object, vegetationNamespace, namespaces, writer);
+        CityGMLSerializerHelper.writeStandardObjectClassifier(object, vegetationNamespace, namespaces, writer);
 
         if (object.getAverageHeight() != null)
             writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "averageHeight"), object.getAverageHeight(), LengthAdapter.class, namespaces);

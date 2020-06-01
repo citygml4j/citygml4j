@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.deprecated.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWindowSurface;
-import org.citygml4j.model.construction.ADEPropertyOfWindowSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfWindowSurface;
+import org.citygml4j.model.construction.ADEOfWindowSurface;
 import org.citygml4j.model.construction.WindowSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -38,8 +40,8 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
 
     @Override
     public void buildADEProperty(WindowSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWindowSurface.class, object.getADEPropertiesOfWindowSurface(),
-                GenericADEPropertyOfWindowSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWindowSurface.class, object.getADEOfWindowSurface(),
+                GenericADEOfWindowSurface::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -52,7 +54,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     public void writeChildElements(WindowSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfWindowSurface<?> property : object.getADEPropertiesOfWindowSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWindowSurface container : object.getADEOfWindowSurface())
+            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
     }
 }
