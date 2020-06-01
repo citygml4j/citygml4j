@@ -24,7 +24,7 @@ import helpers.Util;
 import implementing_ades.module.TestADEModule;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractBuilding;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.util.geometry.GeometryFactory;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
@@ -84,14 +84,14 @@ public class WritingGenericADE {
         log.print("Adding an owner name");
         Element ownerName = document.createElementNS(TestADEModule.NAMESPACE_1_0, "ownerName");
         ownerName.setTextContent("Smith");
-        building.getADEPropertiesOfAbstractBuilding().add(GenericADEPropertyOfAbstractBuilding.of(ownerName));
+        building.getADEOfAbstractBuilding().add(new GenericADEOfAbstractBuilding(ownerName));
 
         log.print("Adding an energy performance certification");
         Element certificationProperty = document.createElementNS(TestADEModule.NAMESPACE_1_0, "energyPerformanceCertification");
         Node certification = certificationProperty.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "EnergyPerformanceCertification"));
         certification.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "certificationName")).setTextContent("certName");
         certification.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "certificationid")).setTextContent("certId");
-        building.getADEPropertiesOfAbstractBuilding().add(GenericADEPropertyOfAbstractBuilding.of(certificationProperty));
+        building.getADEOfAbstractBuilding().add(new GenericADEOfAbstractBuilding(certificationProperty));
 
         log.print("Adding a building unit with LoD2 geometry and lighting facility");
         Element buildingUnitProperty = document.createElementNS(TestADEModule.NAMESPACE_1_0, "buildingUnit");
@@ -110,7 +110,7 @@ public class WritingGenericADE {
         lightingFacilities.appendChild(totalValue);
         buildingUnit.appendChild(equippedWith);
 
-        building.getADEPropertiesOfAbstractBuilding().add(GenericADEPropertyOfAbstractBuilding.of(buildingUnitProperty));
+        building.getADEOfAbstractBuilding().add(new GenericADEOfAbstractBuilding(buildingUnitProperty));
 
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);

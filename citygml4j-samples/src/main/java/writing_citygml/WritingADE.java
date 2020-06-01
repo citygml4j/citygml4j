@@ -80,14 +80,14 @@ public class WritingADE {
 
         log.print("Adding an owner name");
         OwnerNameElement ownerName = new OwnerNameElement("Smith");
-        building.getADEPropertiesOfAbstractBuilding().add(ownerName);
+        building.getADEOfAbstractBuilding().add(ownerName);
 
         log.print("Adding an energy performance certification");
         EnergyPerformanceCertification certification = new EnergyPerformanceCertification();
         certification.setCertificationId("certId");
         certification.getCertificationNames().add("certName");
         EnergyPerformanceCertificationProperty certificationProperty = new EnergyPerformanceCertificationProperty(certification);
-        building.getADEPropertiesOfAbstractBuilding().add(new EnergyPerformanceCertificationElement(certificationProperty));
+        building.getADEOfAbstractBuilding().add(new EnergyPerformanceCertificationElement(certificationProperty));
 
         log.print("Adding a building unit with LoD2 geometry and lighting facility");
         BuildingUnit buildingUnit = new BuildingUnit();
@@ -101,7 +101,7 @@ public class WritingADE {
         buildingUnit.getEquippedWith().add(new FacilitiesProperty(lightingFacilities));
 
         AbstractBuildingUnitProperty unitProperty = new AbstractBuildingUnitProperty(buildingUnit);
-        building.getADEPropertiesOfAbstractBuilding().add(new BuildingUnitElement(unitProperty));
+        building.getADEOfAbstractBuilding().add(new BuildingUnitElement(unitProperty));
 
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);

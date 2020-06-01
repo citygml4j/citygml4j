@@ -19,14 +19,23 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.building.ADEOfAbstractBuilding;
 
-public class OwnerNameElement extends ADEPropertyOfAbstractBuilding<String> {
+public class OwnerNameElement extends ADEOfAbstractBuilding {
+    private String value;
 
     public OwnerNameElement() {
     }
 
-    public OwnerNameElement(String object) {
-        super(object);
+    public OwnerNameElement(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

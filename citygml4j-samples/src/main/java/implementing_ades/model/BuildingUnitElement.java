@@ -19,14 +19,23 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.building.ADEOfAbstractBuilding;
 
-public class BuildingUnitElement extends ADEPropertyOfAbstractBuilding<AbstractBuildingUnitProperty> {
+public class BuildingUnitElement extends ADEOfAbstractBuilding {
+    private AbstractBuildingUnitProperty value;
 
     public BuildingUnitElement() {
     }
 
-    public BuildingUnitElement(AbstractBuildingUnitProperty object) {
-        super(object);
+    public BuildingUnitElement(AbstractBuildingUnitProperty value) {
+        this.value = value;
+    }
+
+    public AbstractBuildingUnitProperty getValue() {
+        return value;
+    }
+
+    public void setValue(AbstractBuildingUnitProperty value) {
+        this.value = value;
     }
 }

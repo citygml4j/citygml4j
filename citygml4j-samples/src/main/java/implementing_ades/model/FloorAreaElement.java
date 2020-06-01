@@ -19,15 +19,24 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.building.ADEOfAbstractBuilding;
 import org.xmlobjects.gml.model.measures.Area;
 
-public class FloorAreaElement extends ADEPropertyOfAbstractBuilding<Area> {
+public class FloorAreaElement extends ADEOfAbstractBuilding {
+    private Area value;
 
     public FloorAreaElement() {
     }
 
-    public FloorAreaElement(Area object) {
-        super(object);
+    public FloorAreaElement(Area value) {
+        this.value = value;
+    }
+
+    public Area getValue() {
+        return value;
+    }
+
+    public void setValue(Area value) {
+        this.value = value;
     }
 }

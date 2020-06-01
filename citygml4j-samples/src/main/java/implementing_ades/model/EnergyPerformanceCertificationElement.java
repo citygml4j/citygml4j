@@ -19,14 +19,23 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.building.ADEPropertyOfAbstractBuilding;
+import org.citygml4j.model.building.ADEOfAbstractBuilding;
 
-public class EnergyPerformanceCertificationElement extends ADEPropertyOfAbstractBuilding<EnergyPerformanceCertificationProperty> {
+public class EnergyPerformanceCertificationElement extends ADEOfAbstractBuilding {
+    private EnergyPerformanceCertificationProperty value;
 
     public EnergyPerformanceCertificationElement() {
     }
 
-    public EnergyPerformanceCertificationElement(EnergyPerformanceCertificationProperty object) {
-        super(object);
+    public EnergyPerformanceCertificationElement(EnergyPerformanceCertificationProperty value) {
+        this.value = value;
+    }
+
+    public EnergyPerformanceCertificationProperty getValue() {
+        return value;
+    }
+
+    public void setValue(EnergyPerformanceCertificationProperty value) {
+        this.value = value;
     }
 }
