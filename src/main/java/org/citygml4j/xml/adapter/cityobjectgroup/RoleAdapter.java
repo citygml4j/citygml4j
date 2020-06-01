@@ -49,7 +49,8 @@ public class RoleAdapter extends AbstractGMLAdapter<Role> {
     public void writeChildElements(Role object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "role").addTextContent(object.getRole()));
+        if (object.getRole() != null)
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "role").addTextContent(object.getRole()));
 
         if (object.getGroupMember() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "groupMember"), object.getGroupMember(), AbstractCityObjectPropertyAdapter.class, namespaces);

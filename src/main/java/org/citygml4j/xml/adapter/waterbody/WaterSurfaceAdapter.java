@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.waterbody;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfWaterSurface;
-import org.citygml4j.model.waterbody.ADEPropertyOfWaterSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfWaterSurface;
+import org.citygml4j.model.waterbody.ADEOfWaterSurface;
 import org.citygml4j.model.waterbody.WaterSurface;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "WaterSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE)
 public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<WaterSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "AbstractGenericApplicationPropertyOfWaterSurface");
 
     @Override
     public WaterSurface createObject(QName name) throws ObjectBuildException {
@@ -31,27 +30,23 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
 
     @Override
     public void buildChildObject(WaterSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(name.getNamespaceURI()) && "waterLevel".equals(name.getLocalPart())) {
-            object.setWaterLevel(reader.getObjectUsingBuilder(CodeAdapter.class));
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "waterLevel":
+                    object.setWaterLevel(reader.getObjectUsingBuilder(CodeAdapter.class));
+                    return;
+                case "adeOfWaterSurface":
+                    ADEBuilderHelper.addADEContainer(ADEOfWaterSurface.class, object.getADEOfWaterSurface(), GenericADEOfWaterSurface::new, reader);
+                    return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override
-    public void buildADEProperty(WaterSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfWaterSurface.class, object.getADEPropertiesOfWaterSurface(),
-                GenericADEPropertyOfWaterSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
-    }
-
-    @Override
     public Element createElement(WaterSurface object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(CityGMLSerializerHelper.getWaterBodyNamespace(namespaces), "WaterSurface");
+        return Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "WaterSurface");
     }
 
     @Override
@@ -59,9 +54,9 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
         super.writeChildElements(object, namespaces, writer);
 
         if (object.getWaterLevel() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLSerializerHelper.getWaterBodyNamespace(namespaces), "waterLevel"), object.getWaterLevel(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "waterLevel"), object.getWaterLevel(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfWaterSurface<?> property : object.getADEPropertiesOfWaterSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfWaterSurface container : object.getADEOfWaterSurface())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterSurface"), container, namespaces, writer);
     }
 }

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnelFurniture;
-import org.citygml4j.model.tunnel.ADEPropertyOfTunnelFurniture;
+import org.citygml4j.model.ade.generic.GenericADEOfTunnelFurniture;
+import org.citygml4j.model.tunnel.ADEOfTunnelFurniture;
 import org.citygml4j.model.tunnel.TunnelFurniture;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractFurnitureAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -28,10 +30,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "TunnelFurniture", namespaceURI = CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE)
 })
 public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurniture> {
-    private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "AbstractGenericApplicationPropertyOfTunnelFurniture"),
-            new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfTunnelFurniture")
-    };
+    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfTunnelFurniture");
 
     @Override
     public TunnelFurniture createObject(QName name) throws ObjectBuildException {
@@ -51,6 +50,9 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                 case "lod4ImplicitRepresentation":
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
+                case "adeOfTunnelFurniture":
+                    ADEBuilderHelper.addADEContainer(ADEOfTunnelFurniture.class, object.getADEOfTunnelFurniture(), GenericADEOfTunnelFurniture::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -62,8 +64,8 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
 
     @Override
     public void buildADEProperty(TunnelFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTunnelFurniture.class, object.getADEPropertiesOfTunnelFurniture(),
-                GenericADEPropertyOfTunnelFurniture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelFurniture.class, object.getADEOfTunnelFurniture(),
+                GenericADEOfTunnelFurniture::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -76,10 +78,11 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
     public void writeChildElements(TunnelFurniture object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace)) {
+        if (!isCityGML3) {
             if (object.getDeprecatedProperties().getLod4Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
@@ -87,7 +90,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfTunnelFurniture<?> property : object.getADEPropertiesOfTunnelFurniture())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTunnelFurniture container : object.getADEOfTunnelFurniture())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelFurniture") : null, container, namespaces, writer);
     }
 }

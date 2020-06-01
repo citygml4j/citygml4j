@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfSection;
-import org.citygml4j.model.transportation.ADEPropertyOfSection;
+import org.citygml4j.model.ade.generic.GenericADEOfSection;
+import org.citygml4j.model.transportation.ADEOfSection;
 import org.citygml4j.model.transportation.Section;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Section", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfSection");
 
     @Override
     public Section createObject(QName name) throws ObjectBuildException {
@@ -31,22 +30,18 @@ public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> 
 
     @Override
     public void buildChildObject(Section object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI()) && "class".equals(name.getLocalPart())) {
-            object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "class":
+                    object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
+                    return;
+                case "adeOfSection":
+                    ADEBuilderHelper.addADEContainer(ADEOfSection.class, object.getADEOfSection(), GenericADEOfSection::new, reader);
+                    return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Section object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfSection.class, object.getADEPropertiesOfSection(),
-                GenericADEPropertyOfSection::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -61,7 +56,7 @@ public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> 
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfSection<?> property : object.getADEPropertiesOfSection())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfSection container : object.getADEOfSection())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSection"), container, namespaces, writer);
     }
 }

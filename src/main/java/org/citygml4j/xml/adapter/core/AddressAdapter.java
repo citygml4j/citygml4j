@@ -12,7 +12,6 @@ import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiPointPropertyAdapter;
-import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -66,7 +65,7 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     public void buildADEProperty(Address object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAddress.class, object.getADEOfAddress(),
                 GenericADEOfAddress::new, reader, substitutionGroups))
-            object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericThematicSurface;
-import org.citygml4j.model.generics.ADEPropertyOfGenericThematicSurface;
+import org.citygml4j.model.ade.generic.GenericADEOfGenericThematicSurface;
+import org.citygml4j.model.generics.ADEOfGenericThematicSurface;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -22,7 +24,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "GenericThematicSurface", namespaceURI = CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE)
 public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapter<GenericThematicSurface> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "AbstractGenericApplicationPropertyOfGenericThematicSurface");
 
     @Override
     public GenericThematicSurface createObject(QName name) throws ObjectBuildException {
@@ -31,22 +32,16 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
 
     @Override
     public void buildChildObject(GenericThematicSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())
-                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader)) {
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                return;
+            else if ("adeOfGenericThematicSurface".equals(name.getLocalPart())) {
+                ADEBuilderHelper.addADEContainer(ADEOfGenericThematicSurface.class, object.getADEOfGenericThematicSurface(), GenericADEOfGenericThematicSurface::new, reader);
+                return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(GenericThematicSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfGenericThematicSurface.class, object.getADEPropertiesOfGenericThematicSurface(),
-                GenericADEPropertyOfGenericThematicSurface::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -60,7 +55,7 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfGenericThematicSurface<?> property : object.getADEPropertiesOfGenericThematicSurface())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfGenericThematicSurface container : object.getADEOfGenericThematicSurface())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericThematicSurface"), container, namespaces, writer);
     }
 }

@@ -10,7 +10,6 @@ import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractFeatureAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -52,7 +51,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractSurfaceData.class, object.getADEOfAbstractSurfaceData(),
                 GenericADEOfAbstractSurfaceData::new, reader, substitutionGroups))
-            object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
+            super.buildADEProperty(object, name, reader);
     }
 
     @Override

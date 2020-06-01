@@ -1,7 +1,7 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingRoom;
-import org.citygml4j.model.building.ADEPropertyOfBuildingRoom;
+import org.citygml4j.model.ade.generic.GenericADEOfBuildingRoom;
+import org.citygml4j.model.building.ADEOfBuildingRoom;
 import org.citygml4j.model.building.BuildingFurnitureProperty;
 import org.citygml4j.model.building.BuildingInstallationProperty;
 import org.citygml4j.model.building.BuildingRoom;
@@ -10,6 +10,8 @@ import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.deprecated.building.AbstractBoundarySurfacePropertyAdapter;
@@ -36,7 +38,6 @@ import javax.xml.namespace.QName;
 })
 public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BuildingRoom> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingRoom"),
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom"),
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfRoom")
     };
@@ -73,6 +74,9 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
+                case "adeOfBuildingRoom":
+                    ADEBuilderHelper.addADEContainer(ADEOfBuildingRoom.class, object.getADEOfBuildingRoom(), GenericADEOfBuildingRoom::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -84,8 +88,8 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
 
     @Override
     public void buildADEProperty(BuildingRoom object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingRoom.class, object.getADEPropertiesOfBuildingRoom(),
-                GenericADEPropertyOfBuildingRoom::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuildingRoom.class, object.getADEOfBuildingRoom(),
+                GenericADEOfBuildingRoom::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -125,7 +129,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
         for (BuildingInstallationProperty property : object.getBuildingInstallations())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, isCityGML3 ? "buildingInstallation" : "roomInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBuildingRoom<?> property : object.getADEPropertiesOfBuildingRoom())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBuildingRoom container : object.getADEOfBuildingRoom())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingRoom") : null, container, namespaces, writer);
     }
 }

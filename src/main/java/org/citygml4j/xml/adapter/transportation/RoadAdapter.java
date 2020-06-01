@@ -1,13 +1,15 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfRoad;
-import org.citygml4j.model.transportation.ADEPropertyOfRoad;
+import org.citygml4j.model.ade.generic.GenericADEOfRoad;
+import org.citygml4j.model.transportation.ADEOfRoad;
 import org.citygml4j.model.transportation.IntersectionProperty;
 import org.citygml4j.model.transportation.Road;
 import org.citygml4j.model.transportation.SectionProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -23,7 +25,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Road", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfRoad");
 
     @Override
     public Road createObject(QName name) throws ObjectBuildException {
@@ -43,20 +44,13 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
                 case "intersection":
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
+                case "adeOfRoad":
+                    ADEBuilderHelper.addADEContainer(ADEOfRoad.class, object.getADEOfRoad(), GenericADEOfRoad::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Road object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfRoad.class, object.getADEPropertiesOfRoad(),
-                GenericADEPropertyOfRoad::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -76,7 +70,7 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
         for (IntersectionProperty property : object.getIntersections())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfRoad<?> property : object.getADEPropertiesOfRoad())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfRoad container : object.getADEOfRoad())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRoad"), container, namespaces, writer);
     }
 }

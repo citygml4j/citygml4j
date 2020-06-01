@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericOccupiedSpace;
-import org.citygml4j.model.generics.ADEPropertyOfGenericOccupiedSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfGenericOccupiedSpace;
+import org.citygml4j.model.generics.ADEOfGenericOccupiedSpace;
 import org.citygml4j.model.generics.GenericOccupiedSpace;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -31,7 +33,6 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "GenericCityObject", namespaceURI = CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE)
 })
 public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<GenericOccupiedSpace> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "AbstractGenericApplicationPropertyOfGenericOccupiedSpace");
 
     @Override
     public GenericOccupiedSpace createObject(QName name) throws ObjectBuildException {
@@ -98,20 +99,13 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
                 case "lod4ImplicitRepresentation":
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
+                case "adeOfGenericOccupiedSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfGenericOccupiedSpace.class, object.getADEOfGenericOccupiedSpace(), GenericADEOfGenericOccupiedSpace::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(GenericOccupiedSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfGenericOccupiedSpace.class, object.getADEPropertiesOfGenericOccupiedSpace(),
-                GenericADEPropertyOfGenericOccupiedSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -183,8 +177,8 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
             if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         } else {
-            for (ADEPropertyOfGenericOccupiedSpace<?> property : object.getADEPropertiesOfGenericOccupiedSpace())
-                CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+            for (ADEOfGenericOccupiedSpace container : object.getADEOfGenericOccupiedSpace())
+                ADESerializerHelper.writeADEContainer(Element.of(genericsNamespace, "adeOfGenericOccupiedSpace"), container, namespaces, writer);
         }
     }
 }

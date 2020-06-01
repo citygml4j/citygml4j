@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.versioning;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfVersion;
+import org.citygml4j.model.ade.generic.GenericADEOfVersion;
 import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
-import org.citygml4j.model.versioning.ADEPropertyOfVersion;
+import org.citygml4j.model.versioning.ADEOfVersion;
 import org.citygml4j.model.versioning.Version;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractVersionAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Version", namespaceURI = CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE)
 public class VersionAdapter extends AbstractVersionAdapter<Version> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "AbstractGenericApplicationPropertyOfVersion");
 
     @Override
     public Version createObject(QName name) throws ObjectBuildException {
@@ -41,20 +40,13 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
                 case "versionMember":
                     object.getVersionMembers().add(reader.getObjectUsingBuilder(AbstractFeatureWithLifespanPropertyAdapter.class));
                     return;
+                case "adeOfVersion":
+                    ADEBuilderHelper.addADEContainer(ADEOfVersion.class, object.getADEOfVersion(), GenericADEOfVersion::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Version object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfVersion.class, object.getADEPropertiesOfVersion(),
-                GenericADEPropertyOfVersion::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -72,7 +64,7 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
         for (AbstractFeatureWithLifespanProperty property : object.getVersionMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), property, AbstractFeatureWithLifespanPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfVersion<?> property : object.getADEPropertiesOfVersion())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfVersion container : object.getADEOfVersion())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), container, namespaces, writer);
     }
 }

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.relief;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractReliefComponent;
-import org.citygml4j.model.relief.ADEPropertyOfAbstractReliefComponent;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractReliefComponent;
+import org.citygml4j.model.relief.ADEOfAbstractReliefComponent;
 import org.citygml4j.model.relief.AbstractReliefComponent;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -22,7 +24,6 @@ import javax.xml.namespace.QName;
 
 public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefComponent> extends AbstractSpaceBoundaryAdapter<T> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractReliefComponent"),
             new QName(CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfReliefComponent"),
             new QName(CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfReliefComponent")
     };
@@ -37,6 +38,9 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
                 case "extent":
                     object.setExtent(reader.getObjectUsingBuilder(ExtentPropertyAdapter.class));
                     return;
+                case "adeOfAbstractReliefComponent":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractReliefComponent.class, object.getADEOfAbstractReliefComponent(), GenericADEOfAbstractReliefComponent::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -48,8 +52,8 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractReliefComponent.class, object.getADEPropertiesOfAbstractReliefComponent(),
-                GenericADEPropertyOfAbstractReliefComponent::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractReliefComponent.class, object.getADEOfAbstractReliefComponent(),
+                GenericADEOfAbstractReliefComponent::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -57,13 +61,14 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         writer.writeElement(Element.of(reliefNamespace, "lod").addTextContent(TextContent.ofInteger(object.getLod())));
 
         if (object.getExtent() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "extent"), object.getExtent(), ExtentPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractReliefComponent<?> property : object.getADEPropertiesOfAbstractReliefComponent())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractReliefComponent container : object.getADEOfAbstractReliefComponent())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfAbstractReliefComponent") : null, container, namespaces, writer);
     }
 }

@@ -44,15 +44,14 @@ public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> ex
     @Override
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
-        String dynamizerNamespace = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE;
 
         if (object.getFirstTimestamp() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "firstTimestamp"), object.getFirstTimestamp(), TimePositionAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "firstTimestamp"), object.getFirstTimestamp(), TimePositionAdapter.class, namespaces);
 
         if (object.getLastTimestamp() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "lastTimestamp"), object.getLastTimestamp(), TimePositionAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "lastTimestamp"), object.getLastTimestamp(), TimePositionAdapter.class, namespaces);
 
         for (ADEOfAbstractTimeseries container : object.getADEOfAbstractTimeseries())
-            ADESerializerHelper.writeADEContainer(Element.of(dynamizerNamespace, "adeOfAbstractTimeseries"), container, namespaces, writer);
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfAbstractTimeseries"), container, namespaces, writer);
     }
 }

@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfClearanceSpace;
-import org.citygml4j.model.transportation.ADEPropertyOfClearanceSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfClearanceSpace;
+import org.citygml4j.model.transportation.ADEOfClearanceSpace;
 import org.citygml4j.model.transportation.ClearanceSpace;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -23,7 +23,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "ClearanceSpace", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<ClearanceSpace> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfClearanceSpace");
 
     @Override
     public ClearanceSpace createObject(QName name) throws ObjectBuildException {
@@ -32,22 +31,18 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
 
     @Override
     public void buildChildObject(ClearanceSpace object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI()) && "class".equals(name.getLocalPart())) {
-            object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "class":
+                    object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
+                    return;
+                case "adeOfClearanceSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfClearanceSpace.class, object.getADEOfClearanceSpace(), GenericADEOfClearanceSpace::new, reader);
+                    return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(ClearanceSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfClearanceSpace.class, object.getADEPropertiesOfClearanceSpace(),
-                GenericADEPropertyOfClearanceSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -62,7 +57,7 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfClearanceSpace<?> property : object.getADEPropertiesOfClearanceSpace())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfClearanceSpace container : object.getADEOfClearanceSpace())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfClearanceSpace"), container, namespaces, writer);
     }
 }

@@ -1,12 +1,14 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAuxiliaryTrafficSpace;
-import org.citygml4j.model.transportation.ADEPropertyOfAuxiliaryTrafficSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfAuxiliaryTrafficSpace;
+import org.citygml4j.model.transportation.ADEOfAuxiliaryTrafficSpace;
 import org.citygml4j.model.transportation.AuxiliaryTrafficSpace;
 import org.citygml4j.model.transportation.GranularityValue;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -23,7 +25,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "AuxiliaryTrafficSpace", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<AuxiliaryTrafficSpace> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfAuxiliaryTrafficSpace");
 
     @Override
     public AuxiliaryTrafficSpace createObject(QName name) throws ObjectBuildException {
@@ -36,23 +37,17 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
 
-            if ("granularity".equals(name.getLocalPart())) {
-                reader.getTextContent().ifPresent(v -> object.setGranularity(GranularityValue.fromValue(v)));
-                return;
+            switch (name.getLocalPart()) {
+                case "granularity":
+                    reader.getTextContent().ifPresent(v -> object.setGranularity(GranularityValue.fromValue(v)));
+                    return;
+                case "adeOfAuxiliaryTrafficSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficSpace.class, object.getADEOfAuxiliaryTrafficSpace(), GenericADEOfAuxiliaryTrafficSpace::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(AuxiliaryTrafficSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAuxiliaryTrafficSpace.class, object.getADEPropertiesOfAuxiliaryTrafficSpace(),
-                GenericADEPropertyOfAuxiliaryTrafficSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -68,7 +63,7 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
 
         writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "granularity").addTextContent(object.getGranularity().toValue()));
 
-        for (ADEPropertyOfAuxiliaryTrafficSpace<?> property : object.getADEPropertiesOfAuxiliaryTrafficSpace())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAuxiliaryTrafficSpace container : object.getADEOfAuxiliaryTrafficSpace())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAuxiliaryTrafficSpace"), container, namespaces, writer);
     }
 }

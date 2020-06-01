@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.generics;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfGenericLogicalSpace;
-import org.citygml4j.model.generics.ADEPropertyOfGenericLogicalSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfGenericLogicalSpace;
+import org.citygml4j.model.generics.ADEOfGenericLogicalSpace;
 import org.citygml4j.model.generics.GenericLogicalSpace;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -22,7 +24,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "GenericLogicalSpace", namespaceURI = CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE)
 public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<GenericLogicalSpace> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "AbstractGenericApplicationPropertyOfGenericLogicalSpace");
 
     @Override
     public GenericLogicalSpace createObject(QName name) throws ObjectBuildException {
@@ -31,22 +32,16 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
 
     @Override
     public void buildChildObject(GenericLogicalSpace object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())
-                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader)) {
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                return;
+            else if ("adeOfGenericLogicalSpace".equals(name.getLocalPart())) {
+                ADEBuilderHelper.addADEContainer(ADEOfGenericLogicalSpace.class, object.getADEOfGenericLogicalSpace(), GenericADEOfGenericLogicalSpace::new, reader);
+                return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(GenericLogicalSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfGenericLogicalSpace.class, object.getADEPropertiesOfGenericLogicalSpace(),
-                GenericADEPropertyOfGenericLogicalSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -60,7 +55,7 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfGenericLogicalSpace<?> property : object.getADEPropertiesOfGenericLogicalSpace())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfGenericLogicalSpace container : object.getADEOfGenericLogicalSpace())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericLogicalSpace"), container, namespaces, writer);
     }
 }

@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfStandardFileTimeseries;
-import org.citygml4j.model.dynamizer.ADEPropertyOfStandardFileTimeseries;
+import org.citygml4j.model.ade.generic.GenericADEOfStandardFileTimeseries;
+import org.citygml4j.model.dynamizer.ADEOfStandardFileTimeseries;
 import org.citygml4j.model.dynamizer.StandardFileTimeseries;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "StandardFileTimeseries", namespaceURI = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE)
 public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<StandardFileTimeseries> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "AbstractGenericApplicationPropertyOfStandardFileTimeseries");
 
     @Override
     public StandardFileTimeseries createObject(QName name) throws ObjectBuildException {
@@ -42,20 +41,13 @@ public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapt
                 case "mimeType":
                     object.setMimeType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
+                case "adeOfStandardFileTimeseries":
+                    ADEBuilderHelper.addADEContainer(ADEOfStandardFileTimeseries.class, object.getADEOfStandardFileTimeseries(), GenericADEOfStandardFileTimeseries::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(StandardFileTimeseries object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfStandardFileTimeseries.class, object.getADEPropertiesOfStandardFileTimeseries(),
-                GenericADEPropertyOfStandardFileTimeseries::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -66,18 +58,17 @@ public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapt
     @Override
     public void writeChildElements(StandardFileTimeseries object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
-        String dynamizerNamespace = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE;
 
         if (object.getFileLocation() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "fileLocation").addTextContent(object.getFileLocation()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "fileLocation").addTextContent(object.getFileLocation()));
 
         if (object.getFileType() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "fileType"), object.getFileType(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "fileType"), object.getFileType(), CodeAdapter.class, namespaces);
 
         if (object.getMimeType() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfStandardFileTimeseries<?> property : object.getADEPropertiesOfStandardFileTimeseries())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfStandardFileTimeseries container : object.getADEOfStandardFileTimeseries())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfStandardFileTimeseries"), container, namespaces, writer);
     }
 }

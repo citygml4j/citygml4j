@@ -1,8 +1,8 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAbstractTransportationSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfAbstractTransportationSpace;
 import org.citygml4j.model.core.OccupancyProperty;
-import org.citygml4j.model.transportation.ADEPropertyOfAbstractTransportationSpace;
+import org.citygml4j.model.transportation.ADEOfAbstractTransportationSpace;
 import org.citygml4j.model.transportation.AbstractTransportationSpace;
 import org.citygml4j.model.transportation.AuxiliaryTrafficSpaceProperty;
 import org.citygml4j.model.transportation.HoleProperty;
@@ -10,8 +10,8 @@ import org.citygml4j.model.transportation.MarkingProperty;
 import org.citygml4j.model.transportation.TrafficDirectionValue;
 import org.citygml4j.model.transportation.TrafficSpaceProperty;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.core.OccupancyPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -27,7 +27,6 @@ import org.xmlobjects.xml.Namespaces;
 import javax.xml.namespace.QName;
 
 public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTransportationSpace> extends AbstractUnoccupiedSpaceAdapter<T> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfAbstractTransportationSpace");
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
@@ -51,20 +50,13 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
                 case "marking":
                     object.getMarkings().add(reader.getObjectUsingBuilder(MarkingPropertyAdapter.class));
                     return;
+                case "adeOfAbstractTransportationSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTransportationSpace.class, object.getADEOfAbstractTransportationSpace(), GenericADEOfAbstractTransportationSpace::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAbstractTransportationSpace.class, object.getADEPropertiesOfAbstractTransportationSpace(),
-                GenericADEPropertyOfAbstractTransportationSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -89,7 +81,7 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
         for (MarkingProperty property : object.getMarkings())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "marking"), property, MarkingPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfAbstractTransportationSpace<?> property : object.getADEPropertiesOfAbstractTransportationSpace())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAbstractTransportationSpace container : object.getADEOfAbstractTransportationSpace())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAbstractTransportationSpace"), container, namespaces, writer);
     }
 }

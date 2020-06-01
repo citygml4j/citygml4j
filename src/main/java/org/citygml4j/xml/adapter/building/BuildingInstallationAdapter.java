@@ -1,13 +1,15 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingInstallation;
-import org.citygml4j.model.building.ADEPropertyOfBuildingInstallation;
+import org.citygml4j.model.ade.generic.GenericADEOfBuildingInstallation;
+import org.citygml4j.model.building.ADEOfBuildingInstallation;
 import org.citygml4j.model.building.BuildingInstallation;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractInstallationAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
@@ -37,7 +39,6 @@ import javax.xml.namespace.QName;
 })
 public class BuildingInstallationAdapter extends AbstractInstallationAdapter<BuildingInstallation> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingInstallation"),
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBuildingInstallation"),
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBuildingInstallation"),
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfIntBuildingInstallation"),
@@ -87,6 +88,9 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
+                case "adeOfBuildingInstallation":
+                    ADEBuilderHelper.addADEContainer(ADEOfBuildingInstallation.class, object.getADEOfBuildingInstallation(), GenericADEOfBuildingInstallation::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -98,8 +102,8 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
 
     @Override
     public void buildADEProperty(BuildingInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingInstallation.class, object.getADEPropertiesOfBuildingInstallation(),
-                GenericADEPropertyOfBuildingInstallation::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuildingInstallation.class, object.getADEOfBuildingInstallation(),
+                GenericADEOfBuildingInstallation::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -116,10 +120,11 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
     public void writeChildElements(BuildingInstallation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)) {
+        if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
 
             if (!isInterior) {
@@ -152,7 +157,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfBuildingInstallation<?> property : object.getADEPropertiesOfBuildingInstallation())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBuildingInstallation container : object.getADEOfBuildingInstallation())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingFurniture") : null, container, namespaces, writer);
     }
 }

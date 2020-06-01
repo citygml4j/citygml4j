@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfCompositeTimeseries;
-import org.citygml4j.model.dynamizer.ADEPropertyOfCompositeTimeseries;
+import org.citygml4j.model.ade.generic.GenericADEOfCompositeTimeseries;
+import org.citygml4j.model.dynamizer.ADEOfCompositeTimeseries;
 import org.citygml4j.model.dynamizer.CompositeTimeseries;
 import org.citygml4j.model.dynamizer.TimeseriesComponentProperty;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "CompositeTimeseries", namespaceURI = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE)
 public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<CompositeTimeseries> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "AbstractGenericApplicationPropertyOfCompositeTimeseries");
 
     @Override
     public CompositeTimeseries createObject(QName name) throws ObjectBuildException {
@@ -31,22 +30,18 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
 
     @Override
     public void buildChildObject(CompositeTimeseries object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE.equals(name.getNamespaceURI()) && "component".equals(name.getLocalPart())) {
-            object.getComponents().add(reader.getObjectUsingBuilder(TimeseriesComponentPropertyAdapter.class));
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE.equals(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "component":
+                    object.getComponents().add(reader.getObjectUsingBuilder(TimeseriesComponentPropertyAdapter.class));
+                    return;
+                case "adeOfCompositeTimeseries":
+                    ADEBuilderHelper.addADEContainer(ADEOfCompositeTimeseries.class, object.getADEOfCompositeTimeseries(), GenericADEOfCompositeTimeseries::new, reader);
+                    return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(CompositeTimeseries object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCompositeTimeseries.class, object.getADEPropertiesOfCompositeTimeseries(),
-                GenericADEPropertyOfCompositeTimeseries::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -61,7 +56,7 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
         for (TimeseriesComponentProperty property : object.getComponents())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "component"), property, TimeseriesComponentPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfCompositeTimeseries<?> property : object.getADEPropertiesOfCompositeTimeseries())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfCompositeTimeseries container : object.getADEOfCompositeTimeseries())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfCompositeTimeseries"), container, namespaces, writer);
     }
 }

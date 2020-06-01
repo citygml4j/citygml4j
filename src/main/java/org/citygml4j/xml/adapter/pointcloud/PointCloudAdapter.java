@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.pointcloud;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfPointCloud;
-import org.citygml4j.model.pointcloud.ADEPropertyOfPointCloud;
+import org.citygml4j.model.ade.generic.GenericADEOfPointCloud;
+import org.citygml4j.model.pointcloud.ADEOfPointCloud;
 import org.citygml4j.model.pointcloud.PointCloud;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractPointCloudAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "PointCloud", namespaceURI = CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE)
 public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "AbstractGenericApplicationPropertyOfPointCloud");
 
     @Override
     public PointCloud createObject(QName name) throws ObjectBuildException {
@@ -47,20 +46,13 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
                 case "points":
                     object.setPoints(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
                     return;
+                case "adeOfPointCloud":
+                    ADEBuilderHelper.addADEContainer(ADEOfPointCloud.class, object.getADEOfPointCloud(), GenericADEOfPointCloud::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(PointCloud object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfPointCloud.class, object.getADEPropertiesOfPointCloud(),
-                GenericADEPropertyOfPointCloud::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -84,7 +76,7 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
         if (object.getPoints() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "points"), object.getPoints(), MultiPointPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfPointCloud<?> property : object.getADEPropertiesOfPointCloud())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfPointCloud container : object.getADEOfPointCloud())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "adeOfPointCloud"), container, namespaces, writer);
     }
 }

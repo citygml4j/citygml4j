@@ -1,12 +1,12 @@
 package org.citygml4j.xml.adapter.dynamizer;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTabulatedFileTimeseries;
-import org.citygml4j.model.dynamizer.ADEPropertyOfTabulatedFileTimeseries;
+import org.citygml4j.model.ade.generic.GenericADEOfTabulatedFileTimeseries;
+import org.citygml4j.model.dynamizer.ADEOfTabulatedFileTimeseries;
 import org.citygml4j.model.dynamizer.TabulatedFileTimeseries;
 import org.citygml4j.model.dynamizer.TimeseriesValue;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "TabulatedFileTimeseries", namespaceURI = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE)
 public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<TabulatedFileTimeseries> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "AbstractGenericApplicationPropertyOfTabulatedFileTimeseries");
 
     @Override
     public TabulatedFileTimeseries createObject(QName name) throws ObjectBuildException {
@@ -77,20 +76,13 @@ public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdap
                 case "valueColumnName":
                     reader.getTextContent().ifPresent(object::setValueColumnName);
                     return;
+                case "adeOfTabulatedFileTimeseries":
+                    ADEBuilderHelper.addADEContainer(ADEOfTabulatedFileTimeseries.class, object.getADEOfTabulatedFileTimeseries(), GenericADEOfTabulatedFileTimeseries::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(TabulatedFileTimeseries object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTabulatedFileTimeseries.class, object.getADEPropertiesOfTabulatedFileTimeseries(),
-                GenericADEPropertyOfTabulatedFileTimeseries::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -101,51 +93,50 @@ public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdap
     @Override
     public void writeChildElements(TabulatedFileTimeseries object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
-        String dynamizerNamespace = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE;
 
         if (object.getFileLocation() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "fileLocation").addTextContent(object.getFileLocation()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "fileLocation").addTextContent(object.getFileLocation()));
 
         if (object.getFileType() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "fileType"), object.getFileType(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "fileType"), object.getFileType(), CodeAdapter.class, namespaces);
 
         if (object.getMimeType() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
 
         if (object.getValueType() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "valueType").addTextContent(object.getValueType().toValue()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "valueType").addTextContent(object.getValueType().toValue()));
 
         if (object.getNumberOfHeaderLines() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "numberOfHeaderLines").addTextContent(TextContent.ofInteger(object.getNumberOfHeaderLines())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "numberOfHeaderLines").addTextContent(TextContent.ofInteger(object.getNumberOfHeaderLines())));
 
         if (object.getFieldSeparator() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "fieldSeparator").addTextContent(object.getFieldSeparator()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "fieldSeparator").addTextContent(object.getFieldSeparator()));
 
         if (object.getDecimalSymbol() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "decimalSymbol").addTextContent(object.getDecimalSymbol()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "decimalSymbol").addTextContent(object.getDecimalSymbol()));
 
         if (object.getIdColumnNo() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "idColumnNo").addTextContent(TextContent.ofInteger(object.getIdColumnNo())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "idColumnNo").addTextContent(TextContent.ofInteger(object.getIdColumnNo())));
 
         if (object.getIdColumnName() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "idColumnName").addTextContent(object.getIdColumnName()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "idColumnName").addTextContent(object.getIdColumnName()));
 
         if (object.getIdValue() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "idValue").addTextContent(object.getIdValue()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "idValue").addTextContent(object.getIdValue()));
 
         if (object.getTimeColumnNo() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "timeColumnNo").addTextContent(TextContent.ofInteger(object.getTimeColumnNo())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "timeColumnNo").addTextContent(TextContent.ofInteger(object.getTimeColumnNo())));
 
         if (object.getTimeColumnName() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "timeColumnName").addTextContent(object.getTimeColumnName()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "timeColumnName").addTextContent(object.getTimeColumnName()));
 
         if (object.getValueColumnNo() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "valueColumnNo").addTextContent(TextContent.ofInteger(object.getValueColumnNo())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "valueColumnNo").addTextContent(TextContent.ofInteger(object.getValueColumnNo())));
 
         if (object.getValueColumnName() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "valueColumnName").addTextContent(object.getValueColumnName()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "valueColumnName").addTextContent(object.getValueColumnName()));
 
-        for (ADEPropertyOfTabulatedFileTimeseries<?> property : object.getADEPropertiesOfTabulatedFileTimeseries())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTabulatedFileTimeseries container : object.getADEOfTabulatedFileTimeseries())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfTabulatedFileTimeseries"), container, namespaces, writer);
     }
 }

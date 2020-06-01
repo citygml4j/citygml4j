@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.relief;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfRasterRelief;
-import org.citygml4j.model.relief.ADEPropertyOfRasterRelief;
+import org.citygml4j.model.ade.generic.GenericADEOfRasterRelief;
+import org.citygml4j.model.relief.ADEOfRasterRelief;
 import org.citygml4j.model.relief.RasterRelief;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -27,7 +29,6 @@ import javax.xml.namespace.QName;
 })
 public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRelief> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE, "AbstractGenericApplicationPropertyOfRasterRelief"),
             new QName(CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfRasterRelief"),
             new QName(CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfRasterRelief")
     };
@@ -39,9 +40,15 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
 
     @Override
     public void buildChildObject(RasterRelief object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isReliefNamespace(name.getNamespaceURI()) && "grid".equals(name.getLocalPart())) {
-            object.setGrid(reader.getObjectUsingBuilder(GridPropertyAdapter.class));
-            return;
+        if (CityGMLBuilderHelper.isReliefNamespace(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "grid":
+                    object.setGrid(reader.getObjectUsingBuilder(GridPropertyAdapter.class));
+                    return;
+                case "adeOfRasterRelief":
+                    ADEBuilderHelper.addADEContainer(ADEOfRasterRelief.class, object.getADEOfRasterRelief(), GenericADEOfRasterRelief::new, reader);
+                    return;
+            }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
             return;
@@ -52,8 +59,8 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
 
     @Override
     public void buildADEProperty(RasterRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfRasterRelief.class, object.getADEPropertiesOfRasterRelief(),
-                GenericADEPropertyOfRasterRelief::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfRasterRelief.class, object.getADEOfRasterRelief(),
+                GenericADEOfRasterRelief::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -66,11 +73,12 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
     public void writeChildElements(RasterRelief object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         if (object.getGrid() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "grid"), object.getGrid(), GridPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfRasterRelief<?> property : object.getADEPropertiesOfRasterRelief())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfRasterRelief container : object.getADEOfRasterRelief())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfRasterRelief") : null, container, namespaces, writer);
     }
 }

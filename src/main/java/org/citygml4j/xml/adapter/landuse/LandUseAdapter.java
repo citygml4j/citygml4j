@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.landuse;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfLandUse;
-import org.citygml4j.model.landuse.ADEPropertyOfLandUse;
+import org.citygml4j.model.ade.generic.GenericADEOfLandUse;
+import org.citygml4j.model.landuse.ADEOfLandUse;
 import org.citygml4j.model.landuse.LandUse;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -29,7 +31,6 @@ import javax.xml.namespace.QName;
 })
 public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE, "AbstractGenericApplicationPropertyOfLandUse"),
             new QName(CityGMLConstants.CITYGML_2_0_LANDUSE_NAMESPACE, "_GenericApplicationPropertyOfLandUse"),
             new QName(CityGMLConstants.CITYGML_1_0_LANDUSE_NAMESPACE, "_GenericApplicationPropertyOfLandUse")
     };
@@ -61,6 +62,9 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
                 case "lod4MultiSurface":
                     object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
+                case "adeOfLandUse":
+                    ADEBuilderHelper.addADEContainer(ADEOfLandUse.class, object.getADEOfLandUse(), GenericADEOfLandUse::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -72,8 +76,8 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
 
     @Override
     public void buildADEProperty(LandUse object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfLandUse.class, object.getADEPropertiesOfLandUse(),
-                GenericADEPropertyOfLandUse::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfLandUse.class, object.getADEOfLandUse(),
+                GenericADEOfLandUse::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -86,10 +90,11 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
     public void writeChildElements(LandUse object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String landUseNamespace = CityGMLSerializerHelper.getLandUseNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE.equals(landUseNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, landUseNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_LANDUSE_NAMESPACE.equals(landUseNamespace)) {
+        if (!isCityGML3) {
             if (object.getLod0MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
@@ -106,7 +111,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
                 writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfLandUse<?> property : object.getADEPropertiesOfLandUse())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfLandUse container : object.getADEOfLandUse())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(landUseNamespace, "adeOfLandUse") : null, container, namespaces, writer);
     }
 }

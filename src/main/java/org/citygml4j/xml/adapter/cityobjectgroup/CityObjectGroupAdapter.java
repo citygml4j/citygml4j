@@ -1,12 +1,14 @@
 package org.citygml4j.xml.adapter.cityobjectgroup;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityObjectGroup;
-import org.citygml4j.model.cityobjectgroup.ADEPropertyOfCityObjectGroup;
+import org.citygml4j.model.ade.generic.GenericADEOfCityObjectGroup;
+import org.citygml4j.model.cityobjectgroup.ADEOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -31,7 +33,6 @@ import javax.xml.namespace.QName;
 })
 public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObjectGroup> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "AbstractGenericApplicationPropertyOfCityObjectGroup"),
             new QName(CityGMLConstants.CITYGML_2_0_CITYOBJECTGROUP_NAMESPACE, "_GenericApplicationPropertyOfCityObjectGroup"),
             new QName(CityGMLConstants.CITYGML_1_0_CITYOBJECTGROUP_NAMESPACE, "_GenericApplicationPropertyOfCityObjectGroup")
     };
@@ -60,6 +61,9 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                 case "geometry":
                     object.getDeprecatedProperties().setGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
+                case "adeOfCityObjectGroup":
+                    ADEBuilderHelper.addADEContainer(ADEOfCityObjectGroup.class, object.getADEOfCityObjectGroup(), GenericADEOfCityObjectGroup::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -71,8 +75,8 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
 
     @Override
     public void buildADEProperty(CityObjectGroup object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCityObjectGroup.class, object.getADEPropertiesOfCityObjectGroup(),
-                GenericADEPropertyOfCityObjectGroup::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityObjectGroup.class, object.getADEOfCityObjectGroup(),
+                GenericADEOfCityObjectGroup::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -102,7 +106,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         if (!isCityGML3 && object.getDeprecatedProperties().getGeometry() != null)
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), object.getDeprecatedProperties().getGeometry(), GeometryPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfCityObjectGroup<?> property : object.getADEPropertiesOfCityObjectGroup())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfCityObjectGroup container : object.getADEOfCityObjectGroup())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(cityObjectGroupNamespace, "adeOfCityObjectGroup") : null, container, namespaces, writer);
     }
 }

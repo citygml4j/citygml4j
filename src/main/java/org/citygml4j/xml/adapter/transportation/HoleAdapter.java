@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfHole;
-import org.citygml4j.model.transportation.ADEPropertyOfHole;
+import org.citygml4j.model.ade.generic.GenericADEOfHole;
+import org.citygml4j.model.transportation.ADEOfHole;
 import org.citygml4j.model.transportation.Hole;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -23,7 +23,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Hole", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class HoleAdapter extends AbstractUnoccupiedSpaceAdapter<Hole> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfHole");
 
     @Override
     public Hole createObject(QName name) throws ObjectBuildException {
@@ -32,22 +31,18 @@ public class HoleAdapter extends AbstractUnoccupiedSpaceAdapter<Hole> {
 
     @Override
     public void buildChildObject(Hole object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI()) && "class".equals(name.getLocalPart())) {
-            object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "class":
+                    object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
+                    return;
+                case "adeOfHole":
+                    ADEBuilderHelper.addADEContainer(ADEOfHole.class, object.getADEOfHole(), GenericADEOfHole::new, reader);
+                    return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Hole object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfHole.class, object.getADEPropertiesOfHole(),
-                GenericADEPropertyOfHole::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -62,7 +57,7 @@ public class HoleAdapter extends AbstractUnoccupiedSpaceAdapter<Hole> {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfHole<?> property : object.getADEPropertiesOfHole())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfHole container : object.getADEOfHole())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfHole"), container, namespaces, writer);
     }
 }

@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfAuxiliaryTrafficArea;
-import org.citygml4j.model.transportation.ADEPropertyOfAuxiliaryTrafficArea;
+import org.citygml4j.model.ade.generic.GenericADEOfAuxiliaryTrafficArea;
+import org.citygml4j.model.transportation.ADEOfAuxiliaryTrafficArea;
 import org.citygml4j.model.transportation.AuxiliaryTrafficArea;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -30,7 +32,6 @@ import javax.xml.namespace.QName;
 })
 public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<AuxiliaryTrafficArea> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfAuxiliaryTrafficArea"),
             new QName(CityGMLConstants.CITYGML_2_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfAuxiliaryTrafficArea"),
             new QName(CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE, "_GenericApplicationPropertyOfAuxiliaryTrafficArea")
     };
@@ -59,6 +60,9 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
                 case "lod4MultiSurface":
                     object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
+                case "adeOfAuxiliaryTrafficArea":
+                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficArea.class, object.getADEOfAuxiliaryTrafficArea(), GenericADEOfAuxiliaryTrafficArea::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -70,8 +74,8 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
 
     @Override
     public void buildADEProperty(AuxiliaryTrafficArea object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfAuxiliaryTrafficArea.class, object.getADEPropertiesOfAuxiliaryTrafficArea(),
-                GenericADEPropertyOfAuxiliaryTrafficArea::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAuxiliaryTrafficArea.class, object.getADEOfAuxiliaryTrafficArea(),
+                GenericADEOfAuxiliaryTrafficArea::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -84,13 +88,14 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
     public void writeChildElements(AuxiliaryTrafficArea object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String transportationNamespace = CityGMLSerializerHelper.getTransportationNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(transportationNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, transportationNamespace, namespaces, writer);
 
         if (object.getSurfaceMaterial() != null)
             writer.writeElementUsingSerializer(Element.of(transportationNamespace, "surfaceMaterial"), object.getSurfaceMaterial(), CodeAdapter.class, namespaces);
 
-        if (!CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(transportationNamespace)) {
+        if (!isCityGML3) {
             if (object.getLod2MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod2MultiSurface"), object.getLod2MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
@@ -101,7 +106,7 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfAuxiliaryTrafficArea<?> property : object.getADEPropertiesOfAuxiliaryTrafficArea())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfAuxiliaryTrafficArea container : object.getADEOfAuxiliaryTrafficArea())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(transportationNamespace, "adeOfAuxiliaryTrafficArea") : null, container, namespaces, writer);
     }
 }

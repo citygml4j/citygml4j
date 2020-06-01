@@ -1,14 +1,16 @@
 package org.citygml4j.xml.adapter.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfHollowSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfHollowSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.tunnel.ADEPropertyOfHollowSpace;
+import org.citygml4j.model.tunnel.ADEOfHollowSpace;
 import org.citygml4j.model.tunnel.HollowSpace;
 import org.citygml4j.model.tunnel.TunnelFurnitureProperty;
 import org.citygml4j.model.tunnel.TunnelInstallationProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.deprecated.tunnel.AbstractBoundarySurfacePropertyAdapter;
@@ -33,10 +35,7 @@ import javax.xml.namespace.QName;
         @XMLElement(name = "HollowSpace", namespaceURI = CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE)
 })
 public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpace> {
-    private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "AbstractGenericApplicationPropertyOfHollowSpace"),
-            new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfHollowSpace")
-    };
+    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfHollowSpace");
 
     @Override
     public HollowSpace createObject(QName name) throws ObjectBuildException {
@@ -67,6 +66,9 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
+                case "adeOfHollowSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfHollowSpace.class, object.getADEOfHollowSpace(), GenericADEOfHollowSpace::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -78,8 +80,8 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
 
     @Override
     public void buildADEProperty(HollowSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfHollowSpace.class, object.getADEPropertiesOfHollowSpace(),
-                GenericADEPropertyOfHollowSpace::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfHollowSpace.class, object.getADEOfHollowSpace(),
+                GenericADEOfHollowSpace::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -113,7 +115,7 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
         for (TunnelInstallationProperty property : object.getTunnelInstallations())
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, isCityGML3 ? "tunnelInstallation" : "hollowSpaceInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfHollowSpace<?> property : object.getADEPropertiesOfHollowSpace())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfHollowSpace container : object.getADEOfHollowSpace())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(tunnelNamespace, "adeOfHollowSpace") : null, container, namespaces, writer);
     }
 }

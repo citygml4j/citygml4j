@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnelPart;
-import org.citygml4j.model.tunnel.ADEPropertyOfTunnelPart;
+import org.citygml4j.model.ade.generic.GenericADEOfTunnelPart;
+import org.citygml4j.model.tunnel.ADEOfTunnelPart;
 import org.citygml4j.model.tunnel.TunnelPart;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "TunnelPart", namespaceURI = CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE)
 public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "AbstractGenericApplicationPropertyOfTunnelPart");
 
     @Override
     public TunnelPart createObject(QName name) throws ObjectBuildException {
@@ -30,17 +29,10 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
 
     @Override
     public void buildChildObject(TunnelPart object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
-            buildADEProperty(object, name, reader);
+        if (CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfTunnelPart".equals(name.getLocalPart()))
+            ADEBuilderHelper.addADEContainer(ADEOfTunnelPart.class, object.getADEOfTunnelPart(), GenericADEOfTunnelPart::new, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(TunnelPart object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTunnelPart.class, object.getADEPropertiesOfTunnelPart(),
-                GenericADEPropertyOfTunnelPart::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -52,7 +44,7 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
     public void writeChildElements(TunnelPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEPropertyOfTunnelPart<?> property : object.getADEPropertiesOfTunnelPart())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTunnelPart container : object.getADEOfTunnelPart())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnelPart"), container, namespaces, writer);
     }
 }

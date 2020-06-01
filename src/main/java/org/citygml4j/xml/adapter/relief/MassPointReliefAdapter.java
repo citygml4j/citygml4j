@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.relief;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfMassPointRelief;
-import org.citygml4j.model.relief.ADEPropertyOfMassPointRelief;
+import org.citygml4j.model.ade.generic.GenericADEOfMassPointRelief;
+import org.citygml4j.model.relief.ADEOfMassPointRelief;
 import org.citygml4j.model.relief.MassPointRelief;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractPointCloudPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -29,7 +31,6 @@ import javax.xml.namespace.QName;
 })
 public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassPointRelief> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE, "AbstractGenericApplicationPropertyOfMassPointRelief"),
             new QName(CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfMassPointRelief"),
             new QName(CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfMassPointRelief")
     };
@@ -49,6 +50,9 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
                 case "pointCloud":
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
+                case "adeOfMassPointRelief":
+                    ADEBuilderHelper.addADEContainer(ADEOfMassPointRelief.class, object.getADEOfMassPointRelief(), GenericADEOfMassPointRelief::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -60,8 +64,8 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
 
     @Override
     public void buildADEProperty(MassPointRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfMassPointRelief.class, object.getADEPropertiesOfMassPointRelief(),
-                GenericADEPropertyOfMassPointRelief::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfMassPointRelief.class, object.getADEOfMassPointRelief(),
+                GenericADEOfMassPointRelief::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -74,14 +78,15 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
     public void writeChildElements(MassPointRelief object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         if (object.getReliefPoints() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefPoints"), object.getReliefPoints(), MultiPointPropertyAdapter.class, namespaces);
 
-        if (object.getPointCloud() != null && CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace))
+        if (object.getPointCloud() != null && isCityGML3)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfMassPointRelief<?> property : object.getADEPropertiesOfMassPointRelief())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfMassPointRelief container : object.getADEOfMassPointRelief())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfMassPointRelief") : null, container, namespaces, writer);
     }
 }

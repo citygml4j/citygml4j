@@ -1,11 +1,11 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfMarking;
-import org.citygml4j.model.transportation.ADEPropertyOfMarking;
+import org.citygml4j.model.ade.generic.GenericADEOfMarking;
+import org.citygml4j.model.transportation.ADEOfMarking;
 import org.citygml4j.model.transportation.Marking;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractThematicSurfaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -23,7 +23,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Marking", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfMarking");
 
     @Override
     public Marking createObject(QName name) throws ObjectBuildException {
@@ -32,22 +31,18 @@ public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
 
     @Override
     public void buildChildObject(Marking object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI()) && "class".equals(name.getLocalPart())) {
-            object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI())) {
+            switch (name.getLocalPart()) {
+                case "class":
+                    object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
+                    return;
+                case "adeOfMarking":
+                    ADEBuilderHelper.addADEContainer(ADEOfMarking.class, object.getADEOfMarking(), GenericADEOfMarking::new, reader);
+                    return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Marking object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfMarking.class, object.getADEPropertiesOfMarking(),
-                GenericADEPropertyOfMarking::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -62,7 +57,7 @@ public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEPropertyOfMarking<?> property : object.getADEPropertiesOfMarking())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfMarking container : object.getADEOfMarking())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfMarking"), container, namespaces, writer);
     }
 }

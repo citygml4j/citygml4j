@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.relief;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBreaklineRelief;
-import org.citygml4j.model.relief.ADEPropertyOfBreaklineRelief;
+import org.citygml4j.model.ade.generic.GenericADEOfBreaklineRelief;
+import org.citygml4j.model.relief.ADEOfBreaklineRelief;
 import org.citygml4j.model.relief.BreaklineRelief;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -28,7 +30,6 @@ import javax.xml.namespace.QName;
 })
 public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<BreaklineRelief> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE, "AbstractGenericApplicationPropertyOfBreaklineRelief"),
             new QName(CityGMLConstants.CITYGML_2_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfBreaklineRelief"),
             new QName(CityGMLConstants.CITYGML_1_0_RELIEF_NAMESPACE, "_GenericApplicationPropertyOfBreaklineRelief")
     };
@@ -48,6 +49,9 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
                 case "breaklines":
                     object.setBreaklines(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
+                case "adeOfBreaklineRelief":
+                    ADEBuilderHelper.addADEContainer(ADEOfBreaklineRelief.class, object.getADEOfBreaklineRelief(), GenericADEOfBreaklineRelief::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -59,8 +63,8 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
 
     @Override
     public void buildADEProperty(BreaklineRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBreaklineRelief.class, object.getADEPropertiesOfBreaklineRelief(),
-                GenericADEPropertyOfBreaklineRelief::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBreaklineRelief.class, object.getADEOfBreaklineRelief(),
+                GenericADEOfBreaklineRelief::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -73,6 +77,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
     public void writeChildElements(BreaklineRelief object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         if (object.getRidgeOrValleyLines() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "ridgeOrValleyLines"), object.getRidgeOrValleyLines(), MultiCurvePropertyAdapter.class, namespaces);
@@ -80,7 +85,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
         if (object.getBreaklines() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "breaklines"), object.getBreaklines(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfBreaklineRelief<?> property : object.getADEPropertiesOfBreaklineRelief())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBreaklineRelief container : object.getADEOfBreaklineRelief())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfBreaklineRelief") : null, container, namespaces, writer);
     }
 }

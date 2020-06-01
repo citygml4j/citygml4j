@@ -1,8 +1,8 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTrafficSpace;
+import org.citygml4j.model.ade.generic.GenericADEOfTrafficSpace;
 import org.citygml4j.model.core.OccupancyProperty;
-import org.citygml4j.model.transportation.ADEPropertyOfTrafficSpace;
+import org.citygml4j.model.transportation.ADEOfTrafficSpace;
 import org.citygml4j.model.transportation.ClearanceSpaceProperty;
 import org.citygml4j.model.transportation.GranularityValue;
 import org.citygml4j.model.transportation.TrafficDirectionValue;
@@ -11,6 +11,8 @@ import org.citygml4j.model.transportation.TrafficSpaceProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.core.OccupancyPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -28,7 +30,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "TrafficSpace", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficSpace> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfTrafficSpace");
 
     @Override
     public TrafficSpace createObject(QName name) throws ObjectBuildException {
@@ -60,20 +61,13 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                 case "clearanceSpace":
                     object.getClearanceSpaces().add(reader.getObjectUsingBuilder(ClearanceSpacePropertyAdapter.class));
                     return;
+                case "adeOfTrafficSpace":
+                    ADEBuilderHelper.addADEContainer(ADEOfTrafficSpace.class, object.getADEOfTrafficSpace(), GenericADEOfTrafficSpace::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(TrafficSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTrafficSpace.class, object.getADEPropertiesOfTrafficSpace(),
-                GenericADEPropertyOfTrafficSpace::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -104,7 +98,7 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
         for (ClearanceSpaceProperty property : object.getClearanceSpaces())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "clearanceSpace"), property, ClearanceSpacePropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfTrafficSpace<?> property : object.getADEPropertiesOfTrafficSpace())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTrafficSpace container : object.getADEOfTrafficSpace())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrafficSpace"), container, namespaces, writer);
     }
 }

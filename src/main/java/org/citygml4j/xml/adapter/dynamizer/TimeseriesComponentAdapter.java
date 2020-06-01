@@ -51,14 +51,12 @@ public class TimeseriesComponentAdapter implements ObjectBuilder<TimeseriesCompo
 
     @Override
     public void writeChildElements(TimeseriesComponent object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        String dynamizerNamespace = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE;
-
         if (object.getRepetitions() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "repetitions").addTextContent(TextContent.ofInteger(object.getRepetitions())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "repetitions").addTextContent(TextContent.ofInteger(object.getRepetitions())));
 
         if (object.getAdditionalGap() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "additionalGap"), object.getAdditionalGap(), TimeDurationAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "additionalGap"), object.getAdditionalGap(), TimeDurationAdapter.class, namespaces);
 
-        writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "timeseries"), object.getTimeseries(), AbstractTimeseriesPropertyAdapter.class, namespaces);
+        writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "timeseries"), object.getTimeseries(), AbstractTimeseriesPropertyAdapter.class, namespaces);
     }
 }

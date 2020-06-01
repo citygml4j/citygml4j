@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.vegetation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfPlantCover;
-import org.citygml4j.model.vegetation.ADEPropertyOfPlantCover;
+import org.citygml4j.model.ade.generic.GenericADEOfPlantCover;
+import org.citygml4j.model.vegetation.ADEOfPlantCover;
 import org.citygml4j.model.vegetation.PlantCover;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -33,7 +35,6 @@ import javax.xml.namespace.QName;
 })
 public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCover> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE, "AbstractGenericApplicationPropertyOfPlantCover"),
             new QName(CityGMLConstants.CITYGML_2_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfPlantCover"),
             new QName(CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfPlantCover")
     };
@@ -89,6 +90,9 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                 case "lod4MultiSolid":
                     object.getDeprecatedProperties().setLod4MultiSolid(reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class));
                     return;
+                case "adeOfPlantCover":
+                    ADEBuilderHelper.addADEContainer(ADEOfPlantCover.class, object.getADEOfPlantCover(), GenericADEOfPlantCover::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -100,8 +104,8 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
 
     @Override
     public void buildADEProperty(PlantCover object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfPlantCover.class, object.getADEPropertiesOfPlantCover(),
-                GenericADEPropertyOfPlantCover::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfPlantCover.class, object.getADEOfPlantCover(),
+                GenericADEOfPlantCover::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -161,8 +165,8 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSolid"), object.getDeprecatedProperties().getLod4MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfPlantCover<?> property : object.getADEPropertiesOfPlantCover())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfPlantCover container : object.getADEOfPlantCover())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(vegetationNamespace, "adeOfPlantCover") : null, container, namespaces, writer);
     }
 
     private MultiSolidProperty getMultiSolidProperty(SolidProperty src) {

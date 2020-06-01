@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.vegetation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfSolitaryVegetationObject;
-import org.citygml4j.model.vegetation.ADEPropertyOfSolitaryVegetationObject;
+import org.citygml4j.model.ade.generic.GenericADEOfSolitaryVegetationObject;
+import org.citygml4j.model.vegetation.ADEOfSolitaryVegetationObject;
 import org.citygml4j.model.vegetation.SolitaryVegetationObject;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
@@ -32,7 +34,6 @@ import javax.xml.namespace.QName;
 })
 public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAdapter<SolitaryVegetationObject> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE, "AbstractGenericApplicationPropertyOfSolitaryVegetationObject"),
             new QName(CityGMLConstants.CITYGML_2_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfSolitaryVegetationObject"),
             new QName(CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE, "_GenericApplicationPropertyOfSolitaryVegetationObject")
     };
@@ -97,6 +98,9 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
                 case "lod4ImplicitRepresentation":
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
+                case "adeOfSolitaryVegetationObject":
+                    ADEBuilderHelper.addADEContainer(ADEOfSolitaryVegetationObject.class, object.getADEOfSolitaryVegetationObject(), GenericADEOfSolitaryVegetationObject::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -108,8 +112,8 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
 
     @Override
     public void buildADEProperty(SolitaryVegetationObject object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfSolitaryVegetationObject.class, object.getADEPropertiesOfSolitaryVegetationObject(),
-                GenericADEPropertyOfSolitaryVegetationObject::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfSolitaryVegetationObject.class, object.getADEOfSolitaryVegetationObject(),
+                GenericADEOfSolitaryVegetationObject::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -178,7 +182,7 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfSolitaryVegetationObject<?> property : object.getADEPropertiesOfSolitaryVegetationObject())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfSolitaryVegetationObject container : object.getADEOfSolitaryVegetationObject())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(vegetationNamespace, "adeOfSolitaryVegetationObject") : null, container, namespaces, writer);
     }
 }

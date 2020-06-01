@@ -1,13 +1,15 @@
 package org.citygml4j.xml.adapter.tunnel;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfTunnelInstallation;
+import org.citygml4j.model.ade.generic.GenericADEOfTunnelInstallation;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.tunnel.ADEPropertyOfTunnelInstallation;
+import org.citygml4j.model.tunnel.ADEOfTunnelInstallation;
 import org.citygml4j.model.tunnel.TunnelInstallation;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractInstallationAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
@@ -35,7 +37,6 @@ import javax.xml.namespace.QName;
 })
 public class TunnelInstallationAdapter extends AbstractInstallationAdapter<TunnelInstallation> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "AbstractGenericApplicationPropertyOfTunnelInstallation"),
             new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfTunnelInstallation"),
             new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfIntTunnelInstallation")
     };
@@ -83,6 +84,9 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
+                case "adeOfTunnelInstallation":
+                    ADEBuilderHelper.addADEContainer(ADEOfTunnelInstallation.class, object.getADEOfTunnelInstallation(), GenericADEOfTunnelInstallation::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -94,8 +98,8 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
 
     @Override
     public void buildADEProperty(TunnelInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfTunnelInstallation.class, object.getADEPropertiesOfTunnelInstallation(),
-                GenericADEPropertyOfTunnelInstallation::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelInstallation.class, object.getADEOfTunnelInstallation(),
+                GenericADEOfTunnelInstallation::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -112,10 +116,11 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
     public void writeChildElements(TunnelInstallation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(tunnelNamespace)) {
+        if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
 
             if (!isInterior) {
@@ -148,7 +153,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfTunnelInstallation<?> property : object.getADEPropertiesOfTunnelInstallation())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfTunnelInstallation container : object.getADEOfTunnelInstallation())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelInstallation") : null, container, namespaces, writer);
     }
 }

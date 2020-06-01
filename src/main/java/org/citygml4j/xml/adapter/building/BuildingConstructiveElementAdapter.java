@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingConstructiveElement;
-import org.citygml4j.model.building.ADEPropertyOfBuildingConstructiveElement;
+import org.citygml4j.model.ade.generic.GenericADEOfBuildingConstructiveElement;
+import org.citygml4j.model.building.ADEOfBuildingConstructiveElement;
 import org.citygml4j.model.building.BuildingConstructiveElement;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractConstructiveElementAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -22,7 +24,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "BuildingConstructiveElement", namespaceURI = CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE)
 public class BuildingConstructiveElementAdapter extends AbstractConstructiveElementAdapter<BuildingConstructiveElement> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingConstructiveElement");
 
     @Override
     public BuildingConstructiveElement createObject(QName name) throws ObjectBuildException {
@@ -31,22 +32,16 @@ public class BuildingConstructiveElementAdapter extends AbstractConstructiveElem
 
     @Override
     public void buildChildObject(BuildingConstructiveElement object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI())
-                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader)) {
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                return;
+            else if ("adeOfBuildingConstructiveElement".equals(name.getLocalPart())) {
+                ADEBuilderHelper.addADEContainer(ADEOfBuildingConstructiveElement.class, object.getADEOfBuildingConstructiveElement(), GenericADEOfBuildingConstructiveElement::new, reader);
+                return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(BuildingConstructiveElement object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingConstructiveElement.class, object.getADEPropertiesOfBuildingConstructiveElement(),
-                GenericADEPropertyOfBuildingConstructiveElement::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -60,7 +55,7 @@ public class BuildingConstructiveElementAdapter extends AbstractConstructiveElem
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfBuildingConstructiveElement<?> property : object.getADEPropertiesOfBuildingConstructiveElement())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBuildingConstructiveElement container : object.getADEOfBuildingConstructiveElement())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), container, namespaces, writer);
     }
 }

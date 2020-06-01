@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfSquare;
-import org.citygml4j.model.transportation.ADEPropertyOfSquare;
+import org.citygml4j.model.ade.generic.GenericADEOfSquare;
+import org.citygml4j.model.transportation.ADEOfSquare;
 import org.citygml4j.model.transportation.Square;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -21,7 +23,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "Square", namespaceURI = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE)
 public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "AbstractGenericApplicationPropertyOfSquare");
 
     @Override
     public Square createObject(QName name) throws ObjectBuildException {
@@ -30,22 +31,16 @@ public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
 
     @Override
     public void buildChildObject(Square object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI())
-                && CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader)) {
-            return;
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
+        if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI())) {
+            if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
+                return;
+            else if ("adeOfSquare".equals(name.getLocalPart())) {
+                ADEBuilderHelper.addADEContainer(ADEOfSquare.class, object.getADEOfSquare(), GenericADEOfSquare::new, reader);
+                return;
+            }
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(Square object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfSquare.class, object.getADEPropertiesOfSquare(),
-                GenericADEPropertyOfSquare::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -59,7 +54,7 @@ public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, namespaces, writer);
 
-        for (ADEPropertyOfSquare<?> property : object.getADEPropertiesOfSquare())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfSquare container : object.getADEOfSquare())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSquare"), container, namespaces, writer);
     }
 }

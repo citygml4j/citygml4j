@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.cityfurniture;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfCityFurniture;
-import org.citygml4j.model.cityfurniture.ADEPropertyOfCityFurniture;
+import org.citygml4j.model.ade.generic.GenericADEOfCityFurniture;
+import org.citygml4j.model.cityfurniture.ADEOfCityFurniture;
 import org.citygml4j.model.cityfurniture.CityFurniture;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -32,7 +34,6 @@ import javax.xml.namespace.QName;
 })
 public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurniture> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE, "AbstractGenericApplicationPropertyOfCityFurniture"),
             new QName(CityGMLConstants.CITYGML_2_0_CITYFURNITURE_NAMESPACE, "_GenericApplicationPropertyOfCityFurniture"),
             new QName(CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE, "_GenericApplicationPropertyOfCityFurniture")
     };
@@ -91,6 +92,9 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
                 case "lod4ImplicitRepresentation":
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
+                case "adeOfCityFurniture":
+                    ADEBuilderHelper.addADEContainer(ADEOfCityFurniture.class, object.getADEOfCityFurniture(), GenericADEOfCityFurniture::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -102,8 +106,8 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
 
     @Override
     public void buildADEProperty(CityFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfCityFurniture.class, object.getADEPropertiesOfCityFurniture(),
-                GenericADEPropertyOfCityFurniture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityFurniture.class, object.getADEOfCityFurniture(),
+                GenericADEOfCityFurniture::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -116,10 +120,11 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
     public void writeChildElements(CityFurniture object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String cityFurnitureNamespace = CityGMLSerializerHelper.getCityFurnitureNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE.equals(cityFurnitureNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, cityFurnitureNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE.equals(cityFurnitureNamespace)) {
+        if (!isCityGML3) {
             if (object.getDeprecatedProperties().getLod1Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(cityFurnitureNamespace, "lod1Geometry"), object.getDeprecatedProperties().getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
@@ -163,7 +168,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
                 writer.writeElementUsingSerializer(Element.of(cityFurnitureNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfCityFurniture<?> property : object.getADEPropertiesOfCityFurniture())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfCityFurniture container : object.getADEOfCityFurniture())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(cityFurnitureNamespace, "adeOfCityFurniture") : null, container, namespaces, writer);
     }
 }

@@ -1,13 +1,13 @@
 package org.citygml4j.xml.adapter.versioning;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfVersionTransition;
-import org.citygml4j.model.versioning.ADEPropertyOfVersionTransition;
+import org.citygml4j.model.ade.generic.GenericADEOfVersionTransition;
+import org.citygml4j.model.versioning.ADEOfVersionTransition;
 import org.citygml4j.model.versioning.TransactionProperty;
 import org.citygml4j.model.versioning.TransitionValue;
 import org.citygml4j.model.versioning.VersionTransition;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
-import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractVersionTransitionAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -25,7 +25,6 @@ import javax.xml.namespace.QName;
 
 @XMLElement(name = "VersionTransition", namespaceURI = CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE)
 public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<VersionTransition> {
-    private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "AbstractGenericApplicationPropertyOfVersionTransition");
 
     @Override
     public VersionTransition createObject(QName name) throws ObjectBuildException {
@@ -54,20 +53,13 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
                 case "transaction":
                     object.getTransactions().add(reader.getObjectUsingBuilder(TransactionPropertyAdapter.class));
                     return;
+                case "adeOfVersionTransition":
+                    ADEBuilderHelper.addADEContainer(ADEOfVersionTransition.class, object.getADEOfVersionTransition(), GenericADEOfVersionTransition::new, reader);
+                    return;
             }
-        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
-            buildADEProperty(object, name, reader);
-            return;
         }
 
         super.buildChildObject(object, name, attributes, reader);
-    }
-
-    @Override
-    public void buildADEProperty(VersionTransition object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfVersionTransition.class, object.getADEPropertiesOfVersionTransition(),
-                GenericADEPropertyOfVersionTransition::of, reader, substitutionGroup))
-            super.buildADEProperty(object, name, reader);
     }
 
     @Override
@@ -96,7 +88,7 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
         for (TransactionProperty property : object.getTransactions())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "transaction"), property, TransactionPropertyAdapter.class, namespaces);
 
-        for (ADEPropertyOfVersionTransition<?> property : object.getADEPropertiesOfVersionTransition())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfVersionTransition container : object.getADEOfVersionTransition())
+            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersionTransition"), container, namespaces, writer);
     }
 }

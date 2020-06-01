@@ -84,48 +84,46 @@ public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>,
 
     @Override
     public void writeChildElements(SensorConnection object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        String dynamizerNamespace = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE;
-
         if (object.getConnectionType() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "connectionType"), object.getConnectionType(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "connectionType"), object.getConnectionType(), CodeAdapter.class, namespaces);
 
         if (object.getObservationProperty() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "observationProperty").addTextContent(object.getObservationProperty()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "observationProperty").addTextContent(object.getObservationProperty()));
 
         if (object.getUom() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "uom").addTextContent(object.getUom()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "uom").addTextContent(object.getUom()));
 
         if (object.getSensorID() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "sensorID").addTextContent(object.getSensorID()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorID").addTextContent(object.getSensorID()));
 
         if (object.getSensorName() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "sensorName").addTextContent(object.getSensorName()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorName").addTextContent(object.getSensorName()));
 
         if (object.getObservationID() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "observationID").addTextContent(object.getObservationID()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "observationID").addTextContent(object.getObservationID()));
 
         if (object.getDatastreamID() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "datastreamID").addTextContent(object.getDatastreamID()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "datastreamID").addTextContent(object.getDatastreamID()));
 
         if (object.getBaseURL() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "baseURL").addTextContent(object.getBaseURL()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "baseURL").addTextContent(object.getBaseURL()));
 
         if (object.getAuthType() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "authType"), object.getAuthType(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "authType"), object.getAuthType(), CodeAdapter.class, namespaces);
 
         if (object.getMqttServer() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "mqttServer").addTextContent(object.getMqttServer()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "mqttServer").addTextContent(object.getMqttServer()));
 
         if (object.getMqttTopic() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "mqttTopic").addTextContent(object.getMqttTopic()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "mqttTopic").addTextContent(object.getMqttTopic()));
 
         if (object.getLinkToObservation() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "linkToObservation").addTextContent(object.getLinkToObservation()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "linkToObservation").addTextContent(object.getLinkToObservation()));
 
         if (object.getLinkToSensorDescription() != null)
-            writer.writeElement(Element.of(dynamizerNamespace, "linkToSensorDescription").addTextContent(object.getLinkToSensorDescription()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "linkToSensorDescription").addTextContent(object.getLinkToSensorDescription()));
 
         if (object.getSensorLocation() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "sensorLocation"), object.getSensorLocation(), AbstractCityObjectPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorLocation"), object.getSensorLocation(), AbstractCityObjectPropertyAdapter.class, namespaces);
     }
 }

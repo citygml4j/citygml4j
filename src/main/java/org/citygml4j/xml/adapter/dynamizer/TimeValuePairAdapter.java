@@ -72,26 +72,24 @@ public class TimeValuePairAdapter implements ObjectBuilder<TimeValuePair>, Objec
 
     @Override
     public void writeChildElements(TimeValuePair object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        String dynamizerNamespace = CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE;
-
         if (object.getTimestamp() != null)
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "timestamp"), object.getTimestamp(), TimePositionAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "timestamp"), object.getTimestamp(), TimePositionAdapter.class, namespaces);
 
         if (object.isSetIntValue())
-            writer.writeElement(Element.of(dynamizerNamespace, "intValue").addTextContent(TextContent.ofInteger(object.getIntValue())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "intValue").addTextContent(TextContent.ofInteger(object.getIntValue())));
         else if (object.isSetDoubleValue())
-            writer.writeElement(Element.of(dynamizerNamespace, "doubleValue").addTextContent(TextContent.ofDouble(object.getDoubleValue())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "doubleValue").addTextContent(TextContent.ofDouble(object.getDoubleValue())));
         else if (object.isSetStringValue())
-            writer.writeElement(Element.of(dynamizerNamespace, "stringValue").addTextContent(object.getStringValue()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "stringValue").addTextContent(object.getStringValue()));
         else if (object.isSetGeometryValue())
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "geometryValue"), object.getGeometryValue(), GeometryPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "geometryValue"), object.getGeometryValue(), GeometryPropertyAdapter.class, namespaces);
         else if (object.isSetUriValue())
-            writer.writeElement(Element.of(dynamizerNamespace, "uriValue").addTextContent(object.getUriValue()));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "uriValue").addTextContent(object.getUriValue()));
         else if (object.isSetBoolValue())
-            writer.writeElement(Element.of(dynamizerNamespace, "boolValue").addTextContent(TextContent.ofBoolean(object.getBoolValue())));
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "boolValue").addTextContent(TextContent.ofBoolean(object.getBoolValue())));
         else if (object.isSetImplicitGeometryValue())
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "implicitGeometryValue"), object.getImplicitGeometryValue(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "implicitGeometryValue"), object.getImplicitGeometryValue(), ImplicitGeometryPropertyAdapter.class, namespaces);
         else if (object.isSetAppearanceValue())
-            writer.writeElementUsingSerializer(Element.of(dynamizerNamespace, "appearanceValue"), object.getAppearanceValue(), AbstractAppearancePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "appearanceValue"), object.getAppearanceValue(), AbstractAppearancePropertyAdapter.class, namespaces);
     }
 }

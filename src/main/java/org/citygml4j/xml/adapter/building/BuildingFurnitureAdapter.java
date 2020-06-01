@@ -1,11 +1,13 @@
 package org.citygml4j.xml.adapter.building;
 
-import org.citygml4j.model.ade.generic.GenericADEPropertyOfBuildingFurniture;
-import org.citygml4j.model.building.ADEPropertyOfBuildingFurniture;
+import org.citygml4j.model.ade.generic.GenericADEOfBuildingFurniture;
+import org.citygml4j.model.building.ADEOfBuildingFurniture;
 import org.citygml4j.model.building.BuildingFurniture;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
+import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
+import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.AbstractFurnitureAdapter;
 import org.citygml4j.xml.adapter.core.ImplicitGeometryPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
@@ -30,7 +32,6 @@ import javax.xml.namespace.QName;
 })
 public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingFurniture> {
     private final QName[] substitutionGroups = new QName[]{
-            new QName(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "AbstractGenericApplicationPropertyOfBuildingFurniture"),
             new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBuildingFurniture"),
             new QName(CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfBuildingFurniture")
     };
@@ -53,6 +54,9 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
                 case "lod4ImplicitRepresentation":
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
+                case "adeOfBuildingFurniture":
+                    ADEBuilderHelper.addADEContainer(ADEOfBuildingFurniture.class, object.getADEOfBuildingFurniture(), GenericADEOfBuildingFurniture::new, reader);
+                    return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
@@ -64,8 +68,8 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
 
     @Override
     public void buildADEProperty(BuildingFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!CityGMLBuilderHelper.addADEProperty(name, ADEPropertyOfBuildingFurniture.class, object.getADEPropertiesOfBuildingFurniture(),
-                GenericADEPropertyOfBuildingFurniture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuildingFurniture.class, object.getADEOfBuildingFurniture(),
+                GenericADEOfBuildingFurniture::new, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -78,10 +82,11 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
     public void writeChildElements(BuildingFurniture object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace);
 
         CityGMLSerializerHelper.serializeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
-        if (!CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(buildingNamespace)) {
+        if (!isCityGML3) {
             if (object.getDeprecatedProperties().getLod4Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
@@ -89,7 +94,7 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEPropertyOfBuildingFurniture<?> property : object.getADEPropertiesOfBuildingFurniture())
-            CityGMLSerializerHelper.serializeADEProperty(property, namespaces, writer);
+        for (ADEOfBuildingFurniture container : object.getADEOfBuildingFurniture())
+            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingFurniture") : null, container, namespaces, writer);
     }
 }
