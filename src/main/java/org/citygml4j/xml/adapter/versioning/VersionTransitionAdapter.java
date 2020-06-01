@@ -54,7 +54,7 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
                     object.getTransactions().add(reader.getObjectUsingBuilder(TransactionPropertyAdapter.class));
                     return;
                 case "adeOfVersionTransition":
-                    ADEBuilderHelper.addADEContainer(ADEOfVersionTransition.class, object.getADEOfVersionTransition(), GenericADEOfVersionTransition::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfVersionTransition.class, object.getADEOfVersionTransition(), GenericADEOfVersionTransition::of, reader);
                     return;
             }
         }

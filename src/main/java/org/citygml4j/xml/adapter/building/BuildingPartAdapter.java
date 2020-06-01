@@ -30,7 +30,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     @Override
     public void buildChildObject(BuildingPart object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfBuildingPart".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfBuildingPart.class, object.getADEOfBuildingPart(), GenericADEOfBuildingPart::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfBuildingPart.class, object.getADEOfBuildingPart(), GenericADEOfBuildingPart::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

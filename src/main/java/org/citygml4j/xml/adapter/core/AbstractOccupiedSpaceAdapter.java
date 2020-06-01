@@ -35,7 +35,7 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
                     object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfAbstractOccupiedSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractOccupiedSpace.class, object.getADEOfAbstractOccupiedSpace(), GenericADEOfAbstractOccupiedSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractOccupiedSpace.class, object.getADEOfAbstractOccupiedSpace(), GenericADEOfAbstractOccupiedSpace::of, reader);
                     return;
             }
         }

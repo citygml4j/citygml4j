@@ -48,7 +48,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     @Override
     public void buildADEProperty(WaterGroundSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfWaterGroundSurface.class, object.getADEOfWaterGroundSurface(),
-                GenericADEOfWaterGroundSurface::new, reader, substitutionGroups))
+                GenericADEOfWaterGroundSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

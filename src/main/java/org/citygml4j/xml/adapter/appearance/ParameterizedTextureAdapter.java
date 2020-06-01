@@ -50,7 +50,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                     object.getTextureParameterizations().add(reader.getObjectUsingBuilder(org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationPropertyAdapter.class));
                     return;
                 case "adeOfParameterizedTexture":
-                    ADEBuilderHelper.addADEContainer(ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(), GenericADEOfParameterizedTexture::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(), GenericADEOfParameterizedTexture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -64,7 +64,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
     @Override
     public void buildADEProperty(ParameterizedTexture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(),
-                GenericADEOfParameterizedTexture::new, reader, substitutionGroups))
+                GenericADEOfParameterizedTexture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

@@ -56,7 +56,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfAbstractBridge":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBridge.class, object.getADEOfAbstractBridge(), GenericADEOfAbstractBridge::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBridge.class, object.getADEOfAbstractBridge(), GenericADEOfAbstractBridge::of, reader);
                     return;
             }
         }

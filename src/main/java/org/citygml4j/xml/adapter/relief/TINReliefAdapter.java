@@ -46,7 +46,7 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
                     object.setTin(reader.getObjectUsingBuilder(TinPropertyAdapter.class));
                     return;
                 case "adeOfTINRelief":
-                    ADEBuilderHelper.addADEContainer(ADEOfTINRelief.class, object.getADEOfTINRelief(), GenericADEOfTINRelief::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfTINRelief.class, object.getADEOfTINRelief(), GenericADEOfTINRelief::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -60,7 +60,7 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
     @Override
     public void buildADEProperty(TINRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfTINRelief.class, object.getADEOfTINRelief(),
-                GenericADEOfTINRelief::new, reader, substitutionGroups))
+                GenericADEOfTINRelief::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

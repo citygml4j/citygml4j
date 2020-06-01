@@ -47,7 +47,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                     object.getTunnelFurniture().add(reader.getObjectUsingBuilder(TunnelFurnitureMemberAdapter.class));
                     return;
                 case "adeOfAbstractTunnel":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTunnel.class, object.getADEOfAbstractTunnel(), GenericADEOfAbstractTunnel::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTunnel.class, object.getADEOfAbstractTunnel(), GenericADEOfAbstractTunnel::of, reader);
                     return;
             }
         }

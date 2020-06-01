@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfX3DMaterial extends ADEOfX3DMaterial implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfX3DMaterial() {
+    private GenericADEOfX3DMaterial(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfX3DMaterial(Element value) {
-        this.value = value;
+    public static GenericADEOfX3DMaterial of(Element value) {
+        return new GenericADEOfX3DMaterial(value);
     }
 
     @Override

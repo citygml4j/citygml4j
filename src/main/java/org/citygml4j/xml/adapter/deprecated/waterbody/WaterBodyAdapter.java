@@ -91,7 +91,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
     @Override
     public void buildADEProperty(WaterBody object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfWaterBody.class, object.getADEOfWaterBody(),
-                GenericADEOfWaterBody::new, reader, substitutionGroups))
+                GenericADEOfWaterBody::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

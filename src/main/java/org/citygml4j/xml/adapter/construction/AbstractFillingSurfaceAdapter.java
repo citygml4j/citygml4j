@@ -24,7 +24,7 @@ public abstract class AbstractFillingSurfaceAdapter<T extends AbstractFillingSur
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractFillingSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractFillingSurface.class, object.getADEOfAbstractFillingSurface(), GenericADEOfAbstractFillingSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractFillingSurface.class, object.getADEOfAbstractFillingSurface(), GenericADEOfAbstractFillingSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

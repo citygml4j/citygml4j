@@ -36,7 +36,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfWaterBody".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfWaterBody.class, object.getADEOfWaterBody(), GenericADEOfWaterBody::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfWaterBody.class, object.getADEOfWaterBody(), GenericADEOfWaterBody::of, reader);
                 return;
             }
         }

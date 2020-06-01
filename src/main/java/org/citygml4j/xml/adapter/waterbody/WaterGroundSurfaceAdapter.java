@@ -30,7 +30,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     @Override
     public void buildChildObject(WaterGroundSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfWaterGroundSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfWaterGroundSurface.class, object.getADEOfWaterGroundSurface(), GenericADEOfWaterGroundSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfWaterGroundSurface.class, object.getADEOfWaterGroundSurface(), GenericADEOfWaterGroundSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

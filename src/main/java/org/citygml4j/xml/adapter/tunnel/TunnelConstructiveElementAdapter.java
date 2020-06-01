@@ -36,7 +36,7 @@ public class TunnelConstructiveElementAdapter extends AbstractConstructiveElemen
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfTunnelConstructiveElement".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfTunnelConstructiveElement.class, object.getADEOfTunnelConstructiveElement(), GenericADEOfTunnelConstructiveElement::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfTunnelConstructiveElement.class, object.getADEOfTunnelConstructiveElement(), GenericADEOfTunnelConstructiveElement::of, reader);
                 return;
             }
         }

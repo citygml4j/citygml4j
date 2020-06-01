@@ -35,7 +35,7 @@ public class WindowAdapter extends AbstractFillingElementAdapter<Window> {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfWindow".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfWindow.class, object.getADEOfWindow(), GenericADEOfWindow::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfWindow.class, object.getADEOfWindow(), GenericADEOfWindow::of, reader);
                 return;
             }
         }

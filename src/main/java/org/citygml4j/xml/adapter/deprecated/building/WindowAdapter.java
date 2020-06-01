@@ -48,7 +48,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     @Override
     public void buildADEProperty(WindowSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfWindowSurface.class, object.getADEOfWindowSurface(),
-                GenericADEOfWindowSurface::new, reader, substitutionGroups))
+                GenericADEOfWindowSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

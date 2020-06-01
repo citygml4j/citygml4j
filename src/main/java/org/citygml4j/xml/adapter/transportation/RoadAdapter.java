@@ -45,7 +45,7 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfRoad":
-                    ADEBuilderHelper.addADEContainer(ADEOfRoad.class, object.getADEOfRoad(), GenericADEOfRoad::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfRoad.class, object.getADEOfRoad(), GenericADEOfRoad::of, reader);
                     return;
             }
         }

@@ -24,7 +24,7 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractWate
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractWaterBoundarySurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractWaterBoundarySurface.class, object.getADEOfAbstractWaterBoundarySurface(), GenericADEOfAbstractWaterBoundarySurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractWaterBoundarySurface.class, object.getADEOfAbstractWaterBoundarySurface(), GenericADEOfAbstractWaterBoundarySurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

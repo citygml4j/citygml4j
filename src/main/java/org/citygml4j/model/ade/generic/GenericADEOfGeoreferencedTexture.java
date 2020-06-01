@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfGeoreferencedTexture extends ADEOfGeoreferencedTexture implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfGeoreferencedTexture() {
+    private GenericADEOfGeoreferencedTexture(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfGeoreferencedTexture(Element value) {
-        this.value = value;
+    public static GenericADEOfGeoreferencedTexture of(Element value) {
+        return new GenericADEOfGeoreferencedTexture(value);
     }
 
     @Override

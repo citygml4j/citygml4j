@@ -34,7 +34,7 @@ public abstract class AbstractConstructiveElementAdapter<T extends AbstractConst
                     object.getFillings().add(reader.getObjectUsingBuilder(AbstractFillingElementPropertyAdapter.class));
                     return;
                 case "adeOfAbstractConstructiveElement":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstructiveElement.class, object.getADEOfAbstractConstructiveElement(), GenericADEOfAbstractConstructiveElement::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstructiveElement.class, object.getADEOfAbstractConstructiveElement(), GenericADEOfAbstractConstructiveElement::of, reader);
                     return;
             }
         }

@@ -30,7 +30,7 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
     @Override
     public void buildChildObject(OuterFloorSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfOuterFloorSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfOuterFloorSurface.class, object.getADEOfOuterFloorSurface(), GenericADEOfOuterFloorSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfOuterFloorSurface.class, object.getADEOfOuterFloorSurface(), GenericADEOfOuterFloorSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

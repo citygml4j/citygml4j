@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfMassPointRelief extends ADEOfMassPointRelief implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfMassPointRelief() {
+    private GenericADEOfMassPointRelief(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfMassPointRelief(Element value) {
-        this.value = value;
+    public static GenericADEOfMassPointRelief of(Element value) {
+        return new GenericADEOfMassPointRelief(value);
     }
 
     @Override

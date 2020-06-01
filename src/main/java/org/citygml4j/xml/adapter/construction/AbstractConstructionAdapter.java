@@ -57,7 +57,7 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
                     object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
                     return;
                 case "adeOfAbstractConstruction":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstruction.class, object.getADEOfAbstractConstruction(), GenericADEOfAbstractConstruction::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstruction.class, object.getADEOfAbstractConstruction(), GenericADEOfAbstractConstruction::of, reader);
                     return;
             }
         }

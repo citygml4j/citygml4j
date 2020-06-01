@@ -36,7 +36,7 @@ public class BuildingConstructiveElementAdapter extends AbstractConstructiveElem
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfBuildingConstructiveElement".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfBuildingConstructiveElement.class, object.getADEOfBuildingConstructiveElement(), GenericADEOfBuildingConstructiveElement::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfBuildingConstructiveElement.class, object.getADEOfBuildingConstructiveElement(), GenericADEOfBuildingConstructiveElement::of, reader);
                 return;
             }
         }

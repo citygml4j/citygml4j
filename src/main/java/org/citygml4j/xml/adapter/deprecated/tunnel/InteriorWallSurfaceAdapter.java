@@ -41,7 +41,7 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
     @Override
     public void buildADEProperty(InteriorWallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfInteriorWallSurface.class, object.getADEOfInteriorWallSurface(),
-                GenericADEOfInteriorWallSurface::new, reader, substitutionGroup))
+                GenericADEOfInteriorWallSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

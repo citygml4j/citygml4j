@@ -24,7 +24,7 @@ public abstract class AbstractSpaceBoundaryAdapter<T extends AbstractSpaceBounda
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractSpaceBoundary".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractSpaceBoundary.class, object.getADEOfAbstractSpaceBoundary(), GenericADEOfAbstractSpaceBoundary::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractSpaceBoundary.class, object.getADEOfAbstractSpaceBoundary(), GenericADEOfAbstractSpaceBoundary::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

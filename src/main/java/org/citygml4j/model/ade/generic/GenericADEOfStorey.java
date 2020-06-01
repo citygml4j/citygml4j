@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfStorey extends ADEOfStorey implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfStorey() {
+    private GenericADEOfStorey(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfStorey(Element value) {
-        this.value = value;
+    public static GenericADEOfStorey of(Element value) {
+        return new GenericADEOfStorey(value);
     }
 
     @Override

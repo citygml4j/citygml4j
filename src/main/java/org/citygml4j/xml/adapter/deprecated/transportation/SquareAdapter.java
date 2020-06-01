@@ -48,7 +48,7 @@ public class SquareAdapter extends AbstractTransportationObjectAdapter<Square> {
     @Override
     public void buildADEProperty(Square object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfSquare.class, object.getADEOfSquare(),
-                GenericADEOfSquare::new, reader, substitutionGroups))
+                GenericADEOfSquare::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

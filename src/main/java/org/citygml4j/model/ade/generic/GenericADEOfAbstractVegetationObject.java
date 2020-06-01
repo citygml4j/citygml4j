@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractVegetationObject extends ADEOfAbstractVegetationObject implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractVegetationObject() {
+    private GenericADEOfAbstractVegetationObject(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractVegetationObject(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractVegetationObject of(Element value) {
+        return new GenericADEOfAbstractVegetationObject(value);
     }
 
     @Override

@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfRailway extends ADEOfRailway implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfRailway() {
+    private GenericADEOfRailway(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfRailway(Element value) {
-        this.value = value;
+    public static GenericADEOfRailway of(Element value) {
+        return new GenericADEOfRailway(value);
     }
 
     @Override

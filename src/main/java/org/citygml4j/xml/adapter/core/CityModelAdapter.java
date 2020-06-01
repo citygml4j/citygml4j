@@ -55,7 +55,7 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                     object.setEngineeringCRS(reader.getObjectUsingBuilder(EngineeringCRSPropertyAdapter.class));
                     return;
                 case "adeOfCityModel":
-                    ADEBuilderHelper.addADEContainer(ADEOfCityModel.class, object.getADEOfCityModel(), GenericADEOfCityModel::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfCityModel.class, object.getADEOfCityModel(), GenericADEOfCityModel::of, reader);
                     return;
             }
         }

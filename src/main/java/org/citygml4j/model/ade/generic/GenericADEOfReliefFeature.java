@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfReliefFeature extends ADEOfReliefFeature implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfReliefFeature() {
+    private GenericADEOfReliefFeature(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfReliefFeature(Element value) {
-        this.value = value;
+    public static GenericADEOfReliefFeature of(Element value) {
+        return new GenericADEOfReliefFeature(value);
     }
 
     @Override

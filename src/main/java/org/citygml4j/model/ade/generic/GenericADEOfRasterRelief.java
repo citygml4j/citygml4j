@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfRasterRelief extends ADEOfRasterRelief implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfRasterRelief() {
+    private GenericADEOfRasterRelief(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfRasterRelief(Element value) {
-        this.value = value;
+    public static GenericADEOfRasterRelief of(Element value) {
+        return new GenericADEOfRasterRelief(value);
     }
 
     @Override

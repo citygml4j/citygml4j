@@ -30,7 +30,7 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
     @Override
     public void buildChildObject(TunnelPart object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfTunnelPart".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfTunnelPart.class, object.getADEOfTunnelPart(), GenericADEOfTunnelPart::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfTunnelPart.class, object.getADEOfTunnelPart(), GenericADEOfTunnelPart::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

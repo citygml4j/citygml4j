@@ -36,7 +36,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
                     object.getBuildingParts().add(reader.getObjectUsingBuilder(BuildingPartPropertyAdapter.class));
                     return;
                 case "adeOfBuilding":
-                    ADEBuilderHelper.addADEContainer(ADEOfBuilding.class, object.getADEOfBuilding(), GenericADEOfBuilding::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBuilding.class, object.getADEOfBuilding(), GenericADEOfBuilding::of, reader);
                     return;
             }
         }

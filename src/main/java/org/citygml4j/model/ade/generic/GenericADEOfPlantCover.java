@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfPlantCover extends ADEOfPlantCover implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfPlantCover() {
+    private GenericADEOfPlantCover(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfPlantCover(Element value) {
-        this.value = value;
+    public static GenericADEOfPlantCover of(Element value) {
+        return new GenericADEOfPlantCover(value);
     }
 
     @Override

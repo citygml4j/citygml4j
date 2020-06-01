@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfRoofSurface extends ADEOfRoofSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfRoofSurface() {
+    private GenericADEOfRoofSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfRoofSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfRoofSurface of(Element value) {
+        return new GenericADEOfRoofSurface(value);
     }
 
     @Override

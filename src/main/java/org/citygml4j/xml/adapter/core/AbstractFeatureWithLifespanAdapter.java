@@ -46,7 +46,7 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
                     reader.getTextContent().ifDateTime(object::setValidTo);
                     return;
                 case "adeOfAbstractFeatureWithLifespan":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractFeatureWithLifespan.class, object.getADEOfAbstractFeatureWithLifespan(), GenericADEOfAbstractFeatureWithLifespan::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractFeatureWithLifespan.class, object.getADEOfAbstractFeatureWithLifespan(), GenericADEOfAbstractFeatureWithLifespan::of, reader);
                     return;
             }
         }

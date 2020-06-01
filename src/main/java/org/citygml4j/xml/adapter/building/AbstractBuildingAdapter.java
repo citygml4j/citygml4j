@@ -74,7 +74,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfAbstractBuilding":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBuilding.class, object.getADEOfAbstractBuilding(), GenericADEOfAbstractBuilding::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBuilding.class, object.getADEOfAbstractBuilding(), GenericADEOfAbstractBuilding::of, reader);
                     return;
             }
         }

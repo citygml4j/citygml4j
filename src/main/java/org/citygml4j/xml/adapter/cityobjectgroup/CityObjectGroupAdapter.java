@@ -62,7 +62,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                     object.getDeprecatedProperties().setGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "adeOfCityObjectGroup":
-                    ADEBuilderHelper.addADEContainer(ADEOfCityObjectGroup.class, object.getADEOfCityObjectGroup(), GenericADEOfCityObjectGroup::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfCityObjectGroup.class, object.getADEOfCityObjectGroup(), GenericADEOfCityObjectGroup::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -76,7 +76,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
     @Override
     public void buildADEProperty(CityObjectGroup object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityObjectGroup.class, object.getADEOfCityObjectGroup(),
-                GenericADEOfCityObjectGroup::new, reader, substitutionGroups))
+                GenericADEOfCityObjectGroup::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

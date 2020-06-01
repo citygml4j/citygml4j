@@ -84,14 +84,14 @@ public class WritingGenericADE {
         log.print("Adding an owner name");
         Element ownerName = document.createElementNS(TestADEModule.NAMESPACE_1_0, "ownerName");
         ownerName.setTextContent("Smith");
-        building.getADEOfAbstractBuilding().add(new GenericADEOfAbstractBuilding(ownerName));
+        building.getADEOfAbstractBuilding().add(GenericADEOfAbstractBuilding.of(ownerName));
 
         log.print("Adding an energy performance certification");
         Element certificationProperty = document.createElementNS(TestADEModule.NAMESPACE_1_0, "energyPerformanceCertification");
         Node certification = certificationProperty.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "EnergyPerformanceCertification"));
         certification.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "certificationName")).setTextContent("certName");
         certification.appendChild(document.createElementNS(TestADEModule.NAMESPACE_1_0, "certificationid")).setTextContent("certId");
-        building.getADEOfAbstractBuilding().add(new GenericADEOfAbstractBuilding(certificationProperty));
+        building.getADEOfAbstractBuilding().add(GenericADEOfAbstractBuilding.of(certificationProperty));
 
         log.print("Adding a building unit with LoD2 geometry and lighting facility");
         Element buildingUnitProperty = document.createElementNS(TestADEModule.NAMESPACE_1_0, "buildingUnit");
@@ -110,7 +110,7 @@ public class WritingGenericADE {
         lightingFacilities.appendChild(totalValue);
         buildingUnit.appendChild(equippedWith);
 
-        building.getADEOfAbstractBuilding().add(new GenericADEOfAbstractBuilding(buildingUnitProperty));
+        building.getADEOfAbstractBuilding().add(GenericADEOfAbstractBuilding.of(buildingUnitProperty));
 
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);

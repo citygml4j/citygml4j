@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfSquare extends ADEOfSquare implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfSquare() {
+    private GenericADEOfSquare(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfSquare(Element value) {
-        this.value = value;
+    public static GenericADEOfSquare of(Element value) {
+        return new GenericADEOfSquare(value);
     }
 
     @Override

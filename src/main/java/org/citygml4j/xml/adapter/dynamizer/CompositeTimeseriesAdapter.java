@@ -36,7 +36,7 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
                     object.getComponents().add(reader.getObjectUsingBuilder(TimeseriesComponentPropertyAdapter.class));
                     return;
                 case "adeOfCompositeTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfCompositeTimeseries.class, object.getADEOfCompositeTimeseries(), GenericADEOfCompositeTimeseries::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfCompositeTimeseries.class, object.getADEOfCompositeTimeseries(), GenericADEOfCompositeTimeseries::of, reader);
                     return;
             }
         }

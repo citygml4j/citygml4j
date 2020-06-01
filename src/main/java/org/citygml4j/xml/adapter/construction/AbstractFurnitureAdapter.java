@@ -24,7 +24,7 @@ public abstract class AbstractFurnitureAdapter<T extends AbstractFurniture> exte
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractFurniture".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractFurniture.class, object.getADEOfAbstractFurniture(), GenericADEOfAbstractFurniture::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractFurniture.class, object.getADEOfAbstractFurniture(), GenericADEOfAbstractFurniture::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

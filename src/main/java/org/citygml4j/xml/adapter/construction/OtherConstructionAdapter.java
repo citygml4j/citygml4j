@@ -33,7 +33,7 @@ public class OtherConstructionAdapter extends AbstractConstructionAdapter<OtherC
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfOtherConstruction".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfOtherConstruction.class, object.getADEOfOtherConstruction(), GenericADEOfOtherConstruction::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfOtherConstruction.class, object.getADEOfOtherConstruction(), GenericADEOfOtherConstruction::of, reader);
                 return;
             }
         }

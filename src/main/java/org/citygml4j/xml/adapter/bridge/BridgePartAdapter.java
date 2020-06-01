@@ -30,7 +30,7 @@ public class BridgePartAdapter extends AbstractBridgeAdapter<BridgePart> {
     @Override
     public void buildChildObject(BridgePart object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfBridgePart".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfBridgePart.class, object.getADEOfBridgePart(), GenericADEOfBridgePart::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfBridgePart.class, object.getADEOfBridgePart(), GenericADEOfBridgePart::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

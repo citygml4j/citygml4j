@@ -48,7 +48,7 @@ public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
     @Override
     public void buildADEProperty(Road object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfRoad.class, object.getADEOfRoad(),
-                GenericADEOfRoad::new, reader, substitutionGroups))
+                GenericADEOfRoad::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

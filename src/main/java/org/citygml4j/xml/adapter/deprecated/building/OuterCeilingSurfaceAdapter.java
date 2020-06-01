@@ -41,7 +41,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<O
     @Override
     public void buildADEProperty(OuterCeilingSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfOuterCeilingSurface.class, object.getADEOfOuterCeilingSurface(),
-                GenericADEOfOuterCeilingSurface::new, reader, substitutionGroup))
+                GenericADEOfOuterCeilingSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

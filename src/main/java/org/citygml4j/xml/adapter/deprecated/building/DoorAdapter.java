@@ -55,7 +55,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
     @Override
     public void buildADEProperty(DoorSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfDoorSurface.class, object.getADEOfDoorSurface(),
-                GenericADEOfDoorSurface::new, reader, substitutionGroups))
+                GenericADEOfDoorSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

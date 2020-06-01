@@ -41,7 +41,7 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
     @Override
     public void buildADEProperty(ClosureSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfClosureSurface.class, object.getADEOfClosureSurface(),
-                GenericADEOfClosureSurface::new, reader, substitutionGroup))
+                GenericADEOfClosureSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

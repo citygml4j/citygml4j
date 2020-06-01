@@ -51,7 +51,7 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
                     object.getMarkings().add(reader.getObjectUsingBuilder(MarkingPropertyAdapter.class));
                     return;
                 case "adeOfAbstractTransportationSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTransportationSpace.class, object.getADEOfAbstractTransportationSpace(), GenericADEOfAbstractTransportationSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTransportationSpace.class, object.getADEOfAbstractTransportationSpace(), GenericADEOfAbstractTransportationSpace::of, reader);
                     return;
             }
         }

@@ -30,7 +30,7 @@ public class GroundSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Gro
     @Override
     public void buildChildObject(GroundSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfGroundSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfGroundSurface.class, object.getADEOfGroundSurface(), GenericADEOfGroundSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfGroundSurface.class, object.getADEOfGroundSurface(), GenericADEOfGroundSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

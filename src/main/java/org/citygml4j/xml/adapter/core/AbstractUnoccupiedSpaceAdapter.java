@@ -24,7 +24,7 @@ public abstract class AbstractUnoccupiedSpaceAdapter<T extends AbstractUnoccupie
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractUnoccupiedSpace".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractUnoccupiedSpace.class, object.getADEOfAbstractUnoccupiedSpace(), GenericADEOfAbstractUnoccupiedSpace::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractUnoccupiedSpace.class, object.getADEOfAbstractUnoccupiedSpace(), GenericADEOfAbstractUnoccupiedSpace::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

@@ -36,7 +36,7 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfGenericThematicSurface".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfGenericThematicSurface.class, object.getADEOfGenericThematicSurface(), GenericADEOfGenericThematicSurface::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfGenericThematicSurface.class, object.getADEOfGenericThematicSurface(), GenericADEOfGenericThematicSurface::of, reader);
                 return;
             }
         }

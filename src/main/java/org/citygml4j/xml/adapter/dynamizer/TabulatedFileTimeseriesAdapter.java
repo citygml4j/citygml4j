@@ -77,7 +77,7 @@ public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdap
                     reader.getTextContent().ifPresent(object::setValueColumnName);
                     return;
                 case "adeOfTabulatedFileTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfTabulatedFileTimeseries.class, object.getADEOfTabulatedFileTimeseries(), GenericADEOfTabulatedFileTimeseries::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfTabulatedFileTimeseries.class, object.getADEOfTabulatedFileTimeseries(), GenericADEOfTabulatedFileTimeseries::of, reader);
                     return;
             }
         }

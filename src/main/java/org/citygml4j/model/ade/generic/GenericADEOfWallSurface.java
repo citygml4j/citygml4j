@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfWallSurface extends ADEOfWallSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfWallSurface() {
+    private GenericADEOfWallSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfWallSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfWallSurface of(Element value) {
+        return new GenericADEOfWallSurface(value);
     }
 
     @Override

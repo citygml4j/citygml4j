@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractFillingSurface extends ADEOfAbstractFillingSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractFillingSurface() {
+    private GenericADEOfAbstractFillingSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractFillingSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractFillingSurface of(Element value) {
+        return new GenericADEOfAbstractFillingSurface(value);
     }
 
     @Override

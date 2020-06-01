@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfCompositeTimeseries extends ADEOfCompositeTimeseries implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfCompositeTimeseries() {
+    private GenericADEOfCompositeTimeseries(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfCompositeTimeseries(Element value) {
-        this.value = value;
+    public static GenericADEOfCompositeTimeseries of(Element value) {
+        return new GenericADEOfCompositeTimeseries(value);
     }
 
     @Override

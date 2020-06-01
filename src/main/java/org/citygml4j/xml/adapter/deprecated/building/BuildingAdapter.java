@@ -48,7 +48,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     @Override
     public void buildADEProperty(Building object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuilding.class, object.getADEOfBuilding(),
-                GenericADEOfBuilding::new, reader, substitutionGroups))
+                GenericADEOfBuilding::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

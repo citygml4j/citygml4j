@@ -183,7 +183,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractBridge.class, object.getADEOfAbstractBridge(),
-                GenericADEOfAbstractBridge::new, reader, substitutionGroup))
+                GenericADEOfAbstractBridge::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

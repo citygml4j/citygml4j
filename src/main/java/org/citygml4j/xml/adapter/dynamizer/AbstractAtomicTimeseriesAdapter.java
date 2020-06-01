@@ -31,7 +31,7 @@ public abstract class AbstractAtomicTimeseriesAdapter<T extends AbstractAtomicTi
                     reader.getTextContent().ifPresent(object::setUom);
                     return;
                 case "adeOfAbstractAtomicTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractAtomicTimeseries.class, object.getADEOfAbstractAtomicTimeseries(), GenericADEOfAbstractAtomicTimeseries::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractAtomicTimeseries.class, object.getADEOfAbstractAtomicTimeseries(), GenericADEOfAbstractAtomicTimeseries::of, reader);
                     return;
             }
         }

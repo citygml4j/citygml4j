@@ -24,7 +24,7 @@ public abstract class AbstractAppearanceAdapter<T extends AbstractAppearance> ex
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractAppearance".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractAppearance.class, object.getADEOfAbstractAppearance(), GenericADEOfAbstractAppearance::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractAppearance.class, object.getADEOfAbstractAppearance(), GenericADEOfAbstractAppearance::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

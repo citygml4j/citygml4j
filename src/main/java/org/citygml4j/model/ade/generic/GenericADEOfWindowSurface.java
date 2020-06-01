@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfWindowSurface extends ADEOfWindowSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfWindowSurface() {
+    private GenericADEOfWindowSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfWindowSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfWindowSurface of(Element value) {
+        return new GenericADEOfWindowSurface(value);
     }
 
     @Override

@@ -57,7 +57,7 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractFillingSurface.class, object.getADEOfAbstractFillingSurface(),
-                GenericADEOfAbstractFillingSurface::new, reader, substitutionGroups))
+                GenericADEOfAbstractFillingSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

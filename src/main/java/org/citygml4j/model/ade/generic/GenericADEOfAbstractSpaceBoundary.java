@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractSpaceBoundary extends ADEOfAbstractSpaceBoundary implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractSpaceBoundary() {
+    private GenericADEOfAbstractSpaceBoundary(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractSpaceBoundary(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractSpaceBoundary of(Element value) {
+        return new GenericADEOfAbstractSpaceBoundary(value);
     }
 
     @Override

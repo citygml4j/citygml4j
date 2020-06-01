@@ -23,7 +23,7 @@ public abstract class AbstractDynamizerAdapter<T extends AbstractDynamizer> exte
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractDynamizer".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractDynamizer.class, object.getADEOfAbstractDynamizer(), GenericADEOfAbstractDynamizer::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractDynamizer.class, object.getADEOfAbstractDynamizer(), GenericADEOfAbstractDynamizer::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

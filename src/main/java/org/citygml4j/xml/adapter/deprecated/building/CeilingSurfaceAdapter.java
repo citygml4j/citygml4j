@@ -48,7 +48,7 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
     @Override
     public void buildADEProperty(CeilingSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfCeilingSurface.class, object.getADEOfCeilingSurface(),
-                GenericADEOfCeilingSurface::new, reader, substitutionGroups))
+                GenericADEOfCeilingSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

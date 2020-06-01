@@ -48,7 +48,7 @@ public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurfa
     @Override
     public void buildADEProperty(RoofSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfRoofSurface.class, object.getADEOfRoofSurface(),
-                GenericADEOfRoofSurface::new, reader, substitutionGroups))
+                GenericADEOfRoofSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

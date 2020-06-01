@@ -37,7 +37,7 @@ public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfMarking":
-                    ADEBuilderHelper.addADEContainer(ADEOfMarking.class, object.getADEOfMarking(), GenericADEOfMarking::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfMarking.class, object.getADEOfMarking(), GenericADEOfMarking::of, reader);
                     return;
             }
         }

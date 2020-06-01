@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfHollowSpace extends ADEOfHollowSpace implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfHollowSpace() {
-    }
-
     public GenericADEOfHollowSpace(Element value) {
         this.value = value;
+    }
+
+    public static GenericADEOfHollowSpace of(Element value) {
+        return new GenericADEOfHollowSpace(value);
     }
 
     @Override

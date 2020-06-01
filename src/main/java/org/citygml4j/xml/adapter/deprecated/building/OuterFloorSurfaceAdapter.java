@@ -41,7 +41,7 @@ public class OuterFloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Out
     @Override
     public void buildADEProperty(OuterFloorSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfOuterFloorSurface.class, object.getADEOfOuterFloorSurface(),
-                GenericADEOfOuterFloorSurface::new, reader, substitutionGroup))
+                GenericADEOfOuterFloorSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

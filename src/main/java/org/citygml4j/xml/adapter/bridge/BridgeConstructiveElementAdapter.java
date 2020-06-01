@@ -95,7 +95,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeConstructiveElement":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeConstructiveElement.class, object.getADEOfBridgeConstructiveElement(), GenericADEOfBridgeConstructiveElement::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBridgeConstructiveElement.class, object.getADEOfBridgeConstructiveElement(), GenericADEOfBridgeConstructiveElement::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -109,7 +109,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
     @Override
     public void buildADEProperty(BridgeConstructiveElement object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeConstructiveElement.class, object.getADEOfBridgeConstructiveElement(),
-                GenericADEOfBridgeConstructiveElement::new, reader, substitutionGroup))
+                GenericADEOfBridgeConstructiveElement::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

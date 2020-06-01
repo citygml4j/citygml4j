@@ -93,7 +93,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfCityFurniture":
-                    ADEBuilderHelper.addADEContainer(ADEOfCityFurniture.class, object.getADEOfCityFurniture(), GenericADEOfCityFurniture::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfCityFurniture.class, object.getADEOfCityFurniture(), GenericADEOfCityFurniture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -107,7 +107,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
     @Override
     public void buildADEProperty(CityFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityFurniture.class, object.getADEOfCityFurniture(),
-                GenericADEOfCityFurniture::new, reader, substitutionGroups))
+                GenericADEOfCityFurniture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

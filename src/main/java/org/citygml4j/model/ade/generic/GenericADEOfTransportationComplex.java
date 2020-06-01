@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfTransportationComplex extends ADEOfTransportationComplex implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfTransportationComplex() {
+    private GenericADEOfTransportationComplex(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfTransportationComplex(Element value) {
-        this.value = value;
+    public static GenericADEOfTransportationComplex of(Element value) {
+        return new GenericADEOfTransportationComplex(value);
     }
 
     @Override

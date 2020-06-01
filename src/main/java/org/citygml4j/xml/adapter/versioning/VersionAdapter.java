@@ -41,7 +41,7 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
                     object.getVersionMembers().add(reader.getObjectUsingBuilder(AbstractFeatureWithLifespanPropertyAdapter.class));
                     return;
                 case "adeOfVersion":
-                    ADEBuilderHelper.addADEContainer(ADEOfVersion.class, object.getADEOfVersion(), GenericADEOfVersion::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfVersion.class, object.getADEOfVersion(), GenericADEOfVersion::of, reader);
                     return;
             }
         }

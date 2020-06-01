@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfRoad extends ADEOfRoad implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfRoad() {
+    private GenericADEOfRoad(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfRoad(Element value) {
-        this.value = value;
+    public static GenericADEOfRoad of(Element value) {
+        return new GenericADEOfRoad(value);
     }
 
     @Override

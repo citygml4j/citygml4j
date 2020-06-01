@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractPointCloud extends ADEOfAbstractPointCloud implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractPointCloud() {
+    private GenericADEOfAbstractPointCloud(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractPointCloud(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractPointCloud of(Element value) {
+        return new GenericADEOfAbstractPointCloud(value);
     }
 
     @Override

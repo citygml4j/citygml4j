@@ -30,7 +30,7 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
                     object.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
                     return;
                 case "adeOfAbstractConstructionSurface":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstructionSurface.class, object.getADEOfAbstractConstructionSurface(), GenericADEOfAbstractConstructionSurface::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstructionSurface.class, object.getADEOfAbstractConstructionSurface(), GenericADEOfAbstractConstructionSurface::of, reader);
                     return;
             }
         }

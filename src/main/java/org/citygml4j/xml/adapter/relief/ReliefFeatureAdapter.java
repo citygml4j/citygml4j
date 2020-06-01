@@ -52,7 +52,7 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
                     object.getReliefComponents().add(reader.getObjectUsingBuilder(AbstractReliefComponentPropertyAdapter.class));
                     return;
                 case "adeOfReliefFeature":
-                    ADEBuilderHelper.addADEContainer(ADEOfReliefFeature.class, object.getADEOfReliefFeature(), GenericADEOfReliefFeature::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfReliefFeature.class, object.getADEOfReliefFeature(), GenericADEOfReliefFeature::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -66,7 +66,7 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
     @Override
     public void buildADEProperty(ReliefFeature object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfReliefFeature.class, object.getADEOfReliefFeature(),
-                GenericADEOfReliefFeature::new, reader, substitutionGroups))
+                GenericADEOfReliefFeature::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

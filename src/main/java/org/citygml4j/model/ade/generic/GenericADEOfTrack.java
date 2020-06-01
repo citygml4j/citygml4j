@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfTrack extends ADEOfTrack implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfTrack() {
+    private GenericADEOfTrack(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfTrack(Element value) {
-        this.value = value;
+    public static GenericADEOfTrack of(Element value) {
+        return new GenericADEOfTrack(value);
     }
 
     @Override

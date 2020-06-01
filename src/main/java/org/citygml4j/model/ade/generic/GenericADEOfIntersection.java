@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfIntersection extends ADEOfIntersection implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfIntersection() {
+    private GenericADEOfIntersection(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfIntersection(Element value) {
-        this.value = value;
+    public static GenericADEOfIntersection of(Element value) {
+        return new GenericADEOfIntersection(value);
     }
 
     @Override

@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfVersionTransition extends ADEOfVersionTransition implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfVersionTransition() {
+    private GenericADEOfVersionTransition(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfVersionTransition(Element value) {
-        this.value = value;
+    public static GenericADEOfVersionTransition of(Element value) {
+        return new GenericADEOfVersionTransition(value);
     }
 
     @Override

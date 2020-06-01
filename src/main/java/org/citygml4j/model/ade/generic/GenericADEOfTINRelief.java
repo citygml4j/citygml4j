@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfTINRelief extends ADEOfTINRelief implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfTINRelief() {
+    private GenericADEOfTINRelief(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfTINRelief(Element value) {
-        this.value = value;
+    public static GenericADEOfTINRelief of(Element value) {
+        return new GenericADEOfTINRelief(value);
     }
 
     @Override

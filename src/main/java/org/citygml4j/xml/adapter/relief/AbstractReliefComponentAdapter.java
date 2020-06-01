@@ -39,7 +39,7 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
                     object.setExtent(reader.getObjectUsingBuilder(ExtentPropertyAdapter.class));
                     return;
                 case "adeOfAbstractReliefComponent":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractReliefComponent.class, object.getADEOfAbstractReliefComponent(), GenericADEOfAbstractReliefComponent::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractReliefComponent.class, object.getADEOfAbstractReliefComponent(), GenericADEOfAbstractReliefComponent::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -53,7 +53,7 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractReliefComponent.class, object.getADEOfAbstractReliefComponent(),
-                GenericADEOfAbstractReliefComponent::new, reader, substitutionGroups))
+                GenericADEOfAbstractReliefComponent::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

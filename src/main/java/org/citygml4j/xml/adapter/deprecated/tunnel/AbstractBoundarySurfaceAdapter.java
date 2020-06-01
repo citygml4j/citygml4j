@@ -58,7 +58,7 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(),
-                GenericADEOfAbstractThematicSurface::new, reader, substitutionGroup))
+                GenericADEOfAbstractThematicSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

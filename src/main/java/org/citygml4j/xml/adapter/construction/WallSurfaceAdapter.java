@@ -30,7 +30,7 @@ public class WallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<WallS
     @Override
     public void buildChildObject(WallSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfWallSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfWallSurface.class, object.getADEOfWallSurface(), GenericADEOfWallSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfWallSurface.class, object.getADEOfWallSurface(), GenericADEOfWallSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

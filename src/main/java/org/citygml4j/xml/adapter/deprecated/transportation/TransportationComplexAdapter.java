@@ -48,7 +48,7 @@ public class TransportationComplexAdapter extends AbstractTransportationObjectAd
     @Override
     public void buildADEProperty(TransportationComplex object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfTransportationComplex.class, object.getADEOfTransportationComplex(),
-                GenericADEOfTransportationComplex::new, reader, substitutionGroups))
+                GenericADEOfTransportationComplex::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

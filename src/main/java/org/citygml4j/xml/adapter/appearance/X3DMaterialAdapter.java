@@ -70,7 +70,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
                     reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
                     return;
                 case "adeOfX3DMaterial":
-                    ADEBuilderHelper.addADEContainer(ADEOfX3DMaterial.class, object.getADEOfX3DMaterial(), GenericADEOfX3DMaterial::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfX3DMaterial.class, object.getADEOfX3DMaterial(), GenericADEOfX3DMaterial::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -84,7 +84,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
     @Override
     public void buildADEProperty(X3DMaterial object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfX3DMaterial.class, object.getADEOfX3DMaterial(),
-                GenericADEOfX3DMaterial::new, reader, substitutionGroups))
+                GenericADEOfX3DMaterial::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

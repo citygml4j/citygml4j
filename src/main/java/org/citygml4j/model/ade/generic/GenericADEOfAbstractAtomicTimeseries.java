@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractAtomicTimeseries extends ADEOfAbstractAtomicTimeseries implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractAtomicTimeseries() {
+    private GenericADEOfAbstractAtomicTimeseries(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractAtomicTimeseries(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractAtomicTimeseries of(Element value) {
+        return new GenericADEOfAbstractAtomicTimeseries(value);
     }
 
     @Override

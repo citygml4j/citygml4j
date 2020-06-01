@@ -41,7 +41,7 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
     @Override
     public void buildADEProperty(TunnelPart object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelPart.class, object.getADEOfTunnelPart(),
-                GenericADEOfTunnelPart::new, reader, substitutionGroup))
+                GenericADEOfTunnelPart::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

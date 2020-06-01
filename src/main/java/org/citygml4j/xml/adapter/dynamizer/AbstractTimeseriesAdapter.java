@@ -33,7 +33,7 @@ public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> ex
                     object.setLastTimestamp(reader.getObjectUsingBuilder(TimePositionAdapter.class));
                     return;
                 case "adeOfAbstractTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTimeseries.class, object.getADEOfAbstractTimeseries(), GenericADEOfAbstractTimeseries::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTimeseries.class, object.getADEOfAbstractTimeseries(), GenericADEOfAbstractTimeseries::of, reader);
                     return;
             }
         }

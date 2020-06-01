@@ -45,7 +45,7 @@ public class WaterwayAdapter extends AbstractTransportationSpaceAdapter<Waterway
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfWaterway":
-                    ADEBuilderHelper.addADEContainer(ADEOfWaterway.class, object.getADEOfWaterway(), GenericADEOfWaterway::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfWaterway.class, object.getADEOfWaterway(), GenericADEOfWaterway::of, reader);
                     return;
             }
         }

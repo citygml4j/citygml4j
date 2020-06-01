@@ -36,7 +36,7 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfGenericUnoccupiedSpace".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfGenericUnoccupiedSpace.class, object.getADEOfGenericUnoccupiedSpace(), GenericADEOfGenericUnoccupiedSpace::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfGenericUnoccupiedSpace.class, object.getADEOfGenericUnoccupiedSpace(), GenericADEOfGenericUnoccupiedSpace::of, reader);
                 return;
             }
         }

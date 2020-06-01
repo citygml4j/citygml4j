@@ -36,7 +36,7 @@ public class TunnelAdapter extends AbstractTunnelAdapter<Tunnel> {
                     object.getTunnelParts().add(reader.getObjectUsingBuilder(TunnelPartPropertyAdapter.class));
                     return;
                 case "adeOfTunnel":
-                    ADEBuilderHelper.addADEContainer(ADEOfTunnel.class, object.getADEOfTunnel(), GenericADEOfTunnel::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfTunnel.class, object.getADEOfTunnel(), GenericADEOfTunnel::of, reader);
                     return;
             }
         }

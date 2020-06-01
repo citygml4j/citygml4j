@@ -99,7 +99,7 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfSolitaryVegetationObject":
-                    ADEBuilderHelper.addADEContainer(ADEOfSolitaryVegetationObject.class, object.getADEOfSolitaryVegetationObject(), GenericADEOfSolitaryVegetationObject::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfSolitaryVegetationObject.class, object.getADEOfSolitaryVegetationObject(), GenericADEOfSolitaryVegetationObject::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -113,7 +113,7 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
     @Override
     public void buildADEProperty(SolitaryVegetationObject object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfSolitaryVegetationObject.class, object.getADEOfSolitaryVegetationObject(),
-                GenericADEOfSolitaryVegetationObject::new, reader, substitutionGroups))
+                GenericADEOfSolitaryVegetationObject::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

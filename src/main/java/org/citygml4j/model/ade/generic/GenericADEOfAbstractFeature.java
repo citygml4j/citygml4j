@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractFeature extends ADEOfAbstractFeature implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractFeature() {
+    private GenericADEOfAbstractFeature(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractFeature(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractFeature of(Element value) {
+        return new GenericADEOfAbstractFeature(value);
     }
 
     @Override

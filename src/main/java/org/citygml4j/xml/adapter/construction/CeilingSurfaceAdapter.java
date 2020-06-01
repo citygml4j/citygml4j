@@ -30,7 +30,7 @@ public class CeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Ce
     @Override
     public void buildChildObject(CeilingSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfCeilingSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfCeilingSurface.class, object.getADEOfCeilingSurface(), GenericADEOfCeilingSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfCeilingSurface.class, object.getADEOfCeilingSurface(), GenericADEOfCeilingSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

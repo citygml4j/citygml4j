@@ -52,7 +52,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
                     object.getSurfaceData().add(reader.getObjectUsingBuilder(AbstractSurfaceDataPropertyAdapter.class));
                     return;
                 case "adeOfAppearance":
-                    ADEBuilderHelper.addADEContainer(ADEOfAppearance.class, object.getADEOfAppearance(), GenericADEOfAppearance::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAppearance.class, object.getADEOfAppearance(), GenericADEOfAppearance::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -66,7 +66,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
     @Override
     public void buildADEProperty(Appearance object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAppearance.class, object.getADEOfAppearance(),
-                GenericADEOfAppearance::new, reader, substitutionGroups))
+                GenericADEOfAppearance::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

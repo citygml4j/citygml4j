@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfBridgeConstructiveElement extends ADEOfBridgeConstructiveElement implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfBridgeConstructiveElement() {
+    private GenericADEOfBridgeConstructiveElement(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfBridgeConstructiveElement(Element value) {
-        this.value = value;
+    public static GenericADEOfBridgeConstructiveElement of(Element value) {
+        return new GenericADEOfBridgeConstructiveElement(value);
     }
 
     @Override

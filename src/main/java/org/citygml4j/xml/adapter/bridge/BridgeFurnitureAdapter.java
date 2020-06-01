@@ -51,7 +51,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeFurniture":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeFurniture.class, object.getADEOfBridgeFurniture(), GenericADEOfBridgeFurniture::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBridgeFurniture.class, object.getADEOfBridgeFurniture(), GenericADEOfBridgeFurniture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -65,7 +65,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
     @Override
     public void buildADEProperty(BridgeFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeFurniture.class, object.getADEOfBridgeFurniture(),
-                GenericADEOfBridgeFurniture::new, reader, substitutionGroup))
+                GenericADEOfBridgeFurniture::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

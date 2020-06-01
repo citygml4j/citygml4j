@@ -84,7 +84,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeInstallation":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeInstallation.class, object.getADEOfBridgeInstallation(), GenericADEOfBridgeInstallation::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBridgeInstallation.class, object.getADEOfBridgeInstallation(), GenericADEOfBridgeInstallation::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -98,7 +98,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
     @Override
     public void buildADEProperty(BridgeInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeInstallation.class, object.getADEOfBridgeInstallation(),
-                GenericADEOfBridgeInstallation::new, reader, substitutionGroups))
+                GenericADEOfBridgeInstallation::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

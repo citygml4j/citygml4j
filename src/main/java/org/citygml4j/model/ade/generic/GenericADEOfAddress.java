@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAddress extends ADEOfAddress implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAddress() {
+    private GenericADEOfAddress(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAddress(Element value) {
-        this.value = value;
+    public static GenericADEOfAddress of(Element value) {
+        return new GenericADEOfAddress(value);
     }
 
     @Override

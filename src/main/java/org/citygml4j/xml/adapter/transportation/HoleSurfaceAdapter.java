@@ -31,7 +31,7 @@ public class HoleSurfaceAdapter extends AbstractThematicSurfaceAdapter<HoleSurfa
     @Override
     public void buildChildObject(HoleSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfHoleSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfHoleSurface.class, object.getADEOfHoleSurface(), GenericADEOfHoleSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfHoleSurface.class, object.getADEOfHoleSurface(), GenericADEOfHoleSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

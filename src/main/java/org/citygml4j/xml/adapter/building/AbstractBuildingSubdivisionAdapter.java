@@ -54,7 +54,7 @@ public abstract class AbstractBuildingSubdivisionAdapter<T extends AbstractBuild
                     object.getBuildingRooms().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
                     return;
                 case "adeOfAbstractBuildingSubdivision":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBuildingSubdivision.class, object.getADEOfAbstractBuildingSubdivision(), GenericADEOfAbstractBuildingSubdivision::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBuildingSubdivision.class, object.getADEOfAbstractBuildingSubdivision(), GenericADEOfAbstractBuildingSubdivision::of, reader);
                     return;
             }
         }

@@ -41,7 +41,7 @@ public class GroundSurfaceAdapter extends AbstractBoundarySurfaceAdapter<GroundS
     @Override
     public void buildADEProperty(GroundSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfGroundSurface.class, object.getADEOfGroundSurface(),
-                GenericADEOfGroundSurface::new, reader, substitutionGroup))
+                GenericADEOfGroundSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

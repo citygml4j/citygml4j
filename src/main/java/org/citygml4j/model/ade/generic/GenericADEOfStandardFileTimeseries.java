@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfStandardFileTimeseries extends ADEOfStandardFileTimeseries implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfStandardFileTimeseries() {
+    private GenericADEOfStandardFileTimeseries(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfStandardFileTimeseries(Element value) {
-        this.value = value;
+    public static GenericADEOfStandardFileTimeseries of(Element value) {
+        return new GenericADEOfStandardFileTimeseries(value);
     }
 
     @Override

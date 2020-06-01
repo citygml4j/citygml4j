@@ -42,7 +42,7 @@ public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapt
                     object.setMimeType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfStandardFileTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfStandardFileTimeseries.class, object.getADEOfStandardFileTimeseries(), GenericADEOfStandardFileTimeseries::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfStandardFileTimeseries.class, object.getADEOfStandardFileTimeseries(), GenericADEOfStandardFileTimeseries::of, reader);
                     return;
             }
         }

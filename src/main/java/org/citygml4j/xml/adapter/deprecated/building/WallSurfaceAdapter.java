@@ -48,7 +48,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
     @Override
     public void buildADEProperty(WallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfWallSurface.class, object.getADEOfWallSurface(),
-                GenericADEOfWallSurface::new, reader, substitutionGroups))
+                GenericADEOfWallSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

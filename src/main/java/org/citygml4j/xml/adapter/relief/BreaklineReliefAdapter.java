@@ -50,7 +50,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
                     object.setBreaklines(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "adeOfBreaklineRelief":
-                    ADEBuilderHelper.addADEContainer(ADEOfBreaklineRelief.class, object.getADEOfBreaklineRelief(), GenericADEOfBreaklineRelief::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBreaklineRelief.class, object.getADEOfBreaklineRelief(), GenericADEOfBreaklineRelief::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -64,7 +64,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
     @Override
     public void buildADEProperty(BreaklineRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfBreaklineRelief.class, object.getADEOfBreaklineRelief(),
-                GenericADEOfBreaklineRelief::new, reader, substitutionGroups))
+                GenericADEOfBreaklineRelief::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfWindow extends ADEOfWindow implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfWindow() {
+    private GenericADEOfWindow(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfWindow(Element value) {
-        this.value = value;
+    public static GenericADEOfWindow of(Element value) {
+        return new GenericADEOfWindow(value);
     }
 
     @Override

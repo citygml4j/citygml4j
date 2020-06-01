@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfSolitaryVegetationObject extends ADEOfSolitaryVegetationObject implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfSolitaryVegetationObject() {
+    private GenericADEOfSolitaryVegetationObject(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfSolitaryVegetationObject(Element value) {
-        this.value = value;
+    public static GenericADEOfSolitaryVegetationObject of(Element value) {
+        return new GenericADEOfSolitaryVegetationObject(value);
     }
 
     @Override

@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfTrafficSpace extends ADEOfTrafficSpace implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfTrafficSpace() {
+    private GenericADEOfTrafficSpace(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfTrafficSpace(Element value) {
-        this.value = value;
+    public static GenericADEOfTrafficSpace of(Element value) {
+        return new GenericADEOfTrafficSpace(value);
     }
 
     @Override

@@ -102,7 +102,7 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTransportationSpace.class, object.getADEOfAbstractTransportationSpace(),
-                GenericADEOfAbstractTransportationSpace::new, reader, substitutionGroups))
+                GenericADEOfAbstractTransportationSpace::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

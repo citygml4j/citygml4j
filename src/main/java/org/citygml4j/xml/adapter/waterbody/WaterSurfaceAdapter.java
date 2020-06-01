@@ -36,7 +36,7 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
                     object.setWaterLevel(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfWaterSurface":
-                    ADEBuilderHelper.addADEContainer(ADEOfWaterSurface.class, object.getADEOfWaterSurface(), GenericADEOfWaterSurface::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfWaterSurface.class, object.getADEOfWaterSurface(), GenericADEOfWaterSurface::of, reader);
                     return;
             }
         }

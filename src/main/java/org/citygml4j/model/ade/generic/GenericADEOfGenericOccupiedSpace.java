@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfGenericOccupiedSpace extends ADEOfGenericOccupiedSpace implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfGenericOccupiedSpace() {
+    private GenericADEOfGenericOccupiedSpace(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfGenericOccupiedSpace(Element value) {
-        this.value = value;
+    public static GenericADEOfGenericOccupiedSpace of(Element value) {
+        return new GenericADEOfGenericOccupiedSpace(value);
     }
 
     @Override

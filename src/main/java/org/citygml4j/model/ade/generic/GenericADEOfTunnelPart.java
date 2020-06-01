@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfTunnelPart extends ADEOfTunnelPart implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfTunnelPart() {
+    private GenericADEOfTunnelPart(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfTunnelPart(Element value) {
-        this.value = value;
+    public static GenericADEOfTunnelPart of(Element value) {
+        return new GenericADEOfTunnelPart(value);
     }
 
     @Override

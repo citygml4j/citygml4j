@@ -47,7 +47,7 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
                     object.setPoints(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
                     return;
                 case "adeOfPointCloud":
-                    ADEBuilderHelper.addADEContainer(ADEOfPointCloud.class, object.getADEOfPointCloud(), GenericADEOfPointCloud::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfPointCloud.class, object.getADEOfPointCloud(), GenericADEOfPointCloud::of, reader);
                     return;
             }
         }

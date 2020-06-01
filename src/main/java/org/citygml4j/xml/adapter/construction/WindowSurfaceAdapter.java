@@ -30,7 +30,7 @@ public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSu
     @Override
     public void buildChildObject(WindowSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfWindowSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfWindowSurface.class, object.getADEOfWindowSurface(), GenericADEOfWindowSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfWindowSurface.class, object.getADEOfWindowSurface(), GenericADEOfWindowSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

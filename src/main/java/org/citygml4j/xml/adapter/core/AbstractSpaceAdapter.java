@@ -75,7 +75,7 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                     object.setLod3MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "adeOfAbstractSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractSpace.class, object.getADEOfAbstractSpace(), GenericADEOfAbstractSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractSpace.class, object.getADEOfAbstractSpace(), GenericADEOfAbstractSpace::of, reader);
                     return;
             }
         }

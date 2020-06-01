@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfOuterFloorSurface extends ADEOfOuterFloorSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfOuterFloorSurface() {
+    private GenericADEOfOuterFloorSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfOuterFloorSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfOuterFloorSurface of(Element value) {
+        return new GenericADEOfOuterFloorSurface(value);
     }
 
     @Override

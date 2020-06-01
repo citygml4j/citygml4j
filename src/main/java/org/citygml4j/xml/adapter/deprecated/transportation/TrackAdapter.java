@@ -48,7 +48,7 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
     @Override
     public void buildADEProperty(Track object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfTrack.class, object.getADEOfTrack(),
-                GenericADEOfTrack::new, reader, substitutionGroups)) {
+                GenericADEOfTrack::of, reader, substitutionGroups)) {
             super.buildADEProperty(object, name, reader);
         }
     }

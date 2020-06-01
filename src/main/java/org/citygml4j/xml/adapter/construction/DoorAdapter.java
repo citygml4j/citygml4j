@@ -42,7 +42,7 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfDoor":
-                    ADEBuilderHelper.addADEContainer(ADEOfDoor.class, object.getADEOfDoor(), GenericADEOfDoor::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfDoor.class, object.getADEOfDoor(), GenericADEOfDoor::of, reader);
                     return;
             }
         }

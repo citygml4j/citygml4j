@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfParameterizedTexture extends ADEOfParameterizedTexture implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfParameterizedTexture() {
+    private GenericADEOfParameterizedTexture(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfParameterizedTexture(Element value) {
-        this.value = value;
+    public static GenericADEOfParameterizedTexture of(Element value) {
+        return new GenericADEOfParameterizedTexture(value);
     }
 
     @Override

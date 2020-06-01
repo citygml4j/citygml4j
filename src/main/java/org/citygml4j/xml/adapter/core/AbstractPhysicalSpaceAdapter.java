@@ -39,7 +39,7 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
                 case "adeOfAbstractPhysicalSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractPhysicalSpace.class, object.getADEOfAbstractPhysicalSpace(), GenericADEOfAbstractPhysicalSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractPhysicalSpace.class, object.getADEOfAbstractPhysicalSpace(), GenericADEOfAbstractPhysicalSpace::of, reader);
                     return;
             }
         }

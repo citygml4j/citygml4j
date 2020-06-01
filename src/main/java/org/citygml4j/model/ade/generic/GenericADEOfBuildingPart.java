@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfBuildingPart extends ADEOfBuildingPart implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfBuildingPart() {
+    private GenericADEOfBuildingPart(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfBuildingPart(Element value) {
-        this.value = value;
+    public static GenericADEOfBuildingPart of(Element value) {
+        return new GenericADEOfBuildingPart(value);
     }
 
     @Override

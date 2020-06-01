@@ -30,7 +30,7 @@ public abstract class AbstractVegetationObjectAdapter<T extends AbstractVegetati
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractVegetationObject".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractVegetationObject.class, object.getADEOfAbstractVegetationObject(), GenericADEOfAbstractVegetationObject::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractVegetationObject.class, object.getADEOfAbstractVegetationObject(), GenericADEOfAbstractVegetationObject::of, reader);
         else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
             buildADEProperty(object, name, reader);
         else
@@ -40,7 +40,7 @@ public abstract class AbstractVegetationObjectAdapter<T extends AbstractVegetati
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractVegetationObject.class, object.getADEOfAbstractVegetationObject(),
-                GenericADEOfAbstractVegetationObject::new, reader, substitutionGroups))
+                GenericADEOfAbstractVegetationObject::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

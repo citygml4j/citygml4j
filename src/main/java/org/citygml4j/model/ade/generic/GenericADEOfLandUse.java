@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfLandUse extends ADEOfLandUse implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfLandUse() {
+    private GenericADEOfLandUse(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfLandUse(Element value) {
-        this.value = value;
+    public static GenericADEOfLandUse of(Element value) {
+        return new GenericADEOfLandUse(value);
     }
 
     @Override

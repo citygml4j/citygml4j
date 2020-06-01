@@ -30,7 +30,7 @@ public class RoofSurfaceAdapter extends AbstractConstructionSurfaceAdapter<RoofS
     @Override
     public void buildChildObject(RoofSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfRoofSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfRoofSurface.class, object.getADEOfRoofSurface(), GenericADEOfRoofSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfRoofSurface.class, object.getADEOfRoofSurface(), GenericADEOfRoofSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

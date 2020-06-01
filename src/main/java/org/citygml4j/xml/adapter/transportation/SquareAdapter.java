@@ -35,7 +35,7 @@ public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfSquare".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfSquare.class, object.getADEOfSquare(), GenericADEOfSquare::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfSquare.class, object.getADEOfSquare(), GenericADEOfSquare::of, reader);
                 return;
             }
         }

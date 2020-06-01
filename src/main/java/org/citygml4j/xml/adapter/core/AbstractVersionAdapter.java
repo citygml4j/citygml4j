@@ -23,7 +23,7 @@ public abstract class AbstractVersionAdapter<T extends AbstractVersion> extends 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractVersion".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractVersion.class, object.getADEOfAbstractVersion(), GenericADEOfAbstractVersion::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractVersion.class, object.getADEOfAbstractVersion(), GenericADEOfAbstractVersion::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

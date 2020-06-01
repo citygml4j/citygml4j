@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfBreaklineRelief extends ADEOfBreaklineRelief implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfBreaklineRelief() {
+    private GenericADEOfBreaklineRelief(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfBreaklineRelief(Element value) {
-        this.value = value;
+    public static GenericADEOfBreaklineRelief of(Element value) {
+        return new GenericADEOfBreaklineRelief(value);
     }
 
     @Override

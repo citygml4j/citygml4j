@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractPhysicalSpace extends ADEOfAbstractPhysicalSpace implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractPhysicalSpace() {
+    private GenericADEOfAbstractPhysicalSpace(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractPhysicalSpace(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractPhysicalSpace of(Element value) {
+        return new GenericADEOfAbstractPhysicalSpace(value);
     }
 
     @Override

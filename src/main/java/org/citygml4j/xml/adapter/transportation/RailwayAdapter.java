@@ -45,7 +45,7 @@ public class RailwayAdapter extends AbstractTransportationSpaceAdapter<Railway> 
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfRailway":
-                    ADEBuilderHelper.addADEContainer(ADEOfRailway.class, object.getADEOfRailway(), GenericADEOfRailway::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfRailway.class, object.getADEOfRailway(), GenericADEOfRailway::of, reader);
                     return;
             }
         }

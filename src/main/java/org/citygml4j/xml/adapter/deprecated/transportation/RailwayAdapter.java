@@ -48,7 +48,7 @@ public class RailwayAdapter extends AbstractTransportationObjectAdapter<Railway>
     @Override
     public void buildADEProperty(Railway object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfRailway.class, object.getADEOfRailway(),
-                GenericADEOfRailway::new, reader, substitutionGroups))
+                GenericADEOfRailway::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractWaterBoundarySurface extends ADEOfAbstractWaterBoundarySurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractWaterBoundarySurface() {
+    private GenericADEOfAbstractWaterBoundarySurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractWaterBoundarySurface(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractWaterBoundarySurface of(Element value) {
+        return new GenericADEOfAbstractWaterBoundarySurface(value);
     }
 
     @Override

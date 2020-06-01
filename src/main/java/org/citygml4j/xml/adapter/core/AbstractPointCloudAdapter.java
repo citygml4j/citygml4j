@@ -23,7 +23,7 @@ public abstract class AbstractPointCloudAdapter<T extends AbstractPointCloud> ex
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractPointCloud".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractPointCloud.class, object.getADEOfAbstractPointCloud(), GenericADEOfAbstractPointCloud::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractPointCloud.class, object.getADEOfAbstractPointCloud(), GenericADEOfAbstractPointCloud::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

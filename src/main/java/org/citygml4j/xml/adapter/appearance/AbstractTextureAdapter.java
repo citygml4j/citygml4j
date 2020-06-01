@@ -51,7 +51,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
                     reader.getTextContent().ifDoubleList(v -> object.setBorderColor(ColorPlusOpacity.fromList(v)));
                     return;
                 case "adeOfAbstractTexture":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTexture.class, object.getADEOfAbstractTexture(), GenericADEOfAbstractTexture::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTexture.class, object.getADEOfAbstractTexture(), GenericADEOfAbstractTexture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -65,7 +65,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTexture.class, object.getADEOfAbstractTexture(),
-                GenericADEOfAbstractTexture::new, reader, substitutionGroups))
+                GenericADEOfAbstractTexture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

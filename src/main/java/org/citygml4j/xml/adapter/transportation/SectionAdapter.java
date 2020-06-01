@@ -36,7 +36,7 @@ public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> 
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfSection":
-                    ADEBuilderHelper.addADEContainer(ADEOfSection.class, object.getADEOfSection(), GenericADEOfSection::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfSection.class, object.getADEOfSection(), GenericADEOfSection::of, reader);
                     return;
             }
         }

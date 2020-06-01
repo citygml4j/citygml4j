@@ -67,7 +67,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeRoom":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeRoom.class, object.getADEOfBridgeRoom(), GenericADEOfBridgeRoom::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBridgeRoom.class, object.getADEOfBridgeRoom(), GenericADEOfBridgeRoom::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -81,7 +81,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
     @Override
     public void buildADEProperty(BridgeRoom object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeRoom.class, object.getADEOfBridgeRoom(),
-                GenericADEOfBridgeRoom::new, reader, substitutionGroup))
+                GenericADEOfBridgeRoom::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

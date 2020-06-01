@@ -37,7 +37,7 @@ public class HoleAdapter extends AbstractUnoccupiedSpaceAdapter<Hole> {
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfHole":
-                    ADEBuilderHelper.addADEContainer(ADEOfHole.class, object.getADEOfHole(), GenericADEOfHole::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfHole.class, object.getADEOfHole(), GenericADEOfHole::of, reader);
                     return;
             }
         }

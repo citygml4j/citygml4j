@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfHoleSurface extends ADEOfHoleSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfHoleSurface() {
+    private GenericADEOfHoleSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfHoleSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfHoleSurface of(Element value) {
+        return new GenericADEOfHoleSurface(value);
     }
 
     @Override

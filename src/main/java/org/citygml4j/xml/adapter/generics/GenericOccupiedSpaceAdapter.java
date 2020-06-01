@@ -100,7 +100,7 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfGenericOccupiedSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfGenericOccupiedSpace.class, object.getADEOfGenericOccupiedSpace(), GenericADEOfGenericOccupiedSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfGenericOccupiedSpace.class, object.getADEOfGenericOccupiedSpace(), GenericADEOfGenericOccupiedSpace::of, reader);
                     return;
             }
         }

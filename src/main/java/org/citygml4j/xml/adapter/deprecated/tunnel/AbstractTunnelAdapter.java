@@ -160,7 +160,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTunnel.class, object.getADEOfAbstractTunnel(),
-                GenericADEOfAbstractTunnel::new, reader, substitutionGroup))
+                GenericADEOfAbstractTunnel::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

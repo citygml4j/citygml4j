@@ -63,7 +63,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
                     object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "adeOfLandUse":
-                    ADEBuilderHelper.addADEContainer(ADEOfLandUse.class, object.getADEOfLandUse(), GenericADEOfLandUse::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfLandUse.class, object.getADEOfLandUse(), GenericADEOfLandUse::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -77,7 +77,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
     @Override
     public void buildADEProperty(LandUse object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfLandUse.class, object.getADEOfLandUse(),
-                GenericADEOfLandUse::new, reader, substitutionGroups))
+                GenericADEOfLandUse::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

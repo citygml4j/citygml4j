@@ -42,7 +42,7 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfBuildingUnit":
-                    ADEBuilderHelper.addADEContainer(ADEOfBuildingUnit.class, object.getADEOfBuildingUnit(), GenericADEOfBuildingUnit::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBuildingUnit.class, object.getADEOfBuildingUnit(), GenericADEOfBuildingUnit::of, reader);
                     return;
             }
         }

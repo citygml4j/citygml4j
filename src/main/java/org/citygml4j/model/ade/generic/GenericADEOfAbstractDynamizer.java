@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractDynamizer extends ADEOfAbstractDynamizer implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractDynamizer() {
+    private GenericADEOfAbstractDynamizer(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractDynamizer(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractDynamizer of(Element value) {
+        return new GenericADEOfAbstractDynamizer(value);
     }
 
     @Override

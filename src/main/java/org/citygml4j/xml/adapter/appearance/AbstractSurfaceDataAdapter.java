@@ -36,7 +36,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
                     reader.getTextContent().ifBoolean(object::setIsFront);
                     return;
                 case "adeOfAbstractSurfaceData":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractSurfaceData.class, object.getADEOfAbstractSurfaceData(), GenericADEOfAbstractSurfaceData::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractSurfaceData.class, object.getADEOfAbstractSurfaceData(), GenericADEOfAbstractSurfaceData::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -50,7 +50,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractSurfaceData.class, object.getADEOfAbstractSurfaceData(),
-                GenericADEOfAbstractSurfaceData::new, reader, substitutionGroups))
+                GenericADEOfAbstractSurfaceData::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

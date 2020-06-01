@@ -50,7 +50,7 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
                 case "adeOfAbstractThematicSurface":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(), GenericADEOfAbstractThematicSurface::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(), GenericADEOfAbstractThematicSurface::of, reader);
                     return;
             }
         }

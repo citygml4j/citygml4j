@@ -37,7 +37,7 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
                     object.getBuildingUnits().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
                     return;
                 case "adeOfStorey":
-                    ADEBuilderHelper.addADEContainer(ADEOfStorey.class, object.getADEOfStorey(), GenericADEOfStorey::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfStorey.class, object.getADEOfStorey(), GenericADEOfStorey::of, reader);
                     return;
             }
         }

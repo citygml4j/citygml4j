@@ -37,7 +37,7 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfClearanceSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfClearanceSpace.class, object.getADEOfClearanceSpace(), GenericADEOfClearanceSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfClearanceSpace.class, object.getADEOfClearanceSpace(), GenericADEOfClearanceSpace::of, reader);
                     return;
             }
         }

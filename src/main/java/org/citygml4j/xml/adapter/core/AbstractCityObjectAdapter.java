@@ -80,7 +80,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                     object.getDynamizers().add(reader.getObjectUsingBuilder(AbstractDynamizerPropertyAdapter.class));
                     return;
                 case "adeOfAbstractCityObject":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractCityObject.class, object.getADEOfAbstractCityObject(), GenericADEOfAbstractCityObject::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractCityObject.class, object.getADEOfAbstractCityObject(), GenericADEOfAbstractCityObject::of, reader);
                     return;
             }
         } else if (CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())
@@ -102,7 +102,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractCityObject.class, object.getADEOfAbstractCityObject(),
-                GenericADEOfAbstractCityObject::new, reader, substitutionGroups))
+                GenericADEOfAbstractCityObject::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

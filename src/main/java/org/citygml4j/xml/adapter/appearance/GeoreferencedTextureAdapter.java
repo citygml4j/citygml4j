@@ -59,7 +59,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
                     reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
                     return;
                 case "adeOfGeoreferencedTexture":
-                    ADEBuilderHelper.addADEContainer(ADEOfGeoreferencedTexture.class, object.getADEOfGeoreferencedTexture(), GenericADEOfGeoreferencedTexture::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfGeoreferencedTexture.class, object.getADEOfGeoreferencedTexture(), GenericADEOfGeoreferencedTexture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -73,7 +73,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
     @Override
     public void buildADEProperty(GeoreferencedTexture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfGeoreferencedTexture.class, object.getADEOfGeoreferencedTexture(),
-                GenericADEOfGeoreferencedTexture::new, reader, substitutionGroups))
+                GenericADEOfGeoreferencedTexture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

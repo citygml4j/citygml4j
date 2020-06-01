@@ -30,7 +30,7 @@ public abstract class AbstractInstallationAdapter<T extends AbstractInstallation
                     reader.getTextContent().ifPresent(v -> object.setRelationToConstruction(RelationToConstruction.fromValue(v)));
                     return;
                 case "adeOfAbstractInstallation":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractInstallation.class, object.getADEOfAbstractInstallation(), GenericADEOfAbstractInstallation::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAbstractInstallation.class, object.getADEOfAbstractInstallation(), GenericADEOfAbstractInstallation::of, reader);
                     return;
             }
         }

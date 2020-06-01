@@ -82,7 +82,7 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
     @Override
     public void buildADEProperty(CityModel object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityModel.class, object.getADEOfCityModel(),
-                GenericADEOfCityModel::new, reader, substitutionGroups))
+                GenericADEOfCityModel::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

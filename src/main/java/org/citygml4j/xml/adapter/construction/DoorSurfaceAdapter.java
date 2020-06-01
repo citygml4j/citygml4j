@@ -37,7 +37,7 @@ public class DoorSurfaceAdapter extends AbstractFillingSurfaceAdapter<DoorSurfac
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfDoorSurface":
-                    ADEBuilderHelper.addADEContainer(ADEOfDoorSurface.class, object.getADEOfDoorSurface(), GenericADEOfDoorSurface::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfDoorSurface.class, object.getADEOfDoorSurface(), GenericADEOfDoorSurface::of, reader);
                     return;
             }
         }

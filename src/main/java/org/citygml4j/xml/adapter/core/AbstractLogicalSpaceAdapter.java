@@ -24,7 +24,7 @@ public abstract class AbstractLogicalSpaceAdapter<T extends AbstractLogicalSpace
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractLogicalSpace".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractLogicalSpace.class, object.getADEOfAbstractLogicalSpace(), GenericADEOfAbstractLogicalSpace::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractLogicalSpace.class, object.getADEOfAbstractLogicalSpace(), GenericADEOfAbstractLogicalSpace::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

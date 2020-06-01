@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfDoorSurface extends ADEOfDoorSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfDoorSurface() {
+    private GenericADEOfDoorSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfDoorSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfDoorSurface of(Element value) {
+        return new GenericADEOfDoorSurface(value);
     }
 
     @Override

@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfMarking extends ADEOfMarking implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfMarking() {
+    private GenericADEOfMarking(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfMarking(Element value) {
-        this.value = value;
+    public static GenericADEOfMarking of(Element value) {
+        return new GenericADEOfMarking(value);
     }
 
     @Override

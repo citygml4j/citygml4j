@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractThematicSurface extends ADEOfAbstractThematicSurface implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractThematicSurface() {
+    private GenericADEOfAbstractThematicSurface(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractThematicSurface(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractThematicSurface of(Element value) {
+        return new GenericADEOfAbstractThematicSurface(value);
     }
 
     @Override

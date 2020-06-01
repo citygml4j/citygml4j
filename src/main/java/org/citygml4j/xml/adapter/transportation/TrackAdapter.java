@@ -45,7 +45,7 @@ public class TrackAdapter extends AbstractTransportationSpaceAdapter<Track> {
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfTrack":
-                    ADEBuilderHelper.addADEContainer(ADEOfTrack.class, object.getADEOfTrack(), GenericADEOfTrack::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfTrack.class, object.getADEOfTrack(), GenericADEOfTrack::of, reader);
                     return;
             }
         }

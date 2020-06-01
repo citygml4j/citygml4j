@@ -36,7 +36,7 @@ public class IntersectionAdapter extends AbstractTransportationSpaceAdapter<Inte
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfIntersection":
-                    ADEBuilderHelper.addADEContainer(ADEOfIntersection.class, object.getADEOfIntersection(), GenericADEOfIntersection::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfIntersection.class, object.getADEOfIntersection(), GenericADEOfIntersection::of, reader);
                     return;
             }
         }

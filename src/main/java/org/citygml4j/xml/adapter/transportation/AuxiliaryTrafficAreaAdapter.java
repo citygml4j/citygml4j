@@ -61,7 +61,7 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
                     object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "adeOfAuxiliaryTrafficArea":
-                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficArea.class, object.getADEOfAuxiliaryTrafficArea(), GenericADEOfAuxiliaryTrafficArea::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficArea.class, object.getADEOfAuxiliaryTrafficArea(), GenericADEOfAuxiliaryTrafficArea::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -75,7 +75,7 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
     @Override
     public void buildADEProperty(AuxiliaryTrafficArea object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAuxiliaryTrafficArea.class, object.getADEOfAuxiliaryTrafficArea(),
-                GenericADEOfAuxiliaryTrafficArea::new, reader, substitutionGroups))
+                GenericADEOfAuxiliaryTrafficArea::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

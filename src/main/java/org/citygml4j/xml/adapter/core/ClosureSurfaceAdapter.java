@@ -30,7 +30,7 @@ public class ClosureSurfaceAdapter extends AbstractThematicSurfaceAdapter<Closur
     @Override
     public void buildChildObject(ClosureSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfClosureSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfClosureSurface.class, object.getADEOfClosureSurface(), GenericADEOfClosureSurface::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfClosureSurface.class, object.getADEOfClosureSurface(), GenericADEOfClosureSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

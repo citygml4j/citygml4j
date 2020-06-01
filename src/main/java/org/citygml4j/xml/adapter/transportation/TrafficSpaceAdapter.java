@@ -62,7 +62,7 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                     object.getClearanceSpaces().add(reader.getObjectUsingBuilder(ClearanceSpacePropertyAdapter.class));
                     return;
                 case "adeOfTrafficSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfTrafficSpace.class, object.getADEOfTrafficSpace(), GenericADEOfTrafficSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfTrafficSpace.class, object.getADEOfTrafficSpace(), GenericADEOfTrafficSpace::of, reader);
                     return;
             }
         }

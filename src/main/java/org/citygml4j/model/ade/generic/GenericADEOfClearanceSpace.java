@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfClearanceSpace extends ADEOfClearanceSpace implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfClearanceSpace() {
+    private GenericADEOfClearanceSpace(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfClearanceSpace(Element value) {
-        this.value = value;
+    public static GenericADEOfClearanceSpace of(Element value) {
+        return new GenericADEOfClearanceSpace(value);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
                     reader.getTextContent().ifPresent(v -> object.setGranularity(GranularityValue.fromValue(v)));
                     return;
                 case "adeOfAuxiliaryTrafficSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficSpace.class, object.getADEOfAuxiliaryTrafficSpace(), GenericADEOfAuxiliaryTrafficSpace::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficSpace.class, object.getADEOfAuxiliaryTrafficSpace(), GenericADEOfAuxiliaryTrafficSpace::of, reader);
                     return;
             }
         }

@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAuxiliaryTrafficArea extends ADEOfAuxiliaryTrafficArea implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAuxiliaryTrafficArea() {
+    private GenericADEOfAuxiliaryTrafficArea(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAuxiliaryTrafficArea(Element value) {
-        this.value = value;
+    public static GenericADEOfAuxiliaryTrafficArea of(Element value) {
+        return new GenericADEOfAuxiliaryTrafficArea(value);
     }
 
     @Override

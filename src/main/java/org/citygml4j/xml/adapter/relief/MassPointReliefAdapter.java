@@ -51,7 +51,7 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
                 case "adeOfMassPointRelief":
-                    ADEBuilderHelper.addADEContainer(ADEOfMassPointRelief.class, object.getADEOfMassPointRelief(), GenericADEOfMassPointRelief::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfMassPointRelief.class, object.getADEOfMassPointRelief(), GenericADEOfMassPointRelief::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -65,7 +65,7 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
     @Override
     public void buildADEProperty(MassPointRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfMassPointRelief.class, object.getADEOfMassPointRelief(),
-                GenericADEOfMassPointRelief::new, reader, substitutionGroups))
+                GenericADEOfMassPointRelief::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

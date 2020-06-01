@@ -36,7 +36,7 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfGenericLogicalSpace".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfGenericLogicalSpace.class, object.getADEOfGenericLogicalSpace(), GenericADEOfGenericLogicalSpace::new, reader);
+                ADEBuilderHelper.addADEContainer(ADEOfGenericLogicalSpace.class, object.getADEOfGenericLogicalSpace(), GenericADEOfGenericLogicalSpace::of, reader);
                 return;
             }
         }

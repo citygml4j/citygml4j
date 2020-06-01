@@ -51,7 +51,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfTunnelFurniture":
-                    ADEBuilderHelper.addADEContainer(ADEOfTunnelFurniture.class, object.getADEOfTunnelFurniture(), GenericADEOfTunnelFurniture::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfTunnelFurniture.class, object.getADEOfTunnelFurniture(), GenericADEOfTunnelFurniture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -65,7 +65,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
     @Override
     public void buildADEProperty(TunnelFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelFurniture.class, object.getADEOfTunnelFurniture(),
-                GenericADEOfTunnelFurniture::new, reader, substitutionGroup))
+                GenericADEOfTunnelFurniture::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 

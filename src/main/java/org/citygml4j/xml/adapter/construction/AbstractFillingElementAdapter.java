@@ -24,7 +24,7 @@ public abstract class AbstractFillingElementAdapter<T extends AbstractFillingEle
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractFillingElement".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractFillingElement.class, object.getADEOfAbstractFillingElement(), GenericADEOfAbstractFillingElement::new, reader);
+            ADEBuilderHelper.addADEContainer(ADEOfAbstractFillingElement.class, object.getADEOfAbstractFillingElement(), GenericADEOfAbstractFillingElement::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }

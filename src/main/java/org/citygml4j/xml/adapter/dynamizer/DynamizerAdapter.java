@@ -49,7 +49,7 @@ public class DynamizerAdapter extends AbstractDynamizerAdapter<Dynamizer> {
                     object.setSensorConnection(reader.getObjectUsingBuilder(SensorConnectionPropertyAdapter.class));
                     return;
                 case "adeOfDynamizer":
-                    ADEBuilderHelper.addADEContainer(ADEOfDynamizer.class, object.getADEOfDynamizer(), GenericADEOfDynamizer::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfDynamizer.class, object.getADEOfDynamizer(), GenericADEOfDynamizer::of, reader);
                     return;
             }
         }

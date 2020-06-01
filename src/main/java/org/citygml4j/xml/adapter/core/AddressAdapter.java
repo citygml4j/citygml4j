@@ -50,7 +50,7 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
                     object.setMultiPoint(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
                     return;
                 case "adeOfAddress":
-                    ADEBuilderHelper.addADEContainer(ADEOfAddress.class, object.getADEOfAddress(), GenericADEOfAddress::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfAddress.class, object.getADEOfAddress(), GenericADEOfAddress::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -64,7 +64,7 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     @Override
     public void buildADEProperty(Address object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAddress.class, object.getADEOfAddress(),
-                GenericADEOfAddress::new, reader, substitutionGroups))
+                GenericADEOfAddress::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

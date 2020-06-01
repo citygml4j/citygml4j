@@ -6,11 +6,12 @@ import org.w3c.dom.Element;
 public class GenericADEOfAbstractLogicalSpace extends ADEOfAbstractLogicalSpace implements ADEGenericPropertyContainer {
     private Element value;
 
-    public GenericADEOfAbstractLogicalSpace() {
+    private GenericADEOfAbstractLogicalSpace(Element value) {
+        this.value = value;
     }
 
-    public GenericADEOfAbstractLogicalSpace(Element value) {
-        this.value = value;
+    public static GenericADEOfAbstractLogicalSpace of(Element value) {
+        return new GenericADEOfAbstractLogicalSpace(value);
     }
 
     @Override

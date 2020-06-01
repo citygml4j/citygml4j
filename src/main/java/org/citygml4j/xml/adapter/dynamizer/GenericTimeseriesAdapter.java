@@ -40,7 +40,7 @@ public class GenericTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<Ge
                     object.getTimeValuePairs().add(reader.getObjectUsingBuilder(TimeValuePairPropertyAdapter.class));
                     return;
                 case "adeOfGenericTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfGenericTimeseries.class, object.getADEOfGenericTimeseries(), GenericADEOfGenericTimeseries::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfGenericTimeseries.class, object.getADEOfGenericTimeseries(), GenericADEOfGenericTimeseries::of, reader);
                     return;
             }
         }

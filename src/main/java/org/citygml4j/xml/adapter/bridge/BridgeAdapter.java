@@ -36,7 +36,7 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
                     object.getBridgeParts().add(reader.getObjectUsingBuilder(BridgePartPropertyAdapter.class));
                     return;
                 case "adeOfBridge":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridge.class, object.getADEOfBridge(), GenericADEOfBridge::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfBridge.class, object.getADEOfBridge(), GenericADEOfBridge::of, reader);
                     return;
             }
         }

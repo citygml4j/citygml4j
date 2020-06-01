@@ -197,7 +197,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractBuilding.class, object.getADEOfAbstractBuilding(),
-                GenericADEOfAbstractBuilding::new, reader, substitutionGroups))
+                GenericADEOfAbstractBuilding::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

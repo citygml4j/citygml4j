@@ -85,7 +85,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfTunnelInstallation":
-                    ADEBuilderHelper.addADEContainer(ADEOfTunnelInstallation.class, object.getADEOfTunnelInstallation(), GenericADEOfTunnelInstallation::new, reader);
+                    ADEBuilderHelper.addADEContainer(ADEOfTunnelInstallation.class, object.getADEOfTunnelInstallation(), GenericADEOfTunnelInstallation::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -99,7 +99,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
     @Override
     public void buildADEProperty(TunnelInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelInstallation.class, object.getADEOfTunnelInstallation(),
-                GenericADEOfTunnelInstallation::new, reader, substitutionGroups))
+                GenericADEOfTunnelInstallation::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

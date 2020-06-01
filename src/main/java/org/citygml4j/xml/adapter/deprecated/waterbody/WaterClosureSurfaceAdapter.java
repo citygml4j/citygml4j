@@ -48,7 +48,7 @@ public class WaterClosureSurfaceAdapter extends AbstractWaterBoundarySurfaceAdap
     @Override
     public void buildADEProperty(ClosureSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfClosureSurface.class, object.getADEOfClosureSurface(),
-                GenericADEOfClosureSurface::new, reader, substitutionGroups))
+                GenericADEOfClosureSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 

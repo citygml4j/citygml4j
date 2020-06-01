@@ -36,7 +36,7 @@ public abstract class AbstractSiteAdapter<T extends AbstractConstruction> extend
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractConstruction.class, object.getADEOfAbstractConstruction(),
-                GenericADEOfAbstractConstruction::new, reader, substitutionGroups))
+                GenericADEOfAbstractConstruction::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
