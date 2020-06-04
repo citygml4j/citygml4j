@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.core.ADEOfAbstractVersionTransition;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractVersionTransition extends ADEOfAbstractVersionTransition implements ADEGenericPropertyContainer {
+public class GenericADEOfAbstractVersionTransition extends ADEOfAbstractVersionTransition implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAbstractVersionTransition(Element value) {

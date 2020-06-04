@@ -1,6 +1,6 @@
 package org.citygml4j.model.building;
 
-import org.citygml4j.model.ade.ADEPropertyContainer;
+import org.citygml4j.model.ade.ADEContainer;
 
-public abstract class ADEOfBuildingInstallation extends ADEPropertyContainer {
+public abstract class ADEOfBuildingInstallation extends ADEContainer {
 }

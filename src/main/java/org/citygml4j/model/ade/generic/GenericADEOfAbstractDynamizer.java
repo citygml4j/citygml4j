@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.core.ADEOfAbstractDynamizer;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractDynamizer extends ADEOfAbstractDynamizer implements ADEGenericPropertyContainer {
+public class GenericADEOfAbstractDynamizer extends ADEOfAbstractDynamizer implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAbstractDynamizer(Element value) {

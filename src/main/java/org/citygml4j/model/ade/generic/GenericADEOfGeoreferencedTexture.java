@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.appearance.ADEOfGeoreferencedTexture;
 import org.w3c.dom.Element;
 
-public class GenericADEOfGeoreferencedTexture extends ADEOfGeoreferencedTexture implements ADEGenericPropertyContainer {
+public class GenericADEOfGeoreferencedTexture extends ADEOfGeoreferencedTexture implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfGeoreferencedTexture(Element value) {

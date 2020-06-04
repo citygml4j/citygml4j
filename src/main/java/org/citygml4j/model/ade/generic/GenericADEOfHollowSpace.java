@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.tunnel.ADEOfHollowSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEOfHollowSpace extends ADEOfHollowSpace implements ADEGenericPropertyContainer {
+public class GenericADEOfHollowSpace extends ADEOfHollowSpace implements ADEGenericContainer {
     private Element value;
 
     public GenericADEOfHollowSpace(Element value) {

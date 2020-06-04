@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.transportation.ADEOfMarking;
 import org.w3c.dom.Element;
 
-public class GenericADEOfMarking extends ADEOfMarking implements ADEGenericPropertyContainer {
+public class GenericADEOfMarking extends ADEOfMarking implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfMarking(Element value) {

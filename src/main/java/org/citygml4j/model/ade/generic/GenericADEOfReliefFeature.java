@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.relief.ADEOfReliefFeature;
 import org.w3c.dom.Element;
 
-public class GenericADEOfReliefFeature extends ADEOfReliefFeature implements ADEGenericPropertyContainer {
+public class GenericADEOfReliefFeature extends ADEOfReliefFeature implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfReliefFeature(Element value) {

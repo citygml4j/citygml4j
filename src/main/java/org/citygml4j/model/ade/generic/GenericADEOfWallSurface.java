@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.construction.ADEOfWallSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEOfWallSurface extends ADEOfWallSurface implements ADEGenericPropertyContainer {
+public class GenericADEOfWallSurface extends ADEOfWallSurface implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfWallSurface(Element value) {

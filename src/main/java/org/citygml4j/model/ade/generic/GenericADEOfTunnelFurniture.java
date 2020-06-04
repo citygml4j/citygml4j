@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.tunnel.ADEOfTunnelFurniture;
 import org.w3c.dom.Element;
 
-public class GenericADEOfTunnelFurniture extends ADEOfTunnelFurniture implements ADEGenericPropertyContainer {
+public class GenericADEOfTunnelFurniture extends ADEOfTunnelFurniture implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfTunnelFurniture(Element value) {

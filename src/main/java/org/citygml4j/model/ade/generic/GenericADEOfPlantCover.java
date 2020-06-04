@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.vegetation.ADEOfPlantCover;
 import org.w3c.dom.Element;
 
-public class GenericADEOfPlantCover extends ADEOfPlantCover implements ADEGenericPropertyContainer {
+public class GenericADEOfPlantCover extends ADEOfPlantCover implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfPlantCover(Element value) {

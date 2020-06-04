@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.relief.ADEOfBreaklineRelief;
 import org.w3c.dom.Element;
 
-public class GenericADEOfBreaklineRelief extends ADEOfBreaklineRelief implements ADEGenericPropertyContainer {
+public class GenericADEOfBreaklineRelief extends ADEOfBreaklineRelief implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfBreaklineRelief(Element value) {

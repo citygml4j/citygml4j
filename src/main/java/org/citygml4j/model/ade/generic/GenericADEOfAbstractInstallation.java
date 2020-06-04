@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.construction.ADEOfAbstractInstallation;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractInstallation extends ADEOfAbstractInstallation implements ADEGenericPropertyContainer {
+public class GenericADEOfAbstractInstallation extends ADEOfAbstractInstallation implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAbstractInstallation(Element value) {

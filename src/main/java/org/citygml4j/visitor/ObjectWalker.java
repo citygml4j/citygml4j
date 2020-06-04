@@ -1,8 +1,8 @@
 package org.citygml4j.visitor;
 
 import org.citygml4j.ADERegistry;
+import org.citygml4j.model.ade.ADEContainer;
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.ade.ADEPropertyContainer;
 import org.citygml4j.model.appearance.AbstractSurfaceData;
 import org.citygml4j.model.appearance.AbstractSurfaceDataProperty;
 import org.citygml4j.model.appearance.AbstractTexture;
@@ -286,21 +286,21 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractFeature feature) {
         visit((org.xmlobjects.gml.model.feature.AbstractFeature) feature);
 
-        for (ADEPropertyContainer container : new ArrayList<>(feature.getADEOfAbstractFeature()))
+        for (ADEContainer container : new ArrayList<>(feature.getADEOfAbstractFeature()))
             visit(container);
     }
 
     public void visit(AbstractAppearance appearance) {
         visit((AbstractFeatureWithLifespan) appearance);
 
-        for (ADEPropertyContainer container : new ArrayList<>(appearance.getADEOfAbstractAppearance()))
+        for (ADEContainer container : new ArrayList<>(appearance.getADEOfAbstractAppearance()))
             visit(container);
     }
 
     public void visit(AbstractAtomicTimeseries atomicTimeseries) {
         visit((AbstractTimeseries) atomicTimeseries);
 
-        for (ADEPropertyContainer container : new ArrayList<>(atomicTimeseries.getADEOfAbstractAtomicTimeseries()))
+        for (ADEContainer container : new ArrayList<>(atomicTimeseries.getADEOfAbstractAtomicTimeseries()))
             visit(container);
     }
 
@@ -356,7 +356,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(bridge.getADEOfAbstractBridge()))
+        for (ADEContainer container : new ArrayList<>(bridge.getADEOfAbstractBridge()))
             visit(container);
     }
 
@@ -415,7 +415,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(building.getADEOfAbstractBuilding()))
+        for (ADEContainer container : new ArrayList<>(building.getADEOfAbstractBuilding()))
             visit(container);
     }
 
@@ -434,7 +434,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingRooms()))
             visit(reference);
 
-        for (ADEPropertyContainer container : new ArrayList<>(buildingSubdivision.getADEOfAbstractBuildingSubdivision()))
+        for (ADEContainer container : new ArrayList<>(buildingSubdivision.getADEOfAbstractBuildingSubdivision()))
             visit(container);
     }
 
@@ -460,14 +460,14 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(property);
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(cityObject.getADEOfAbstractCityObject()))
+        for (ADEContainer container : new ArrayList<>(cityObject.getADEOfAbstractCityObject()))
             visit(container);
     }
 
     public void visit(AbstractConstruction construction) {
         visit((AbstractOccupiedSpace) construction);
 
-        for (ADEPropertyContainer container : new ArrayList<>(construction.getADEOfAbstractConstruction()))
+        for (ADEContainer container : new ArrayList<>(construction.getADEOfAbstractConstruction()))
             visit(container);
     }
 
@@ -477,7 +477,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractFillingSurfaceProperty property : new ArrayList<>(constructionSurface.getFillingSurfaces()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(constructionSurface.getADEOfAbstractConstructionSurface()))
+        for (ADEContainer container : new ArrayList<>(constructionSurface.getADEOfAbstractConstructionSurface()))
             visit(container);
     }
 
@@ -487,7 +487,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractFillingElementProperty property : new ArrayList<>(constructiveElement.getFillings()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(constructiveElement.getADEOfAbstractConstructiveElement()))
+        for (ADEContainer container : new ArrayList<>(constructiveElement.getADEOfAbstractConstructiveElement()))
             visit(container);
     }
 
@@ -516,21 +516,21 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AbstractDynamizer dynamizer) {
         visit((AbstractFeatureWithLifespan) dynamizer);
 
-        for (ADEPropertyContainer container : new ArrayList<>(dynamizer.getADEOfAbstractDynamizer()))
+        for (ADEContainer container : new ArrayList<>(dynamizer.getADEOfAbstractDynamizer()))
             visit(container);
     }
 
     public void visit(AbstractFeatureWithLifespan featureWithLifespan) {
         visit((AbstractFeature) featureWithLifespan);
 
-        for (ADEPropertyContainer container : new ArrayList<>(featureWithLifespan.getADEOfAbstractFeatureWithLifespan()))
+        for (ADEContainer container : new ArrayList<>(featureWithLifespan.getADEOfAbstractFeatureWithLifespan()))
             visit(container);
     }
 
     public void visit(AbstractFillingElement fillingElement) {
         visit((AbstractOccupiedSpace) fillingElement);
 
-        for (ADEPropertyContainer container : new ArrayList<>(fillingElement.getADEOfAbstractFillingElement()))
+        for (ADEContainer container : new ArrayList<>(fillingElement.getADEOfAbstractFillingElement()))
             visit(container);
     }
 
@@ -547,28 +547,28 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(fillingSurface.getADEOfAbstractFillingSurface()))
+        for (ADEContainer container : new ArrayList<>(fillingSurface.getADEOfAbstractFillingSurface()))
             visit(container);
     }
 
     public void visit(AbstractFurniture furniture) {
         visit((AbstractOccupiedSpace) furniture);
 
-        for (ADEPropertyContainer container : new ArrayList<>(furniture.getADEOfAbstractFurniture()))
+        for (ADEContainer container : new ArrayList<>(furniture.getADEOfAbstractFurniture()))
             visit(container);
     }
 
     public void visit(AbstractInstallation installation) {
         visit((AbstractOccupiedSpace) installation);
 
-        for (ADEPropertyContainer container : new ArrayList<>(installation.getADEOfAbstractInstallation()))
+        for (ADEContainer container : new ArrayList<>(installation.getADEOfAbstractInstallation()))
             visit(container);
     }
 
     public void visit(AbstractLogicalSpace logicalSpace) {
         visit((AbstractSpace) logicalSpace);
 
-        for (ADEPropertyContainer container : new ArrayList<>(logicalSpace.getADEOfAbstractLogicalSpace()))
+        for (ADEContainer container : new ArrayList<>(logicalSpace.getADEOfAbstractLogicalSpace()))
             visit(container);
     }
 
@@ -584,7 +584,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (occupiedSpace.getLod3ImplicitRepresentation() != null)
             visit(occupiedSpace.getLod3ImplicitRepresentation());
 
-        for (ADEPropertyContainer container : new ArrayList<>(occupiedSpace.getADEOfAbstractOccupiedSpace()))
+        for (ADEContainer container : new ArrayList<>(occupiedSpace.getADEOfAbstractOccupiedSpace()))
             visit(container);
     }
 
@@ -603,14 +603,14 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (physicalSpace.getLod3TerrainIntersectionCurve() != null)
             visit(physicalSpace.getLod3TerrainIntersectionCurve());
 
-        for (ADEPropertyContainer container : new ArrayList<>(physicalSpace.getADEOfAbstractPhysicalSpace()))
+        for (ADEContainer container : new ArrayList<>(physicalSpace.getADEOfAbstractPhysicalSpace()))
             visit(container);
     }
 
     public void visit(AbstractPointCloud pointCloud) {
         visit((AbstractFeature) pointCloud);
 
-        for (ADEPropertyContainer container : new ArrayList<>(pointCloud.getADEOfAbstractPointCloud()))
+        for (ADEContainer container : new ArrayList<>(pointCloud.getADEOfAbstractPointCloud()))
             visit(container);
     }
 
@@ -620,7 +620,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (reliefComponent.getExtent() != null)
             visit(reliefComponent.getExtent());
 
-        for (ADEPropertyContainer container : new ArrayList<>(reliefComponent.getADEOfAbstractReliefComponent()))
+        for (ADEContainer container : new ArrayList<>(reliefComponent.getADEOfAbstractReliefComponent()))
             visit(container);
     }
 
@@ -660,28 +660,28 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (space.getLod3MultiCurve() != null)
             visit(space.getLod3MultiCurve());
 
-        for (ADEPropertyContainer container : new ArrayList<>(space.getADEOfAbstractSpace()))
+        for (ADEContainer container : new ArrayList<>(space.getADEOfAbstractSpace()))
             visit(container);
     }
 
     public void visit(AbstractSpaceBoundary spaceBoundary) {
         visit((AbstractCityObject) spaceBoundary);
 
-        for (ADEPropertyContainer container : new ArrayList<>(spaceBoundary.getADEOfAbstractSpaceBoundary()))
+        for (ADEContainer container : new ArrayList<>(spaceBoundary.getADEOfAbstractSpaceBoundary()))
             visit(container);
     }
 
     public void visit(AbstractSurfaceData surfaceData) {
         visit((AbstractFeature) surfaceData);
 
-        for (ADEPropertyContainer container : new ArrayList<>(surfaceData.getADEOfAbstractSurfaceData()))
+        for (ADEContainer container : new ArrayList<>(surfaceData.getADEOfAbstractSurfaceData()))
             visit(container);
     }
 
     public void visit(AbstractTexture texture) {
         visit((AbstractSurfaceData) texture);
 
-        for (ADEPropertyContainer container : new ArrayList<>(texture.getADEOfAbstractTexture()))
+        for (ADEContainer container : new ArrayList<>(texture.getADEOfAbstractTexture()))
             visit(container);
     }
 
@@ -713,14 +713,14 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4MultiSurface());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(thematicSurface.getADEOfAbstractThematicSurface()))
+        for (ADEContainer container : new ArrayList<>(thematicSurface.getADEOfAbstractThematicSurface()))
             visit(container);
     }
 
     public void visit(AbstractTimeseries timeseries) {
         visit((AbstractFeature) timeseries);
 
-        for (ADEPropertyContainer container : new ArrayList<>(timeseries.getADEOfAbstractTimeseries()))
+        for (ADEContainer container : new ArrayList<>(timeseries.getADEOfAbstractTimeseries()))
             visit(container);
     }
 
@@ -752,7 +752,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4MultiSurface());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(transportationSpace.getADEOfAbstractTransportationSpace()))
+        for (ADEContainer container : new ArrayList<>(transportationSpace.getADEOfAbstractTransportationSpace()))
             visit(container);
     }
 
@@ -802,42 +802,42 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4TerrainIntersectionCurve());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(tunnel.getADEOfAbstractTunnel()))
+        for (ADEContainer container : new ArrayList<>(tunnel.getADEOfAbstractTunnel()))
             visit(container);
     }
 
     public void visit(AbstractUnoccupiedSpace unoccupiedSpace) {
         visit((AbstractPhysicalSpace) unoccupiedSpace);
 
-        for (ADEPropertyContainer container : new ArrayList<>(unoccupiedSpace.getADEOfAbstractUnoccupiedSpace()))
+        for (ADEContainer container : new ArrayList<>(unoccupiedSpace.getADEOfAbstractUnoccupiedSpace()))
             visit(container);
     }
 
     public void visit(AbstractVegetationObject vegetationObject) {
         visit((AbstractOccupiedSpace) vegetationObject);
 
-        for (ADEPropertyContainer container : new ArrayList<>(vegetationObject.getADEOfAbstractVegetationObject()))
+        for (ADEContainer container : new ArrayList<>(vegetationObject.getADEOfAbstractVegetationObject()))
             visit(container);
     }
 
     public void visit(AbstractVersion version) {
         visit((AbstractFeatureWithLifespan) version);
 
-        for (ADEPropertyContainer container : new ArrayList<>(version.getADEOfAbstractVersion()))
+        for (ADEContainer container : new ArrayList<>(version.getADEOfAbstractVersion()))
             visit(container);
     }
 
     public void visit(AbstractVersionTransition versionTransition) {
         visit((AbstractFeatureWithLifespan) versionTransition);
 
-        for (ADEPropertyContainer container : new ArrayList<>(versionTransition.getADEOfAbstractVersionTransition()))
+        for (ADEContainer container : new ArrayList<>(versionTransition.getADEOfAbstractVersionTransition()))
             visit(container);
     }
 
     public void visit(AbstractWaterBoundarySurface waterBoundarySurface) {
         visit((AbstractThematicSurface) waterBoundarySurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(waterBoundarySurface.getADEOfAbstractWaterBoundarySurface()))
+        for (ADEContainer container : new ArrayList<>(waterBoundarySurface.getADEOfAbstractWaterBoundarySurface()))
             visit(container);
     }
 
@@ -848,7 +848,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (address.getMultiPoint() != null)
             visit(address.getMultiPoint());
 
-        for (ADEPropertyContainer container : new ArrayList<>(address.getADEOfAddress()))
+        for (ADEContainer container : new ArrayList<>(address.getADEOfAddress()))
             visit(container);
     }
 
@@ -859,7 +859,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractSurfaceDataProperty property : new ArrayList<>(appearance.getSurfaceData()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(appearance.getADEOfAppearance()))
+        for (ADEContainer container : new ArrayList<>(appearance.getADEOfAppearance()))
             visit(container);
     }
 
@@ -867,7 +867,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AuxiliaryTrafficArea auxiliaryTrafficArea) {
         visit((AbstractThematicSurface) auxiliaryTrafficArea);
 
-        for (ADEPropertyContainer container : new ArrayList<>(auxiliaryTrafficArea.getADEOfAuxiliaryTrafficArea()))
+        for (ADEContainer container : new ArrayList<>(auxiliaryTrafficArea.getADEOfAuxiliaryTrafficArea()))
             visit(container);
     }
 
@@ -875,7 +875,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(AuxiliaryTrafficSpace auxiliaryTrafficSpace) {
         visit((AbstractUnoccupiedSpace) auxiliaryTrafficSpace);
 
-        for (ADEPropertyContainer container : new ArrayList<>(auxiliaryTrafficSpace.getADEOfAuxiliaryTrafficSpace()))
+        for (ADEContainer container : new ArrayList<>(auxiliaryTrafficSpace.getADEOfAuxiliaryTrafficSpace()))
             visit(container);
     }
 
@@ -889,7 +889,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (breaklineRelief.getBreaklines() != null)
             visit(breaklineRelief.getBreaklines());
 
-        for (ADEPropertyContainer container : new ArrayList<>(breaklineRelief.getADEOfBreaklineRelief()))
+        for (ADEContainer container : new ArrayList<>(breaklineRelief.getADEOfBreaklineRelief()))
             visit(container);
     }
 
@@ -900,7 +900,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (BridgePartProperty property : new ArrayList<>(bridge.getBridgeParts()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(bridge.getADEOfBridge()))
+        for (ADEContainer container : new ArrayList<>(bridge.getADEOfBridge()))
             visit(container);
     }
 
@@ -930,7 +930,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(bridgeConstructiveElement.getADEOfBridgeConstructiveElement()))
+        for (ADEContainer container : new ArrayList<>(bridgeConstructiveElement.getADEOfBridgeConstructiveElement()))
             visit(container);
     }
 
@@ -948,7 +948,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(bridgeFurniture.getADEOfBridgeFurniture()))
+        for (ADEContainer container : new ArrayList<>(bridgeFurniture.getADEOfBridgeFurniture()))
             visit(container);
     }
 
@@ -972,7 +972,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(bridgeInstallation.getADEOfBridgeInstallation()))
+        for (ADEContainer container : new ArrayList<>(bridgeInstallation.getADEOfBridgeInstallation()))
             visit(container);
     }
 
@@ -980,7 +980,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(BridgePart bridgePart) {
         visit((AbstractBridge) bridgePart);
 
-        for (ADEPropertyContainer container : new ArrayList<>(bridgePart.getADEOfBridgePart()))
+        for (ADEContainer container : new ArrayList<>(bridgePart.getADEOfBridgePart()))
             visit(container);
     }
 
@@ -1004,7 +1004,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4MultiSurface());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(bridgeRoom.getADEOfBridgeRoom()))
+        for (ADEContainer container : new ArrayList<>(bridgeRoom.getADEOfBridgeRoom()))
             visit(container);
     }
 
@@ -1015,7 +1015,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (BuildingPartProperty property : new ArrayList<>(building.getBuildingParts()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(building.getADEOfBuilding()))
+        for (ADEContainer container : new ArrayList<>(building.getADEOfBuilding()))
             visit(container);
     }
 
@@ -1023,7 +1023,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(BuildingConstructiveElement buildingConstructiveElement) {
         visit((AbstractConstructiveElement) buildingConstructiveElement);
 
-        for (ADEPropertyContainer container : new ArrayList<>(buildingConstructiveElement.getADEOfBuildingConstructiveElement()))
+        for (ADEContainer container : new ArrayList<>(buildingConstructiveElement.getADEOfBuildingConstructiveElement()))
             visit(container);
     }
 
@@ -1041,7 +1041,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(buildingFurniture.getADEOfBuildingFurniture()))
+        for (ADEContainer container : new ArrayList<>(buildingFurniture.getADEOfBuildingFurniture()))
             visit(container);
     }
 
@@ -1065,7 +1065,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(buildingInstallation.getADEOfBuildingInstallation()))
+        for (ADEContainer container : new ArrayList<>(buildingInstallation.getADEOfBuildingInstallation()))
             visit(container);
     }
 
@@ -1073,7 +1073,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(BuildingPart buildingPart) {
         visit((AbstractBuilding) buildingPart);
 
-        for (ADEPropertyContainer container : new ArrayList<>(buildingPart.getADEOfBuildingPart()))
+        for (ADEContainer container : new ArrayList<>(buildingPart.getADEOfBuildingPart()))
             visit(container);
     }
 
@@ -1097,7 +1097,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4MultiSurface());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(buildingRoom.getADEOfBuildingRoom()))
+        for (ADEContainer container : new ArrayList<>(buildingRoom.getADEOfBuildingRoom()))
             visit(container);
     }
 
@@ -1111,7 +1111,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AddressProperty property : new ArrayList<>(buildingUnit.getAddresses()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(buildingUnit.getADEOfBuildingUnit()))
+        for (ADEContainer container : new ArrayList<>(buildingUnit.getADEOfBuildingUnit()))
             visit(container);
     }
 
@@ -1119,7 +1119,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(CeilingSurface ceilingSurface) {
         visit((AbstractConstructionSurface) ceilingSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(ceilingSurface.getADEOfCeilingSurface()))
+        for (ADEContainer container : new ArrayList<>(ceilingSurface.getADEOfCeilingSurface()))
             visit(container);
     }
 
@@ -1149,7 +1149,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(cityFurniture.getADEOfCityFurniture()))
+        for (ADEContainer container : new ArrayList<>(cityFurniture.getADEOfCityFurniture()))
             visit(container);
     }
 
@@ -1172,7 +1172,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractVersionTransitionProperty property : new ArrayList<>(cityModel.getVersionTransitionMembers()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(cityModel.getADEOfCityModel()))
+        for (ADEContainer container : new ArrayList<>(cityModel.getADEOfCityModel()))
             visit(container);
     }
 
@@ -1193,7 +1193,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getGeometry());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(cityObjectGroup.getADEOfCityObjectGroup()))
+        for (ADEContainer container : new ArrayList<>(cityObjectGroup.getADEOfCityObjectGroup()))
             visit(container);
     }
 
@@ -1209,7 +1209,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(ClearanceSpace clearanceSpace) {
         visit((AbstractUnoccupiedSpace) clearanceSpace);
 
-        for (ADEPropertyContainer container : new ArrayList<>(clearanceSpace.getADEOfClearanceSpace()))
+        for (ADEContainer container : new ArrayList<>(clearanceSpace.getADEOfClearanceSpace()))
             visit(container);
     }
 
@@ -1217,7 +1217,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(ClosureSurface closureSurface) {
         visit((AbstractThematicSurface) closureSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(closureSurface.getADEOfClosureSurface()))
+        for (ADEContainer container : new ArrayList<>(closureSurface.getADEOfClosureSurface()))
             visit(container);
     }
 
@@ -1228,7 +1228,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (TimeseriesComponentProperty property : new ArrayList<>(compositeTimeseries.getComponents()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(compositeTimeseries.getADEOfCompositeTimeseries()))
+        for (ADEContainer container : new ArrayList<>(compositeTimeseries.getADEOfCompositeTimeseries()))
             visit(container);
     }
 
@@ -1256,7 +1256,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AddressProperty property : new ArrayList<>(door.getAddresses()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(door.getADEOfDoor()))
+        for (ADEContainer container : new ArrayList<>(door.getADEOfDoor()))
             visit(container);
     }
 
@@ -1267,7 +1267,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AddressProperty property : new ArrayList<>(doorSurface.getAddresses()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(doorSurface.getADEOfDoorSurface()))
+        for (ADEContainer container : new ArrayList<>(doorSurface.getADEOfDoorSurface()))
             visit(container);
     }
 
@@ -1278,7 +1278,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (dynamizer.getDynamicData() != null)
             visit(dynamizer.getDynamicData());
 
-        for (ADEPropertyContainer container : new ArrayList<>(dynamizer.getADEOfDynamizer()))
+        for (ADEContainer container : new ArrayList<>(dynamizer.getADEOfDynamizer()))
             visit(container);
     }
 
@@ -1286,7 +1286,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(FloorSurface floorSurface) {
         visit((AbstractConstructionSurface) floorSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(floorSurface.getADEOfFloorSurface()))
+        for (ADEContainer container : new ArrayList<>(floorSurface.getADEOfFloorSurface()))
             visit(container);
     }
 
@@ -1294,7 +1294,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(GenericLogicalSpace genericLogicalSpace) {
         visit((AbstractLogicalSpace) genericLogicalSpace);
 
-        for (ADEPropertyContainer container : new ArrayList<>(genericLogicalSpace.getADEOfGenericLogicalSpace()))
+        for (ADEContainer container : new ArrayList<>(genericLogicalSpace.getADEOfGenericLogicalSpace()))
             visit(container);
     }
 
@@ -1333,7 +1333,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(genericOccupiedSpace.getADEOfGenericOccupiedSpace()))
+        for (ADEContainer container : new ArrayList<>(genericOccupiedSpace.getADEOfGenericOccupiedSpace()))
             visit(container);
     }
 
@@ -1341,7 +1341,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(GenericThematicSurface genericThematicSurface) {
         visit((AbstractThematicSurface) genericThematicSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(genericThematicSurface.getADEOfGenericThematicSurface()))
+        for (ADEContainer container : new ArrayList<>(genericThematicSurface.getADEOfGenericThematicSurface()))
             visit(container);
     }
 
@@ -1354,7 +1354,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(property.getObject());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(genericTimeseries.getADEOfGenericTimeseries()))
+        for (ADEContainer container : new ArrayList<>(genericTimeseries.getADEOfGenericTimeseries()))
             visit(container);
     }
 
@@ -1362,7 +1362,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(GenericUnoccupiedSpace genericUnoccupiedSpace) {
         visit((AbstractUnoccupiedSpace) genericUnoccupiedSpace);
 
-        for (ADEPropertyContainer container : new ArrayList<>(genericUnoccupiedSpace.getADEOfGenericUnoccupiedSpace()))
+        for (ADEContainer container : new ArrayList<>(genericUnoccupiedSpace.getADEOfGenericUnoccupiedSpace()))
             visit(container);
     }
 
@@ -1373,7 +1373,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (georeferencedTexture.getReferencePoint() != null)
             visit(georeferencedTexture.getReferencePoint());
 
-        for (ADEPropertyContainer container : new ArrayList<>(georeferencedTexture.getADEOfGeoreferencedTexture()))
+        for (ADEContainer container : new ArrayList<>(georeferencedTexture.getADEOfGeoreferencedTexture()))
             visit(container);
     }
 
@@ -1386,7 +1386,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(GroundSurface groundSurface) {
         visit((AbstractConstructionSurface) groundSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(groundSurface.getADEOfGroundSurface()))
+        for (ADEContainer container : new ArrayList<>(groundSurface.getADEOfGroundSurface()))
             visit(container);
     }
 
@@ -1394,7 +1394,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Hole hole) {
         visit((AbstractUnoccupiedSpace) hole);
 
-        for (ADEPropertyContainer container : new ArrayList<>(hole.getADEOfHole()))
+        for (ADEContainer container : new ArrayList<>(hole.getADEOfHole()))
             visit(container);
     }
 
@@ -1402,7 +1402,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(HoleSurface holeSurface) {
         visit((AbstractThematicSurface) holeSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(holeSurface.getADEOfHoleSurface()))
+        for (ADEContainer container : new ArrayList<>(holeSurface.getADEOfHoleSurface()))
             visit(container);
     }
 
@@ -1426,7 +1426,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4MultiSurface());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(hollowSpace.getADEOfHollowSpace()))
+        for (ADEContainer container : new ArrayList<>(hollowSpace.getADEOfHollowSpace()))
             visit(container);
     }
 
@@ -1448,7 +1448,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(InteriorWallSurface interiorWallSurface) {
         visit((AbstractConstructionSurface) interiorWallSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(interiorWallSurface.getADEOfInteriorWallSurface()))
+        for (ADEContainer container : new ArrayList<>(interiorWallSurface.getADEOfInteriorWallSurface()))
             visit(container);
     }
 
@@ -1456,7 +1456,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Intersection intersection) {
         visit((AbstractTransportationSpace) intersection);
 
-        for (ADEPropertyContainer container : new ArrayList<>(intersection.getADEOfIntersection()))
+        for (ADEContainer container : new ArrayList<>(intersection.getADEOfIntersection()))
             visit(container);
     }
 
@@ -1464,7 +1464,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(LandUse landUse) {
         visit((AbstractThematicSurface) landUse);
 
-        for (ADEPropertyContainer container : new ArrayList<>(landUse.getADEOfLandUse()))
+        for (ADEContainer container : new ArrayList<>(landUse.getADEOfLandUse()))
             visit(container);
     }
 
@@ -1472,7 +1472,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Marking marking) {
         visit((AbstractThematicSurface) marking);
 
-        for (ADEPropertyContainer container : new ArrayList<>(marking.getADEOfMarking()))
+        for (ADEContainer container : new ArrayList<>(marking.getADEOfMarking()))
             visit(container);
     }
 
@@ -1486,7 +1486,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (massPointRelief.getReliefPoints() != null)
             visit(massPointRelief.getReliefPoints());
 
-        for (ADEPropertyContainer container : new ArrayList<>(massPointRelief.getADEOfMassPointRelief()))
+        for (ADEContainer container : new ArrayList<>(massPointRelief.getADEOfMassPointRelief()))
             visit(container);
     }
 
@@ -1514,7 +1514,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(OtherConstruction otherConstruction) {
         visit((AbstractConstruction) otherConstruction);
 
-        for (ADEPropertyContainer container : new ArrayList<>(otherConstruction.getADEOfOtherConstruction()))
+        for (ADEContainer container : new ArrayList<>(otherConstruction.getADEOfOtherConstruction()))
             visit(container);
     }
 
@@ -1522,7 +1522,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(OuterCeilingSurface outerCeilingSurface) {
         visit((AbstractConstructionSurface) outerCeilingSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(outerCeilingSurface.getADEOfOuterCeilingSurface()))
+        for (ADEContainer container : new ArrayList<>(outerCeilingSurface.getADEOfOuterCeilingSurface()))
             visit(container);
     }
 
@@ -1530,7 +1530,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(OuterFloorSurface outerFloorSurface) {
         visit((AbstractConstructionSurface) outerFloorSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(outerFloorSurface.getADEOfOuterFloorSurface()))
+        for (ADEContainer container : new ArrayList<>(outerFloorSurface.getADEOfOuterFloorSurface()))
             visit(container);
     }
 
@@ -1541,7 +1541,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (TextureAssociationProperty property : new ArrayList<>(parameterizedTexture.getTextureParameterizations()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(parameterizedTexture.getADEOfParameterizedTexture()))
+        for (ADEContainer container : new ArrayList<>(parameterizedTexture.getADEOfParameterizedTexture()))
             visit(container);
     }
 
@@ -1571,7 +1571,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4MultiSolid());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(plantCover.getADEOfPlantCover()))
+        for (ADEContainer container : new ArrayList<>(plantCover.getADEOfPlantCover()))
             visit(container);
     }
 
@@ -1582,7 +1582,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (pointCloud.getPoints() != null)
             visit(pointCloud.getPoints());
 
-        for (ADEPropertyContainer container : new ArrayList<>(pointCloud.getADEOfPointCloud()))
+        for (ADEContainer container : new ArrayList<>(pointCloud.getADEOfPointCloud()))
             visit(container);
     }
 
@@ -1596,7 +1596,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (IntersectionProperty property : new ArrayList<>(railway.getIntersections()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(railway.getADEOfRailway()))
+        for (ADEContainer container : new ArrayList<>(railway.getADEOfRailway()))
             visit(container);
     }
 
@@ -1607,7 +1607,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (rasterRelief.getGrid() != null)
             visit(rasterRelief.getGrid());
 
-        for (ADEPropertyContainer container : new ArrayList<>(rasterRelief.getADEOfRasterRelief()))
+        for (ADEContainer container : new ArrayList<>(rasterRelief.getADEOfRasterRelief()))
             visit(container);
     }
 
@@ -1623,7 +1623,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractReliefComponentProperty property : new ArrayList<>(reliefFeature.getReliefComponents()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(reliefFeature.getADEOfReliefFeature()))
+        for (ADEContainer container : new ArrayList<>(reliefFeature.getADEOfReliefFeature()))
             visit(container);
     }
 
@@ -1637,7 +1637,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (IntersectionProperty property : new ArrayList<>(road.getIntersections()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(road.getADEOfRoad()))
+        for (ADEContainer container : new ArrayList<>(road.getADEOfRoad()))
             visit(container);
     }
 
@@ -1652,7 +1652,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(RoofSurface roofSurface) {
         visit((AbstractConstructionSurface) roofSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(roofSurface.getADEOfRoofSurface()))
+        for (ADEContainer container : new ArrayList<>(roofSurface.getADEOfRoofSurface()))
             visit(container);
     }
 
@@ -1660,7 +1660,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Section section) {
         visit((AbstractTransportationSpace) section);
 
-        for (ADEPropertyContainer container : new ArrayList<>(section.getADEOfSection()))
+        for (ADEContainer container : new ArrayList<>(section.getADEOfSection()))
             visit(container);
     }
 
@@ -1687,7 +1687,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(solitaryVegetationObject.getADEOfSolitaryVegetationObject()))
+        for (ADEContainer container : new ArrayList<>(solitaryVegetationObject.getADEOfSolitaryVegetationObject()))
             visit(container);
     }
 
@@ -1695,7 +1695,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Square square) {
         visit((AbstractTransportationSpace) square);
 
-        for (ADEPropertyContainer container : new ArrayList<>(square.getADEOfSquare()))
+        for (ADEContainer container : new ArrayList<>(square.getADEOfSquare()))
             visit(container);
     }
 
@@ -1703,7 +1703,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(StandardFileTimeseries standardFileTimeseries) {
         visit((AbstractAtomicTimeseries) standardFileTimeseries);
 
-        for (ADEPropertyContainer container : new ArrayList<>(standardFileTimeseries.getADEOfStandardFileTimeseries()))
+        for (ADEContainer container : new ArrayList<>(standardFileTimeseries.getADEOfStandardFileTimeseries()))
             visit(container);
     }
 
@@ -1714,7 +1714,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (Reference reference : new ArrayList<>(storey.getBuildingUnits()))
             visit(reference);
 
-        for (ADEPropertyContainer container : new ArrayList<>(storey.getADEOfStorey()))
+        for (ADEContainer container : new ArrayList<>(storey.getADEOfStorey()))
             visit(container);
     }
 
@@ -1722,7 +1722,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(TabulatedFileTimeseries tabulatedFileTimeseries) {
         visit((AbstractAtomicTimeseries) tabulatedFileTimeseries);
 
-        for (ADEPropertyContainer container : new ArrayList<>(tabulatedFileTimeseries.getADEOfTabulatedFileTimeseries()))
+        for (ADEContainer container : new ArrayList<>(tabulatedFileTimeseries.getADEOfTabulatedFileTimeseries()))
             visit(container);
     }
 
@@ -1754,7 +1754,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (tinRelief.getTin() != null)
             visit(tinRelief.getTin());
 
-        for (ADEPropertyContainer container : new ArrayList<>(tinRelief.getADEOfTINRelief()))
+        for (ADEContainer container : new ArrayList<>(tinRelief.getADEOfTINRelief()))
             visit(container);
     }
 
@@ -1768,7 +1768,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (IntersectionProperty property : new ArrayList<>(track.getIntersections()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(track.getADEOfTrack()))
+        for (ADEContainer container : new ArrayList<>(track.getADEOfTrack()))
             visit(container);
     }
 
@@ -1776,7 +1776,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(TrafficArea trafficArea) {
         visit((AbstractThematicSurface) trafficArea);
 
-        for (ADEPropertyContainer container : new ArrayList<>(trafficArea.getADEOfTrafficArea()))
+        for (ADEContainer container : new ArrayList<>(trafficArea.getADEOfTrafficArea()))
             visit(container);
     }
 
@@ -1793,7 +1793,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (ClearanceSpaceProperty property : new ArrayList<>(trafficSpace.getClearanceSpaces()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(trafficSpace.getADEOfTrafficSpace()))
+        for (ADEContainer container : new ArrayList<>(trafficSpace.getADEOfTrafficSpace()))
             visit(container);
     }
 
@@ -1801,7 +1801,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(TransportationComplex transportationComplex) {
         visit((AbstractTransportationSpace) transportationComplex);
 
-        for (ADEPropertyContainer container : new ArrayList<>(transportationComplex.getADEOfTransportationComplex()))
+        for (ADEContainer container : new ArrayList<>(transportationComplex.getADEOfTransportationComplex()))
             visit(container);
     }
 
@@ -1812,7 +1812,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (TunnelPartProperty property : new ArrayList<>(tunnel.getTunnelParts()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(tunnel.getADEOfTunnel()))
+        for (ADEContainer container : new ArrayList<>(tunnel.getADEOfTunnel()))
             visit(container);
     }
 
@@ -1820,7 +1820,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(TunnelConstructiveElement tunnelConstructiveElement) {
         visit((AbstractConstructiveElement) tunnelConstructiveElement);
 
-        for (ADEPropertyContainer container : new ArrayList<>(tunnelConstructiveElement.getADEOfTunnelConstructiveElement()))
+        for (ADEContainer container : new ArrayList<>(tunnelConstructiveElement.getADEOfTunnelConstructiveElement()))
             visit(container);
     }
 
@@ -1838,7 +1838,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(tunnelFurniture.getADEOfTunnelFurniture()))
+        for (ADEContainer container : new ArrayList<>(tunnelFurniture.getADEOfTunnelFurniture()))
             visit(container);
     }
 
@@ -1862,7 +1862,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4ImplicitRepresentation());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(tunnelInstallation.getADEOfTunnelInstallation()))
+        for (ADEContainer container : new ArrayList<>(tunnelInstallation.getADEOfTunnelInstallation()))
             visit(container);
     }
 
@@ -1870,7 +1870,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(TunnelPart tunnelPart) {
         visit((AbstractTunnel) tunnelPart);
 
-        for (ADEPropertyContainer container : new ArrayList<>(tunnelPart.getADEOfTunnelPart()))
+        for (ADEContainer container : new ArrayList<>(tunnelPart.getADEOfTunnelPart()))
             visit(container);
     }
 
@@ -1886,7 +1886,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (AbstractFeatureWithLifespanProperty property : new ArrayList<>(version.getVersionMembers()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(version.getADEOfVersion()))
+        for (ADEContainer container : new ArrayList<>(version.getADEOfVersion()))
             visit(container);
     }
 
@@ -1900,7 +1900,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         if (versionTransition.getTo() != null)
             visit(versionTransition.getTo());
 
-        for (ADEPropertyContainer container : new ArrayList<>(versionTransition.getADEOfVersionTransition()))
+        for (ADEContainer container : new ArrayList<>(versionTransition.getADEOfVersionTransition()))
             visit(container);
     }
 
@@ -1908,7 +1908,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(WallSurface wallSurface) {
         visit((AbstractConstructionSurface) wallSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(wallSurface.getADEOfWallSurface()))
+        for (ADEContainer container : new ArrayList<>(wallSurface.getADEOfWallSurface()))
             visit(container);
     }
 
@@ -1929,7 +1929,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                 visit(deprecatedProperties.getLod4Solid());
         }
 
-        for (ADEPropertyContainer container : new ArrayList<>(waterBody.getADEOfWaterBody()))
+        for (ADEContainer container : new ArrayList<>(waterBody.getADEOfWaterBody()))
             visit(container);
     }
 
@@ -1937,7 +1937,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(WaterGroundSurface waterGroundSurface) {
         visit((AbstractWaterBoundarySurface) waterGroundSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(waterGroundSurface.getADEOfWaterGroundSurface()))
+        for (ADEContainer container : new ArrayList<>(waterGroundSurface.getADEOfWaterGroundSurface()))
             visit(container);
     }
 
@@ -1945,7 +1945,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(WaterSurface waterSurface) {
         visit((AbstractWaterBoundarySurface) waterSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(waterSurface.getADEOfWaterSurface()))
+        for (ADEContainer container : new ArrayList<>(waterSurface.getADEOfWaterSurface()))
             visit(container);
     }
 
@@ -1959,7 +1959,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         for (IntersectionProperty property : new ArrayList<>(waterway.getIntersections()))
             visit(property);
 
-        for (ADEPropertyContainer container : new ArrayList<>(waterway.getADEOfWaterway()))
+        for (ADEContainer container : new ArrayList<>(waterway.getADEOfWaterway()))
             visit(container);
     }
 
@@ -1967,7 +1967,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(Window window) {
         visit((AbstractFillingElement) window);
 
-        for (ADEPropertyContainer container : new ArrayList<>(window.getADEOfWindow()))
+        for (ADEContainer container : new ArrayList<>(window.getADEOfWindow()))
             visit(container);
     }
 
@@ -1975,7 +1975,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(WindowSurface windowSurface) {
         visit((AbstractFillingSurface) windowSurface);
 
-        for (ADEPropertyContainer container : new ArrayList<>(windowSurface.getADEOfWindowSurface()))
+        for (ADEContainer container : new ArrayList<>(windowSurface.getADEOfWindowSurface()))
             visit(container);
     }
 
@@ -1983,7 +1983,7 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
     public void visit(X3DMaterial x3dMaterial) {
         visit((AbstractSurfaceData) x3dMaterial);
 
-        for (ADEPropertyContainer container : new ArrayList<>(x3dMaterial.getADEOfX3DMaterial()))
+        for (ADEContainer container : new ArrayList<>(x3dMaterial.getADEOfX3DMaterial()))
             visit(container);
     }
 

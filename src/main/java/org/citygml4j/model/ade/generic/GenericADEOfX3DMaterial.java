@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.appearance.ADEOfX3DMaterial;
 import org.w3c.dom.Element;
 
-public class GenericADEOfX3DMaterial extends ADEOfX3DMaterial implements ADEGenericPropertyContainer {
+public class GenericADEOfX3DMaterial extends ADEOfX3DMaterial implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfX3DMaterial(Element value) {

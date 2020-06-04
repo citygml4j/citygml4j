@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.core.ADEOfAddress;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAddress extends ADEOfAddress implements ADEGenericPropertyContainer {
+public class GenericADEOfAddress extends ADEOfAddress implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAddress(Element value) {

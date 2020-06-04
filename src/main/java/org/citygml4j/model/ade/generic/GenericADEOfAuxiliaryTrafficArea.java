@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.transportation.ADEOfAuxiliaryTrafficArea;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAuxiliaryTrafficArea extends ADEOfAuxiliaryTrafficArea implements ADEGenericPropertyContainer {
+public class GenericADEOfAuxiliaryTrafficArea extends ADEOfAuxiliaryTrafficArea implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAuxiliaryTrafficArea(Element value) {

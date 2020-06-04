@@ -21,7 +21,7 @@ package org.citygml4j.xml.adapter.ade;
 
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSSchemaSet;
-import org.citygml4j.model.ade.ADEPropertyContainer;
+import org.citygml4j.model.ade.ADEContainer;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
@@ -40,7 +40,7 @@ import java.util.function.Function;
 
 public class ADEBuilderHelper {
 
-    public static <T extends ADEPropertyContainer> void addADEContainer(Class<T> type, List<? super T> containers, Function<Element, T> creator, XMLReader reader) throws ObjectBuildException, XMLReadException {
+    public static <T extends ADEContainer> void addADEContainer(Class<T> type, List<? super T> containers, Function<Element, T> creator, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (reader.hasNext() && reader.nextTag() == EventType.START_ELEMENT) {
             BuildResult<T> result = reader.getObjectOrDOMElement(type);
             if (result.isSetObject())
@@ -50,7 +50,7 @@ public class ADEBuilderHelper {
         }
     }
 
-    public static <T extends ADEPropertyContainer> boolean addADEContainer(QName name, Class<T> type, List<? super T> properties, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
+    public static <T extends ADEContainer> boolean addADEContainer(QName name, Class<T> type, List<? super T> properties, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
         ObjectBuilder<T> builder = reader.getXMLObjects().getBuilder(name, type);
         if (builder != null) {
             properties.add(reader.getObjectUsingBuilder(builder));

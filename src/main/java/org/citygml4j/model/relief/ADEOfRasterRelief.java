@@ -1,6 +1,6 @@
 package org.citygml4j.model.relief;
 
-import org.citygml4j.model.ade.ADEPropertyContainer;
+import org.citygml4j.model.ade.ADEContainer;
 
-public abstract class ADEOfRasterRelief extends ADEPropertyContainer {
+public abstract class ADEOfRasterRelief extends ADEContainer {
 }

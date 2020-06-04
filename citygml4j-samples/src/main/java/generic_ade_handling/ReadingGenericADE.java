@@ -25,8 +25,8 @@ import com.sun.xml.xsom.XSType;
 import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.ade.ADEPropertyContainer;
-import org.citygml4j.model.ade.generic.ADEGenericPropertyContainer;
+import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.generic.ADEGenericContainer;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
@@ -75,9 +75,9 @@ public class ReadingGenericADE {
 
                 if (cityObject instanceof Building) {
                     Building building = (Building) cityObject;
-                    for (ADEPropertyContainer container : building.getADEOfAbstractBuilding()) {
-                        if (container instanceof ADEGenericPropertyContainer) {
-                            Element element = ((ADEGenericPropertyContainer) container).getValue();
+                    for (ADEContainer container : building.getADEOfAbstractBuilding()) {
+                        if (container instanceof ADEGenericContainer) {
+                            Element element = ((ADEGenericContainer) container).getValue();
                             log.print(indent(2) + "- with ADE property " + element.getLocalName() + " {" + element.getNamespaceURI() + "}");
                             printADEInfo(handler, element, cityObjectType, featureType, geometryType, 5);
                         }

@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.appearance.ADEOfAppearance;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAppearance extends ADEOfAppearance implements ADEGenericPropertyContainer {
+public class GenericADEOfAppearance extends ADEOfAppearance implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAppearance(Element value) {

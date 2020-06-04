@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.relief.ADEOfTINRelief;
 import org.w3c.dom.Element;
 
-public class GenericADEOfTINRelief extends ADEOfTINRelief implements ADEGenericPropertyContainer {
+public class GenericADEOfTINRelief extends ADEOfTINRelief implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfTINRelief(Element value) {

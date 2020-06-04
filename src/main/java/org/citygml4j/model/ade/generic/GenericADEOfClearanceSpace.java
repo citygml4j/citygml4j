@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.transportation.ADEOfClearanceSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEOfClearanceSpace extends ADEOfClearanceSpace implements ADEGenericPropertyContainer {
+public class GenericADEOfClearanceSpace extends ADEOfClearanceSpace implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfClearanceSpace(Element value) {

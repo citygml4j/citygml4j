@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.core.ADEOfAbstractLogicalSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractLogicalSpace extends ADEOfAbstractLogicalSpace implements ADEGenericPropertyContainer {
+public class GenericADEOfAbstractLogicalSpace extends ADEOfAbstractLogicalSpace implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAbstractLogicalSpace(Element value) {

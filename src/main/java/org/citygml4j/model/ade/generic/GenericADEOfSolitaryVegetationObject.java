@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.vegetation.ADEOfSolitaryVegetationObject;
 import org.w3c.dom.Element;
 
-public class GenericADEOfSolitaryVegetationObject extends ADEOfSolitaryVegetationObject implements ADEGenericPropertyContainer {
+public class GenericADEOfSolitaryVegetationObject extends ADEOfSolitaryVegetationObject implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfSolitaryVegetationObject(Element value) {

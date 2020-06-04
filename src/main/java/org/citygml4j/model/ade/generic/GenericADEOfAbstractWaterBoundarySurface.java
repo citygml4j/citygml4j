@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.waterbody.ADEOfAbstractWaterBoundarySurface;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractWaterBoundarySurface extends ADEOfAbstractWaterBoundarySurface implements ADEGenericPropertyContainer {
+public class GenericADEOfAbstractWaterBoundarySurface extends ADEOfAbstractWaterBoundarySurface implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfAbstractWaterBoundarySurface(Element value) {

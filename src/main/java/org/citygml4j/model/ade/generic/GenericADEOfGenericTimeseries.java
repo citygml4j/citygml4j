@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.dynamizer.ADEOfGenericTimeseries;
 import org.w3c.dom.Element;
 
-public class GenericADEOfGenericTimeseries extends ADEOfGenericTimeseries implements ADEGenericPropertyContainer {
+public class GenericADEOfGenericTimeseries extends ADEOfGenericTimeseries implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfGenericTimeseries(Element value) {

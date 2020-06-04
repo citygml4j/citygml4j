@@ -1,6 +1,6 @@
 package org.citygml4j.model.dynamizer;
 
-import org.citygml4j.model.ade.ADEPropertyContainer;
+import org.citygml4j.model.ade.ADEContainer;
 
-public abstract class ADEOfAbstractTimeseries extends ADEPropertyContainer {
+public abstract class ADEOfAbstractTimeseries extends ADEContainer {
 }

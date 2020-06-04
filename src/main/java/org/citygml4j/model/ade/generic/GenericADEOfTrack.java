@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.transportation.ADEOfTrack;
 import org.w3c.dom.Element;
 
-public class GenericADEOfTrack extends ADEOfTrack implements ADEGenericPropertyContainer {
+public class GenericADEOfTrack extends ADEOfTrack implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfTrack(Element value) {

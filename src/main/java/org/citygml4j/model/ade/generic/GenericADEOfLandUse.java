@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.landuse.ADEOfLandUse;
 import org.w3c.dom.Element;
 
-public class GenericADEOfLandUse extends ADEOfLandUse implements ADEGenericPropertyContainer {
+public class GenericADEOfLandUse extends ADEOfLandUse implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfLandUse(Element value) {

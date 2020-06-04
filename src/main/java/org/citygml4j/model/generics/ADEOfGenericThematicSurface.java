@@ -1,6 +1,6 @@
 package org.citygml4j.model.generics;
 
-import org.citygml4j.model.ade.ADEPropertyContainer;
+import org.citygml4j.model.ade.ADEContainer;
 
-public abstract class ADEOfGenericThematicSurface extends ADEPropertyContainer {
+public abstract class ADEOfGenericThematicSurface extends ADEContainer {
 }

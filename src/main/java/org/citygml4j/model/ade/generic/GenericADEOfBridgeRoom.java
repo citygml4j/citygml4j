@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.bridge.ADEOfBridgeRoom;
 import org.w3c.dom.Element;
 
-public class GenericADEOfBridgeRoom extends ADEOfBridgeRoom implements ADEGenericPropertyContainer {
+public class GenericADEOfBridgeRoom extends ADEOfBridgeRoom implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfBridgeRoom(Element value) {

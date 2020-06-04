@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.construction.ADEOfGroundSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEOfGroundSurface extends ADEOfGroundSurface implements ADEGenericPropertyContainer {
+public class GenericADEOfGroundSurface extends ADEOfGroundSurface implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfGroundSurface(Element value) {

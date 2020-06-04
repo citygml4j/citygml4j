@@ -1,6 +1,6 @@
 package org.citygml4j.model.pointcloud;
 
-import org.citygml4j.model.ade.ADEPropertyContainer;
+import org.citygml4j.model.ade.ADEContainer;
 
-public abstract class ADEOfPointCloud extends ADEPropertyContainer {
+public abstract class ADEOfPointCloud extends ADEContainer {
 }

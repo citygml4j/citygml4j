@@ -3,7 +3,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.construction.ADEOfWindowSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEOfWindowSurface extends ADEOfWindowSurface implements ADEGenericPropertyContainer {
+public class GenericADEOfWindowSurface extends ADEOfWindowSurface implements ADEGenericContainer {
     private Element value;
 
     private GenericADEOfWindowSurface(Element value) {
