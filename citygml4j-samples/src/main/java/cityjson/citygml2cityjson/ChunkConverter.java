@@ -74,9 +74,12 @@ public class ChunkConverter {
 		System.out.println(df.format(new Date()) + "create CityJSON builder and chunk-wise CityJSON writer");
 		CityJSONBuilder jsonBuilder = ctx.createCityJSONBuilder();
 		CityJSONOutputFactory out = jsonBuilder.createCityJSONOutputFactory();
-		
+
+		// create chunk-wise CityJSON writer
+		CityJSONChunkWriter writer = out.createCityJSONChunkWriter(new File("output/LOD2_Buildings.json"));
+
 		/*
-		 * we can use different helpers on the CityJSON output factory such as builders
+		 * we can use different helpers on the CityJSON writer such as builders
 		 * for the "vertices" and "vertices-texture" arrays. citygml4j provides default
 		 * builders for both arrays, but you may also implement your own builders.
 		 * The default builders try and merge coordinates to reduce the overall number of
@@ -86,11 +89,8 @@ public class ChunkConverter {
 		 * significant digits as shown below.
 		 */
 		
-		out.setVerticesBuilder(new DefaultVerticesBuilder().withSignificantDigits(5));
-		
-		// create chunk-wise CityJSON writer
-		CityJSONChunkWriter writer = out.createCityJSONChunkWriter(new File("output/LOD2_Buildings.json"));
-		
+		writer.setVerticesBuilder(new DefaultVerticesBuilder().withSignificantDigits(5));
+
 		System.out.println(df.format(new Date()) + "reading city objects from LOD2_Buildings_v100.gml and writing to LOD2_Buildings.json");
 		while (reader.hasNext()) {
 			CityGML cityGML = reader.nextFeature();

@@ -49,9 +49,12 @@ public class CityJSONConverter {
 		System.out.println(df.format(new Date()) + "reading LOD3_Railway.json into main memory");
 		CityJSONInputFactory in = builder.createCityJSONInputFactory();
 
+		// create CityJSON reader
+		CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
+
 		/*
 		 * When converting an existing CityJSON dataset, it is recommended that you register 
-		 * your own texture file handler with the CityJSON input factory.
+		 * your own texture file handler with the CityJSON reader.
 		 * A texture file handler is invoked for every texture image found in the CityJSON
 		 * dataset. Its task is to generate a value for the <imageURI> property of a CityGML
 		 * parameterized texture object and to possibly copy the image file to the target
@@ -62,9 +65,7 @@ public class CityJSONConverter {
 		 * Otherwise <imageURI> property values being relative paths cannot be correctly resolved.
 		 */
 
-		in.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
-
-		CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
+		reader.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
 
 		CityModel cityModel = reader.read();
 		reader.close();

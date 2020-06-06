@@ -46,8 +46,8 @@ public class CityJSONUnmarshaller {
 	private CityGMLInputFilter nameFilter;
 	private boolean releaseCityJSONContent = true;
 
-	public CityJSONUnmarshaller(TextureFileHandler textureFileHandler) {
-		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
+	public CityJSONUnmarshaller() {
+		this.textureFileHandler = new DefaultTextureFileHandler();
 		
 		citygml = new CityGMLUnmarshaller(this);
 		gml = new GMLUnmarshaller(this);
@@ -59,10 +59,6 @@ public class CityJSONUnmarshaller {
 		} catch (ExtensionException e) {
 			//
 		}
-	}
-	
-	public CityJSONUnmarshaller() {
-		this(new DefaultTextureFileHandler());
 	}
 
 	public CityModel unmarshal(CityJSON src) {

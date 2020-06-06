@@ -25,6 +25,10 @@ import org.citygml4j.builder.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
 import org.citygml4j.builder.cityjson.extension.ExtensionModuleVersion;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
+import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
+import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
 import org.citygml4j.cityjson.extension.ExtensionType;
 import org.citygml4j.cityjson.metadata.MetadataType;
@@ -39,30 +43,61 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	protected final JsonWriter writer;
 	protected final CityJSONMarshaller marshaller;
 	protected final Gson gson;
-	
+	private final CityJSONTypeAdapterFactory typeAdapterFactory;
+
 	protected MetadataType metadata;
 	protected Map<String, ExtensionType> extensions;
-	
+
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
 
-		marshaller = new CityJSONMarshaller(factory.verticesBuilder,
-				factory.textureVerticesBuilder,
-				factory.textureFileHandler,
-				factory.templatesVerticesBuilder,
-				factory.removeDuplicateChildGeometries,
-				factory.generateCityGMLMetadata);
-		CityJSONTypeAdapterFactory typeAdapterFactory = new CityJSONTypeAdapterFactory();
-
-		// apply transformation to vertices
-		if (factory.verticesTransformer != null) {
-			marshaller.setVerticesTransformer(factory.verticesTransformer);
-			typeAdapterFactory.serializeVerticesAsInteger(true);
-		}
+		marshaller = new CityJSONMarshaller(factory.removeDuplicateChildGeometries, factory.generateCityGMLMetadata);
+		typeAdapterFactory = new CityJSONTypeAdapterFactory();
 
 		gson = new GsonBuilder()
 				.registerTypeAdapterFactory(typeAdapterFactory)
 				.create();
+	}
+
+	public VerticesBuilder getVerticesBuilder() {
+		return marshaller.getVerticesBuilder();
+	}
+
+	public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
+		marshaller.setVerticesBuilder(verticesBuilder);
+	}
+
+	public VerticesTransformer getVerticesTransformer() {
+		return marshaller.getVerticesTransformer();
+	}
+
+	public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
+		marshaller.setVerticesTransformer(verticesTransformer);
+		typeAdapterFactory.serializeVerticesAsInteger(true);
+	}
+
+	public TextureVerticesBuilder getTextureVerticesBuilder() {
+		return marshaller.getTextureVerticesBuilder();
+	}
+
+	public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
+		marshaller.setTextureVerticesBuilder(textureVerticesBuilder);
+	}
+
+	public VerticesBuilder getTemplatesVerticesBuilder() {
+		return marshaller.getTemplatesVerticesBuilder();
+	}
+
+	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
+		marshaller.setTemplatesVerticesBuilder(templatesVerticesBuilder);
+	}
+
+	public TextureFileHandler getTextureFileHandler() {
+		return marshaller.getTextureFileHandler();
+	}
+
+	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+		marshaller.setTextureFileHandler(textureFileHandler);
 	}
 
 	public MetadataType getMetadata() {
@@ -125,10 +160,13 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	
 	public void close() throws CityJSONWriteException {
 		try {
+			marshaller.reset();
+			if (extensions != null)
+				extensions.clear();
+
 			writer.close();
 		} catch (IOException e) {
 			throw new CityJSONWriteException("Caused by: ", e);
 		}
 	}
-	
 }

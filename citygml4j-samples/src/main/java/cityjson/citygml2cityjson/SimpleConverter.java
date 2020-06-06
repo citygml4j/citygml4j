@@ -58,10 +58,13 @@ public class SimpleConverter {
 		
 		// create a CityJSON output factory
 		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityJSON file");
-		CityJSONOutputFactory out = jsonBuilder.createCityJSONOutputFactory();		
+		CityJSONOutputFactory out = jsonBuilder.createCityJSONOutputFactory();
+
+		// create a simple CityJSON writer
+		CityJSONWriter writer = out.createCityJSONWriter(new File("output/LOD3_Building.json"));
 
 		/*
-		 * we can use different helpers on the CityJSON output factory such as builders
+		 * we can use different helpers on the CityJSON writer such as builders
 		 * for the "vertices" and "vertices-texture" arrays. Especially when converting
 		 * an existing CityGML dataset, it is recommended that you provide your own 
 		 * texture file handler.
@@ -74,8 +77,8 @@ public class SimpleConverter {
 		 * folder as the input CityGML file when using the default handler. Otherwise
 		 * "image" property values being relative paths cannot be correctly resolved.
 		 */
-		
-		out.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
+
+		writer.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
 		
 		/*
 		 * citygml4j also supports the transformation of the coordinates of the vertices
@@ -87,11 +90,10 @@ public class SimpleConverter {
 		 * with the output factory. citygml4j provides a default transformer which lets 
 		 * you define the number of significant digits to keep (3 per default).
 		 */
-		
-		out.setVerticesTransformer(new DefaultVerticesTransformer().withSignificantDigits(3));
-		
-		// create a simple CityJSON writer
-		CityJSONWriter writer = out.createCityJSONWriter(new File("output/LOD3_Building.json"));
+
+		writer.setVerticesTransformer(new DefaultVerticesTransformer().withSignificantDigits(3));
+
+		// send the city model to the CityJSON writer
 		writer.write(cityModel);
 		writer.close();
 		

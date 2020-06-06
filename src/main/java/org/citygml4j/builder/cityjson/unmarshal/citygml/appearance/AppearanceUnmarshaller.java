@@ -20,7 +20,6 @@ package org.citygml4j.builder.cityjson.unmarshal.citygml.appearance;
 
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.cityjson.appearance.AbstractTextureObject;
 import org.citygml4j.cityjson.appearance.AppearanceType;
@@ -52,8 +51,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class AppearanceUnmarshaller {
-	private final TextureFileHandler textureFileHandler;
-	
+	private final CityJSONUnmarshaller json;
 	private List<MaterialType> materials;
 	private List<TextureType> textures;
 	private List<List<Double>> textureVertices;	
@@ -61,7 +59,7 @@ public class AppearanceUnmarshaller {
 	private GMLIdManager gmlIdManager;
 	
 	public AppearanceUnmarshaller(CityGMLUnmarshaller citygml) {
-		textureFileHandler = citygml.getCityJSONUnmarshaller().getTextureFileHandler();
+		json = citygml.getCityJSONUnmarshaller();
 	}
 	
 	public void setAppearanceInfo(AppearanceType appearanceType) {
@@ -151,7 +149,7 @@ public class AppearanceUnmarshaller {
 
 	public void unmarshalParameterizedTexture(TextureType src, ParameterizedTexture dest) {
 		if (src.isSetImage()) {
-			String imageURI = textureFileHandler.getImageURI(src.getImage());
+			String imageURI = json.getTextureFileHandler().getImageURI(src.getImage());
 			if (imageURI == null)
 				return;
 			

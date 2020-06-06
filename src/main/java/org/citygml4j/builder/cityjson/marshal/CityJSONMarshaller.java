@@ -64,16 +64,11 @@ public class CityJSONMarshaller {
 
 	private String defaultTheme = "";
 
-	public CityJSONMarshaller(VerticesBuilder verticesBuilder,
-							  TextureVerticesBuilder textureVerticesBuilder,
-							  TextureFileHandler textureFileHandler,
-							  VerticesBuilder templatesVerticesBuilder,
-							  boolean removeDuplicateChildGeometries,
-							  boolean generateCityGMLMetadata) {
-		this.verticesBuilder = verticesBuilder != null ? verticesBuilder : new DefaultVerticesBuilder();
-		this.textureVerticesBuilder = textureVerticesBuilder != null ? textureVerticesBuilder : new DefaultTextureVerticesBuilder();
-		this.textureFileHandler = textureFileHandler != null ? textureFileHandler : new DefaultTextureFileHandler();
-		this.templatesVerticesBuilder = templatesVerticesBuilder != null ? templatesVerticesBuilder : new DefaultVerticesBuilder();
+	public CityJSONMarshaller(boolean removeDuplicateChildGeometries, boolean generateCityGMLMetadata) {
+		this.verticesBuilder = new DefaultVerticesBuilder();
+		this.textureVerticesBuilder = new DefaultTextureVerticesBuilder();
+		this.textureFileHandler = new DefaultTextureFileHandler();
+		this.templatesVerticesBuilder = new DefaultVerticesBuilder();
 		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
 		this.generateCityGMLMetadata = generateCityGMLMetadata;
 
@@ -86,8 +81,13 @@ public class CityJSONMarshaller {
 	}
 
 	public CityJSONMarshaller() {
-		this (new DefaultVerticesBuilder(), new DefaultTextureVerticesBuilder(), new DefaultTextureFileHandler(),
-				new DefaultVerticesBuilder(), false, false);
+		this (false, false);
+	}
+
+	public void reset() {
+		verticesBuilder.reset();
+		textureVerticesBuilder.reset();
+		templatesVerticesBuilder.reset();
 	}
 	
 	public CityJSON marshal(CityModel src) {
@@ -202,20 +202,20 @@ public class CityJSONMarshaller {
 		this.textureVerticesBuilder = Objects.requireNonNull(textureVerticesBuilder, "texture vertices builder may not be null.");
 	}
 
-	public TextureFileHandler getTextureFileHandler() {
-		return textureFileHandler;
-	}
-
-	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
-		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
-	}
-
 	public VerticesBuilder getTemplatesVerticesBuilder() {
 		return templatesVerticesBuilder;
 	}
 
 	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
 		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
+	}
+
+	public TextureFileHandler getTextureFileHandler() {
+		return textureFileHandler;
+	}
+
+	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
 
 	public boolean isRemoveDuplicateChildGeometries() {

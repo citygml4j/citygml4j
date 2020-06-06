@@ -19,7 +19,6 @@
 package org.citygml4j.builder.cityjson.json.io.reader;
 
 import com.google.gson.stream.JsonReader;
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
@@ -29,10 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Objects;
 
 public class CityJSONInputFactory {
-	TextureFileHandler textureFileHandler;
 	boolean processUnknownExtensions;
 	
 	public CityJSONReader createCityJSONReader(File file) throws CityJSONReadException {
@@ -55,14 +52,6 @@ public class CityJSONInputFactory {
 	public CityJSONReader createFilteredCityJSONReader(CityJSONReader reader, CityGMLInputFilter filter) throws CityJSONReadException {
 		reader.setCityGMLNameFilter(filter);
 		return reader;
-	}
-	
-	public TextureFileHandler getTextureFileHandler() {
-		return textureFileHandler;
-	}
-	
-	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
-		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
 	}
 
 	public boolean isProcessUnknownExtensions() {

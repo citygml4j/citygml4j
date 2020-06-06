@@ -23,6 +23,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
@@ -45,8 +46,16 @@ public class CityJSONReader implements AutoCloseable {
 		this.reader = reader;
 		
 		builder = new GsonBuilder();
-		unmarshaller = new CityJSONUnmarshaller(factory.textureFileHandler);
+		unmarshaller = new CityJSONUnmarshaller();
 		processUnknownExtensions = factory.processUnknownExtensions;
+	}
+
+	public TextureFileHandler getTextureFileHandler() {
+		return unmarshaller.getTextureFileHandler();
+	}
+
+	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+		unmarshaller.setTextureFileHandler(textureFileHandler);
 	}
 
 	public CityModel read() throws CityJSONReadException {

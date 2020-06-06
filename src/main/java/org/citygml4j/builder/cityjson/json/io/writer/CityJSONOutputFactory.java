@@ -19,10 +19,6 @@
 package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
-import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
-import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,14 +31,8 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Objects;
 
 public class CityJSONOutputFactory {
-	VerticesBuilder verticesBuilder;
-	VerticesTransformer verticesTransformer;
-	TextureVerticesBuilder textureVerticesBuilder;
-	TextureFileHandler textureFileHandler;
-	VerticesBuilder templatesVerticesBuilder;
 	boolean removeDuplicateChildGeometries;
 	boolean generateCityGMLMetadata;
 
@@ -112,46 +102,6 @@ public class CityJSONOutputFactory {
 	
 	public CityJSONChunkWriter createCityJSONChunkWriter(Writer writer) {
 		return new CityJSONChunkWriter(new JsonWriter(writer), this);
-	}
-	
-	public VerticesBuilder getVerticesBuilder() {
-		return verticesBuilder;
-	}
-
-	public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
-		this.verticesBuilder = Objects.requireNonNull(verticesBuilder, "vertices builder may not be null.");
-	}
-
-	public VerticesTransformer getVerticesTransformer() {
-		return verticesTransformer;
-	}
-
-	public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
-		this.verticesTransformer = Objects.requireNonNull(verticesTransformer, "vertices transformer may not be null.");
-	}
-
-	public TextureVerticesBuilder getTextureVerticesBuilder() {
-		return textureVerticesBuilder;
-	}
-
-	public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
-		this.textureVerticesBuilder = Objects.requireNonNull(textureVerticesBuilder, "texture vertices builder may not be null.");
-	}
-
-	public TextureFileHandler getTextureFileHandler() {
-		return textureFileHandler;
-	}
-
-	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
-		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
-	}
-
-	public VerticesBuilder getTemplatesVerticesBuilder() {
-		return templatesVerticesBuilder;
-	}
-
-	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
-		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
 	}
 
 	public boolean isRemoveDuplicateChildGeometries() {
