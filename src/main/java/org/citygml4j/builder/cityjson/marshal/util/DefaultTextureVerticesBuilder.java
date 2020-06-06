@@ -85,6 +85,12 @@ public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
 		return vertices;
 	}
 
+	@Override
+	public void reset() {
+		indexes.clear();
+		vertices.clear();
+	}
+
 	private BigDecimal round(double value) {
 		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP);
 	}

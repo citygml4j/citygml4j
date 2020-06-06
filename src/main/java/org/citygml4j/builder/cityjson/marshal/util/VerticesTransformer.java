@@ -24,5 +24,5 @@ import org.citygml4j.cityjson.geometry.TransformType;
 import java.util.List;
 
 public interface VerticesTransformer {
-	public TransformType applyTransformation(List<List<Double>> vertices);
+	TransformType applyTransformation(List<List<Double>> vertices);
 }
