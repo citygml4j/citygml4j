@@ -58,9 +58,9 @@ attributes, and relations for representing the real-world entities of cities
 and landscapes such as buildings, bridges, tunnels, transportation objects,
 city furniture, water bodies, vegetation, and terrain.
 
-CityGML implemented as OGC Geography Markup Language (GML) application schema
-to enable the storage and exchange of CityGML data. Further encodings besides
-are anticipated and may be supported by citygml4j in the future.
+CityGML is implemented as OGC Geography Markup Language (GML) application
+schema to enable the storage and exchange of CityGML data. Further encodings
+besides GML are anticipated and may be supported by citygml4j in the future.
 
 CityGML is an international OGC standard and can be used free of charge.
 
