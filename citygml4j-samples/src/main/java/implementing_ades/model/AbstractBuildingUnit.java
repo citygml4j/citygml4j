@@ -38,13 +38,13 @@ public abstract class AbstractBuildingUnit extends AbstractLogicalSpace implemen
     private List<Code> functions;
     private List<Code> usages;
     private List<EnergyPerformanceCertificationProperty> energyPerformanceCertifications;
-    @LevelOfDetail(value = 4)
+    @LevelOfDetail(4)
     private SolidProperty lod4Solid;
-    @LevelOfDetail(value = 1)
+    @LevelOfDetail(1)
     private MultiSurfaceProperty lod1MultiSurface;
-    @LevelOfDetail(value = 4)
+    @LevelOfDetail(4)
     private MultiSurfaceProperty lod4MultiSurface;
-    @LevelOfDetail(value = 4)
+    @LevelOfDetail(4)
     private MultiCurveProperty lod4MultiCurve;
     private List<AddressProperty> addresses;
     private List<FacilitiesProperty> equippedWith;
