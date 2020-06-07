@@ -48,7 +48,7 @@ public abstract class AbstractBuildingUnitAdapter<T extends AbstractBuildingUnit
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (TestADEModule.NAMESPACE_1_0.equals(name.getNamespaceURI())) {
+        if (TestADEModule.TESTADE_CITYGML_2_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "class":
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
@@ -112,57 +112,57 @@ public abstract class AbstractBuildingUnitAdapter<T extends AbstractBuildingUnit
     @Override
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getClassifier() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
         for (Code function : object.getFunctions())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "function"), function, CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "function"), function, CodeAdapter.class, namespaces);
 
         for (Code usage : object.getUsages())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "usage"), usage, CodeAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "usage"), usage, CodeAdapter.class, namespaces);
 
         for (EnergyPerformanceCertificationProperty property : object.getEnergyPerformanceCertifications())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "energyPerformanceCertification"), property, EnergyPerformanceCertificationPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "energyPerformanceCertification"), property, EnergyPerformanceCertificationPropertyAdapter.class, namespaces);
 
         if (object.getLod2MultiCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod2MultiCurve"), object.getLod2MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod2MultiCurve"), object.getLod2MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         if (object.getLod3MultiCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod3MultiCurve"), object.getLod3MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod3MultiCurve"), object.getLod3MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         if (object.getLod4MultiCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod4MultiCurve"), object.getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod4MultiCurve"), object.getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         if (object.getLod1MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod1MultiSurface"), object.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod1MultiSurface"), object.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod2MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod2MultiSurface"), object.getLod2MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod2MultiSurface"), object.getLod2MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod3MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod4MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod4MultiSurface"), object.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod4MultiSurface"), object.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
 
         if (object.getLod2Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod2Solid"), object.getLod2Solid(), SolidPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod2Solid"), object.getLod2Solid(), SolidPropertyAdapter.class, namespaces);
 
         if (object.getLod3Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
 
         if (object.getLod4Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "lod4Solid"), object.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "lod4Solid"), object.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
         for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "address"), property, AddressPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
         for (FacilitiesProperty property : object.getEquippedWith())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "equippedWith"), property, FacilitiesPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "equippedWith"), property, FacilitiesPropertyAdapter.class, namespaces);
 
         for (BuildingUnitPartProperty property : object.getConsistsOf())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "consistsOf"), property, BuildingUnitPartPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "consistsOf"), property, BuildingUnitPartPropertyAdapter.class, namespaces);
     }
 }

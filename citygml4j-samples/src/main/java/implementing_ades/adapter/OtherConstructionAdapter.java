@@ -37,7 +37,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "OtherConstruction", namespaceURI = TestADEModule.NAMESPACE_1_0)
+@XMLElement(name = "OtherConstruction", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
 public class OtherConstructionAdapter extends AbstractSiteAdapter<OtherConstruction> {
 
     @Override
@@ -47,7 +47,7 @@ public class OtherConstructionAdapter extends AbstractSiteAdapter<OtherConstruct
 
     @Override
     public void buildChildObject(OtherConstruction object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (TestADEModule.NAMESPACE_1_0.equals(name.getNamespaceURI())
+        if (TestADEModule.TESTADE_CITYGML_2_NAMESPACE.equals(name.getNamespaceURI())
                 && "boundedBy".equals(name.getLocalPart())) {
             object.addBoundary(reader.getObjectUsingBuilder(AbstractBoundarySurfacePropertyAdapter.class));
         } else
@@ -56,7 +56,7 @@ public class OtherConstructionAdapter extends AbstractSiteAdapter<OtherConstruct
 
     @Override
     public Element createElement(OtherConstruction object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.NAMESPACE_1_0, "OtherConstruction");
+        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "OtherConstruction");
     }
 
     @Override
@@ -64,6 +64,6 @@ public class OtherConstructionAdapter extends AbstractSiteAdapter<OtherConstruct
         super.writeChildElements(object, namespaces, writer);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.NAMESPACE_1_0, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
     }
 }

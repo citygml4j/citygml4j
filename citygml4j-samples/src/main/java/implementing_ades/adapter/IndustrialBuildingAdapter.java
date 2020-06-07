@@ -36,7 +36,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "IndustrialBuilding", namespaceURI = TestADEModule.NAMESPACE_1_0)
+@XMLElement(name = "IndustrialBuilding", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
 public class IndustrialBuildingAdapter extends CompositeObjectAdapter<IndustrialBuilding> {
 
     public IndustrialBuildingAdapter() {
@@ -50,7 +50,7 @@ public class IndustrialBuildingAdapter extends CompositeObjectAdapter<Industrial
 
     @Override
     public void buildChildObject(IndustrialBuilding object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (TestADEModule.NAMESPACE_1_0.equals(name.getNamespaceURI())
+        if (TestADEModule.TESTADE_CITYGML_2_NAMESPACE.equals(name.getNamespaceURI())
                 && "remark".equals(name.getLocalPart())) {
             reader.getTextContent().ifPresent(object::setRemark);
         } else
@@ -59,7 +59,7 @@ public class IndustrialBuildingAdapter extends CompositeObjectAdapter<Industrial
 
     @Override
     public Element createElement(IndustrialBuilding object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.NAMESPACE_1_0, "IndustrialBuilding");
+        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "IndustrialBuilding");
     }
 
     @Override
@@ -67,6 +67,6 @@ public class IndustrialBuildingAdapter extends CompositeObjectAdapter<Industrial
         super.writeChildElements(object, namespaces, writer);
 
         if (object.getRemark() != null)
-            writer.writeElement(Element.of(TestADEModule.NAMESPACE_1_0, "remark").addTextContent(object.getRemark()));
+            writer.writeElement(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "remark").addTextContent(object.getRemark()));
     }
 }

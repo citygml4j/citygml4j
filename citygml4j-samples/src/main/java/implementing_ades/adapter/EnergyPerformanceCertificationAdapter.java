@@ -36,7 +36,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "EnergyPerformanceCertification", namespaceURI = TestADEModule.NAMESPACE_1_0)
+@XMLElement(name = "EnergyPerformanceCertification", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
 public class EnergyPerformanceCertificationAdapter implements ObjectBuilder<EnergyPerformanceCertification>, ObjectSerializer<EnergyPerformanceCertification> {
 
     @Override
@@ -46,7 +46,7 @@ public class EnergyPerformanceCertificationAdapter implements ObjectBuilder<Ener
 
     @Override
     public void buildChildObject(EnergyPerformanceCertification object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (TestADEModule.NAMESPACE_1_0.equals(name.getNamespaceURI())) {
+        if (TestADEModule.TESTADE_CITYGML_2_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "certificationName":
                     reader.getTextContent().ifPresent(object.getCertificationNames()::add);
@@ -60,15 +60,15 @@ public class EnergyPerformanceCertificationAdapter implements ObjectBuilder<Ener
 
     @Override
     public Element createElement(EnergyPerformanceCertification object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.NAMESPACE_1_0, "EnergyPerformanceCertification");
+        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "EnergyPerformanceCertification");
     }
 
     @Override
     public void writeChildElements(EnergyPerformanceCertification object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         for (String certificationName : object.getCertificationNames())
-            writer.writeElement(Element.of(TestADEModule.NAMESPACE_1_0, "certificationName").addTextContent(certificationName));
+            writer.writeElement(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "certificationName").addTextContent(certificationName));
 
         if (object.getCertificationId() != null)
-            writer.writeElement(Element.of(TestADEModule.NAMESPACE_1_0, "certificationid").addTextContent(object.getCertificationId()));
+            writer.writeElement(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "certificationid").addTextContent(object.getCertificationId()));
     }
 }

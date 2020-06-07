@@ -37,7 +37,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "floorArea", namespaceURI = TestADEModule.NAMESPACE_1_0)
+@XMLElement(name = "floorArea", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
 public class FloorAreaElementAdapter implements ObjectBuilder<FloorAreaElement>, ObjectSerializer<FloorAreaElement> {
 
     @Override
@@ -52,7 +52,7 @@ public class FloorAreaElementAdapter implements ObjectBuilder<FloorAreaElement>,
 
     @Override
     public Element createElement(FloorAreaElement object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.NAMESPACE_1_0, "floorArea");
+        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "floorArea");
     }
 
     @Override

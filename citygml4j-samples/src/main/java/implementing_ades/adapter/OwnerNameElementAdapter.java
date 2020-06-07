@@ -36,7 +36,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "ownerName", namespaceURI = TestADEModule.NAMESPACE_1_0)
+@XMLElement(name = "ownerName", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
 public class OwnerNameElementAdapter implements ObjectBuilder<OwnerNameElement>, ObjectSerializer<OwnerNameElement> {
 
     @Override
@@ -51,7 +51,7 @@ public class OwnerNameElementAdapter implements ObjectBuilder<OwnerNameElement>,
 
     @Override
     public Element createElement(OwnerNameElement object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.NAMESPACE_1_0, "ownerName");
+        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "ownerName");
     }
 
     @Override

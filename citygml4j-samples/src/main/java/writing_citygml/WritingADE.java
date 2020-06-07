@@ -111,7 +111,7 @@ public class WritingADE {
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndentString("  ")
-                    .withSchemaLocation(TestADEModule.NAMESPACE_1_0, Util.OUTPUT_DIR.relativize(
+                    .withSchemaLocation(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, Util.OUTPUT_DIR.relativize(
                             Util.SCHEMAS_DIR.resolve("test-ade.xsd")).toString())
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())

@@ -29,7 +29,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "BuildingUnit", namespaceURI = TestADEModule.NAMESPACE_1_0)
+@XMLElement(name = "BuildingUnit", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
 public class BuildingUnitAdapter extends AbstractBuildingUnitAdapter<BuildingUnit> {
 
     @Override
@@ -39,6 +39,6 @@ public class BuildingUnitAdapter extends AbstractBuildingUnitAdapter<BuildingUni
 
     @Override
     public Element createElement(BuildingUnit object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.NAMESPACE_1_0, "BuildingUnit");
+        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "BuildingUnit");
     }
 }
