@@ -66,15 +66,32 @@ jar {
                 'Automatic-Module-Name': project.group
         )
     }
+    into('META-INF') {
+        from 'LICENSE'
+    }
 }
 
 distributions.main.contents {
+    from('resources/readme/README') {
+        filter(ReplaceTokens, tokens: [
+                version: project.version,
+                date: date.format('yyyy-MM-dd'),
+                copyright: date.format('yyyy'),
+                javaCompatibility: java.sourceCompatibility.toString(),
+                jar: jar.archiveFileName.get(),
+                groupId: project.group,
+                artifactId: project.name
+        ])
+    }
     into('lib') {
         from jar
         from configurations.compileClasspath
     }
     into('javadoc') {
         from javadoc
+    }
+    into('license') {
+        from 'LICENSE'
     }
     into('samples') {
         from tasks.getByPath(':citygml4j-samples:copySamples').outputs
