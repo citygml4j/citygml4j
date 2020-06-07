@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:test="http://www.citygml4j.org/ade/test-ade/citygml/2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml"
-  elementFormDefault="qualified" targetNamespace="http://www.citygml4j.org/ade/test-ade/citygml/2.0" version="1.0">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:test="http://www.citygml.org/ade/TestADE/1.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml"
+  elementFormDefault="qualified" targetNamespace="http://www.citygml.org/ade/TestADE/1.0" version="1.0">
   <import namespace="http://www.opengis.net/citygml/2.0" schemaLocation="http://schemas.opengis.net/citygml/2.0/cityGMLBase.xsd"/>
   <import namespace="http://www.opengis.net/citygml/building/2.0" schemaLocation="http://schemas.opengis.net/citygml/building/2.0/building.xsd"/>
   <import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>

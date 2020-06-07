@@ -11,6 +11,7 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.TransformerException;
@@ -33,9 +34,10 @@ public class CityGMLSimpleReader extends CityGMLReader {
                 XMLObjects xmlObjects = reader.getXMLObjects();
                 while (reader.hasNext()) {
                     if (reader.nextTag() == EventType.START_ELEMENT) {
-                        if (filter == null || filter.accept(reader.getName())) {
-                            ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
-                            if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(builder))) {
+                        QName name = reader.getName();
+                        if (filter == null || filter.accept(name)) {
+                            ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(name, AbstractFeature.class);
+                            if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(name.getNamespaceURI(), builder))) {
                                 hasNext = true;
                                 break;
                             }

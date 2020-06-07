@@ -36,7 +36,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "IndustrialBuildingRoofSurface", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
+@XMLElement(name = "IndustrialBuildingRoofSurface", namespaceURI = TestADEModule.TESTADE_NAMESPACE)
 public class IndustrialBuildingRoofSurfaceAdapter extends CompositeObjectAdapter<IndustrialBuildingRoofSurface> {
 
     public IndustrialBuildingRoofSurfaceAdapter() {
@@ -50,7 +50,7 @@ public class IndustrialBuildingRoofSurfaceAdapter extends CompositeObjectAdapter
 
     @Override
     public void buildChildObject(IndustrialBuildingRoofSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (TestADEModule.TESTADE_CITYGML_2_NAMESPACE.equals(name.getNamespaceURI())
+        if (TestADEModule.TESTADE_NAMESPACE.equals(name.getNamespaceURI())
                 && "remark".equals(name.getLocalPart())) {
             reader.getTextContent().ifPresent(object::setRemark);
         } else
@@ -59,7 +59,7 @@ public class IndustrialBuildingRoofSurfaceAdapter extends CompositeObjectAdapter
 
     @Override
     public Element createElement(IndustrialBuildingRoofSurface object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "IndustrialBuildingRoofSurface");
+        return Element.of(TestADEModule.TESTADE_NAMESPACE, "IndustrialBuildingRoofSurface");
     }
 
     @Override
@@ -67,6 +67,6 @@ public class IndustrialBuildingRoofSurfaceAdapter extends CompositeObjectAdapter
         super.writeChildElements(object, namespaces, writer);
 
         if (object.getRemark() != null)
-            writer.writeElement(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "remark").addTextContent(object.getRemark()));
+            writer.writeElement(Element.of(TestADEModule.TESTADE_NAMESPACE, "remark").addTextContent(object.getRemark()));
     }
 }

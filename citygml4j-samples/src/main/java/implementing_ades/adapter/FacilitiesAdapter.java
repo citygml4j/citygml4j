@@ -39,7 +39,7 @@ public abstract class FacilitiesAdapter<T extends Facilities> extends AbstractFe
 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (TestADEModule.TESTADE_CITYGML_2_NAMESPACE.equals(name.getNamespaceURI())
+        if (TestADEModule.TESTADE_NAMESPACE.equals(name.getNamespaceURI())
                 && "totalValue".equals(name.getLocalPart())) {
             object.setTotalValue(reader.getObjectUsingBuilder(MeasureAdapter.class));
         } else
@@ -51,6 +51,6 @@ public abstract class FacilitiesAdapter<T extends Facilities> extends AbstractFe
         super.writeChildElements(object, namespaces, writer);
 
         if (object.getTotalValue() != null)
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "totalValue"), object.getTotalValue(), MeasureAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "totalValue"), object.getTotalValue(), MeasureAdapter.class, namespaces);
     }
 }

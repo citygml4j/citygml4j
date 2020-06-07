@@ -22,15 +22,13 @@ package writing_citygml;
 import helpers.Logger;
 import helpers.Util;
 import implementing_ades.TestADEContext;
+import implementing_ades.model.AbstractBuildingProperties;
 import implementing_ades.model.AbstractBuildingUnitProperty;
 import implementing_ades.model.BuildingUnit;
-import implementing_ades.model.BuildingUnitElement;
 import implementing_ades.model.EnergyPerformanceCertification;
-import implementing_ades.model.EnergyPerformanceCertificationElement;
 import implementing_ades.model.EnergyPerformanceCertificationProperty;
 import implementing_ades.model.FacilitiesProperty;
 import implementing_ades.model.LightingFacilities;
-import implementing_ades.model.OwnerNameElement;
 import implementing_ades.module.TestADEModule;
 import org.citygml4j.ADERegistry;
 import org.citygml4j.CityGMLContext;
@@ -77,17 +75,18 @@ public class WritingADE {
         }
 
         log.print("Enriching the building with TestADE properties and features");
+        AbstractBuildingProperties buildingProperties = new AbstractBuildingProperties();
+        building.getADEOfAbstractBuilding().add(buildingProperties);
 
         log.print("Adding an owner name");
-        OwnerNameElement ownerName = new OwnerNameElement("Smith");
-        building.getADEOfAbstractBuilding().add(ownerName);
+        buildingProperties.setOwnerName("Smith");
 
         log.print("Adding an energy performance certification");
         EnergyPerformanceCertification certification = new EnergyPerformanceCertification();
         certification.setCertificationId("certId");
         certification.getCertificationNames().add("certName");
         EnergyPerformanceCertificationProperty certificationProperty = new EnergyPerformanceCertificationProperty(certification);
-        building.getADEOfAbstractBuilding().add(new EnergyPerformanceCertificationElement(certificationProperty));
+        buildingProperties.setEnergyPerformanceCertification(certificationProperty);
 
         log.print("Adding a building unit with LoD2 geometry and lighting facility");
         BuildingUnit buildingUnit = new BuildingUnit();
@@ -101,7 +100,7 @@ public class WritingADE {
         buildingUnit.getEquippedWith().add(new FacilitiesProperty(lightingFacilities));
 
         AbstractBuildingUnitProperty unitProperty = new AbstractBuildingUnitProperty(buildingUnit);
-        building.getADEOfAbstractBuilding().add(new BuildingUnitElement(unitProperty));
+        buildingProperties.getBuildingUnits().add(unitProperty);
 
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
@@ -111,8 +110,8 @@ public class WritingADE {
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndentString("  ")
-                    .withSchemaLocation(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, Util.OUTPUT_DIR.relativize(
-                            Util.SCHEMAS_DIR.resolve("test-ade-citygml-2.0.xsd")).toString())
+                    .withSchemaLocation(TestADEModule.TESTADE_NAMESPACE, Util.OUTPUT_DIR.relativize(
+                            Util.SCHEMAS_DIR.resolve("test-ade.xsd")).toString())
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
                     .writeMember(building);

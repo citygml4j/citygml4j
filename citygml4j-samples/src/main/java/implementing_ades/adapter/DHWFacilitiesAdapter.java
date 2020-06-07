@@ -29,7 +29,7 @@ import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 
-@XMLElement(name = "DHWFacilities", namespaceURI = TestADEModule.TESTADE_CITYGML_2_NAMESPACE)
+@XMLElement(name = "DHWFacilities", namespaceURI = TestADEModule.TESTADE_NAMESPACE)
 public class DHWFacilitiesAdapter extends FacilitiesAdapter<DHWFacilities> {
 
     @Override
@@ -39,6 +39,6 @@ public class DHWFacilitiesAdapter extends FacilitiesAdapter<DHWFacilities> {
 
     @Override
     public Element createElement(DHWFacilities object, Namespaces namespaces) throws ObjectSerializeException {
-        return Element.of(TestADEModule.TESTADE_CITYGML_2_NAMESPACE, "DHWFacilities");
+        return Element.of(TestADEModule.TESTADE_NAMESPACE, "DHWFacilities");
     }
 }

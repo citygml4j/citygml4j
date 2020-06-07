@@ -26,8 +26,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Target(value = {ElementType.FIELD})
-@Retention(value = RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface LevelOfDetail {
     int value();
 }

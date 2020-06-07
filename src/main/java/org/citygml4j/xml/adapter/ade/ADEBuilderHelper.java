@@ -29,42 +29,79 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.schema.SchemaHandler;
 import org.xmlobjects.schema.SchemaHandlerException;
-import org.xmlobjects.stream.BuildResult;
 import org.xmlobjects.stream.EventType;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 
 import javax.xml.namespace.QName;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public class ADEBuilderHelper {
 
-    public static <T extends ADEContainer> void addADEContainer(Class<T> type, List<? super T> containers, Function<Element, T> creator, XMLReader reader) throws ObjectBuildException, XMLReadException {
+    public static <T extends ADEContainer> void addADEContainer(Class<T> type, List<T> containers, Function<Element, T> creator, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (reader.hasNext() && reader.nextTag() == EventType.START_ELEMENT) {
-            BuildResult<T> result = reader.getObjectOrDOMElement(type);
-            if (result.isSetObject())
-                containers.add(result.getObject());
-            else if (result.isSetDOMElement())
-                containers.add(creator.apply(result.getDOMElement()));
+            QName name = reader.getName();
+            ObjectBuilder<T> builder = reader.getXMLObjects().getBuilder(name, type);
+            if (builder != null)
+                buildContainer(builder, name, containers, reader);
+            else if (reader.isCreateDOMAsFallback())
+                containers.add(creator.apply(reader.getDOMElement()));
         }
     }
 
-    public static <T extends ADEContainer> boolean addADEContainer(QName name, Class<T> type, List<? super T> properties, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
+    public static <T extends ADEContainer> boolean addADEContainer(QName name, Class<T> type, List<T> containers, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
         ObjectBuilder<T> builder = reader.getXMLObjects().getBuilder(name, type);
         if (builder != null) {
-            properties.add(reader.getObjectUsingBuilder(builder));
+            buildContainer(builder, name, containers, reader);
             return true;
-        } else if (ADEBuilderHelper.substitutes(name, reader, substitutionGroups)) {
-            properties.add(creator.apply(reader.getDOMElement()));
+        } else if (reader.isCreateDOMAsFallback() && substitutes(name, reader, substitutionGroups)) {
+            containers.add(creator.apply(reader.getDOMElement()));
             return true;
         }
 
         return false;
     }
 
+    @SuppressWarnings("unchecked")
+    private static <T extends ADEContainer> void buildContainer(ObjectBuilder<T> builder, QName name, List<T> containers, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        Map<Object, Object> containerInfo = (Map<Object, Object>) reader.getProperties().getOrSet("org.citygml4j.reuseADEContainers", Map.class, HashMap::new);
+
+        Object entry = containerInfo.get(builder.getClass().getName());
+        if (entry == null) {
+            try {
+                Method method = builder.getClass().getMethod("createObject", QName.class);
+                ReuseADEContainer reuseADEContainer = method.getAnnotation(ReuseADEContainer.class);
+                entry = reuseADEContainer != null ? reuseADEContainer : Boolean.FALSE;
+                containerInfo.put(builder.getClass().getName(), entry);
+            } catch (NoSuchMethodException e) {
+                throw new ObjectBuildException("Failed to find createObject method of builder " + builder.getClass().getName());
+            }
+        }
+
+        if (entry instanceof ReuseADEContainer) {
+            ReuseADEContainer reuseADEContainer = (ReuseADEContainer) entry;
+            if (reuseADEContainer.value().length == 0
+                    || Arrays.asList(reuseADEContainer.value()).contains(name.getNamespaceURI())) {
+                Class<?> objectType = reader.getXMLObjects().getObjectType(name.getNamespaceURI(), builder);
+                for (T container : containers) {
+                    if (container.getClass() == objectType) {
+                        reader.fillObjectUsingBuilder(container, builder);
+                        return;
+                    }
+                }
+            }
+        }
+
+        containers.add(reader.getObjectUsingBuilder(builder));
+    }
+
     private static boolean substitutes(QName name, XMLReader reader, QName... substitutionGroups) throws XMLReadException {
-        if (reader.isCreateDOMAsFallback() && reader.getSchemaHandler() != null) {
+        if (reader.getSchemaHandler() != null) {
             try {
                 SchemaHandler schemaHandler = reader.getSchemaHandler();
                 schemaHandler.resolveAndParseSchema(name.getNamespaceURI());

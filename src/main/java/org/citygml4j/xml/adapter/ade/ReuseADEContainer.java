@@ -17,25 +17,17 @@
  * limitations under the License.
  */
 
-package implementing_ades.model;
+package org.citygml4j.xml.adapter.ade;
 
-import org.citygml4j.model.building.ADEOfAbstractBuilding;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class EnergyPerformanceCertificationElement extends ADEOfAbstractBuilding {
-    private EnergyPerformanceCertificationProperty value;
-
-    public EnergyPerformanceCertificationElement() {
-    }
-
-    public EnergyPerformanceCertificationElement(EnergyPerformanceCertificationProperty value) {
-        this.value = value;
-    }
-
-    public EnergyPerformanceCertificationProperty getValue() {
-        return value;
-    }
-
-    public void setValue(EnergyPerformanceCertificationProperty value) {
-        this.value = value;
-    }
+@Documented
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ReuseADEContainer {
+    String[] value() default {};
 }
