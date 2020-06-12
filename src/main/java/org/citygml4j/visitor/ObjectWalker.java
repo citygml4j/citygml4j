@@ -234,7 +234,6 @@ import java.util.ArrayList;
 
 public abstract class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walker {
     final ADEWalkerHelper adeWalkerHelper = new ADEWalkerHelper(this);
-    boolean shouldWalk = true;
 
     public ObjectWalker() {
         ADERegistry registry = ADERegistry.getInstance();
@@ -251,18 +250,6 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
         }
 
         return this;
-    }
-
-    public boolean shouldWalk() {
-        return shouldWalk;
-    }
-
-    public void setShouldWalk(boolean shouldWalk) {
-        this.shouldWalk = shouldWalk;
-    }
-
-    public void reset() {
-        shouldWalk = true;
     }
 
     public void visit(AbstractGML object) {

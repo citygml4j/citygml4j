@@ -13,6 +13,10 @@ public abstract class Module {
         this.schemaLocation = schemaLocation;
     }
 
+    public Module(String namespaceURI, String namespacePrefix) {
+        this(namespaceURI, namespacePrefix, null);
+    }
+
     public final String getNamespaceURI() {
         return namespaceURI;
     }
