@@ -53,6 +53,7 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                     return;
                 case "lod0MultiCurve":
                     object.setLod0MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
+                    return;
                 case "lod1Solid":
                     object.setLod1Solid(reader.getObjectUsingBuilder(SolidPropertyAdapter.class));
                     return;
