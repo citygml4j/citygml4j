@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class BridgeFurnitureMemberAdapter extends AbstractFeatureMemberAdapter<BridgeFurnitureMember> {
 
     @Override
-    public BridgeFurnitureMember createObject(QName name) throws ObjectBuildException {
+    public BridgeFurnitureMember createObject(QName name, Object parent) throws ObjectBuildException {
         return new BridgeFurnitureMember();
     }
 }

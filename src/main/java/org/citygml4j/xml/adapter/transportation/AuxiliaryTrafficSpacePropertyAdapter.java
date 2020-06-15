@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AuxiliaryTrafficSpacePropertyAdapter extends AbstractFeaturePropertyAdapter<AuxiliaryTrafficSpaceProperty> {
 
     @Override
-    public AuxiliaryTrafficSpaceProperty createObject(QName name) throws ObjectBuildException {
+    public AuxiliaryTrafficSpaceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AuxiliaryTrafficSpaceProperty();
     }
 }

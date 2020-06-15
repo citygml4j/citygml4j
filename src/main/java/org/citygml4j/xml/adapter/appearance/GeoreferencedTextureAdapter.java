@@ -38,7 +38,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
     };
 
     @Override
-    public GeoreferencedTexture createObject(QName name) throws ObjectBuildException {
+    public GeoreferencedTexture createObject(QName name, Object parent) throws ObjectBuildException {
         return new GeoreferencedTexture();
     }
 

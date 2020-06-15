@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class QualifiedAreaAdapter implements ObjectBuilder<QualifiedArea>, ObjectSerializer<QualifiedArea> {
 
     @Override
-    public QualifiedArea createObject(QName name) throws ObjectBuildException {
+    public QualifiedArea createObject(QName name, Object parent) throws ObjectBuildException {
         return new QualifiedArea();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class QualifiedVolumePropertyAdapter extends AbstractInlinePropertyAdapter<QualifiedVolumeProperty> {
 
     @Override
-    public QualifiedVolumeProperty createObject(QName name) throws ObjectBuildException {
+    public QualifiedVolumeProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new QualifiedVolumeProperty();
     }
 }

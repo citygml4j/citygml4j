@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class VersionAdapter extends AbstractVersionAdapter<Version> {
 
     @Override
-    public Version createObject(QName name) throws ObjectBuildException {
+    public Version createObject(QName name, Object parent) throws ObjectBuildException {
         return new Version();
     }
 

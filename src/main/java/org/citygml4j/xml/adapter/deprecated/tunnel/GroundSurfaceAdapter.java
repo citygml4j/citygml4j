@@ -26,7 +26,7 @@ public class GroundSurfaceAdapter extends AbstractBoundarySurfaceAdapter<GroundS
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfGroundSurface");
 
     @Override
-    public GroundSurface createObject(QName name) throws ObjectBuildException {
+    public GroundSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new GroundSurface();
     }
 

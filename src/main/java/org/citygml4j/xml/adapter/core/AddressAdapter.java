@@ -35,7 +35,7 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     };
 
     @Override
-    public Address createObject(QName name) throws ObjectBuildException {
+    public Address createObject(QName name, Object parent) throws ObjectBuildException {
         return new Address();
     }
 

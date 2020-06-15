@@ -33,7 +33,7 @@ import javax.xml.namespace.QName;
 public class BuildingUnitPartAdapter extends AbstractBuildingUnitAdapter<BuildingUnitPart> {
 
     @Override
-    public BuildingUnitPart createObject(QName name) throws ObjectBuildException {
+    public BuildingUnitPart createObject(QName name, Object parent) throws ObjectBuildException {
         return new BuildingUnitPart();
     }
 

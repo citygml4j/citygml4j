@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class BridgeRoomPropertyAdapter extends AbstractFeaturePropertyAdapter<BridgeRoomProperty> {
 
     @Override
-    public BridgeRoomProperty createObject(QName name) throws ObjectBuildException {
+    public BridgeRoomProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new BridgeRoomProperty();
     }
 }

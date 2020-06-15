@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class TunnelConstructiveElementAdapter extends AbstractConstructiveElementAdapter<TunnelConstructiveElement> {
 
     @Override
-    public TunnelConstructiveElement createObject(QName name) throws ObjectBuildException {
+    public TunnelConstructiveElement createObject(QName name, Object parent) throws ObjectBuildException {
         return new TunnelConstructiveElement();
     }
 

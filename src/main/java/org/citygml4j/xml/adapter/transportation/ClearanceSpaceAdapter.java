@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<ClearanceSpace> {
 
     @Override
-    public ClearanceSpace createObject(QName name) throws ObjectBuildException {
+    public ClearanceSpace createObject(QName name, Object parent) throws ObjectBuildException {
         return new ClearanceSpace();
     }
 

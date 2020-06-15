@@ -33,7 +33,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     };
 
     @Override
-    public WindowSurface createObject(QName name) throws ObjectBuildException {
+    public WindowSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new WindowSurface();
     }
 

@@ -50,7 +50,7 @@ public class AbstractBuildingPropertiesAdapter implements ObjectBuilder<Abstract
 
     @Override
     @ReuseADEContainer
-    public AbstractBuildingProperties createObject(QName name) throws ObjectBuildException {
+    public AbstractBuildingProperties createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractBuildingProperties();
     }
 

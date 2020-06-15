@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class OuterCeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapter<OuterCeilingSurface> {
 
     @Override
-    public OuterCeilingSurface createObject(QName name) throws ObjectBuildException {
+    public OuterCeilingSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new OuterCeilingSurface();
     }
 

@@ -17,7 +17,7 @@ import javax.xml.namespace.QName;
 public class EngineeringCRSPropertyAdapter extends AbstractMetadataPropertyAdapter<EngineeringCRSProperty> {
 
     @Override
-    public EngineeringCRSProperty createObject(QName name) throws ObjectBuildException {
+    public EngineeringCRSProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new EngineeringCRSProperty();
     }
 

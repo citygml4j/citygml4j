@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class TunnelFurnitureMemberAdapter extends AbstractFeatureMemberAdapter<TunnelFurnitureMember> {
 
     @Override
-    public TunnelFurnitureMember createObject(QName name) throws ObjectBuildException {
+    public TunnelFurnitureMember createObject(QName name, Object parent) throws ObjectBuildException {
         return new TunnelFurnitureMember();
     }
 }

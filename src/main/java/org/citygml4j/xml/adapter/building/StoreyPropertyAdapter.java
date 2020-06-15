@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class StoreyPropertyAdapter extends AbstractFeaturePropertyAdapter<StoreyProperty> {
 
     @Override
-    public StoreyProperty createObject(QName name) throws ObjectBuildException {
+    public StoreyProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new StoreyProperty();
     }
 }

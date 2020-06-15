@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<WaterGroundSurface> {
 
     @Override
-    public WaterGroundSurface createObject(QName name) throws ObjectBuildException {
+    public WaterGroundSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new WaterGroundSurface();
     }
 

@@ -26,7 +26,7 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfClosureSurface");
 
     @Override
-    public ClosureSurface createObject(QName name) throws ObjectBuildException {
+    public ClosureSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new ClosureSurface();
     }
 

@@ -33,7 +33,7 @@ import javax.xml.namespace.QName;
 public class DHWFacilitiesAdapter extends FacilitiesAdapter<DHWFacilities> {
 
     @Override
-    public DHWFacilities createObject(QName name) throws ObjectBuildException {
+    public DHWFacilities createObject(QName name, Object parent) throws ObjectBuildException {
         return new DHWFacilities();
     }
 

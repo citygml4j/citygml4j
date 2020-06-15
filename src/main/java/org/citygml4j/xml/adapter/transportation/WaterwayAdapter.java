@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class WaterwayAdapter extends AbstractTransportationSpaceAdapter<Waterway> {
 
     @Override
-    public Waterway createObject(QName name) throws ObjectBuildException {
+    public Waterway createObject(QName name, Object parent) throws ObjectBuildException {
         return new Waterway();
     }
 

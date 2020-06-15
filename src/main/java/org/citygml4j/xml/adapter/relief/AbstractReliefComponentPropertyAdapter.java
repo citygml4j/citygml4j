@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractReliefComponentPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractReliefComponentProperty> {
 
     @Override
-    public AbstractReliefComponentProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractReliefComponentProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractReliefComponentProperty();
     }
 }

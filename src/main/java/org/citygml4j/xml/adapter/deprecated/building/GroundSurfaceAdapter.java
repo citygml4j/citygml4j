@@ -33,7 +33,7 @@ public class GroundSurfaceAdapter extends AbstractBoundarySurfaceAdapter<GroundS
     };
 
     @Override
-    public GroundSurface createObject(QName name) throws ObjectBuildException {
+    public GroundSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new GroundSurface();
     }
 

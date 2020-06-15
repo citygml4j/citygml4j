@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 public class TextureAssociationAdapter extends AbstractGMLAdapter<TextureAssociation> {
 
     @Override
-    public TextureAssociation createObject(QName name) throws ObjectBuildException {
+    public TextureAssociation createObject(QName name, Object parent) throws ObjectBuildException {
         return new TextureAssociation();
     }
 

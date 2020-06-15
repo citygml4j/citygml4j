@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSurface> {
 
     @Override
-    public WindowSurface createObject(QName name) throws ObjectBuildException {
+    public WindowSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new WindowSurface();
     }
 

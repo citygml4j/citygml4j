@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class IntersectionAdapter extends AbstractTransportationSpaceAdapter<Intersection> {
 
     @Override
-    public Intersection createObject(QName name) throws ObjectBuildException {
+    public Intersection createObject(QName name, Object parent) throws ObjectBuildException {
         return new Intersection();
     }
 

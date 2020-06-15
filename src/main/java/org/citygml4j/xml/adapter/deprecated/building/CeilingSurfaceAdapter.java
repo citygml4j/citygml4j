@@ -33,7 +33,7 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
     };
 
     @Override
-    public CeilingSurface createObject(QName name) throws ObjectBuildException {
+    public CeilingSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new CeilingSurface();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class ClearanceSpacePropertyAdapter extends AbstractFeaturePropertyAdapter<ClearanceSpaceProperty> {
 
     @Override
-    public ClearanceSpaceProperty createObject(QName name) throws ObjectBuildException {
+    public ClearanceSpaceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new ClearanceSpaceProperty();
     }
 }

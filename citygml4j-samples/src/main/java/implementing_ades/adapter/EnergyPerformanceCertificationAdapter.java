@@ -40,7 +40,7 @@ import javax.xml.namespace.QName;
 public class EnergyPerformanceCertificationAdapter implements ObjectBuilder<EnergyPerformanceCertification>, ObjectSerializer<EnergyPerformanceCertification> {
 
     @Override
-    public EnergyPerformanceCertification createObject(QName name) throws ObjectBuildException {
+    public EnergyPerformanceCertification createObject(QName name, Object parent) throws ObjectBuildException {
         return new EnergyPerformanceCertification();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class GridPropertyAdapter extends AbstractFeaturePropertyAdapter<GridProperty> {
 
     @Override
-    public GridProperty createObject(QName name) throws ObjectBuildException {
+    public GridProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new GridProperty();
     }
 }

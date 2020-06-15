@@ -33,7 +33,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     };
 
     @Override
-    public WaterGroundSurface createObject(QName name) throws ObjectBuildException {
+    public WaterGroundSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new WaterGroundSurface();
     }
 

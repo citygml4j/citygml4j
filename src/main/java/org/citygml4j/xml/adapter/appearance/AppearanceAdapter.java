@@ -36,7 +36,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
     };
 
     @Override
-    public Appearance createObject(QName name) throws ObjectBuildException {
+    public Appearance createObject(QName name, Object parent) throws ObjectBuildException {
         return new Appearance();
     }
 

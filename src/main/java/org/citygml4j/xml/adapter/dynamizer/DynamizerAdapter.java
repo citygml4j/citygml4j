@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 public class DynamizerAdapter extends AbstractDynamizerAdapter<Dynamizer> {
 
     @Override
-    public Dynamizer createObject(QName name) throws ObjectBuildException {
+    public Dynamizer createObject(QName name, Object parent) throws ObjectBuildException {
         return new Dynamizer();
     }
 

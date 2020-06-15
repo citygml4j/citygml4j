@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractSurfaceDataPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractSurfaceDataProperty> {
 
     @Override
-    public AbstractSurfaceDataProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractSurfaceDataProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractSurfaceDataProperty();
     }
 }

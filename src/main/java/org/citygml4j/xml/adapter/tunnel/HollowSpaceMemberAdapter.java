@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class HollowSpaceMemberAdapter extends AbstractFeatureMemberAdapter<HollowSpaceMember> {
 
     @Override
-    public HollowSpaceMember createObject(QName name) throws ObjectBuildException {
+    public HollowSpaceMember createObject(QName name, Object parent) throws ObjectBuildException {
         return new HollowSpaceMember();
     }
 }

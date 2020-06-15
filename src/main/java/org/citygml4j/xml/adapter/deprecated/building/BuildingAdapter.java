@@ -33,7 +33,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     };
 
     @Override
-    public Building createObject(QName name) throws ObjectBuildException {
+    public Building createObject(QName name, Object parent) throws ObjectBuildException {
         return new Building();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class ImplicitGeometryPropertyAdapter extends AbstractPropertyAdapter<ImplicitGeometryProperty> {
 
     @Override
-    public ImplicitGeometryProperty createObject(QName name) throws ObjectBuildException {
+    public ImplicitGeometryProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new ImplicitGeometryProperty();
     }
 }

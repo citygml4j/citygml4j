@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class IntersectionPropertyAdapter extends AbstractFeaturePropertyAdapter<IntersectionProperty> {
 
     @Override
-    public IntersectionProperty createObject(QName name) throws ObjectBuildException {
+    public IntersectionProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new IntersectionProperty();
     }
 }

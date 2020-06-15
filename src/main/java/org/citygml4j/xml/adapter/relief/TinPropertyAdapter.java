@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class TinPropertyAdapter extends AbstractGeometryPropertyAdapter<TinProperty> {
 
     @Override
-    public TinProperty createObject(QName name) throws ObjectBuildException {
+    public TinProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new TinProperty();
     }
 }

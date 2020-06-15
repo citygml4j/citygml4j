@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class ConstructionEventPropertyAdapter extends AbstractInlinePropertyAdapter<ConstructionEventProperty> {
 
     @Override
-    public ConstructionEventProperty createObject(QName name) throws ObjectBuildException {
+    public ConstructionEventProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new ConstructionEventProperty();
     }
 }

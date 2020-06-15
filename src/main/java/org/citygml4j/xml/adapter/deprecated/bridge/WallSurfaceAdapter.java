@@ -26,7 +26,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfWallSurface");
 
     @Override
-    public WallSurface createObject(QName name) throws ObjectBuildException {
+    public WallSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new WallSurface();
     }
 

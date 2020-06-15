@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class ClosureSurfaceAdapter extends AbstractThematicSurfaceAdapter<ClosureSurface> {
 
     @Override
-    public ClosureSurface createObject(QName name) throws ObjectBuildException {
+    public ClosureSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new ClosureSurface();
     }
 

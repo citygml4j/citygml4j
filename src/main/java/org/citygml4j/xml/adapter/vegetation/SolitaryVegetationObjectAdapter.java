@@ -39,7 +39,7 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
     };
 
     @Override
-    public SolitaryVegetationObject createObject(QName name) throws ObjectBuildException {
+    public SolitaryVegetationObject createObject(QName name, Object parent) throws ObjectBuildException {
         return new SolitaryVegetationObject();
     }
 

@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class FacilitiesPropertyAdapter extends AbstractFeaturePropertyAdapter<FacilitiesProperty> {
 
     @Override
-    public FacilitiesProperty createObject(QName name) throws ObjectBuildException {
+    public FacilitiesProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new FacilitiesProperty();
     }
 }

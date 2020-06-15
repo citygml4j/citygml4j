@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> {
 
     @Override
-    public Section createObject(QName name) throws ObjectBuildException {
+    public Section createObject(QName name, Object parent) throws ObjectBuildException {
         return new Section();
     }
 

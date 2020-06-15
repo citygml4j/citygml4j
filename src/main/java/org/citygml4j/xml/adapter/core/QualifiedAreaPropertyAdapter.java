@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class QualifiedAreaPropertyAdapter extends AbstractInlinePropertyAdapter<QualifiedAreaProperty> {
 
     @Override
-    public QualifiedAreaProperty createObject(QName name) throws ObjectBuildException {
+    public QualifiedAreaProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new QualifiedAreaProperty();
     }
 }

@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class ElevationAdapter implements ObjectBuilder<Elevation>, ObjectSerializer<Elevation> {
 
     @Override
-    public Elevation createObject(QName name) throws ObjectBuildException {
+    public Elevation createObject(QName name, Object parent) throws ObjectBuildException {
         return new Elevation();
     }
 

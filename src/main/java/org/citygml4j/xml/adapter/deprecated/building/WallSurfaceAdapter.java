@@ -33,7 +33,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
     };
 
     @Override
-    public WallSurface createObject(QName name) throws ObjectBuildException {
+    public WallSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new WallSurface();
     }
 

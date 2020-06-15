@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractUnoccupiedSpacePropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractUnoccupiedSpaceProperty> {
 
     @Override
-    public AbstractUnoccupiedSpaceProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractUnoccupiedSpaceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractUnoccupiedSpaceProperty();
     }
 }

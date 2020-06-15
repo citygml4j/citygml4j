@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<TabulatedFileTimeseries> {
 
     @Override
-    public TabulatedFileTimeseries createObject(QName name) throws ObjectBuildException {
+    public TabulatedFileTimeseries createObject(QName name, Object parent) throws ObjectBuildException {
         return new TabulatedFileTimeseries();
     }
 

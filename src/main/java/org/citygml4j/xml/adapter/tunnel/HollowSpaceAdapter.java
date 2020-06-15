@@ -38,7 +38,7 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfHollowSpace");
 
     @Override
-    public HollowSpace createObject(QName name) throws ObjectBuildException {
+    public HollowSpace createObject(QName name, Object parent) throws ObjectBuildException {
         return new HollowSpace();
     }
 

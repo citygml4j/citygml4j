@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractBuildingSubdivisionMemberAdapter extends AbstractFeatureMemberAdapter<AbstractBuildingSubdivisionMember> {
 
     @Override
-    public AbstractBuildingSubdivisionMember createObject(QName name) throws ObjectBuildException {
+    public AbstractBuildingSubdivisionMember createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractBuildingSubdivisionMember();
     }
 }

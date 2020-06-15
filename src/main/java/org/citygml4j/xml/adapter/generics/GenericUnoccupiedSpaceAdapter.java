@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<GenericUnoccupiedSpace> {
 
     @Override
-    public GenericUnoccupiedSpace createObject(QName name) throws ObjectBuildException {
+    public GenericUnoccupiedSpace createObject(QName name, Object parent) throws ObjectBuildException {
         return new GenericUnoccupiedSpace();
     }
 

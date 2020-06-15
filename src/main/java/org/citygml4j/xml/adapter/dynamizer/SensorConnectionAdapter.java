@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>, ObjectSerializer<SensorConnection> {
 
     @Override
-    public SensorConnection createObject(QName name) throws ObjectBuildException {
+    public SensorConnection createObject(QName name, Object parent) throws ObjectBuildException {
         return new SensorConnection();
     }
 

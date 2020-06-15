@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AddressPropertyAdapter extends AbstractFeaturePropertyAdapter<AddressProperty> {
 
     @Override
-    public AddressProperty createObject(QName name) throws ObjectBuildException {
+    public AddressProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AddressProperty();
     }
 }

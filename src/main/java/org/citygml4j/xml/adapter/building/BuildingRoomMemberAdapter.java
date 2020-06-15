@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class BuildingRoomMemberAdapter extends AbstractFeatureMemberAdapter<BuildingRoomMember> {
 
     @Override
-    public BuildingRoomMember createObject(QName name) throws ObjectBuildException {
+    public BuildingRoomMember createObject(QName name, Object parent) throws ObjectBuildException {
         return new BuildingRoomMember();
     }
 }

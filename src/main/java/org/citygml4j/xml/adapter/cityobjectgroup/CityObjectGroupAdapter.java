@@ -38,7 +38,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
     };
 
     @Override
-    public CityObjectGroup createObject(QName name) throws ObjectBuildException {
+    public CityObjectGroup createObject(QName name, Object parent) throws ObjectBuildException {
         return new CityObjectGroup();
     }
 

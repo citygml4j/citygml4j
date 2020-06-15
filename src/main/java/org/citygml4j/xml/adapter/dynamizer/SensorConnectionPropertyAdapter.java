@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class SensorConnectionPropertyAdapter extends AbstractInlinePropertyAdapter<SensorConnectionProperty> {
 
     @Override
-    public SensorConnectionProperty createObject(QName name) throws ObjectBuildException {
+    public SensorConnectionProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new SensorConnectionProperty();
     }
 }

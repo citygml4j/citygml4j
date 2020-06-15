@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class SectionPropertyAdapter extends AbstractFeaturePropertyAdapter<SectionProperty> {
 
     @Override
-    public SectionProperty createObject(QName name) throws ObjectBuildException {
+    public SectionProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new SectionProperty();
     }
 }

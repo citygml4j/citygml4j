@@ -74,7 +74,7 @@ public class ADEBuilderHelper {
         Object entry = containerInfo.get(builder.getClass().getName());
         if (entry == null) {
             try {
-                Method method = builder.getClass().getMethod("createObject", QName.class);
+                Method method = builder.getClass().getMethod("createObject", QName.class, Object.class);
                 ReuseADEContainer reuseADEContainer = method.getAnnotation(ReuseADEContainer.class);
                 entry = reuseADEContainer != null ? reuseADEContainer : Boolean.FALSE;
                 containerInfo.put(builder.getClass().getName(), entry);

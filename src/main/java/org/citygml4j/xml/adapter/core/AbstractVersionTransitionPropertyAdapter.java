@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractVersionTransitionPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractVersionTransitionProperty> {
 
     @Override
-    public AbstractVersionTransitionProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractVersionTransitionProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractVersionTransitionProperty();
     }
 }

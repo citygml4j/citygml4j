@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
 
     @Override
-    public Square createObject(QName name) throws ObjectBuildException {
+    public Square createObject(QName name, Object parent) throws ObjectBuildException {
         return new Square();
     }
 

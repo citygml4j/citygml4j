@@ -29,7 +29,7 @@ import javax.xml.namespace.QName;
 public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<GenericAttributeSet> {
 
     @Override
-    public GenericAttributeSet createObject(QName name) throws ObjectBuildException {
+    public GenericAttributeSet createObject(QName name, Object parent) throws ObjectBuildException {
         return new GenericAttributeSet();
     }
 

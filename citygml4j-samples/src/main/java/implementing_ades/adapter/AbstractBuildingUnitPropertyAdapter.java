@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class AbstractBuildingUnitPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractBuildingUnitProperty> {
 
     @Override
-    public AbstractBuildingUnitProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractBuildingUnitProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractBuildingUnitProperty();
     }
 }

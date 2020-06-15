@@ -41,7 +41,7 @@ import javax.xml.namespace.QName;
 public class OtherConstructionAdapter extends AbstractSiteAdapter<OtherConstruction> {
 
     @Override
-    public OtherConstruction createObject(QName name) throws ObjectBuildException {
+    public OtherConstruction createObject(QName name, Object parent) throws ObjectBuildException {
         return new OtherConstruction();
     }
 

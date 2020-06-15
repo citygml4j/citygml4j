@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractAppearancePropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractAppearanceProperty> {
 
     @Override
-    public AbstractAppearanceProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractAppearanceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractAppearanceProperty();
     }
 }

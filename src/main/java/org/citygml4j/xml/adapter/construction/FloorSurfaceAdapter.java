@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class FloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter<FloorSurface> {
 
     @Override
-    public FloorSurface createObject(QName name) throws ObjectBuildException {
+    public FloorSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new FloorSurface();
     }
 

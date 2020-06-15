@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class TunnelPartPropertyAdapter extends AbstractFeaturePropertyAdapter<TunnelPartProperty> {
 
     @Override
-    public TunnelPartProperty createObject(QName name) throws ObjectBuildException {
+    public TunnelPartProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new TunnelPartProperty();
     }
 }

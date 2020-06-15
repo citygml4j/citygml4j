@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class CityObjectRelationPropertyAdapter extends AbstractPropertyAdapter<CityObjectRelationProperty> {
 
     @Override
-    public CityObjectRelationProperty createObject(QName name) throws ObjectBuildException {
+    public CityObjectRelationProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new CityObjectRelationProperty();
     }
 }

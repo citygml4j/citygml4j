@@ -31,7 +31,7 @@ import java.time.ZoneOffset;
 public class DateAttributeAdapter extends AbstractGenericAttributeAdapter<DateAttribute> {
 
     @Override
-    public DateAttribute createObject(QName name) throws ObjectBuildException {
+    public DateAttribute createObject(QName name, Object parent) throws ObjectBuildException {
         return new DateAttribute();
     }
 

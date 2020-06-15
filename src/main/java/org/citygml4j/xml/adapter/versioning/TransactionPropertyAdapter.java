@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class TransactionPropertyAdapter extends AbstractInlinePropertyAdapter<TransactionProperty> {
 
     @Override
-    public TransactionProperty createObject(QName name) throws ObjectBuildException {
+    public TransactionProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new TransactionProperty();
     }
 }

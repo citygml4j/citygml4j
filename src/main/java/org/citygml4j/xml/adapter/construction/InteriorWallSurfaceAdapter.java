@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class InteriorWallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<InteriorWallSurface> {
 
     @Override
-    public InteriorWallSurface createObject(QName name) throws ObjectBuildException {
+    public InteriorWallSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new InteriorWallSurface();
     }
 

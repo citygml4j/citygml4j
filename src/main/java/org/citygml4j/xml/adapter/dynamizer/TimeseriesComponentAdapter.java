@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class TimeseriesComponentAdapter implements ObjectBuilder<TimeseriesComponent>, ObjectSerializer<TimeseriesComponent> {
 
     @Override
-    public TimeseriesComponent createObject(QName name) throws ObjectBuildException {
+    public TimeseriesComponent createObject(QName name, Object parent) throws ObjectBuildException {
         return new TimeseriesComponent();
     }
 

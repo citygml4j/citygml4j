@@ -36,7 +36,7 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
     };
 
     @Override
-    public MassPointRelief createObject(QName name) throws ObjectBuildException {
+    public MassPointRelief createObject(QName name, Object parent) throws ObjectBuildException {
         return new MassPointRelief();
     }
 

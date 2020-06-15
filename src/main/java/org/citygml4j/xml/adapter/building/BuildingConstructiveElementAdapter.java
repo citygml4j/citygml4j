@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class BuildingConstructiveElementAdapter extends AbstractConstructiveElementAdapter<BuildingConstructiveElement> {
 
     @Override
-    public BuildingConstructiveElement createObject(QName name) throws ObjectBuildException {
+    public BuildingConstructiveElement createObject(QName name, Object parent) throws ObjectBuildException {
         return new BuildingConstructiveElement();
     }
 

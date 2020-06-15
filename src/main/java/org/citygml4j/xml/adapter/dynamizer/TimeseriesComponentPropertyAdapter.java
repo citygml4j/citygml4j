@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class TimeseriesComponentPropertyAdapter extends AbstractInlinePropertyAdapter<TimeseriesComponentProperty> {
 
     @Override
-    public TimeseriesComponentProperty createObject(QName name) throws ObjectBuildException {
+    public TimeseriesComponentProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new TimeseriesComponentProperty();
     }
 }

@@ -26,7 +26,7 @@ import java.time.ZoneOffset;
 public class ConstructionEventAdapter implements ObjectBuilder<ConstructionEvent>, ObjectSerializer<ConstructionEvent> {
 
     @Override
-    public ConstructionEvent createObject(QName name) throws ObjectBuildException {
+    public ConstructionEvent createObject(QName name, Object parent) throws ObjectBuildException {
         return new ConstructionEvent();
     }
 

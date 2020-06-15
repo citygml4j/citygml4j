@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class DoubleAttributeAdapter extends AbstractGenericAttributeAdapter<DoubleAttribute> {
 
     @Override
-    public DoubleAttribute createObject(QName name) throws ObjectBuildException {
+    public DoubleAttribute createObject(QName name, Object parent) throws ObjectBuildException {
         return new DoubleAttribute();
     }
 

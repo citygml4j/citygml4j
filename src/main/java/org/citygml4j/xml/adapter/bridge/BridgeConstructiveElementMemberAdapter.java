@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class BridgeConstructiveElementMemberAdapter extends AbstractFeatureMemberAdapter<BridgeConstructiveElementMember> {
 
     @Override
-    public BridgeConstructiveElementMember createObject(QName name) throws ObjectBuildException {
+    public BridgeConstructiveElementMember createObject(QName name, Object parent) throws ObjectBuildException {
         return new BridgeConstructiveElementMember();
     }
 }

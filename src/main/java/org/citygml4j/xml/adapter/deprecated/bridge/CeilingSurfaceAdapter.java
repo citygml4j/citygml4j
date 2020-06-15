@@ -26,7 +26,7 @@ public class CeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Ceilin
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfCeilingSurface");
 
     @Override
-    public CeilingSurface createObject(QName name) throws ObjectBuildException {
+    public CeilingSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new CeilingSurface();
     }
 

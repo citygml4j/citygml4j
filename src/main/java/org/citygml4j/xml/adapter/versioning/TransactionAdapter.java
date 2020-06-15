@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class TransactionAdapter implements ObjectBuilder<Transaction>, ObjectSerializer<Transaction> {
 
     @Override
-    public Transaction createObject(QName name) throws ObjectBuildException {
+    public Transaction createObject(QName name, Object parent) throws ObjectBuildException {
         return new Transaction();
     }
 

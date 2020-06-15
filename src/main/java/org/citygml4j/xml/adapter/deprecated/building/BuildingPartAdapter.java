@@ -33,7 +33,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     };
 
     @Override
-    public BuildingPart createObject(QName name) throws ObjectBuildException {
+    public BuildingPart createObject(QName name, Object parent) throws ObjectBuildException {
         return new BuildingPart();
     }
 

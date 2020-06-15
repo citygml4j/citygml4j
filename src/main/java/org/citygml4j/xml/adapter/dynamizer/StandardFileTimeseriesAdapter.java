@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<StandardFileTimeseries> {
 
     @Override
-    public StandardFileTimeseries createObject(QName name) throws ObjectBuildException {
+    public StandardFileTimeseries createObject(QName name, Object parent) throws ObjectBuildException {
         return new StandardFileTimeseries();
     }
 

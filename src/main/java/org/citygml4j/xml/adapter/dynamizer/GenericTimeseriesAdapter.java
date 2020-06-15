@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 public class GenericTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<GenericTimeseries> {
 
     @Override
-    public GenericTimeseries createObject(QName name) throws ObjectBuildException {
+    public GenericTimeseries createObject(QName name, Object parent) throws ObjectBuildException {
         return new GenericTimeseries();
     }
 

@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 public class ExternalObjectAdapter implements ObjectBuilder<ExternalObject>, ObjectSerializer<ExternalObject> {
 
     @Override
-    public ExternalObject createObject(QName name) throws ObjectBuildException {
+    public ExternalObject createObject(QName name, Object parent) throws ObjectBuildException {
         return new ExternalObject();
     }
 

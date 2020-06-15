@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class HeightPropertyAdapter extends AbstractInlinePropertyAdapter<HeightProperty> {
 
     @Override
-    public HeightProperty createObject(QName name) throws ObjectBuildException {
+    public HeightProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new HeightProperty();
     }
 }

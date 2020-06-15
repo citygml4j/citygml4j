@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class BuildingInstallationMemberAdapter extends AbstractFeatureMemberAdapter<BuildingInstallationMember> {
 
     @Override
-    public BuildingInstallationMember createObject(QName name) throws ObjectBuildException {
+    public BuildingInstallationMember createObject(QName name, Object parent) throws ObjectBuildException {
         return new BuildingInstallationMember();
     }
 }

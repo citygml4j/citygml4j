@@ -34,7 +34,7 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
     };
 
     @Override
-    public RasterRelief createObject(QName name) throws ObjectBuildException {
+    public RasterRelief createObject(QName name, Object parent) throws ObjectBuildException {
         return new RasterRelief();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractDynamizerPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractDynamizerProperty> {
 
     @Override
-    public AbstractDynamizerProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractDynamizerProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractDynamizerProperty();
     }
 }

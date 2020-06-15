@@ -33,7 +33,7 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
     };
 
     @Override
-    public InteriorWallSurface createObject(QName name) throws ObjectBuildException {
+    public InteriorWallSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new InteriorWallSurface();
     }
 

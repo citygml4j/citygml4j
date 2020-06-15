@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class TimeValuePairPropertyAdapter extends AbstractInlinePropertyAdapter<TimeValuePairProperty> {
 
     @Override
-    public TimeValuePairProperty createObject(QName name) throws ObjectBuildException {
+    public TimeValuePairProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new TimeValuePairProperty();
     }
 }

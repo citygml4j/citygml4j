@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<AuxiliaryTrafficSpace> {
 
     @Override
-    public AuxiliaryTrafficSpace createObject(QName name) throws ObjectBuildException {
+    public AuxiliaryTrafficSpace createObject(QName name, Object parent) throws ObjectBuildException {
         return new AuxiliaryTrafficSpace();
     }
 

@@ -33,7 +33,7 @@ import javax.xml.namespace.QName;
 public class LightingFacilitiesAdapter extends FacilitiesAdapter<LightingFacilities> {
 
     @Override
-    public LightingFacilities createObject(QName name) throws ObjectBuildException {
+    public LightingFacilities createObject(QName name, Object parent) throws ObjectBuildException {
         return new LightingFacilities();
     }
 

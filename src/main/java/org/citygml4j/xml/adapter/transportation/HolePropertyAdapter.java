@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class HolePropertyAdapter extends AbstractFeaturePropertyAdapter<HoleProperty> {
 
     @Override
-    public HoleProperty createObject(QName name) throws ObjectBuildException {
+    public HoleProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new HoleProperty();
     }
 }

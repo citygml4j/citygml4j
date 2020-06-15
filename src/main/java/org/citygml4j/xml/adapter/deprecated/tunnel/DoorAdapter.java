@@ -28,7 +28,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfDoor");
 
     @Override
-    public DoorSurface createObject(QName name) throws ObjectBuildException {
+    public DoorSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new DoorSurface();
     }
 

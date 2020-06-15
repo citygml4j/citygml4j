@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractSpaceBoundaryPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractSpaceBoundaryProperty> {
 
     @Override
-    public AbstractSpaceBoundaryProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractSpaceBoundaryProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractSpaceBoundaryProperty();
     }
 }

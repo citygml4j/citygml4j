@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
 
     @Override
-    public TunnelPart createObject(QName name) throws ObjectBuildException {
+    public TunnelPart createObject(QName name, Object parent) throws ObjectBuildException {
         return new TunnelPart();
     }
 

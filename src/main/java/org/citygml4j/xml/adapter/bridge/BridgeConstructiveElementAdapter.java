@@ -38,7 +38,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeConstructionElement");
 
     @Override
-    public BridgeConstructiveElement createObject(QName name) throws ObjectBuildException {
+    public BridgeConstructiveElement createObject(QName name, Object parent) throws ObjectBuildException {
         return new BridgeConstructiveElement();
     }
 

@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapter<GenericThematicSurface> {
 
     @Override
-    public GenericThematicSurface createObject(QName name) throws ObjectBuildException {
+    public GenericThematicSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new GenericThematicSurface();
     }
 

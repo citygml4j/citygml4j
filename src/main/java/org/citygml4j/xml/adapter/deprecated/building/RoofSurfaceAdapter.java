@@ -33,7 +33,7 @@ public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurfa
     };
 
     @Override
-    public RoofSurface createObject(QName name) throws ObjectBuildException {
+    public RoofSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new RoofSurface();
     }
 

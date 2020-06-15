@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class EnergyPerformanceCertificationPropertyAdapter extends AbstractInlinePropertyAdapter<EnergyPerformanceCertificationProperty> {
 
     @Override
-    public EnergyPerformanceCertificationProperty createObject(QName name) throws ObjectBuildException {
+    public EnergyPerformanceCertificationProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new EnergyPerformanceCertificationProperty();
     }
 }

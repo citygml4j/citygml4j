@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class CodeAttributeAdapter extends AbstractGenericAttributeAdapter<CodeAttribute> {
 
     @Override
-    public CodeAttribute createObject(QName name) throws ObjectBuildException {
+    public CodeAttribute createObject(QName name, Object parent) throws ObjectBuildException {
         return new CodeAttribute();
     }
 

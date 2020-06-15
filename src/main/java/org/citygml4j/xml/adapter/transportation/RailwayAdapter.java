@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class RailwayAdapter extends AbstractTransportationSpaceAdapter<Railway> {
 
     @Override
-    public Railway createObject(QName name) throws ObjectBuildException {
+    public Railway createObject(QName name, Object parent) throws ObjectBuildException {
         return new Railway();
     }
 

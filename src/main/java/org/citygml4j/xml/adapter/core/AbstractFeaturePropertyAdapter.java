@@ -8,7 +8,7 @@ import javax.xml.namespace.QName;
 public class AbstractFeaturePropertyAdapter extends org.xmlobjects.gml.adapter.feature.AbstractFeaturePropertyAdapter<AbstractFeatureProperty> {
 
     @Override
-    public AbstractFeatureProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractFeatureProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractFeatureProperty();
     }
 }

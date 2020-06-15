@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class HeightAdapter implements ObjectBuilder<Height>, ObjectSerializer<Height> {
 
     @Override
-    public Height createObject(QName name) throws ObjectBuildException {
+    public Height createObject(QName name, Object parent) throws ObjectBuildException {
         return new Height();
     }
 

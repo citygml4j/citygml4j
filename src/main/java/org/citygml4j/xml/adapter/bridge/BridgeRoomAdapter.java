@@ -38,7 +38,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeRoom");
 
     @Override
-    public BridgeRoom createObject(QName name) throws ObjectBuildException {
+    public BridgeRoom createObject(QName name, Object parent) throws ObjectBuildException {
         return new BridgeRoom();
     }
 

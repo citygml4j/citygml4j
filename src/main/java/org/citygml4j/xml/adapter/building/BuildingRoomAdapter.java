@@ -43,7 +43,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
     };
 
     @Override
-    public BuildingRoom createObject(QName name) throws ObjectBuildException {
+    public BuildingRoom createObject(QName name, Object parent) throws ObjectBuildException {
         return new BuildingRoom();
     }
 

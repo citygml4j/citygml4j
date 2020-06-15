@@ -26,7 +26,7 @@ public class FloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<FloorSur
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfFloorSurface");
 
     @Override
-    public FloorSurface createObject(QName name) throws ObjectBuildException {
+    public FloorSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new FloorSurface();
     }
 

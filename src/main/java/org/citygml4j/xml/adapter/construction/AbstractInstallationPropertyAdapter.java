@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractInstallationPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractInstallationProperty> {
 
     @Override
-    public AbstractInstallationProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractInstallationProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractInstallationProperty();
     }
 }

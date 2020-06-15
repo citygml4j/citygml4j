@@ -26,7 +26,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfWindow");
 
     @Override
-    public WindowSurface createObject(QName name) throws ObjectBuildException {
+    public WindowSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new WindowSurface();
     }
 

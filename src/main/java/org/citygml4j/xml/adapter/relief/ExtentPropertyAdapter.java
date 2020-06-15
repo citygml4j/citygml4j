@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class ExtentPropertyAdapter extends AbstractGeometryPropertyAdapter<ExtentProperty> {
 
     @Override
-    public ExtentProperty createObject(QName name) throws ObjectBuildException {
+    public ExtentProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new ExtentProperty();
     }
 }

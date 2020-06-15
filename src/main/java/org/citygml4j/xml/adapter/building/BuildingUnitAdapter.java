@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<BuildingUnit> {
 
     @Override
-    public BuildingUnit createObject(QName name) throws ObjectBuildException {
+    public BuildingUnit createObject(QName name, Object parent) throws ObjectBuildException {
         return new BuildingUnit();
     }
 

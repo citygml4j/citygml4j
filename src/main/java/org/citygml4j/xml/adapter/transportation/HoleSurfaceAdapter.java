@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class HoleSurfaceAdapter extends AbstractThematicSurfaceAdapter<HoleSurface> {
 
     @Override
-    public HoleSurface createObject(QName name) throws ObjectBuildException {
+    public HoleSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new HoleSurface();
     }
 

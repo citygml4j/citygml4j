@@ -26,7 +26,7 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfInteriorWallSurface");
 
     @Override
-    public InteriorWallSurface createObject(QName name) throws ObjectBuildException {
+    public InteriorWallSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new InteriorWallSurface();
     }
 

@@ -33,7 +33,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridgeFurniture");
 
     @Override
-    public BridgeFurniture createObject(QName name) throws ObjectBuildException {
+    public BridgeFurniture createObject(QName name, Object parent) throws ObjectBuildException {
         return new BridgeFurniture();
     }
 

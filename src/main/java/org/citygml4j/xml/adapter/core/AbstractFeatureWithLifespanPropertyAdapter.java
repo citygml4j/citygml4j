@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractFeatureWithLifespanPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractFeatureWithLifespanProperty> {
 
     @Override
-    public AbstractFeatureWithLifespanProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractFeatureWithLifespanProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractFeatureWithLifespanProperty();
     }
 }

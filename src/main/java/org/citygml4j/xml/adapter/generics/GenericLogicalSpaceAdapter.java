@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<GenericLogicalSpace> {
 
     @Override
-    public GenericLogicalSpace createObject(QName name) throws ObjectBuildException {
+    public GenericLogicalSpace createObject(QName name, Object parent) throws ObjectBuildException {
         return new GenericLogicalSpace();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractFillingSurfacePropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractFillingSurfaceProperty> {
 
     @Override
-    public AbstractFillingSurfaceProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractFillingSurfaceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractFillingSurfaceProperty();
     }
 }

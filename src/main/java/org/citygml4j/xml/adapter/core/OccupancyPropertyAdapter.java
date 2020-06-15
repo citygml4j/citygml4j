@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class OccupancyPropertyAdapter extends AbstractInlinePropertyAdapter<OccupancyProperty> {
 
     @Override
-    public OccupancyProperty createObject(QName name) throws ObjectBuildException {
+    public OccupancyProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new OccupancyProperty();
     }
 }

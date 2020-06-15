@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class XALAddressPropertyAdapter extends AbstractInlinePropertyAdapter<XALAddressProperty> {
 
     @Override
-    public XALAddressProperty createObject(QName name) throws ObjectBuildException {
+    public XALAddressProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new XALAddressProperty();
     }
 }

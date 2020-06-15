@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class StringAttributeAdapter extends AbstractGenericAttributeAdapter<StringAttribute> {
 
     @Override
-    public StringAttribute createObject(QName name) throws ObjectBuildException {
+    public StringAttribute createObject(QName name, Object parent) throws ObjectBuildException {
         return new StringAttribute();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractPhysicalSpacePropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractPhysicalSpaceProperty> {
 
     @Override
-    public AbstractPhysicalSpaceProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractPhysicalSpaceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractPhysicalSpaceProperty();
     }
 }

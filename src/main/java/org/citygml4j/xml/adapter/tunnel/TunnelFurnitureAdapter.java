@@ -33,7 +33,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfTunnelFurniture");
 
     @Override
-    public TunnelFurniture createObject(QName name) throws ObjectBuildException {
+    public TunnelFurniture createObject(QName name, Object parent) throws ObjectBuildException {
         return new TunnelFurniture();
     }
 

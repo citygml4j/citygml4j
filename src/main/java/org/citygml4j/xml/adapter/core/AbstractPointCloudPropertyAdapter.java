@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractPointCloudPropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractPointCloudProperty> {
 
     @Override
-    public AbstractPointCloudProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractPointCloudProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractPointCloudProperty();
     }
 }

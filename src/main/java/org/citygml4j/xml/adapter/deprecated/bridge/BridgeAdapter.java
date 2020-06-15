@@ -26,7 +26,7 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE, "_GenericApplicationPropertyOfBridge");
 
     @Override
-    public Bridge createObject(QName name) throws ObjectBuildException {
+    public Bridge createObject(QName name, Object parent) throws ObjectBuildException {
         return new Bridge();
     }
 

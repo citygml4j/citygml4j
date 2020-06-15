@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
 
     @Override
-    public Road createObject(QName name) throws ObjectBuildException {
+    public Road createObject(QName name, Object parent) throws ObjectBuildException {
         return new Road();
     }
 

@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractLogicalSpacePropertyAdapter extends AbstractFeaturePropertyAdapter<AbstractLogicalSpaceProperty> {
 
     @Override
-    public AbstractLogicalSpaceProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractLogicalSpaceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractLogicalSpaceProperty();
     }
 }

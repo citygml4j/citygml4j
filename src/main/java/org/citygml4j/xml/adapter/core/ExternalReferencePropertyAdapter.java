@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class ExternalReferencePropertyAdapter extends AbstractInlinePropertyAdapter<ExternalReferenceProperty> {
 
     @Override
-    public ExternalReferenceProperty createObject(QName name) throws ObjectBuildException {
+    public ExternalReferenceProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new ExternalReferenceProperty();
     }
 }

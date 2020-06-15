@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
 
     @Override
-    public WaterBody createObject(QName name) throws ObjectBuildException {
+    public WaterBody createObject(QName name, Object parent) throws ObjectBuildException {
         return new WaterBody();
     }
 

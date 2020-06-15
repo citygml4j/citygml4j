@@ -26,7 +26,7 @@ public class TunnelAdapter extends AbstractTunnelAdapter<Tunnel> {
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE, "_GenericApplicationPropertyOfTunnel");
 
     @Override
-    public Tunnel createObject(QName name) throws ObjectBuildException {
+    public Tunnel createObject(QName name, Object parent) throws ObjectBuildException {
         return new Tunnel();
     }
 

@@ -28,7 +28,7 @@ import javax.xml.namespace.QName;
 public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityModel> {
 
     @Override
-    public CityModel createObject(QName name) throws ObjectBuildException {
+    public CityModel createObject(QName name, Object parent) throws ObjectBuildException {
         return new CityModel();
     }
 

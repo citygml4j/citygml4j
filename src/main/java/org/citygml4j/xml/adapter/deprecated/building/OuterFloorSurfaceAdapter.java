@@ -26,7 +26,7 @@ public class OuterFloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Out
     private final QName substitutionGroup = new QName(CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE, "_GenericApplicationPropertyOfOuterFloorSurface");
 
     @Override
-    public OuterFloorSurface createObject(QName name) throws ObjectBuildException {
+    public OuterFloorSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new OuterFloorSurface();
     }
 

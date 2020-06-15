@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractTextureParameterizationPropertyAdapter extends AbstractInlinePropertyAdapter<AbstractTextureParameterizationProperty> {
 
     @Override
-    public AbstractTextureParameterizationProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractTextureParameterizationProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractTextureParameterizationProperty();
     }
 }

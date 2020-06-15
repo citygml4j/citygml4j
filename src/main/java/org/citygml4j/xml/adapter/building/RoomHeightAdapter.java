@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 public class RoomHeightAdapter implements ObjectBuilder<RoomHeight>, ObjectSerializer<RoomHeight> {
 
     @Override
-    public RoomHeight createObject(QName name) throws ObjectBuildException {
+    public RoomHeight createObject(QName name, Object parent) throws ObjectBuildException {
         return new RoomHeight();
     }
 

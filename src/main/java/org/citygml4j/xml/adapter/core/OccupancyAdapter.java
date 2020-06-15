@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 public class OccupancyAdapter implements ObjectBuilder<Occupancy>, ObjectSerializer<Occupancy> {
 
     @Override
-    public Occupancy createObject(QName name) throws ObjectBuildException {
+    public Occupancy createObject(QName name, Object parent) throws ObjectBuildException {
         return new Occupancy();
     }
 

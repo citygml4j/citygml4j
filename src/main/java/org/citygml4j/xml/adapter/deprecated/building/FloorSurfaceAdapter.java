@@ -33,7 +33,7 @@ public class FloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<FloorSur
     };
 
     @Override
-    public FloorSurface createObject(QName name) throws ObjectBuildException {
+    public FloorSurface createObject(QName name, Object parent) throws ObjectBuildException {
         return new FloorSurface();
     }
 

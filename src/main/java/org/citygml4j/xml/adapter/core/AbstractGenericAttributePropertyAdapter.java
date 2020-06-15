@@ -9,7 +9,7 @@ import javax.xml.namespace.QName;
 public class AbstractGenericAttributePropertyAdapter extends AbstractInlinePropertyAdapter<AbstractGenericAttributeProperty> {
 
     @Override
-    public AbstractGenericAttributeProperty createObject(QName name) throws ObjectBuildException {
+    public AbstractGenericAttributeProperty createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractGenericAttributeProperty();
     }
 }

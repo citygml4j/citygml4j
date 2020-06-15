@@ -27,7 +27,7 @@ import javax.xml.namespace.QName;
 public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<VersionTransition> {
 
     @Override
-    public VersionTransition createObject(QName name) throws ObjectBuildException {
+    public VersionTransition createObject(QName name, Object parent) throws ObjectBuildException {
         return new VersionTransition();
     }
 
