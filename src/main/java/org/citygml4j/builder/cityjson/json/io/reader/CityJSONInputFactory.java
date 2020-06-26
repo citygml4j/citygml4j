@@ -24,10 +24,12 @@ import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 public class CityJSONInputFactory {
 	boolean processUnknownExtensions;
@@ -40,8 +42,24 @@ public class CityJSONInputFactory {
 		}
 	}
 
+	public CityJSONReader createCityJSONReader(File file, String encoding) throws CityJSONReadException {
+		try {
+			return new CityJSONReader(new JsonReader(new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding))), this);
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			throw new CityJSONReadException("Caused by: ", e);
+		}
+	}
+
 	public CityJSONReader createCityJSONReader(InputStream inputStream) throws CityJSONReadException {
 		return new CityJSONReader(new JsonReader(new InputStreamReader(inputStream)), this);
+	}
+
+	public CityJSONReader createCityJSONReader(InputStream inputStream, String encoding) throws CityJSONReadException {
+		try {
+			return new CityJSONReader(new JsonReader(new InputStreamReader(inputStream, encoding)), this);
+		} catch (UnsupportedEncodingException e) {
+			throw new CityJSONReadException("Caused by: ", e);
+		}
 	}
 	
 	public CityJSONReader createFilteredCityJSONReader(CityJSONReader reader, CityObjectTypeFilter filter) throws CityJSONReadException {
