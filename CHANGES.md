@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+### 2.11 - pending
+
+##### Additions
+* The encoding of a CityJSON input file can now be set when creating a CityJSON reader. 
+
+##### Fixes
+* Fixed memory leak in CityJSON readers and writers. [citygml-tools #14](https://github.com/citygml4j/citygml-tools/issues/14)
+* Fixed `ADEBoundingBoxHelper` to also consider spatial properties injected into a CityGML feature type by an ADE. 
+
+##### Breaking changes
+* To fix the memory leak in CityJSON readers and writers, CityJSON helper objects such as `VerticesBuilder` must now
+be registered directly with the reader or writer they shall be used with but not with the `CityJSONInputFactory`
+or `CityJSONOutputFactory` anymore.
+  * Please check the sample programs in the folders `citygml2cityjson` and `cityjson2citygml` for examples.
+
 ### 2.10.5 - 2020-02-14
 
 ##### Additions
