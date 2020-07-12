@@ -5,6 +5,7 @@ import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.xml.module.Module;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.module.gml.XLinkModule;
+import org.citygml4j.xml.module.xal.XALCommonTypesModule;
 import org.citygml4j.xml.module.xal.XALCoreModule;
 import org.xmlobjects.xal.util.XALConstants;
 
@@ -46,7 +47,8 @@ public class CityGMLModules {
                 WaterBodyModule.v3_0,
                 GMLCoreModule.v3_2,
                 XLinkModule.v1_0,
-                XALCoreModule.v2_0
+                XALCoreModule.v3_0,
+                XALCommonTypesModule.v3_0
         );
 
         v2_0 = new CityGMLModules(
@@ -124,7 +126,7 @@ public class CityGMLModules {
     }
 
     public static boolean isXALNamespace(String namespaceURI) {
-        return XALConstants.XAL_2_0_NAMESPACE.equals(namespaceURI);
+        return namespaceURI != null && namespaceURI.startsWith("urn:oasis:names:tc:ciq");
     }
 
     public List<Module> getModules() {
