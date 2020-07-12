@@ -9,7 +9,7 @@ plugins {
 
 allprojects {
     group 'org.citygml4j'
-    version '3.0.0-b20200619-2337'
+    version '3.0.0-b20200712-1800'
     description 'The Open Source Java API for CityGML'
     ext.date = new Date()
 
