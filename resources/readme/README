@@ -49,7 +49,7 @@ applications.
 Feature list:
 * Support for the GML encodings of CityGML 3.0, 2.0, and 1.0
 * Support for CityGML specific subsets of GML 3.3, 3.2, and 3.1.1
-* Support for the eXtensible Address Language (xAL)
+* Support for the eXtensible Address Language (xAL) 3.0 and 2.0
 * Support for user-defined CityGML Application Domain Extensions (ADE)
 
 CityGML is a conceptual model for semantic 3D city and landscape models issued
