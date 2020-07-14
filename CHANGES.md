@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-### 2.11 - pending
+### 2.11.0 - 2020-07-14
 
 ##### Additions
 * The encoding of a CityJSON input file can now be set when creating a CityJSON reader. 
