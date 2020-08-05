@@ -110,7 +110,7 @@ public class VegetationUnmarshaller {
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
 				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
-				geometryObject.getLod().intValue();
+				lod = geometryObject.getLod().intValue();
 			} else if (geometryType instanceof GeometryInstanceType) {
 				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
 				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
