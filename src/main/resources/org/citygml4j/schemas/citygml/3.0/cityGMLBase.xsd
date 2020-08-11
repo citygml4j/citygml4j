@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xAL="urn:oasis:names:tc:ciq:xal:3" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/3.0" version="3.0.0">
   <annotation>
-    <documentation>The Core module defines the basic components of the CityGML data model. The Core module defines abstract base classes that define the core properties of more specialized thematic classes defined in other modules. The Core module also defines concrete classes that are common to other modules, for example basic data types.</documentation>
+    <documentation>The Core module defines the basic components of the CityGML data model. This includes abstract base classes that define the core properties of more specialized thematic classes defined in other modules as well as concrete classes that are common to other modules, for example basic data types.</documentation>
   </annotation>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <import namespace="urn:oasis:names:tc:ciq:xal:3" schemaLocation="../../xal/3.0/xAL.xsd"/>
@@ -413,12 +413,12 @@
           </element>
           <element minOccurs="0" name="validFrom" type="dateTime">
             <annotation>
-              <documentation>Indicates the date at wich a CityGML feature started to exist in the real world.</documentation>
+              <documentation>Indicates the date at which a CityGML feature started to exist in the real world.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="validTo" type="dateTime">
             <annotation>
-              <documentation>Indicates the date at wich a CityGML feature ended to exist in the real world.</documentation>
+              <documentation>Indicates the date at which a CityGML feature ended to exist in the real world.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractFeatureWithLifespan" type="core:ADEOfAbstractFeatureWithLifespanPropertyType">
@@ -891,7 +891,7 @@
         <sequence>
           <element minOccurs="0" name="engineeringCRS">
             <annotation>
-              <documentation>Specifies the local coordinate reference system of the CityModel.</documentation>
+              <documentation>Specifies the local engineering coordinate reference system of the CityModel that can be provided inline the CityModel instead of referencing a well-known CRS definition. The definition of an engineering CRS requires an anchor point which relates the origin of the local coordinate system to a point on the earth’s surface in order to facilitate the transformation of coordinates from the local engineering CRS.</documentation>
             </annotation>
             <complexType>
               <complexContent>
@@ -1101,7 +1101,7 @@
       </element>
       <element minOccurs="0" name="relationType" type="anyURI">
         <annotation>
-          <documentation>Specifies an URI that additionally qualifies the ExternalReference. The URI can point to a definition from an external ontology (e.g. the sameAs relation from OWL) and allows for mapping the ExternalReference to RDF triples.</documentation>
+          <documentation>Specifies a URI that additionally qualifies the ExternalReference. The URI can point to a definition from an external ontology (e.g. the sameAs relation from OWL) and allows for mapping the ExternalReference to RDF triples.</documentation>
         </annotation>
       </element>
     </sequence>
@@ -1311,7 +1311,7 @@
       </enumeration>
       <enumeration value="temporarilyAboveAndBelowWaterSurface">
         <annotation>
-          <documentation>Indicates that city object is temporarily located above or below the water level, because the height of the water surface is varying.</documentation>
+          <documentation>Indicates that the city object is temporarily located above or below the water level, because the height of the water surface is varying.</documentation>
         </annotation>
       </enumeration>
     </restriction>

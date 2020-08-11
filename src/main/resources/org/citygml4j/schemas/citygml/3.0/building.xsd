@@ -711,7 +711,7 @@
   </complexType>
   <element name="Storey" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:StoreyType">
     <annotation>
-      <documentation>A Storey is a horizontal section of a Building.</documentation>
+      <documentation>A Storey is typically a horizontal section of a Building. Storeys are not always defined according to the building structure, but can also be defined according to logical considerations.</documentation>
     </annotation>
   </element>
   <complexType name="StoreyType">

@@ -20,7 +20,7 @@
   </complexType>
   <element abstract="true" name="ADEOfAuxiliaryTrafficArea" substitutionGroup="gml:AbstractObject" type="tran:ADEOfAuxiliaryTrafficAreaType">
     <annotation>
-      <documentation>ADEOfAuxiliaryTrafficAra acts as a hook to define properties within an ADE that are to be added to an AuxiliaryTrafficArea.</documentation>
+      <documentation>ADEOfAuxiliaryTrafficArea acts as a hook to define properties within an ADE that are to be added to an AuxiliaryTrafficArea.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="ADEOfAuxiliaryTrafficAreaType">
@@ -379,7 +379,7 @@
           </element>
           <element name="granularity" type="tran:GranularityValueType">
             <annotation>
-              <documentation>Defines whether auxiliary traffic spaces are represented by individual ways or by individual lanes, depending on the desired level of detail.</documentation>
+              <documentation>Defines whether auxiliary traffic spaces are represented by individual ways or by individual lanes, depending on the desired level of spatial and semantic decomposition.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="adeOfAuxiliaryTrafficSpace" type="tran:ADEOfAuxiliaryTrafficSpacePropertyType">
@@ -933,7 +933,7 @@
           </element>
           <element name="granularity" type="tran:GranularityValueType">
             <annotation>
-              <documentation>Defines whether traffic spaces are represented by individual ways or by individual lanes, depending on the desired level of detail.</documentation>
+              <documentation>Defines whether traffic spaces are represented by individual ways or by individual lanes, depending on the desired level of spatial and semantic decomposition.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="trafficDirection" type="tran:TrafficDirectionValueType">

@@ -240,7 +240,7 @@
   </simpleType>
   <element name="GeoreferencedTexture" substitutionGroup="app:AbstractTexture" type="app:GeoreferencedTextureType">
     <annotation>
-      <documentation>A GeoreferencedTexture is a texture that uses a planimetric projection. It contains an implicit parameterization that is either stored within the image file, an acompanying world file or specified using the orientation and referencePoint elements.</documentation>
+      <documentation>A GeoreferencedTexture is a texture that uses a planimetric projection. It contains an implicit parameterization that is either stored within the image file, an accompanying world file or specified using the orientation and referencePoint elements.</documentation>
     </annotation>
   </element>
   <complexType name="GeoreferencedTextureType">
@@ -249,12 +249,12 @@
         <sequence>
           <element default="true" minOccurs="0" name="preferWorldFile" type="boolean">
             <annotation>
-              <documentation>Indicates whether the georeference from the image file or the accompanying world file should be prefered.</documentation>
+              <documentation>Indicates whether the georeference from the image file or the accompanying world file should be preferred.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="referencePoint" type="gml:PointPropertyType">
             <annotation>
-              <documentation>Relates to the 2D Point Geometry that represents the center of the upper left image pixel in world space.</documentation>
+              <documentation>Relates to the 2D Point geometry that represents the center of the upper left image pixel in world space.</documentation>
             </annotation>
           </element>
           <element minOccurs="0" name="orientation" type="core:TransformationMatrix2x2Type">

@@ -293,7 +293,7 @@
   </complexType>
   <element name="SensorConnection" substitutionGroup="gml:AbstractObject" type="dyn:SensorConnectionType">
     <annotation>
-      <documentation>A SensorConnection provides all details that are required to retrieve a specific datastream from an external sensor web service. It comprises the service type (e.g. OGC SensorThings API, OGC Sensor Observation Services, MQTT, proprietary platforms), the URL of the sensor service, the identifier for the sensor or thing and its observed property as well as information about the required authentication method.</documentation>
+      <documentation>A SensorConnection provides all details that are required to retrieve a specific datastream from an external sensor web service. It comprises the service type (e.g. OGC SensorThings API, OGC Sensor Observation Services, MQTT, proprietary platforms), the URL of the sensor service, the identifier for the sensor or thing, and its observed property as well as information about the required authentication method.</documentation>
     </annotation>
   </element>
   <complexType name="SensorConnectionType">
@@ -350,7 +350,7 @@
       </element>
       <element minOccurs="0" name="mqttTopic" type="string">
         <annotation>
-          <documentation>Names the specific datastream that is retrieved by the SensorConnection.</documentation>
+          <documentation>Names the specific datastream that is retrieved by the SensorConnection. This attribute is relevant when the MQTT Protocol is used to connect to a Sensor API.</documentation>
         </annotation>
       </element>
       <element minOccurs="0" name="linkToObservation" type="string">
@@ -417,7 +417,7 @@
   </complexType>
   <element name="TabulatedFileTimeseries" substitutionGroup="dyn:AbstractAtomicTimeseries" type="dyn:TabulatedFileTimeseriesType">
     <annotation>
-      <documentation>A TabulatedFileTimeseries represents time-varying data of a specific data type for a single contiguous time interval. The data is provided in an external file referenced in the TabulatedFileTimeseries. The file shall contain table structured data using an appropriate file format like comma separated values (CSV), Microsoft Excel (XLSX) or Google Spreadsheet. The timestamps and the values are given in specific columns of the table. Each row represents a single time-value-pair. A subset of rows can be selected using the idColumn and idValue attributes.</documentation>
+      <documentation>A TabulatedFileTimeseries represents time-varying data of a specific data type for a single contiguous time interval. The data is provided in an external file referenced in the TabulatedFileTimeseries. The file shall contain table structured data using an appropriate file format like comma-separated values (CSV), Microsoft Excel (XLSX) or Google Spreadsheet. The timestamps and the values are given in specific columns of the table. Each row represents a single time-value-pair. A subset of rows can be selected using the idColumn and idValue attributes.</documentation>
     </annotation>
   </element>
   <complexType name="TabulatedFileTimeseriesType">
@@ -512,7 +512,7 @@
   </complexType>
   <element name="TimeValuePair" substitutionGroup="gml:AbstractObject" type="dyn:TimeValuePairType">
     <annotation>
-      <documentation>A TimeValuePair represents a value that is valid for a given timepoint. For each TimeValuePair only one of the value properties can be used mutually exclusive. Which value property has to be provided depends on the selected value type in the GenericTimeSeries feature, in which the TimeValuePair is included.</documentation>
+      <documentation>A TimeValuePair represents a value that is valid for a given timepoint. For each TimeValuePair, only one of the value properties can be used mutually exclusive. Which value property has to be provided depends on the selected value type in the GenericTimeSeries feature, in which the TimeValuePair is included.</documentation>
     </annotation>
   </element>
   <complexType name="TimeValuePairType">

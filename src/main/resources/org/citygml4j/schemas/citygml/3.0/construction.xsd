@@ -267,7 +267,7 @@
   </complexType>
   <element abstract="true" name="AbstractConstruction" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructionType">
     <annotation>
-      <documentation>AbstractConstruction is the abstract superclass for objects that are manufactured by humans from construction materials, are connected to earth and are intended to be permanent. A connection with the ground also exists when the construction rests by its own weight on the ground or is moveable limited on stationary rails or if the construction  is intended to be used mainly stationary.</documentation>
+      <documentation>AbstractConstruction is the abstract superclass for objects that are manufactured by humans from construction materials, are connected to earth, and are intended to be permanent. A connection with the ground also exists when the construction rests by its own weight on the ground or is moveable limited on stationary rails or if the construction  is intended to be used mainly stationary.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractConstructionType">
