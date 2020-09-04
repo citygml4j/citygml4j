@@ -64,7 +64,7 @@ public class ADEWalkerHelper {
                     methods.put(key, new AbstractMap.SimpleEntry<>(walker, method));
                     break;
                 } catch (NoSuchMethodException e) {
-                    // ignore
+                    //
                 }
             }
         } else {
@@ -76,7 +76,7 @@ public class ADEWalkerHelper {
             try {
                 method.invoke(walker, adeObject);
             } catch (InvocationTargetException | IllegalAccessException e) {
-                // ignore
+                //
             }
 
             return true;
