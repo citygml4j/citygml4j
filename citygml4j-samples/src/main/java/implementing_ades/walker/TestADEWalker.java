@@ -37,7 +37,6 @@ import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.visitor.ADEWalker;
 
-
 public class TestADEWalker extends ADEWalker {
 
     public void visit(AbstractBuildingUnit abstractBuildingUnit) {
