@@ -4,7 +4,7 @@ Change Log
 ### 2.11.1 - 2020-09-04
 
 ##### Fixes
-* Fixed missing geometry when unmarshalling PlantCover features as CityJSON. [citygml-tools #17](https://github.com/citygml4j/citygml-tools/issues/17)
+* Fixed missing geometry when unmarshalling CityJSON PlantCover features. [citygml-tools #17](https://github.com/citygml4j/citygml-tools/issues/17)
 
 ### 2.11.0 - 2020-07-14
 
