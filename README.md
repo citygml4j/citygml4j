@@ -17,6 +17,9 @@ The latest stable release of citygml4j is 2.11.1.
 
 Download the citygml4j 2.11.1 release binaries [here](https://github.com/citygml4j/citygml4j/releases/download/v2.11.1/citygml4j-2.11.1.zip). Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
+A release candidate version of the upcoming **next major version 3.0 of citygml4j** with full support for the latest draft
+of [CityGML 3.0](https://github.com/opengeospatial/CityGML-3.0CM) is available [here](https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0-rc.1). 
+
 Contributing
 ------------
 * To file bugs found in the software create a GitHub issue.
