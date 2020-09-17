@@ -20,6 +20,7 @@
 package org.citygml4j.model.generics;
 
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -30,7 +31,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class GenericThematicSurface extends AbstractThematicSurface implements StandardObjectClassifier {
+public class GenericThematicSurface extends AbstractThematicSurface implements TopLevelFeature, StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;

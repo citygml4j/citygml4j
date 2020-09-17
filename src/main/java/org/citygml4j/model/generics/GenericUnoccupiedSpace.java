@@ -20,6 +20,7 @@
 package org.citygml4j.model.generics;
 
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
@@ -32,7 +33,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements StandardObjectClassifier {
+public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements TopLevelFeature, StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;

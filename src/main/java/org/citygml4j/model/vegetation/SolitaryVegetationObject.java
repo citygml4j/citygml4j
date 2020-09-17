@@ -20,6 +20,7 @@
 package org.citygml4j.model.vegetation;
 
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfSolitaryVegetationObject;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -31,7 +32,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class SolitaryVegetationObject extends AbstractVegetationObject implements StandardObjectClassifier {
+public class SolitaryVegetationObject extends AbstractVegetationObject implements TopLevelFeature, StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;

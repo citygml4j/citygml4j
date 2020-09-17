@@ -20,6 +20,7 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -27,7 +28,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class Building extends AbstractBuilding {
+public class Building extends AbstractBuilding implements TopLevelFeature {
     private List<BuildingPartProperty> buildingParts;
     private List<ADEOfBuilding> adeOfBuilding;
 

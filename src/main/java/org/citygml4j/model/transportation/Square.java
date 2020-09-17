@@ -20,6 +20,7 @@
 package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -29,7 +30,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class Square extends AbstractTransportationSpace implements StandardObjectClassifier {
+public class Square extends AbstractTransportationSpace implements TopLevelFeature, StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;

@@ -20,6 +20,7 @@
 package org.citygml4j.model.cityobjectgroup;
 
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
@@ -35,7 +36,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class CityObjectGroup extends AbstractLogicalSpace implements StandardObjectClassifier {
+public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFeature, StandardObjectClassifier {
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
