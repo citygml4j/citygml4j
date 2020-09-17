@@ -59,6 +59,11 @@ public abstract class ArrayAssociation<T extends Associable & Child> implements 
 		getObject().add(object);
 	}
 
+	public void addObjectIfValid(Object object) {
+		if (getAssociableClass().isInstance(object))
+			addObject(getAssociableClass().cast(object));
+	}
+
 	public List<T> getObject() {
 		if (object == null)
 			object = new ChildList<T>(this);

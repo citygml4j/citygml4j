@@ -56,6 +56,11 @@ public abstract class AssociationByRep<T extends Associable & Child> implements 
 		this.object = ModelObjects.setParent(object, this);
 	}
 
+	public void setObjectIfValid(Object object) {
+		if (getAssociableClass().isInstance(object))
+			setObject(getAssociableClass().cast(object));
+	}
+
 	public void unsetObject() {
 		object = ModelObjects.setNull(object);
 	}
