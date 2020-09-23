@@ -1050,14 +1050,14 @@ public abstract class AbstractBuilding extends AbstractSite implements BuildingM
 		}
 		
 		if (isSetLod0FootPrint()) {
-			copy.setLod1MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod0FootPrint));
-			if (copy.getLod1MultiSurface() == lod0FootPrint)
+			copy.setLod0FootPrint((MultiSurfaceProperty)copyBuilder.copy(lod0FootPrint));
+			if (copy.getLod0FootPrint() == lod0FootPrint)
 				lod0FootPrint.setParent(this);
 		}
 		
 		if (isSetLod0RoofEdge()) {
-			copy.setLod1MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod0RoofEdge));
-			if (copy.getLod1MultiSurface() == lod0RoofEdge)
+			copy.setLod0RoofEdge((MultiSurfaceProperty)copyBuilder.copy(lod0RoofEdge));
+			if (copy.getLod0RoofEdge() == lod0RoofEdge)
 				lod0RoofEdge.setParent(this);
 		}
 		
