@@ -70,7 +70,7 @@ public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader
 		elementInfo = null;
 	}
 
-	public synchronized boolean hasNext() throws CityGMLReadException {
+	public boolean hasNext() throws CityGMLReadException {
 		if (iterator == null) {
 			try {
 				iterator = (XMLChunkImpl)nextChunk();

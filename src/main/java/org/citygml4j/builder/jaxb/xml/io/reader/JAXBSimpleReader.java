@@ -59,7 +59,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 		elementInfo = null;
 	}
 
-	public synchronized boolean hasNext() throws CityGMLReadException {
+	public boolean hasNext() throws CityGMLReadException {
 		iterator = false;
 		elementInfo = null;
 
@@ -112,7 +112,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 		return iterator;
 	}
 
-	public synchronized CityGML nextFeature() throws CityGMLReadException {
+	public CityGML nextFeature() throws CityGMLReadException {
 		CityGML next = null;
 
 		if (iterator || hasNext()) {
@@ -127,7 +127,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 				}							
 
 				// unmarshal input
-				Object result = null;
+				Object result;
 				
 				if (transformerChainFactory == null)
 					result = unmarshaller.unmarshal(reader);
@@ -161,9 +161,6 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 					result = handler.getResult();
 				}
 
-				// release memory
-				unmarshaller = null;
-
 				if (result instanceof JAXBElement<?>) {
 					ModelObject citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
 					if (citygml instanceof AbstractFeature)
@@ -190,7 +187,7 @@ public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReade
 		}	
 	}
 
-	public synchronized XMLChunk nextChunk() throws CityGMLReadException {
+	public XMLChunk nextChunk() throws CityGMLReadException {
 		XMLChunkImpl next = null;
 
 		if (iterator || hasNext()) {
