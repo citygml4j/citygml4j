@@ -18,7 +18,6 @@
  */
 package org.citygml4j.builder.cityjson.json.io.reader;
 
-import com.google.gson.stream.JsonReader;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
@@ -36,7 +35,7 @@ public class CityJSONInputFactory {
 	
 	public CityJSONReader createCityJSONReader(File file) throws CityJSONReadException {
 		try {
-			return new CityJSONReader(new JsonReader(new BufferedReader(new FileReader(file))), this);
+			return new CityJSONReader(new BufferedReader(new FileReader(file)), this);
 		} catch (FileNotFoundException e) {
 			throw new CityJSONReadException("Caused by: ", e);
 		}
@@ -44,19 +43,19 @@ public class CityJSONInputFactory {
 
 	public CityJSONReader createCityJSONReader(File file, String encoding) throws CityJSONReadException {
 		try {
-			return new CityJSONReader(new JsonReader(new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding))), this);
+			return new CityJSONReader(new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding)), this);
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			throw new CityJSONReadException("Caused by: ", e);
 		}
 	}
 
 	public CityJSONReader createCityJSONReader(InputStream inputStream) throws CityJSONReadException {
-		return new CityJSONReader(new JsonReader(new InputStreamReader(inputStream)), this);
+		return new CityJSONReader(new InputStreamReader(inputStream), this);
 	}
 
 	public CityJSONReader createCityJSONReader(InputStream inputStream, String encoding) throws CityJSONReadException {
 		try {
-			return new CityJSONReader(new JsonReader(new InputStreamReader(inputStream, encoding)), this);
+			return new CityJSONReader(new InputStreamReader(inputStream, encoding), this);
 		} catch (UnsupportedEncodingException e) {
 			throw new CityJSONReadException("Caused by: ", e);
 		}

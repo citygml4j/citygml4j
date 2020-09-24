@@ -21,7 +21,6 @@ package org.citygml4j.builder.cityjson.json.io.reader;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.JsonReader;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSON;
@@ -32,53 +31,30 @@ import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
 import java.io.IOException;
+import java.io.Reader;
 
 public class CityJSONReader implements AutoCloseable {
-	private final JsonReader reader;
-	private final GsonBuilder builder;
-	private final CityJSONUnmarshaller unmarshaller;
-	
-	private MetadataType metadata;
-	private CityObjectTypeFilter typeFilter;
-	private boolean processUnknownExtensions;
+	private final Reader reader;
+	private final boolean processUnknownExtensions;
 
-	public CityJSONReader(JsonReader reader, CityJSONInputFactory factory) {
+	private CityObjectTypeFilter typeFilter;
+	private CityGMLInputFilter nameFilter;
+	private TextureFileHandler textureFileHandler;
+	private MetadataType metadata;
+
+	public CityJSONReader(Reader reader, CityJSONInputFactory factory) {
 		this.reader = reader;
-		
-		builder = new GsonBuilder();
-		unmarshaller = new CityJSONUnmarshaller();
 		processUnknownExtensions = factory.processUnknownExtensions;
 	}
 
 	public TextureFileHandler getTextureFileHandler() {
-		return unmarshaller.getTextureFileHandler();
+		return textureFileHandler;
 	}
 
 	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
-		unmarshaller.setTextureFileHandler(textureFileHandler);
+		this.textureFileHandler = textureFileHandler;
 	}
 
-	public CityModel read() throws CityJSONReadException {
-		// prepare builder
-		builder.registerTypeAdapterFactory(new CityJSONTypeAdapterFactory()
-				.withTypeFilter(typeFilter)
-				.processUnknownExtensions(processUnknownExtensions));
-
-		CityJSON cityJSON;
-		try {
-			cityJSON = builder.create().fromJson(reader, CityJSON.class);
-		} catch (JsonIOException | JsonSyntaxException e) {
-			throw new CityJSONReadException("Caused by: ", e);
-		}
-
-		if (cityJSON != null) {
-			metadata = cityJSON.getMetadata();
-			return unmarshaller.unmarshal(cityJSON);
-		}
-
-		return null;
-	}
-	
 	public boolean isSetMetadata() {
 		return metadata != null;
 	}
@@ -92,7 +68,35 @@ public class CityJSONReader implements AutoCloseable {
 	}
 
 	void setCityGMLNameFilter(CityGMLInputFilter nameFilter) {
-		unmarshaller.setCityGMLNameFilter(nameFilter);
+		this.nameFilter = nameFilter;
+	}
+
+	public CityModel read() throws CityJSONReadException {
+		CityJSON cityJSON;
+		try {
+			cityJSON = new GsonBuilder()
+					.registerTypeAdapterFactory(new CityJSONTypeAdapterFactory()
+							.withTypeFilter(typeFilter)
+							.processUnknownExtensions(processUnknownExtensions))
+					.create()
+					.fromJson(reader, CityJSON.class);
+		} catch (JsonIOException | JsonSyntaxException e) {
+			throw new CityJSONReadException("Caused by: ", e);
+		}
+
+		if (cityJSON != null) {
+			metadata = cityJSON.getMetadata();
+
+			CityJSONUnmarshaller unmarshaller = new CityJSONUnmarshaller();
+			if (nameFilter != null)
+				unmarshaller.setCityGMLNameFilter(nameFilter);
+
+			if (textureFileHandler != null)
+				unmarshaller.setTextureFileHandler(textureFileHandler);
+
+			return unmarshaller.unmarshal(cityJSON);
+		} else
+			return null;
 	}
 	
 	@Override
