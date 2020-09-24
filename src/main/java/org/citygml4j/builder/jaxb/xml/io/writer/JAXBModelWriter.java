@@ -180,12 +180,10 @@ public class JAXBModelWriter extends AbstractJAXBWriter implements CityModelWrit
 
 			if (cityModelInfo != null) {
 				if (cityModelInfo.isSetGenericApplicationPropertyOfCityModel())
-					cityModel.setGenericApplicationPropertyOfCityModel(
-							cityModelInfo.getGenericApplicationPropertyOfCityModel());
+					cityModel.setGenericApplicationPropertyOfCityModel(cityModelInfo.getGenericApplicationPropertyOfCityModel());
 
 				if (cityModelInfo.isSetGenericADEElement())
-					cityModel.setGenericADEElement(
-							cityModelInfo.getGenericADEElement());
+					cityModel.setGenericADEElement(cityModelInfo.getGenericADEElement());
 			}		
 
 			ModuleContext tmp = jaxbMarshaller.getModuleContext();
