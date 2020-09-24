@@ -139,6 +139,5 @@ public class CityJSONUnmarshaller {
 
 	public void setReleaseCityJSONContent(boolean releaseCityJSONContent) {
 		this.releaseCityJSONContent = releaseCityJSONContent;
-		citygml.getCoreUnmarshaller().setReleaseCityJSONContent(releaseCityJSONContent);
 	}
 }

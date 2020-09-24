@@ -106,7 +106,6 @@ public class CoreUnmarshaller {
 	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
 	private AbstractCityObject appearanceContainer;
 	private GMLIdManager gmlIdManager;
-	private boolean releaseCityJSONContent = true;
 
 	private final String UNMARSHAL_AS_GLOBAL_FEATURE = "org.citygml4j.unmarshal.asGlobalFeature";
 	private final String GLOBAL_FEATURES = "org.citygml4j.unmarshal.globalFeature";
@@ -247,7 +246,7 @@ public class CoreUnmarshaller {
 			}
 
 			// release CityJSON content from main memory
-			if (releaseCityJSONContent) {
+			if (json.isReleaseCityJSONContent()) {
 				// recursively release children
 				releaseObjectHierarchy(type, src);
 
@@ -546,13 +545,5 @@ public class CoreUnmarshaller {
 		}
 
 		return accept;
-	}
-
-	public boolean isReleaseCityJSONContent() {
-		return releaseCityJSONContent;
-	}
-
-	public void setReleaseCityJSONContent(boolean releaseCityJSONContent) {
-		this.releaseCityJSONContent = releaseCityJSONContent;
 	}
 }
