@@ -89,14 +89,16 @@ import org.citygml4j.util.walker.GeometryWalker;
 import javax.xml.namespace.QName;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class CoreUnmarshaller {
 	private final CityJSONUnmarshaller json;
@@ -104,8 +106,8 @@ public class CoreUnmarshaller {
 	private final GMLUnmarshaller implicit;
 
 	private List<AbstractGeometryObjectType> templates;
-	private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
-	private AbstractCityObject appearanceContainer;
+	private Map<Integer, SimpleEntry<String, Integer>> templateInfos;
+	private Queue<Appearance> appearances;
 	private GMLIdManager gmlIdManager;
 
 	private final String UNMARSHAL_AS_GLOBAL_FEATURE = "org.citygml4j.unmarshal.asGlobalFeature";
@@ -122,7 +124,7 @@ public class CoreUnmarshaller {
 		implicit.setVertices(geometryTemplates.getTemplatesVertices());
 
 		templateInfos = new ConcurrentHashMap<>();
-		appearanceContainer = new GenericCityObject();
+		appearances = new ConcurrentLinkedQueue<>();
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 	}
 
@@ -315,13 +317,20 @@ public class CoreUnmarshaller {
 		if (templateInfo == null) {
 			if (templates != null && templates.size() > src.getTemplate()) {
 				AbstractGeometryObjectType template = templates.get(src.getTemplate());
-				AbstractGeometry geometry = implicit.unmarshal(template, appearanceContainer);
+				AbstractCityObject dummyParent = new GenericCityObject();
+				AbstractGeometry geometry = implicit.unmarshal(template, dummyParent);
+
 				if (geometry != null) {
 					geometry.setId(gmlIdManager.generateUUID());
 					property.setGeometry(geometry);
 					dest.setLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD, template.getLod().intValue());
-
 					templateInfos.putIfAbsent(src.getTemplate(), new SimpleEntry<>(geometry.getId(), template.getLod().intValue()));
+				}
+
+				if (dummyParent.isSetAppearance()) {
+					dummyParent.getAppearance().stream()
+							.map(AppearanceProperty::getAppearance)
+							.forEach(appearances::add);
 				}
 			}
 		} else {
@@ -499,23 +508,20 @@ public class CoreUnmarshaller {
 	}
 
 	public boolean hasGlobalAppearances() {
-		return appearanceContainer != null && appearanceContainer.isSetAppearance()
+		return appearances != null && !appearances.isEmpty()
 				&& (!json.isSetCityGMLNameFilter()
 				|| json.getCityGMLNameFilter().accept(new QName(AppearanceModule.v2_0_0.getNamespaceURI(), "Appearance"))
 				|| json.getCityGMLNameFilter().accept(new QName(AppearanceModule.v1_0_0.getNamespaceURI(), "Appearance")));
 	}
 
-	public List<Appearance> getGlobalAppearances() {
-		List<Appearance> result;
+	public Collection<Appearance> getGlobalAppearances() {
+		Collection<Appearance> result;
 
 		if (hasGlobalAppearances()) {
-			result = appearanceContainer.getAppearance().stream()
-					.map(AppearanceProperty::getAppearance)
-					.collect(Collectors.toList());
-
+			result = appearances;
 			templates = null;
 			templateInfos = null;
-			appearanceContainer = null;
+			appearances = null;
 		} else
 			result = Collections.emptyList();
 
