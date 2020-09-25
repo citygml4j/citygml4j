@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.unmarshal;
 
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.citygml.CityObjectProcessor;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.ade.ADEUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.cityjson.util.CityGMLMetadata;
@@ -27,6 +28,8 @@ import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.CityJSONRegistry;
 import org.citygml4j.cityjson.extension.ExtensionException;
+import org.citygml4j.model.citygml.appearance.Appearance;
+import org.citygml4j.model.citygml.appearance.AppearanceMember;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
@@ -62,10 +65,35 @@ public class CityJSONUnmarshaller {
 	}
 
 	public CityModel unmarshal(CityJSON src) {
+		prepareUnmarshaller(src);
+
+		CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
+		if (dest != null && citygml.getCoreUnmarshaller().hasGlobalAppearances()) {
+			for (Appearance appearance : citygml.getCoreUnmarshaller().getGlobalAppearances())
+				dest.addAppearanceMember(new AppearanceMember(appearance));
+		}
+
+		releaseCityJSONContent(src);
+		return dest;
+	}
+
+	public void unmarshal(CityJSON src, CityModel stub, CityObjectProcessor processor) throws Exception {
+		prepareUnmarshaller(src);
+
+		citygml.getCoreUnmarshaller().unmarshalCityModel(src, stub, processor);
+		if (citygml.getCoreUnmarshaller().hasGlobalAppearances()) {
+			for (Appearance appearance : citygml.getCoreUnmarshaller().getGlobalAppearances())
+				processor.process(appearance);
+		}
+
+		releaseCityJSONContent(src);
+	}
+
+	private void prepareUnmarshaller(CityJSON src) {
 		gml.setVertices(src.getVertices());
 		if (src.isSetTransform())
 			gml.applyTransformation(src.getTransform());
-		
+
 		if (src.isSetAppearance())
 			citygml.getAppearanceUnmarshaller().setAppearanceInfo(src.getAppearance());
 
@@ -77,12 +105,9 @@ public class CityJSONUnmarshaller {
 			if (metadata instanceof CityGMLMetadata)
 				citygml.getGenericsUnmarshaller().setGenericAttributeTypes(((CityGMLMetadata) metadata).getGenericAttributeTypes());
 		}
+	}
 
-		CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
-
-		if (dest != null && citygml.getCoreUnmarshaller().hasGlobalAppearances())
-			dest.setAppearanceMember(citygml.getCoreUnmarshaller().getGlobalAppearances());
-
+	private void releaseCityJSONContent(CityJSON src) {
 		if (releaseCityJSONContent) {
 			src.unsetMetadata();
 			src.unsetExtensions();
@@ -93,8 +118,6 @@ public class CityJSONUnmarshaller {
 			src.unsetGeometryTemplates();
 			src.unsetAppearance();
 		}
-
-		return dest;
 	}
 	
 	public CityGMLUnmarshaller getCityGMLUnmarshaller() {

@@ -20,6 +20,7 @@ package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.citygml.CityObjectProcessor;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.util.AffineTransform;
 import org.citygml4j.cityjson.CityJSON;
@@ -36,7 +37,7 @@ import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.geometry.BoundingBox;
 import org.citygml4j.geometry.Matrix;
 import org.citygml4j.geometry.Point;
-import org.citygml4j.model.citygml.appearance.AppearanceMember;
+import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.appearance.AppearanceProperty;
 import org.citygml4j.model.citygml.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -205,7 +206,34 @@ public class CoreUnmarshaller {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void unmarshalCityModel(CityJSON src, CityModel dest) {
+	public void unmarshalCityModel(CityJSON src, CityModel dest, CityObjectProcessor processor) throws Exception {
+		// handle global extension properties
+		if (src.isSetExtensionProperties()) {
+			for (Map.Entry<String, Object> entry : src.getExtensionProperties().entrySet()) {
+				if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
+					json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, src, dest);
+			}
+		}
+
+		// add metadata
+		if (src.isSetMetadata()) {
+			MetadataType metadata = src.getMetadata();
+
+			if (metadata.isSetGeographicalExtent()) {
+				List<Double> bbox = metadata.getGeographicalExtent();
+				if (bbox.size() > 5) {
+					BoundingShape boundedBy = new BoundingShape(new BoundingBox(
+							new Point(bbox.get(0), bbox.get(1), bbox.get(2)),
+							new Point(bbox.get(3), bbox.get(4), bbox.get(5))));
+
+					if (metadata.isSetReferenceSystem())
+						boundedBy.getEnvelope().setSrsName(metadata.getReferenceSystem());
+
+					dest.setBoundedBy(boundedBy);
+				}
+			}
+		}
+
 		// collect top-level objects
 		Set<AbstractCityObjectType> topLevel = Collections.newSetFromMap(new IdentityHashMap<>());
 		for (AbstractCityObjectType type : src.getCityObjects()) {
@@ -224,22 +252,14 @@ public class CoreUnmarshaller {
 			} else
 				cityObject = citygml.unmarshal(type, src);
 
-			if (!json.isSetCityGMLNameFilter() ||satisfiesCityGMLNameFilter(cityObject)) {
-				if (cityObject instanceof AbstractCityObject)
-					dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) cityObject));
-				else
-					dest.addFeatureMember(new FeatureMember(cityObject));
-			}
+			if (!json.isSetCityGMLNameFilter() ||satisfiesCityGMLNameFilter(cityObject))
+				processor.process(cityObject);
 
 			// add additional global features
 			if (cityObject.hasLocalProperty(GLOBAL_FEATURES)) {
 				for (AbstractFeature feature : (List<AbstractFeature>) cityObject.getLocalProperty(GLOBAL_FEATURES)) {
-					if (!json.isSetCityGMLNameFilter() || satisfiesCityGMLNameFilter(feature)) {
-						if (feature instanceof AbstractCityObject)
-							dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) feature));
-						else
-							dest.addFeatureMember(new FeatureMember(feature));
-					}
+					if (!json.isSetCityGMLNameFilter() || satisfiesCityGMLNameFilter(feature))
+						processor.process(feature);
 				}
 
 				cityObject.unsetLocalProperty(GLOBAL_FEATURES);
@@ -247,54 +267,39 @@ public class CoreUnmarshaller {
 
 			// release CityJSON content from main memory
 			if (json.isReleaseCityJSONContent()) {
-				// recursively release children
 				releaseObjectHierarchy(type, src);
-
-				// remove object itself
 				src.removeCityObject(type.getGmlId());
-				iter.remove();
 			}
-		}
 
-		// handle global extension properties
-		if (src.isSetExtensionProperties()) {
-			for (Map.Entry<String, Object> entry : src.getExtensionProperties().entrySet()) {
-				if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
-					json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, src, dest);
-			}
-		}
-
-		// postprocess group members
-		dest.accept(new FeatureWalker() {
-			public void visit(CityObjectGroup group) {
-				citygml.getCiyCityObjectGroupUnmarshaller().postprocessGroupMembers(group, dest);
-			}
-		});
-
-		// add metadata
-		if (src.isSetMetadata() && (dest.isSetCityObjectMember() || dest.isSetFeatureMember())) {
-			MetadataType metadata = src.getMetadata();
-
-			if (metadata.isSetGeographicalExtent()) {
-				List<Double> bbox = metadata.getGeographicalExtent();
-				if (bbox.size() > 5) {
-					BoundingShape boundedBy = new BoundingShape(new BoundingBox(
-							new Point(bbox.get(0), bbox.get(1), bbox.get(2)),
-							new Point(bbox.get(3), bbox.get(4), bbox.get(5))));
-					
-					if (metadata.isSetReferenceSystem())
-						boundedBy.getEnvelope().setSrsName(metadata.getReferenceSystem());
-					
-					dest.setBoundedBy(boundedBy);
-				}
-			}
+			iter.remove();
 		}
 	}
 	
 	public CityModel unmarshalCityModel(CityJSON src) {
 		CityModel dest = new CityModel();
-		unmarshalCityModel(src, dest);
-		
+
+		try {
+			unmarshalCityModel(src, dest, feature -> {
+				if (feature instanceof AbstractCityObject)
+					dest.addCityObjectMember(new CityObjectMember((AbstractCityObject) feature));
+				else
+					dest.addFeatureMember(new FeatureMember(feature));
+			});
+
+			// postprocess group members
+			dest.accept(new FeatureWalker() {
+				public void visit(CityObjectGroup group) {
+					citygml.getCiyCityObjectGroupUnmarshaller().postprocessGroupMembers(group, dest);
+				}
+			});
+
+			// postprocess metadata
+			if (!dest.isSetCityObjectMember() && !dest.isSetFeatureMember())
+				dest.unsetBoundedBy();
+		} catch (Exception e) {
+			//
+		}
+
 		return dest;
 	}
 
@@ -500,13 +505,12 @@ public class CoreUnmarshaller {
 				|| json.getCityGMLNameFilter().accept(new QName(AppearanceModule.v1_0_0.getNamespaceURI(), "Appearance")));
 	}
 
-	public List<AppearanceMember> getGlobalAppearances() {
-		List<AppearanceMember> result;
+	public List<Appearance> getGlobalAppearances() {
+		List<Appearance> result;
 
 		if (hasGlobalAppearances()) {
 			result = appearanceContainer.getAppearance().stream()
 					.map(AppearanceProperty::getAppearance)
-					.map(AppearanceMember::new)
 					.collect(Collectors.toList());
 
 			templates = null;
