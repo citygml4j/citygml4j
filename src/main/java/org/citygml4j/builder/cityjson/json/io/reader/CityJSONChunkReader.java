@@ -18,40 +18,34 @@
  */
 package org.citygml4j.builder.cityjson.json.io.reader;
 
+import org.citygml4j.builder.cityjson.unmarshal.CityObjectProcessor;
 import org.citygml4j.cityjson.CityJSON;
-import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.core.CityModel;
 
 import java.io.Reader;
 
-public class CityJSONReader extends AbstractCityJSONReader {
-	private MetadataType metadata;
+public class CityJSONChunkReader extends AbstractCityJSONReader {
+	private CityModel cityModelStub;
 
-	public CityJSONReader(Reader reader, CityJSONInputFactory factory) {
+	public CityJSONChunkReader(Reader reader, CityJSONInputFactory factory) {
 		super(reader, factory.processUnknownExtensions);
+		cityModelStub = new CityModel();
 	}
 
-	public boolean isSetMetadata() {
-		return metadata != null;
+	public CityModel getCityModelStub() {
+		return cityModelStub;
 	}
 
-	public MetadataType getMetadata() {
-		return metadata;
-	}
-
-	public CityModel read() throws CityJSONReadException {
+	public void read(CityObjectProcessor processor) throws Exception {
 		CityJSON cityJSON = readCityJSON();
-		if (cityJSON != null) {
-			metadata = cityJSON.getMetadata();
-			return getCityJSONUnmarshaller().unmarshal(cityJSON);
-		} else
-			return null;
+		if (cityJSON != null)
+			getCityJSONUnmarshaller().unmarshal(cityJSON, cityModelStub, processor);
 	}
 	
 	@Override
 	public void close() throws CityJSONReadException {
 		super.close();
-		metadata = null;
+		cityModelStub = null;
 	}
 
 }

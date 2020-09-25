@@ -19,7 +19,7 @@
  * limitations under the License.
  */
 
-package org.citygml4j.builder.cityjson.unmarshal.citygml;
+package org.citygml4j.builder.cityjson.unmarshal;
 
 import org.citygml4j.model.gml.feature.AbstractFeature;
 

@@ -19,8 +19,8 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.core;
 
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.builder.cityjson.unmarshal.CityObjectProcessor;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.builder.cityjson.unmarshal.citygml.CityObjectProcessor;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.util.AffineTransform;
 import org.citygml4j.cityjson.CityJSON;
@@ -321,7 +321,7 @@ public class CoreUnmarshaller {
 					property.setGeometry(geometry);
 					dest.setLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD, template.getLod().intValue());
 
-					templateInfos.putIfAbsent(src.getTemplate(), new SimpleEntry<String, Integer>(geometry.getId(), template.getLod().intValue()));
+					templateInfos.putIfAbsent(src.getTemplate(), new SimpleEntry<>(geometry.getId(), template.getLod().intValue()));
 				}
 			}
 		} else {
@@ -402,7 +402,7 @@ public class CoreUnmarshaller {
 					if (arrayProperty.isSetCurveSegment()) {
 						for (AbstractCurveSegment abstractCurveSegment : arrayProperty.getCurveSegment()) {
 							if (abstractCurveSegment.getGMLClass() == GMLClass.LINE_STRING_SEGMENT) {
-								List<Double> vertices = ((LineStringSegment)abstractCurveSegment).toList3d();
+								List<Double> vertices = abstractCurveSegment.toList3d();
 								if (!vertices.isEmpty()) {
 									transformer.transform(vertices);
 									((LineStringSegment)abstractCurveSegment).getPosList().setValue(vertices);

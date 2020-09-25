@@ -19,7 +19,6 @@
 package org.citygml4j.builder.cityjson.unmarshal;
 
 import org.citygml4j.builder.cityjson.unmarshal.citygml.CityGMLUnmarshaller;
-import org.citygml4j.builder.cityjson.unmarshal.citygml.CityObjectProcessor;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.ade.ADEUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.gml.GMLUnmarshaller;
 import org.citygml4j.builder.cityjson.util.CityGMLMetadata;

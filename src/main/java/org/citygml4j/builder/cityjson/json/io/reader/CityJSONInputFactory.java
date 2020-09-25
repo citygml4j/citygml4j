@@ -60,13 +60,41 @@ public class CityJSONInputFactory {
 			throw new CityJSONReadException("Caused by: ", e);
 		}
 	}
+
+	public CityJSONChunkReader createCityJSONChunkReader(File file) throws CityJSONReadException {
+		try {
+			return new CityJSONChunkReader(new BufferedReader(new FileReader(file)), this);
+		} catch (FileNotFoundException e) {
+			throw new CityJSONReadException("Caused by: ", e);
+		}
+	}
+
+	public CityJSONChunkReader createCityJSONChunkReader(File file, String encoding) throws CityJSONReadException {
+		try {
+			return new CityJSONChunkReader(new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding)), this);
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			throw new CityJSONReadException("Caused by: ", e);
+		}
+	}
+
+	public CityJSONChunkReader createCityJSONChunkReader(InputStream inputStream) throws CityJSONReadException {
+		return new CityJSONChunkReader(new InputStreamReader(inputStream), this);
+	}
+
+	public CityJSONChunkReader createCityJSONChunkReader(InputStream inputStream, String encoding) throws CityJSONReadException {
+		try {
+			return new CityJSONChunkReader(new InputStreamReader(inputStream, encoding), this);
+		} catch (UnsupportedEncodingException e) {
+			throw new CityJSONReadException("Caused by: ", e);
+		}
+	}
 	
-	public CityJSONReader createFilteredCityJSONReader(CityJSONReader reader, CityObjectTypeFilter filter) throws CityJSONReadException {
+	public <T extends AbstractCityJSONReader> T createFilteredCityJSONReader(T reader, CityObjectTypeFilter filter) throws CityJSONReadException {
 		reader.setObjectTypeFilter(filter);
 		return reader;
 	}
 
-	public CityJSONReader createFilteredCityJSONReader(CityJSONReader reader, CityGMLInputFilter filter) throws CityJSONReadException {
+	public <T extends AbstractCityJSONReader> T createFilteredCityJSONReader(T reader, CityGMLInputFilter filter) throws CityJSONReadException {
 		reader.setCityGMLNameFilter(filter);
 		return reader;
 	}
