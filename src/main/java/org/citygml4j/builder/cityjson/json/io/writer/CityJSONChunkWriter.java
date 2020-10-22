@@ -136,7 +136,8 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 		if (cityJSON.isSetExtensionProperties())
 			extensionProperties.putAll(cityJSON.getExtensionProperties());
 
-		write(dest);
+		if (dest != null)
+			write(dest);
 	}
 
 	public void writeCityObject(AbstractCityObjectType cityObject) throws CityJSONWriteException {
