@@ -25,9 +25,9 @@ java {
 }
 
 dependencies {
-    api 'org.xmlobjects.gml:gml-objects:1.0.0-b20200922.2104'
-    api 'org.xmlobjects.xal:xal-objects:1.0.0-rc.1'
-    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-b20200922.2104'
+    api 'org.xmlobjects.gml:gml-objects:1.0.0-rc.2'
+    api 'org.xmlobjects.xal:xal-objects:1.0.0-rc.2'
+    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-rc.2'
 }
 
 javadoc {
