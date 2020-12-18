@@ -38,6 +38,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Objects;
 
@@ -88,11 +89,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLWriter createCityGMLWriter(File file) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLWriter(factory.createWriter(file), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLWriter(file, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLWriter createCityGMLWriter(File file, String encoding) throws CityGMLWriteException {
@@ -104,11 +101,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLWriter createCityGMLWriter(Path path) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLWriter(factory.createWriter(path), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLWriter(path, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLWriter createCityGMLWriter(Path path, String encoding) throws CityGMLWriteException {
@@ -120,11 +113,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLWriter createCityGMLWriter(StreamResult result) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLWriter(factory.createWriter(result), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLWriter(result, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLWriter createCityGMLWriter(StreamResult result, String encoding) throws CityGMLWriteException {
@@ -136,11 +125,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLWriter createCityGMLWriter(OutputStream stream) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLWriter(factory.createWriter(stream), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLWriter(stream, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLWriter createCityGMLWriter(OutputStream stream, String encoding) throws CityGMLWriteException {
@@ -164,11 +149,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(File file) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLChunkWriter(factory.createWriter(file), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLChunkWriter(file, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(File file, String encoding) throws CityGMLWriteException {
@@ -180,11 +161,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(Path path) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLChunkWriter(factory.createWriter(path), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLChunkWriter(path, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(Path path, String encoding) throws CityGMLWriteException {
@@ -196,11 +173,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(StreamResult result) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLChunkWriter(factory.createWriter(result), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLChunkWriter(result, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(StreamResult result, String encoding) throws CityGMLWriteException {
@@ -212,11 +185,7 @@ public class CityGMLOutputFactory {
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(OutputStream stream) throws CityGMLWriteException {
-        try {
-            return initialize(new CityGMLChunkWriter(factory.createWriter(stream), version, factory));
-        } catch (XMLWriteException e) {
-            throw new CityGMLWriteException("Caused by:", e);
-        }
+        return createCityGMLChunkWriter(stream, StandardCharsets.UTF_8.name());
     }
 
     public CityGMLChunkWriter createCityGMLChunkWriter(OutputStream stream, String encoding) throws CityGMLWriteException {
