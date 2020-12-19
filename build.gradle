@@ -7,8 +7,6 @@ plugins {
     id 'com.jfrog.bintray' version '1.8.5'
 }
 
-sourceCompatibility = 1.8
-
 allprojects {
     group 'org.citygml4j'
     version '2.11.2'
@@ -17,6 +15,12 @@ allprojects {
     repositories {
         jcenter()
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    withJavadocJar()
+    withSourcesJar()
 }
 
 ext {
@@ -81,6 +85,10 @@ javadoc {
             """.replaceAll("[\r|\n]+", "")
         addStringOption('doctitle', project.name + ' - ' + project.description)
     }
+
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
     
     doFirst {
         copy {
@@ -96,7 +104,8 @@ javadoc {
 jar {
     manifest {
         attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version
+                'Implementation-Version': project.version,
+                'Automatic-Module-Name': project.group
         )
     }
     into('META-INF') {
@@ -131,22 +140,10 @@ distributions.main.contents {
     }
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            artifact sourcesJar
-            artifact javadocJar
             pom {
                 name = project.name
                 description = project.description
