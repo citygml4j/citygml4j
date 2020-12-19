@@ -42,7 +42,6 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 		this.breakElement = breakElement;
 		this.writer = writer;
 		this.mode = mode;
-
 		shouldWrite = mode == WriteMode.HEAD;
 	}
 
@@ -61,41 +60,48 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		if (shouldWrite)
+		if (shouldWrite) {
 			writer.characters(ch, start, length);
+		}
 	}
 
 	@Override
 	public void endDocument() throws SAXException {
-		if (shouldWrite && mode == WriteMode.TAIL)
+		if (shouldWrite && mode == WriteMode.TAIL) {
 			writer.endDocument();
+		}
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-		if (localName.equals(breakElement.getLocalPart()) && uri.equals(breakElement.getNamespaceURI()))
-			shouldWrite = !shouldWrite;
+		if (mode == WriteMode.HEAD
+				&& localName.equals(breakElement.getLocalPart())
+				&& uri.equals(breakElement.getNamespaceURI())) {
+			shouldWrite = false;
+		}
 
 		if (shouldWrite) {
 			if (!hasStartElement && writer instanceof SAXEventBuffer) {
-				((SAXEventBuffer)writer).addEndElement(uri, localName);
+				((SAXEventBuffer) writer).addEndElement(uri, localName);
 				return;
 			}
-			
+
 			writer.endElement(uri, localName, qName);
 		}
 	}
 
 	@Override
 	public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
-		if (shouldWrite)
+		if (shouldWrite) {
 			writer.ignorableWhitespace(ch, start, length);
+		}
 	}
 
 	@Override
 	public void startDocument() throws SAXException {
-		if (shouldWrite && mode == WriteMode.HEAD)
+		if (shouldWrite && mode == WriteMode.HEAD) {
 			writer.startDocument();
+		}
 	}
 
 	@Override
@@ -104,17 +110,25 @@ public class SAXFragmentWriter extends XMLFilterImpl {
 			writer.startElement(uri, localName, qName, atts);
 			hasStartElement = true;
 		}
+
+		if (mode == WriteMode.TAIL
+				&& localName.equals(breakElement.getLocalPart())
+				&& uri.equals(breakElement.getNamespaceURI())) {
+			shouldWrite = true;
+		}
 	}
 
 	@Override
 	public void endPrefixMapping(String prefix) throws SAXException {
-		writer.endPrefixMapping(prefix);
+		if (shouldWrite) {
+			writer.endPrefixMapping(prefix);
+		}
 	}
 
 	@Override
 	public void startPrefixMapping(String prefix, String uri) throws SAXException {
-		if (shouldWrite)
+		if (shouldWrite) {
 			writer.startPrefixMapping(prefix, uri);
+		}
 	}
-
 }
