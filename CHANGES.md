@@ -1,6 +1,23 @@
 Change Log
 ==========
 
+### 2.11.2 - 2020-12-21
+
+##### Additions
+* Added `setObjectIfValid(Object object)` method to association classes in addition to the generic `setObject(T object)`
+method. This makes working with the association classes easier because you do not have to cast objects before assigning
+them anymore.
+* Added a callback-based CityJSON chunk reader. It supports the chunk-wise reading of CityJSON datasets by using a
+`CityObjectProcessor` that will be invoked for every chunk. Note that due to the design of CityJSON, properties like
+the `vertices` array must still be held in and, thus, occupy main memory.
+
+##### Fixes
+* Improved CityJSON unmarshalling to use less memory. [citygml-tools #18](https://github.com/citygml4j/citygml-tools/issues/18)
+* Fixed bug in `copy` method of `AbstractBuilding` which copied both the `lod0FootPrint` and `lod0RoofEdge` properties
+  to `lod1MultiSurface`.
+* Fixed possible NPE in CityJSON chunk writer.
+* Fixed `CityModelWriter` to also write ADE properties of the root `CityModel` element. [#28](https://github.com/citygml4j/citygml4j/issues/28)
+
 ### 2.11.1 - 2020-09-04
 
 ##### Fixes
