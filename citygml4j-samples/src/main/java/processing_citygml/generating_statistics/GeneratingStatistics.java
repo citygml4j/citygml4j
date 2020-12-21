@@ -33,7 +33,8 @@ import org.citygml4j.xml.io.reader.CityGMLReader;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class GeneratingStatistics {
 
@@ -49,9 +50,9 @@ public class GeneratingStatistics {
 		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Railway_v200.gml"));
 		CityModel cityModel = (CityModel)reader.nextFeature();
 		reader.close();
-	
-		final HashMap<CityGMLClass, Integer> features = new HashMap<>();
-		final HashMap<GMLClass, Integer> geometries = new HashMap<>();
+
+		final Map<CityGMLClass, Integer> features = new TreeMap<>();
+		final Map<GMLClass, Integer> geometries = new TreeMap<>();
 
 		System.out.println(df.format(new Date()) + "walking through document and counting features/geometries");
 		GMLWalker walker = new GMLWalker() {
@@ -60,8 +61,7 @@ public class GeneratingStatistics {
 			public void visit(AbstractFeature abstractFeature) {
 				if (abstractFeature instanceof CityGML) {
 					CityGMLClass key = ((CityGML)abstractFeature).getCityGMLClass();
-					int count = features.containsKey(key) ? features.get(key) + 1 : 1;
-					features.put(key, count);
+					features.merge(key, 1, Integer::sum);
 				}				
 					
 				super.visit(abstractFeature);
@@ -70,9 +70,7 @@ public class GeneratingStatistics {
 			@Override
 			public void visit(AbstractGeometry abstractGeometry) {
 				GMLClass key = abstractGeometry.getGMLClass();
-				int count = geometries.containsKey(key) ? geometries.get(key) + 1 : 1;
-				geometries.put(key, count);
-				
+				geometries.merge(key, 1, Integer::sum);
 				super.visit(abstractGeometry);
 			}
 			
@@ -82,12 +80,10 @@ public class GeneratingStatistics {
 
 		System.out.println(df.format(new Date()) + "LOD3_Railway_v200.gml contains:");
 		System.out.println("Features:");
-		for (CityGMLClass feature : features.keySet())
-			System.out.println(feature + ": " + features.get(feature));
-		
+		features.forEach((key, value) -> System.out.println(key + ": " + value));
+
 		System.out.println("\nGeometries:");
-		for (GMLClass geometry : geometries.keySet())
-			System.out.println(geometry + ": " + geometries.get(geometry));
+		geometries.forEach((key, value) -> System.out.println(key + ": " + value));
 		
 		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
 	}
