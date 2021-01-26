@@ -48,19 +48,19 @@ public class CityJSONOutputFactory {
 	public CityJSONWriter createCityJSONWriter(File file, String encoding) throws CityJSONWriteException {
 		try {
 			createParentDirectories(file.toPath());
-			return new CityJSONWriter(new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)), this);
+			return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))), this);
 		} catch (IOException e) {
 			throw new CityJSONWriteException("Caused by: ", e);
 		}
 	}
 
 	public CityJSONWriter createCityJSONWriter(OutputStream outputStream) {
-		return new CityJSONWriter(new JsonWriter(new OutputStreamWriter(outputStream)), this);
+		return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream))), this);
 	}
 
 	public CityJSONWriter createCityJSONWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
 		try {
-			return new CityJSONWriter(new JsonWriter(new OutputStreamWriter(outputStream, encoding)), this);
+			return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding))), this);
 		} catch (UnsupportedEncodingException e) {
 			throw new CityJSONWriteException("Caused by: ", e);
 		}
@@ -82,19 +82,19 @@ public class CityJSONOutputFactory {
 	public CityJSONChunkWriter createCityJSONChunkWriter(File file, String encoding) throws CityJSONWriteException {
 		try {
 			createParentDirectories(file.toPath());
-			return new CityJSONChunkWriter(new JsonWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)), this);
+			return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))), this);
 		} catch (IOException e) {
 			throw new CityJSONWriteException("Caused by: ", e);
 		}
 	}
 
 	public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream) {
-		return new CityJSONChunkWriter(new JsonWriter(new OutputStreamWriter(outputStream)), this);
+		return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream))), this);
 	}
 
 	public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
 		try {
-			return new CityJSONChunkWriter(new JsonWriter(new OutputStreamWriter(outputStream, encoding)), this);
+			return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding))), this);
 		} catch (UnsupportedEncodingException e) {
 			throw new CityJSONWriteException("Caused by: ", e);
 		}
