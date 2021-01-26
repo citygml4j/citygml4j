@@ -20,11 +20,7 @@ package org.citygml4j.builder.cityjson.json.io.writer;
 
 import com.google.gson.stream.JsonWriter;
 import org.citygml4j.cityjson.CityJSON;
-import org.citygml4j.cityjson.geometry.TransformType;
-import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.core.CityModel;
-
-import java.util.List;
 
 public class CityJSONWriter extends AbstractCityJSONWriter {
 	private DocumentState documentState = DocumentState.INITIAL;
@@ -44,27 +40,27 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 
 		CityJSON cityJSON = marshaller.marshal(cityModel);
 		if (cityJSON != null) {
-			// add metadata
-			MetadataType metadata = this.metadata != null ? this.metadata : new MetadataType();
-			cityJSON.setMetadata(metadata);
-
-			if (!metadata.isSetGeographicalExtent() && !cityJSON.getVertices().isEmpty()) {
-				List<Double> bbox = cityJSON.calcBoundingBox();
-				if (cityJSON.isSetTransform()) {
-					TransformType transform = cityJSON.getTransform();
-					for (int i = 0; i < bbox.size(); i++)
-						bbox.set(i, bbox.get(i) * transform.getScale().get(i%3) + transform.getTranslate().get(i%3));
-				}
-				
-				metadata.setGeographicalExtent(bbox);
+			if (calcBoundingBox
+					&& (metadata == null || !metadata.isSetGeographicalExtent())
+					&& !cityJSON.getVertices().isEmpty()) {
+				getOrCreateMetadata().setGeographicalExtent(cityJSON.calcBoundingBox());
 			}
 
-			if (!metadata.isSetPresentLoDs() && cityJSON.hasCityObjects())
-				metadata.setPresentLoDs(cityJSON.calcPresentLoDs());
+			if (calcPresentLods
+					&& (metadata == null || !metadata.isSetPresentLoDs())
+					&& cityJSON.hasCityObjects()) {
+				getOrCreateMetadata().setPresentLoDs(cityJSON.calcPresentLoDs());
+			}
+
+			// add metadata
+			if (metadata != null) {
+				cityJSON.setMetadata(metadata);
+			}
 
 			// add extensions
-			if (extensions != null)
+			if (extensions != null) {
 				cityJSON.setExtensions(extensions);
+			}
 
 			gson.toJson(cityJSON, CityJSON.class, writer);
 		}
@@ -74,8 +70,9 @@ public class CityJSONWriter extends AbstractCityJSONWriter {
 
 	@Override
 	public void close() throws CityJSONWriteException {
-		if (documentState == DocumentState.INITIAL)
+		if (documentState == DocumentState.INITIAL) {
 			gson.toJson(new CityJSON(), CityJSON.class, writer);
+		}
 
 		super.close();
 	}

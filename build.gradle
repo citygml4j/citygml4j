@@ -37,7 +37,7 @@ configurations {
 }
 
 dependencies {
-    api 'org.citygml4j:citygson:1.1.2'
+    api 'org.citygml4j:citygson:1.1.3-b20210126-1304'
     api 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     api 'org.glassfish.jaxb:xsom:2.3.2'
 

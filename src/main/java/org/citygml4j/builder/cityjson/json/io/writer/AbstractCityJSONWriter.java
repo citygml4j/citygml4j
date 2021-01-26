@@ -47,6 +47,8 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 
 	protected MetadataType metadata;
 	protected Map<String, ExtensionType> extensions;
+	protected boolean calcBoundingBox = true;
+	protected boolean calcPresentLods = true;
 
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
@@ -108,6 +110,14 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 		this.metadata = metadata;
 	}
 
+	protected MetadataType getOrCreateMetadata() {
+		if (metadata == null) {
+			metadata = new MetadataType();
+		}
+
+		return metadata;
+	}
+
 	public void setExtension(String name, ExtensionType extension) {
 		if (extensions == null)
 			extensions = new HashMap<>();
@@ -148,6 +158,22 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	
 	public CityJSONMarshaller getCityJSONMarshaller() {
 		return marshaller;
+	}
+
+	public boolean isCalcBoundingBox() {
+		return calcBoundingBox;
+	}
+
+	public void setCalcBoundingBox(boolean calcBoundingBox) {
+		this.calcBoundingBox = calcBoundingBox;
+	}
+
+	public boolean isCalcPresentLods() {
+		return calcPresentLods;
+	}
+
+	public void setCalcPresentLods(boolean calcPresentLods) {
+		this.calcPresentLods = calcPresentLods;
 	}
 
 	public void flush() throws CityJSONWriteException {

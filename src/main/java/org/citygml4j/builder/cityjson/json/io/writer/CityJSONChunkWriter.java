@@ -260,26 +260,31 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 			}
 
 			// metadata
-			MetadataType metadata = this.metadata != null ? this.metadata : new MetadataType();
-
-			if (!metadata.isSetGeographicalExtent() && !vertices.isEmpty()) {
+			if (calcBoundingBox
+					&& (metadata == null || !metadata.isSetGeographicalExtent())
+					&& !vertices.isEmpty()) {
 				CityJSON cityJSON = new CityJSON();
 				cityJSON.setVertices(vertices);
 
 				List<Double> bbox = cityJSON.calcBoundingBox();
 				if (transform != null) {
 					for (int i = 0; i < bbox.size(); i++)
-						bbox.set(i, bbox.get(i) * transform.getScale().get(i%3) + transform.getTranslate().get(i%3));
+						bbox.set(i, bbox.get(i) * transform.getScale().get(i % 3) + transform.getTranslate().get(i % 3));
 				}
 
-				metadata.setGeographicalExtent(bbox);
+				getOrCreateMetadata().setGeographicalExtent(bbox);
 			}
 
-			if (!metadata.isSetPresentLoDs() && !lods.isEmpty())
-				metadata.setPresentLoDs(lods);
+			if (calcPresentLods
+					&& (metadata == null || !metadata.isSetPresentLoDs())
+					&& !lods.isEmpty()) {
+				getOrCreateMetadata().setPresentLoDs(lods);
+			}
 
-			writer.name(METADATA);
-			gson.toJson(metadata, MetadataType.class, writer);
+			if (metadata != null) {
+				writer.name(METADATA);
+				gson.toJson(metadata, MetadataType.class, writer);
+			}
 
 			// CityGML metadata
 			GenericsMarshaller genericsMarshaller = marshaller.getCityGMLMarshaller().getGenericsMarshaller();
