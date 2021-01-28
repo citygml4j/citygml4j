@@ -19,13 +19,12 @@
 package org.citygml4j.util.gmlid;
 
 import java.util.UUID;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultGMLIdManager implements GMLIdManager {
-	private static DefaultGMLIdManager instance = new DefaultGMLIdManager();
+	private static final DefaultGMLIdManager instance = new DefaultGMLIdManager();
 	private final String defaultPrefix = "UUID_";
-	private final Matcher matcher = Pattern.compile("[_A-Za-z][-._A-Za-z0-9]*", Pattern.UNICODE_CHARACTER_CLASS).matcher("");
+	private final Pattern pattern = Pattern.compile("[_A-Za-z][-._A-Za-z0-9]*", Pattern.UNICODE_CHARACTER_CLASS);
 	private String prefix = defaultPrefix;
 
 	private DefaultGMLIdManager() {
@@ -45,17 +44,19 @@ public class DefaultGMLIdManager implements GMLIdManager {
 	}
 
 	public void setPrefix(String prefix) {
-		if (matcher.reset(prefix).matches())
+		if (pattern.matcher(prefix).matches()) {
 			this.prefix = prefix;
+		}
 	}
 
 	public boolean isValidPrefix(String prefix) {
-		return matcher.reset(prefix).matches();
+		return pattern.matcher(prefix).matches();
 	}
 
 	public String generateUUID(String prefix) {
-		if (!matcher.reset(prefix).matches())
+		if (!pattern.matcher(prefix).matches()) {
 			prefix = defaultPrefix;
+		}
 
 		return prefix + UUID.randomUUID().toString();
 	}
