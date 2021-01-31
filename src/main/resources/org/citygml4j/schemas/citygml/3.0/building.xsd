@@ -650,7 +650,6 @@
               <documentation>Relates to the storeys on which the BuildingUnit is located.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:Storey</targetElement>
-                <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">bldg:buildingUnit</reversePropertyName>
               </appinfo>
             </annotation>
           </element>
@@ -723,7 +722,6 @@
               <documentation>Relates to the building units that belong to the Storey.</documentation>
               <appinfo>
                 <targetElement xmlns="http://www.opengis.net/gml/3.2">bldg:BuildingUnit</targetElement>
-                <reversePropertyName xmlns="http://www.opengis.net/gml/3.2">bldg:storey</reversePropertyName>
               </appinfo>
             </annotation>
           </element>

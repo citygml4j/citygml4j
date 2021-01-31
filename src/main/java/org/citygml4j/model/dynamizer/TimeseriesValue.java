@@ -24,7 +24,7 @@ import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 
 public enum TimeseriesValue {
-    INTEGER("integer", Integer.class),
+    INTEGER("int", Integer.class),
     DOUBLE("double", Double.class),
     STRING("string", String.class),
     GEOMETRY("geometry", GeometryProperty.class),

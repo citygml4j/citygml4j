@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xAL="urn:oasis:names:tc:ciq:xal:3" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/3.0" version="3.0.0">
   <annotation>
-    <documentation>The Core module defines the basic components of the CityGML data model. This includes abstract base classes that define the core properties of more specialized thematic classes defined in other modules as well as concrete classes that are common to other modules, for example basic data types.</documentation>
+    <documentation>The Core module defines the basic components of the CityGML conceptual model. This includes abstract base classes that define the core properties of more specialized thematic classes defined in other modules as well as concrete classes that are common to other modules, for example basic data types.</documentation>
   </annotation>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <import namespace="urn:oasis:names:tc:ciq:xal:3" schemaLocation="../../xal/3.0/xAL.xsd"/>
@@ -266,7 +266,7 @@
   </complexType>
   <element abstract="true" name="AbstractCityObject" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractCityObjectType">
     <annotation>
-      <documentation>AbstractCityObject is the abstract superclass of all thematic classes within the CityGML data model.</documentation>
+      <documentation>AbstractCityObject is the abstract superclass of all thematic classes within the CityGML conceptual model.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractCityObjectType">
@@ -369,7 +369,7 @@
   </complexType>
   <element abstract="true" name="AbstractFeature" substitutionGroup="gml:AbstractFeature" type="core:AbstractFeatureType">
     <annotation>
-      <documentation>AbstractFeature is the abstract superclass of all feature types within the CityGML data model.</documentation>
+      <documentation>AbstractFeature is the abstract superclass of all feature types within the CityGML conceptual model.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractFeatureType">
@@ -992,7 +992,7 @@
       </element>
       <element name="featureMember">
         <annotation>
-          <documentation>Specifies the feature objects that are part of the CityModel. It allows to include objects that are not derived from a class defined in the CityGML data model, but from the ISO 19109 class AnyFeature.</documentation>
+          <documentation>Specifies the feature objects that are part of the CityModel. It allows to include objects that are not derived from a class defined in the CityGML conceptual model, but from the ISO 19109 class AnyFeature.</documentation>
         </annotation>
         <complexType>
           <complexContent>

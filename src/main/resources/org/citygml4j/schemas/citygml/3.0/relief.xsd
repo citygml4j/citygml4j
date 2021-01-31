@@ -227,7 +227,7 @@
   </complexType>
   <element name="ReliefFeature" substitutionGroup="core:AbstractSpaceBoundary" type="dem:ReliefFeatureType">
     <annotation>
-      <documentation>A ReliefFeature is a collection of terrain components representing the Earth's surface, a.k.a. the Digital Terrain Model.</documentation>
+      <documentation>A ReliefFeature is a collection of terrain components representing the Earth's surface, also known as the Digital Terrain Model.</documentation>
     </annotation>
   </element>
   <complexType name="ReliefFeatureType">

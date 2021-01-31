@@ -623,7 +623,7 @@
       <documentation>TimeseriesTypeValue enumerates the possible value types for GenericTimeseries and TimeValuePair.</documentation>
     </annotation>
     <restriction base="string">
-      <enumeration value="integer">
+      <enumeration value="int">
         <annotation>
           <documentation>Indicates that the values of the GenericTimeseries are of type "Integer".</documentation>
         </annotation>
