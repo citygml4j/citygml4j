@@ -9,7 +9,7 @@ plugins {
 
 allprojects {
     group 'org.citygml4j'
-    version '3.0.0-rc.1'
+    version '3.0.0-rc.2'
     description 'The Open Source Java API for CityGML'
     ext.date = new Date()
 
@@ -25,9 +25,9 @@ java {
 }
 
 dependencies {
-    api 'org.xmlobjects.gml:gml-objects:1.0.0-rc.2'
-    api 'org.xmlobjects.xal:xal-objects:1.0.0-rc.2'
-    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-rc.2'
+    api 'org.xmlobjects.gml:gml-objects:1.0.0-rc.3'
+    api 'org.xmlobjects.xal:xal-objects:1.0.0-rc.3'
+    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-rc.3'
 }
 
 javadoc {
