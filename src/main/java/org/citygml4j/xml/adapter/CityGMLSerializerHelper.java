@@ -25,6 +25,7 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
+import org.xmlobjects.gml.adapter.geometry.primitives.PointPropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.serializer.ObjectSerializeException;
@@ -168,6 +169,9 @@ public class CityGMLSerializerHelper {
             return true;
         } else if (object.getMultiCurve(lod) != null) {
             writer.writeElementUsingSerializer(Element.of(namespaceURI, propertyName), object.getMultiCurve(lod), MultiCurvePropertyAdapter.class, namespaces);
+            return true;
+        } else if (lod == 0 && object.getLod0Point() != null) {
+            writer.writeElementUsingSerializer(Element.of(namespaceURI, propertyName), object.getLod0Point(), PointPropertyAdapter.class, namespaces);
             return true;
         }
 
