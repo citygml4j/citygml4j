@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+### 2.11.3 - 2021-04-13
+
+##### Additions
+* Added methods to CityJSON writers to control the automatic generation of metadata.
+* Use buffered writers for CityJSON by default.
+* Updated to citygson version 1.1.3.
+
+##### Fixes
+* Avoid concurrency issues when generating UUIDs with the `DefaultGMLIdManager` class.
+
+##### Changes
+* Dropped usage of Bintray and JCenter.
+
 ### 2.11.2 - 2020-12-21
 
 ##### Additions
