@@ -171,15 +171,20 @@ public class CoreMarshaller {
 
 	public GeometryInstanceType marshalImplicitGeometry(ImplicitGeometry src, int lod) {
 		// get relative geometry
-		AbstractGeometry relativeGeometry;
-		GeometryProperty<?> property = src.getRelativeGMLGeometry();
+		AbstractGeometry relativeGeometry = null;
 
-		if (property.isSetGeometry())
-			relativeGeometry = property.getGeometry();
-		else if (property.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK))
-			relativeGeometry = (AbstractGeometry)property.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK);
-		else
+		GeometryProperty<?> property = src.getRelativeGMLGeometry();
+		if (property != null) {
+			if (property.isSetGeometry()) {
+				relativeGeometry = property.getGeometry();
+			} else if (property.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK)) {
+				relativeGeometry = (AbstractGeometry) property.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK);
+			}
+		}
+
+		if (relativeGeometry == null) {
 			return null;
+		}
 
 		String templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : gmlIdManager.generateUUID();
 		Integer sequenceNumber = templateIds.get(templateId);
