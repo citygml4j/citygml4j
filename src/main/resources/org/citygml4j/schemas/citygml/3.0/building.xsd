@@ -638,7 +638,7 @@
   </complexType>
   <element name="BuildingUnit" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:BuildingUnitType">
     <annotation>
-      <documentation>A BuildingUnit is a logical subdivision of a Building. BuildingUnits are formed according to some homogeneous property like function, ownership, management, or accessability. They may be separately sold, rented out, inherited, managed, etc.</documentation>
+      <documentation>A BuildingUnit is a logical subdivision of a Building. BuildingUnits are formed according to some homogeneous property like function, ownership, management, or accessibility. They may be separately sold, rented out, inherited, managed, etc.</documentation>
     </annotation>
   </element>
   <complexType name="BuildingUnitType">

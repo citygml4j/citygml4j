@@ -266,7 +266,7 @@
   </complexType>
   <element abstract="true" name="AbstractCityObject" substitutionGroup="core:AbstractFeatureWithLifespan" type="core:AbstractCityObjectType">
     <annotation>
-      <documentation>AbstractCityObject is the abstract superclass of all thematic classes within the CityGML conceptual model.</documentation>
+      <documentation>AbstractCityObject is the abstract superclass of all thematic classes within the CityGML Conceptual Model.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractCityObjectType">
@@ -369,7 +369,7 @@
   </complexType>
   <element abstract="true" name="AbstractFeature" substitutionGroup="gml:AbstractFeature" type="core:AbstractFeatureType">
     <annotation>
-      <documentation>AbstractFeature is the abstract superclass of all feature types within the CityGML conceptual model.</documentation>
+      <documentation>AbstractFeature is the abstract superclass of all feature types within the CityGML Conceptual Model.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractFeatureType">
@@ -394,7 +394,7 @@
   </complexType>
   <element abstract="true" name="AbstractFeatureWithLifespan" substitutionGroup="core:AbstractFeature" type="core:AbstractFeatureWithLifespanType">
     <annotation>
-      <documentation>AbstractFeatureWithLifespan is the base class for all CityGML features.  It allows the optional specification of the real-world and database times for the existence of each feature.</documentation>
+      <documentation>AbstractFeatureWithLifespan is the base class for all CityGML features. This class allows the optional specification of the real-world and database times for the existence of each feature.</documentation>
     </annotation>
   </element>
   <complexType abstract="true" name="AbstractFeatureWithLifespanType">
@@ -1009,7 +1009,7 @@
   </group>
   <element name="CityObjectRelation" substitutionGroup="gml:AbstractGML" type="core:CityObjectRelationType">
     <annotation>
-      <documentation>CityObjectRelation represents a specific relation from the city object in which it is included to another city object.</documentation>
+      <documentation>CityObjectRelation represents a specific relation from the city object in which the relation is included to another city object.</documentation>
     </annotation>
   </element>
   <complexType name="CityObjectRelationType">
@@ -1113,7 +1113,7 @@
   </complexType>
   <element name="ImplicitGeometry" substitutionGroup="gml:AbstractGML" type="core:ImplicitGeometryType">
     <annotation>
-      <documentation>ImplicitGeometry is a geometry representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model.</documentation>
+      <documentation>ImplicitGeometry is a geometry representation where the shape is stored only once as a prototypical geometry. Examples are a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model.</documentation>
     </annotation>
   </element>
   <complexType name="ImplicitGeometryType">

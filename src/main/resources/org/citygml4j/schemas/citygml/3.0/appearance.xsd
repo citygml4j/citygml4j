@@ -451,7 +451,7 @@
   </simpleType>
   <element name="X3DMaterial" substitutionGroup="app:AbstractSurfaceData" type="app:X3DMaterialType">
     <annotation>
-      <documentation>X3DMaterial defines properties for surface geometry objects based on the material definitions from the standards X3D and COLLADA.</documentation>
+      <documentation>X3DMaterial defines properties for surface geometry objects based on the material definitions from the X3D and COLLADA standards.</documentation>
     </annotation>
   </element>
   <complexType name="X3DMaterialType">

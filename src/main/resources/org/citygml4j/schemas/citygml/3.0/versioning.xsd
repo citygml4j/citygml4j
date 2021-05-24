@@ -190,7 +190,7 @@
           </element>
           <element minOccurs="0" name="to" type="vers:VersionPropertyType">
             <annotation>
-              <documentation>Relates to the sucessor version of the VersionTransition.</documentation>
+              <documentation>Relates to the successor version of the VersionTransition.</documentation>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="transaction" type="vers:TransactionPropertyType">
