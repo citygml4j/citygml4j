@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+### 2.11.4 - 2021-09-20
+
+##### Fixes
+* Fixed NPE when writing an `ImplicitGeometry` as CityJSON that lacks a `relativeGMLGeometry` representation.
+
 ### 2.11.3 - 2021-04-13
 
 ##### Additions
