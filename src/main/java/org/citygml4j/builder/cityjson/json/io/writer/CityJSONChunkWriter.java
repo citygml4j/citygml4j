@@ -30,7 +30,6 @@ import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.cityjson.geometry.TransformType;
 import org.citygml4j.cityjson.geometry.VerticesList;
-import org.citygml4j.cityjson.metadata.LoDType;
 import org.citygml4j.cityjson.metadata.MetadataType;
 import org.citygml4j.model.citygml.appearance.Appearance;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -60,7 +59,7 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 
 	private DocumentState documentState = DocumentState.INITIAL;
 	private Map<String, Object> extensionProperties;
-	private Map<LoDType, Integer> lods;
+	private Map<String, Integer> lods;
 
 	private enum DocumentState {
 		INITIAL,
@@ -158,9 +157,10 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 		try {
 			for (AbstractGeometryType geometry : cityObject.getGeometry()) {
 				if (geometry instanceof AbstractGeometryObjectType) {
-					LoDType lod = LoDType.fromLoD(((AbstractGeometryObjectType) geometry).getLod());
-					if (lod != null)
+					String lod = String.valueOf(((AbstractGeometryObjectType) geometry).getLod());
+					if (lod != null) {
 						lods.merge(lod, 1, Integer::sum);
+					}
 				}
 			}
 
@@ -245,9 +245,10 @@ public class CityJSONChunkWriter extends AbstractCityJSONWriter {
 				writer.name(TEMPLATES);
 				gson.toJson(geometryTemplates, List.class, writer);
 				geometryTemplates.forEach(g -> {
-					LoDType lod = LoDType.fromLoD(g.getLod());
-					if (lod != null)
+					String lod = String.valueOf(g.getLod());
+					if (lod != null) {
 						lods.merge(lod, 1, Integer::sum);
+					}
 				});
 
 				List<List<Double>> templatesVertices = marshaller.getTemplatesVerticesBuilder().build();
