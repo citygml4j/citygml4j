@@ -1,7 +1,10 @@
 Change Log
 ==========
 
-### 2.11.4 - 2021-09-20
+### 2.11.4 - 2021-09-21
+
+##### Additions
+* Updated to citygson version 1.1.4 with support for CityJSON 1.0.3.
 
 ##### Fixes
 * Fixed NPE when writing an `ImplicitGeometry` as CityJSON that lacks a `relativeGMLGeometry` representation.
