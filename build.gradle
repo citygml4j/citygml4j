@@ -124,7 +124,7 @@ distributions.main.contents {
                 version: project.version,
                 date: date.format('yyyy-MM-dd'),
                 copyright: date.format('yyyy'),
-                javaCompatibility: sourceCompatibility.toString(),
+                javaCompatibility: compileJava.options.release.get().toString(),
                 jar: jar.archiveFileName.get(),
                 groupId: project.group,
                 artifactId: project.name
