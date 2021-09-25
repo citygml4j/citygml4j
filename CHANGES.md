@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-### 2.11.4 - 2021-09-24
+### 2.11.4 - 2021-09-25
 
 ##### Additions
 * Updated to citygson version 1.1.4 with support for CityJSON 1.0.3.
