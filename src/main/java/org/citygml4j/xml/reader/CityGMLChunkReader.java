@@ -164,9 +164,12 @@ public class CityGMLChunkReader extends CityGMLReader {
 
     @Override
     public void close() throws CityGMLReadException {
-        super.close();
-        current = null;
-        chunks.clear();
+        try {
+            super.close();
+        } finally {
+            current = null;
+            chunks.clear();
+        }
     }
 
     private boolean shouldChunk(QName name) {
