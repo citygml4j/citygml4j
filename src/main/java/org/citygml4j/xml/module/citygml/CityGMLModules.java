@@ -26,14 +26,8 @@ import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.module.gml.XLinkModule;
 import org.citygml4j.xml.module.xal.XALCommonTypesModule;
 import org.citygml4j.xml.module.xal.XALCoreModule;
-import org.xmlobjects.xal.util.XALConstants;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CityGMLModules {
@@ -138,6 +132,10 @@ public class CityGMLModules {
 
     public static boolean isCityGMLNamespace(String namespaceURI) {
         return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/citygml");
+    }
+
+    public static boolean isCityGMLNamespace(String namespaceURI, CityGMLVersion version) {
+        return isCityGMLNamespace(namespaceURI) && namespaceURI.endsWith(version.toValue());
     }
 
     public static boolean isGMLNamespace(String namespaceURI) {
