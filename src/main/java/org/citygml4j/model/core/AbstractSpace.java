@@ -92,8 +92,8 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public void setBoundaries(List<AbstractSpaceBoundaryProperty> boundaries) {
         this.boundaries = asChild(boundaries);
-        if (boundaries != null)
-            boundaries.removeIf(property -> !isValidBoundary(property));
+        if (this.boundaries != null)
+            this.boundaries.removeIf(property -> !isValidBoundary(property));
     }
 
     public void addBoundary(AbstractSpaceBoundaryProperty property) {
