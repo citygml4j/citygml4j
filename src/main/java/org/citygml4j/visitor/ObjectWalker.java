@@ -22,108 +22,16 @@ package org.citygml4j.visitor;
 import org.citygml4j.ADERegistry;
 import org.citygml4j.model.ade.ADEContainer;
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.appearance.AbstractSurfaceData;
-import org.citygml4j.model.appearance.AbstractSurfaceDataProperty;
-import org.citygml4j.model.appearance.AbstractTexture;
-import org.citygml4j.model.appearance.Appearance;
-import org.citygml4j.model.appearance.GeoreferencedTexture;
-import org.citygml4j.model.appearance.ParameterizedTexture;
-import org.citygml4j.model.appearance.TextureAssociation;
-import org.citygml4j.model.appearance.TextureAssociationProperty;
-import org.citygml4j.model.appearance.X3DMaterial;
-import org.citygml4j.model.bridge.AbstractBridge;
-import org.citygml4j.model.bridge.Bridge;
-import org.citygml4j.model.bridge.BridgeConstructiveElement;
-import org.citygml4j.model.bridge.BridgeConstructiveElementMember;
-import org.citygml4j.model.bridge.BridgeFurniture;
-import org.citygml4j.model.bridge.BridgeFurnitureMember;
-import org.citygml4j.model.bridge.BridgeFurnitureProperty;
-import org.citygml4j.model.bridge.BridgeInstallation;
-import org.citygml4j.model.bridge.BridgeInstallationMember;
-import org.citygml4j.model.bridge.BridgeInstallationProperty;
-import org.citygml4j.model.bridge.BridgePart;
-import org.citygml4j.model.bridge.BridgePartProperty;
-import org.citygml4j.model.bridge.BridgeRoom;
-import org.citygml4j.model.bridge.BridgeRoomMember;
-import org.citygml4j.model.building.AbstractBuilding;
-import org.citygml4j.model.building.AbstractBuildingSubdivision;
-import org.citygml4j.model.building.AbstractBuildingSubdivisionMember;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.building.BuildingConstructiveElement;
-import org.citygml4j.model.building.BuildingConstructiveElementMember;
-import org.citygml4j.model.building.BuildingFurniture;
-import org.citygml4j.model.building.BuildingFurnitureMember;
-import org.citygml4j.model.building.BuildingFurnitureProperty;
-import org.citygml4j.model.building.BuildingInstallation;
-import org.citygml4j.model.building.BuildingInstallationMember;
-import org.citygml4j.model.building.BuildingInstallationProperty;
-import org.citygml4j.model.building.BuildingPart;
-import org.citygml4j.model.building.BuildingPartProperty;
-import org.citygml4j.model.building.BuildingRoom;
-import org.citygml4j.model.building.BuildingRoomMember;
-import org.citygml4j.model.building.BuildingUnit;
-import org.citygml4j.model.building.Storey;
+import org.citygml4j.model.appearance.*;
+import org.citygml4j.model.bridge.*;
+import org.citygml4j.model.building.*;
 import org.citygml4j.model.cityfurniture.CityFurniture;
 import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
-import org.citygml4j.model.construction.AbstractConstruction;
-import org.citygml4j.model.construction.AbstractConstructionSurface;
-import org.citygml4j.model.construction.AbstractConstructiveElement;
-import org.citygml4j.model.construction.AbstractFillingElement;
-import org.citygml4j.model.construction.AbstractFillingElementProperty;
-import org.citygml4j.model.construction.AbstractFillingSurface;
-import org.citygml4j.model.construction.AbstractFillingSurfaceProperty;
-import org.citygml4j.model.construction.AbstractFurniture;
-import org.citygml4j.model.construction.AbstractInstallation;
-import org.citygml4j.model.construction.CeilingSurface;
-import org.citygml4j.model.construction.Door;
-import org.citygml4j.model.construction.DoorSurface;
-import org.citygml4j.model.construction.FloorSurface;
-import org.citygml4j.model.construction.GroundSurface;
-import org.citygml4j.model.construction.InteriorWallSurface;
-import org.citygml4j.model.construction.OtherConstruction;
-import org.citygml4j.model.construction.OuterCeilingSurface;
-import org.citygml4j.model.construction.OuterFloorSurface;
-import org.citygml4j.model.construction.RoofSurface;
-import org.citygml4j.model.construction.WallSurface;
-import org.citygml4j.model.construction.Window;
-import org.citygml4j.model.construction.WindowSurface;
-import org.citygml4j.model.core.AbstractAppearance;
-import org.citygml4j.model.core.AbstractAppearanceProperty;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractDynamizer;
-import org.citygml4j.model.core.AbstractDynamizerProperty;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.AbstractFeatureProperty;
-import org.citygml4j.model.core.AbstractFeatureWithLifespan;
-import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
-import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.AbstractOccupiedSpace;
-import org.citygml4j.model.core.AbstractPhysicalSpace;
-import org.citygml4j.model.core.AbstractPointCloud;
-import org.citygml4j.model.core.AbstractSpace;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.core.AbstractThematicSurface;
-import org.citygml4j.model.core.AbstractUnoccupiedSpace;
-import org.citygml4j.model.core.AbstractVersion;
-import org.citygml4j.model.core.AbstractVersionProperty;
-import org.citygml4j.model.core.AbstractVersionTransition;
-import org.citygml4j.model.core.AbstractVersionTransitionProperty;
-import org.citygml4j.model.core.Address;
-import org.citygml4j.model.core.AddressProperty;
-import org.citygml4j.model.core.CityModel;
-import org.citygml4j.model.core.CityObjectRelation;
-import org.citygml4j.model.core.CityObjectRelationProperty;
-import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.ImplicitGeometry;
-import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfAbstractBridge;
-import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeConstructiveElement;
-import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeFurniture;
-import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeInstallation;
-import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeRoom;
+import org.citygml4j.model.construction.*;
+import org.citygml4j.model.core.*;
+import org.citygml4j.model.deprecated.bridge.*;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingFurniture;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingInstallation;
@@ -143,66 +51,16 @@ import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelInstall
 import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfPlantCover;
 import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfSolitaryVegetationObject;
 import org.citygml4j.model.deprecated.waterbody.DeprecatedPropertiesOfWaterBody;
-import org.citygml4j.model.dynamizer.AbstractAtomicTimeseries;
-import org.citygml4j.model.dynamizer.AbstractTimeseries;
-import org.citygml4j.model.dynamizer.CompositeTimeseries;
-import org.citygml4j.model.dynamizer.Dynamizer;
-import org.citygml4j.model.dynamizer.GenericTimeseries;
-import org.citygml4j.model.dynamizer.StandardFileTimeseries;
-import org.citygml4j.model.dynamizer.TabulatedFileTimeseries;
-import org.citygml4j.model.dynamizer.TimeValuePair;
-import org.citygml4j.model.dynamizer.TimeValuePairProperty;
-import org.citygml4j.model.dynamizer.TimeseriesComponentProperty;
+import org.citygml4j.model.dynamizer.*;
 import org.citygml4j.model.generics.GenericLogicalSpace;
 import org.citygml4j.model.generics.GenericOccupiedSpace;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.model.generics.GenericUnoccupiedSpace;
 import org.citygml4j.model.landuse.LandUse;
 import org.citygml4j.model.pointcloud.PointCloud;
-import org.citygml4j.model.relief.AbstractReliefComponent;
-import org.citygml4j.model.relief.AbstractReliefComponentProperty;
-import org.citygml4j.model.relief.BreaklineRelief;
-import org.citygml4j.model.relief.MassPointRelief;
-import org.citygml4j.model.relief.RasterRelief;
-import org.citygml4j.model.relief.ReliefFeature;
-import org.citygml4j.model.relief.TINRelief;
-import org.citygml4j.model.transportation.AbstractTransportationSpace;
-import org.citygml4j.model.transportation.AuxiliaryTrafficArea;
-import org.citygml4j.model.transportation.AuxiliaryTrafficSpace;
-import org.citygml4j.model.transportation.AuxiliaryTrafficSpaceProperty;
-import org.citygml4j.model.transportation.ClearanceSpace;
-import org.citygml4j.model.transportation.ClearanceSpaceProperty;
-import org.citygml4j.model.transportation.Hole;
-import org.citygml4j.model.transportation.HoleProperty;
-import org.citygml4j.model.transportation.HoleSurface;
-import org.citygml4j.model.transportation.Intersection;
-import org.citygml4j.model.transportation.IntersectionProperty;
-import org.citygml4j.model.transportation.Marking;
-import org.citygml4j.model.transportation.MarkingProperty;
-import org.citygml4j.model.transportation.Railway;
-import org.citygml4j.model.transportation.Road;
-import org.citygml4j.model.transportation.Section;
-import org.citygml4j.model.transportation.SectionProperty;
-import org.citygml4j.model.transportation.Square;
-import org.citygml4j.model.transportation.Track;
-import org.citygml4j.model.transportation.TrafficArea;
-import org.citygml4j.model.transportation.TrafficSpace;
-import org.citygml4j.model.transportation.TrafficSpaceProperty;
-import org.citygml4j.model.transportation.Waterway;
-import org.citygml4j.model.tunnel.AbstractTunnel;
-import org.citygml4j.model.tunnel.HollowSpace;
-import org.citygml4j.model.tunnel.HollowSpaceMember;
-import org.citygml4j.model.tunnel.Tunnel;
-import org.citygml4j.model.tunnel.TunnelConstructiveElement;
-import org.citygml4j.model.tunnel.TunnelConstructiveElementMember;
-import org.citygml4j.model.tunnel.TunnelFurniture;
-import org.citygml4j.model.tunnel.TunnelFurnitureMember;
-import org.citygml4j.model.tunnel.TunnelFurnitureProperty;
-import org.citygml4j.model.tunnel.TunnelInstallation;
-import org.citygml4j.model.tunnel.TunnelInstallationMember;
-import org.citygml4j.model.tunnel.TunnelInstallationProperty;
-import org.citygml4j.model.tunnel.TunnelPart;
-import org.citygml4j.model.tunnel.TunnelPartProperty;
+import org.citygml4j.model.relief.*;
+import org.citygml4j.model.transportation.*;
+import org.citygml4j.model.tunnel.*;
 import org.citygml4j.model.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.vegetation.PlantCover;
 import org.citygml4j.model.vegetation.SolitaryVegetationObject;
@@ -214,23 +72,14 @@ import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterSurface;
 import org.citygml4j.xml.ade.ADEContext;
 import org.xmlobjects.gml.model.GMLObject;
-import org.xmlobjects.gml.model.base.AbstractArrayProperty;
-import org.xmlobjects.gml.model.base.AbstractAssociation;
-import org.xmlobjects.gml.model.base.AbstractGML;
-import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
-import org.xmlobjects.gml.model.base.AbstractInlineProperty;
-import org.xmlobjects.gml.model.base.AbstractProperty;
-import org.xmlobjects.gml.model.base.Reference;
+import org.xmlobjects.gml.model.base.*;
 import org.xmlobjects.gml.model.common.GenericElement;
-import org.xmlobjects.gml.model.coverage.AbstractContinuousCoverage;
-import org.xmlobjects.gml.model.coverage.AbstractCoverage;
-import org.xmlobjects.gml.model.coverage.AbstractDiscreteCoverage;
-import org.xmlobjects.gml.model.coverage.GridCoverage;
-import org.xmlobjects.gml.model.coverage.MultiCurveCoverage;
-import org.xmlobjects.gml.model.coverage.MultiPointCoverage;
-import org.xmlobjects.gml.model.coverage.MultiSolidCoverage;
-import org.xmlobjects.gml.model.coverage.MultiSurfaceCoverage;
-import org.xmlobjects.gml.model.coverage.RectifiedGridCoverage;
+import org.xmlobjects.gml.model.coverage.*;
+import org.xmlobjects.gml.model.deprecated.DefinitionProxy;
+import org.xmlobjects.gml.model.dictionary.Definition;
+import org.xmlobjects.gml.model.dictionary.DefinitionBase;
+import org.xmlobjects.gml.model.dictionary.DefinitionProperty;
+import org.xmlobjects.gml.model.dictionary.Dictionary;
 import org.xmlobjects.gml.model.feature.AbstractFeatureMember;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
@@ -242,16 +91,12 @@ import org.xmlobjects.gml.model.geometry.primitives.SurfacePatchArrayProperty;
 import org.xmlobjects.gml.model.temporal.TimeInstant;
 import org.xmlobjects.gml.model.temporal.TimeInstantProperty;
 import org.xmlobjects.gml.model.temporal.TimePeriod;
-import org.xmlobjects.gml.model.valueobjects.AbstractValue;
-import org.xmlobjects.gml.model.valueobjects.CompositeValue;
-import org.xmlobjects.gml.model.valueobjects.Value;
-import org.xmlobjects.gml.model.valueobjects.ValueArray;
-import org.xmlobjects.gml.model.valueobjects.ValueProperty;
+import org.xmlobjects.gml.model.valueobjects.*;
 import org.xmlobjects.gml.visitor.GeometryWalker;
 
 import java.util.ArrayList;
 
-public abstract class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walker {
+public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walker {
     final ADEWalkerHelper adeWalkerHelper = new ADEWalkerHelper(this);
 
     public ObjectWalker() {
@@ -1253,6 +1098,31 @@ public abstract class ObjectWalker extends GeometryWalker implements ObjectVisit
                     visit(value);
             }
         }
+    }
+
+    public void visit(DefinitionBase definitionBase) {
+        visit((AbstractGML) definitionBase);
+    }
+
+    @Override
+    public void visit(Definition definition) {
+        visit((DefinitionBase) definition);
+    }
+
+    @Override
+    public void visit(DefinitionProxy definitionProxy) {
+        visit((Definition) definitionProxy);
+
+        if (definitionProxy.getDefinitionRef() != null)
+            visit(definitionProxy.getDefinitionRef());
+    }
+
+    @Override
+    public void visit(Dictionary dictionary) {
+        visit((Definition) dictionary);
+
+        for (DefinitionProperty property : new ArrayList<>(dictionary.getDefinitions()))
+            visit(property);
     }
 
     @Override
