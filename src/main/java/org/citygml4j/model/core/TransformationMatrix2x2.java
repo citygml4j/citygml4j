@@ -19,7 +19,7 @@
 
 package org.citygml4j.model.core;
 
-import Jama.Matrix;
+import org.xmlobjects.gml.util.jama.Matrix;
 
 import java.util.List;
 

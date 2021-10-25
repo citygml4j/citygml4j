@@ -19,9 +19,9 @@
 
 package org.citygml4j.model.core;
 
-import Jama.Matrix;
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
+import org.xmlobjects.gml.util.jama.Matrix;
 import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.util.copy.Copyable;
 
