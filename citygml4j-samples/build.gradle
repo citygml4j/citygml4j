@@ -17,6 +17,10 @@ apply from: 'samples.gradle'
 
 clean.dependsOn(cleanOutput)
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 task copySamples {
     def outputsDir = file("$buildDir/samples")
     outputs.dir outputsDir
@@ -29,6 +33,10 @@ task copySamples {
         copy {
             from 'src/main/java'
             into "$outputsDir/src/main/java"
+        }
+        copy {
+            from 'src/main/resources'
+            into "$outputsDir/src/main/resources"
         }
         copy {
             from 'input'
@@ -62,7 +70,10 @@ task copySamples {
         buildFile << "    annotationProcessor fileTree(dir: '../lib', include: '*.jar')\n"
         buildFile << "}\n\n"
         buildFile << "apply from: 'samples.gradle'\n\n"
-        buildFile << "clean.dependsOn(cleanOutput)"
+        buildFile << "clean.dependsOn(cleanOutput)\n\n"
+        buildFile << "jar {\n"
+        buildFile << "    duplicatesStrategy = DuplicatesStrategy.EXCLUDE\n"
+        buildFile << "}"
 
         file("$outputsDir/settings.gradle").text = ''
     }
