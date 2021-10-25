@@ -5,7 +5,7 @@ plugins {
     id 'distribution'
     id 'maven-publish'
     id 'signing'
-    id 'io.github.gradle-nexus.publish-plugin' version '1.0.0'
+    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
 }
 
 allprojects {
@@ -15,6 +15,9 @@ allprojects {
     ext.date = new Date()
 
     repositories {
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
         mavenCentral()
     }
 }
@@ -23,17 +26,18 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
     }
-    compileJava {
-        options.release = 8
-    }
     withJavadocJar()
     withSourcesJar()
 }
 
+tasks.named('compileJava') {
+    options.javaModuleVersion = provider { project.version }
+}
+
 dependencies {
-    api 'org.xmlobjects.gml:gml-objects:1.0.0-rc.3'
-    api 'org.xmlobjects.xal:xal-objects:1.0.0-rc.3'
-    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-rc.3'
+    api 'org.xmlobjects.gml:gml-objects:1.0.0-SNAPSHOT'
+    api 'org.xmlobjects.xal:xal-objects:1.0.0-SNAPSHOT'
+    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-SNAPSHOT'
 }
 
 javadoc {
@@ -50,10 +54,6 @@ javadoc {
         addStringOption('doctitle', project.name + ' - ' + project.description)
     }
 
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
-    }
-
     doFirst {
         copy {
             from 'resources/javadoc/overview.html'
@@ -68,8 +68,7 @@ javadoc {
 jar {
     manifest {
         attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version,
-                'Automatic-Module-Name': project.group
+                'Implementation-Version': project.version
         )
     }
     into('META-INF') {
