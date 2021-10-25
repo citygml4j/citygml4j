@@ -28,7 +28,7 @@ public class GMLExtendedBaseTypesModule extends GMLModule {
         v3_3 = new GMLExtendedBaseTypesModule(
                 GMLConstants.GML_3_3_XBT_NAMESPACE,
                 "gmlxbt",
-                "http://schemas.opengis.net/gml/3.3/extdBaseTypes.xsd"
+                GMLConstants.GML_3_3_XBT_SCHEMA_LOCATION
         );
     }
 

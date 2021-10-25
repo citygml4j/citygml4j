@@ -28,7 +28,7 @@ public class GMLCompactEncodingModule extends GMLModule {
         v3_3 = new GMLCompactEncodingModule(
                 GMLConstants.GML_3_3_CE_NAMESPACE,
                 "gmlce",
-                "http://schemas.opengis.net/gml/3.3/geometryCompact.xsd"
+                GMLConstants.GML_3_3_CE_SCHEMA_LOCATION
         );
     }
 

@@ -28,7 +28,7 @@ public class XALCommonTypesModule extends XALModule {
         v3_0 = new XALCommonTypesModule(
                 XALConstants.XAL_3_0_CT_NAMESPACE,
                 "ct",
-                "http://docs.oasis-open.org/ciq/v3.0/cs02/xsd/default/xsd/CommonTypes.xsd"
+                XALConstants.XAL_3_0_CT_SCHEMA_LOCATION
         );
     }
 

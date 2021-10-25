@@ -29,13 +29,13 @@ public class XALCoreModule extends XALModule {
         v3_0 = new XALCoreModule(
                 XALConstants.XAL_3_0_NAMESPACE,
                 "xAL",
-                "http://docs.oasis-open.org/ciq/v3.0/cs02/xsd/default/xsd/xAL.xsd"
+                XALConstants.XAL_3_0_SCHEMA_LOCATION
         );
 
         v2_0 = new XALCoreModule(
                 XALConstants.XAL_2_0_NAMESPACE,
                 "xAL",
-                "http://schemas.opengis.net/citygml/xAL/xAL.xsd"
+                XALConstants.XAL_2_0_SCHEMA_LOCATION
         );
     }
 
