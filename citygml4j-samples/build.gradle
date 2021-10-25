@@ -2,14 +2,9 @@ plugins {
     id 'java'
 }
 
-apply from: 'samples.gradle'
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
-    }
-    compileJava {
-        options.release = 8
     }
 }
 
@@ -17,6 +12,8 @@ dependencies {
     implementation rootProject
     annotationProcessor rootProject
 }
+
+apply from: 'samples.gradle'
 
 clean.dependsOn(cleanOutput)
 
@@ -55,10 +52,16 @@ task copySamples {
         buildFile.write "plugins {\n"
         buildFile << "    id 'java'\n"
         buildFile << "}\n\n"
-        buildFile << "apply from: 'samples.gradle'\n\n"
+        buildFile << "java {\n"
+        buildFile << "    toolchain {\n"
+        buildFile << "        languageVersion = JavaLanguageVersion.of(11)\n"
+        buildFile << "    }\n"
+        buildFile << "}\n\n"
         buildFile << "dependencies {\n"
         buildFile << "    implementation fileTree(dir: '../lib', include: '*.jar')\n"
+        buildFile << "    annotationProcessor fileTree(dir: '../lib', include: '*.jar')\n"
         buildFile << "}\n\n"
+        buildFile << "apply from: 'samples.gradle'\n\n"
         buildFile << "clean.dependsOn(cleanOutput)"
 
         file("$outputsDir/settings.gradle").text = ''
