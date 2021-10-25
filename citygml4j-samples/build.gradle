@@ -13,68 +13,11 @@ dependencies {
     annotationProcessor rootProject
 }
 
-apply from: 'samples.gradle'
-
-clean.dependsOn(cleanOutput)
-
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-task copySamples {
-    def outputsDir = file("$buildDir/samples")
-    outputs.dir outputsDir
+apply from: 'run-samples.gradle'
+apply from: 'copy-samples.gradle'
 
-    inputs.dir 'src/main/java'
-    inputs.dir 'input'
-    inputs.dir "$rootProject.projectDir/gradle"
-
-    doLast {
-        copy {
-            from 'src/main/java'
-            into "$outputsDir/src/main/java"
-        }
-        copy {
-            from 'src/main/resources'
-            into "$outputsDir/src/main/resources"
-        }
-        copy {
-            from 'input'
-            into "$outputsDir/input"
-        }
-        copy {
-            from "$rootProject.projectDir/gradle"
-            into "$outputsDir/gradle"
-        }
-        copy {
-            from "$rootProject.projectDir"
-            into "$outputsDir"
-            include 'gradlew*'
-        }
-        copy {
-            from 'samples.gradle'
-            into "$outputsDir"
-        }
-
-        def buildFile = file("$outputsDir/build.gradle")
-        buildFile.write "plugins {\n"
-        buildFile << "    id 'java'\n"
-        buildFile << "}\n\n"
-        buildFile << "java {\n"
-        buildFile << "    toolchain {\n"
-        buildFile << "        languageVersion = JavaLanguageVersion.of(11)\n"
-        buildFile << "    }\n"
-        buildFile << "}\n\n"
-        buildFile << "dependencies {\n"
-        buildFile << "    implementation fileTree(dir: '../lib', include: '*.jar')\n"
-        buildFile << "    annotationProcessor fileTree(dir: '../lib', include: '*.jar')\n"
-        buildFile << "}\n\n"
-        buildFile << "apply from: 'samples.gradle'\n\n"
-        buildFile << "clean.dependsOn(cleanOutput)\n\n"
-        buildFile << "jar {\n"
-        buildFile << "    duplicatesStrategy = DuplicatesStrategy.EXCLUDE\n"
-        buildFile << "}"
-
-        file("$outputsDir/settings.gradle").text = ''
-    }
-}
+clean.dependsOn(cleanOutput)
