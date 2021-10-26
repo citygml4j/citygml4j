@@ -51,7 +51,7 @@ public class ADEGeometryInfoBuilder {
 
                     updateGeometryInfo(field.get(object), lod, field.getName(), geometryInfo);
                 } catch (Throwable e) {
-                    //
+                    throw new RuntimeException("Failed to update geometry info for " + object + ".", e);
                 }
             }
         } while ((type = type.getSuperclass()) != Object.class && ADEObject.class.isAssignableFrom(type));

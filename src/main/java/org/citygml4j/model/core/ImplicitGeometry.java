@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.core;
 
-import Jama.Matrix;
 import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.citygml4j.visitor.Visitable;
@@ -29,6 +28,7 @@ import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 import org.xmlobjects.gml.util.Matrices;
+import org.xmlobjects.gml.util.jama.Matrix;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;

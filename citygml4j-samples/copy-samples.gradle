@@ -1,0 +1,50 @@
+task copySamples {
+    def outputsDir = file("$buildDir/samples")
+    outputs.dir outputsDir
+
+    inputs.dir 'src/main/java'
+    inputs.dir 'input'
+    inputs.dir "$rootProject.projectDir/gradle"
+
+    doLast {
+        copy {
+            from 'src/main/java'
+            into "$outputsDir/src/main/java"
+        }
+        copy {
+            from 'src/main/resources'
+            into "$outputsDir/src/main/resources"
+        }
+        copy {
+            from 'input'
+            into "$outputsDir/input"
+        }
+        copy {
+            from "$rootProject.projectDir/gradle"
+            into "$outputsDir/gradle"
+        }
+        copy {
+            from "$rootProject.projectDir"
+            into "$outputsDir"
+            include 'gradlew*'
+        }
+        copy {
+            from 'run-samples.gradle'
+            into "$outputsDir"
+        }
+        copy {
+            from 'build.gradle'
+            into "$outputsDir"
+            filter {
+                String line -> line.contains("copy-samples.gradle") ?
+                        "version '$rootProject.version'" : line
+            }
+            filter {
+                String line -> line.contains("rootProject") ?
+                        line.replace("rootProject", "fileTree(dir: '../lib', include: '*.jar')") : line
+            }
+        }
+
+        file("$outputsDir/settings.gradle").text = "rootProject.name = 'citygml4j-samples'"
+    }
+}

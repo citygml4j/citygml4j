@@ -76,7 +76,7 @@ public class ADEWalkerHelper {
             try {
                 method.invoke(walker, adeObject);
             } catch (InvocationTargetException | IllegalAccessException e) {
-                //
+                throw new RuntimeException("Failed to visit " + adeObject + ".", e);
             }
 
             return true;
@@ -104,7 +104,7 @@ public class ADEWalkerHelper {
                 else if (value != null)
                     parent.visitObject(value);
             } catch (Throwable e) {
-                //
+                throw new RuntimeException("Failed to visit " + adeObject + ".", e);
             }
         }
     }

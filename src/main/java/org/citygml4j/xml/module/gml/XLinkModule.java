@@ -28,7 +28,7 @@ public class XLinkModule extends GMLModule {
         v1_0 = new XLinkModule(
                 GMLConstants.XLINK_NAMESPACE,
                 "xlink",
-                "https://www.w3.org/1999/xlink.xsd"
+                GMLConstants.XLINK_SCHEMA_LOCATION
         );
     }
 

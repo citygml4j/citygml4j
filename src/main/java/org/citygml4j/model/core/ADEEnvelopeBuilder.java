@@ -51,7 +51,7 @@ public class ADEEnvelopeBuilder {
                     if (value != null)
                         updateEnvelope(value, envelope, options, visited);
                 } catch (Throwable e) {
-                    //
+                    throw new RuntimeException("Failed to update envelope for " + object + ".", e);
                 }
             }
         } while ((type = type.getSuperclass()) != Object.class && ADEObject.class.isAssignableFrom(type));

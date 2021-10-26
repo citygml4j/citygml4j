@@ -29,13 +29,13 @@ public class GMLCoreModule extends GMLModule {
         v3_2 = new GMLCoreModule(
                 GMLConstants.GML_3_2_NAMESPACE,
                 "gml",
-                "http://schemas.opengis.net/gml/3.2.1/gml.xsd"
+                GMLConstants.GML_3_2_SCHEMA_LOCATION
         );
 
         v3_1 = new GMLCoreModule(
                 GMLConstants.GML_3_1_NAMESPACE,
                 "gml",
-                "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"
+                GMLConstants.GML_3_1_SCHEMA_LOCATION
         );
     }
 
