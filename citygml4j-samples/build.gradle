@@ -13,10 +13,6 @@ dependencies {
     annotationProcessor rootProject
 }
 
-jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
 apply from: 'run-samples.gradle'
 apply from: 'copy-samples.gradle'
 
