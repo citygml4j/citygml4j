@@ -35,6 +35,8 @@ import java.nio.file.Path;
 public class CityJSONOutputFactory {
 	boolean removeDuplicateChildGeometries;
 	boolean generateCityGMLMetadata;
+	boolean useMaterialDefaults = true;
+	String fallbackTheme = "unnamed";
 
 	public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
 		try {
@@ -118,6 +120,22 @@ public class CityJSONOutputFactory {
 
 	public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
 		this.generateCityGMLMetadata = generateCityGMLMetadata;
+	}
+
+	public boolean isUseMaterialDefaults() {
+		return useMaterialDefaults;
+	}
+
+	public void setUseMaterialDefaults(boolean useMaterialDefaults) {
+		this.useMaterialDefaults = useMaterialDefaults;
+	}
+
+	public String getFallbackTheme() {
+		return fallbackTheme;
+	}
+
+	public void setFallbackTheme(String fallbackTheme) {
+		this.fallbackTheme = fallbackTheme;
 	}
 
 	private void createParentDirectories(Path path) throws IOException {

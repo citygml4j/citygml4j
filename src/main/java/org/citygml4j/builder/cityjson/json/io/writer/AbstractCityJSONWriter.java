@@ -53,7 +53,11 @@ public abstract class AbstractCityJSONWriter implements AutoCloseable {
 	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
 		this.writer = writer;
 
-		marshaller = new CityJSONMarshaller(factory.removeDuplicateChildGeometries, factory.generateCityGMLMetadata);
+		marshaller = new CityJSONMarshaller();
+		marshaller.setRemoveDuplicateChildGeometries(factory.removeDuplicateChildGeometries);
+		marshaller.setGenerateCityGMLMetadata(factory.generateCityGMLMetadata);
+		marshaller.setUseMaterialDefaults(factory.useMaterialDefaults);
+		marshaller.setFallbackTheme(factory.fallbackTheme);
 		typeAdapterFactory = new CityJSONTypeAdapterFactory();
 
 		gson = new GsonBuilder()

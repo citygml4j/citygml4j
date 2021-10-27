@@ -33,10 +33,6 @@ public class CityJSONBuilder {
 		return new CityJSONMarshaller();
 	}
 	
-	public CityJSONMarshaller createCityJSONMarshaller(boolean removeDuplicateChildGeometries, boolean generateCityGMLMetadata) {
-		return new CityJSONMarshaller(removeDuplicateChildGeometries, generateCityGMLMetadata);
-	}
-	
 	public CityJSONInputFactory createCityJSONInputFactory() throws CityJSONBuilderException {
 		return new CityJSONInputFactory();
 	}

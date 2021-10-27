@@ -21,11 +21,7 @@ package org.citygml4j.builder.cityjson.marshal.citygml.appearance;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.SurfaceDataInfo;
-import org.citygml4j.cityjson.appearance.MaterialType;
-import org.citygml4j.cityjson.appearance.TextureType;
-import org.citygml4j.cityjson.appearance.TextureTypeName;
-import org.citygml4j.cityjson.appearance.TextureTypeType;
-import org.citygml4j.cityjson.appearance.WrapModeType;
+import org.citygml4j.cityjson.appearance.*;
 import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
 import org.citygml4j.model.citygml.appearance.X3DMaterial;
 import org.citygml4j.model.gml.basicTypes.Code;
@@ -37,11 +33,7 @@ import org.citygml4j.model.gml.geometry.primitives.Polygon;
 import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class AppearanceMarshaller {
@@ -93,25 +85,25 @@ public class AppearanceMarshaller {
 		if (!dest.isSetName())
 			dest.setName(src.isSetId() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
 
-		if (src.isSetAmbientIntensity())
+		if (json.isUseMaterialDefaults() || src.isSetAmbientIntensity())
 			dest.setAmbientIntensity(src.getAmbientIntensity());
 
-		if (src.isSetDiffuseColor())
+		if (json.isUseMaterialDefaults() || src.isSetDiffuseColor())
 			dest.setDiffuseColor(src.getDiffuseColor().toList());
 
-		if (src.isSetEmissiveColor())
+		if (json.isUseMaterialDefaults() || src.isSetEmissiveColor())
 			dest.setEmissiveColor(src.getEmissiveColor().toList());
 
-		if (src.isSetSpecularColor())
+		if (json.isUseMaterialDefaults() || src.isSetSpecularColor())
 			dest.setSpecularColor(src.getSpecularColor().toList());
 
-		if (src.isSetShininess())
+		if (json.isUseMaterialDefaults() || src.isSetShininess())
 			dest.setShininess(src.getShininess());
 
-		if (src.isSetTransparency())
+		if (json.isUseMaterialDefaults() || src.isSetTransparency())
 			dest.setTransparency(src.getTransparency());
 
-		if (src.isSetIsSmooth())
+		if (json.isUseMaterialDefaults() || src.isSetIsSmooth())
 			dest.setIsSmooth(src.getIsSmooth());
 	}
 

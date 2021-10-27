@@ -23,13 +23,7 @@ import org.citygml4j.builder.cityjson.marshal.citygml.appearance.AppearanceMarsh
 import org.citygml4j.cityjson.appearance.MaterialType;
 import org.citygml4j.cityjson.appearance.TextureType;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
-import org.citygml4j.model.citygml.appearance.AbstractTextureParameterization;
-import org.citygml4j.model.citygml.appearance.Appearance;
-import org.citygml4j.model.citygml.appearance.ParameterizedTexture;
-import org.citygml4j.model.citygml.appearance.TexCoordList;
-import org.citygml4j.model.citygml.appearance.TextureAssociation;
-import org.citygml4j.model.citygml.appearance.TextureCoordinates;
-import org.citygml4j.model.citygml.appearance.X3DMaterial;
+import org.citygml4j.model.citygml.appearance.*;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.CityModel;
 import org.citygml4j.model.gml.base.AbstractGML;
@@ -46,8 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class AppearanceResolver {
-	private final String defaultTheme;
-	private final AppearanceMarshaller app;
+	private final CityJSONMarshaller json;
 	
 	private final AtomicInteger texturesIndex = new AtomicInteger(0);
 	private final AtomicInteger materialsIndex = new AtomicInteger(0);
@@ -62,9 +55,8 @@ public class AppearanceResolver {
 		ASSIGN_SURFACE_DATA
 	};
 
-	public AppearanceResolver(String defaultTheme, AppearanceMarshaller app) {
-		this.defaultTheme = defaultTheme;
-		this.app = app;
+	public AppearanceResolver(CityJSONMarshaller json) {
+		this.json = json;
 	}
 
 	public void resolve(AbstractCityObject cityObject) {
@@ -136,13 +128,14 @@ public class AppearanceResolver {
 	}
 
 	private class Walker extends GMLWalker {
+		private final AppearanceMarshaller app = json.getCityGMLMarshaller().getAppearanceMarshaller();
+		private final Map<String, List<SurfaceDataInfo>> surfaceDatas = new HashMap<>();
 		private ResolverState state = ResolverState.GET_SURFACE_DATA;
-		private Map<String, List<SurfaceDataInfo>> surfaceDatas = new HashMap<>();
 		private String theme;
 
 		@Override
 		public void visit(Appearance appearance) {
-			theme = appearance.isSetTheme() ? appearance.getTheme() : defaultTheme;
+			theme = appearance.isSetTheme() ? appearance.getTheme() : json.getFallbackTheme();
 			super.visit(appearance);
 		}
 

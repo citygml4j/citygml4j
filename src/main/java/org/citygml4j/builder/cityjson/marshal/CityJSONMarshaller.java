@@ -21,14 +21,7 @@ package org.citygml4j.builder.cityjson.marshal;
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.citygml.ade.ADEMarshaller;
 import org.citygml4j.builder.cityjson.marshal.gml.GMLMarshaller;
-import org.citygml4j.builder.cityjson.marshal.util.AppearanceResolver;
-import org.citygml4j.builder.cityjson.marshal.util.DefaultTextureVerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.DefaultVerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.GeometryXlinkResolver;
-import org.citygml4j.builder.cityjson.marshal.util.LocalPropertiesCleaner;
-import org.citygml4j.builder.cityjson.marshal.util.TextureVerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.VerticesBuilder;
-import org.citygml4j.builder.cityjson.marshal.util.VerticesTransformer;
+import org.citygml4j.builder.cityjson.marshal.util.*;
 import org.citygml4j.builder.cityjson.util.CityGMLMetadata;
 import org.citygml4j.builder.cityjson.util.DefaultTextureFileHandler;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
@@ -61,27 +54,21 @@ public class CityJSONMarshaller {
 	private VerticesBuilder templatesVerticesBuilder;
 	private boolean removeDuplicateChildGeometries;
 	private boolean generateCityGMLMetadata;
+	private boolean useMaterialDefaults = true;
+	private String fallbackTheme = "unnamed";
 
-	private String defaultTheme = "";
-
-	public CityJSONMarshaller(boolean removeDuplicateChildGeometries, boolean generateCityGMLMetadata) {
+	public CityJSONMarshaller() {
 		this.verticesBuilder = new DefaultVerticesBuilder();
 		this.textureVerticesBuilder = new DefaultTextureVerticesBuilder();
 		this.textureFileHandler = new DefaultTextureFileHandler();
 		this.templatesVerticesBuilder = new DefaultVerticesBuilder();
-		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
-		this.generateCityGMLMetadata = generateCityGMLMetadata;
 
 		citygml = new CityGMLMarshaller(this);
 		gml = new GMLMarshaller(this, this::getVerticesBuilder);
 		ade = new ADEMarshaller(this);
 
 		xlinkResolver = new GeometryXlinkResolver();
-		appearanceResolver = new AppearanceResolver(defaultTheme, citygml.getAppearanceMarshaller());
-	}
-
-	public CityJSONMarshaller() {
-		this (false, false);
+		appearanceResolver = new AppearanceResolver(this);
 	}
 
 	public void reset() {
@@ -232,5 +219,21 @@ public class CityJSONMarshaller {
 
 	public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
 		this.generateCityGMLMetadata = generateCityGMLMetadata;
+	}
+
+	public boolean isUseMaterialDefaults() {
+		return useMaterialDefaults;
+	}
+
+	public void setUseMaterialDefaults(boolean useMaterialDefaults) {
+		this.useMaterialDefaults = useMaterialDefaults;
+	}
+
+	public String getFallbackTheme() {
+		return fallbackTheme;
+	}
+
+	public void setFallbackTheme(String fallbackTheme) {
+		this.fallbackTheme = fallbackTheme;
 	}
 }
