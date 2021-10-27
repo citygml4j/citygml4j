@@ -30,9 +30,9 @@ public class CityModel extends AbstractFeatureWithLifespan {
     private EngineeringCRSProperty engineeringCRS;
     private List<AbstractCityObjectProperty> cityObjectMembers;
     private List<AbstractAppearanceProperty> appearanceMembers;
-    private List<AbstractFeatureProperty> featureMembers;
     private List<AbstractVersionProperty> versionMembers;
     private List<AbstractVersionTransitionProperty> versionTransitionMembers;
+    private List<AbstractFeatureProperty> featureMembers;
     private List<ADEOfCityModel> adeOfCityModel;
 
     public EngineeringCRSProperty getEngineeringCRS() {
@@ -65,17 +65,6 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.appearanceMembers = asChild(appearanceMembers);
     }
 
-    public List<AbstractFeatureProperty> getFeatureMembers() {
-        if (featureMembers == null)
-            featureMembers = new ChildList<>(this);
-
-        return featureMembers;
-    }
-
-    public void setFeatureMembers(List<AbstractFeatureProperty> featureMembers) {
-        this.featureMembers = asChild(featureMembers);
-    }
-
     public List<AbstractVersionProperty> getVersionMembers() {
         if (versionMembers == null)
             versionMembers = new ChildList<>(this);
@@ -96,6 +85,17 @@ public class CityModel extends AbstractFeatureWithLifespan {
 
     public void setVersionTransitionMembers(List<AbstractVersionTransitionProperty> versionTransitionMembers) {
         this.versionTransitionMembers = asChild(versionTransitionMembers);
+    }
+
+    public List<AbstractFeatureProperty> getFeatureMembers() {
+        if (featureMembers == null)
+            featureMembers = new ChildList<>(this);
+
+        return featureMembers;
+    }
+
+    public void setFeatureMembers(List<AbstractFeatureProperty> featureMembers) {
+        this.featureMembers = asChild(featureMembers);
     }
 
     public List<ADEOfCityModel> getADEOfCityModel() {
