@@ -20,9 +20,28 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractProperty;
+import org.xmlobjects.gml.model.base.AbstractInlineProperty;
+import org.xmlobjects.gml.model.base.OwnershipAttributes;
 
-public class CityObjectRelationProperty extends AbstractProperty<CityObjectRelation> implements CityGMLObject {
+public class CityObjectRelationProperty extends AbstractInlineProperty<CityObjectRelation> implements CityGMLObject, OwnershipAttributes {
+    private Boolean owns;
+
+    public CityObjectRelationProperty() {
+    }
+
+    public CityObjectRelationProperty(CityObjectRelation object) {
+        super(object);
+    }
+
+    @Override
+    public Boolean getOwns() {
+        return owns;
+    }
+
+    @Override
+    public void setOwns(Boolean owns) {
+        this.owns = owns;
+    }
 
     @Override
     public Class<CityObjectRelation> getTargetType() {

@@ -25,6 +25,7 @@ import org.citygml4j.util.CityGMLConstants;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.AbstractGMLAdapter;
+import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
@@ -56,7 +57,7 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
                     object.setRelationType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "relatedTo":
-                    object.setRelatedTo(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
+                    object.setRelatedTo(reader.getObjectUsingBuilder(ReferenceAdapter.class));
                     break;
             }
         } else
@@ -79,6 +80,6 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relationType"), object.getRelationType(), CodeAdapter.class, namespaces);
 
         if (object.getRelatedTo() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relatedTo"), object.getRelatedTo(), AbstractCityObjectPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relatedTo"), object.getRelatedTo(), ReferenceAdapter.class, namespaces);
     }
 }

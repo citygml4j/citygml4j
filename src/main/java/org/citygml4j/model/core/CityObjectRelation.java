@@ -23,6 +23,7 @@ import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractGML;
+import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.model.ChildList;
 
@@ -31,17 +32,17 @@ import java.util.List;
 public class CityObjectRelation extends AbstractGML implements CityGMLObject, Visitable {
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private Code relationType;
-    private AbstractCityObjectProperty relatedTo;
+    private Reference relatedTo;
 
     public CityObjectRelation() {
     }
 
     public CityObjectRelation(AbstractCityObject cityObject) {
-        setRelatedTo(new AbstractCityObjectProperty(cityObject));
+        setRelatedTo(new Reference(cityObject));
     }
 
     public CityObjectRelation(String href) {
-        setRelatedTo(new AbstractCityObjectProperty(href));
+        setRelatedTo(new Reference(href));
     }
 
     public List<AbstractGenericAttributeProperty> getGenericAttributes() {
@@ -63,11 +64,11 @@ public class CityObjectRelation extends AbstractGML implements CityGMLObject, Vi
         this.relationType = asChild(relationType);
     }
 
-    public AbstractCityObjectProperty getRelatedTo() {
+    public Reference getRelatedTo() {
         return relatedTo;
     }
 
-    public void setRelatedTo(AbstractCityObjectProperty relatedTo) {
+    public void setRelatedTo(Reference relatedTo) {
         this.relatedTo = asChild(relatedTo);
     }
 
