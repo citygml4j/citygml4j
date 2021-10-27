@@ -2,7 +2,7 @@
   <annotation>
     <documentation>The Appearance module supports the modelling of the observable surface properties of CityGML features in the form of textures and material.</documentation>
   </annotation>
-  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="ADEOfAbstractSurfaceData" substitutionGroup="gml:AbstractObject" type="app:ADEOfAbstractSurfaceDataType">
