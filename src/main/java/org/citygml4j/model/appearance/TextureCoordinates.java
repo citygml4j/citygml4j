@@ -21,20 +21,29 @@ package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
+import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextureCoordinates extends GMLObject implements CityGMLObject {
     private List<Double> value;
-    private String ring;
+    private RingReference ring;
 
     public TextureCoordinates() {
     }
 
-    public TextureCoordinates(List<Double> value, String ring) {
+    public TextureCoordinates(List<Double> value, RingReference ring) {
         this.value = value;
-        this.ring = ring;
+        setRing(ring);
+    }
+
+    public TextureCoordinates(List<Double> value, String ring) {
+        this(value, new RingReference(ring));
+    }
+
+    public TextureCoordinates(List<Double> value, LinearRing ring) {
+        this(value, new RingReference(ring));
     }
 
     public List<Double> getValue() {
@@ -48,11 +57,11 @@ public class TextureCoordinates extends GMLObject implements CityGMLObject {
         this.value = value;
     }
 
-    public String getRing() {
+    public RingReference getRing() {
         return ring;
     }
 
-    public void setRing(String ring) {
-        this.ring = ring;
+    public void setRing(RingReference ring) {
+        this.ring = asChild(ring);
     }
 }

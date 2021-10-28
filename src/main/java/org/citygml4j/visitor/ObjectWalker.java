@@ -1602,6 +1602,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (textureAssociation.getTarget() != null)
             visit(textureAssociation.getTarget());
+
+        if (textureAssociation.getTextureParameterization() != null
+                && textureAssociation.getTextureParameterization().getObject() instanceof TexCoordList) {
+            TexCoordList texCoordList = (TexCoordList) textureAssociation.getTextureParameterization().getObject();
+            for (TextureCoordinates textureCoordinates : texCoordList.getTextureCoordinates()) {
+                if (textureCoordinates.getRing() != null)
+                    visit(textureCoordinates.getRing());
+            }
+        }
     }
 
     @Override

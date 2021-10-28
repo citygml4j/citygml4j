@@ -19,6 +19,7 @@
 
 package org.citygml4j.xml.adapter.appearance;
 
+import org.citygml4j.model.appearance.RingReference;
 import org.citygml4j.model.appearance.TexCoordList;
 import org.citygml4j.model.appearance.TextureCoordinates;
 import org.citygml4j.util.CityGMLConstants;
@@ -74,13 +75,13 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
                         textureCoordinates.setValue(value != null ? value : new ArrayList<>());
                         if (!CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())) {
                             String ring = attributes.getValue("ring").get();
-                            textureCoordinates.setRing(ring != null ? ring : "");
+                            textureCoordinates.setRing(new RingReference(ring != null ? ring : ""));
                             ringNo++;
                         }
                         break;
                     case "ring":
                         textureCoordinates = result.computeIfAbsent(ringNo++, v -> new TextureCoordinates());
-                        reader.getTextContent().ifPresent(textureCoordinates::setRing);
+                        reader.getTextContent().ifPresent(v -> textureCoordinates.setRing(new RingReference(v)));
                         break;
                 }
             }
@@ -102,14 +103,18 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
         for (TextureCoordinates textureCoordinates : object.getTextureCoordinates()) {
             Element element = Element.of(appearanceNamespace, "textureCoordinates").addTextContent(TextContent.ofDoubleList(textureCoordinates.getValue()));
             if (!isCityGML3)
-                element.addAttribute("ring", textureCoordinates.getRing());
+                element.addAttribute("ring", getRing(textureCoordinates));
 
             writer.writeElement(element);
         }
 
         if (isCityGML3) {
             for (TextureCoordinates textureCoordinates : object.getTextureCoordinates())
-                writer.writeElement(Element.of(appearanceNamespace, "ring").addTextContent(textureCoordinates.getRing()));
+                writer.writeElement(Element.of(appearanceNamespace, "ring").addTextContent(getRing(textureCoordinates)));
         }
+    }
+
+    private String getRing(TextureCoordinates textureCoordinates) {
+        return textureCoordinates.getRing() != null ? textureCoordinates.getRing().getHref() : null;
     }
 }
