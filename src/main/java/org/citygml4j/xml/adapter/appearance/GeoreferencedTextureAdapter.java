@@ -118,7 +118,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
 
         for (GeometryReference target : object.getTargets()) {
             if (target != null)
-                writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getURI()));
+                writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getHref()));
         }
 
         for (ADEOfGeoreferencedTexture container : object.getADEOfGeoreferencedTexture())

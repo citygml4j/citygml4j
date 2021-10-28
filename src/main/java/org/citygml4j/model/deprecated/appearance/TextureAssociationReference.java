@@ -37,7 +37,7 @@ public class TextureAssociationReference extends AbstractReference<TextureAssoci
     public TextureAssociationReference(TextureAssociation object) {
         super(object);
         if (object.getTarget() != null) {
-            uri = object.getTarget().getURI();
+            uri = object.getTarget().getHref();
         }
     }
 

@@ -1233,6 +1233,9 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         if (georeferencedTexture.getReferencePoint() != null)
             visit(georeferencedTexture.getReferencePoint());
 
+        for (GeometryReference reference : georeferencedTexture.getTargets())
+            visit(reference);
+
         for (ADEContainer container : new ArrayList<>(georeferencedTexture.getADEOfGeoreferencedTexture()))
             visit(container);
     }
@@ -1596,6 +1599,9 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(TextureAssociation textureAssociation) {
         visit((AbstractGML) textureAssociation);
+
+        if (textureAssociation.getTarget() != null)
+            visit(textureAssociation.getTarget());
     }
 
     @Override
@@ -1849,6 +1855,9 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(X3DMaterial x3dMaterial) {
         visit((AbstractSurfaceData) x3dMaterial);
+
+        for (GeometryReference reference : x3dMaterial.getTargets())
+            visit(reference);
 
         for (ADEContainer container : new ArrayList<>(x3dMaterial.getADEOfX3DMaterial()))
             visit(container);

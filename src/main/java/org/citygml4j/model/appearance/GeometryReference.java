@@ -20,30 +20,20 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractAssociation;
+import org.xmlobjects.gml.model.base.AbstractReference;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 
-public class GeometryReference extends AbstractAssociation<AbstractGeometry> implements CityGMLObject {
-    private String uri;
+public class GeometryReference extends AbstractReference<AbstractGeometry> implements CityGMLObject {
 
     public GeometryReference() {
     }
 
-    public GeometryReference(String uri) {
-        this.uri = uri;
+    public GeometryReference(String href) {
+        super(href);
     }
 
     public GeometryReference(AbstractGeometry object) {
-        if (object.getId() != null)
-            uri = '#' + object.getId();
-    }
-
-    public String getURI() {
-        return uri;
-    }
-
-    public void setURI(String uri) {
-        this.uri = uri;
+        super(object);
     }
 
     @Override

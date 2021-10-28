@@ -59,7 +59,7 @@ public class TextureAssociationPropertyAdapter extends AbstractInlinePropertyAda
     public void initializeElement(Element element, TextureAssociationProperty object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.getObject() != null) {
             TextureAssociation association = object.getObject();
-            element.addAttribute("uri", association.getTarget() != null ? association.getTarget().getURI() : null);
+            element.addAttribute("uri", association.getTarget() != null ? association.getTarget().getHref() : null);
         }
     }
 

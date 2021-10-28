@@ -68,7 +68,7 @@ public class TextureAssociationAdapter extends AbstractGMLAdapter<TextureAssocia
     public void writeChildElements(TextureAssociation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        String target = object.getTarget() != null ? object.getTarget().getURI() : null;
+        String target = object.getTarget() != null ? object.getTarget().getHref() : null;
         writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE, "target").addTextContent(target));
 
         if (object.getTextureParameterization() != null)

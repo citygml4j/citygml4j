@@ -19,10 +19,6 @@
 
 package org.citygml4j.util.reference;
 
-import org.citygml4j.model.appearance.GeometryReference;
-import org.citygml4j.model.appearance.GeoreferencedTexture;
-import org.citygml4j.model.appearance.TextureAssociation;
-import org.citygml4j.model.appearance.X3DMaterial;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.visitor.Visitable;
@@ -92,32 +88,6 @@ public class ReferenceResolver {
             @Override
             public void visit(AbstractReference<?> reference) {
                 collect(reference, reference.getHref());
-            }
-
-            @Override
-            public void visit(TextureAssociation textureAssociation) {
-                if (textureAssociation.getTarget() != null)
-                    collect(textureAssociation.getTarget(), textureAssociation.getTarget().getURI());
-            }
-
-            @Override
-            public void visit(GeoreferencedTexture georeferencedTexture) {
-                for (GeometryReference target : georeferencedTexture.getTargets()) {
-                    if (target != null)
-                        collect(target, target.getURI());
-                }
-
-                super.visit(georeferencedTexture);
-            }
-
-            @Override
-            public void visit(X3DMaterial x3dMaterial) {
-                for (GeometryReference target : x3dMaterial.getTargets()) {
-                    if (target != null)
-                        collect(target, target.getURI());
-                }
-
-                super.visit(x3dMaterial);
             }
 
             private void collect(AbstractAssociation<?> association, String reference) {
