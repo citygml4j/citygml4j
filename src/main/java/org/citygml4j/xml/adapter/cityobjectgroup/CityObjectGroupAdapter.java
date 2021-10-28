@@ -23,17 +23,21 @@ import org.citygml4j.model.ade.generic.GenericADEOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.ADEOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
+import org.citygml4j.model.deprecated.cityobjectgroup.GroupMember;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
+import org.citygml4j.xml.adapter.deprecated.cityobjectgroup.GroupMemberAdapter;
+import org.citygml4j.xml.adapter.deprecated.cityobjectgroup.GroupParentMemberAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.geometry.GeometryPropertyAdapter;
+import org.xmlobjects.gml.util.GMLConstants;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -69,13 +73,23 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
 
             switch (name.getLocalPart()) {
                 case "groupMember":
-                    if (CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE.equals(name.getNamespaceURI()))
+                    if (CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE.equals(name.getNamespaceURI())) {
                         object.getGroupMembers().add(reader.getObjectUsingBuilder(RolePropertyAdapter.class));
-                    else
-                        object.getGroupMembers().add(reader.getObjectUsingBuilder(org.citygml4j.xml.adapter.deprecated.cityobjectgroup.RolePropertyAdapter.class));
+                    } else {
+                        if (attributes.getValue(GMLConstants.XLINK_NAMESPACE, "href").isPresent()) {
+                            object.getGroupMembers().add(reader.getObjectUsingBuilder(org.citygml4j.xml.adapter.deprecated.cityobjectgroup.RolePropertyAdapter.class));
+                        } else {
+                            object.getDeprecatedProperties().getGroupMembers().add(reader.getObjectUsingBuilder(GroupMemberAdapter.class));
+                        }
+                    }
                     return;
                 case "parent":
-                    object.setGroupParent(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
+                    if (CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE.equals(name.getNamespaceURI())
+                            || attributes.getValue(GMLConstants.XLINK_NAMESPACE, "href").isPresent()) {
+                        object.setGroupParent(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    } else {
+                        object.getDeprecatedProperties().setGroupParent(reader.getObjectUsingBuilder(GroupParentMemberAdapter.class));
+                    }
                     return;
                 case "geometry":
                     object.getDeprecatedProperties().setGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
@@ -119,8 +133,15 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                 writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, org.citygml4j.xml.adapter.deprecated.cityobjectgroup.RolePropertyAdapter.class, namespaces);
         }
 
+        if (!isCityGML3) {
+            for (GroupMember property : object.getDeprecatedProperties().getGroupMembers())
+                writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, GroupMemberAdapter.class, namespaces);
+        }
+
         if (object.getGroupParent() != null)
-            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getGroupParent(), AbstractCityObjectPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getGroupParent(), ReferenceAdapter.class, namespaces);
+        else if (!isCityGML3 && object.getDeprecatedProperties().getGroupParent() != null)
+            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getDeprecatedProperties().getGroupParent(), GroupParentMemberAdapter.class, namespaces);
 
         if (!isCityGML3 && object.getDeprecatedProperties().getGeometry() != null)
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), object.getDeprecatedProperties().getGeometry(), GeometryPropertyAdapter.class, namespaces);

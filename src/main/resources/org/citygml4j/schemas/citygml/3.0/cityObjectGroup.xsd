@@ -43,23 +43,22 @@
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="groupMember">
-            <annotation>
-              <documentation>Relates to the city objects that are part of the CityObjectGroup.</documentation>
-            </annotation>
             <complexType>
               <complexContent>
-                <extension base="gml:AbstractFeatureMemberType">
-                  <sequence minOccurs="0">
+                <extension base="gml:AbstractMemberType">
+                  <sequence>
                     <element ref="grp:Role"/>
                   </sequence>
-                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
           </element>
-          <element minOccurs="0" name="parent" type="core:AbstractCityObjectPropertyType">
+          <element minOccurs="0" name="parent" type="gml:ReferenceType">
             <annotation>
               <documentation>Relates to a city object to which the CityObjectGroup belongs.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractCityObject</targetElement>
+              </appinfo>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="adeOfCityObjectGroup" type="grp:ADEOfCityObjectGroupPropertyType">
@@ -87,21 +86,17 @@
     <complexContent>
       <extension base="gml:AbstractGMLType">
         <sequence>
-          <element minOccurs="0" name="role" type="string">
-            <annotation>
-              <documentation>Describes the role the city object plays within the CityObjectGroup.</documentation>
-            </annotation>
-          </element>
+          <element minOccurs="0" name="role" type="string"/>
           <element name="groupMember">
             <annotation>
-              <documentation>Relates to the city objects that are part of the CityObjectGroup.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractCityObject</targetElement>
+              </appinfo>
             </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:AbstractCityObject"/>
-                  </sequence>
+                  <sequence/>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>

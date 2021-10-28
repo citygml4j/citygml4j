@@ -20,19 +20,19 @@
 package org.citygml4j.model.cityobjectgroup;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractGML;
+import org.xmlobjects.gml.model.base.Reference;
 
 public class Role extends AbstractGML implements CityGMLObject, Visitable {
     private String role;
-    private AbstractCityObjectProperty groupMember;
+    private Reference groupMember;
 
     public Role() {
     }
 
-    public Role(String role, AbstractCityObjectProperty groupMember) {
+    public Role(String role, Reference groupMember) {
         this.role = role;
         setGroupMember(groupMember);
     }
@@ -45,11 +45,11 @@ public class Role extends AbstractGML implements CityGMLObject, Visitable {
         this.role = role;
     }
 
-    public AbstractCityObjectProperty getGroupMember() {
+    public Reference getGroupMember() {
         return groupMember;
     }
 
-    public void setGroupMember(AbstractCityObjectProperty groupMember) {
+    public void setGroupMember(Reference groupMember) {
         this.groupMember = asChild(groupMember);
     }
 

@@ -26,7 +26,6 @@ public class TextureAssociationReference extends Reference implements CityGMLObj
     private String uri;
 
     public TextureAssociationReference() {
-        super();
     }
 
     public TextureAssociationReference(String href, String uri) {

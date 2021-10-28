@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,29 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.cityobjectgroup;
+package org.citygml4j.model.deprecated.cityobjectgroup;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractInlineProperty;
+import org.citygml4j.model.core.AbstractCityObject;
+import org.xmlobjects.gml.model.common.GenericElement;
+import org.xmlobjects.gml.model.feature.AbstractFeatureMember;
 
-public class RoleProperty extends AbstractInlineProperty<Role> implements CityGMLObject {
+public class GroupParentMember extends AbstractFeatureMember<AbstractCityObject> implements CityGMLObject {
 
-    public RoleProperty() {
+    public GroupParentMember() {
+        super();
     }
 
-    public RoleProperty(Role object) {
+    public GroupParentMember(AbstractCityObject object) {
         super(object);
     }
 
+    public GroupParentMember(GenericElement element) {
+        super(element);
+    }
+
     @Override
-    public Class<Role> getTargetType() {
-        return Role.class;
+    public Class<AbstractCityObject> getTargetType() {
+        return AbstractCityObject.class;
     }
 }

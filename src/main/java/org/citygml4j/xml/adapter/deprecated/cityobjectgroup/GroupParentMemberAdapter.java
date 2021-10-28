@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.cityobjectgroup;
+package org.citygml4j.xml.adapter.deprecated.cityobjectgroup;
 
-import org.citygml4j.model.cityobjectgroup.RoleProperty;
+import org.citygml4j.model.deprecated.cityobjectgroup.GroupParentMember;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.AbstractInlinePropertyAdapter;
+import org.xmlobjects.gml.adapter.feature.AbstractFeatureMemberAdapter;
 
 import javax.xml.namespace.QName;
 
-public class RolePropertyAdapter extends AbstractInlinePropertyAdapter<RoleProperty> {
+public class GroupParentMemberAdapter extends AbstractFeatureMemberAdapter<GroupParentMember> {
 
     @Override
-    public RoleProperty createObject(QName name, Object parent) throws ObjectBuildException {
-        return new RoleProperty();
+    public GroupParentMember createObject(QName name, Object parent) throws ObjectBuildException {
+        return new GroupParentMember();
     }
 }
