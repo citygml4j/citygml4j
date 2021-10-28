@@ -67,6 +67,7 @@ import org.citygml4j.model.tunnel.*;
 import org.citygml4j.model.vegetation.AbstractVegetationObject;
 import org.citygml4j.model.vegetation.PlantCover;
 import org.citygml4j.model.vegetation.SolitaryVegetationObject;
+import org.citygml4j.model.versioning.TransactionProperty;
 import org.citygml4j.model.versioning.Version;
 import org.citygml4j.model.versioning.VersionTransition;
 import org.citygml4j.model.waterbody.AbstractWaterBoundarySurface;
@@ -1781,6 +1782,13 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (versionTransition.getTo() != null)
             visit(versionTransition.getTo());
+
+        for (TransactionProperty property : versionTransition.getTransactions()) {
+            if (property.getObject() != null) {
+                visit(property.getObject().getOldFeature());
+                visit(property.getObject().getNewFeature());
+            }
+        }
 
         for (ADEContainer container : new ArrayList<>(versionTransition.getADEOfVersionTransition()))
             visit(container);
