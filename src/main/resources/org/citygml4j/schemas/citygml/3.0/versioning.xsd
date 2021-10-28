@@ -43,14 +43,20 @@
           <documentation>Indicates the specific type of the Transaction.</documentation>
         </annotation>
       </element>
-      <element minOccurs="0" name="oldFeature" type="core:AbstractFeatureWithLifespanPropertyType">
+      <element minOccurs="0" name="oldFeature" type="gml:ReferenceType">
         <annotation>
           <documentation>Relates to the version of the city object prior to the Transaction.</documentation>
+          <appinfo>
+            <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractFeatureWithLifespan</targetElement>
+          </appinfo>
         </annotation>
       </element>
-      <element minOccurs="0" name="newFeature" type="core:AbstractFeatureWithLifespanPropertyType">
+      <element minOccurs="0" name="newFeature" type="gml:ReferenceType">
         <annotation>
           <documentation>Relates to the version of the city object subsequent to the Transaction.</documentation>
+          <appinfo>
+            <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractFeatureWithLifespan</targetElement>
+          </appinfo>
         </annotation>
       </element>
     </sequence>
@@ -131,13 +137,14 @@
           <element maxOccurs="unbounded" minOccurs="0" name="versionMember">
             <annotation>
               <documentation>Relates to all city objects that are part of the city model version.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractFeatureWithLifespan</targetElement>
+              </appinfo>
             </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence minOccurs="0">
-                    <element ref="core:AbstractFeatureWithLifespan"/>
-                  </sequence>
+                  <sequence/>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
@@ -183,14 +190,20 @@
               <documentation>Indicates the specific type of the VersionTransition.</documentation>
             </annotation>
           </element>
-          <element minOccurs="0" name="from" type="vers:VersionPropertyType">
+          <element minOccurs="0" name="from" type="gml:ReferenceType">
             <annotation>
               <documentation>Relates to the predecessor version of the VersionTransition.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">vers:Version</targetElement>
+              </appinfo>
             </annotation>
           </element>
-          <element minOccurs="0" name="to" type="vers:VersionPropertyType">
+          <element minOccurs="0" name="to" type="gml:ReferenceType">
             <annotation>
               <documentation>Relates to the successor version of the VersionTransition.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">vers:Version</targetElement>
+              </appinfo>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="transaction" type="vers:TransactionPropertyType">

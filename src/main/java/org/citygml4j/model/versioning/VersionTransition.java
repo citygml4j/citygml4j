@@ -21,6 +21,7 @@ package org.citygml4j.model.versioning;
 
 import org.citygml4j.model.core.AbstractVersionTransition;
 import org.citygml4j.visitor.ObjectVisitor;
+import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class VersionTransition extends AbstractVersionTransition {
     private String reason;
     private boolean clonePredecessor;
     private TransitionValue type;
-    private VersionProperty from;
-    private VersionProperty to;
+    private Reference from;
+    private Reference to;
     private List<TransactionProperty> transactions;
     private List<ADEOfVersionTransition> adeOfVersionTransition;
 
@@ -41,7 +42,7 @@ public class VersionTransition extends AbstractVersionTransition {
         this.clonePredecessor = clonePredecessor;
     }
 
-    public VersionTransition(boolean clonePredecessor, VersionProperty from, VersionProperty to) {
+    public VersionTransition(boolean clonePredecessor, Reference from, Reference to) {
         this.clonePredecessor = clonePredecessor;
         setFrom(from);
         setTo(to);
@@ -71,19 +72,19 @@ public class VersionTransition extends AbstractVersionTransition {
         this.type = type;
     }
 
-    public VersionProperty getFrom() {
+    public Reference getFrom() {
         return from;
     }
 
-    public void setFrom(VersionProperty from) {
+    public void setFrom(Reference from) {
         this.from = asChild(from);
     }
 
-    public VersionProperty getTo() {
+    public Reference getTo() {
         return to;
     }
 
-    public void setTo(VersionProperty to) {
+    public void setTo(Reference to) {
         this.to = asChild(to);
     }
 

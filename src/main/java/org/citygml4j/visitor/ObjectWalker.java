@@ -1750,8 +1750,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Version version) {
         visit((AbstractVersion) version);
 
-        for (AbstractFeatureWithLifespanProperty property : new ArrayList<>(version.getVersionMembers()))
-            visit(property);
+        for (Reference reference : new ArrayList<>(version.getVersionMembers()))
+            visit(reference);
 
         for (ADEContainer container : new ArrayList<>(version.getADEOfVersion()))
             visit(container);
