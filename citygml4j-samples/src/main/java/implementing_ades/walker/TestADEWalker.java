@@ -19,16 +19,7 @@
 
 package implementing_ades.walker;
 
-import implementing_ades.model.AbstractBuildingUnit;
-import implementing_ades.model.BuildingUnit;
-import implementing_ades.model.BuildingUnitPart;
-import implementing_ades.model.DHWFacilities;
-import implementing_ades.model.Facilities;
-import implementing_ades.model.IndustrialBuilding;
-import implementing_ades.model.IndustrialBuildingPart;
-import implementing_ades.model.IndustrialBuildingRoofSurface;
-import implementing_ades.model.LightingFacilities;
-import implementing_ades.model.OtherConstruction;
+import implementing_ades.model.*;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.building.BuildingPart;
 import org.citygml4j.model.construction.AbstractConstruction;

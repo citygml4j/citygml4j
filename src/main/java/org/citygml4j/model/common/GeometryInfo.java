@@ -22,14 +22,7 @@ package org.citygml4j.model.common;
 import org.citygml4j.model.core.ImplicitGeometryProperty;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GeometryInfo {
