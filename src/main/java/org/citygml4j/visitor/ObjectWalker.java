@@ -160,35 +160,23 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractBridge bridge) {
         visit((AbstractConstruction) bridge);
 
-        for (BridgeConstructiveElementMember member : new ArrayList<>(bridge.getBridgeConstructiveElements()))
-            visit(member);
+        for (BridgeConstructiveElementProperty property : new ArrayList<>(bridge.getBridgeConstructiveElements()))
+            visit(property);
 
-        for (BridgeInstallationMember member : new ArrayList<>(bridge.getBridgeInstallations()))
-            visit(member);
+        for (BridgeInstallationProperty property : new ArrayList<>(bridge.getBridgeInstallations()))
+            visit(property);
 
-        for (BridgeRoomMember member : new ArrayList<>(bridge.getBridgeRooms()))
-            visit(member);
+        for (BridgeRoomProperty property : new ArrayList<>(bridge.getBridgeRooms()))
+            visit(property);
 
-        for (BridgeFurnitureMember member : new ArrayList<>(bridge.getBridgeFurniture()))
-            visit(member);
+        for (BridgeFurnitureProperty property : new ArrayList<>(bridge.getBridgeFurniture()))
+            visit(property);
 
         for (AddressProperty member : new ArrayList<>(bridge.getAddresses()))
             visit(member);
 
         if (bridge.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBridge deprecatedProperties = bridge.getDeprecatedProperties();
-
-            for (Reference reference : new ArrayList<>(deprecatedProperties.getOuterBridgeConstructions()))
-                visit(reference);
-
-            for (Reference reference : new ArrayList<>(deprecatedProperties.getOuterBridgeInstallations()))
-                visit(reference);
-
-            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorBridgeInstallations()))
-                visit(reference);
-
-            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorBridgeRooms()))
-                visit(reference);
 
             for (BridgePartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBridgeParts()))
                 visit(property);

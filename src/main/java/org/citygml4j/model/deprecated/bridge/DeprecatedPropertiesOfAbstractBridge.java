@@ -21,7 +21,6 @@ package org.citygml4j.model.deprecated.bridge;
 
 import org.citygml4j.model.bridge.BridgePartProperty;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
@@ -30,60 +29,12 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class DeprecatedPropertiesOfAbstractBridge extends DeprecatedPropertiesOfAbstractCityObject {
-    private List<Reference> outerBridgeConstructions;
-    private List<Reference> outerBridgeInstallations;
-    private List<Reference> interiorBridgeInstallations;
-    private List<Reference> interiorBridgeRooms;
     private List<BridgePartProperty> consistsOfBridgeParts;
     private MultiSurfaceProperty lod1MultiSurface;
     private MultiCurveProperty lod4MultiCurve;
     private MultiSurfaceProperty lod4MultiSurface;
     private SolidProperty lod4Solid;
     private MultiCurveProperty lod4TerrainIntersectionCurve;
-
-    public List<Reference> getOuterBridgeConstructions() {
-        if (outerBridgeConstructions == null)
-            outerBridgeConstructions = new ChildList<>(this);
-
-        return outerBridgeConstructions;
-    }
-
-    public void setOuterBridgeConstructions(List<Reference> outerBridgeConstructions) {
-        this.outerBridgeConstructions = asChild(outerBridgeConstructions);
-    }
-
-    public List<Reference> getOuterBridgeInstallations() {
-        if (outerBridgeInstallations == null)
-            outerBridgeInstallations = new ChildList<>(this);
-
-        return outerBridgeInstallations;
-    }
-
-    public void setOuterBridgeInstallations(List<Reference> outerBridgeInstallations) {
-        this.outerBridgeInstallations = asChild(outerBridgeInstallations);
-    }
-
-    public List<Reference> getInteriorBridgeInstallations() {
-        if (interiorBridgeInstallations == null)
-            interiorBridgeInstallations = new ChildList<>(this);
-
-        return interiorBridgeInstallations;
-    }
-
-    public void setInteriorBridgeInstallations(List<Reference> interiorBridgeInstallations) {
-        this.interiorBridgeInstallations = asChild(interiorBridgeInstallations);
-    }
-
-    public List<Reference> getInteriorBridgeRooms() {
-        if (interiorBridgeRooms == null)
-            interiorBridgeRooms = new ChildList<>(this);
-
-        return interiorBridgeRooms;
-    }
-
-    public void setInteriorBridgeRooms(List<Reference> interiorBridgeRooms) {
-        this.interiorBridgeRooms = asChild(interiorBridgeRooms);
-    }
 
     public List<BridgePartProperty> getConsistsOfBridgeParts() {
         if (consistsOfBridgeParts == null)

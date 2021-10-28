@@ -133,9 +133,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="brid:BridgeConstructiveElement"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -147,9 +148,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="brid:BridgeInstallation"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -161,9 +163,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="brid:BridgeRoom"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -175,9 +178,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="brid:BridgeFurniture"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -415,14 +419,13 @@
           <element maxOccurs="unbounded" minOccurs="0" name="bridgeFurniture">
             <annotation>
               <documentation>Relates the furniture objects to the BridgeRoom.</documentation>
-              <appinfo>
-                <targetElement xmlns="http://www.opengis.net/gml/3.2">brid:BridgeFurniture</targetElement>
-              </appinfo>
             </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence/>
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeFurniture"/>
+                  </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
@@ -431,14 +434,13 @@
           <element maxOccurs="unbounded" minOccurs="0" name="bridgeInstallation">
             <annotation>
               <documentation>Relates to the installation objects to the BridgeRoom.</documentation>
-              <appinfo>
-                <targetElement xmlns="http://www.opengis.net/gml/3.2">brid:BridgeInstallation</targetElement>
-              </appinfo>
             </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence/>
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeInstallation"/>
+                  </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>

@@ -55,16 +55,16 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     reader.getTextContent().ifBoolean(object::setIsMovable);
                     return;
                 case "bridgeConstructiveElement":
-                    object.getBridgeConstructiveElements().add(reader.getObjectUsingBuilder(BridgeConstructiveElementMemberAdapter.class));
+                    object.getBridgeConstructiveElements().add(reader.getObjectUsingBuilder(BridgeConstructiveElementPropertyAdapter.class));
                     return;
                 case "bridgeInstallation":
-                    object.getBridgeInstallations().add(reader.getObjectUsingBuilder(BridgeInstallationMemberAdapter.class));
+                    object.getBridgeInstallations().add(reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class));
                     return;
                 case "bridgeRoom":
-                    object.getBridgeRooms().add(reader.getObjectUsingBuilder(BridgeRoomMemberAdapter.class));
+                    object.getBridgeRooms().add(reader.getObjectUsingBuilder(BridgeRoomPropertyAdapter.class));
                     return;
                 case "bridgeFurniture":
-                    object.getBridgeFurniture().add(reader.getObjectUsingBuilder(BridgeFurnitureMemberAdapter.class));
+                    object.getBridgeFurniture().add(reader.getObjectUsingBuilder(BridgeFurniturePropertyAdapter.class));
                     return;
                 case "address":
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
@@ -87,17 +87,17 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.isSetIsMovable())
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "isMovable").addTextContent(TextContent.ofBoolean(object.getIsMovable())));
 
-        for (BridgeConstructiveElementMember member : object.getBridgeConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeConstructiveElement"), member, BridgeConstructiveElementMemberAdapter.class, namespaces);
+        for (BridgeConstructiveElementProperty property : object.getBridgeConstructiveElements())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeConstructiveElement"), property, BridgeConstructiveElementPropertyAdapter.class, namespaces);
 
-        for (BridgeInstallationMember member : object.getBridgeInstallations())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
+        for (BridgeInstallationProperty property : object.getBridgeInstallations())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
 
-        for (BridgeRoomMember member : object.getBridgeRooms())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeRoom"), member, BridgeRoomMemberAdapter.class, namespaces);
+        for (BridgeRoomProperty property : object.getBridgeRooms())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
 
-        for (BridgeFurnitureMember member : object.getBridgeFurniture())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeFurniture"), member, BridgeFurnitureMemberAdapter.class, namespaces);
+        for (BridgeFurnitureProperty property : object.getBridgeFurniture())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeFurniture"), property, BridgeFurniturePropertyAdapter.class, namespaces);
 
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
