@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ package org.citygml4j.xml.adapter.building;
 import org.citygml4j.model.ade.generic.GenericADEOfBuildingUnit;
 import org.citygml4j.model.building.ADEOfBuildingUnit;
 import org.citygml4j.model.building.BuildingUnit;
+import org.citygml4j.model.building.StoreyProperty;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
@@ -29,8 +30,6 @@ import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -55,7 +54,7 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
         if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "storey":
-                    object.getStoreys().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getStoreys().add(reader.getObjectUsingBuilder(StoreyPropertyAdapter.class));
                     return;
                 case "address":
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
@@ -78,8 +77,8 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
     public void writeChildElements(BuildingUnit object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (Reference reference : object.getStoreys())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storey"), reference, ReferenceAdapter.class, namespaces);
+        for (StoreyProperty property : object.getStoreys())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storey"), property, StoreyPropertyAdapter.class, namespaces);
 
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);

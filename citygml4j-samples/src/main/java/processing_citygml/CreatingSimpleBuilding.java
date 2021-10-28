@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,7 @@ import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.model.building.Building;
-import org.citygml4j.model.construction.GroundSurface;
-import org.citygml4j.model.construction.Height;
-import org.citygml4j.model.construction.HeightProperty;
-import org.citygml4j.model.construction.RoofSurface;
-import org.citygml4j.model.construction.WallSurface;
+import org.citygml4j.model.construction.*;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.util.geometry.GeometryFactory;
@@ -38,11 +34,7 @@ import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.xmlobjects.gml.model.feature.BoundingShape;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
-import org.xmlobjects.gml.model.geometry.primitives.Polygon;
-import org.xmlobjects.gml.model.geometry.primitives.Shell;
-import org.xmlobjects.gml.model.geometry.primitives.Solid;
-import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
-import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import org.xmlobjects.gml.model.geometry.primitives.*;
 import org.xmlobjects.gml.model.measures.Length;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;

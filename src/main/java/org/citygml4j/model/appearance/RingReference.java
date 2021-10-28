@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,27 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.building;
+package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.feature.AbstractFeatureMember;
+import org.xmlobjects.gml.model.base.AbstractReference;
+import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
 
-public class BuildingRoomMember extends AbstractFeatureMember<BuildingRoom> implements CityGMLObject {
+public class RingReference extends AbstractReference<LinearRing> implements CityGMLObject {
 
-    public BuildingRoomMember() {
+    public RingReference() {
     }
 
-    public BuildingRoomMember(BuildingRoom object) {
+    public RingReference(String href) {
+        super(href);
+    }
+
+    public RingReference(LinearRing object) {
         super(object);
     }
 
     @Override
-    public Class<BuildingRoom> getTargetType() {
-        return BuildingRoom.class;
+    public Class<LinearRing> getTargetType() {
+        return LinearRing.class;
     }
 }

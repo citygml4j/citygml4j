@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,7 @@
 package org.citygml4j.xml.writer;
 
 import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.core.AbstractAppearance;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.AbstractVersion;
-import org.citygml4j.model.core.AbstractVersionTransition;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.model.core.*;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;

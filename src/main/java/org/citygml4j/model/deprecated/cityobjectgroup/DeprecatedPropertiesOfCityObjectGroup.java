@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,34 @@ package org.citygml4j.model.deprecated.cityobjectgroup;
 
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
+import org.xmlobjects.model.ChildList;
+
+import java.util.List;
 
 public class DeprecatedPropertiesOfCityObjectGroup extends DeprecatedPropertiesOfAbstractCityObject {
+    private List<GroupMember> groupMembers;
+    private GroupParentMember groupParent;
     private GeometryProperty<?> geometry;
+
+    public List<GroupMember> getGroupMembers() {
+        if (groupMembers == null) {
+            groupMembers = new ChildList<>(this);
+        }
+
+        return groupMembers;
+    }
+
+    public void setGroupMembers(List<GroupMember> groupMembers) {
+        this.groupMembers = asChild(groupMembers);
+    }
+
+    public GroupParentMember getGroupParent() {
+        return groupParent;
+    }
+
+    public void setGroupParent(GroupParentMember groupParent) {
+        this.groupParent = asChild(groupParent);
+    }
 
     public GeometryProperty<?> getGeometry() {
         return geometry;

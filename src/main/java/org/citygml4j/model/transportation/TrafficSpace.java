@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,7 @@
 package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.common.GeometryInfo;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.AbstractUnoccupiedSpace;
-import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.OccupancyProperty;
-import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.core.*;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -41,8 +37,8 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     private GranularityValue granularity;
     private TrafficDirectionValue trafficDirection;
     private List<OccupancyProperty> occupancies;
-    private List<TrafficSpaceProperty> predecessors;
-    private List<TrafficSpaceProperty> successors;
+    private List<TrafficSpaceReference> predecessors;
+    private List<TrafficSpaceReference> successors;
     private List<ClearanceSpaceProperty> clearanceSpaces;
     private List<ADEOfTrafficSpace> adeOfTrafficSpace;
 
@@ -123,25 +119,25 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         this.occupancies = asChild(occupancies);
     }
 
-    public List<TrafficSpaceProperty> getPredecessors() {
+    public List<TrafficSpaceReference> getPredecessors() {
         if (predecessors == null)
             predecessors = new ChildList<>(this);
 
         return predecessors;
     }
 
-    public void setPredecessors(List<TrafficSpaceProperty> predecessors) {
+    public void setPredecessors(List<TrafficSpaceReference> predecessors) {
         this.predecessors = asChild(predecessors);
     }
 
-    public List<TrafficSpaceProperty> getSuccessors() {
+    public List<TrafficSpaceReference> getSuccessors() {
         if (successors == null)
             successors = new ChildList<>(this);
 
         return successors;
     }
 
-    public void setSuccessors(List<TrafficSpaceProperty> successors) {
+    public void setSuccessors(List<TrafficSpaceReference> successors) {
         this.successors = asChild(successors);
     }
 

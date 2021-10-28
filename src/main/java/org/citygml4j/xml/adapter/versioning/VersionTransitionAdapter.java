@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,10 +64,10 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
                     reader.getTextContent().ifPresent(v -> object.setType(TransitionValue.fromValue(v)));
                     return;
                 case "from":
-                    object.setFrom(reader.getObjectUsingBuilder(VersionPropertyAdapter.class));
+                    object.setFrom(reader.getObjectUsingBuilder(VersionReferenceAdapter.class));
                     return;
                 case "to":
-                    object.setTo(reader.getObjectUsingBuilder(VersionPropertyAdapter.class));
+                    object.setTo(reader.getObjectUsingBuilder(VersionReferenceAdapter.class));
                     return;
                 case "transaction":
                     object.getTransactions().add(reader.getObjectUsingBuilder(TransactionPropertyAdapter.class));
@@ -99,10 +99,10 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "type").addTextContent(object.getType().toValue()));
 
         if (object.getFrom() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "from"), object.getFrom(), VersionPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "from"), object.getFrom(), VersionReferenceAdapter.class, namespaces);
 
         if (object.getTo() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "to"), object.getTo(), VersionPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "to"), object.getTo(), VersionReferenceAdapter.class, namespaces);
 
         for (TransactionProperty property : object.getTransactions())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "transaction"), property, TransactionPropertyAdapter.class, namespaces);

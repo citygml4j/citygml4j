@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,7 @@
 package org.citygml4j.xml.adapter.building;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractBuildingSubdivision;
-import org.citygml4j.model.building.ADEOfAbstractBuildingSubdivision;
-import org.citygml4j.model.building.AbstractBuildingSubdivision;
+import org.citygml4j.model.building.*;
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
@@ -31,8 +30,6 @@ import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.construction.ElevationPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractLogicalSpaceAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -61,16 +58,16 @@ public abstract class AbstractBuildingSubdivisionAdapter<T extends AbstractBuild
                     reader.getTextContent().ifDouble(object::setSortKey);
                     return;
                 case "buildingConstructiveElement":
-                    object.getBuildingConstructiveElements().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getBuildingConstructiveElements().add(reader.getObjectUsingBuilder(BuildingConstructiveElementPropertyAdapter.class));
                     return;
                 case "buildingFurniture":
-                    object.getBuildingFurniture().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getBuildingFurniture().add(reader.getObjectUsingBuilder(BuildingFurniturePropertyAdapter.class));
                     return;
                 case "buildingInstallation":
-                    object.getBuildingInstallations().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getBuildingInstallations().add(reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class));
                     return;
                 case "buildingRoom":
-                    object.getBuildingRooms().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getBuildingRooms().add(reader.getObjectUsingBuilder(BuildingRoomPropertyAdapter.class));
                     return;
                 case "adeOfAbstractBuildingSubdivision":
                     ADEBuilderHelper.addADEContainer(ADEOfAbstractBuildingSubdivision.class, object.getADEOfAbstractBuildingSubdivision(), GenericADEOfAbstractBuildingSubdivision::of, reader);
@@ -93,17 +90,17 @@ public abstract class AbstractBuildingSubdivisionAdapter<T extends AbstractBuild
         if (object.getSortKey() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "sortKey").addTextContent(TextContent.ofDouble(object.getSortKey())));
 
-        for (Reference reference : object.getBuildingConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingConstructiveElement"), reference, ReferenceAdapter.class, namespaces);
+        for (BuildingConstructiveElementProperty property : object.getBuildingConstructiveElements())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingConstructiveElement"), property, BuildingConstructiveElementPropertyAdapter.class, namespaces);
 
-        for (Reference reference : object.getBuildingFurniture())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingFurniture"), reference, ReferenceAdapter.class, namespaces);
+        for (BuildingFurnitureProperty property : object.getBuildingFurniture())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingFurniture"), property, BuildingFurniturePropertyAdapter.class, namespaces);
 
-        for (Reference reference : object.getBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingInstallation"), reference, ReferenceAdapter.class, namespaces);
+        for (BuildingInstallationProperty property : object.getBuildingInstallations())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
 
-        for (Reference reference : object.getBuildingRooms())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), reference, ReferenceAdapter.class, namespaces);
+        for (BuildingRoomProperty property : object.getBuildingRooms())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
 
         for (ADEOfAbstractBuildingSubdivision container : object.getADEOfAbstractBuildingSubdivision())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuildingSubdivision"), container, namespaces, writer);

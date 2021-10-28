@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,17 +31,17 @@ import java.util.List;
 public class CityObjectRelation extends AbstractGML implements CityGMLObject, Visitable {
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private Code relationType;
-    private AbstractCityObjectProperty relatedTo;
+    private AbstractCityObjectReference relatedTo;
 
     public CityObjectRelation() {
     }
 
     public CityObjectRelation(AbstractCityObject cityObject) {
-        setRelatedTo(new AbstractCityObjectProperty(cityObject));
+        setRelatedTo(new AbstractCityObjectReference(cityObject));
     }
 
     public CityObjectRelation(String href) {
-        setRelatedTo(new AbstractCityObjectProperty(href));
+        setRelatedTo(new AbstractCityObjectReference(href));
     }
 
     public List<AbstractGenericAttributeProperty> getGenericAttributes() {
@@ -63,11 +63,11 @@ public class CityObjectRelation extends AbstractGML implements CityGMLObject, Vi
         this.relationType = asChild(relationType);
     }
 
-    public AbstractCityObjectProperty getRelatedTo() {
+    public AbstractCityObjectReference getRelatedTo() {
         return relatedTo;
     }
 
-    public void setRelatedTo(AbstractCityObjectProperty relatedTo) {
+    public void setRelatedTo(AbstractCityObjectReference relatedTo) {
         this.relatedTo = asChild(relatedTo);
     }
 

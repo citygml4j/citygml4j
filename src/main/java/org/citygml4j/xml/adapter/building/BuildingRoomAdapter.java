@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,7 @@
 package org.citygml4j.xml.adapter.building;
 
 import org.citygml4j.model.ade.generic.GenericADEOfBuildingRoom;
-import org.citygml4j.model.building.ADEOfBuildingRoom;
-import org.citygml4j.model.building.BuildingFurnitureProperty;
-import org.citygml4j.model.building.BuildingInstallationProperty;
-import org.citygml4j.model.building.BuildingRoom;
-import org.citygml4j.model.building.RoomHeightProperty;
+import org.citygml4j.model.building.*;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;

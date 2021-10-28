@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,29 @@ package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
+import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextureCoordinates extends GMLObject implements CityGMLObject {
     private List<Double> value;
-    private String ring;
+    private RingReference ring;
 
     public TextureCoordinates() {
     }
 
-    public TextureCoordinates(List<Double> value, String ring) {
+    public TextureCoordinates(List<Double> value, RingReference ring) {
         this.value = value;
-        this.ring = ring;
+        setRing(ring);
+    }
+
+    public TextureCoordinates(List<Double> value, String ring) {
+        this(value, new RingReference(ring));
+    }
+
+    public TextureCoordinates(List<Double> value, LinearRing ring) {
+        this(value, new RingReference(ring));
     }
 
     public List<Double> getValue() {
@@ -48,11 +57,11 @@ public class TextureCoordinates extends GMLObject implements CityGMLObject {
         this.value = value;
     }
 
-    public String getRing() {
+    public RingReference getRing() {
         return ring;
     }
 
-    public void setRing(String ring) {
-        this.ring = ring;
+    public void setRing(RingReference ring) {
+        this.ring = asChild(ring);
     }
 }

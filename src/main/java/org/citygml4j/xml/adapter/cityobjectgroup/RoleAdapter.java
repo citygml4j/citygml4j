@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ package org.citygml4j.xml.adapter.cityobjectgroup;
 
 import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectReferenceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.AbstractGMLAdapter;
@@ -52,7 +52,7 @@ public class RoleAdapter extends AbstractGMLAdapter<Role> {
                     reader.getTextContent().ifPresent(object::setRole);
                     break;
                 case "groupMember":
-                    object.setGroupMember(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
+                    object.setGroupMember(reader.getObjectUsingBuilder(AbstractCityObjectReferenceAdapter.class));
                     break;
             }
         } else
@@ -72,6 +72,6 @@ public class RoleAdapter extends AbstractGMLAdapter<Role> {
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "role").addTextContent(object.getRole()));
 
         if (object.getGroupMember() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "groupMember"), object.getGroupMember(), AbstractCityObjectPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE, "groupMember"), object.getGroupMember(), AbstractCityObjectReferenceAdapter.class, namespaces);
     }
 }

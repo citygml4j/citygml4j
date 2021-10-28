@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ package org.citygml4j.model.building;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -30,18 +29,18 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class BuildingUnit extends AbstractBuildingSubdivision {
-    private List<Reference> storeys;
+    private List<StoreyProperty> storeys;
     private List<AddressProperty> addresses;
     private List<ADEOfBuildingUnit> adeOfBuildingUnit;
 
-    public List<Reference> getStoreys() {
+    public List<StoreyProperty> getStoreys() {
         if (storeys == null)
             storeys = new ChildList<>(this);
 
         return storeys;
     }
 
-    public void setStoreys(List<Reference> storeys) {
+    public void setStoreys(List<StoreyProperty> storeys) {
         this.storeys = asChild(storeys);
     }
 

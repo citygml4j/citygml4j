@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,15 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractProperty;
+import org.xmlobjects.gml.model.base.AbstractInlineProperty;
 
-public class TextureAssociationProperty extends AbstractProperty<TextureAssociation> implements CityGMLObject {
+public class TextureAssociationProperty extends AbstractInlineProperty<TextureAssociation> implements CityGMLObject {
 
     public TextureAssociationProperty() {
     }
 
     public TextureAssociationProperty(TextureAssociation object) {
         super(object);
-    }
-
-    public TextureAssociationProperty(String href) {
-        super(href);
     }
 
     @Override

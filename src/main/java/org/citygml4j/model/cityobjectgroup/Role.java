@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,19 @@
 package org.citygml4j.model.cityobjectgroup;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
+import org.citygml4j.model.core.AbstractCityObjectReference;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractGML;
 
 public class Role extends AbstractGML implements CityGMLObject, Visitable {
     private String role;
-    private AbstractCityObjectProperty groupMember;
+    private AbstractCityObjectReference groupMember;
 
     public Role() {
     }
 
-    public Role(String role, AbstractCityObjectProperty groupMember) {
+    public Role(String role, AbstractCityObjectReference groupMember) {
         this.role = role;
         setGroupMember(groupMember);
     }
@@ -45,11 +45,11 @@ public class Role extends AbstractGML implements CityGMLObject, Visitable {
         this.role = role;
     }
 
-    public AbstractCityObjectProperty getGroupMember() {
+    public AbstractCityObjectReference getGroupMember() {
         return groupMember;
     }
 
-    public void setGroupMember(AbstractCityObjectProperty groupMember) {
+    public void setGroupMember(AbstractCityObjectReference groupMember) {
         this.groupMember = asChild(groupMember);
     }
 

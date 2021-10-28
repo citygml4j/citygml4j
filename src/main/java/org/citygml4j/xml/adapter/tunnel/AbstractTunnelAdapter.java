@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,7 @@
 package org.citygml4j.xml.adapter.tunnel;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractTunnel;
-import org.citygml4j.model.tunnel.ADEOfAbstractTunnel;
-import org.citygml4j.model.tunnel.AbstractTunnel;
-import org.citygml4j.model.tunnel.HollowSpaceMember;
-import org.citygml4j.model.tunnel.TunnelConstructiveElementMember;
-import org.citygml4j.model.tunnel.TunnelFurnitureMember;
-import org.citygml4j.model.tunnel.TunnelInstallationMember;
+import org.citygml4j.model.tunnel.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -54,16 +49,16 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
 
             switch (name.getLocalPart()) {
                 case "tunnelConstructiveElement":
-                    object.getTunnelConstructiveElements().add(reader.getObjectUsingBuilder(TunnelConstructiveElementMemberAdapter.class));
+                    object.getTunnelConstructiveElements().add(reader.getObjectUsingBuilder(TunnelConstructiveElementPropertyAdapter.class));
                     return;
                 case "tunnelInstallation":
-                    object.getTunnelInstallations().add(reader.getObjectUsingBuilder(TunnelInstallationMemberAdapter.class));
+                    object.getTunnelInstallations().add(reader.getObjectUsingBuilder(TunnelInstallationPropertyAdapter.class));
                     return;
                 case "hollowSpace":
-                    object.getHollowSpaces().add(reader.getObjectUsingBuilder(HollowSpaceMemberAdapter.class));
+                    object.getHollowSpaces().add(reader.getObjectUsingBuilder(HollowSpacePropertyAdapter.class));
                     return;
                 case "tunnelFurniture":
-                    object.getTunnelFurniture().add(reader.getObjectUsingBuilder(TunnelFurnitureMemberAdapter.class));
+                    object.getTunnelFurniture().add(reader.getObjectUsingBuilder(TunnelFurniturePropertyAdapter.class));
                     return;
                 case "adeOfAbstractTunnel":
                     ADEBuilderHelper.addADEContainer(ADEOfAbstractTunnel.class, object.getADEOfAbstractTunnel(), GenericADEOfAbstractTunnel::of, reader);
@@ -80,17 +75,17 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
 
-        for (TunnelConstructiveElementMember member : object.getTunnelConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelConstructiveElement"), member, TunnelConstructiveElementMemberAdapter.class, namespaces);
+        for (TunnelConstructiveElementProperty property : object.getTunnelConstructiveElements())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelConstructiveElement"), property, TunnelConstructiveElementPropertyAdapter.class, namespaces);
 
-        for (TunnelInstallationMember member : object.getTunnelInstallations())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelInstallation"), member, TunnelInstallationMemberAdapter.class, namespaces);
+        for (TunnelInstallationProperty property : object.getTunnelInstallations())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
 
-        for (HollowSpaceMember member : object.getHollowSpaces())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "hollowSpace"), member, HollowSpaceMemberAdapter.class, namespaces);
+        for (HollowSpaceProperty property : object.getHollowSpaces())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "hollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
 
-        for (TunnelFurnitureMember member : object.getTunnelFurniture())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelFurniture"), member, TunnelFurnitureMemberAdapter.class, namespaces);
+        for (TunnelFurnitureProperty property : object.getTunnelFurniture())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelFurniture"), property, TunnelFurniturePropertyAdapter.class, namespaces);
 
         for (ADEOfAbstractTunnel container : object.getADEOfAbstractTunnel())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfAbstractTunnel"), container, namespaces, writer);

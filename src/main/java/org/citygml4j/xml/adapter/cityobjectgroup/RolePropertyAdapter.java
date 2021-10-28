@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ package org.citygml4j.xml.adapter.cityobjectgroup;
 
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.AbstractPropertyAdapter;
+import org.xmlobjects.gml.adapter.base.AbstractInlinePropertyAdapter;
 
 import javax.xml.namespace.QName;
 
-public class RolePropertyAdapter extends AbstractPropertyAdapter<RoleProperty> {
+public class RolePropertyAdapter extends AbstractInlinePropertyAdapter<RoleProperty> {
 
     @Override
     public RoleProperty createObject(QName name, Object parent) throws ObjectBuildException {

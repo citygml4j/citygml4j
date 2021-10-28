@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,7 @@
 package org.citygml4j.xml.adapter.core;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractSpace;
-import org.citygml4j.model.core.ADEOfAbstractSpace;
-import org.citygml4j.model.core.AbstractSpace;
-import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.core.QualifiedAreaProperty;
-import org.citygml4j.model.core.QualifiedVolumeProperty;
-import org.citygml4j.model.core.SpaceType;
+import org.citygml4j.model.core.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;

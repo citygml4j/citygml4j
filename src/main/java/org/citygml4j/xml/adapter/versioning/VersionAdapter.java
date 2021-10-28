@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@
 package org.citygml4j.xml.adapter.versioning;
 
 import org.citygml4j.model.ade.generic.GenericADEOfVersion;
-import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
+import org.citygml4j.model.core.AbstractFeatureWithLifespanReference;
 import org.citygml4j.model.versioning.ADEOfVersion;
 import org.citygml4j.model.versioning.Version;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
-import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanReferenceAdapter;
 import org.citygml4j.xml.adapter.core.AbstractVersionAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -57,7 +57,7 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
                     reader.getTextContent().ifPresent(object.getTags()::add);
                     return;
                 case "versionMember":
-                    object.getVersionMembers().add(reader.getObjectUsingBuilder(AbstractFeatureWithLifespanPropertyAdapter.class));
+                    object.getVersionMembers().add(reader.getObjectUsingBuilder(AbstractFeatureWithLifespanReferenceAdapter.class));
                     return;
                 case "adeOfVersion":
                     ADEBuilderHelper.addADEContainer(ADEOfVersion.class, object.getADEOfVersion(), GenericADEOfVersion::of, reader);
@@ -80,8 +80,8 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
         for (String tag : object.getTags())
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "tag").addTextContent(tag));
 
-        for (AbstractFeatureWithLifespanProperty property : object.getVersionMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), property, AbstractFeatureWithLifespanPropertyAdapter.class, namespaces);
+        for (AbstractFeatureWithLifespanReference reference : object.getVersionMembers())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), reference, AbstractFeatureWithLifespanReferenceAdapter.class, namespaces);
 
         for (ADEOfVersion container : object.getADEOfVersion())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), container, namespaces, writer);

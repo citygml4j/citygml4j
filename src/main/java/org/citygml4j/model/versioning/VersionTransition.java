@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ public class VersionTransition extends AbstractVersionTransition {
     private String reason;
     private boolean clonePredecessor;
     private TransitionValue type;
-    private VersionProperty from;
-    private VersionProperty to;
+    private VersionReference from;
+    private VersionReference to;
     private List<TransactionProperty> transactions;
     private List<ADEOfVersionTransition> adeOfVersionTransition;
 
@@ -41,7 +41,7 @@ public class VersionTransition extends AbstractVersionTransition {
         this.clonePredecessor = clonePredecessor;
     }
 
-    public VersionTransition(boolean clonePredecessor, VersionProperty from, VersionProperty to) {
+    public VersionTransition(boolean clonePredecessor, VersionReference from, VersionReference to) {
         this.clonePredecessor = clonePredecessor;
         setFrom(from);
         setTo(to);
@@ -71,19 +71,19 @@ public class VersionTransition extends AbstractVersionTransition {
         this.type = type;
     }
 
-    public VersionProperty getFrom() {
+    public VersionReference getFrom() {
         return from;
     }
 
-    public void setFrom(VersionProperty from) {
+    public void setFrom(VersionReference from) {
         this.from = asChild(from);
     }
 
-    public VersionProperty getTo() {
+    public VersionReference getTo() {
         return to;
     }
 
-    public void setTo(VersionProperty to) {
+    public void setTo(VersionReference to) {
         this.to = asChild(to);
     }
 

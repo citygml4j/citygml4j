@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ package org.citygml4j.model.deprecated.tunnel;
 
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
 import org.citygml4j.model.tunnel.TunnelPartProperty;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
@@ -30,48 +29,12 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class DeprecatedPropertiesOfAbstractTunnel extends DeprecatedPropertiesOfAbstractCityObject {
-    private List<Reference> outerTunnelInstallations;
-    private List<Reference> interiorTunnelInstallations;
-    private List<Reference> interiorHollowSpaces;
     private List<TunnelPartProperty> consistsOfTunnelParts;
     private MultiSurfaceProperty lod1MultiSurface;
     private MultiCurveProperty lod4MultiCurve;
     private MultiSurfaceProperty lod4MultiSurface;
     private SolidProperty lod4Solid;
     private MultiCurveProperty lod4TerrainIntersectionCurve;
-
-    public List<Reference> getOuterTunnelInstallations() {
-        if (outerTunnelInstallations == null)
-            outerTunnelInstallations = new ChildList<>(this);
-
-        return outerTunnelInstallations;
-    }
-
-    public void setOuterTunnelInstallations(List<Reference> outerTunnelInstallations) {
-        this.outerTunnelInstallations = asChild(outerTunnelInstallations);
-    }
-
-    public List<Reference> getInteriorTunnelInstallations() {
-        if (interiorTunnelInstallations == null)
-            interiorTunnelInstallations = new ChildList<>(this);
-
-        return interiorTunnelInstallations;
-    }
-
-    public void setInteriorTunnelInstallations(List<Reference> interiorTunnelInstallations) {
-        this.interiorTunnelInstallations = asChild(interiorTunnelInstallations);
-    }
-
-    public List<Reference> getInteriorHollowSpaces() {
-        if (interiorHollowSpaces == null)
-            interiorHollowSpaces = new ChildList<>(this);
-
-        return interiorHollowSpaces;
-    }
-
-    public void setInteriorHollowSpaces(List<Reference> interiorHollowSpaces) {
-        this.interiorHollowSpaces = asChild(interiorHollowSpaces);
-    }
 
     public List<TunnelPartProperty> getConsistsOfTunnelParts() {
         if (consistsOfTunnelParts == null)

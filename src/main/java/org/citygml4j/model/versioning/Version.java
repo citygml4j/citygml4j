@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 
 package org.citygml4j.model.versioning;
 
-import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
+import org.citygml4j.model.core.AbstractFeatureWithLifespanReference;
 import org.citygml4j.model.core.AbstractVersion;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Version extends AbstractVersion {
     private List<String> tags;
-    private List<AbstractFeatureWithLifespanProperty> versionMembers;
+    private List<AbstractFeatureWithLifespanReference> versionMembers;
     private List<ADEOfVersion> adeOfVersion;
 
     public List<String> getTags() {
@@ -43,14 +43,14 @@ public class Version extends AbstractVersion {
         this.tags = tags;
     }
 
-    public List<AbstractFeatureWithLifespanProperty> getVersionMembers() {
+    public List<AbstractFeatureWithLifespanReference> getVersionMembers() {
         if (versionMembers == null)
             versionMembers = new ChildList<>(this);
 
         return versionMembers;
     }
 
-    public void setVersionMembers(List<AbstractFeatureWithLifespanProperty> versionMembers) {
+    public void setVersionMembers(List<AbstractFeatureWithLifespanReference> versionMembers) {
         this.versionMembers = asChild(versionMembers);
     }
 

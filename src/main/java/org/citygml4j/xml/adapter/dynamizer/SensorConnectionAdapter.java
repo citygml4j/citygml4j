@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ package org.citygml4j.xml.adapter.dynamizer;
 
 import org.citygml4j.model.dynamizer.SensorConnection;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectReferenceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
@@ -90,7 +90,7 @@ public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>,
                     reader.getTextContent().ifPresent(object::setLinkToSensorDescription);
                     break;
                 case "sensorLocation":
-                    object.setSensorLocation(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
+                    object.setSensorLocation(reader.getObjectUsingBuilder(AbstractCityObjectReferenceAdapter.class));
                     break;
             }
         }
@@ -143,6 +143,6 @@ public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>,
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "linkToSensorDescription").addTextContent(object.getLinkToSensorDescription()));
 
         if (object.getSensorLocation() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorLocation"), object.getSensorLocation(), AbstractCityObjectPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorLocation"), object.getSensorLocation(), AbstractCityObjectReferenceAdapter.class, namespaces);
     }
 }

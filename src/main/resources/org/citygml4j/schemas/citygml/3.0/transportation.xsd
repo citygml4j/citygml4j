@@ -2,7 +2,7 @@
   <annotation>
     <documentation>The Transportation module supports representation of the transportation infrastructure. Transportation features include roads, tracks, waterways, railways, and squares. Transportation features may be represented as a network and/or as a collection of spaces or surface elements embedded in a three-dimensional space.</documentation>
   </annotation>
-  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="ADEOfAbstractTransportationSpace" substitutionGroup="gml:AbstractObject" type="tran:ADEOfAbstractTransportationSpaceType">
@@ -946,14 +946,20 @@
               <documentation>Provides information on the residency of persons, vehicles, or other moving features in the TrafficSpace.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="predecessor" type="tran:TrafficSpacePropertyType">
+          <element maxOccurs="unbounded" minOccurs="0" name="predecessor" type="gml:ReferenceType">
             <annotation>
               <documentation>Indicates the predecessor(s) of the TrafficSpace.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">tran:TrafficSpace</targetElement>
+              </appinfo>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="successor" type="tran:TrafficSpacePropertyType">
+          <element maxOccurs="unbounded" minOccurs="0" name="successor" type="gml:ReferenceType">
             <annotation>
               <documentation>Indicates the successor(s) of the TrafficSpace.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">tran:TrafficSpace</targetElement>
+              </appinfo>
             </annotation>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="clearanceSpace">

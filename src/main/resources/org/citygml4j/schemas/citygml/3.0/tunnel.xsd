@@ -2,7 +2,7 @@
   <annotation>
     <documentation>The Tunnel module supports representation of thematic and spatial aspects of tunnels, tunnel parts, tunnel installations, and interior tunnel structures.</documentation>
   </annotation>
-  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
   <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
@@ -128,9 +128,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="tun:TunnelConstructiveElement"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -142,9 +143,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="tun:TunnelInstallation"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -156,9 +158,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="tun:HollowSpace"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -170,9 +173,10 @@
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence>
+                  <sequence minOccurs="0">
                     <element ref="tun:TunnelFurniture"/>
                   </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
             </complexType>
@@ -220,14 +224,13 @@
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelFurniture">
             <annotation>
               <documentation>Relates the furniture objects to the HollowSpace.</documentation>
-              <appinfo>
-                <targetElement xmlns="http://www.opengis.net/gml/3.2">tun:TunnelFurniture</targetElement>
-              </appinfo>
             </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence/>
+                  <sequence minOccurs="0">
+                    <element ref="tun:TunnelFurniture"/>
+                  </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>
@@ -236,14 +239,13 @@
           <element maxOccurs="unbounded" minOccurs="0" name="tunnelInstallation">
             <annotation>
               <documentation>Relates the installation objects to the HollowSpace.</documentation>
-              <appinfo>
-                <targetElement xmlns="http://www.opengis.net/gml/3.2">tun:TunnelInstallation</targetElement>
-              </appinfo>
             </annotation>
             <complexType>
               <complexContent>
                 <extension base="gml:AbstractFeatureMemberType">
-                  <sequence/>
+                  <sequence minOccurs="0">
+                    <element ref="tun:TunnelInstallation"/>
+                  </sequence>
                   <attributeGroup ref="gml:AssociationAttributeGroup"/>
                 </extension>
               </complexContent>

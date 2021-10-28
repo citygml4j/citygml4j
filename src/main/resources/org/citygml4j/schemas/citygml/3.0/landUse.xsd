@@ -2,7 +2,7 @@
   <annotation>
     <documentation>The LandUse module supports representation of areas of the earth’s surface dedicated to a specific land use.</documentation>
   </annotation>
-  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./cityGMLBase.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
   <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
   <element abstract="true" name="ADEOfLandUse" substitutionGroup="gml:AbstractObject" type="luse:ADEOfLandUseType">

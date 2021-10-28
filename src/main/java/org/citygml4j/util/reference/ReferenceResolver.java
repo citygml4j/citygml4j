@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,13 @@
 
 package org.citygml4j.util.reference;
 
-import org.citygml4j.model.appearance.GeometryReference;
-import org.citygml4j.model.appearance.GeoreferencedTexture;
-import org.citygml4j.model.appearance.TextureAssociation;
-import org.citygml4j.model.appearance.X3DMaterial;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractAssociation;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
-import org.xmlobjects.gml.model.base.Reference;
+import org.xmlobjects.gml.model.base.AbstractReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,34 +86,8 @@ public class ReferenceResolver {
             }
 
             @Override
-            public void visit(Reference reference) {
+            public void visit(AbstractReference<?> reference) {
                 collect(reference, reference.getHref());
-            }
-
-            @Override
-            public void visit(TextureAssociation textureAssociation) {
-                if (textureAssociation.getTarget() != null)
-                    collect(textureAssociation.getTarget(), textureAssociation.getTarget().getURI());
-            }
-
-            @Override
-            public void visit(GeoreferencedTexture georeferencedTexture) {
-                for (GeometryReference target : georeferencedTexture.getTargets()) {
-                    if (target != null)
-                        collect(target, target.getURI());
-                }
-
-                super.visit(georeferencedTexture);
-            }
-
-            @Override
-            public void visit(X3DMaterial x3dMaterial) {
-                for (GeometryReference target : x3dMaterial.getTargets()) {
-                    if (target != null)
-                        collect(target, target.getURI());
-                }
-
-                super.visit(x3dMaterial);
             }
 
             private void collect(AbstractAssociation<?> association, String reference) {

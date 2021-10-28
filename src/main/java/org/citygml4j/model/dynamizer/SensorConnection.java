@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 package org.citygml4j.model.dynamizer;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
+import org.citygml4j.model.core.AbstractCityObjectReference;
 import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.gml.model.basictypes.Code;
 
@@ -38,7 +38,7 @@ public class SensorConnection extends GMLObject implements CityGMLObject {
     private String mqttTopic;
     private String linkToObservation;
     private String linkToSensorDescription;
-    private AbstractCityObjectProperty sensorLocation;
+    private AbstractCityObjectReference sensorLocation;
 
     public SensorConnection() {
     }
@@ -152,11 +152,11 @@ public class SensorConnection extends GMLObject implements CityGMLObject {
         this.linkToSensorDescription = linkToSensorDescription;
     }
 
-    public AbstractCityObjectProperty getSensorLocation() {
+    public AbstractCityObjectReference getSensorLocation() {
         return sensorLocation;
     }
 
-    public void setSensorLocation(AbstractCityObjectProperty sensorLocation) {
+    public void setSensorLocation(AbstractCityObjectReference sensorLocation) {
         this.sensorLocation = asChild(sensorLocation);
     }
 }

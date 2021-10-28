@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.building;
+package org.citygml4j.xml.adapter.deprecated.cityobjectgroup;
 
-import org.citygml4j.model.building.BuildingConstructiveElementMember;
+import org.citygml4j.model.deprecated.cityobjectgroup.GroupParentMember;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.feature.AbstractFeatureMemberAdapter;
 
 import javax.xml.namespace.QName;
 
-public class BuildingConstructiveElementMemberAdapter extends AbstractFeatureMemberAdapter<BuildingConstructiveElementMember> {
+public class GroupParentMemberAdapter extends AbstractFeatureMemberAdapter<GroupParentMember> {
 
     @Override
-    public BuildingConstructiveElementMember createObject(QName name, Object parent) throws ObjectBuildException {
-        return new BuildingConstructiveElementMember();
+    public GroupParentMember createObject(QName name, Object parent) throws ObjectBuildException {
+        return new GroupParentMember();
     }
 }

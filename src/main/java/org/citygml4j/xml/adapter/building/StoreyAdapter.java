@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,13 @@ package org.citygml4j.xml.adapter.building;
 
 import org.citygml4j.model.ade.generic.GenericADEOfStorey;
 import org.citygml4j.model.building.ADEOfStorey;
+import org.citygml4j.model.building.BuildingUnitProperty;
 import org.citygml4j.model.building.Storey;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -53,7 +52,7 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
         if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "buildingUnit":
-                    object.getBuildingUnits().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getBuildingUnits().add(reader.getObjectUsingBuilder(BuildingUnitPropertyAdapter.class));
                     return;
                 case "adeOfStorey":
                     ADEBuilderHelper.addADEContainer(ADEOfStorey.class, object.getADEOfStorey(), GenericADEOfStorey::of, reader);
@@ -73,8 +72,8 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
     public void writeChildElements(Storey object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (Reference reference : object.getBuildingUnits())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingUnit"), reference, ReferenceAdapter.class, namespaces);
+        for (BuildingUnitProperty property : object.getBuildingUnits())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingUnit"), property, BuildingUnitPropertyAdapter.class, namespaces);
 
         for (ADEOfStorey container : object.getADEOfStorey())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfStorey"), container, namespaces, writer);

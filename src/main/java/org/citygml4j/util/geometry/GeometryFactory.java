@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,17 +25,7 @@ import org.xmlobjects.gml.model.geometry.DirectPositionList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPoint;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
-import org.xmlobjects.gml.model.geometry.primitives.AbstractRingProperty;
-import org.xmlobjects.gml.model.geometry.primitives.CurveProperty;
-import org.xmlobjects.gml.model.geometry.primitives.LineString;
-import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
-import org.xmlobjects.gml.model.geometry.primitives.Point;
-import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
-import org.xmlobjects.gml.model.geometry.primitives.Polygon;
-import org.xmlobjects.gml.model.geometry.primitives.Shell;
-import org.xmlobjects.gml.model.geometry.primitives.ShellProperty;
-import org.xmlobjects.gml.model.geometry.primitives.Solid;
-import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import org.xmlobjects.gml.model.geometry.primitives.*;
 import org.xmlobjects.gml.util.id.IdCreator;
 
 import java.util.Arrays;

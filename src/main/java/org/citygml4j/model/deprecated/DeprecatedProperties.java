@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,5 +23,4 @@ import org.xmlobjects.gml.model.GMLObject;
 
 public abstract class DeprecatedProperties extends GMLObject {
     public static final String GML_ID = "id";
-    public static final String TARGET_URI = "uri";
 }

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,7 @@
 package org.citygml4j.xml.adapter.deprecated.bridge;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractBridge;
-import org.citygml4j.model.bridge.ADEOfAbstractBridge;
-import org.citygml4j.model.bridge.AbstractBridge;
-import org.citygml4j.model.bridge.Bridge;
-import org.citygml4j.model.bridge.BridgeConstructiveElementMember;
-import org.citygml4j.model.bridge.BridgeConstructiveElementProperty;
-import org.citygml4j.model.bridge.BridgeInstallationMember;
-import org.citygml4j.model.bridge.BridgeInstallationProperty;
-import org.citygml4j.model.bridge.BridgePartProperty;
-import org.citygml4j.model.bridge.BridgeRoomMember;
-import org.citygml4j.model.bridge.BridgeRoomProperty;
+import org.citygml4j.model.bridge.*;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
@@ -38,22 +29,17 @@ import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
-import org.citygml4j.xml.adapter.bridge.BridgeConstructiveElementMemberAdapter;
 import org.citygml4j.xml.adapter.bridge.BridgeConstructiveElementPropertyAdapter;
-import org.citygml4j.xml.adapter.bridge.BridgeInstallationMemberAdapter;
 import org.citygml4j.xml.adapter.bridge.BridgeInstallationPropertyAdapter;
 import org.citygml4j.xml.adapter.bridge.BridgePartPropertyAdapter;
-import org.citygml4j.xml.adapter.bridge.BridgeRoomMemberAdapter;
 import org.citygml4j.xml.adapter.bridge.BridgeRoomPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.core.AbstractSiteAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -110,37 +96,11 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     object.setLod2TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "outerBridgeConstruction":
-                    BridgeConstructiveElementProperty bridgeConstructiveElement = reader.getObjectUsingBuilder(BridgeConstructiveElementPropertyAdapter.class);
-                    if (bridgeConstructiveElement.getObject() != null)
-                        object.getBridgeConstructiveElements().add(new BridgeConstructiveElementMember(bridgeConstructiveElement.getObject()));
-                    else if (bridgeConstructiveElement.getGenericElement() != null) {
-                        BridgeConstructiveElementMember member = new BridgeConstructiveElementMember();
-                        member.setGenericElement(bridgeConstructiveElement.getGenericElement());
-                        object.getBridgeConstructiveElements().add(member);
-                    } else
-                        object.getDeprecatedProperties().getOuterBridgeConstructions().add(new Reference(bridgeConstructiveElement));
+                    object.getBridgeConstructiveElements().add(reader.getObjectUsingBuilder(BridgeConstructiveElementPropertyAdapter.class));
                     return;
                 case "outerBridgeInstallation":
-                    BridgeInstallationProperty outerBridgeInstallation = reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class);
-                    if (outerBridgeInstallation.getObject() != null)
-                        object.getBridgeInstallations().add(new BridgeInstallationMember(outerBridgeInstallation.getObject()));
-                    else if (outerBridgeInstallation.getGenericElement() != null) {
-                        BridgeInstallationMember member = new BridgeInstallationMember();
-                        member.setGenericElement(outerBridgeInstallation.getGenericElement());
-                        object.getBridgeInstallations().add(member);
-                    } else
-                        object.getDeprecatedProperties().getOuterBridgeInstallations().add(new Reference(outerBridgeInstallation));
-                    return;
                 case "interiorBridgeInstallation":
-                    BridgeInstallationProperty interiorBridgeInstallation = reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class);
-                    if (interiorBridgeInstallation.getObject() != null)
-                        object.getBridgeInstallations().add(new BridgeInstallationMember(interiorBridgeInstallation.getObject()));
-                    else if (interiorBridgeInstallation.getGenericElement() != null) {
-                        BridgeInstallationMember member = new BridgeInstallationMember();
-                        member.setGenericElement(interiorBridgeInstallation.getGenericElement());
-                        object.getBridgeInstallations().add(member);
-                    } else
-                        object.getDeprecatedProperties().getInteriorBridgeInstallations().add(new Reference(interiorBridgeInstallation));
+                    object.getBridgeInstallations().add(reader.getObjectUsingBuilder(BridgeInstallationPropertyAdapter.class));
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -170,15 +130,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     object.getDeprecatedProperties().setLod4TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "interiorBridgeRoom":
-                    BridgeRoomProperty interiorBridgeRoom = reader.getObjectUsingBuilder(BridgeRoomPropertyAdapter.class);
-                    if (interiorBridgeRoom.getObject() != null)
-                        object.getBridgeRooms().add(new BridgeRoomMember(interiorBridgeRoom.getObject()));
-                    else if (interiorBridgeRoom.getGenericElement() != null) {
-                        BridgeRoomMember member = new BridgeRoomMember();
-                        member.setGenericElement(interiorBridgeRoom.getGenericElement());
-                        object.getBridgeRooms().add(member);
-                    } else
-                        object.getDeprecatedProperties().getInteriorBridgeRooms().add(new Reference(interiorBridgeRoom));
+                    object.getBridgeRooms().add(reader.getObjectUsingBuilder(BridgeRoomPropertyAdapter.class));
                     return;
                 case "consistsOfBridgePart":
                     BridgePartProperty consistsOfBridgePart = reader.getObjectUsingBuilder(BridgePartPropertyAdapter.class);
@@ -243,27 +195,15 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.getLod2TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BridgeConstructiveElementMember member : object.getBridgeConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), member, BridgeConstructiveElementMemberAdapter.class, namespaces);
+        for (BridgeConstructiveElementProperty property : object.getBridgeConstructiveElements())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), property, BridgeConstructiveElementPropertyAdapter.class, namespaces);
 
-        for (Reference reference : object.getDeprecatedProperties().getOuterBridgeConstructions())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), reference, ReferenceAdapter.class, namespaces);
-
-        for (BridgeInstallationMember member : object.getBridgeInstallations()) {
-            if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
+        for (BridgeInstallationProperty property : object.getBridgeInstallations()) {
+            if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+            else
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
         }
-
-        for (Reference reference : object.getDeprecatedProperties().getOuterBridgeInstallations())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), reference, ReferenceAdapter.class, namespaces);
-
-        for (BridgeInstallationMember member : object.getBridgeInstallations()) {
-            if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), member, BridgeInstallationMemberAdapter.class, namespaces);
-        }
-
-        for (Reference reference : object.getDeprecatedProperties().getInteriorBridgeInstallations())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
@@ -292,11 +232,8 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BridgeRoomMember member : object.getBridgeRooms())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), member, BridgeRoomMemberAdapter.class, namespaces);
-
-        for (Reference reference : object.getDeprecatedProperties().getInteriorBridgeRooms())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), reference, ReferenceAdapter.class, namespaces);
+        for (BridgeRoomProperty property : object.getBridgeRooms())
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
 
         if (object instanceof Bridge) {
             for (BridgePartProperty property : ((Bridge) object).getBridgeParts())

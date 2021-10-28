@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,7 @@ package org.citygml4j.xml.adapter.transportation;
 
 import org.citygml4j.model.ade.generic.GenericADEOfTrafficSpace;
 import org.citygml4j.model.core.OccupancyProperty;
-import org.citygml4j.model.transportation.ADEOfTrafficSpace;
-import org.citygml4j.model.transportation.ClearanceSpaceProperty;
-import org.citygml4j.model.transportation.GranularityValue;
-import org.citygml4j.model.transportation.TrafficDirectionValue;
-import org.citygml4j.model.transportation.TrafficSpace;
-import org.citygml4j.model.transportation.TrafficSpaceProperty;
+import org.citygml4j.model.transportation.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -72,10 +67,10 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                     object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
                     return;
                 case "predecessor":
-                    object.getPredecessors().add(reader.getObjectUsingBuilder(TrafficSpacePropertyAdapter.class));
+                    object.getPredecessors().add(reader.getObjectUsingBuilder(TrafficSpaceReferenceAdapter.class));
                     return;
                 case "successor":
-                    object.getSuccessors().add(reader.getObjectUsingBuilder(TrafficSpacePropertyAdapter.class));
+                    object.getSuccessors().add(reader.getObjectUsingBuilder(TrafficSpaceReferenceAdapter.class));
                     return;
                 case "clearanceSpace":
                     object.getClearanceSpaces().add(reader.getObjectUsingBuilder(ClearanceSpacePropertyAdapter.class));
@@ -108,11 +103,11 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
         for (OccupancyProperty property : object.getOccupancies())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
 
-        for (TrafficSpaceProperty property : object.getPredecessors())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "predecessor"), property, TrafficSpacePropertyAdapter.class, namespaces);
+        for (TrafficSpaceReference reference : object.getPredecessors())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "predecessor"), reference, TrafficSpaceReferenceAdapter.class, namespaces);
 
-        for (TrafficSpaceProperty property : object.getSuccessors())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "successor"), property, TrafficSpacePropertyAdapter.class, namespaces);
+        for (TrafficSpaceReference reference : object.getSuccessors())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "successor"), reference, TrafficSpaceReferenceAdapter.class, namespaces);
 
         for (ClearanceSpaceProperty property : object.getClearanceSpaces())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "clearanceSpace"), property, ClearanceSpacePropertyAdapter.class, namespaces);

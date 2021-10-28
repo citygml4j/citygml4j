@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,26 +20,13 @@
 package org.citygml4j.xml.adapter.core;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractCityObject;
-import org.citygml4j.model.core.ADEOfAbstractCityObject;
-import org.citygml4j.model.core.AbstractAppearanceProperty;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractDynamizerProperty;
-import org.citygml4j.model.core.AbstractGenericAttribute;
-import org.citygml4j.model.core.AbstractGenericAttributeProperty;
-import org.citygml4j.model.core.CityObjectRelationProperty;
-import org.citygml4j.model.core.ExternalReference;
-import org.citygml4j.model.core.ExternalReferenceProperty;
-import org.citygml4j.model.core.RelativeToTerrain;
-import org.citygml4j.model.core.RelativeToWater;
+import org.citygml4j.model.core.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -71,11 +58,11 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                     return;
                 case "generalizesTo":
                     if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()))
-                        object.getGeneralizesTo().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                        object.getGeneralizesTo().add(reader.getObjectUsingBuilder(AbstractCityObjectReferenceAdapter.class));
                     else {
                         AbstractCityObjectProperty property = reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class);
                         if (property.getObject() == null && property.getGenericElement() == null)
-                            object.getGeneralizesTo().add(new Reference(property));
+                            object.getGeneralizesTo().add(new AbstractCityObjectReference(property));
                         else
                             object.getDeprecatedProperties().getGeneralizesTo().add(property);
                     }
@@ -138,8 +125,8 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property.getObject(), ExternalReferenceAdapter.class, namespaces);
         }
 
-        for (Reference reference : object.getGeneralizesTo())
-            writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, ReferenceAdapter.class, namespaces);
+        for (AbstractCityObjectReference reference : object.getGeneralizesTo())
+            writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, AbstractCityObjectReferenceAdapter.class, namespaces);
 
         if (!isCityGML3) {
             for (AbstractCityObjectProperty property : object.getDeprecatedProperties().getGeneralizesTo())

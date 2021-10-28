@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,7 @@ import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSolid;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.*;
 import org.xmlobjects.gml.model.geometry.primitives.AbstractSolid;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 import org.xmlobjects.stream.XMLReadException;

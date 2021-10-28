@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
                     object.setRelationType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     break;
                 case "relatedTo":
-                    object.setRelatedTo(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
+                    object.setRelatedTo(reader.getObjectUsingBuilder(AbstractCityObjectReferenceAdapter.class));
                     break;
             }
         } else
@@ -79,6 +79,6 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relationType"), object.getRelationType(), CodeAdapter.class, namespaces);
 
         if (object.getRelatedTo() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relatedTo"), object.getRelatedTo(), AbstractCityObjectPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relatedTo"), object.getRelatedTo(), AbstractCityObjectReferenceAdapter.class, namespaces);
     }
 }

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,10 +37,10 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
     private List<Code> functions;
     private List<Code> usages;
     private Boolean isMovable;
-    private List<BridgeConstructiveElementMember> bridgeConstructiveElements;
-    private List<BridgeInstallationMember> bridgeInstallations;
-    private List<BridgeRoomMember> bridgeRooms;
-    private List<BridgeFurnitureMember> bridgeFurniture;
+    private List<BridgeConstructiveElementProperty> bridgeConstructiveElements;
+    private List<BridgeInstallationProperty> bridgeInstallations;
+    private List<BridgeRoomProperty> bridgeRooms;
+    private List<BridgeFurnitureProperty> bridgeFurniture;
     private List<AddressProperty> addresses;
     private List<ADEOfAbstractBridge> adeOfAbstractBridge;
 
@@ -92,47 +92,47 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         this.isMovable = isMovable;
     }
 
-    public List<BridgeConstructiveElementMember> getBridgeConstructiveElements() {
+    public List<BridgeConstructiveElementProperty> getBridgeConstructiveElements() {
         if (bridgeConstructiveElements == null)
             bridgeConstructiveElements = new ChildList<>(this);
 
         return bridgeConstructiveElements;
     }
 
-    public void setBridgeConstructiveElements(List<BridgeConstructiveElementMember> bridgeConstructiveElements) {
+    public void setBridgeConstructiveElements(List<BridgeConstructiveElementProperty> bridgeConstructiveElements) {
         this.bridgeConstructiveElements = asChild(bridgeConstructiveElements);
     }
 
-    public List<BridgeInstallationMember> getBridgeInstallations() {
+    public List<BridgeInstallationProperty> getBridgeInstallations() {
         if (bridgeInstallations == null)
             bridgeInstallations = new ChildList<>(this);
 
         return bridgeInstallations;
     }
 
-    public void setBridgeInstallations(List<BridgeInstallationMember> bridgeInstallations) {
+    public void setBridgeInstallations(List<BridgeInstallationProperty> bridgeInstallations) {
         this.bridgeInstallations = asChild(bridgeInstallations);
     }
 
-    public List<BridgeRoomMember> getBridgeRooms() {
+    public List<BridgeRoomProperty> getBridgeRooms() {
         if (bridgeRooms == null)
             bridgeRooms = new ChildList<>(this);
 
         return bridgeRooms;
     }
 
-    public void setBridgeRooms(List<BridgeRoomMember> bridgeRooms) {
+    public void setBridgeRooms(List<BridgeRoomProperty> bridgeRooms) {
         this.bridgeRooms = asChild(bridgeRooms);
     }
 
-    public List<BridgeFurnitureMember> getBridgeFurniture() {
+    public List<BridgeFurnitureProperty> getBridgeFurniture() {
         if (bridgeFurniture == null)
             bridgeFurniture = new ChildList<>(this);
 
         return bridgeFurniture;
     }
 
-    public void setBridgeFurniture(List<BridgeFurnitureMember> bridgeFurniture) {
+    public void setBridgeFurniture(List<BridgeFurnitureProperty> bridgeFurniture) {
         this.bridgeFurniture = asChild(bridgeFurniture);
     }
 
@@ -173,16 +173,16 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         super.updateEnvelope(envelope, options);
 
         if (bridgeConstructiveElements != null) {
-            for (BridgeConstructiveElementMember member : bridgeConstructiveElements) {
-                if (member.getObject() != null)
-                    envelope.include(member.getObject().computeEnvelope(options));
+            for (BridgeConstructiveElementProperty property : bridgeConstructiveElements) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
             }
         }
 
         if (bridgeInstallations != null) {
-            for (BridgeInstallationMember member : bridgeInstallations) {
-                if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                    envelope.include(member.getObject().computeEnvelope(options));
+            for (BridgeInstallationProperty property : bridgeInstallations) {
+                if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                    envelope.include(property.getObject().computeEnvelope(options));
             }
         }
 

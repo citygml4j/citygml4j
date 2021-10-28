@@ -296,10 +296,13 @@
               <documentation>Describes the vertical position of the city object relative to the surrounding water surface.</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="relatedTo" type="core:CityObjectRelationPropertyType">
-            <annotation>
-              <documentation>Relates other city objects to the city object. It also describes how the city objects are related to each other.</documentation>
-            </annotation>
+          <element maxOccurs="unbounded" minOccurs="0" name="relatedTo">
+            <complexType>
+              <sequence>
+                <element ref="core:CityObjectRelation"/>
+              </sequence>
+              <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+            </complexType>
           </element>
           <element maxOccurs="unbounded" minOccurs="0" name="appearance">
             <annotation>
@@ -1021,14 +1024,12 @@
               <documentation>Relates generic attributes to the CityObjectRelation.</documentation>
             </annotation>
           </element>
-          <element name="relationType" type="gml:CodeType">
+          <element name="relationType" type="gml:CodeType"/>
+          <element name="relatedTo" type="gml:ReferenceType">
             <annotation>
-              <documentation>Indicates the specific type of the CityObjectRelation.</documentation>
-            </annotation>
-          </element>
-          <element name="relatedTo" type="core:AbstractCityObjectPropertyType">
-            <annotation>
-              <documentation>Relates other city objects to the city object. It also describes how the city objects are related to each other.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractCityObject</targetElement>
+              </appinfo>
             </annotation>
           </element>
         </sequence>

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,31 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.building;
+package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.feature.AbstractFeatureMember;
+import org.xmlobjects.gml.model.base.AbstractReference;
+import org.xmlobjects.gml.model.base.AssociationAttributes;
 
-public class BuildingConstructiveElementMember extends AbstractFeatureMember<BuildingConstructiveElement> implements CityGMLObject {
+public class TrafficSpaceReference extends AbstractReference<TrafficSpace> implements CityGMLObject {
 
-    public BuildingConstructiveElementMember() {
+    public TrafficSpaceReference() {
     }
 
-    public BuildingConstructiveElementMember(BuildingConstructiveElement object) {
+    public TrafficSpaceReference(String href) {
+        super(href);
+    }
+
+    public TrafficSpaceReference(TrafficSpace object) {
         super(object);
     }
 
+    public TrafficSpaceReference(AssociationAttributes reference) {
+        super(reference);
+    }
+
     @Override
-    public Class<BuildingConstructiveElement> getTargetType() {
-        return BuildingConstructiveElement.class;
+    public Class<TrafficSpace> getTargetType() {
+        return TrafficSpace.class;
     }
 }

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,7 @@
 package org.citygml4j.xml.adapter.construction;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractConstruction;
-import org.citygml4j.model.construction.ADEOfAbstractConstruction;
-import org.citygml4j.model.construction.AbstractConstruction;
-import org.citygml4j.model.construction.ConditionOfConstructionValue;
-import org.citygml4j.model.construction.ConstructionEventProperty;
-import org.citygml4j.model.construction.ElevationProperty;
-import org.citygml4j.model.construction.HeightProperty;
+import org.citygml4j.model.construction.*;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;

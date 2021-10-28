@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,11 +42,11 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
     private Integer storeysBelowGround;
     private MeasureOrNilReasonList storeyHeightsAboveGround;
     private MeasureOrNilReasonList storeyHeightsBelowGround;
-    private List<BuildingConstructiveElementMember> buildingConstructiveElements;
-    private List<BuildingInstallationMember> buildingInstallations;
-    private List<BuildingRoomMember> buildingRooms;
-    private List<BuildingFurnitureMember> buildingFurniture;
-    private List<AbstractBuildingSubdivisionMember> buildingSubdivisions;
+    private List<BuildingConstructiveElementProperty> buildingConstructiveElements;
+    private List<BuildingInstallationProperty> buildingInstallations;
+    private List<BuildingRoomProperty> buildingRooms;
+    private List<BuildingFurnitureProperty> buildingFurniture;
+    private List<AbstractBuildingSubdivisionProperty> buildingSubdivisions;
     private List<AddressProperty> addresses;
     private List<ADEOfAbstractBuilding> adeOfAbstractBuilding;
 
@@ -126,58 +126,58 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         this.storeyHeightsBelowGround = asChild(storeyHeightsBelowGround);
     }
 
-    public List<BuildingConstructiveElementMember> getBuildingConstructiveElements() {
+    public List<BuildingConstructiveElementProperty> getBuildingConstructiveElements() {
         if (buildingConstructiveElements == null)
             buildingConstructiveElements = new ChildList<>(this);
 
         return buildingConstructiveElements;
     }
 
-    public void setBuildingConstructiveElements(List<BuildingConstructiveElementMember> buildingConstructiveElements) {
+    public void setBuildingConstructiveElements(List<BuildingConstructiveElementProperty> buildingConstructiveElements) {
         this.buildingConstructiveElements = asChild(buildingConstructiveElements);
     }
 
-    public List<BuildingInstallationMember> getBuildingInstallations() {
+    public List<BuildingInstallationProperty> getBuildingInstallations() {
         if (buildingInstallations == null)
             buildingInstallations = new ChildList<>(this);
 
         return buildingInstallations;
     }
 
-    public void setBuildingInstallations(List<BuildingInstallationMember> buildingInstallations) {
+    public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {
         this.buildingInstallations = asChild(buildingInstallations);
     }
 
-    public List<BuildingRoomMember> getBuildingRooms() {
+    public List<BuildingRoomProperty> getBuildingRooms() {
         if (buildingRooms == null)
             buildingRooms = new ChildList<>(this);
 
         return buildingRooms;
     }
 
-    public void setBuildingRooms(List<BuildingRoomMember> buildingRooms) {
+    public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {
         this.buildingRooms = asChild(buildingRooms);
     }
 
-    public List<BuildingFurnitureMember> getBuildingFurniture() {
+    public List<BuildingFurnitureProperty> getBuildingFurniture() {
         if (buildingFurniture == null)
             buildingFurniture = new ChildList<>(this);
 
         return buildingFurniture;
     }
 
-    public void setBuildingFurniture(List<BuildingFurnitureMember> buildingFurniture) {
+    public void setBuildingFurniture(List<BuildingFurnitureProperty> buildingFurniture) {
         this.buildingFurniture = asChild(buildingFurniture);
     }
 
-    public List<AbstractBuildingSubdivisionMember> getBuildingSubdivisions() {
+    public List<AbstractBuildingSubdivisionProperty> getBuildingSubdivisions() {
         if (buildingSubdivisions == null)
             buildingSubdivisions = new ChildList<>(this);
 
         return buildingSubdivisions;
     }
 
-    public void setBuildingSubdivisions(List<AbstractBuildingSubdivisionMember> buildingSubdivisions) {
+    public void setBuildingSubdivisions(List<AbstractBuildingSubdivisionProperty> buildingSubdivisions) {
         this.buildingSubdivisions = asChild(buildingSubdivisions);
     }
 
@@ -218,23 +218,23 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         super.updateEnvelope(envelope, options);
 
         if (buildingConstructiveElements != null) {
-            for (BuildingConstructiveElementMember member : buildingConstructiveElements) {
-                if (member.getObject() != null)
-                    envelope.include(member.getObject().computeEnvelope(options));
+            for (BuildingConstructiveElementProperty property : buildingConstructiveElements) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
             }
         }
 
         if (buildingInstallations != null) {
-            for (BuildingInstallationMember member : buildingInstallations) {
-                if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                    envelope.include(member.getObject().computeEnvelope(options));
+            for (BuildingInstallationProperty property : buildingInstallations) {
+                if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                    envelope.include(property.getObject().computeEnvelope(options));
             }
         }
 
         if (buildingSubdivisions != null) {
-            for (AbstractBuildingSubdivisionMember member : buildingSubdivisions) {
-                if (member.getObject() != null)
-                    envelope.include(member.getObject().computeEnvelope(options));
+            for (AbstractBuildingSubdivisionProperty property : buildingSubdivisions) {
+                if (property.getObject() != null)
+                    envelope.include(property.getObject().computeEnvelope(options));
             }
         }
 

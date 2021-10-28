@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,10 @@ import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.appearance.AbstractSurfaceDataProperty;
-import org.citygml4j.model.appearance.Appearance;
-import org.citygml4j.model.appearance.Color;
-import org.citygml4j.model.appearance.GeometryReference;
-import org.citygml4j.model.appearance.X3DMaterial;
+import org.citygml4j.model.appearance.*;
 import org.citygml4j.model.construction.RoofSurface;
 import org.citygml4j.model.construction.WallSurface;
-import org.citygml4j.model.core.AbstractAppearanceProperty;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractThematicSurface;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.model.core.*;
 import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.util.reference.ResolveMode;
 import org.citygml4j.visitor.ObjectWalker;

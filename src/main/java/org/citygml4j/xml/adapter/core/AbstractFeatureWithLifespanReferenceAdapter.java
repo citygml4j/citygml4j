@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.building;
+package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.building.AbstractBuildingSubdivisionMember;
+import org.citygml4j.model.core.AbstractFeatureWithLifespanReference;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureMemberAdapter;
+import org.xmlobjects.gml.adapter.base.AbstractReferenceAdapter;
 
 import javax.xml.namespace.QName;
 
-public class AbstractBuildingSubdivisionMemberAdapter extends AbstractFeatureMemberAdapter<AbstractBuildingSubdivisionMember> {
+public class AbstractFeatureWithLifespanReferenceAdapter extends AbstractReferenceAdapter<AbstractFeatureWithLifespanReference> {
 
     @Override
-    public AbstractBuildingSubdivisionMember createObject(QName name, Object parent) throws ObjectBuildException {
-        return new AbstractBuildingSubdivisionMember();
+    public AbstractFeatureWithLifespanReference createObject(QName name, Object parent) throws ObjectBuildException {
+        return new AbstractFeatureWithLifespanReference();
     }
 }

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,31 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.building;
+package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.feature.AbstractFeatureMember;
+import org.xmlobjects.gml.model.base.AbstractReference;
+import org.xmlobjects.gml.model.base.AssociationAttributes;
 
-public class BuildingFurnitureMember extends AbstractFeatureMember<BuildingFurniture> implements CityGMLObject {
+public class AbstractCityObjectReference extends AbstractReference<AbstractCityObject> implements CityGMLObject {
 
-    public BuildingFurnitureMember() {
+    public AbstractCityObjectReference() {
     }
 
-    public BuildingFurnitureMember(BuildingFurniture object) {
+    public AbstractCityObjectReference(String href) {
+        super(href);
+    }
+
+    public AbstractCityObjectReference(AbstractCityObject object) {
         super(object);
     }
 
+    public AbstractCityObjectReference(AssociationAttributes reference) {
+        super(reference);
+    }
+
     @Override
-    public Class<BuildingFurniture> getTargetType() {
-        return BuildingFurniture.class;
+    public Class<AbstractCityObject> getTargetType() {
+        return AbstractCityObject.class;
     }
 }

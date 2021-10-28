@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.tunnel;
+package org.citygml4j.xml.adapter.transportation;
 
-import org.citygml4j.model.tunnel.HollowSpaceMember;
+import org.citygml4j.model.transportation.TrafficSpaceReference;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureMemberAdapter;
+import org.xmlobjects.gml.adapter.base.AbstractReferenceAdapter;
 
 import javax.xml.namespace.QName;
 
-public class HollowSpaceMemberAdapter extends AbstractFeatureMemberAdapter<HollowSpaceMember> {
+public class TrafficSpaceReferenceAdapter extends AbstractReferenceAdapter<TrafficSpaceReference> {
 
     @Override
-    public HollowSpaceMember createObject(QName name, Object parent) throws ObjectBuildException {
-        return new HollowSpaceMember();
+    public TrafficSpaceReference createObject(QName name, Object parent) throws ObjectBuildException {
+        return new TrafficSpaceReference();
     }
 }

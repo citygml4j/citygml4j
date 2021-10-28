@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,30 +20,20 @@
 package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
-import org.xmlobjects.gml.model.base.AbstractAssociation;
+import org.xmlobjects.gml.model.base.AbstractReference;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 
-public class GeometryReference extends AbstractAssociation<AbstractGeometry> implements CityGMLObject {
-    private String uri;
+public class GeometryReference extends AbstractReference<AbstractGeometry> implements CityGMLObject {
 
     public GeometryReference() {
     }
 
-    public GeometryReference(String uri) {
-        this.uri = uri;
+    public GeometryReference(String href) {
+        super(href);
     }
 
     public GeometryReference(AbstractGeometry object) {
-        if (object.getId() != null)
-            uri = '#' + object.getId();
-    }
-
-    public String getURI() {
-        return uri;
-    }
-
-    public void setURI(String uri) {
-        this.uri = uri;
+        super(object);
     }
 
     @Override

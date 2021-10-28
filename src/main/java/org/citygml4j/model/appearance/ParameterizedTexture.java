@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.appearance;
 
+import org.citygml4j.model.deprecated.appearance.DeprecatedPropertiesOfParameterizedTexture;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
@@ -38,6 +39,16 @@ public class ParameterizedTexture extends AbstractTexture {
 
     public void setTextureParameterizations(List<TextureAssociationProperty> textureParameterizations) {
         this.textureParameterizations = asChild(textureParameterizations);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfParameterizedTexture getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfParameterizedTexture) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfParameterizedTexture createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfParameterizedTexture();
     }
 
     public List<ADEOfParameterizedTexture> getADEOfParameterizedTexture() {

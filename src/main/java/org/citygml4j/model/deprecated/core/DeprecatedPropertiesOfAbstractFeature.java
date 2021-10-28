@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,9 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.bridge;
+package org.citygml4j.model.deprecated.core;
 
-import org.citygml4j.model.bridge.BridgeFurnitureMember;
-import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureMemberAdapter;
+import org.citygml4j.model.deprecated.DeprecatedProperties;
 
-import javax.xml.namespace.QName;
-
-public class BridgeFurnitureMemberAdapter extends AbstractFeatureMemberAdapter<BridgeFurnitureMember> {
-
-    @Override
-    public BridgeFurnitureMember createObject(QName name, Object parent) throws ObjectBuildException {
-        return new BridgeFurnitureMember();
-    }
+public class DeprecatedPropertiesOfAbstractFeature extends DeprecatedProperties {
 }

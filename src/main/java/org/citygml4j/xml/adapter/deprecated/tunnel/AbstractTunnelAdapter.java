@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,7 @@ package org.citygml4j.xml.adapter.deprecated.tunnel;
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractTunnel;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.tunnel.ADEOfAbstractTunnel;
-import org.citygml4j.model.tunnel.AbstractTunnel;
-import org.citygml4j.model.tunnel.HollowSpaceMember;
-import org.citygml4j.model.tunnel.HollowSpaceProperty;
-import org.citygml4j.model.tunnel.Tunnel;
-import org.citygml4j.model.tunnel.TunnelInstallationMember;
-import org.citygml4j.model.tunnel.TunnelInstallationProperty;
-import org.citygml4j.model.tunnel.TunnelPartProperty;
+import org.citygml4j.model.tunnel.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -37,17 +30,13 @@ import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.core.AbstractSiteAdapter;
-import org.citygml4j.xml.adapter.tunnel.HollowSpaceMemberAdapter;
 import org.citygml4j.xml.adapter.tunnel.HollowSpacePropertyAdapter;
-import org.citygml4j.xml.adapter.tunnel.TunnelInstallationMemberAdapter;
 import org.citygml4j.xml.adapter.tunnel.TunnelInstallationPropertyAdapter;
 import org.citygml4j.xml.adapter.tunnel.TunnelPartPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -101,26 +90,8 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                     object.setLod2TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "outerTunnelInstallation":
-                    TunnelInstallationProperty outerTunnelInstallation = reader.getObjectUsingBuilder(TunnelInstallationPropertyAdapter.class);
-                    if (outerTunnelInstallation.getObject() != null)
-                        object.getTunnelInstallations().add(new TunnelInstallationMember(outerTunnelInstallation.getObject()));
-                    else if (outerTunnelInstallation.getGenericElement() != null) {
-                        TunnelInstallationMember member = new TunnelInstallationMember();
-                        member.setGenericElement(outerTunnelInstallation.getGenericElement());
-                        object.getTunnelInstallations().add(member);
-                    } else
-                        object.getDeprecatedProperties().getOuterTunnelInstallations().add(new Reference(outerTunnelInstallation));
-                    return;
                 case "interiorTunnelInstallation":
-                    TunnelInstallationProperty interiorTunnelInstallation = reader.getObjectUsingBuilder(TunnelInstallationPropertyAdapter.class);
-                    if (interiorTunnelInstallation.getObject() != null)
-                        object.getTunnelInstallations().add(new TunnelInstallationMember(interiorTunnelInstallation.getObject()));
-                    else if (interiorTunnelInstallation.getGenericElement() != null) {
-                        TunnelInstallationMember member = new TunnelInstallationMember();
-                        member.setGenericElement(interiorTunnelInstallation.getGenericElement());
-                        object.getTunnelInstallations().add(member);
-                    } else
-                        object.getDeprecatedProperties().getInteriorTunnelInstallations().add(new Reference(interiorTunnelInstallation));
+                    object.getTunnelInstallations().add(reader.getObjectUsingBuilder(TunnelInstallationPropertyAdapter.class));
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -150,15 +121,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                     object.getDeprecatedProperties().setLod4TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "interiorHollowSpace":
-                    HollowSpaceProperty interiorHollowSpace = reader.getObjectUsingBuilder(HollowSpacePropertyAdapter.class);
-                    if (interiorHollowSpace.getObject() != null)
-                        object.getHollowSpaces().add(new HollowSpaceMember(interiorHollowSpace.getObject()));
-                    else if (interiorHollowSpace.getGenericElement() != null) {
-                        HollowSpaceMember member = new HollowSpaceMember();
-                        member.setGenericElement(interiorHollowSpace.getGenericElement());
-                        object.getHollowSpaces().add(member);
-                    } else
-                        object.getDeprecatedProperties().getInteriorHollowSpaces().add(new Reference(interiorHollowSpace));
+                    object.getHollowSpaces().add(reader.getObjectUsingBuilder(HollowSpacePropertyAdapter.class));
                     return;
                 case "consistsOfTunnelPart":
                     TunnelPartProperty consistsOfTunnelPart = reader.getObjectUsingBuilder(TunnelPartPropertyAdapter.class);
@@ -217,21 +180,12 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         if (object.getLod2TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (TunnelInstallationMember member : object.getTunnelInstallations()) {
-            if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), member, TunnelInstallationMemberAdapter.class, namespaces);
+        for (TunnelInstallationProperty property : object.getTunnelInstallations()) {
+            if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+            else
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
         }
-
-        for (Reference reference : object.getDeprecatedProperties().getOuterTunnelInstallations())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), reference, ReferenceAdapter.class, namespaces);
-
-        for (TunnelInstallationMember member : object.getTunnelInstallations()) {
-            if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), member, TunnelInstallationMemberAdapter.class, namespaces);
-        }
-
-        for (Reference reference : object.getDeprecatedProperties().getInteriorTunnelInstallations())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
@@ -260,11 +214,8 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (HollowSpaceMember member : object.getHollowSpaces())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorHollowSpace"), member, HollowSpaceMemberAdapter.class, namespaces);
-
-        for (Reference reference : object.getDeprecatedProperties().getInteriorHollowSpaces())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorHollowSpace"), reference, ReferenceAdapter.class, namespaces);
+        for (HollowSpaceProperty property : object.getHollowSpaces())
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorHollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
 
         if (object instanceof Tunnel) {
             for (TunnelPartProperty property : ((Tunnel) object).getTunnelParts())

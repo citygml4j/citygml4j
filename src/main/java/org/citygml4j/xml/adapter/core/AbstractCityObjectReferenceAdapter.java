@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,18 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.bridge;
+package org.citygml4j.xml.adapter.core;
 
-import org.citygml4j.model.bridge.BridgeConstructiveElementMember;
+import org.citygml4j.model.core.AbstractCityObjectReference;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.feature.AbstractFeatureMemberAdapter;
+import org.xmlobjects.gml.adapter.base.AbstractReferenceAdapter;
 
 import javax.xml.namespace.QName;
 
-public class BridgeConstructiveElementMemberAdapter extends AbstractFeatureMemberAdapter<BridgeConstructiveElementMember> {
+public class AbstractCityObjectReferenceAdapter extends AbstractReferenceAdapter<AbstractCityObjectReference> {
 
     @Override
-    public BridgeConstructiveElementMember createObject(QName name, Object parent) throws ObjectBuildException {
-        return new BridgeConstructiveElementMember();
+    public AbstractCityObjectReference createObject(QName name, Object parent) throws ObjectBuildException {
+        return new AbstractCityObjectReference();
     }
 }

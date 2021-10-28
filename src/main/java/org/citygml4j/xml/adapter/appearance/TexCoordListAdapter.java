@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 package org.citygml4j.xml.adapter.appearance;
 
+import org.citygml4j.model.appearance.RingReference;
 import org.citygml4j.model.appearance.TexCoordList;
 import org.citygml4j.model.appearance.TextureCoordinates;
 import org.citygml4j.util.CityGMLConstants;
@@ -28,11 +29,7 @@ import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.serializer.ObjectSerializeException;
-import org.xmlobjects.stream.EventType;
-import org.xmlobjects.stream.XMLReadException;
-import org.xmlobjects.stream.XMLReader;
-import org.xmlobjects.stream.XMLWriteException;
-import org.xmlobjects.stream.XMLWriter;
+import org.xmlobjects.stream.*;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
@@ -78,13 +75,13 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
                         textureCoordinates.setValue(value != null ? value : new ArrayList<>());
                         if (!CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())) {
                             String ring = attributes.getValue("ring").get();
-                            textureCoordinates.setRing(ring != null ? ring : "");
+                            textureCoordinates.setRing(new RingReference(ring != null ? ring : ""));
                             ringNo++;
                         }
                         break;
                     case "ring":
                         textureCoordinates = result.computeIfAbsent(ringNo++, v -> new TextureCoordinates());
-                        reader.getTextContent().ifPresent(textureCoordinates::setRing);
+                        reader.getTextContent().ifPresent(v -> textureCoordinates.setRing(new RingReference(v)));
                         break;
                 }
             }
@@ -106,14 +103,18 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
         for (TextureCoordinates textureCoordinates : object.getTextureCoordinates()) {
             Element element = Element.of(appearanceNamespace, "textureCoordinates").addTextContent(TextContent.ofDoubleList(textureCoordinates.getValue()));
             if (!isCityGML3)
-                element.addAttribute("ring", textureCoordinates.getRing());
+                element.addAttribute("ring", getRing(textureCoordinates));
 
             writer.writeElement(element);
         }
 
         if (isCityGML3) {
             for (TextureCoordinates textureCoordinates : object.getTextureCoordinates())
-                writer.writeElement(Element.of(appearanceNamespace, "ring").addTextContent(textureCoordinates.getRing()));
+                writer.writeElement(Element.of(appearanceNamespace, "ring").addTextContent(getRing(textureCoordinates)));
         }
+    }
+
+    private String getRing(TextureCoordinates textureCoordinates) {
+        return textureCoordinates.getRing() != null ? textureCoordinates.getRing().getHref() : null;
     }
 }

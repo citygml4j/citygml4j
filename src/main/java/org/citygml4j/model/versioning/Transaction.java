@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@
 package org.citygml4j.model.versioning;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.core.AbstractFeatureWithLifespanProperty;
+import org.citygml4j.model.core.AbstractFeatureWithLifespanReference;
 import org.xmlobjects.gml.model.GMLObject;
 
 public class Transaction extends GMLObject implements CityGMLObject {
     private TransactionValue type;
-    private AbstractFeatureWithLifespanProperty oldFeature;
-    private AbstractFeatureWithLifespanProperty newFeature;
+    private AbstractFeatureWithLifespanReference oldFeature;
+    private AbstractFeatureWithLifespanReference newFeature;
 
     public Transaction() {
     }
@@ -35,7 +35,7 @@ public class Transaction extends GMLObject implements CityGMLObject {
         this.type = type;
     }
 
-    public Transaction(TransactionValue type, AbstractFeatureWithLifespanProperty oldFeature, AbstractFeatureWithLifespanProperty newFeature) {
+    public Transaction(TransactionValue type, AbstractFeatureWithLifespanReference oldFeature, AbstractFeatureWithLifespanReference newFeature) {
         this.type = type;
         setOldFeature(oldFeature);
         setNewFeature(newFeature);
@@ -49,19 +49,19 @@ public class Transaction extends GMLObject implements CityGMLObject {
         this.type = type;
     }
 
-    public AbstractFeatureWithLifespanProperty getOldFeature() {
+    public AbstractFeatureWithLifespanReference getOldFeature() {
         return oldFeature;
     }
 
-    public void setOldFeature(AbstractFeatureWithLifespanProperty oldFeature) {
+    public void setOldFeature(AbstractFeatureWithLifespanReference oldFeature) {
         this.oldFeature = asChild(oldFeature);
     }
 
-    public AbstractFeatureWithLifespanProperty getNewFeature() {
+    public AbstractFeatureWithLifespanReference getNewFeature() {
         return newFeature;
     }
 
-    public void setNewFeature(AbstractFeatureWithLifespanProperty newFeature) {
+    public void setNewFeature(AbstractFeatureWithLifespanReference newFeature) {
         this.newFeature = asChild(newFeature);
     }
 }

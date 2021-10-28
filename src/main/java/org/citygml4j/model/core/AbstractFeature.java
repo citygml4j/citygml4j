@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.model.ade.ADEContainer;
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractFeature;
 import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -33,7 +34,23 @@ import java.util.IdentityHashMap;
 import java.util.List;
 
 public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.AbstractFeature implements CityGMLObject, Visitable {
+    private DeprecatedPropertiesOfAbstractFeature deprecatedProperties;
     private List<ADEOfAbstractFeature> adeOfAbstractFeature;
+
+    public DeprecatedPropertiesOfAbstractFeature getDeprecatedProperties() {
+        if (deprecatedProperties == null)
+            deprecatedProperties = asChild(createDeprecatedProperties());
+
+        return deprecatedProperties;
+    }
+
+    public boolean hasDeprecatedProperties() {
+        return deprecatedProperties != null;
+    }
+
+    protected DeprecatedPropertiesOfAbstractFeature createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfAbstractFeature();
+    }
 
     public List<ADEOfAbstractFeature> getADEOfAbstractFeature() {
         if (adeOfAbstractFeature == null)

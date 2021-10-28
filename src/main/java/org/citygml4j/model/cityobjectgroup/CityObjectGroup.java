@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,9 @@ package org.citygml4j.model.cityobjectgroup;
 
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.core.*;
 import org.citygml4j.model.deprecated.cityobjectgroup.DeprecatedPropertiesOfCityObjectGroup;
+import org.citygml4j.model.deprecated.cityobjectgroup.GroupMember;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -41,7 +38,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     private List<Code> functions;
     private List<Code> usages;
     private List<RoleProperty> groupMembers;
-    private AbstractCityObjectProperty groupParent;
+    private AbstractCityObjectReference groupParent;
     private List<ADEOfCityObjectGroup> adeOfCityObjectGroup;
 
     @Override
@@ -97,11 +94,11 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
         this.groupMembers = groupMembers;
     }
 
-    public AbstractCityObjectProperty getGroupParent() {
+    public AbstractCityObjectReference getGroupParent() {
         return groupParent;
     }
 
-    public void setGroupParent(AbstractCityObjectProperty groupParent) {
+    public void setGroupParent(AbstractCityObjectReference groupParent) {
         this.groupParent = asChild(groupParent);
     }
 
@@ -130,17 +127,13 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
-        if (groupMembers != null) {
-            for (RoleProperty property : groupMembers) {
-                if (property.getObject() != null
-                        && property.getObject().getGroupMember() != null
-                        && property.getObject().getGroupMember().getObject() != null)
-                    envelope.include(property.getObject().getGroupMember().getObject().computeEnvelope(options));
-            }
-        }
-
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfCityObjectGroup properties = getDeprecatedProperties();
+
+            for (GroupMember member : properties.getGroupMembers()) {
+                if (member.getObject() != null)
+                    envelope.include(member.getObject().computeEnvelope(options));
+            }
 
             if (properties.getGeometry() != null && properties.getGeometry().getObject() != null)
                 envelope.include(properties.getGeometry().getObject().computeEnvelope());

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,15 +22,7 @@ package org.citygml4j.xml.adapter.deprecated.transportation;
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractTransportationSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.StandardObjectClassifier;
-import org.citygml4j.model.transportation.ADEOfAbstractTransportationSpace;
-import org.citygml4j.model.transportation.AbstractTransportationSpace;
-import org.citygml4j.model.transportation.AuxiliaryTrafficArea;
-import org.citygml4j.model.transportation.AuxiliaryTrafficSpace;
-import org.citygml4j.model.transportation.AuxiliaryTrafficSpaceProperty;
-import org.citygml4j.model.transportation.GranularityValue;
-import org.citygml4j.model.transportation.TrafficArea;
-import org.citygml4j.model.transportation.TrafficSpace;
-import org.citygml4j.model.transportation.TrafficSpaceProperty;
+import org.citygml4j.model.transportation.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
