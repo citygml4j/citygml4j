@@ -1660,11 +1660,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(TrafficSpace trafficSpace) {
         visit((AbstractUnoccupiedSpace) trafficSpace);
 
-        for (TrafficSpaceProperty property : new ArrayList<>(trafficSpace.getPredecessors()))
-            visit(property);
+        for (Reference reference : new ArrayList<>(trafficSpace.getPredecessors()))
+            visit(reference);
 
-        for (TrafficSpaceProperty property : new ArrayList<>(trafficSpace.getSuccessors()))
-            visit(property);
+        for (Reference reference : new ArrayList<>(trafficSpace.getSuccessors()))
+            visit(reference);
 
         for (ClearanceSpaceProperty property : new ArrayList<>(trafficSpace.getClearanceSpaces()))
             visit(property);
