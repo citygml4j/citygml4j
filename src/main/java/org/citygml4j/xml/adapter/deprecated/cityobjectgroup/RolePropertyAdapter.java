@@ -21,10 +21,10 @@ package org.citygml4j.xml.adapter.deprecated.cityobjectgroup;
 
 import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
+import org.citygml4j.model.core.AbstractCityObjectReference;
+import org.citygml4j.xml.adapter.core.AbstractCityObjectReferenceAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.base.AbstractInlinePropertyAdapter;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -45,8 +45,8 @@ public class RolePropertyAdapter extends AbstractInlinePropertyAdapter<RolePrope
 
     @Override
     public void initializeObject(RoleProperty object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        object.setObject(new Role(attributes.getValue("role").get(), new Reference()));
-        reader.getOrCreateBuilder(ReferenceAdapter.class).initializeObject(object.getObject().getGroupMember(), name, attributes, reader);
+        object.setObject(new Role(attributes.getValue("role").get(), new AbstractCityObjectReference()));
+        reader.getOrCreateBuilder(AbstractCityObjectReferenceAdapter.class).initializeObject(object.getObject().getGroupMember(), name, attributes, reader);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class RolePropertyAdapter extends AbstractInlinePropertyAdapter<RolePrope
             element.addAttribute("role", object.getObject().getRole());
 
             if (object.getObject().getGroupMember() != null)
-                writer.getOrCreateSerializer(ReferenceAdapter.class).initializeElement(element, object.getObject().getGroupMember(), namespaces, writer);
+                writer.getOrCreateSerializer(AbstractCityObjectReferenceAdapter.class).initializeElement(element, object.getObject().getGroupMember(), namespaces, writer);
         }
     }
 }

@@ -31,8 +31,6 @@ import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.xml.adapter.core.OccupancyPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -69,10 +67,10 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                     object.getOccupancies().add(reader.getObjectUsingBuilder(OccupancyPropertyAdapter.class));
                     return;
                 case "predecessor":
-                    object.getPredecessors().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getPredecessors().add(reader.getObjectUsingBuilder(TrafficSpaceReferenceAdapter.class));
                     return;
                 case "successor":
-                    object.getSuccessors().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getSuccessors().add(reader.getObjectUsingBuilder(TrafficSpaceReferenceAdapter.class));
                     return;
                 case "clearanceSpace":
                     object.getClearanceSpaces().add(reader.getObjectUsingBuilder(ClearanceSpacePropertyAdapter.class));
@@ -105,11 +103,11 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
         for (OccupancyProperty property : object.getOccupancies())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
 
-        for (Reference reference : object.getPredecessors())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "predecessor"), reference, ReferenceAdapter.class, namespaces);
+        for (TrafficSpaceReference reference : object.getPredecessors())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "predecessor"), reference, TrafficSpaceReferenceAdapter.class, namespaces);
 
-        for (Reference reference : object.getSuccessors())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "successor"), reference, ReferenceAdapter.class, namespaces);
+        for (TrafficSpaceReference reference : object.getSuccessors())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "successor"), reference, TrafficSpaceReferenceAdapter.class, namespaces);
 
         for (ClearanceSpaceProperty property : object.getClearanceSpaces())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "clearanceSpace"), property, ClearanceSpacePropertyAdapter.class, namespaces);

@@ -17,40 +17,31 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.deprecated.appearance;
+package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.appearance.TextureAssociation;
 import org.xmlobjects.gml.model.base.AbstractReference;
+import org.xmlobjects.gml.model.base.AssociationAttributes;
 
-public class TextureAssociationReference extends AbstractReference<TextureAssociation> implements CityGMLObject {
-    private String uri;
+public class AbstractFeatureWithLifespanReference extends AbstractReference<AbstractFeatureWithLifespan> implements CityGMLObject {
 
-    public TextureAssociationReference() {
+    public AbstractFeatureWithLifespanReference() {
     }
 
-    public TextureAssociationReference(String href, String uri) {
+    public AbstractFeatureWithLifespanReference(String href) {
         super(href);
-        this.uri = uri;
     }
 
-    public TextureAssociationReference(TextureAssociation object) {
+    public AbstractFeatureWithLifespanReference(AbstractFeatureWithLifespan object) {
         super(object);
-        if (object.getTarget() != null) {
-            uri = object.getTarget().getURI();
-        }
+    }
+
+    public AbstractFeatureWithLifespanReference(AssociationAttributes reference) {
+        super(reference);
     }
 
     @Override
-    public Class<TextureAssociation> getTargetType() {
-        return TextureAssociation.class;
-    }
-
-    public String getURI() {
-        return uri;
-    }
-
-    public void setURI(String uri) {
-        this.uri = uri;
+    public Class<AbstractFeatureWithLifespan> getTargetType() {
+        return AbstractFeatureWithLifespan.class;
     }
 }

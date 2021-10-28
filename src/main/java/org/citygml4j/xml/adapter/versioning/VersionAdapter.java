@@ -20,16 +20,16 @@
 package org.citygml4j.xml.adapter.versioning;
 
 import org.citygml4j.model.ade.generic.GenericADEOfVersion;
+import org.citygml4j.model.core.AbstractFeatureWithLifespanReference;
 import org.citygml4j.model.versioning.ADEOfVersion;
 import org.citygml4j.model.versioning.Version;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
+import org.citygml4j.xml.adapter.core.AbstractFeatureWithLifespanReferenceAdapter;
 import org.citygml4j.xml.adapter.core.AbstractVersionAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -57,7 +57,7 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
                     reader.getTextContent().ifPresent(object.getTags()::add);
                     return;
                 case "versionMember":
-                    object.getVersionMembers().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                    object.getVersionMembers().add(reader.getObjectUsingBuilder(AbstractFeatureWithLifespanReferenceAdapter.class));
                     return;
                 case "adeOfVersion":
                     ADEBuilderHelper.addADEContainer(ADEOfVersion.class, object.getADEOfVersion(), GenericADEOfVersion::of, reader);
@@ -80,8 +80,8 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
         for (String tag : object.getTags())
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "tag").addTextContent(tag));
 
-        for (Reference reference : object.getVersionMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), reference, ReferenceAdapter.class, namespaces);
+        for (AbstractFeatureWithLifespanReference reference : object.getVersionMembers())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), reference, AbstractFeatureWithLifespanReferenceAdapter.class, namespaces);
 
         for (ADEOfVersion container : object.getADEOfVersion())
             ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), container, namespaces, writer);

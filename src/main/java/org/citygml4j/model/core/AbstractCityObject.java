@@ -21,7 +21,6 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -30,7 +29,7 @@ import java.util.List;
 
 public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<ExternalReferenceProperty> externalReferences;
-    private List<Reference> generalizesTo;
+    private List<AbstractCityObjectReference> generalizesTo;
     private RelativeToTerrain relativeToTerrain;
     private RelativeToWater relativeToWater;
     private List<CityObjectRelationProperty> relatedTo;
@@ -50,14 +49,14 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         this.externalReferences = asChild(externalReferences);
     }
 
-    public List<Reference> getGeneralizesTo() {
+    public List<AbstractCityObjectReference> getGeneralizesTo() {
         if (generalizesTo == null)
             generalizesTo = new ChildList<>(this);
 
         return generalizesTo;
     }
 
-    public void setGeneralizesTo(List<Reference> generalizesTo) {
+    public void setGeneralizesTo(List<AbstractCityObjectReference> generalizesTo) {
         this.generalizesTo = asChild(generalizesTo);
     }
 

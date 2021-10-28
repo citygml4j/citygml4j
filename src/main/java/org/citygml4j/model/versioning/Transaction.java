@@ -20,13 +20,13 @@
 package org.citygml4j.model.versioning;
 
 import org.citygml4j.model.CityGMLObject;
+import org.citygml4j.model.core.AbstractFeatureWithLifespanReference;
 import org.xmlobjects.gml.model.GMLObject;
-import org.xmlobjects.gml.model.base.Reference;
 
 public class Transaction extends GMLObject implements CityGMLObject {
     private TransactionValue type;
-    private Reference oldFeature;
-    private Reference newFeature;
+    private AbstractFeatureWithLifespanReference oldFeature;
+    private AbstractFeatureWithLifespanReference newFeature;
 
     public Transaction() {
     }
@@ -35,7 +35,7 @@ public class Transaction extends GMLObject implements CityGMLObject {
         this.type = type;
     }
 
-    public Transaction(TransactionValue type, Reference oldFeature, Reference newFeature) {
+    public Transaction(TransactionValue type, AbstractFeatureWithLifespanReference oldFeature, AbstractFeatureWithLifespanReference newFeature) {
         this.type = type;
         setOldFeature(oldFeature);
         setNewFeature(newFeature);
@@ -49,19 +49,19 @@ public class Transaction extends GMLObject implements CityGMLObject {
         this.type = type;
     }
 
-    public Reference getOldFeature() {
+    public AbstractFeatureWithLifespanReference getOldFeature() {
         return oldFeature;
     }
 
-    public void setOldFeature(Reference oldFeature) {
+    public void setOldFeature(AbstractFeatureWithLifespanReference oldFeature) {
         this.oldFeature = asChild(oldFeature);
     }
 
-    public Reference getNewFeature() {
+    public AbstractFeatureWithLifespanReference getNewFeature() {
         return newFeature;
     }
 
-    public void setNewFeature(Reference newFeature) {
+    public void setNewFeature(AbstractFeatureWithLifespanReference newFeature) {
         this.newFeature = asChild(newFeature);
     }
 }

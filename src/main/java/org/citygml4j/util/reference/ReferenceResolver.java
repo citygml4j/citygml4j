@@ -29,7 +29,7 @@ import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractAssociation;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
-import org.xmlobjects.gml.model.base.Reference;
+import org.xmlobjects.gml.model.base.AbstractReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,7 +90,7 @@ public class ReferenceResolver {
             }
 
             @Override
-            public void visit(Reference reference) {
+            public void visit(AbstractReference<?> reference) {
                 collect(reference, reference.getHref());
             }
 

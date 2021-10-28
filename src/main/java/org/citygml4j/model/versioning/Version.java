@@ -19,9 +19,9 @@
 
 package org.citygml4j.model.versioning;
 
+import org.citygml4j.model.core.AbstractFeatureWithLifespanReference;
 import org.citygml4j.model.core.AbstractVersion;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.model.ChildList;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Version extends AbstractVersion {
     private List<String> tags;
-    private List<Reference> versionMembers;
+    private List<AbstractFeatureWithLifespanReference> versionMembers;
     private List<ADEOfVersion> adeOfVersion;
 
     public List<String> getTags() {
@@ -43,14 +43,14 @@ public class Version extends AbstractVersion {
         this.tags = tags;
     }
 
-    public List<Reference> getVersionMembers() {
+    public List<AbstractFeatureWithLifespanReference> getVersionMembers() {
         if (versionMembers == null)
             versionMembers = new ChildList<>(this);
 
         return versionMembers;
     }
 
-    public void setVersionMembers(List<Reference> versionMembers) {
+    public void setVersionMembers(List<AbstractFeatureWithLifespanReference> versionMembers) {
         this.versionMembers = asChild(versionMembers);
     }
 

@@ -27,8 +27,6 @@ import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -60,11 +58,11 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                     return;
                 case "generalizesTo":
                     if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()))
-                        object.getGeneralizesTo().add(reader.getObjectUsingBuilder(ReferenceAdapter.class));
+                        object.getGeneralizesTo().add(reader.getObjectUsingBuilder(AbstractCityObjectReferenceAdapter.class));
                     else {
                         AbstractCityObjectProperty property = reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class);
                         if (property.getObject() == null && property.getGenericElement() == null)
-                            object.getGeneralizesTo().add(new Reference(property));
+                            object.getGeneralizesTo().add(new AbstractCityObjectReference(property));
                         else
                             object.getDeprecatedProperties().getGeneralizesTo().add(property);
                     }
@@ -127,8 +125,8 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property.getObject(), ExternalReferenceAdapter.class, namespaces);
         }
 
-        for (Reference reference : object.getGeneralizesTo())
-            writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, ReferenceAdapter.class, namespaces);
+        for (AbstractCityObjectReference reference : object.getGeneralizesTo())
+            writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, AbstractCityObjectReferenceAdapter.class, namespaces);
 
         if (!isCityGML3) {
             for (AbstractCityObjectProperty property : object.getDeprecatedProperties().getGeneralizesTo())

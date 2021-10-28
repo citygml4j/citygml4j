@@ -23,7 +23,6 @@ import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.*;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -38,8 +37,8 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     private GranularityValue granularity;
     private TrafficDirectionValue trafficDirection;
     private List<OccupancyProperty> occupancies;
-    private List<Reference> predecessors;
-    private List<Reference> successors;
+    private List<TrafficSpaceReference> predecessors;
+    private List<TrafficSpaceReference> successors;
     private List<ClearanceSpaceProperty> clearanceSpaces;
     private List<ADEOfTrafficSpace> adeOfTrafficSpace;
 
@@ -120,25 +119,25 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         this.occupancies = asChild(occupancies);
     }
 
-    public List<Reference> getPredecessors() {
+    public List<TrafficSpaceReference> getPredecessors() {
         if (predecessors == null)
             predecessors = new ChildList<>(this);
 
         return predecessors;
     }
 
-    public void setPredecessors(List<Reference> predecessors) {
+    public void setPredecessors(List<TrafficSpaceReference> predecessors) {
         this.predecessors = asChild(predecessors);
     }
 
-    public List<Reference> getSuccessors() {
+    public List<TrafficSpaceReference> getSuccessors() {
         if (successors == null)
             successors = new ChildList<>(this);
 
         return successors;
     }
 
-    public void setSuccessors(List<Reference> successors) {
+    public void setSuccessors(List<TrafficSpaceReference> successors) {
         this.successors = asChild(successors);
     }
 

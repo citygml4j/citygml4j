@@ -274,7 +274,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractCityObject cityObject) {
         visit((AbstractFeatureWithLifespan) cityObject);
 
-        for (Reference reference : new ArrayList<>(cityObject.getGeneralizesTo()))
+        for (AbstractCityObjectReference reference : new ArrayList<>(cityObject.getGeneralizesTo()))
             visit(reference);
 
         for (CityObjectRelationProperty property : new ArrayList<>(cityObject.getRelatedTo()))
@@ -1651,10 +1651,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(TrafficSpace trafficSpace) {
         visit((AbstractUnoccupiedSpace) trafficSpace);
 
-        for (Reference reference : new ArrayList<>(trafficSpace.getPredecessors()))
+        for (TrafficSpaceReference reference : new ArrayList<>(trafficSpace.getPredecessors()))
             visit(reference);
 
-        for (Reference reference : new ArrayList<>(trafficSpace.getSuccessors()))
+        for (TrafficSpaceReference reference : new ArrayList<>(trafficSpace.getSuccessors()))
             visit(reference);
 
         for (ClearanceSpaceProperty property : new ArrayList<>(trafficSpace.getClearanceSpaces()))
@@ -1750,7 +1750,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Version version) {
         visit((AbstractVersion) version);
 
-        for (Reference reference : new ArrayList<>(version.getVersionMembers()))
+        for (AbstractFeatureWithLifespanReference reference : new ArrayList<>(version.getVersionMembers()))
             visit(reference);
 
         for (ADEContainer container : new ArrayList<>(version.getADEOfVersion()))
@@ -1909,8 +1909,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             visit((GeometryProperty<?>) property);
         else if (property instanceof AbstractFeatureMember<?>)
             visit((AbstractFeatureMember<?>) property);
-        else if (property instanceof Reference)
-            visit((Reference) property);
+        else if (property instanceof AbstractReference<?>)
+            visit((AbstractReference<?>) property);
         else if (property instanceof GeometryArrayProperty<?>)
             visit((GeometryArrayProperty<?>) property);
         else if (property instanceof SurfacePatchArrayProperty<?>)

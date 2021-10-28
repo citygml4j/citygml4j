@@ -21,15 +21,11 @@ package org.citygml4j.model.cityobjectgroup;
 
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
-import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.ClosureSurface;
-import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.model.core.*;
 import org.citygml4j.model.deprecated.cityobjectgroup.DeprecatedPropertiesOfCityObjectGroup;
 import org.citygml4j.model.deprecated.cityobjectgroup.GroupMember;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -42,7 +38,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     private List<Code> functions;
     private List<Code> usages;
     private List<RoleProperty> groupMembers;
-    private Reference groupParent;
+    private AbstractCityObjectReference groupParent;
     private List<ADEOfCityObjectGroup> adeOfCityObjectGroup;
 
     @Override
@@ -98,11 +94,11 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
         this.groupMembers = groupMembers;
     }
 
-    public Reference getGroupParent() {
+    public AbstractCityObjectReference getGroupParent() {
         return groupParent;
     }
 
-    public void setGroupParent(Reference groupParent) {
+    public void setGroupParent(AbstractCityObjectReference groupParent) {
         this.groupParent = asChild(groupParent);
     }
 
