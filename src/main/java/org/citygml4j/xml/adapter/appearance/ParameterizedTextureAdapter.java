@@ -23,14 +23,17 @@ import org.citygml4j.model.ade.generic.GenericADEOfParameterizedTexture;
 import org.citygml4j.model.appearance.ADEOfParameterizedTexture;
 import org.citygml4j.model.appearance.ParameterizedTexture;
 import org.citygml4j.model.appearance.TextureAssociationProperty;
+import org.citygml4j.model.deprecated.appearance.TextureAssociationReference;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
+import org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationReferenceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.util.GMLConstants;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -66,7 +69,11 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                     object.getTextureParameterizations().add(reader.getObjectUsingBuilder(TextureAssociationPropertyAdapter.class));
                     return;
                 case "target":
-                    object.getTextureParameterizations().add(reader.getObjectUsingBuilder(org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationPropertyAdapter.class));
+                    if (attributes.getValue(GMLConstants.XLINK_NAMESPACE, "href").isPresent()) {
+                        object.getDeprecatedProperties().getTargets().add(reader.getObjectUsingBuilder(TextureAssociationReferenceAdapter.class));
+                    } else {
+                        object.getTextureParameterizations().add(reader.getObjectUsingBuilder(org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationPropertyAdapter.class));
+                    }
                     return;
                 case "adeOfParameterizedTexture":
                     ADEBuilderHelper.addADEContainer(ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(), GenericADEOfParameterizedTexture::of, reader);
@@ -103,6 +110,12 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "textureParameterization"), property, TextureAssociationPropertyAdapter.class, namespaces);
             else
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), property, org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationPropertyAdapter.class, namespaces);
+        }
+
+        if (!isCityGML3 && object.hasDeprecatedProperties()) {
+            for (TextureAssociationReference reference : object.getDeprecatedProperties().getTargets()) {
+                writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), reference, TextureAssociationReferenceAdapter.class, namespaces);
+            }
         }
 
         for (ADEOfParameterizedTexture container : object.getADEOfParameterizedTexture())

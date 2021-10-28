@@ -20,14 +20,7 @@
 package org.citygml4j.xml.adapter.deprecated.building;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractBuilding;
-import org.citygml4j.model.building.ADEOfAbstractBuilding;
-import org.citygml4j.model.building.AbstractBuilding;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.building.BuildingInstallationMember;
-import org.citygml4j.model.building.BuildingInstallationProperty;
-import org.citygml4j.model.building.BuildingPartProperty;
-import org.citygml4j.model.building.BuildingRoomMember;
-import org.citygml4j.model.building.BuildingRoomProperty;
+import org.citygml4j.model.building.*;
 import org.citygml4j.model.construction.Height;
 import org.citygml4j.model.construction.HeightProperty;
 import org.citygml4j.model.construction.RelationToConstruction;
@@ -38,11 +31,7 @@ import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
-import org.citygml4j.xml.adapter.building.BuildingInstallationMemberAdapter;
-import org.citygml4j.xml.adapter.building.BuildingInstallationPropertyAdapter;
-import org.citygml4j.xml.adapter.building.BuildingPartPropertyAdapter;
-import org.citygml4j.xml.adapter.building.BuildingRoomMemberAdapter;
-import org.citygml4j.xml.adapter.building.BuildingRoomPropertyAdapter;
+import org.citygml4j.xml.adapter.building.*;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.core.AbstractSiteAdapter;

@@ -21,13 +21,7 @@ package org.citygml4j.xml.adapter.transportation;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractTransportationSpace;
 import org.citygml4j.model.core.OccupancyProperty;
-import org.citygml4j.model.transportation.ADEOfAbstractTransportationSpace;
-import org.citygml4j.model.transportation.AbstractTransportationSpace;
-import org.citygml4j.model.transportation.AuxiliaryTrafficSpaceProperty;
-import org.citygml4j.model.transportation.HoleProperty;
-import org.citygml4j.model.transportation.MarkingProperty;
-import org.citygml4j.model.transportation.TrafficDirectionValue;
-import org.citygml4j.model.transportation.TrafficSpaceProperty;
+import org.citygml4j.model.transportation.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;

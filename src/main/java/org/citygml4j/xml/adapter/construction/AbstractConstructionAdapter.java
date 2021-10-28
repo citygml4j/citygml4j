@@ -20,12 +20,7 @@
 package org.citygml4j.xml.adapter.construction;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractConstruction;
-import org.citygml4j.model.construction.ADEOfAbstractConstruction;
-import org.citygml4j.model.construction.AbstractConstruction;
-import org.citygml4j.model.construction.ConditionOfConstructionValue;
-import org.citygml4j.model.construction.ConstructionEventProperty;
-import org.citygml4j.model.construction.ElevationProperty;
-import org.citygml4j.model.construction.HeightProperty;
+import org.citygml4j.model.construction.*;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;

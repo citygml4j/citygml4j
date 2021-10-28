@@ -17,13 +17,9 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.ade;
+package org.citygml4j.model.deprecated.core;
 
-import java.lang.annotation.*;
+import org.citygml4j.model.deprecated.DeprecatedProperties;
 
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ReuseADEContainer {
-    String[] value() default {};
+public class DeprecatedPropertiesOfAbstractFeature extends DeprecatedProperties {
 }

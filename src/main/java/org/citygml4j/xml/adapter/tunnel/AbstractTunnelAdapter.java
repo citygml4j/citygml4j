@@ -20,12 +20,7 @@
 package org.citygml4j.xml.adapter.tunnel;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractTunnel;
-import org.citygml4j.model.tunnel.ADEOfAbstractTunnel;
-import org.citygml4j.model.tunnel.AbstractTunnel;
-import org.citygml4j.model.tunnel.HollowSpaceMember;
-import org.citygml4j.model.tunnel.TunnelConstructiveElementMember;
-import org.citygml4j.model.tunnel.TunnelFurnitureMember;
-import org.citygml4j.model.tunnel.TunnelInstallationMember;
+import org.citygml4j.model.tunnel.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;

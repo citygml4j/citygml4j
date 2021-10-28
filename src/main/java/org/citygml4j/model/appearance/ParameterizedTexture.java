@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.appearance;
 
+import org.citygml4j.model.deprecated.appearance.DeprecatedPropertiesOfParameterizedTexture;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
@@ -38,6 +39,16 @@ public class ParameterizedTexture extends AbstractTexture {
 
     public void setTextureParameterizations(List<TextureAssociationProperty> textureParameterizations) {
         this.textureParameterizations = asChild(textureParameterizations);
+    }
+
+    @Override
+    public DeprecatedPropertiesOfParameterizedTexture getDeprecatedProperties() {
+        return (DeprecatedPropertiesOfParameterizedTexture) super.getDeprecatedProperties();
+    }
+
+    @Override
+    protected DeprecatedPropertiesOfParameterizedTexture createDeprecatedProperties() {
+        return new DeprecatedPropertiesOfParameterizedTexture();
     }
 
     public List<ADEOfParameterizedTexture> getADEOfParameterizedTexture() {

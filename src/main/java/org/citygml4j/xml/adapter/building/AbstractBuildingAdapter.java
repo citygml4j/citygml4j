@@ -20,13 +20,7 @@
 package org.citygml4j.xml.adapter.building;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractBuilding;
-import org.citygml4j.model.building.ADEOfAbstractBuilding;
-import org.citygml4j.model.building.AbstractBuilding;
-import org.citygml4j.model.building.AbstractBuildingSubdivisionMember;
-import org.citygml4j.model.building.BuildingConstructiveElementMember;
-import org.citygml4j.model.building.BuildingFurnitureMember;
-import org.citygml4j.model.building.BuildingInstallationMember;
-import org.citygml4j.model.building.BuildingRoomMember;
+import org.citygml4j.model.building.*;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;

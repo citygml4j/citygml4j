@@ -19,11 +19,7 @@
 
 package org.citygml4j.xml.writer;
 
-import org.citygml4j.model.core.ADEOfAbstractFeature;
-import org.citygml4j.model.core.ADEOfAbstractFeatureWithLifespan;
-import org.citygml4j.model.core.ADEOfCityModel;
-import org.citygml4j.model.core.CityModel;
-import org.citygml4j.model.core.EngineeringCRSProperty;
+import org.citygml4j.model.core.*;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.CodeWithAuthority;

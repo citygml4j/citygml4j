@@ -20,18 +20,7 @@
 package org.citygml4j.xml.adapter.core;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractCityObject;
-import org.citygml4j.model.core.ADEOfAbstractCityObject;
-import org.citygml4j.model.core.AbstractAppearanceProperty;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractDynamizerProperty;
-import org.citygml4j.model.core.AbstractGenericAttribute;
-import org.citygml4j.model.core.AbstractGenericAttributeProperty;
-import org.citygml4j.model.core.CityObjectRelationProperty;
-import org.citygml4j.model.core.ExternalReference;
-import org.citygml4j.model.core.ExternalReferenceProperty;
-import org.citygml4j.model.core.RelativeToTerrain;
-import org.citygml4j.model.core.RelativeToWater;
+import org.citygml4j.model.core.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;

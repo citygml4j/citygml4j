@@ -20,12 +20,7 @@
 package org.citygml4j.xml.adapter.bridge;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractBridge;
-import org.citygml4j.model.bridge.ADEOfAbstractBridge;
-import org.citygml4j.model.bridge.AbstractBridge;
-import org.citygml4j.model.bridge.BridgeConstructiveElementMember;
-import org.citygml4j.model.bridge.BridgeFurnitureMember;
-import org.citygml4j.model.bridge.BridgeInstallationMember;
-import org.citygml4j.model.bridge.BridgeRoomMember;
+import org.citygml4j.model.bridge.*;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;

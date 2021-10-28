@@ -20,12 +20,11 @@
 package org.citygml4j.model.deprecated.core;
 
 import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.deprecated.DeprecatedProperties;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class DeprecatedPropertiesOfAbstractCityObject extends DeprecatedProperties {
+public class DeprecatedPropertiesOfAbstractCityObject extends DeprecatedPropertiesOfAbstractFeature {
     private List<AbstractCityObjectProperty> generalizesTo;
 
     public List<AbstractCityObjectProperty> getGeneralizesTo() {

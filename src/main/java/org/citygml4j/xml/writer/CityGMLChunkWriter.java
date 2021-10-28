@@ -20,12 +20,7 @@
 package org.citygml4j.xml.writer;
 
 import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.core.AbstractAppearance;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.AbstractVersion;
-import org.citygml4j.model.core.AbstractVersionTransition;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.model.core.*;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;

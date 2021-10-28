@@ -20,11 +20,7 @@
 package org.citygml4j.xml.adapter.building;
 
 import org.citygml4j.model.ade.generic.GenericADEOfBuildingRoom;
-import org.citygml4j.model.building.ADEOfBuildingRoom;
-import org.citygml4j.model.building.BuildingFurnitureProperty;
-import org.citygml4j.model.building.BuildingInstallationProperty;
-import org.citygml4j.model.building.BuildingRoom;
-import org.citygml4j.model.building.RoomHeightProperty;
+import org.citygml4j.model.building.*;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;

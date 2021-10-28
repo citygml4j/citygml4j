@@ -15,6 +15,7 @@ module org.citygml4j {
     exports org.citygml4j.model.construction;
     exports org.citygml4j.model.core;
     exports org.citygml4j.model.deprecated;
+    exports org.citygml4j.model.deprecated.appearance;
     exports org.citygml4j.model.deprecated.bridge;
     exports org.citygml4j.model.deprecated.building;
     exports org.citygml4j.model.deprecated.cityfurniture;
@@ -91,6 +92,7 @@ module org.citygml4j {
     opens org.citygml4j.model.construction to org.xmlobjects;
     opens org.citygml4j.model.core to org.xmlobjects;
     opens org.citygml4j.model.deprecated to org.xmlobjects;
+    opens org.citygml4j.model.deprecated.appearance to org.xmlobjects;
     opens org.citygml4j.model.deprecated.bridge to org.xmlobjects;
     opens org.citygml4j.model.deprecated.building to org.xmlobjects;
     opens org.citygml4j.model.deprecated.cityfurniture to org.xmlobjects;

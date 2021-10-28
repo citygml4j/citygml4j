@@ -17,13 +17,25 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.ade;
+package org.citygml4j.model.deprecated.appearance;
 
-import java.lang.annotation.*;
+import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractFeature;
+import org.xmlobjects.model.ChildList;
 
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ReuseADEContainer {
-    String[] value() default {};
+import java.util.List;
+
+public class DeprecatedPropertiesOfParameterizedTexture extends DeprecatedPropertiesOfAbstractFeature {
+    private List<TextureAssociationReference> targets;
+
+    public List<TextureAssociationReference> getTargets() {
+        if (targets == null) {
+            targets = new ChildList<>(this);
+        }
+
+        return targets;
+    }
+
+    public void setTargets(List<TextureAssociationReference> targets) {
+        this.targets = asChild(targets);
+    }
 }

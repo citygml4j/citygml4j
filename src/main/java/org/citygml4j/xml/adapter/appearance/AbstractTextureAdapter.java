@@ -20,11 +20,7 @@
 package org.citygml4j.xml.adapter.appearance;
 
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractTexture;
-import org.citygml4j.model.appearance.ADEOfAbstractTexture;
-import org.citygml4j.model.appearance.AbstractTexture;
-import org.citygml4j.model.appearance.ColorPlusOpacity;
-import org.citygml4j.model.appearance.TextureType;
-import org.citygml4j.model.appearance.WrapMode;
+import org.citygml4j.model.appearance.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;

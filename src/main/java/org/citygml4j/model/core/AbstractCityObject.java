@@ -37,7 +37,6 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<AbstractAppearanceProperty> appearances;
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private List<AbstractDynamizerProperty> dynamizers;
-    private DeprecatedPropertiesOfAbstractCityObject deprecatedProperties;
     private List<ADEOfAbstractCityObject> adeOfAbstractCityObject;
 
     public List<ExternalReferenceProperty> getExternalReferences() {
@@ -122,17 +121,12 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         this.dynamizers = asChild(dynamizers);
     }
 
+    @Override
     public DeprecatedPropertiesOfAbstractCityObject getDeprecatedProperties() {
-        if (deprecatedProperties == null)
-            deprecatedProperties = asChild(createDeprecatedProperties());
-
-        return deprecatedProperties;
+        return (DeprecatedPropertiesOfAbstractCityObject) super.getDeprecatedProperties();
     }
 
-    public boolean hasDeprecatedProperties() {
-        return deprecatedProperties != null;
-    }
-
+    @Override
     protected DeprecatedPropertiesOfAbstractCityObject createDeprecatedProperties() {
         return new DeprecatedPropertiesOfAbstractCityObject();
     }

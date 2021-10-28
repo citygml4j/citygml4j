@@ -20,12 +20,7 @@
 package org.citygml4j.xml.adapter.deprecated.core;
 
 import org.citygml4j.model.ade.generic.GenericADEOfCityModel;
-import org.citygml4j.model.core.ADEOfCityModel;
-import org.citygml4j.model.core.AbstractAppearanceProperty;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.AbstractFeatureProperty;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.model.core.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;

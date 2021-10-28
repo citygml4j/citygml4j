@@ -21,12 +21,7 @@ package org.citygml4j.xml.adapter.transportation;
 
 import org.citygml4j.model.ade.generic.GenericADEOfTrafficSpace;
 import org.citygml4j.model.core.OccupancyProperty;
-import org.citygml4j.model.transportation.ADEOfTrafficSpace;
-import org.citygml4j.model.transportation.ClearanceSpaceProperty;
-import org.citygml4j.model.transportation.GranularityValue;
-import org.citygml4j.model.transportation.TrafficDirectionValue;
-import org.citygml4j.model.transportation.TrafficSpace;
-import org.citygml4j.model.transportation.TrafficSpaceProperty;
+import org.citygml4j.model.transportation.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;

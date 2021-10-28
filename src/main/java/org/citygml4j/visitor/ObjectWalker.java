@@ -31,6 +31,8 @@ import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
 import org.citygml4j.model.construction.*;
 import org.citygml4j.model.core.*;
+import org.citygml4j.model.deprecated.appearance.DeprecatedPropertiesOfParameterizedTexture;
+import org.citygml4j.model.deprecated.appearance.TextureAssociationReference;
 import org.citygml4j.model.deprecated.bridge.*;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingFurniture;
@@ -1416,6 +1418,13 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (TextureAssociationProperty property : new ArrayList<>(parameterizedTexture.getTextureParameterizations()))
             visit(property);
+
+        if (parameterizedTexture.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfParameterizedTexture deprecatedProperties = parameterizedTexture.getDeprecatedProperties();
+
+            for (TextureAssociationReference reference : new ArrayList<>(deprecatedProperties.getTargets()))
+                visit(reference);
+        }
 
         for (ADEContainer container : new ArrayList<>(parameterizedTexture.getADEOfParameterizedTexture()))
             visit(container);

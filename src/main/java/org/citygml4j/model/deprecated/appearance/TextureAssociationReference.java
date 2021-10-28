@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2020 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,28 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.ade;
+package org.citygml4j.model.deprecated.appearance;
 
-import java.lang.annotation.*;
+import org.citygml4j.model.CityGMLObject;
+import org.xmlobjects.gml.model.base.Reference;
 
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ReuseADEContainer {
-    String[] value() default {};
+public class TextureAssociationReference extends Reference implements CityGMLObject {
+    private String uri;
+
+    public TextureAssociationReference() {
+        super();
+    }
+
+    public TextureAssociationReference(String href, String uri) {
+        super(href);
+        this.uri = uri;
+    }
+
+    public String getURI() {
+        return uri;
+    }
+
+    public void setURI(String uri) {
+        this.uri = uri;
+    }
 }

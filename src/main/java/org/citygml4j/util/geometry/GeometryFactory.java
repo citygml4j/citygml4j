@@ -25,17 +25,7 @@ import org.xmlobjects.gml.model.geometry.DirectPositionList;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPoint;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
-import org.xmlobjects.gml.model.geometry.primitives.AbstractRingProperty;
-import org.xmlobjects.gml.model.geometry.primitives.CurveProperty;
-import org.xmlobjects.gml.model.geometry.primitives.LineString;
-import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
-import org.xmlobjects.gml.model.geometry.primitives.Point;
-import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
-import org.xmlobjects.gml.model.geometry.primitives.Polygon;
-import org.xmlobjects.gml.model.geometry.primitives.Shell;
-import org.xmlobjects.gml.model.geometry.primitives.ShellProperty;
-import org.xmlobjects.gml.model.geometry.primitives.Solid;
-import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import org.xmlobjects.gml.model.geometry.primitives.*;
 import org.xmlobjects.gml.util.id.IdCreator;
 
 import java.util.Arrays;

@@ -19,11 +19,7 @@
 
 package org.citygml4j.xml.reader;
 
-import org.citygml4j.model.core.AbstractAppearanceProperty;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.CityModel;
-import org.citygml4j.model.core.EngineeringCRSProperty;
+import org.citygml4j.model.core.*;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.CodeWithAuthority;
