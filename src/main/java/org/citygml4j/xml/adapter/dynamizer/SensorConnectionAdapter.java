@@ -21,10 +21,10 @@ package org.citygml4j.xml.adapter.dynamizer;
 
 import org.citygml4j.model.dynamizer.SensorConnection;
 import org.citygml4j.util.CityGMLConstants;
-import org.citygml4j.xml.adapter.core.AbstractCityObjectPropertyAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
+import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.serializer.ObjectSerializer;
@@ -90,7 +90,7 @@ public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>,
                     reader.getTextContent().ifPresent(object::setLinkToSensorDescription);
                     break;
                 case "sensorLocation":
-                    object.setSensorLocation(reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class));
+                    object.setSensorLocation(reader.getObjectUsingBuilder(ReferenceAdapter.class));
                     break;
             }
         }
@@ -143,6 +143,6 @@ public class SensorConnectionAdapter implements ObjectBuilder<SensorConnection>,
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "linkToSensorDescription").addTextContent(object.getLinkToSensorDescription()));
 
         if (object.getSensorLocation() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorLocation"), object.getSensorLocation(), AbstractCityObjectPropertyAdapter.class, namespaces);
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorLocation"), object.getSensorLocation(), ReferenceAdapter.class, namespaces);
     }
 }

@@ -1025,6 +1025,9 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             for (GroupMember member : properties.getGroupMembers())
                 visit(member);
 
+            if (properties.getGroupParent() != null)
+                visit(properties.getGroupParent());
+
             if (properties.getGeometry() != null)
                 visit(properties.getGeometry());
         }
@@ -1135,6 +1138,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(Dynamizer dynamizer) {
         visit((AbstractDynamizer) dynamizer);
+
+        if (dynamizer.getSensorConnection() != null
+                && dynamizer.getSensorConnection().getObject() != null
+                && dynamizer.getSensorConnection().getObject().getSensorLocation() != null)
+            visit(dynamizer.getSensorConnection().getObject().getSensorLocation());
 
         if (dynamizer.getDynamicData() != null)
             visit(dynamizer.getDynamicData());

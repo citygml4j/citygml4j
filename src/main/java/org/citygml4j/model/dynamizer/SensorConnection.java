@@ -20,8 +20,8 @@
 package org.citygml4j.model.dynamizer;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
 import org.xmlobjects.gml.model.GMLObject;
+import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 
 public class SensorConnection extends GMLObject implements CityGMLObject {
@@ -38,7 +38,7 @@ public class SensorConnection extends GMLObject implements CityGMLObject {
     private String mqttTopic;
     private String linkToObservation;
     private String linkToSensorDescription;
-    private AbstractCityObjectProperty sensorLocation;
+    private Reference sensorLocation;
 
     public SensorConnection() {
     }
@@ -152,11 +152,11 @@ public class SensorConnection extends GMLObject implements CityGMLObject {
         this.linkToSensorDescription = linkToSensorDescription;
     }
 
-    public AbstractCityObjectProperty getSensorLocation() {
+    public Reference getSensorLocation() {
         return sensorLocation;
     }
 
-    public void setSensorLocation(AbstractCityObjectProperty sensorLocation) {
+    public void setSensorLocation(Reference sensorLocation) {
         this.sensorLocation = asChild(sensorLocation);
     }
 }

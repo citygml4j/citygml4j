@@ -363,9 +363,12 @@
           <documentation>Specifies the complete URL to the sensor description request.</documentation>
         </annotation>
       </element>
-      <element minOccurs="0" name="sensorLocation" type="core:AbstractCityObjectPropertyType">
+      <element minOccurs="0" name="sensorLocation" type="gml:ReferenceType">
         <annotation>
           <documentation>Relates the sensor to the city object where it is located.</documentation>
+          <appinfo>
+            <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractCityObject</targetElement>
+          </appinfo>
         </annotation>
       </element>
     </sequence>
