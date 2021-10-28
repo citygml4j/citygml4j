@@ -31,19 +31,19 @@ import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
 import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
-import org.citygml4j.xml.adapter.building.*;
+import org.citygml4j.xml.adapter.building.BuildingInstallationPropertyAdapter;
+import org.citygml4j.xml.adapter.building.BuildingPartPropertyAdapter;
+import org.citygml4j.xml.adapter.building.BuildingRoomPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AbstractSpaceBoundaryPropertyAdapter;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.core.AbstractSiteAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
-import org.xmlobjects.gml.adapter.base.ReferenceAdapter;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.adapter.basictypes.MeasureOrNilReasonListAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiCurvePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.aggregates.MultiSurfacePropertyAdapter;
 import org.xmlobjects.gml.adapter.geometry.primitives.SolidPropertyAdapter;
 import org.xmlobjects.gml.adapter.measures.LengthAdapter;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -124,26 +124,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.setLod2TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "outerBuildingInstallation":
-                    BuildingInstallationProperty outerBuildingInstallation = reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class);
-                    if (outerBuildingInstallation.getObject() != null)
-                        object.getBuildingInstallations().add(new BuildingInstallationMember(outerBuildingInstallation.getObject()));
-                    else if (outerBuildingInstallation.getGenericElement() != null) {
-                        BuildingInstallationMember member = new BuildingInstallationMember();
-                        member.setGenericElement(outerBuildingInstallation.getGenericElement());
-                        object.getBuildingInstallations().add(member);
-                    } else
-                        object.getDeprecatedProperties().getOuterBuildingInstallations().add(new Reference(outerBuildingInstallation));
-                    return;
                 case "interiorBuildingInstallation":
-                    BuildingInstallationProperty interiorBuildingInstallation = reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class);
-                    if (interiorBuildingInstallation.getObject() != null)
-                        object.getBuildingInstallations().add(new BuildingInstallationMember(interiorBuildingInstallation.getObject()));
-                    else if (interiorBuildingInstallation.getGenericElement() != null) {
-                        BuildingInstallationMember member = new BuildingInstallationMember();
-                        member.setGenericElement(interiorBuildingInstallation.getGenericElement());
-                        object.getBuildingInstallations().add(member);
-                    } else
-                        object.getDeprecatedProperties().getInteriorBuildingInstallations().add(new Reference(interiorBuildingInstallation));
+                    object.getBuildingInstallations().add(reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class));
                     return;
                 case "boundedBy":
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
@@ -173,15 +155,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.getDeprecatedProperties().setLod4TerrainIntersectionCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "interiorRoom":
-                    BuildingRoomProperty interiorRoom = reader.getObjectUsingBuilder(BuildingRoomPropertyAdapter.class);
-                    if (interiorRoom.getObject() != null)
-                        object.getBuildingRooms().add(new BuildingRoomMember(interiorRoom.getObject()));
-                    else if (interiorRoom.getGenericElement() != null) {
-                        BuildingRoomMember member = new BuildingRoomMember();
-                        member.setGenericElement(interiorRoom.getGenericElement());
-                        object.getBuildingRooms().add(member);
-                    } else
-                        object.getDeprecatedProperties().getInteriorRooms().add(new Reference(interiorRoom));
+                    object.getBuildingRooms().add(reader.getObjectUsingBuilder(BuildingRoomPropertyAdapter.class));
                     return;
                 case "consistsOfBuildingPart":
                     BuildingPartProperty consistsOfBuildingPart = reader.getObjectUsingBuilder(BuildingPartPropertyAdapter.class);
@@ -270,21 +244,15 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getLod2TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BuildingInstallationMember member : object.getBuildingInstallations()) {
-            if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
+        for (BuildingInstallationProperty property : object.getBuildingInstallations()) {
+            if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
         }
 
-        for (Reference reference : object.getDeprecatedProperties().getOuterBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), reference, ReferenceAdapter.class, namespaces);
-
-        for (BuildingInstallationMember member : object.getBuildingInstallations()) {
+        for (BuildingInstallationProperty member : object.getBuildingInstallations()) {
             if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), member, BuildingInstallationPropertyAdapter.class, namespaces);
         }
-
-        for (Reference reference : object.getDeprecatedProperties().getInteriorBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), reference, ReferenceAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
@@ -313,11 +281,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BuildingRoomMember member : object.getBuildingRooms())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), member, BuildingRoomMemberAdapter.class, namespaces);
-
-        for (Reference reference : object.getDeprecatedProperties().getInteriorRooms())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), reference, ReferenceAdapter.class, namespaces);
+        for (BuildingRoomProperty property : object.getBuildingRooms())
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
 
         if (object instanceof Building) {
             for (BuildingPartProperty property : ((Building) object).getBuildingParts())

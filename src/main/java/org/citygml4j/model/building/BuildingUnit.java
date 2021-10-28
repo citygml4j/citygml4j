@@ -22,7 +22,6 @@ package org.citygml4j.model.building;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AddressProperty;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -30,18 +29,18 @@ import org.xmlobjects.model.ChildList;
 import java.util.List;
 
 public class BuildingUnit extends AbstractBuildingSubdivision {
-    private List<Reference> storeys;
+    private List<StoreyProperty> storeys;
     private List<AddressProperty> addresses;
     private List<ADEOfBuildingUnit> adeOfBuildingUnit;
 
-    public List<Reference> getStoreys() {
+    public List<StoreyProperty> getStoreys() {
         if (storeys == null)
             storeys = new ChildList<>(this);
 
         return storeys;
     }
 
-    public void setStoreys(List<Reference> storeys) {
+    public void setStoreys(List<StoreyProperty> storeys) {
         this.storeys = asChild(storeys);
     }
 

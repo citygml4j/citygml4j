@@ -204,35 +204,26 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractBuilding building) {
         visit((AbstractConstruction) building);
 
-        for (BuildingConstructiveElementMember member : new ArrayList<>(building.getBuildingConstructiveElements()))
-            visit(member);
+        for (BuildingConstructiveElementProperty property : new ArrayList<>(building.getBuildingConstructiveElements()))
+            visit(property);
 
-        for (BuildingInstallationMember member : new ArrayList<>(building.getBuildingInstallations()))
-            visit(member);
+        for (BuildingInstallationProperty property : new ArrayList<>(building.getBuildingInstallations()))
+            visit(property);
 
-        for (BuildingRoomMember member : new ArrayList<>(building.getBuildingRooms()))
-            visit(member);
+        for (BuildingRoomProperty property : new ArrayList<>(building.getBuildingRooms()))
+            visit(property);
 
-        for (BuildingFurnitureMember member : new ArrayList<>(building.getBuildingFurniture()))
-            visit(member);
+        for (BuildingFurnitureProperty property : new ArrayList<>(building.getBuildingFurniture()))
+            visit(property);
 
-        for (AbstractBuildingSubdivisionMember member : new ArrayList<>(building.getBuildingSubdivisions()))
-            visit(member);
+        for (AbstractBuildingSubdivisionProperty property : new ArrayList<>(building.getBuildingSubdivisions()))
+            visit(property);
 
         for (AddressProperty member : new ArrayList<>(building.getAddresses()))
             visit(member);
 
         if (building.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBuilding deprecatedProperties = building.getDeprecatedProperties();
-
-            for (Reference reference : new ArrayList<>(deprecatedProperties.getOuterBuildingInstallations()))
-                visit(reference);
-
-            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorBuildingInstallations()))
-                visit(reference);
-
-            for (Reference reference : new ArrayList<>(deprecatedProperties.getInteriorRooms()))
-                visit(reference);
 
             for (BuildingPartProperty property : new ArrayList<>(deprecatedProperties.getConsistsOfBuildingParts()))
                 visit(property);
@@ -263,17 +254,17 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractBuildingSubdivision buildingSubdivision) {
         visit((AbstractLogicalSpace) buildingSubdivision);
 
-        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingConstructiveElements()))
-            visit(reference);
+        for (BuildingConstructiveElementProperty property : new ArrayList<>(buildingSubdivision.getBuildingConstructiveElements()))
+            visit(property);
 
-        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingFurniture()))
-            visit(reference);
+        for (BuildingFurnitureProperty property : new ArrayList<>(buildingSubdivision.getBuildingFurniture()))
+            visit(property);
 
-        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingInstallations()))
-            visit(reference);
+        for (BuildingInstallationProperty property : new ArrayList<>(buildingSubdivision.getBuildingInstallations()))
+            visit(property);
 
-        for (Reference reference : new ArrayList<>(buildingSubdivision.getBuildingRooms()))
-            visit(reference);
+        for (BuildingRoomProperty property : new ArrayList<>(buildingSubdivision.getBuildingRooms()))
+            visit(property);
 
         for (ADEContainer container : new ArrayList<>(buildingSubdivision.getADEOfAbstractBuildingSubdivision()))
             visit(container);
@@ -946,8 +937,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(BuildingUnit buildingUnit) {
         visit((AbstractBuildingSubdivision) buildingUnit);
 
-        for (Reference reference : new ArrayList<>(buildingUnit.getStoreys()))
-            visit(reference);
+        for (StoreyProperty property : new ArrayList<>(buildingUnit.getStoreys()))
+            visit(property);
 
         for (AddressProperty property : new ArrayList<>(buildingUnit.getAddresses()))
             visit(property);
@@ -1584,8 +1575,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Storey storey) {
         visit((AbstractBuildingSubdivision) storey);
 
-        for (Reference reference : new ArrayList<>(storey.getBuildingUnits()))
-            visit(reference);
+        for (BuildingUnitProperty property : new ArrayList<>(storey.getBuildingUnits()))
+            visit(property);
 
         for (ADEContainer container : new ArrayList<>(storey.getADEOfStorey()))
             visit(container);

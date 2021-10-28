@@ -69,19 +69,19 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.setStoreyHeightsBelowGround(reader.getObjectUsingBuilder(MeasureOrNilReasonListAdapter.class));
                     return;
                 case "buildingConstructiveElement":
-                    object.getBuildingConstructiveElements().add(reader.getObjectUsingBuilder(BuildingConstructiveElementMemberAdapter.class));
+                    object.getBuildingConstructiveElements().add(reader.getObjectUsingBuilder(BuildingConstructiveElementPropertyAdapter.class));
                     return;
                 case "buildingInstallation":
-                    object.getBuildingInstallations().add(reader.getObjectUsingBuilder(BuildingInstallationMemberAdapter.class));
+                    object.getBuildingInstallations().add(reader.getObjectUsingBuilder(BuildingInstallationPropertyAdapter.class));
                     return;
                 case "buildingRoom":
-                    object.getBuildingRooms().add(reader.getObjectUsingBuilder(BuildingRoomMemberAdapter.class));
+                    object.getBuildingRooms().add(reader.getObjectUsingBuilder(BuildingRoomPropertyAdapter.class));
                     return;
                 case "buildingFurniture":
-                    object.getBuildingFurniture().add(reader.getObjectUsingBuilder(BuildingFurnitureMemberAdapter.class));
+                    object.getBuildingFurniture().add(reader.getObjectUsingBuilder(BuildingFurniturePropertyAdapter.class));
                     return;
                 case "buildingSubdivision":
-                    object.getBuildingSubdivisions().add(reader.getObjectUsingBuilder(AbstractBuildingSubdivisionMemberAdapter.class));
+                    object.getBuildingSubdivisions().add(reader.getObjectUsingBuilder(AbstractBuildingSubdivisionPropertyAdapter.class));
                     return;
                 case "address":
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
@@ -116,20 +116,20 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getStoreyHeightsBelowGround() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storeyHeightsBelowGround"), object.getStoreyHeightsBelowGround(), MeasureOrNilReasonListAdapter.class, namespaces);
 
-        for (BuildingConstructiveElementMember member : object.getBuildingConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingConstructiveElement"), member, BuildingConstructiveElementMemberAdapter.class, namespaces);
+        for (BuildingConstructiveElementProperty property : object.getBuildingConstructiveElements())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingConstructiveElement"), property, BuildingConstructiveElementPropertyAdapter.class, namespaces);
 
-        for (BuildingInstallationMember member : object.getBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingInstallation"), member, BuildingInstallationMemberAdapter.class, namespaces);
+        for (BuildingInstallationProperty property : object.getBuildingInstallations())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
 
-        for (BuildingRoomMember member : object.getBuildingRooms())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), member, BuildingRoomMemberAdapter.class, namespaces);
+        for (BuildingRoomProperty property : object.getBuildingRooms())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
 
-        for (BuildingFurnitureMember member : object.getBuildingFurniture())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingFurniture"), member, BuildingFurnitureMemberAdapter.class, namespaces);
+        for (BuildingFurnitureProperty property : object.getBuildingFurniture())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingFurniture"), property, BuildingFurniturePropertyAdapter.class, namespaces);
 
-        for (AbstractBuildingSubdivisionMember member : object.getBuildingSubdivisions())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingSubdivision"), member, AbstractBuildingSubdivisionMemberAdapter.class, namespaces);
+        for (AbstractBuildingSubdivisionProperty property : object.getBuildingSubdivisions())
+            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingSubdivision"), property, AbstractBuildingSubdivisionPropertyAdapter.class, namespaces);
 
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);

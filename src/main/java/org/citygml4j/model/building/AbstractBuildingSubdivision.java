@@ -27,7 +27,6 @@ import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -41,10 +40,10 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     private List<Code> usages;
     private List<ElevationProperty> elevations;
     private Double sortKey;
-    private List<Reference> buildingConstructiveElements;
-    private List<Reference> buildingFurniture;
-    private List<Reference> buildingInstallations;
-    private List<Reference> buildingRooms;
+    private List<BuildingConstructiveElementProperty> buildingConstructiveElements;
+    private List<BuildingFurnitureProperty> buildingFurniture;
+    private List<BuildingInstallationProperty> buildingInstallations;
+    private List<BuildingRoomProperty> buildingRooms;
     private List<ADEOfAbstractBuildingSubdivision> adeOfAbstractBuildingSubdivision;
 
     @Override
@@ -109,47 +108,47 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         this.sortKey = sortKey;
     }
 
-    public List<Reference> getBuildingConstructiveElements() {
+    public List<BuildingConstructiveElementProperty> getBuildingConstructiveElements() {
         if (buildingConstructiveElements == null)
             buildingConstructiveElements = new ChildList<>(this);
 
         return buildingConstructiveElements;
     }
 
-    public void setBuildingConstructiveElements(List<Reference> buildingConstructiveElements) {
+    public void setBuildingConstructiveElements(List<BuildingConstructiveElementProperty> buildingConstructiveElements) {
         this.buildingConstructiveElements = asChild(buildingConstructiveElements);
     }
 
-    public List<Reference> getBuildingFurniture() {
+    public List<BuildingFurnitureProperty> getBuildingFurniture() {
         if (buildingFurniture == null)
             buildingFurniture = new ChildList<>(this);
 
         return buildingFurniture;
     }
 
-    public void setBuildingFurniture(List<Reference> buildingFurniture) {
+    public void setBuildingFurniture(List<BuildingFurnitureProperty> buildingFurniture) {
         this.buildingFurniture = asChild(buildingFurniture);
     }
 
-    public List<Reference> getBuildingInstallations() {
+    public List<BuildingInstallationProperty> getBuildingInstallations() {
         if (buildingInstallations == null)
             buildingInstallations = new ChildList<>(this);
 
         return buildingInstallations;
     }
 
-    public void setBuildingInstallations(List<Reference> buildingInstallations) {
+    public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {
         this.buildingInstallations = asChild(buildingInstallations);
     }
 
-    public List<Reference> getBuildingRooms() {
+    public List<BuildingRoomProperty> getBuildingRooms() {
         if (buildingRooms == null)
             buildingRooms = new ChildList<>(this);
 
         return buildingRooms;
     }
 
-    public void setBuildingRooms(List<Reference> buildingRooms) {
+    public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {
         this.buildingRooms = asChild(buildingRooms);
     }
 
