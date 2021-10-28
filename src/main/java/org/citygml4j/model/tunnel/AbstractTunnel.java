@@ -35,10 +35,10 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<TunnelConstructiveElementMember> tunnelConstructiveElements;
-    private List<TunnelInstallationMember> tunnelInstallations;
-    private List<HollowSpaceMember> hollowSpaces;
-    private List<TunnelFurnitureMember> tunnelFurniture;
+    private List<TunnelConstructiveElementProperty> tunnelConstructiveElements;
+    private List<TunnelInstallationProperty> tunnelInstallations;
+    private List<HollowSpaceProperty> hollowSpaces;
+    private List<TunnelFurnitureProperty> tunnelFurniture;
     private List<ADEOfAbstractTunnel> adeOfAbstractTunnel;
 
     @Override
@@ -77,47 +77,47 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         this.usages = asChild(usages);
     }
 
-    public List<TunnelConstructiveElementMember> getTunnelConstructiveElements() {
+    public List<TunnelConstructiveElementProperty> getTunnelConstructiveElements() {
         if (tunnelConstructiveElements == null)
             tunnelConstructiveElements = new ChildList<>(this);
 
         return tunnelConstructiveElements;
     }
 
-    public void setTunnelConstructiveElements(List<TunnelConstructiveElementMember> tunnelConstructiveElements) {
+    public void setTunnelConstructiveElements(List<TunnelConstructiveElementProperty> tunnelConstructiveElements) {
         this.tunnelConstructiveElements = asChild(tunnelConstructiveElements);
     }
 
-    public List<TunnelInstallationMember> getTunnelInstallations() {
+    public List<TunnelInstallationProperty> getTunnelInstallations() {
         if (tunnelInstallations == null)
             tunnelInstallations = new ChildList<>(this);
 
         return tunnelInstallations;
     }
 
-    public void setTunnelInstallations(List<TunnelInstallationMember> tunnelInstallations) {
+    public void setTunnelInstallations(List<TunnelInstallationProperty> tunnelInstallations) {
         this.tunnelInstallations = asChild(tunnelInstallations);
     }
 
-    public List<HollowSpaceMember> getHollowSpaces() {
+    public List<HollowSpaceProperty> getHollowSpaces() {
         if (hollowSpaces == null)
             hollowSpaces = new ChildList<>(this);
 
         return hollowSpaces;
     }
 
-    public void setHollowSpaces(List<HollowSpaceMember> hollowSpaces) {
+    public void setHollowSpaces(List<HollowSpaceProperty> hollowSpaces) {
         this.hollowSpaces = asChild(hollowSpaces);
     }
 
-    public List<TunnelFurnitureMember> getTunnelFurniture() {
+    public List<TunnelFurnitureProperty> getTunnelFurniture() {
         if (tunnelFurniture == null)
             tunnelFurniture = new ChildList<>(this);
 
         return tunnelFurniture;
     }
 
-    public void setTunnelFurniture(List<TunnelFurnitureMember> tunnelFurniture) {
+    public void setTunnelFurniture(List<TunnelFurnitureProperty> tunnelFurniture) {
         this.tunnelFurniture = asChild(tunnelFurniture);
     }
 
@@ -147,14 +147,14 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         super.updateEnvelope(envelope, options);
 
         if (tunnelConstructiveElements != null) {
-            for (TunnelConstructiveElementMember member : tunnelConstructiveElements) {
+            for (TunnelConstructiveElementProperty member : tunnelConstructiveElements) {
                 if (member.getObject() != null)
                     envelope.include(member.getObject().computeEnvelope(options));
             }
         }
 
         if (tunnelInstallations != null) {
-            for (TunnelInstallationMember member : tunnelInstallations) {
+            for (TunnelInstallationProperty member : tunnelInstallations) {
                 if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
                     envelope.include(member.getObject().computeEnvelope(options));
             }

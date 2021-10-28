@@ -247,11 +247,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         for (BuildingInstallationProperty property : object.getBuildingInstallations()) {
             if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
-        }
-
-        for (BuildingInstallationProperty member : object.getBuildingInstallations()) {
-            if (member.getObject() != null && member.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), member, BuildingInstallationPropertyAdapter.class, namespaces);
+            else
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
         }
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())

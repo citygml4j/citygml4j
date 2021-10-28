@@ -201,10 +201,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         for (BridgeInstallationProperty property : object.getBridgeInstallations()) {
             if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
-        }
-
-        for (BridgeInstallationProperty property : object.getBridgeInstallations()) {
-            if (property.getObject() != null && property.getObject().getRelationToConstruction() == RelationToConstruction.INSIDE)
+            else
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
         }
 

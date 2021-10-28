@@ -592,29 +592,20 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractTunnel tunnel) {
         visit((AbstractConstruction) tunnel);
 
-        for (TunnelConstructiveElementMember member : new ArrayList<>(tunnel.getTunnelConstructiveElements()))
-            visit(member);
+        for (TunnelConstructiveElementProperty property : new ArrayList<>(tunnel.getTunnelConstructiveElements()))
+            visit(property);
 
-        for (TunnelInstallationMember member : new ArrayList<>(tunnel.getTunnelInstallations()))
-            visit(member);
+        for (TunnelInstallationProperty property : new ArrayList<>(tunnel.getTunnelInstallations()))
+            visit(property);
 
-        for (HollowSpaceMember member : new ArrayList<>(tunnel.getHollowSpaces()))
-            visit(member);
+        for (HollowSpaceProperty property : new ArrayList<>(tunnel.getHollowSpaces()))
+            visit(property);
 
-        for (TunnelFurnitureMember member : new ArrayList<>(tunnel.getTunnelFurniture()))
-            visit(member);
+        for (TunnelFurnitureProperty property : new ArrayList<>(tunnel.getTunnelFurniture()))
+            visit(property);
 
         if (tunnel.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractTunnel properties = tunnel.getDeprecatedProperties();
-
-            for (Reference reference : new ArrayList<>(properties.getOuterTunnelInstallations()))
-                visit(reference);
-
-            for (Reference reference : new ArrayList<>(properties.getInteriorTunnelInstallations()))
-                visit(reference);
-
-            for (Reference reference : new ArrayList<>(properties.getInteriorHollowSpaces()))
-                visit(reference);
 
             for (TunnelPartProperty property : new ArrayList<>(properties.getConsistsOfTunnelParts()))
                 visit(property);
