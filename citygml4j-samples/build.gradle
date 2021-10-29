@@ -8,6 +8,12 @@ java {
     }
 }
 
+sourceSets {
+    main {
+        output.setResourcesDir(java.classesDirectory)
+    }
+}
+
 dependencies {
     implementation rootProject
     annotationProcessor rootProject
