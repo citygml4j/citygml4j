@@ -135,7 +135,7 @@ public class CityGMLModules {
     }
 
     public static boolean isCityGMLNamespace(String namespaceURI, CityGMLVersion version) {
-        return isCityGMLNamespace(namespaceURI) && namespaceURI.endsWith(version.toValue());
+        return isCityGMLNamespace(namespaceURI) && of(version).modules.containsKey(namespaceURI);
     }
 
     public static boolean isGMLNamespace(String namespaceURI) {

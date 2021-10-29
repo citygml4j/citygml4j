@@ -24,12 +24,15 @@ import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 
 import javax.xml.namespace.QName;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ChunkingOptions {
     private final boolean chunkByFeatures;
-    private final Map<String, Set<String>> properties = new HashMap<>();
-    private final Map<String, Set<String>> excludes = new HashMap<>();
+    private final Set<QName> properties = new HashSet<>();
+    private final Set<QName> excludes = new HashSet<>();
 
     private boolean skipCityModel = true;
     private boolean keepInlineAppearance = true;
@@ -82,62 +85,60 @@ public class ChunkingOptions {
         return this;
     }
 
-    public boolean isChunkAtFeatureProperty(String namespaceURI, String localPart) {
-        Set<String> properties = this.properties.get(namespaceURI);
-        return properties != null && properties.contains(localPart);
-    }
-
     public boolean isChunkAtFeatureProperty(QName property) {
-        return isChunkAtFeatureProperty(property.getNamespaceURI(), property.getLocalPart());
+        return properties.contains(property);
     }
 
-    public ChunkingOptions chunkAtFeatureProperty(String namespaceURI, String localPart) {
-        properties.computeIfAbsent(namespaceURI, v -> new HashSet<>()).add(localPart);
-        return this;
+    public boolean isChunkAtFeatureProperty(String namespaceURI, String localPart) {
+        return isChunkAtFeatureProperty(new QName(namespaceURI, localPart));
     }
 
     public ChunkingOptions chunkAtFeatureProperty(QName property) {
-        return chunkAtFeatureProperty(property.getNamespaceURI(), property.getLocalPart());
+        properties.add(property);
+        return this;
+    }
+
+    public ChunkingOptions chunkAtFeatureProperty(String namespaceURI, String localPart) {
+        return chunkAtFeatureProperty(new QName(namespaceURI, localPart));
     }
 
     public ChunkingOptions chunkAtCityModelMembers() {
-        // default CityGML 3.0 collection properties
+        // default CityGML 3.0 properties
         chunkAtFeatureProperty(CoreModule.v3_0.getNamespaceURI(), "cityObjectMember");
         chunkAtFeatureProperty(CoreModule.v3_0.getNamespaceURI(), "appearanceMember");
         chunkAtFeatureProperty(CoreModule.v3_0.getNamespaceURI(), "featureMember");
         chunkAtFeatureProperty(CoreModule.v3_0.getNamespaceURI(), "versionMember");
         chunkAtFeatureProperty(CoreModule.v3_0.getNamespaceURI(), "versionTransitionMember");
 
-        // default CityGML 2.0 collection properties
+        // default CityGML 2.0 properties
         chunkAtFeatureProperty(CoreModule.v2_0.getNamespaceURI(), "cityObjectMember");
         chunkAtFeatureProperty(AppearanceModule.v2_0.getNamespaceURI(), "appearanceMember");
 
-        // default CityGML 1.0 collection properties
+        // default CityGML 1.0 properties
         chunkAtFeatureProperty(CoreModule.v1_0.getNamespaceURI(), "cityObjectMember");
         chunkAtFeatureProperty(AppearanceModule.v1_0.getNamespaceURI(), "appearanceMember");
 
-        // default GML collection properties
+        // default GML properties
         chunkAtFeatureProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
         chunkAtFeatureProperty(GMLCoreModule.v3_1.getNamespaceURI(), "featureMembers");
 
         return this;
     }
 
+    public boolean isExcludeFeatureFromChunking(QName feature) {
+        return excludes.contains(feature);
+    }
+
     public boolean isExcludeFeatureFromChunking(String namespaceURI, String localPart) {
-        Set<String> excludes = this.excludes.get(namespaceURI);
-        return excludes != null && excludes.contains(localPart);
+        return isExcludeFeatureFromChunking(new QName(namespaceURI, localPart));
     }
 
-    public boolean isExcludeFeatureFromChunking(QName property) {
-        return isExcludeFeatureFromChunking(property.getNamespaceURI(), property.getLocalPart());
-    }
-
-    public ChunkingOptions excludeFeatureFromChunking(String namespaceURI, String localPart) {
-        excludes.computeIfAbsent(namespaceURI, v -> new HashSet<>()).add(localPart);
+    public ChunkingOptions excludeFeatureFromChunking(QName feature) {
+        excludes.add(feature);
         return this;
     }
 
-    public ChunkingOptions excludeFeatureFromChunking(QName name) {
-        return excludeFeatureFromChunking(name.getNamespaceURI(), name.getLocalPart());
+    public ChunkingOptions excludeFeatureFromChunking(String namespaceURI, String localPart) {
+        return excludeFeatureFromChunking(new QName(namespaceURI, localPart));
     }
 }

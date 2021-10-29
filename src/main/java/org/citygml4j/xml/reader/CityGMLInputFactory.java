@@ -241,7 +241,7 @@ public class CityGMLInputFactory {
         try {
             CityGMLReader reader = chunkingOptions == null ?
                     new CityGMLSimpleReader(xmlReader, factory) :
-                    new CityGMLChunkReader(xmlReader, chunkingOptions, idCreator, factory);
+                    new CityGMLChunkReader(xmlReader, chunkingOptions, idCreator, factory, context);
 
             reader.transformer = transformer != null ? new TransformerPipeline(transformer) : null;
             reader.resolver = resolver;

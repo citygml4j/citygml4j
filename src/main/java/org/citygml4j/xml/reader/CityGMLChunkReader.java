@@ -19,6 +19,10 @@
 
 package org.citygml4j.xml.reader;
 
+import com.sun.xml.xsom.XSAttributeDecl;
+import com.sun.xml.xsom.XSElementDecl;
+import com.sun.xml.xsom.XSSchemaSet;
+import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
@@ -27,6 +31,8 @@ import org.xml.sax.SAXException;
 import org.xmlobjects.XMLObjects;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.gml.util.id.IdCreator;
+import org.xmlobjects.schema.SchemaHandler;
+import org.xmlobjects.schema.SchemaWalker;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
@@ -36,29 +42,30 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.TransformerException;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class CityGMLChunkReader extends CityGMLReader {
     private final ChunkingOptions chunkingOptions;
     private final IdCreator idCreator;
     private final XMLReaderFactory factory;
+    private final CityGMLContext context;
     private final XMLStreamReader streamReader;
-    private final Deque<CityGMLChunk> chunks;
+
+    private final Deque<CityGMLChunk> chunks = new ArrayDeque<>();
+    private final Deque<QName> features = new ArrayDeque<>();
+    private final Map<QName, Map<QName, Boolean>> properties = new HashMap<>();
 
     private CityGMLChunk current;
     private boolean hasNext = false;
     private int skipUntil = 0;
 
-    public CityGMLChunkReader(XMLReader reader, ChunkingOptions chunkingOptions, IdCreator idCreator, XMLReaderFactory factory) {
+    public CityGMLChunkReader(XMLReader reader, ChunkingOptions chunkingOptions, IdCreator idCreator, XMLReaderFactory factory, CityGMLContext context) {
         super(reader);
         this.chunkingOptions = chunkingOptions;
         this.idCreator = idCreator;
         this.factory = factory;
-
+        this.context = context;
         streamReader = reader.getStreamReader();
-        chunks = new ArrayDeque<>();
     }
 
     @Override
@@ -73,19 +80,26 @@ public class CityGMLChunkReader extends CityGMLReader {
 
                     if (skipUntil == 0 && eventType == XMLStreamConstants.START_ELEMENT) {
                         ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
-                        if (builder != null && shouldChunk(reader.getName())) {
-                            if (current == null)
+                        if (builder != null) {
+                            if (current == null) {
                                 current = new CityGMLChunk(reader.getName(), factory, resolver);
-                            else {
+                            } else if (shouldChunk(reader.getName())) {
                                 chunks.push(current);
                                 current = new CityGMLChunk(reader.getName(), factory, current, resolver);
                                 initialize = true;
                             }
+
+                            features.push(reader.getName());
                         }
-                    } else if (skipUntil > 0
-                            && eventType == XMLStreamConstants.END_ELEMENT
-                            && skipUntil == reader.getDepth() + 1)
-                        skipUntil = 0;
+                    } else if (eventType == XMLStreamConstants.END_ELEMENT) {
+                        if (skipUntil > 0 && skipUntil == reader.getDepth() + 1) {
+                            skipUntil = 0;
+                        }
+
+                        if (!features.isEmpty() && features.peek().equals(reader.getName())) {
+                            features.pop();
+                        }
+                    }
 
                     if (current != null) {
                         current.bufferEvent(streamReader);
@@ -94,9 +108,9 @@ public class CityGMLChunkReader extends CityGMLReader {
                             setXLink();
                             initialize = false;
                         } else if (current.isComplete()) {
-                            if (filter != null && !filter.accept(current.getFirstElement()))
+                            if (filter != null && !filter.accept(current.getFirstElement())) {
                                 current = !chunks.isEmpty() ? chunks.pop() : null;
-                            else {
+                            } else {
                                 hasNext = !chunks.isEmpty()
                                         || !chunkingOptions.isSkipCityModel()
                                         || !"CityModel".equals(current.getFirstElement().getLocalPart())
@@ -134,8 +148,9 @@ public class CityGMLChunkReader extends CityGMLReader {
                 CityGMLChunk next = current;
                 current = !chunks.isEmpty() ? chunks.pop() : null;
 
-                if (transformer != null)
+                if (transformer != null) {
                     next.transform(transformer);
+                }
 
                 return next;
             } catch (TransformerException e) {
@@ -169,27 +184,39 @@ public class CityGMLChunkReader extends CityGMLReader {
         } finally {
             current = null;
             chunks.clear();
+            features.clear();
+            properties.clear();
         }
     }
 
-    private boolean shouldChunk(QName name) {
-        if (current != null) {
-            QName property = current.getLastElement();
-            if (!chunkingOptions.isChunkByFeatures()
-                    && !chunkingOptions.isChunkAtFeatureProperty(property.getNamespaceURI(), property.getLocalPart()))
-                return false;
+    private boolean shouldChunk(QName feature) throws CityGMLReadException {
+        QName property = current.getLastElement();
+        if (!chunkingOptions.isChunkByFeatures()
+                && !chunkingOptions.isChunkAtFeatureProperty(property)) {
+            return false;
+        }
 
-            if (chunkingOptions.isKeepInlineAppearance()
-                    && name.getLocalPart().equals("Appearance")
-                    && CityGMLModules.isCityGMLNamespace(name.getNamespaceURI())
-                    && (!property.getLocalPart().equals("appearanceMember")
-                    || !CityGMLModules.isCityGMLNamespace(property.getNamespaceURI()))) {
-                skipUntil = reader.getDepth();
-                return false;
+        if (chunkingOptions.isKeepInlineAppearance()
+                && feature.getLocalPart().equals("Appearance")
+                && CityGMLModules.isCityGMLNamespace(feature.getNamespaceURI())
+                && (!property.getLocalPart().equals("appearanceMember")
+                || !CityGMLModules.isCityGMLNamespace(property.getNamespaceURI()))) {
+            skipUntil = reader.getDepth();
+            return false;
+        }
+
+        if (!CityGMLModules.isCityGMLNamespace(property.getNamespaceURI())) {
+            try {
+                if (!properties.computeIfAbsent(features.peek(), v -> new HashMap<>())
+                        .computeIfAbsent(property, v -> hasXLink(property, features.peek()))) {
+                    return false;
+                }
+            } catch (Throwable e) {
+                throw new CityGMLReadException("Failed to parse XML schema definition of ADE " + property + ".", e);
             }
         }
 
-        return !chunkingOptions.isExcludeFeatureFromChunking(name.getNamespaceURI(), name.getLocalPart());
+        return !chunkingOptions.isExcludeFeatureFromChunking(feature);
     }
 
     private void setXLink() {
@@ -209,5 +236,69 @@ public class CityGMLChunkReader extends CityGMLReader {
 
         chunks.getFirst().getSAXBuffer().removeTrailingCharacters();
         chunks.getFirst().getSAXBuffer().addAttribute(XLinkModule.v1_0.getNamespaceURI(), "href", "xlink:href", "CDATA", "#" + gmlId);
+    }
+
+    private boolean hasXLink(QName property, QName feature) {
+        try {
+            SchemaHandler schemaHandler = factory.getSchemaHandler() != null ?
+                    factory.getSchemaHandler() :
+                    context.getDefaultSchemaHandler();
+
+            XSElementDecl propertyDecl = null;
+
+            // first, check if the property is declared locally inside the feature
+            XSSchemaSet schemas = schemaHandler.getSchemaSet(feature.getNamespaceURI());
+            if (schemas != null) {
+                XSElementDecl featureDecl = schemas.getElementDecl(feature.getNamespaceURI(), feature.getLocalPart());
+                if (featureDecl != null) {
+                    XSElementDecl[] localPropertyDecl = new XSElementDecl[1];
+                    featureDecl.getType().visit(new SchemaWalker() {
+                        @Override
+                        public void elementDecl(XSElementDecl decl) {
+                            if (decl.getName().equals(property.getLocalPart())
+                                    && decl.getTargetNamespace().equals(property.getNamespaceURI())) {
+                                localPropertyDecl[0] = decl;
+                                setShouldWalk(false);
+                            }
+                        }
+                    });
+
+                    propertyDecl = localPropertyDecl[0];
+                }
+            }
+
+            // second, check if the property is declared globally
+            if (propertyDecl == null) {
+                schemas = schemaHandler.getSchemaSet(property.getNamespaceURI());
+                if (schemas != null) {
+                    propertyDecl = schemas.getElementDecl(property.getNamespaceURI(), property.getLocalPart());
+                }
+            }
+
+            if (propertyDecl != null) {
+                boolean[] hasXLink = new boolean[1];
+                propertyDecl.getType().visit(new SchemaWalker() {
+                    @Override
+                    public void attributeDecl(XSAttributeDecl decl) {
+                        if (decl.getName().equals("href")
+                                && XLinkModule.v1_0.getNamespaceURI().equals(decl.getTargetNamespace())) {
+                            hasXLink[0] = true;
+                            setShouldWalk(false);
+                        }
+                    }
+
+                    @Override
+                    public void elementDecl(XSElementDecl decl) {
+                        // skip nested elements
+                    }
+                });
+
+                return hasXLink[0];
+            }
+
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
