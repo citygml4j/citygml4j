@@ -23,7 +23,7 @@ import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.building.Building;
-import org.citygml4j.xml.reader.ChunkingOptions;
+import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -41,7 +41,7 @@ public class ApplyingXSLT {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .withChunking(ChunkingOptions.chunkByCityModelMembers());
+                .withChunking(ChunkOptions.defaults());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_building_v2.gml");
         log.print("Reading the building from the file " + file);

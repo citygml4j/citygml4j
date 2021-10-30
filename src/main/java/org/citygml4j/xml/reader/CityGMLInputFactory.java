@@ -47,7 +47,7 @@ public class CityGMLInputFactory {
     private final CityGMLContext context;
     private final XMLReaderFactory factory;
 
-    private ChunkingOptions chunkingOptions;
+    private ChunkOptions chunkOptions;
     private TransformerPipeline transformer;
     private ReferenceResolver resolver;
     private IdCreator idCreator;
@@ -89,13 +89,17 @@ public class CityGMLInputFactory {
         return this;
     }
 
-    public ChunkingOptions getChunkingOptions() {
-        return chunkingOptions;
+    public ChunkOptions getChunkOptions() {
+        return chunkOptions;
     }
 
-    public CityGMLInputFactory withChunking(ChunkingOptions chunkingOptions) {
-        this.chunkingOptions = chunkingOptions;
+    public CityGMLInputFactory withChunking(ChunkOptions chunkOptions) {
+        this.chunkOptions = chunkOptions;
         return this;
+    }
+
+    public CityGMLInputFactory withChunking() {
+        return withChunking(ChunkOptions.defaults());
     }
 
     public TransformerPipeline getTransformer() {
@@ -239,9 +243,9 @@ public class CityGMLInputFactory {
 
     private CityGMLReader createReader(XMLReader xmlReader) throws CityGMLReadException {
         try {
-            CityGMLReader reader = chunkingOptions == null ?
+            CityGMLReader reader = chunkOptions == null ?
                     new CityGMLSimpleReader(xmlReader, factory) :
-                    new CityGMLChunkReader(xmlReader, chunkingOptions, idCreator, factory, context);
+                    new CityGMLChunkReader(xmlReader, chunkOptions, idCreator, factory, context);
 
             reader.transformer = transformer != null ? new TransformerPipeline(transformer) : null;
             reader.resolver = resolver;
@@ -256,7 +260,7 @@ public class CityGMLInputFactory {
         if (isCreateGenericADEContent() && getSchemaHandler() == null)
             factory.withSchemaHandler(context.getDefaultSchemaHandler());
 
-        if (chunkingOptions != null && idCreator == null)
+        if (chunkOptions != null && idCreator == null)
             idCreator = DefaultIdCreator.newInstance();
 
         return this;

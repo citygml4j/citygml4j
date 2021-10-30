@@ -45,7 +45,7 @@ import javax.xml.transform.TransformerException;
 import java.util.*;
 
 public class CityGMLChunkReader extends CityGMLReader {
-    private final ChunkingOptions chunkingOptions;
+    private final ChunkOptions chunkOptions;
     private final IdCreator idCreator;
     private final XMLReaderFactory factory;
     private final CityGMLContext context;
@@ -59,9 +59,9 @@ public class CityGMLChunkReader extends CityGMLReader {
     private boolean hasNext = false;
     private int skipUntil = 0;
 
-    public CityGMLChunkReader(XMLReader reader, ChunkingOptions chunkingOptions, IdCreator idCreator, XMLReaderFactory factory, CityGMLContext context) {
+    public CityGMLChunkReader(XMLReader reader, ChunkOptions chunkOptions, IdCreator idCreator, XMLReaderFactory factory, CityGMLContext context) {
         super(reader);
-        this.chunkingOptions = chunkingOptions;
+        this.chunkOptions = chunkOptions;
         this.idCreator = idCreator;
         this.factory = factory;
         this.context = context;
@@ -112,7 +112,7 @@ public class CityGMLChunkReader extends CityGMLReader {
                                 current = !chunks.isEmpty() ? chunks.pop() : null;
                             } else {
                                 hasNext = !chunks.isEmpty()
-                                        || !chunkingOptions.isSkipCityModel()
+                                        || !chunkOptions.isSkipCityModel()
                                         || !"CityModel".equals(current.getFirstElement().getLocalPart())
                                         || !CityGMLModules.isCityGMLNamespace(current.getFirstElement().getNamespaceURI());
                                 break;
@@ -191,12 +191,11 @@ public class CityGMLChunkReader extends CityGMLReader {
 
     private boolean shouldChunk(QName feature) throws CityGMLReadException {
         QName property = current.getLastElement();
-        if (!chunkingOptions.isChunkByFeatures()
-                && !chunkingOptions.isChunkAtFeatureProperty(property)) {
+        if (!chunkOptions.shouldChunk(property)) {
             return false;
         }
 
-        if (chunkingOptions.isKeepInlineAppearance()
+        if (chunkOptions.isKeepInlineAppearance()
                 && feature.getLocalPart().equals("Appearance")
                 && CityGMLModules.isCityGMLNamespace(feature.getNamespaceURI())
                 && (!property.getLocalPart().equals("appearanceMember")
@@ -216,7 +215,7 @@ public class CityGMLChunkReader extends CityGMLReader {
             }
         }
 
-        return !chunkingOptions.isExcludeFeatureFromChunking(feature);
+        return !chunkOptions.isExcludeFeature(feature);
     }
 
     private void setXLink() {

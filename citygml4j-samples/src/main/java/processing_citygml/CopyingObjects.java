@@ -27,7 +27,7 @@ import org.citygml4j.model.bridge.Bridge;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.construction.AbstractConstruction;
 import org.citygml4j.xml.module.citygml.CoreModule;
-import org.citygml4j.xml.reader.ChunkingOptions;
+import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -46,7 +46,7 @@ public class CopyingObjects {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .withChunking(ChunkingOptions.chunkByCityModelMembers());
+                .withChunking(ChunkOptions.defaults());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_railway_v3.gml");
         log.print("Reading the first building from the file " + file);

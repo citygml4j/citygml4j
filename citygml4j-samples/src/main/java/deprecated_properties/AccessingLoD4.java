@@ -27,7 +27,7 @@ import org.citygml4j.model.building.Building;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
 import org.citygml4j.xml.module.citygml.CoreModule;
-import org.citygml4j.xml.reader.ChunkingOptions;
+import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -46,7 +46,7 @@ public class AccessingLoD4 {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .withChunking(ChunkingOptions.chunkByCityModelMembers());
+                .withChunking(ChunkOptions.defaults());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod4_building_v2.gml");
         log.print("Reading the building from the file " + file);

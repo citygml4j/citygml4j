@@ -24,7 +24,7 @@ import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
-import org.citygml4j.xml.reader.ChunkingOptions;
+import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLInputFilter;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -39,7 +39,7 @@ public class FilteredReader {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .withChunking(ChunkingOptions.chunkByCityModelMembers());
+                .withChunking(ChunkOptions.defaults());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_railway_v3.gml");
         log.print("Reading only bridges from the file " + file + " by using a filtered reader");

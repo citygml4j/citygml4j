@@ -28,7 +28,7 @@ import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.ade.ADEContext;
 import org.citygml4j.xml.module.ade.ADEModule;
-import org.citygml4j.xml.reader.ChunkingOptions;
+import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 
@@ -54,7 +54,7 @@ public class ReadingADE {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .withChunking(ChunkingOptions.chunkByFeatures());
+                .withChunking(ChunkOptions.chunkByFeatures());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_test_ade_v2.gml");
         log.print("Reading the TestADE file " + file + " chunk-wise by city model members");

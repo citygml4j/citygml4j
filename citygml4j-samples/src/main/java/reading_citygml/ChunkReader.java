@@ -24,7 +24,7 @@ import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.visitor.ObjectWalker;
-import org.citygml4j.xml.reader.ChunkingOptions;
+import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.reader.FeatureInfo;
@@ -40,7 +40,7 @@ public class ChunkReader {
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
-                .withChunking(ChunkingOptions.chunkByFeatures());
+                .withChunking(ChunkOptions.chunkByFeatures());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_building_v2.gml");
         log.print("Reading the file " + file + " chunk-wise feature by feature");
