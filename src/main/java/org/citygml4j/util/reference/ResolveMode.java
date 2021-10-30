@@ -28,13 +28,13 @@ public enum ResolveMode {
     FEATURES_ONLY(AbstractFeature.class),
     GEOMETRIES_ONLY(AbstractGeometry.class);
 
-    private final Class<?> type;
+    private final Class<? extends AbstractGML> type;
 
-    ResolveMode(Class<?> type) {
+    ResolveMode(Class<? extends AbstractGML> type) {
         this.type = type;
     }
 
-    Class<?> getType() {
+    Class<? extends AbstractGML> getType() {
         return type;
     }
 }

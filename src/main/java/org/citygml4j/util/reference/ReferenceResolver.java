@@ -27,10 +27,7 @@ import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
 import org.xmlobjects.gml.model.base.AbstractReference;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ReferenceResolver {
     private ResolveMode mode = ResolveMode.ALL_OBJECTS;
@@ -51,16 +48,18 @@ public class ReferenceResolver {
         return this;
     }
 
-    public <T> T resolveReference(String reference, Visitable object, Class<T> type) {
+    public <T extends AbstractGML> T resolveReference(String reference, Visitable object, Class<T> type) {
+        if (!mode.getType().isAssignableFrom(type)) {
+            return null;
+        }
+
         String id = getIdFromReference(reference);
         AbstractGML[] target = new AbstractGML[1];
 
         object.accept(new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
-                if ((mode == ResolveMode.ALL_OBJECTS
-                        || mode.getType().isInstance(object))
-                        && id.equals(object.getId())) {
+                if (type.isInstance(object) && id.equals(object.getId())) {
                     target[0] = object;
                     setShouldWalk(false);
                 } else
@@ -68,11 +67,11 @@ public class ReferenceResolver {
             }
         });
 
-        return type.isInstance(target[0]) ? type.cast(target[0]) : null;
+        return type.cast(target[0]);
     }
 
     public AbstractGML resolveReference(String reference, Visitable object) {
-        return resolveReference(reference, object, AbstractGML.class);
+        return resolveReference(reference, object, mode.getType());
     }
 
     public void resolveReferences(Visitable object) {
@@ -120,7 +119,32 @@ public class ReferenceResolver {
         });
     }
 
-    private String getIdFromReference(String reference) {
+    public <T extends AbstractGML> Map<String, T> getObjectsById(Visitable object, Class<T> type) {
+        if (!mode.getType().isAssignableFrom(type)) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, T> targets = new HashMap<>();
+
+        object.accept(new ObjectWalker() {
+            @Override
+            public void visit(AbstractGML object) {
+                if (object.getId() != null && type.isInstance(object)) {
+                    targets.put(object.getId(), type.cast(object));
+                }
+
+                super.visit(object);
+            }
+        });
+
+        return targets;
+    }
+
+    public Map<String, ? extends AbstractGML> getObjectsById(Visitable object) {
+        return getObjectsById(object, mode.getType());
+    }
+
+    public String getIdFromReference(String reference) {
         int index = reference.lastIndexOf("#");
         return index != -1 ? reference.substring(index + 1) : reference;
     }
