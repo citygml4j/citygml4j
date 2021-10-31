@@ -22,6 +22,7 @@ package org.citygml4j.xml.reader;
 import com.sun.xml.xsom.XSAttributeDecl;
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSSchemaSet;
+import org.citygml4j.ADERegistry;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
@@ -54,6 +55,7 @@ public class CityGMLChunkReader extends CityGMLReader {
     private final Deque<CityGMLChunk> chunks = new ArrayDeque<>();
     private final Deque<QName> features = new ArrayDeque<>();
     private final Map<QName, Map<QName, Boolean>> properties = new HashMap<>();
+    private final Set<String> adeNamespaces;
 
     private CityGMLChunk current;
     private boolean hasNext = false;
@@ -65,7 +67,9 @@ public class CityGMLChunkReader extends CityGMLReader {
         this.idCreator = idCreator;
         this.factory = factory;
         this.context = context;
+
         streamReader = reader.getStreamReader();
+        adeNamespaces = ADERegistry.getInstance().getADENamespaces();
     }
 
     @Override
@@ -186,6 +190,7 @@ public class CityGMLChunkReader extends CityGMLReader {
             chunks.clear();
             features.clear();
             properties.clear();
+            adeNamespaces.clear();
         }
     }
 
@@ -204,7 +209,7 @@ public class CityGMLChunkReader extends CityGMLReader {
             return false;
         }
 
-        if (!CityGMLModules.isCityGMLNamespace(property.getNamespaceURI())) {
+        if (adeNamespaces.contains(property.getNamespaceURI())) {
             try {
                 if (!properties.computeIfAbsent(features.peek(), v -> new HashMap<>())
                         .computeIfAbsent(property, v -> hasXLink(property, features.peek()))) {
@@ -246,29 +251,31 @@ public class CityGMLChunkReader extends CityGMLReader {
             XSElementDecl propertyDecl = null;
 
             // first, check if the property is declared locally inside the feature
-            XSSchemaSet schemas = schemaHandler.getSchemaSet(feature.getNamespaceURI());
-            if (schemas != null) {
-                XSElementDecl featureDecl = schemas.getElementDecl(feature.getNamespaceURI(), feature.getLocalPart());
-                if (featureDecl != null) {
-                    XSElementDecl[] localPropertyDecl = new XSElementDecl[1];
-                    featureDecl.getType().visit(new SchemaWalker() {
-                        @Override
-                        public void elementDecl(XSElementDecl decl) {
-                            if (decl.getName().equals(property.getLocalPart())
-                                    && decl.getTargetNamespace().equals(property.getNamespaceURI())) {
-                                localPropertyDecl[0] = decl;
-                                setShouldWalk(false);
+            if (adeNamespaces.contains(feature.getNamespaceURI())) {
+                XSSchemaSet schemas = schemaHandler.getSchemaSet(feature.getNamespaceURI());
+                if (schemas != null) {
+                    XSElementDecl featureDecl = schemas.getElementDecl(feature.getNamespaceURI(), feature.getLocalPart());
+                    if (featureDecl != null) {
+                        XSElementDecl[] localPropertyDecl = new XSElementDecl[1];
+                        featureDecl.getType().visit(new SchemaWalker() {
+                            @Override
+                            public void elementDecl(XSElementDecl decl) {
+                                if (decl.getName().equals(property.getLocalPart())
+                                        && decl.getTargetNamespace().equals(property.getNamespaceURI())) {
+                                    localPropertyDecl[0] = decl;
+                                    setShouldWalk(false);
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    propertyDecl = localPropertyDecl[0];
+                        propertyDecl = localPropertyDecl[0];
+                    }
                 }
             }
 
             // second, check if the property is declared globally
             if (propertyDecl == null) {
-                schemas = schemaHandler.getSchemaSet(property.getNamespaceURI());
+                XSSchemaSet schemas = schemaHandler.getSchemaSet(property.getNamespaceURI());
                 if (schemas != null) {
                     propertyDecl = schemas.getElementDecl(property.getNamespaceURI(), property.getLocalPart());
                 }
