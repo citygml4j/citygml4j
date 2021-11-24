@@ -123,7 +123,24 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 	}
 
 	public BoundingBox calcBoundingBox(BoundingBoxOptions options) {
-		if (relativeGeometry != null && relativeGeometry.isSetGeometry()) {
+		if (relativeGeometry == null
+				|| !relativeGeometry.isSetGeometry()
+				|| options.isUseReferencePointForImplicitGeometries()) {
+			if (referencePoint != null && referencePoint.isSetPoint()) {
+				List<Double> coord = referencePoint.getPoint().toList3d();
+
+				if (transformationMatrix != null) {
+					Matrix m = transformationMatrix.getMatrix();
+					coord.set(0, coord.get(0) + m.get(0, 3));
+					coord.set(1, coord.get(1) + m.get(1, 3));
+					coord.set(2, coord.get(2) + m.get(2, 3));
+				}
+
+				return new BoundingBox(
+						new Point(coord.get(0), coord.get(1), coord.get(2)),
+						new Point(coord.get(0), coord.get(1), coord.get(2)));
+			}
+		} else {
 			BoundingBox bbox = relativeGeometry.getGeometry().calcBoundingBox();
 			if (bbox != null) {
 				if (transformationMatrix != null && 
@@ -139,20 +156,6 @@ public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent
 
 				return bbox;
 			}
-		} else if (options.isUseReferencePointAsFallbackForImplicitGeometries()
-				&& referencePoint != null && referencePoint.isSetPoint()) {
-			List<Double> coord = referencePoint.getPoint().toList3d();
-
-			if (transformationMatrix != null) {
-				Matrix m = transformationMatrix.getMatrix();
-				coord.set(0, coord.get(0) + m.get(0, 3));
-				coord.set(1, coord.get(1) + m.get(1, 3));
-				coord.set(2, coord.get(2) + m.get(2, 3));
-			}
-
-			return new BoundingBox(
-					new Point(coord.get(0), coord.get(1), coord.get(2)),
-					new Point(coord.get(0), coord.get(1), coord.get(2)));			
 		}
 
 		return null;

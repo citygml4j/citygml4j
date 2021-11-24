@@ -49,11 +49,11 @@ public class BoundingBoxOptions {
 		return this;
 	}
 	
-	public boolean isUseReferencePointAsFallbackForImplicitGeometries() {
+	public boolean isUseReferencePointForImplicitGeometries() {
 		return useReferencePoint;
 	}
 	
-	public BoundingBoxOptions useReferencePointAsFallbackForImplicitGeometries(boolean useReferencePoint) {
+	public BoundingBoxOptions useReferencePointForImplicitGeometries(boolean useReferencePoint) {
 		this.useReferencePoint = useReferencePoint;
 		return this;
 	}
