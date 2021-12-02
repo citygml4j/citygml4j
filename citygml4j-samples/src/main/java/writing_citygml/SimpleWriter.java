@@ -58,7 +58,7 @@ public class SimpleWriter {
         log.print("Writing the feature as CityGML " + version + " file " + output);
 
         try (CityGMLWriter writer = out.createCityGMLWriter(output, StandardCharsets.UTF_8.name())) {
-            writer.withIndentString("  ")
+            writer.withIndent("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())

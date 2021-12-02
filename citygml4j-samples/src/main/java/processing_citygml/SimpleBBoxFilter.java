@@ -63,7 +63,7 @@ public class SimpleBBoxFilter {
         log.print("Writing only features within the bounding box to the output file");
         try (CityGMLReader reader = in.createCityGMLReader(file);
              CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
-            writer.withIndentString("  ")
+            writer.withIndent("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI());

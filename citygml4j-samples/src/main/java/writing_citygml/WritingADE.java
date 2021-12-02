@@ -103,7 +103,7 @@ public class WritingADE {
         log.print("Writing the ADE-enriched building as CityGML " + version + " file " + output);
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
-            writer.withIndentString("  ")
+            writer.withIndent("  ")
                     .withSchemaLocation(TestADEModule.TESTADE_NAMESPACE, Util.OUTPUT_DIR.relativize(
                             Util.SCHEMAS_DIR.resolve("test-ade.xsd")).toString())
                     .withDefaultPrefixes()

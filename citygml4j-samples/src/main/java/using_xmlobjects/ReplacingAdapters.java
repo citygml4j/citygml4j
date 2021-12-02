@@ -75,7 +75,7 @@ public class ReplacingAdapters {
         log.print("Writing the file as WFS 2.0 feature collection");
 
         try (CityGMLWriter writer = out.createCityGMLWriter(output, StandardCharsets.UTF_8.name())) {
-            writer.withIndentString("  ")
+            writer.withIndent("  ")
                     .withDefaultPrefixes()
                     .withPrefix("wfs", WFSFeatureCollectionSerializer.WFS_NAMESPACE)
                     .write(feature);

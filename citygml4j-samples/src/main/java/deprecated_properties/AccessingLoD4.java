@@ -90,7 +90,7 @@ public class AccessingLoD4 {
         log.print("Deprecated properties will be considered when writing to CityGML 2.0 and 1.0 but ignored in case of CityGML 3.0");
 
         try (CityGMLWriter writer = out.createCityGMLWriter(output, StandardCharsets.UTF_8.name())) {
-            writer.withIndentString("  ")
+            writer.withIndent("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())

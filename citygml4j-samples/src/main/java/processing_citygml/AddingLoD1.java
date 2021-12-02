@@ -63,7 +63,7 @@ public class AddingLoD1 {
 
         try (CityGMLReader reader = in.createCityGMLReader(file);
              CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output)) {
-            writer.withIndentString("  ")
+            writer.withIndent("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI());

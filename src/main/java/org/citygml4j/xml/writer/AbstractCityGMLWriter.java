@@ -84,13 +84,13 @@ public abstract class AbstractCityGMLWriter<T extends AbstractCityGMLWriter<?>> 
         return (T) this;
     }
 
-    public String getIndentString() {
-        return writer.getIndentString();
+    public String getIndent() {
+        return writer.getIndent();
     }
 
     @SuppressWarnings("unchecked")
-    public T withIndentString(String indent) {
-        writer.withIndentString(indent);
+    public T withIndent(String indent) {
+        writer.withIndent(indent);
         return (T) this;
     }
 
