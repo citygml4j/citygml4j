@@ -138,10 +138,10 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
             writer.writeObject(cityModel, namespaces);
             writer.writeEndDocument();
             resetTransformer();
-
-            state = State.DOCUMENT_STARTED;
         } catch (XMLWriteException | ObjectSerializeException | TransformerException e) {
             throw new CityGMLWriteException("Caused by:", e);
+        } finally {
+            state = State.DOCUMENT_STARTED;
         }
     }
 
@@ -187,8 +187,11 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         if (state == State.CLOSED)
             throw new CityGMLWriteException("The writer has already been closed.");
 
-        writeFooter();
-        super.close();
-        state = State.CLOSED;
+        try {
+            writeFooter();
+            super.close();
+        } finally {
+            state = State.CLOSED;
+        }
     }
 }
