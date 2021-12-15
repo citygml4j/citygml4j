@@ -24,17 +24,13 @@ import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.core.AbstractThematicSurface;
-import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
-import org.xmlobjects.gml.model.geometry.primitives.AbstractSurface;
-import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
+import org.xmlobjects.gml.visitor.GeometryWalker;
 
 import java.nio.file.Path;
 
@@ -58,35 +54,28 @@ public class ResolvingReferences {
             if (reader.hasNext()) {
                 building = (Building) reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
-            } else
+            } else {
                 throw new CityGMLReadException("Failed to read a building from file " + file);
+            }
         }
 
-        log.print("Iterating through the thematic boundary surfaces of the building");
+        log.print("Iterating over the geometry references of the LoD2 solid geometry of the building");
 
-        int size = building.getBoundaries().size();
-        int i = 1;
+        if (building.getLod2Solid() != null && building.getLod2Solid().getObject() != null) {
+            building.getLod2Solid().getObject().accept(new GeometryWalker() {
+                @Override
+                public void visit(AbstractInlineOrByReferenceProperty<?> property) {
+                    if (property.isSetReferencedObject()) {
+                        log.print("- Found geometry reference to " + property.getHref());
+                        log.print("  The XLink resolves to a " + property.getObject().getClass().getSimpleName() + " geometry");
 
-        for (AbstractSpaceBoundaryProperty property : building.getBoundaries()) {
-            if (property.getObject() instanceof AbstractThematicSurface) {
-                AbstractThematicSurface thematicSurface = (AbstractThematicSurface) property.getObject();
-                log.print("[" + (i++) + "|" + size + "] Found " + thematicSurface.getClass().getSimpleName() + " with gml:id " + thematicSurface.getId());
-
-                MultiSurface multiSurface = thematicSurface.getLod2MultiSurface().getObject();
-                for (SurfaceProperty member : multiSurface.getSurfaceMember()) {
-                    log.print("- The thematic surface has an XLink reference to " + member.getHref());
-                    AbstractSurface surface = member.getLocalProperties().get(CityGMLConstants.REFERENCED_OBJECT, AbstractSurface.class);
-                    if (surface != null) {
-                        log.print("- The XLink resolves to a " + surface.getClass().getSimpleName() + " geometry");
-
-                        AbstractFeature feature = surface.getParent(AbstractFeature.class);
-                        if (feature != null)
-                            log.print("- The geometry belongs to the " + feature.getClass().getSimpleName() + " feature with gml:id " + feature.getId());
-
-                    } else
-                        log.print("- The XLink cannot be resolved or does not point to a surface geometry");
+                        AbstractFeature feature = property.getObject().getParent(AbstractFeature.class);
+                        if (feature != null) {
+                            log.print("  The geometry belongs to the " + feature.getClass().getSimpleName() + " feature with gml:id " + feature.getId());
+                        }
+                    }
                 }
-            }
+            });
         }
 
         log.finish();

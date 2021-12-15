@@ -129,7 +129,7 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
             if (property.getObject() != null) {
                 TrafficSpace trafficSpace = property.getObject();
                 for (AbstractSpaceBoundaryProperty boundary : trafficSpace.getBoundaries()) {
-                    if (boundary.getObject() == null || boundary.getObject() instanceof TrafficArea)
+                    if (!boundary.isSetInlineObject() || boundary.getObject() instanceof TrafficArea)
                         writer.writeElementUsingSerializer(Element.of(transportationNamespace, "trafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
                 }
             }
@@ -139,7 +139,7 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
             if (property.getObject() != null) {
                 AuxiliaryTrafficSpace auxiliaryTrafficSpace = property.getObject();
                 for (AbstractSpaceBoundaryProperty boundary : auxiliaryTrafficSpace.getBoundaries()) {
-                    if (boundary.getObject() == null || boundary.getObject() instanceof AuxiliaryTrafficArea)
+                    if (!boundary.isSetInlineObject() || boundary.getObject() instanceof AuxiliaryTrafficArea)
                         writer.writeElementUsingSerializer(Element.of(transportationNamespace, "auxiliaryTrafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
                 }
             }

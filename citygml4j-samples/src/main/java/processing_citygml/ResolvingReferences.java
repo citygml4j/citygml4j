@@ -29,7 +29,6 @@ import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.CityModel;
-import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -79,7 +78,7 @@ public class ResolvingReferences {
 
         log.print("Iterating through the targets of the X3DMaterial and printing the referenced surface geometries");
         for (GeometryReference target : material.getTargets()) {
-            AbstractGeometry geometry = target.getLocalProperties().get(CityGMLConstants.REFERENCED_OBJECT, AbstractGeometry.class);
+            AbstractGeometry geometry = target.getReferencedObject();
             log.print("- Found " + geometry.getClass().getSimpleName() + " with gml:id " + geometry.getId());
         }
 

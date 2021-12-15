@@ -19,13 +19,12 @@
 
 package org.citygml4j.util.reference;
 
-import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.visitor.Visitable;
-import org.xmlobjects.gml.model.base.AbstractAssociation;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
 import org.xmlobjects.gml.model.base.AbstractReference;
+import org.xmlobjects.gml.model.base.ResolvableAssociation;
 
 import java.util.*;
 
@@ -48,7 +47,7 @@ public class ReferenceResolver {
         return this;
     }
 
-    public <T extends AbstractGML> T resolveReference(String reference, Visitable object, Class<T> type) {
+    public <T extends AbstractGML> T resolveReference(String reference, Visitable scope, Class<T> type) {
         if (!mode.getType().isAssignableFrom(type)) {
             return null;
         }
@@ -56,28 +55,29 @@ public class ReferenceResolver {
         String id = getIdFromReference(reference);
         AbstractGML[] target = new AbstractGML[1];
 
-        object.accept(new ObjectWalker() {
+        scope.accept(new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (type.isInstance(object) && id.equals(object.getId())) {
                     target[0] = object;
                     setShouldWalk(false);
-                } else
+                } else {
                     super.visit(object);
+                }
             }
         });
 
         return type.cast(target[0]);
     }
 
-    public AbstractGML resolveReference(String reference, Visitable object) {
-        return resolveReference(reference, object, mode.getType());
+    public AbstractGML resolveReference(String reference, Visitable scope) {
+        return resolveReference(reference, scope, mode.getType());
     }
 
-    public void resolveReferences(Visitable object) {
-        Map<String, List<AbstractAssociation<?>>> properties = new HashMap<>();
+    public void resolveReferences(Visitable scope) {
+        Map<String, List<ResolvableAssociation<?>>> properties = new HashMap<>();
 
-        object.accept(new ObjectWalker() {
+        scope.accept(new ObjectWalker() {
             @Override
             public void visit(AbstractInlineOrByReferenceProperty<?> property) {
                 collect(property, property.getHref());
@@ -89,27 +89,21 @@ public class ReferenceResolver {
                 collect(reference, reference.getHref());
             }
 
-            private void collect(AbstractAssociation<?> association, String reference) {
-                if (reference != null
-                        && (mode == ResolveMode.ALL_OBJECTS
-                        || mode.getType().isAssignableFrom(association.getTargetType())))
+            private void collect(ResolvableAssociation<?> association, String reference) {
+                if (reference != null && mode.getType().isAssignableFrom(association.getTargetType())) {
                     properties.computeIfAbsent(getIdFromReference(reference), v -> new ArrayList<>()).add(association);
+                }
             }
         });
 
-        object.accept(new ObjectWalker() {
+        scope.accept(new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
-                if (object.getId() != null
-                        && (mode == ResolveMode.ALL_OBJECTS
-                        || mode.getType().isInstance(object))) {
-                    List<AbstractAssociation<?>> candidates = properties.get(object.getId());
+                if (object.getId() != null && mode.getType().isInstance(object)) {
+                    List<ResolvableAssociation<?>> candidates = properties.get(object.getId());
                     if (candidates != null) {
-                        for (AbstractAssociation<?> candidate : candidates) {
-                            if (candidate.getTargetType().isInstance(object)) {
-                                candidate.getLocalProperties().set(CityGMLConstants.REFERENCED_OBJECT, object);
-                                object.getLocalProperties().set(CityGMLConstants.IS_REFERENCED, Boolean.TRUE);
-                            }
+                        for (ResolvableAssociation<?> candidate : candidates) {
+                            candidate.setReferencedObjectIfValid(object, false);
                         }
                     }
                 }
@@ -119,14 +113,14 @@ public class ReferenceResolver {
         });
     }
 
-    public <T extends AbstractGML> Map<String, T> getObjectsById(Visitable object, Class<T> type) {
+    public <T extends AbstractGML> Map<String, T> getObjectsById(Visitable scope, Class<T> type) {
         if (!mode.getType().isAssignableFrom(type)) {
             return Collections.emptyMap();
         }
 
         Map<String, T> targets = new HashMap<>();
 
-        object.accept(new ObjectWalker() {
+        scope.accept(new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (object.getId() != null && type.isInstance(object)) {
@@ -140,8 +134,8 @@ public class ReferenceResolver {
         return targets;
     }
 
-    public Map<String, ? extends AbstractGML> getObjectsById(Visitable object) {
-        return getObjectsById(object, mode.getType());
+    public Map<String, ? extends AbstractGML> getObjectsById(Visitable scope) {
+        return getObjectsById(scope, mode.getType());
     }
 
     public String getIdFromReference(String reference) {

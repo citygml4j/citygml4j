@@ -61,7 +61,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                         object.getGeneralizesTo().add(reader.getObjectUsingBuilder(AbstractCityObjectReferenceAdapter.class));
                     else {
                         AbstractCityObjectProperty property = reader.getObjectUsingBuilder(AbstractCityObjectPropertyAdapter.class);
-                        if (property.getObject() == null && property.getGenericElement() == null)
+                        if (!property.isSetInlineObject() && !property.isSetGenericElement())
                             object.getGeneralizesTo().add(new AbstractCityObjectReference(property));
                         else
                             object.getDeprecatedProperties().getGeneralizesTo().add(property);
