@@ -20,11 +20,11 @@
 package org.citygml4j.util.reference;
 
 import org.citygml4j.visitor.ObjectWalker;
-import org.citygml4j.visitor.Visitable;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
 import org.xmlobjects.gml.model.base.AbstractReference;
 import org.xmlobjects.gml.model.base.ResolvableAssociation;
+import org.xmlobjects.gml.visitor.Visitable;
 
 import java.util.*;
 
@@ -55,7 +55,7 @@ public class ReferenceResolver {
         String id = getIdFromReference(reference);
         AbstractGML[] target = new AbstractGML[1];
 
-        scope.accept(new ObjectWalker() {
+        new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (type.isInstance(object) && id.equals(object.getId())) {
@@ -65,7 +65,7 @@ public class ReferenceResolver {
                     super.visit(object);
                 }
             }
-        });
+        }.visit(scope);
 
         return type.cast(target[0]);
     }
@@ -77,7 +77,7 @@ public class ReferenceResolver {
     public void resolveReferences(Visitable scope) {
         Map<String, List<ResolvableAssociation<?>>> properties = new HashMap<>();
 
-        scope.accept(new ObjectWalker() {
+        new ObjectWalker() {
             @Override
             public void visit(AbstractInlineOrByReferenceProperty<?> property) {
                 collect(property, property.getHref());
@@ -94,9 +94,9 @@ public class ReferenceResolver {
                     properties.computeIfAbsent(getIdFromReference(reference), v -> new ArrayList<>()).add(association);
                 }
             }
-        });
+        }.visit(scope);
 
-        scope.accept(new ObjectWalker() {
+        new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (object.getId() != null && mode.getType().isInstance(object)) {
@@ -110,7 +110,7 @@ public class ReferenceResolver {
 
                 super.visit(object);
             }
-        });
+        }.visit(scope);
     }
 
     public <T extends AbstractGML> Map<String, T> getObjectsById(Visitable scope, Class<T> type) {
@@ -120,7 +120,7 @@ public class ReferenceResolver {
 
         Map<String, T> targets = new HashMap<>();
 
-        scope.accept(new ObjectWalker() {
+        new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (object.getId() != null && type.isInstance(object)) {
@@ -129,7 +129,7 @@ public class ReferenceResolver {
 
                 super.visit(object);
             }
-        });
+        }.visit(scope);
 
         return targets;
     }

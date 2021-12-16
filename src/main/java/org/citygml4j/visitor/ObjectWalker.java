@@ -90,13 +90,14 @@ import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.AbstractInlineGeometryProperty;
 import org.xmlobjects.gml.model.geometry.GeometryArrayProperty;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
-import org.xmlobjects.gml.model.geometry.primitives.AbstractSurfacePatch;
 import org.xmlobjects.gml.model.geometry.primitives.SurfacePatchArrayProperty;
 import org.xmlobjects.gml.model.temporal.TimeInstant;
 import org.xmlobjects.gml.model.temporal.TimeInstantProperty;
 import org.xmlobjects.gml.model.temporal.TimePeriod;
 import org.xmlobjects.gml.model.valueobjects.*;
 import org.xmlobjects.gml.visitor.GeometryWalker;
+import org.xmlobjects.gml.visitor.Visitable;
+import org.xmlobjects.gml.visitor.VisitableGeometry;
 
 import java.util.ArrayList;
 
@@ -118,6 +119,17 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         }
 
         return this;
+    }
+
+    @Override
+    public void visit(Visitable visitable) {
+        if (visitable instanceof VisitableObject) {
+            ((VisitableObject) visitable).accept(this);
+        } else if (visitable instanceof org.xmlobjects.gml.visitor.VisitableObject) {
+            ((org.xmlobjects.gml.visitor.VisitableObject) visitable).accept(this);
+        } else if (visitable instanceof VisitableGeometry) {
+            ((VisitableGeometry) visitable).accept(this);
+        }
     }
 
     public void visit(AbstractGML object) {
@@ -1916,14 +1928,12 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     protected void visitObject(Object object) {
         if (object instanceof ADEObject)
             visit((ADEObject) object);
-        else if (object instanceof Visitable)
-            ((Visitable) object).accept(this);
-        else if (object instanceof AbstractCoverage)
-            ((AbstractCoverage<?>) object).accept(this);
-        else if (object instanceof AbstractGeometry)
-            ((AbstractGeometry) object).accept(this);
-        else if (object instanceof AbstractSurfacePatch)
-            ((AbstractSurfacePatch) object).accept(this);
+        else if (object instanceof VisitableObject)
+            ((VisitableObject) object).accept(this);
+        else if (object instanceof org.xmlobjects.gml.visitor.VisitableObject)
+            ((org.xmlobjects.gml.visitor.VisitableObject) object).accept(this);
+        else if (object instanceof VisitableGeometry)
+            ((VisitableGeometry) object).accept(this);
         else if (object instanceof AbstractAssociation<?>)
             visitProperty((AbstractAssociation<?>) object);
     }

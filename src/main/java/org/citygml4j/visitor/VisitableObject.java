@@ -19,6 +19,8 @@
 
 package org.citygml4j.visitor;
 
-public interface Visitable {
+import org.xmlobjects.gml.visitor.Visitable;
+
+public interface VisitableObject extends Visitable {
     void accept(ObjectVisitor visitor);
 }

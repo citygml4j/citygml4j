@@ -21,7 +21,7 @@ package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.citygml4j.visitor.Visitable;
+import org.citygml4j.visitor.VisitableObject;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -33,7 +33,7 @@ import org.xmlobjects.model.ChildList;
 
 import java.util.List;
 
-public class ImplicitGeometry extends AbstractGML implements CityGMLObject, Visitable {
+public class ImplicitGeometry extends AbstractGML implements CityGMLObject, VisitableObject {
     private TransformationMatrix4x4 transformationMatrix;
     private Code mimeType;
     private String libraryObject;

@@ -21,11 +21,11 @@ package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
 import org.citygml4j.visitor.ObjectVisitor;
-import org.citygml4j.visitor.Visitable;
+import org.citygml4j.visitor.VisitableObject;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 
-public class TextureAssociation extends AbstractGML implements CityGMLObject, Visitable {
+public class TextureAssociation extends AbstractGML implements CityGMLObject, VisitableObject {
     private GeometryReference target;
     private AbstractTextureParameterizationProperty textureParameterization;
 

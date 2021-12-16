@@ -24,7 +24,7 @@ import org.citygml4j.model.ade.ADEContainer;
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractFeature;
-import org.citygml4j.visitor.Visitable;
+import org.citygml4j.visitor.VisitableObject;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
@@ -33,7 +33,7 @@ import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 
-public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.AbstractFeature implements CityGMLObject, Visitable {
+public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.AbstractFeature implements CityGMLObject, VisitableObject {
     private DeprecatedPropertiesOfAbstractFeature deprecatedProperties;
     private List<ADEOfAbstractFeature> adeOfAbstractFeature;
 
