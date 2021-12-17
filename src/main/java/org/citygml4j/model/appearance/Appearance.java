@@ -23,7 +23,6 @@ import org.citygml4j.model.core.AbstractAppearance;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Appearance extends AbstractAppearance {
@@ -41,7 +40,7 @@ public class Appearance extends AbstractAppearance {
 
     public List<AbstractSurfaceDataProperty> getSurfaceData() {
         if (surfaceData == null)
-            surfaceData = new ArrayList<>();
+            surfaceData = new ChildList<>(this);
 
         return surfaceData;
     }
