@@ -25,7 +25,7 @@ import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.model.landuse.LandUse;
-import org.citygml4j.util.reference.ReferenceResolver;
+import org.citygml4j.util.reference.DefaultReferenceResolver;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
@@ -50,7 +50,7 @@ public class AccessingParents {
             log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + feature.getId());
         }
 
-        ReferenceResolver resolver = ReferenceResolver.newInstance();
+        DefaultReferenceResolver resolver = DefaultReferenceResolver.newInstance();
 
         log.print("Searching the city model for an object with gml:id UUID_9c93de74-b75a-439a-8c95-938105c66a64");
         AbstractGeometry geometry = resolver.resolveReference("UUID_9c93de74-b75a-439a-8c95-938105c66a64", feature, AbstractGeometry.class);

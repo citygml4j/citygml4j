@@ -24,7 +24,7 @@ import helpers.Util;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.building.Building;
 import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.util.reference.ReferenceResolver;
+import org.citygml4j.util.reference.DefaultReferenceResolver;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
@@ -43,7 +43,7 @@ public class ResolvingReferences {
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
                 .withChunking(ChunkOptions.defaults())
-                .withReferenceResolver(ReferenceResolver.newInstance());
+                .withReferenceResolver(DefaultReferenceResolver.newInstance());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
         log.print("Reading the first building from the file " + file + " and resolving its XLink references");

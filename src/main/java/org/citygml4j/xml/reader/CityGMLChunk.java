@@ -20,13 +20,13 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;

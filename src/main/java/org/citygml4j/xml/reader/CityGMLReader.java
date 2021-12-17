@@ -20,8 +20,8 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.transform.TransformerPipeline;
+import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 

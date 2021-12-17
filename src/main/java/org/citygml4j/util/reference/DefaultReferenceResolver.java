@@ -24,31 +24,36 @@ import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.base.AbstractInlineOrByReferenceProperty;
 import org.xmlobjects.gml.model.base.AbstractReference;
 import org.xmlobjects.gml.model.base.ResolvableAssociation;
+import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.gml.visitor.Visitable;
+import org.xmlobjects.model.Child;
 
 import java.util.*;
 
-public class ReferenceResolver {
+public class DefaultReferenceResolver implements ReferenceResolver {
     private ResolveMode mode = ResolveMode.ALL_OBJECTS;
 
-    private ReferenceResolver() {
+    private DefaultReferenceResolver() {
     }
 
-    public static ReferenceResolver newInstance() {
-        return new ReferenceResolver();
+    public static DefaultReferenceResolver newInstance() {
+        return new DefaultReferenceResolver();
     }
 
     public ResolveMode getResolveMode() {
         return mode;
     }
 
-    public ReferenceResolver withResolveMode(ResolveMode mode) {
+    public DefaultReferenceResolver withResolveMode(ResolveMode mode) {
         this.mode = mode;
         return this;
     }
 
-    public <T extends AbstractGML> T resolveReference(String reference, Visitable scope, Class<T> type) {
-        if (!mode.getType().isAssignableFrom(type)) {
+    @Override
+    public <T extends Child> T resolveReference(String reference, Visitable scope, Class<T> type) {
+        if (reference == null
+                || scope == null
+                || !mode.getType().isAssignableFrom(type)) {
             return null;
         }
 
@@ -70,11 +75,17 @@ public class ReferenceResolver {
         return type.cast(target[0]);
     }
 
-    public AbstractGML resolveReference(String reference, Visitable scope) {
+    @Override
+    public Child resolveReference(String reference, Visitable scope) {
         return resolveReference(reference, scope, mode.getType());
     }
 
+    @Override
     public void resolveReferences(Visitable scope) {
+        if (scope == null) {
+            return;
+        }
+
         Map<String, List<ResolvableAssociation<?>>> properties = new HashMap<>();
 
         new ObjectWalker() {
@@ -113,8 +124,10 @@ public class ReferenceResolver {
         }.visit(scope);
     }
 
-    public <T extends AbstractGML> Map<String, T> getObjectsById(Visitable scope, Class<T> type) {
-        if (!mode.getType().isAssignableFrom(type)) {
+    @Override
+    public <T extends Child> Map<String, T> getObjectsById(Visitable scope, Class<T> type) {
+        if (scope == null
+                || !mode.getType().isAssignableFrom(type)) {
             return Collections.emptyMap();
         }
 
@@ -134,7 +147,8 @@ public class ReferenceResolver {
         return targets;
     }
 
-    public Map<String, ? extends AbstractGML> getObjectsById(Visitable scope) {
+    @Override
+    public Map<String, ? extends Child> getObjectsById(Visitable scope) {
         return getObjectsById(scope, mode.getType());
     }
 

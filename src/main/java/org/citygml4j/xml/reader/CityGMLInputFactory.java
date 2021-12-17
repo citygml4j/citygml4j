@@ -20,11 +20,11 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.util.reference.ReferenceResolver;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
+import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.schema.SchemaHandlerException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -261,7 +261,7 @@ public class CityGMLInputFactory {
             factory.withSchemaHandler(context.getDefaultSchemaHandler());
 
         if (chunkOptions != null && idCreator == null)
-            idCreator = DefaultIdCreator.newInstance();
+            idCreator = DefaultIdCreator.getInstance();
 
         return this;
     }

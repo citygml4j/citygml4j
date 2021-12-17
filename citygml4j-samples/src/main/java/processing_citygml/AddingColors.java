@@ -27,23 +27,16 @@ import org.citygml4j.model.appearance.*;
 import org.citygml4j.model.construction.RoofSurface;
 import org.citygml4j.model.construction.WallSurface;
 import org.citygml4j.model.core.*;
-import org.citygml4j.util.reference.ReferenceResolver;
-import org.citygml4j.util.reference.ResolveMode;
 import org.citygml4j.visitor.ObjectWalker;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.citygml4j.xml.writer.CityGMLWriter;
-import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
-import org.xmlobjects.gml.model.geometry.primitives.AbstractSurface;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddingColors {
 
@@ -63,9 +56,6 @@ public class AddingColors {
             log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + cityModel.getId());
         }
 
-        ReferenceResolver resolver = ReferenceResolver.newInstance()
-                .withResolveMode(ResolveMode.GEOMETRIES_ONLY);
-
         log.print("Iterating through the city objects and assigning colors to their thematic surfaces");
         for (AbstractCityObjectProperty property : cityModel.getCityObjectMembers()) {
             AbstractCityObject cityObject = property.getObject();
@@ -84,42 +74,23 @@ public class AddingColors {
                 cityObject.accept(new ObjectWalker() {
                     @Override
                     public void visit(WallSurface wallSurface) {
-                        List<AbstractSurface> surfaces = collectSurfaces(wallSurface.getLod2MultiSurface().getObject());
-                        surfaces.forEach(s -> lightGrey.getTargets().add(new GeometryReference(s)));
+                        addTarget(lightGrey, wallSurface.getLod2MultiSurface());
                     }
 
                     @Override
                     public void visit(RoofSurface roofSurface) {
-                        List<AbstractSurface> surfaces = collectSurfaces(roofSurface.getLod2MultiSurface().getObject());
-                        surfaces.forEach(s -> red.getTargets().add(new GeometryReference(s)));
+                        addTarget(red, roofSurface.getLod2MultiSurface());
                     }
 
                     @Override
                     public void visit(AbstractThematicSurface thematicSurface) {
-                        List<AbstractSurface> surfaces = collectSurfaces(thematicSurface.getLod2MultiSurface().getObject());
-                        surfaces.forEach(s -> grey.getTargets().add(new GeometryReference(s)));
+                        addTarget(grey, thematicSurface.getLod2MultiSurface());
                     }
 
-                    private List<AbstractSurface> collectSurfaces(MultiSurface multiSurface) {
-                        List<AbstractSurface> surfaces = new ArrayList<>();
-                        multiSurface.accept(new ObjectWalker() {
-                            @Override
-                            public void visit(AbstractSurface surface) {
-                                surfaces.add(surface);
-                            }
-
-                            @Override
-                            public void visit(GeometryProperty<?> property) {
-                                if (property.getHref() != null) {
-                                    AbstractGeometry geometry = resolver.resolveReference(property.getHref(), cityObject, AbstractGeometry.class);
-                                    if (geometry != null)
-                                        geometry.accept(this);
-                                } else
-                                    super.visit(property);
-                            }
-                        });
-
-                        return surfaces;
+                    private void addTarget(X3DMaterial material, GeometryProperty<?> property) {
+                        if (property != null && property.getObject() != null) {
+                            material.getTargets().add(new GeometryReference(property.getObject()));
+                        }
                     }
                 });
 

@@ -29,7 +29,7 @@ import org.citygml4j.model.cityobjectgroup.Role;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
 import org.citygml4j.model.core.AbstractCityObject;
 import org.citygml4j.model.core.CityModel;
-import org.citygml4j.util.reference.ReferenceResolver;
+import org.citygml4j.util.reference.DefaultReferenceResolver;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
@@ -53,7 +53,7 @@ public class ResolvingReferences {
             cityModel = (CityModel) reader.next();
         }
 
-        ReferenceResolver resolver = ReferenceResolver.newInstance();
+        DefaultReferenceResolver resolver = DefaultReferenceResolver.newInstance();
 
         log.print("Retrieving the CityObjectGroup feature with gml:id UUID_f488e8ce-b953-4b35-a3fe-a394fb203868");
         CityObjectGroup group = resolver.resolveReference("UUID_f488e8ce-b953-4b35-a3fe-a394fb203868", cityModel, CityObjectGroup.class);
