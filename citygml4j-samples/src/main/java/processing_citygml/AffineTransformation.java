@@ -108,7 +108,7 @@ public class AffineTransformation {
         Matrix transform = move.times(rotate.times(scale.times(center)));
 
         log.print("Scaling, rotating and translating the geometry of the copied building");
-        IdCreator idCreator = DefaultIdCreator.newInstance();
+        IdCreator idCreator = DefaultIdCreator.getInstance();
         copy.accept(new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {

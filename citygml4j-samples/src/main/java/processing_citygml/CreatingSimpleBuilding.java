@@ -56,7 +56,7 @@ public class CreatingSimpleBuilding {
 
         CityGMLContext context = CityGMLContext.newInstance();
 
-        idCreator = DefaultIdCreator.newInstance();
+        idCreator = DefaultIdCreator.getInstance();
         factory = GeometryFactory.newInstance()
                 .withIdCreator(idCreator);
 
