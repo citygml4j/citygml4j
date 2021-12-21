@@ -32,7 +32,7 @@ public class ParameterizedTexture extends AbstractTexture {
 
     public List<TextureAssociationProperty> getTextureParameterizations() {
         if (textureParameterizations == null)
-            textureParameterizations = new ArrayList<>();
+            textureParameterizations = new ChildList<>(this);
 
         return textureParameterizations;
     }
