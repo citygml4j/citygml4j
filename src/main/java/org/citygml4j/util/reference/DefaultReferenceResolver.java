@@ -32,6 +32,7 @@ import java.util.*;
 
 public class DefaultReferenceResolver implements ReferenceResolver {
     private ResolveMode mode = ResolveMode.ALL_OBJECTS;
+    private boolean storeRefereesWithReferencedObject;
 
     private DefaultReferenceResolver() {
     }
@@ -46,6 +47,15 @@ public class DefaultReferenceResolver implements ReferenceResolver {
 
     public DefaultReferenceResolver withResolveMode(ResolveMode mode) {
         this.mode = mode;
+        return this;
+    }
+
+    public boolean isStoreRefereesWithReferencedObject() {
+        return storeRefereesWithReferencedObject;
+    }
+
+    public DefaultReferenceResolver storeRefereesWithReferencedObject(boolean storeRefereesWithReferencedObject) {
+        this.storeRefereesWithReferencedObject = storeRefereesWithReferencedObject;
         return this;
     }
 
@@ -115,6 +125,12 @@ public class DefaultReferenceResolver implements ReferenceResolver {
                     if (candidates != null) {
                         for (ResolvableAssociation<?> candidate : candidates) {
                             candidate.setReferencedObjectIfValid(object, false);
+
+                            if (storeRefereesWithReferencedObject) {
+                                object.getLocalProperties()
+                                        .getOrSet(Referees.PROPERTY_NAME, Referees.class, Referees::new)
+                                        .add(candidate.getParent());
+                            }
                         }
                     }
                 }
