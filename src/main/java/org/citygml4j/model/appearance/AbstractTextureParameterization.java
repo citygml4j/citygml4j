@@ -26,6 +26,10 @@ import org.xmlobjects.gml.model.common.LocalProperties;
 public abstract class AbstractTextureParameterization extends GMLObject implements CityGMLObject {
     private LocalProperties localProperties;
 
+    public boolean hasLocalProperties() {
+        return localProperties != null;
+    }
+
     public LocalProperties getLocalProperties() {
         if (localProperties == null)
             localProperties = new LocalProperties();
