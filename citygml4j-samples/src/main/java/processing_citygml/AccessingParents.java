@@ -53,7 +53,7 @@ public class AccessingParents {
         DefaultReferenceResolver resolver = DefaultReferenceResolver.newInstance();
 
         log.print("Searching the city model for an object with gml:id UUID_9c93de74-b75a-439a-8c95-938105c66a64");
-        AbstractGeometry geometry = resolver.resolveReference("UUID_9c93de74-b75a-439a-8c95-938105c66a64", feature, AbstractGeometry.class);
+        AbstractGeometry geometry = resolver.resolveReference("UUID_9c93de74-b75a-439a-8c95-938105c66a64", AbstractGeometry.class, feature);
 
         log.print("Found a " + geometry.getClass().getSimpleName() + " object matching this gml:id");
         log.print("Accessing the parents of the object");

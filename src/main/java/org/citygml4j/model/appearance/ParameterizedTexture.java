@@ -23,7 +23,6 @@ import org.citygml4j.model.deprecated.appearance.DeprecatedPropertiesOfParameter
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.model.ChildList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ParameterizedTexture extends AbstractTexture {

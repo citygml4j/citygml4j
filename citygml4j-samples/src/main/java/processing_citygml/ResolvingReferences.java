@@ -56,7 +56,7 @@ public class ResolvingReferences {
         DefaultReferenceResolver resolver = DefaultReferenceResolver.newInstance();
 
         log.print("Retrieving the CityObjectGroup feature with gml:id UUID_f488e8ce-b953-4b35-a3fe-a394fb203868");
-        CityObjectGroup group = resolver.resolveReference("UUID_f488e8ce-b953-4b35-a3fe-a394fb203868", cityModel, CityObjectGroup.class);
+        CityObjectGroup group = resolver.resolveReference("UUID_f488e8ce-b953-4b35-a3fe-a394fb203868", CityObjectGroup.class, cityModel);
 
         log.print("Step 1: Iterating through the group members and resolving the references one by one");
         for (RoleProperty property : group.getGroupMembers()) {
@@ -65,7 +65,7 @@ public class ResolvingReferences {
             if (role.getGroupMember() != null && role.getGroupMember().getHref() != null) {
                 log.print("Resolving the group member given by the XLink " + role.getGroupMember().getHref());
 
-                AbstractCityObject member = resolver.resolveReference(role.getGroupMember().getHref(), cityModel, AbstractCityObject.class);
+                AbstractCityObject member = resolver.resolveReference(role.getGroupMember().getHref(), AbstractCityObject.class, cityModel);
                 log.print("- The referenced group member is a " + member.getClass().getSimpleName() + " with gml:id " + member.getId());
             }
         }
@@ -74,7 +74,7 @@ public class ResolvingReferences {
         resolver.resolveReferences(cityModel);
 
         log.print("Retrieving the X3DMaterial feature with gml:id UUID_2e70b948-c8db-4bd2-a99e-1d99a352cabc");
-        X3DMaterial material = resolver.resolveReference("UUID_2e70b948-c8db-4bd2-a99e-1d99a352cabc", cityModel, X3DMaterial.class);
+        X3DMaterial material = resolver.resolveReference("UUID_2e70b948-c8db-4bd2-a99e-1d99a352cabc", X3DMaterial.class, cityModel);
 
         log.print("Iterating through the targets of the X3DMaterial and printing the referenced surface geometries");
         for (GeometryReference target : material.getTargets()) {

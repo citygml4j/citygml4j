@@ -60,9 +60,9 @@ public class DefaultReferenceResolver implements ReferenceResolver {
     }
 
     @Override
-    public <T extends Child> T resolveReference(String reference, Visitable scope, Class<T> type) {
+    public <T extends Child> T resolveReference(String reference, Class<T> type, Collection<Visitable> scopes) {
         if (reference == null
-                || scope == null
+                || scopes == null
                 || !mode.getType().isAssignableFrom(type)) {
             return null;
         }
@@ -70,7 +70,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
         String id = getIdFromReference(reference);
         AbstractGML[] target = new AbstractGML[1];
 
-        new ObjectWalker() {
+        ObjectWalker walker = new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (type.isInstance(object) && id.equals(object.getId())) {
@@ -80,25 +80,39 @@ public class DefaultReferenceResolver implements ReferenceResolver {
                     super.visit(object);
                 }
             }
-        }.visit(scope);
+        };
+
+        for (Visitable scope : scopes) {
+            walker.visit(scope);
+        }
 
         return type.cast(target[0]);
     }
 
     @Override
-    public Child resolveReference(String reference, Visitable scope) {
-        return resolveReference(reference, scope, mode.getType());
+    public <T extends Child> T resolveReference(String reference, Class<T> type, Visitable... scopes) {
+        return scopes != null ? resolveReference(reference, type, Arrays.asList(scopes)) : null;
     }
 
     @Override
-    public void resolveReferences(Visitable scope) {
-        if (scope == null) {
+    public Child resolveReference(String reference, Collection<Visitable> scopes) {
+        return resolveReference(reference, mode.getType(), scopes);
+    }
+
+    @Override
+    public Child resolveReference(String reference, Visitable... scopes) {
+        return resolveReference(reference, mode.getType(), scopes);
+    }
+
+    @Override
+    public void resolveReferences(Collection<Visitable> scopes) {
+        if (scopes == null) {
             return;
         }
 
         Map<String, List<ResolvableAssociation<?>>> properties = new HashMap<>();
 
-        new ObjectWalker() {
+        ObjectWalker walker = new ObjectWalker() {
             @Override
             public void visit(AbstractInlineOrByReferenceProperty<?> property) {
                 collect(property, property.getHref());
@@ -115,9 +129,13 @@ public class DefaultReferenceResolver implements ReferenceResolver {
                     properties.computeIfAbsent(getIdFromReference(reference), v -> new ArrayList<>()).add(association);
                 }
             }
-        }.visit(scope);
+        };
 
-        new ObjectWalker() {
+        for (Visitable scope : scopes) {
+            walker.visit(scope);
+        }
+
+        walker = new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (object.getId() != null && mode.getType().isInstance(object)) {
@@ -137,19 +155,30 @@ public class DefaultReferenceResolver implements ReferenceResolver {
 
                 super.visit(object);
             }
-        }.visit(scope);
+        };
+
+        for (Visitable scope : scopes) {
+            walker.visit(scope);
+        }
     }
 
     @Override
-    public <T extends Child> Map<String, T> getObjectsById(Visitable scope, Class<T> type) {
-        if (scope == null
+    public void resolveReferences(Visitable... scopes) {
+        if (scopes != null) {
+            resolveReferences(Arrays.asList(scopes));
+        }
+    }
+
+    @Override
+    public <T extends Child> Map<String, T> getObjectsById(Class<T> type, Collection<Visitable> scopes) {
+        if (scopes == null
                 || !mode.getType().isAssignableFrom(type)) {
             return Collections.emptyMap();
         }
 
         Map<String, T> targets = new HashMap<>();
 
-        new ObjectWalker() {
+        ObjectWalker walker = new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
                 if (object.getId() != null && type.isInstance(object)) {
@@ -158,14 +187,74 @@ public class DefaultReferenceResolver implements ReferenceResolver {
 
                 super.visit(object);
             }
-        }.visit(scope);
+        };
+
+        for (Visitable scope : scopes) {
+            walker.visit(scope);
+        }
 
         return targets;
     }
 
     @Override
-    public Map<String, ? extends Child> getObjectsById(Visitable scope) {
-        return getObjectsById(scope, mode.getType());
+    public <T extends Child> Map<String, T> getObjectsById(Class<T> type, Visitable... scopes) {
+        return scopes != null ? getObjectsById(type, Arrays.asList(scopes)) : null;
+    }
+
+    @Override
+    public Map<String, ? extends Child> getObjectsById(Collection<Visitable> scopes) {
+        return getObjectsById(mode.getType(), scopes);
+    }
+
+    @Override
+    public Map<String, ? extends Child> getObjectsById(Visitable... scopes) {
+        return getObjectsById(mode.getType(), scopes);
+    }
+
+    @Override
+    public void removeResolvedReferences(Collection<Visitable> scopes) {
+        if (scopes == null) {
+            return;
+        }
+
+        ObjectWalker walker = new ObjectWalker() {
+            @Override
+            public void visit(AbstractGML object) {
+                if (storeRefereesWithReferencedObject && object.hasLocalProperties()) {
+                    object.getLocalProperties().remove(Referees.PROPERTY_NAME);
+                }
+
+                super.visit(object);
+            }
+
+            @Override
+            public void visit(AbstractInlineOrByReferenceProperty<?> property) {
+                unsetReferencedObject(property);
+                super.visit(property);
+            }
+
+            @Override
+            public void visit(AbstractReference<?> reference) {
+                unsetReferencedObject(reference);
+            }
+
+            private void unsetReferencedObject(ResolvableAssociation<?> association) {
+                if (association.isSetReferencedObject()) {
+                    association.setReferencedObject(null, false);
+                }
+            }
+        };
+
+        for (Visitable scope : scopes) {
+            walker.visit(scope);
+        }
+    }
+
+    @Override
+    public void removeResolvedReferences(Visitable... scopes) {
+        if (scopes != null) {
+            removeResolvedReferences(Arrays.asList(scopes));
+        }
     }
 
     public String getIdFromReference(String reference) {
