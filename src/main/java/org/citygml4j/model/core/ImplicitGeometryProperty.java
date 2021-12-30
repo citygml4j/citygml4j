@@ -31,6 +31,10 @@ public class ImplicitGeometryProperty extends AbstractProperty<ImplicitGeometry>
         super(object);
     }
 
+    public ImplicitGeometryProperty(String href) {
+        super(href);
+    }
+
     @Override
     public Class<ImplicitGeometry> getTargetType() {
         return ImplicitGeometry.class;
