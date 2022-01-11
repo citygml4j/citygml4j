@@ -27,8 +27,7 @@ import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.*;
-import org.xmlobjects.gml.model.geometry.primitives.AbstractSolid;
-import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
+import org.xmlobjects.gml.model.geometry.primitives.*;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 
@@ -132,13 +131,21 @@ public class CityGMLBuilderHelper {
     public static boolean assignDefaultGeometry(AbstractSpace object, int lod, GeometryProperty<?> property) {
         if (property != null && property.getObject() != null) {
             AbstractGeometry geometry = property.getObject();
-            if (geometry instanceof AbstractSolid)
+            if (geometry instanceof AbstractSolid) {
                 return object.setSolid(lod, new SolidProperty((AbstractSolid) geometry));
-            else if (geometry instanceof MultiSurface)
+            } else if (geometry instanceof MultiSurface) {
                 return object.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
-            else if (geometry instanceof MultiCurve)
+            } else if (geometry instanceof AbstractSurface) {
+                MultiSurface multiSurface = new MultiSurface();
+                multiSurface.getSurfaceMember().add(new SurfaceProperty((AbstractSurface) geometry));
+                return object.setMultiSurface(lod, new MultiSurfaceProperty(multiSurface));
+            } else if (geometry instanceof MultiCurve) {
                 return object.setMultiCurve(lod, new MultiCurveProperty((MultiCurve) geometry));
-            else if (geometry instanceof MultiSolid) {
+            } else if (geometry instanceof AbstractCurve) {
+                MultiCurve multiCurve = new MultiCurve();
+                multiCurve.getCurveMember().add(new CurveProperty((AbstractCurve) geometry));
+                return object.setMultiCurve(lod, new MultiCurveProperty(multiCurve));
+            } else if (geometry instanceof MultiSolid) {
                 MultiSolid multiSolid = (MultiSolid) geometry;
 
                 List<SolidProperty> properties = new ArrayList<>(multiSolid.getSolidMember());
@@ -147,8 +154,9 @@ public class CityGMLBuilderHelper {
                         properties.add(new SolidProperty(solid));
                 }
 
-                if (properties.size() == 1)
+                if (properties.size() == 1) {
                     return object.setSolid(lod, properties.get(0));
+                }
             }
         }
 
