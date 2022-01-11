@@ -24,7 +24,7 @@ import org.xmlobjects.model.Child;
 import java.util.*;
 
 public class Referees {
-    public static final String PROPERTY_NAME = "org.citygml4j.referees";
+    public static final String PROPERTY_NAME = Referees.class.getName();
     private final Map<Child, Boolean> referees = new IdentityHashMap<>();
 
     public Referees() {
