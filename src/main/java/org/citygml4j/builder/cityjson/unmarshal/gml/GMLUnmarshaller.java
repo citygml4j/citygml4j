@@ -21,19 +21,7 @@ package org.citygml4j.builder.cityjson.unmarshal.gml;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.cityjson.appearance.AbstractTextureObject;
-import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.cityjson.geometry.AbstractSemanticsObject;
-import org.citygml4j.cityjson.geometry.AbstractSolidCollectionType;
-import org.citygml4j.cityjson.geometry.AbstractSurfaceCollectionType;
-import org.citygml4j.cityjson.geometry.CompositeSolidType;
-import org.citygml4j.cityjson.geometry.CompositeSurfaceType;
-import org.citygml4j.cityjson.geometry.MultiLineStringType;
-import org.citygml4j.cityjson.geometry.MultiPointType;
-import org.citygml4j.cityjson.geometry.MultiSolidType;
-import org.citygml4j.cityjson.geometry.MultiSurfaceType;
-import org.citygml4j.cityjson.geometry.SemanticsType;
-import org.citygml4j.cityjson.geometry.SolidType;
-import org.citygml4j.cityjson.geometry.TransformType;
+import org.citygml4j.cityjson.geometry.*;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.aggregates.MultiCurve;
@@ -43,34 +31,12 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.complexes.CompositeCurve;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSolid;
 import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
-import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
-import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
-import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
-import org.citygml4j.model.gml.geometry.primitives.DirectPositionList;
-import org.citygml4j.model.gml.geometry.primitives.Exterior;
-import org.citygml4j.model.gml.geometry.primitives.Interior;
-import org.citygml4j.model.gml.geometry.primitives.LineString;
-import org.citygml4j.model.gml.geometry.primitives.LinearRing;
-import org.citygml4j.model.gml.geometry.primitives.Point;
-import org.citygml4j.model.gml.geometry.primitives.PointProperty;
-import org.citygml4j.model.gml.geometry.primitives.Polygon;
-import org.citygml4j.model.gml.geometry.primitives.Solid;
-import org.citygml4j.model.gml.geometry.primitives.SolidProperty;
-import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
-import org.citygml4j.model.gml.geometry.primitives.Triangle;
-import org.citygml4j.model.gml.geometry.primitives.TrianglePatchArrayProperty;
-import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
+import org.citygml4j.model.gml.geometry.primitives.*;
 import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GMLUnmarshaller {
@@ -461,6 +427,10 @@ public class GMLUnmarshaller {
 	}
 
 	private void unmarshalSemantics(AbstractSemanticsObject semanticsObject, List<AbstractSurface> surfaces, Number lod, AbstractCityObject cityObject) {
+		if (lod.intValue() < 2) {
+			return;
+		}
+
 		Map<Integer, List<AbstractSurface>> semantics = collectSurfaces(semanticsObject.flatValues(), surfaces);
 
 		// remove invalid parent pointers and parent cycles
