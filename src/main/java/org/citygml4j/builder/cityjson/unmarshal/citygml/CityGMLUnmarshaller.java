@@ -33,18 +33,7 @@ import org.citygml4j.builder.cityjson.unmarshal.citygml.tunnel.TunnelUnmarshalle
 import org.citygml4j.builder.cityjson.unmarshal.citygml.vegetation.VegetationUnmarshaller;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.waterbody.WaterBodyUnmarshaller;
 import org.citygml4j.cityjson.CityJSON;
-import org.citygml4j.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.cityjson.feature.AbstractTransportationComplexType;
-import org.citygml4j.cityjson.feature.AbstractVegetationObjectType;
-import org.citygml4j.cityjson.feature.BridgeType;
-import org.citygml4j.cityjson.feature.BuildingType;
-import org.citygml4j.cityjson.feature.CityFurnitureType;
-import org.citygml4j.cityjson.feature.CityObjectGroupType;
-import org.citygml4j.cityjson.feature.GenericCityObjectType;
-import org.citygml4j.cityjson.feature.LandUseType;
-import org.citygml4j.cityjson.feature.TINReliefType;
-import org.citygml4j.cityjson.feature.TunnelType;
-import org.citygml4j.cityjson.feature.WaterBodyType;
+import org.citygml4j.cityjson.feature.*;
 import org.citygml4j.cityjson.geometry.AbstractSemanticsObject;
 import org.citygml4j.cityjson.geometry.InternalSemanticsType;
 import org.citygml4j.cityjson.geometry.SemanticsType;
@@ -136,8 +125,13 @@ public class CityGMLUnmarshaller {
 				continue;
 
 			List<AbstractSurface> tmp = surfaces.get(index);
-			if (tmp == null)
-				tmp = Collections.emptyList();
+			if (tmp == null) {
+				if (semanticsType.isSetChildren()) {
+					tmp = Collections.emptyList();
+				} else {
+					continue;
+				}
+			}
 
 			AbstractCityObject parent = null;
 			if (semanticsType.isSetParent())
