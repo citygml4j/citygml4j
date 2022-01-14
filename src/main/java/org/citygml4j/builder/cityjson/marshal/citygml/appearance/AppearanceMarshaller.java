@@ -123,7 +123,9 @@ public class AppearanceMarshaller {
 				json.getAppearanceResolver().resolveGlobalAppearance(geometry);
 			
 			if (geometry.hasLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA)) {
-				materials = new HashMap<>();
+				if (materials == null) {
+					materials = new HashMap<>();
+				}
 				
 				List<SurfaceDataInfo> surfaceDatas = (List<SurfaceDataInfo>)geometry.getLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA);
 				for (SurfaceDataInfo surfaceData : surfaceDatas) {
