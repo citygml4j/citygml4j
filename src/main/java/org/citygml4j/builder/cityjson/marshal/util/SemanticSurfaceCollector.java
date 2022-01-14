@@ -162,11 +162,6 @@ public class SemanticSurfaceCollector {
 		}
 
 		@Override
-		public void visit(CompositeSurface surface) {
-			collect(surface);
-		}
-
-		@Override
 		public void visit(OrientableSurface surface) {
 			collect(surface);
 		}
