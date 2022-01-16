@@ -37,6 +37,9 @@ public class ADERegistry {
     private final Map<CityGMLVersion, Map<String, ADEModule>> modules = new ConcurrentHashMap<>();
     private final Map<CityGMLContext, Boolean> listeners = Collections.synchronizedMap(new WeakHashMap<>());
 
+    private ADERegistry() {
+    }
+
     public static synchronized ADERegistry getInstance() {
         if (instance == null)
             instance = new ADERegistry();

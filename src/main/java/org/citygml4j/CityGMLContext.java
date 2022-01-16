@@ -51,15 +51,7 @@ public class CityGMLContext {
 
             // unload ADE objects available from the class loader
             // but not registered with the ADE registry
-            Set<String> adeNamespaces = registry.getADENamespaces();
-            for (String namespaceURI : xmlObjects.getSerializableNamespaces()) {
-                if (!CityGMLModules.isCityGMLNamespace(namespaceURI)
-                        && !CityGMLModules.isGMLNamespace(namespaceURI)
-                        && !CityGMLModules.isXALNamespace(namespaceURI)
-                        && !adeNamespaces.contains(namespaceURI)) {
-                    unloadADEObjects(namespaceURI);
-                }
-            }
+            removeUnregisteredADEObjects();
 
             registry.addListener(this);
         } catch (XMLObjectsException | ADEException e) {
@@ -110,10 +102,23 @@ public class CityGMLContext {
     private void loadADEObjects(ClassLoader classLoader) throws XMLObjectsException {
         xmlObjects.loadBuilders(classLoader, false);
         xmlObjects.loadSerializers(classLoader, false);
+        removeUnregisteredADEObjects();
     }
 
     private void unloadADEObjects(String namespaceURI) {
         xmlObjects.unloadBuilders(namespaceURI);
         xmlObjects.unloadSerializers(namespaceURI);
+    }
+
+    private void removeUnregisteredADEObjects() {
+        Set<String> adeNamespaces = ADERegistry.getInstance().getADENamespaces();
+        for (String namespaceURI : xmlObjects.getSerializableNamespaces()) {
+            if (!CityGMLModules.isCityGMLNamespace(namespaceURI)
+                    && !CityGMLModules.isGMLNamespace(namespaceURI)
+                    && !CityGMLModules.isXALNamespace(namespaceURI)
+                    && !adeNamespaces.contains(namespaceURI)) {
+                unloadADEObjects(namespaceURI);
+            }
+        }
     }
 }
