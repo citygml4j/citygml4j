@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.cityobjectgroup;
 
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.*;
@@ -44,7 +45,8 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
         return boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface;
+                || boundary instanceof GenericThematicSurface
+                || boundary instanceof ADEObject;
     }
 
     @Override

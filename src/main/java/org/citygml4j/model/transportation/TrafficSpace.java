@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.transportation;
 
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.*;
 import org.citygml4j.model.generics.GenericThematicSurface;
@@ -53,7 +54,8 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
         return boundary instanceof TrafficArea
                 || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface;
+                || boundary instanceof GenericThematicSurface
+                || boundary instanceof ADEObject;
     }
 
     @Override

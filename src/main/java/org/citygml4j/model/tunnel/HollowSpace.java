@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.tunnel;
 
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
@@ -47,7 +48,8 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
         return boundary instanceof AbstractConstructionSurface
                 || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface;
+                || boundary instanceof GenericThematicSurface
+                || boundary instanceof ADEObject;
     }
 
     @Override

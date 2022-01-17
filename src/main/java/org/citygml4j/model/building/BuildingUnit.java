@@ -19,8 +19,12 @@
 
 package org.citygml4j.model.building;
 
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
+import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AddressProperty;
+import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -32,6 +36,13 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
     private List<StoreyProperty> storeys;
     private List<AddressProperty> addresses;
     private List<ADEOfBuildingUnit> adeOfBuildingUnit;
+
+    @Override
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary instanceof ClosureSurface
+                || boundary instanceof GenericThematicSurface
+                || boundary instanceof ADEObject;
+    }
 
     public List<StoreyProperty> getStoreys() {
         if (storeys == null)

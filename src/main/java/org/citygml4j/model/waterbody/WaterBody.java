@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.waterbody;
 
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
@@ -45,7 +46,8 @@ public class WaterBody extends AbstractOccupiedSpace implements TopLevelFeature,
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
         return boundary instanceof AbstractWaterBoundarySurface
                 || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface;
+                || boundary instanceof GenericThematicSurface
+                || boundary instanceof ADEObject;
     }
 
     @Override

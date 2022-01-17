@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.generics;
 
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
@@ -42,7 +43,8 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements T
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
         return boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface;
+                || boundary instanceof GenericThematicSurface
+                || boundary instanceof ADEObject;
     }
 
     @Override

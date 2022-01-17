@@ -19,6 +19,7 @@
 
 package org.citygml4j.model.construction;
 
+import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
@@ -38,7 +39,8 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
         return boundary instanceof AbstractConstructionSurface
                 || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface;
+                || boundary instanceof GenericThematicSurface
+                || boundary instanceof ADEObject;
     }
 
     public RelationToConstruction getRelationToConstruction() {

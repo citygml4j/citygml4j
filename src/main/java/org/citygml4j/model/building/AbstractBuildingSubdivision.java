@@ -20,13 +20,9 @@
 package org.citygml4j.model.building;
 
 import org.citygml4j.model.common.GeometryInfo;
-import org.citygml4j.model.construction.AbstractConstructionSurface;
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
-import org.citygml4j.model.generics.GenericThematicSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -45,13 +41,6 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     private List<BuildingInstallationProperty> buildingInstallations;
     private List<BuildingRoomProperty> buildingRooms;
     private List<ADEOfAbstractBuildingSubdivision> adeOfAbstractBuildingSubdivision;
-
-    @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof AbstractConstructionSurface
-                || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface;
-    }
 
     @Override
     public Code getClassifier() {
