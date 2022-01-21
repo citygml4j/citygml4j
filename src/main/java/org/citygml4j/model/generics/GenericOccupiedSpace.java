@@ -39,7 +39,6 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements TopLe
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfGenericOccupiedSpace> adeOfGenericOccupiedSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -94,17 +93,6 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements TopLe
         return new DeprecatedPropertiesOfGenericOccupiedSpace();
     }
 
-    public List<ADEOfGenericOccupiedSpace> getADEOfGenericOccupiedSpace() {
-        if (adeOfGenericOccupiedSpace == null)
-            adeOfGenericOccupiedSpace = new ChildList<>(this);
-
-        return adeOfGenericOccupiedSpace;
-    }
-
-    public void setADEOfGenericOccupiedSpace(List<ADEOfGenericOccupiedSpace> adeOfGenericOccupiedSpace) {
-        this.adeOfGenericOccupiedSpace = asChild(adeOfGenericOccupiedSpace);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -133,11 +121,6 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements TopLe
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfGenericOccupiedSpace != null) {
-            for (ADEOfGenericOccupiedSpace container : adeOfGenericOccupiedSpace)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -154,11 +137,6 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements TopLe
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(0, properties.getLod0ImplicitRepresentation());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfGenericOccupiedSpace != null) {
-            for (ADEOfGenericOccupiedSpace container : adeOfGenericOccupiedSpace)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

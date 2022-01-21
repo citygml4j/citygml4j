@@ -19,13 +19,10 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -35,7 +32,6 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
     private List<Code> functions;
     private List<Code> usages;
     private Code surfaceMaterial;
-    private List<ADEOfTrafficArea> adeOfTrafficArea;
 
     @Override
     public Code getClassifier() {
@@ -79,37 +75,6 @@ public class TrafficArea extends AbstractThematicSurface implements StandardObje
 
     public void setSurfaceMaterial(Code surfaceMaterial) {
         this.surfaceMaterial = asChild(surfaceMaterial);
-    }
-
-    public List<ADEOfTrafficArea> getADEOfTrafficArea() {
-        if (adeOfTrafficArea == null)
-            adeOfTrafficArea = new ChildList<>(this);
-
-        return adeOfTrafficArea;
-    }
-
-    public void setADEOfTrafficArea(List<ADEOfTrafficArea> adeOfTrafficArea) {
-        this.adeOfTrafficArea = asChild(adeOfTrafficArea);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfTrafficArea != null) {
-            for (ADEOfTrafficArea container : adeOfTrafficArea)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfTrafficArea != null) {
-            for (ADEOfTrafficArea container : adeOfTrafficArea)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 
     @Override

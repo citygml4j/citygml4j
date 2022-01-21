@@ -40,7 +40,6 @@ public class WaterBody extends AbstractOccupiedSpace implements TopLevelFeature,
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfWaterBody> adeOfWaterBody;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -96,17 +95,6 @@ public class WaterBody extends AbstractOccupiedSpace implements TopLevelFeature,
         return new DeprecatedPropertiesOfWaterBody();
     }
 
-    public List<ADEOfWaterBody> getADEOfWaterBody() {
-        if (adeOfWaterBody == null)
-            adeOfWaterBody = new ChildList<>(this);
-
-        return adeOfWaterBody;
-    }
-
-    public void setADEOfWaterBody(List<ADEOfWaterBody> adeOfWaterBody) {
-        this.adeOfWaterBody = asChild(adeOfWaterBody);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -123,11 +111,6 @@ public class WaterBody extends AbstractOccupiedSpace implements TopLevelFeature,
             if (properties.getLod4Solid() != null && properties.getLod4Solid().getObject() != null)
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
-
-        if (adeOfWaterBody != null) {
-            for (ADEOfWaterBody container : adeOfWaterBody)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -140,11 +123,6 @@ public class WaterBody extends AbstractOccupiedSpace implements TopLevelFeature,
             geometryInfo.addGeometry(1, properties.getLod1MultiCurve());
             geometryInfo.addGeometry(1, properties.getLod1MultiSurface());
             geometryInfo.addGeometry(4, properties.getLod4Solid());
-        }
-
-        if (adeOfWaterBody != null) {
-            for (ADEOfWaterBody container : adeOfWaterBody)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

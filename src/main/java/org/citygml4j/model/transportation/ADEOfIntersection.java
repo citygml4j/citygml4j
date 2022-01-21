@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfIntersection extends ADEContainer {
+public abstract class ADEOfIntersection extends ADEProperty {
+
+    @Override
+    public final Class<Intersection> getTargetType() {
+        return Intersection.class;
+    }
 }

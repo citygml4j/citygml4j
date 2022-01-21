@@ -40,7 +40,6 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     private List<Code> usages;
     private List<RoleProperty> groupMembers;
     private AbstractCityObjectReference groupParent;
-    private List<ADEOfCityObjectGroup> adeOfCityObjectGroup;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -114,17 +113,6 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
         return new DeprecatedPropertiesOfCityObjectGroup();
     }
 
-    public List<ADEOfCityObjectGroup> getADEOfCityObjectGroup() {
-        if (adeOfCityObjectGroup == null)
-            adeOfCityObjectGroup = new ChildList<>(this);
-
-        return adeOfCityObjectGroup;
-    }
-
-    public void setADEOfCityObjectGroup(List<ADEOfCityObjectGroup> adeOfCityObjectGroup) {
-        this.adeOfCityObjectGroup = asChild(adeOfCityObjectGroup);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -140,11 +128,6 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
             if (properties.getGeometry() != null && properties.getGeometry().getObject() != null)
                 envelope.include(properties.getGeometry().getObject().computeEnvelope());
         }
-
-        if (adeOfCityObjectGroup != null) {
-            for (ADEOfCityObjectGroup container : adeOfCityObjectGroup)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -155,11 +138,6 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
             DeprecatedPropertiesOfCityObjectGroup properties = getDeprecatedProperties();
 
             geometryInfo.addGeometry(properties.getGeometry());
-        }
-
-        if (adeOfCityObjectGroup != null) {
-            for (ADEOfCityObjectGroup container : adeOfCityObjectGroup)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

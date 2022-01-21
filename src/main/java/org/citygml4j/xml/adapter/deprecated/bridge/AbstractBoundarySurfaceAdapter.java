@@ -76,8 +76,7 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(),
-                GenericADEOfAbstractThematicSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractThematicSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -99,11 +98,11 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
             for (AbstractFillingSurfaceProperty property : ((AbstractConstructionSurface) object).getFillingSurfaces())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractConstructionSurface container : ((AbstractConstructionSurface) object).getADEOfAbstractConstructionSurface())
-                ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+            for (ADEOfAbstractConstructionSurface property : object.getADEProperties(ADEOfAbstractConstructionSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
         }
 
-        for (ADEOfAbstractThematicSurface container : object.getADEOfAbstractThematicSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

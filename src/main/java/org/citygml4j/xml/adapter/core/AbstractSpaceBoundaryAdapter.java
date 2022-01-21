@@ -43,7 +43,7 @@ public abstract class AbstractSpaceBoundaryAdapter<T extends AbstractSpaceBounda
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractSpaceBoundary".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractSpaceBoundary.class, object.getADEOfAbstractSpaceBoundary(), GenericADEOfAbstractSpaceBoundary::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractSpaceBoundary::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -54,8 +54,8 @@ public abstract class AbstractSpaceBoundaryAdapter<T extends AbstractSpaceBounda
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractSpaceBoundary container : object.getADEOfAbstractSpaceBoundary())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractSpaceBoundary"), container, namespaces, writer);
+            for (ADEOfAbstractSpaceBoundary property : object.getADEProperties(ADEOfAbstractSpaceBoundary.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractSpaceBoundary"), property, namespaces, writer);
         }
     }
 }

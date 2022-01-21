@@ -70,7 +70,7 @@ public abstract class AbstractBuildingSubdivisionAdapter<T extends AbstractBuild
                     object.getBuildingRooms().add(reader.getObjectUsingBuilder(BuildingRoomPropertyAdapter.class));
                     return;
                 case "adeOfAbstractBuildingSubdivision":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBuildingSubdivision.class, object.getADEOfAbstractBuildingSubdivision(), GenericADEOfAbstractBuildingSubdivision::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractBuildingSubdivision::of, reader);
                     return;
             }
         }
@@ -102,7 +102,7 @@ public abstract class AbstractBuildingSubdivisionAdapter<T extends AbstractBuild
         for (BuildingRoomProperty property : object.getBuildingRooms())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractBuildingSubdivision container : object.getADEOfAbstractBuildingSubdivision())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuildingSubdivision"), container, namespaces, writer);
+        for (ADEOfAbstractBuildingSubdivision property : object.getADEProperties(ADEOfAbstractBuildingSubdivision.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuildingSubdivision"), property, namespaces, writer);
     }
 }

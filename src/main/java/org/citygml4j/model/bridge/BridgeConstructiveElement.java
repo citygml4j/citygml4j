@@ -35,7 +35,6 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfBridgeConstructiveElement> adeOfBridgeConstructiveElement;
 
     @Override
     public Code getClassifier() {
@@ -83,17 +82,6 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
         return new DeprecatedPropertiesOfBridgeConstructiveElement();
     }
 
-    public List<ADEOfBridgeConstructiveElement> getADEOfBridgeConstructiveElement() {
-        if (adeOfBridgeConstructiveElement == null)
-            adeOfBridgeConstructiveElement = new ChildList<>(this);
-
-        return adeOfBridgeConstructiveElement;
-    }
-
-    public void setADEOfBridgeConstructiveElement(List<ADEOfBridgeConstructiveElement> adeOfBridgeConstructiveElement) {
-        this.adeOfBridgeConstructiveElement = asChild(adeOfBridgeConstructiveElement);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -116,11 +104,6 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfBridgeConstructiveElement != null) {
-            for (ADEOfBridgeConstructiveElement container : adeOfBridgeConstructiveElement)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -135,11 +118,6 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
             geometryInfo.addGeometry(3, properties.getLod3Geometry());
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfBridgeConstructiveElement != null) {
-            for (ADEOfBridgeConstructiveElement container : adeOfBridgeConstructiveElement)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

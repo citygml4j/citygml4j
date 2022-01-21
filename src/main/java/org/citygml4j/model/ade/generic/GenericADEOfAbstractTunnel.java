@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.tunnel.ADEOfAbstractTunnel;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractTunnel extends ADEOfAbstractTunnel implements ADEGenericContainer {
+public class GenericADEOfAbstractTunnel extends ADEOfAbstractTunnel implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfAbstractTunnel(Element value) {

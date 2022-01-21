@@ -66,8 +66,7 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
 
     @Override
     public void buildADEProperty(ClosureSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfClosureSurface.class, object.getADEOfClosureSurface(),
-                GenericADEOfClosureSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfClosureSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class ClosureSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Closur
     public void writeChildElements(ClosureSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfClosureSurface container : object.getADEOfClosureSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfClosureSurface property : object.getADEProperties(ADEOfClosureSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

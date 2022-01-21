@@ -49,7 +49,7 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
                     object.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
                     return;
                 case "adeOfAbstractConstructionSurface":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstructionSurface.class, object.getADEOfAbstractConstructionSurface(), GenericADEOfAbstractConstructionSurface::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractConstructionSurface::of, reader);
                     return;
             }
         }
@@ -65,8 +65,8 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
             for (AbstractFillingSurfaceProperty property : object.getFillingSurfaces())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "fillingSurface"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractConstructionSurface container : object.getADEOfAbstractConstructionSurface())
-                ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructionSurface"), container, namespaces, writer);
+            for (ADEOfAbstractConstructionSurface property : object.getADEProperties(ADEOfAbstractConstructionSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructionSurface"), property, namespaces, writer);
         }
     }
 }

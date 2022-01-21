@@ -65,7 +65,7 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
                     object.setGrid(reader.getObjectUsingBuilder(GridPropertyAdapter.class));
                     return;
                 case "adeOfRasterRelief":
-                    ADEBuilderHelper.addADEContainer(ADEOfRasterRelief.class, object.getADEOfRasterRelief(), GenericADEOfRasterRelief::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfRasterRelief::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -78,8 +78,7 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
 
     @Override
     public void buildADEProperty(RasterRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfRasterRelief.class, object.getADEOfRasterRelief(),
-                GenericADEOfRasterRelief::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfRasterRelief::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -97,7 +96,7 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
         if (object.getGrid() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "grid"), object.getGrid(), GridPropertyAdapter.class, namespaces);
 
-        for (ADEOfRasterRelief container : object.getADEOfRasterRelief())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfRasterRelief") : null, container, namespaces, writer);
+        for (ADEOfRasterRelief property : object.getADEProperties(ADEOfRasterRelief.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfRasterRelief") : null, property, namespaces, writer);
     }
 }

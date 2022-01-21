@@ -22,7 +22,7 @@ package implementing_ades.adapter;
 import implementing_ades.model.AbstractBuildingProperties;
 import implementing_ades.model.AbstractBuildingUnitProperty;
 import implementing_ades.module.TestADEModule;
-import org.citygml4j.xml.adapter.ade.ReuseADEContainer;
+import org.citygml4j.xml.adapter.ade.SingletonADEProperty;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
@@ -49,7 +49,7 @@ import javax.xml.namespace.QName;
 public class AbstractBuildingPropertiesAdapter implements ObjectBuilder<AbstractBuildingProperties>, ObjectSerializer<AbstractBuildingProperties> {
 
     @Override
-    @ReuseADEContainer
+    @SingletonADEProperty
     public AbstractBuildingProperties createObject(QName name, Object parent) throws ObjectBuildException {
         return new AbstractBuildingProperties();
     }

@@ -104,7 +104,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfTunnelInstallation":
-                    ADEBuilderHelper.addADEContainer(ADEOfTunnelInstallation.class, object.getADEOfTunnelInstallation(), GenericADEOfTunnelInstallation::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfTunnelInstallation::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -117,8 +117,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
 
     @Override
     public void buildADEProperty(TunnelInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelInstallation.class, object.getADEOfTunnelInstallation(),
-                GenericADEOfTunnelInstallation::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfTunnelInstallation::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -172,7 +171,7 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTunnelInstallation container : object.getADEOfTunnelInstallation())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelInstallation") : null, container, namespaces, writer);
+        for (ADEOfTunnelInstallation property : object.getADEProperties(ADEOfTunnelInstallation.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelInstallation") : null, property, namespaces, writer);
     }
 }

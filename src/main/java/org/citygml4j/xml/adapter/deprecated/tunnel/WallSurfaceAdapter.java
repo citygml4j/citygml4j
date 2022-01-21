@@ -59,8 +59,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
 
     @Override
     public void buildADEProperty(WallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWallSurface.class, object.getADEOfWallSurface(),
-                GenericADEOfWallSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfWallSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -73,7 +72,7 @@ public class WallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<WallSurfa
     public void writeChildElements(WallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfWallSurface container : object.getADEOfWallSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfWallSurface property : object.getADEProperties(ADEOfWallSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

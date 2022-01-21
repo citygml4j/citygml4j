@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.construction.ADEOfWindow;
 import org.w3c.dom.Element;
 
-public class GenericADEOfWindow extends ADEOfWindow implements ADEGenericContainer {
+public class GenericADEOfWindow extends ADEOfWindow implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfWindow(Element value) {

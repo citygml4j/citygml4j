@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.dynamizer;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfTabulatedFileTimeseries extends ADEContainer {
+public abstract class ADEOfTabulatedFileTimeseries extends ADEProperty {
+
+    @Override
+    public final Class<TabulatedFileTimeseries> getTargetType() {
+        return TabulatedFileTimeseries.class;
+    }
 }

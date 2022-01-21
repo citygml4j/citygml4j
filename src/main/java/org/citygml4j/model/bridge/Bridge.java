@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.bridge;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -30,7 +29,6 @@ import java.util.List;
 
 public class Bridge extends AbstractBridge implements TopLevelFeature {
     private List<BridgePartProperty> bridgeParts;
-    private List<ADEOfBridge> adeOfBridge;
 
     public List<BridgePartProperty> getBridgeParts() {
         if (bridgeParts == null)
@@ -43,17 +41,6 @@ public class Bridge extends AbstractBridge implements TopLevelFeature {
         this.bridgeParts = asChild(bridgeParts);
     }
 
-    public List<ADEOfBridge> getADEOfBridge() {
-        if (adeOfBridge == null)
-            adeOfBridge = new ChildList<>(this);
-
-        return adeOfBridge;
-    }
-
-    public void setADEOfBridge(List<ADEOfBridge> adeOfBridge) {
-        this.adeOfBridge = asChild(adeOfBridge);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -63,21 +50,6 @@ public class Bridge extends AbstractBridge implements TopLevelFeature {
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfBridge != null) {
-            for (ADEOfBridge container : adeOfBridge)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfBridge != null) {
-            for (ADEOfBridge container : adeOfBridge)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

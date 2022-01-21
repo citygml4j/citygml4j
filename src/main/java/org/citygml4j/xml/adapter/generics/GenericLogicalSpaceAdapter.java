@@ -55,7 +55,7 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfGenericLogicalSpace".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfGenericLogicalSpace.class, object.getADEOfGenericLogicalSpace(), GenericADEOfGenericLogicalSpace::of, reader);
+                ADEBuilderHelper.addADEProperty(object, GenericADEOfGenericLogicalSpace::of, reader);
                 return;
             }
         }
@@ -74,7 +74,7 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEOfGenericLogicalSpace container : object.getADEOfGenericLogicalSpace())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericLogicalSpace"), container, namespaces, writer);
+        for (ADEOfGenericLogicalSpace property : object.getADEProperties(ADEOfGenericLogicalSpace.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericLogicalSpace"), property, namespaces, writer);
     }
 }

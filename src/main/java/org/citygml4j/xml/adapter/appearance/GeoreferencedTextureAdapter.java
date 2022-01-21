@@ -78,7 +78,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
                     reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
                     return;
                 case "adeOfGeoreferencedTexture":
-                    ADEBuilderHelper.addADEContainer(ADEOfGeoreferencedTexture.class, object.getADEOfGeoreferencedTexture(), GenericADEOfGeoreferencedTexture::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfGeoreferencedTexture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -91,8 +91,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
 
     @Override
     public void buildADEProperty(GeoreferencedTexture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfGeoreferencedTexture.class, object.getADEOfGeoreferencedTexture(),
-                GenericADEOfGeoreferencedTexture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfGeoreferencedTexture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -121,7 +120,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
                 writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getHref()));
         }
 
-        for (ADEOfGeoreferencedTexture container : object.getADEOfGeoreferencedTexture())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfGeoreferencedTexture") : null, container, namespaces, writer);
+        for (ADEOfGeoreferencedTexture property : object.getADEProperties(ADEOfGeoreferencedTexture.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfGeoreferencedTexture") : null, property, namespaces, writer);
     }
 }

@@ -36,7 +36,6 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfBuildingFurniture> adeOfBuildingFurniture;
 
     @Override
     public Code getClassifier() {
@@ -84,17 +83,6 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
         return new DeprecatedPropertiesOfBuildingFurniture();
     }
 
-    public List<ADEOfBuildingFurniture> getADEOfBuildingFurniture() {
-        if (adeOfBuildingFurniture == null)
-            adeOfBuildingFurniture = new ChildList<>(this);
-
-        return adeOfBuildingFurniture;
-    }
-
-    public void setADEOfBuildingFurniture(List<ADEOfBuildingFurniture> adeOfBuildingFurniture) {
-        this.adeOfBuildingFurniture = asChild(adeOfBuildingFurniture);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -108,11 +96,6 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfBuildingFurniture != null) {
-            for (ADEOfBuildingFurniture container : adeOfBuildingFurniture)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -124,11 +107,6 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
 
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfBuildingFurniture != null) {
-            for (ADEOfBuildingFurniture container : adeOfBuildingFurniture)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

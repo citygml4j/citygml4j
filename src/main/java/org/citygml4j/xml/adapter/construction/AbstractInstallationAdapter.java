@@ -49,7 +49,7 @@ public abstract class AbstractInstallationAdapter<T extends AbstractInstallation
                     reader.getTextContent().ifPresent(v -> object.setRelationToConstruction(RelationToConstruction.fromValue(v)));
                     return;
                 case "adeOfAbstractInstallation":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractInstallation.class, object.getADEOfAbstractInstallation(), GenericADEOfAbstractInstallation::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractInstallation::of, reader);
                     return;
             }
         }
@@ -65,8 +65,8 @@ public abstract class AbstractInstallationAdapter<T extends AbstractInstallation
             if (object.getRelationToConstruction() != null)
                 writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "relationToConstruction").addTextContent(object.getRelationToConstruction().toValue()));
 
-            for (ADEOfAbstractInstallation container : object.getADEOfAbstractInstallation())
-                ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractInstallation"), container, namespaces, writer);
+            for (ADEOfAbstractInstallation property : object.getADEProperties(ADEOfAbstractInstallation.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractInstallation"), property, namespaces, writer);
         }
     }
 }

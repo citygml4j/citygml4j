@@ -112,8 +112,7 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTransportationSpace.class, object.getADEOfAbstractTransportationSpace(),
-                GenericADEOfAbstractTransportationSpace::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractTransportationSpace::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -162,8 +161,8 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
         if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractTransportationSpace container : object.getADEOfAbstractTransportationSpace())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractTransportationSpace property : object.getADEProperties(ADEOfAbstractTransportationSpace.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 
     private MultiCurveProperty getMultiCurveProperty(CompositeCurve src) {

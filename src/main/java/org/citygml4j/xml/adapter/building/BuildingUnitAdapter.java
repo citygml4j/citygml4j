@@ -60,7 +60,7 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfBuildingUnit":
-                    ADEBuilderHelper.addADEContainer(ADEOfBuildingUnit.class, object.getADEOfBuildingUnit(), GenericADEOfBuildingUnit::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBuildingUnit::of, reader);
                     return;
             }
         }
@@ -83,7 +83,7 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfBuildingUnit container : object.getADEOfBuildingUnit())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingUnit"), container, namespaces, writer);
+        for (ADEOfBuildingUnit property : object.getADEProperties(ADEOfBuildingUnit.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingUnit"), property, namespaces, writer);
     }
 }

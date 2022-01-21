@@ -71,7 +71,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
                     object.getSurfaceData().add(reader.getObjectUsingBuilder(AbstractSurfaceDataPropertyAdapter.class));
                     return;
                 case "adeOfAppearance":
-                    ADEBuilderHelper.addADEContainer(ADEOfAppearance.class, object.getADEOfAppearance(), GenericADEOfAppearance::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAppearance::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -84,8 +84,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
 
     @Override
     public void buildADEProperty(Appearance object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAppearance.class, object.getADEOfAppearance(),
-                GenericADEOfAppearance::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAppearance::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -108,7 +107,7 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
                     Element.of(appearanceNamespace, isCityGML3 ? "surfaceData" : "surfaceDataMember"),
                     property, AbstractSurfaceDataPropertyAdapter.class, namespaces);
 
-        for (ADEOfAppearance container : object.getADEOfAppearance())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAppearance") : null, container, namespaces, writer);
+        for (ADEOfAppearance property : object.getADEProperties(ADEOfAppearance.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAppearance") : null, property, namespaces, writer);
     }
 }

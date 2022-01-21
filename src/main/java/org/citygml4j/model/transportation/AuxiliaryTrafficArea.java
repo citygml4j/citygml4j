@@ -19,13 +19,10 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractThematicSurface;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -35,7 +32,6 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
     private List<Code> functions;
     private List<Code> usages;
     private Code surfaceMaterial;
-    private List<ADEOfAuxiliaryTrafficArea> adeOfAuxiliaryTrafficArea;
 
     @Override
     public Code getClassifier() {
@@ -79,37 +75,6 @@ public class AuxiliaryTrafficArea extends AbstractThematicSurface implements Sta
 
     public void setSurfaceMaterial(Code surfaceMaterial) {
         this.surfaceMaterial = asChild(surfaceMaterial);
-    }
-
-    public List<ADEOfAuxiliaryTrafficArea> getADEOfAuxiliaryTrafficArea() {
-        if (adeOfAuxiliaryTrafficArea == null)
-            adeOfAuxiliaryTrafficArea = new ChildList<>(this);
-
-        return adeOfAuxiliaryTrafficArea;
-    }
-
-    public void setADEOfAuxiliaryTrafficArea(List<ADEOfAuxiliaryTrafficArea> adeOfAuxiliaryTrafficArea) {
-        this.adeOfAuxiliaryTrafficArea = asChild(adeOfAuxiliaryTrafficArea);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfAuxiliaryTrafficArea != null) {
-            for (ADEOfAuxiliaryTrafficArea container : adeOfAuxiliaryTrafficArea)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfAuxiliaryTrafficArea != null) {
-            for (ADEOfAuxiliaryTrafficArea container : adeOfAuxiliaryTrafficArea)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 
     @Override

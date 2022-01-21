@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfAbstractDynamizer extends ADEContainer {
+public abstract class ADEOfAbstractDynamizer extends ADEProperty {
+
+    @Override
+    public final Class<AbstractDynamizer> getTargetType() {
+        return AbstractDynamizer.class;
+    }
 }

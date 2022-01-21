@@ -55,7 +55,7 @@ public class IntersectionAdapter extends AbstractTransportationSpaceAdapter<Inte
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfIntersection":
-                    ADEBuilderHelper.addADEContainer(ADEOfIntersection.class, object.getADEOfIntersection(), GenericADEOfIntersection::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfIntersection::of, reader);
                     return;
             }
         }
@@ -75,7 +75,7 @@ public class IntersectionAdapter extends AbstractTransportationSpaceAdapter<Inte
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfIntersection container : object.getADEOfIntersection())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfIntersection"), container, namespaces, writer);
+        for (ADEOfIntersection property : object.getADEProperties(ADEOfIntersection.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfIntersection"), property, namespaces, writer);
     }
 }

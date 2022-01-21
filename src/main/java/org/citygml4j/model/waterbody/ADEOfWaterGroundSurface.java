@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.waterbody;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfWaterGroundSurface extends ADEContainer {
+public abstract class ADEOfWaterGroundSurface extends ADEProperty {
+
+    @Override
+    public final Class<WaterGroundSurface> getTargetType() {
+        return WaterGroundSurface.class;
+    }
 }

@@ -80,7 +80,7 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
                     object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "adeOfAuxiliaryTrafficArea":
-                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficArea.class, object.getADEOfAuxiliaryTrafficArea(), GenericADEOfAuxiliaryTrafficArea::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAuxiliaryTrafficArea::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -93,8 +93,7 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
 
     @Override
     public void buildADEProperty(AuxiliaryTrafficArea object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAuxiliaryTrafficArea.class, object.getADEOfAuxiliaryTrafficArea(),
-                GenericADEOfAuxiliaryTrafficArea::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAuxiliaryTrafficArea::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -125,7 +124,7 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAuxiliaryTrafficArea container : object.getADEOfAuxiliaryTrafficArea())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(transportationNamespace, "adeOfAuxiliaryTrafficArea") : null, container, namespaces, writer);
+        for (ADEOfAuxiliaryTrafficArea property : object.getADEProperties(ADEOfAuxiliaryTrafficArea.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(transportationNamespace, "adeOfAuxiliaryTrafficArea") : null, property, namespaces, writer);
     }
 }

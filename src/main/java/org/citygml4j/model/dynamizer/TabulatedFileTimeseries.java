@@ -21,9 +21,6 @@ package org.citygml4j.model.dynamizer;
 
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.model.ChildList;
-
-import java.util.List;
 
 public class TabulatedFileTimeseries extends AbstractAtomicTimeseries {
     private String fileLocation;
@@ -40,7 +37,6 @@ public class TabulatedFileTimeseries extends AbstractAtomicTimeseries {
     private String timeColumnName;
     private Integer valueColumnNo;
     private String valueColumnName;
-    private List<ADEOfTabulatedFileTimeseries> adeOfTabulatedFileTimeseries;
 
     public TabulatedFileTimeseries() {
     }
@@ -163,17 +159,6 @@ public class TabulatedFileTimeseries extends AbstractAtomicTimeseries {
 
     public void setValueColumnName(String valueColumnName) {
         this.valueColumnName = valueColumnName;
-    }
-
-    public List<ADEOfTabulatedFileTimeseries> getADEOfTabulatedFileTimeseries() {
-        if (adeOfTabulatedFileTimeseries == null)
-            adeOfTabulatedFileTimeseries = new ChildList<>(this);
-
-        return adeOfTabulatedFileTimeseries;
-    }
-
-    public void setADEOfTabulatedFileTimeseries(List<ADEOfTabulatedFileTimeseries> adeOfTabulatedFileTimeseries) {
-        this.adeOfTabulatedFileTimeseries = asChild(adeOfTabulatedFileTimeseries);
     }
 
     @Override

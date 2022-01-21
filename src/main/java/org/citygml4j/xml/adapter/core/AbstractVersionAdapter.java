@@ -42,7 +42,7 @@ public abstract class AbstractVersionAdapter<T extends AbstractVersion> extends 
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractVersion".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractVersion.class, object.getADEOfAbstractVersion(), GenericADEOfAbstractVersion::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractVersion::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -51,7 +51,7 @@ public abstract class AbstractVersionAdapter<T extends AbstractVersion> extends 
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractVersion container : object.getADEOfAbstractVersion())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractVersion"), container, namespaces, writer);
+        for (ADEOfAbstractVersion property : object.getADEProperties(ADEOfAbstractVersion.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractVersion"), property, namespaces, writer);
     }
 }

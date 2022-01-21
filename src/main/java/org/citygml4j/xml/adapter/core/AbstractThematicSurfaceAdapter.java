@@ -69,7 +69,7 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
                 case "adeOfAbstractThematicSurface":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(), GenericADEOfAbstractThematicSurface::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractThematicSurface::of, reader);
                     return;
             }
         }
@@ -104,8 +104,8 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
             if (object.getPointCloud() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractThematicSurface container : object.getADEOfAbstractThematicSurface())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractThematicSurface"), container, namespaces, writer);
+            for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractThematicSurface"), property, namespaces, writer);
         }
     }
 }

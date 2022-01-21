@@ -48,7 +48,7 @@ public abstract class AbstractFeatureAdapter<T extends AbstractFeature> extends 
         if (GMLBuilderHelper.isGMLNamespace(name.getNamespaceURI()))
             super.buildChildObject(object, name, attributes, reader);
         else if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractFeature".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractFeature.class, object.getADEOfAbstractFeature(), GenericADEOfAbstractFeature::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractFeature::of, reader);
         else
             buildADEProperty(object, name, reader);
     }
@@ -64,8 +64,8 @@ public abstract class AbstractFeatureAdapter<T extends AbstractFeature> extends 
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractFeature container : object.getADEOfAbstractFeature())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractFeature"), container, namespaces, writer);
+            for (ADEOfAbstractFeature property : object.getADEProperties(ADEOfAbstractFeature.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractFeature"), property, namespaces, writer);
         }
     }
 }

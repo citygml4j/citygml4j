@@ -66,8 +66,7 @@ public class SquareAdapter extends AbstractTransportationObjectAdapter<Square> {
 
     @Override
     public void buildADEProperty(Square object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfSquare.class, object.getADEOfSquare(),
-                GenericADEOfSquare::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfSquare::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class SquareAdapter extends AbstractTransportationObjectAdapter<Square> {
     public void writeChildElements(Square object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfSquare container : object.getADEOfSquare())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfSquare property : object.getADEProperties(ADEOfSquare.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

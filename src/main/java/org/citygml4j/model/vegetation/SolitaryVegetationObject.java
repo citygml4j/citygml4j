@@ -42,7 +42,6 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
     private Length crownDiameter;
     private Length rootBallDiameter;
     private Length maxRootBallDepth;
-    private List<ADEOfSolitaryVegetationObject> adeOfSolitaryVegetationObject;
 
     @Override
     public Code getClassifier() {
@@ -138,17 +137,6 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
         return new DeprecatedPropertiesOfSolitaryVegetationObject();
     }
 
-    public List<ADEOfSolitaryVegetationObject> getADEOfSolitaryVegetationObject() {
-        if (adeOfSolitaryVegetationObject == null)
-            adeOfSolitaryVegetationObject = new ChildList<>(this);
-
-        return adeOfSolitaryVegetationObject;
-    }
-
-    public void setADEOfSolitaryVegetationObject(List<ADEOfSolitaryVegetationObject> adeOfSolitaryVegetationObject) {
-        this.adeOfSolitaryVegetationObject = asChild(adeOfSolitaryVegetationObject);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -171,11 +159,6 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfSolitaryVegetationObject != null) {
-            for (ADEOfSolitaryVegetationObject container : adeOfSolitaryVegetationObject)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -190,11 +173,6 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
             geometryInfo.addGeometry(3, properties.getLod3Geometry());
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfSolitaryVegetationObject != null) {
-            for (ADEOfSolitaryVegetationObject container : adeOfSolitaryVegetationObject)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

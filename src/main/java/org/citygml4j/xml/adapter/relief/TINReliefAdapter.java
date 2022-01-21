@@ -65,7 +65,7 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
                     object.setTin(reader.getObjectUsingBuilder(TinPropertyAdapter.class));
                     return;
                 case "adeOfTINRelief":
-                    ADEBuilderHelper.addADEContainer(ADEOfTINRelief.class, object.getADEOfTINRelief(), GenericADEOfTINRelief::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfTINRelief::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -78,8 +78,7 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
 
     @Override
     public void buildADEProperty(TINRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTINRelief.class, object.getADEOfTINRelief(),
-                GenericADEOfTINRelief::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfTINRelief::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -97,7 +96,7 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
         if (object.getTin() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "tin"), object.getTin(), TinPropertyAdapter.class, namespaces);
 
-        for (ADEOfTINRelief container : object.getADEOfTINRelief())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfTINRelief") : null, container, namespaces, writer);
+        for (ADEOfTINRelief property : object.getADEProperties(ADEOfTINRelief.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfTINRelief") : null, property, namespaces, writer);
     }
 }

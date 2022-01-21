@@ -64,7 +64,7 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
                     object.getMarkings().add(reader.getObjectUsingBuilder(MarkingPropertyAdapter.class));
                     return;
                 case "adeOfAbstractTransportationSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTransportationSpace.class, object.getADEOfAbstractTransportationSpace(), GenericADEOfAbstractTransportationSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractTransportationSpace::of, reader);
                     return;
             }
         }
@@ -94,7 +94,7 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
         for (MarkingProperty property : object.getMarkings())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "marking"), property, MarkingPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractTransportationSpace container : object.getADEOfAbstractTransportationSpace())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAbstractTransportationSpace"), container, namespaces, writer);
+        for (ADEOfAbstractTransportationSpace property : object.getADEProperties(ADEOfAbstractTransportationSpace.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAbstractTransportationSpace"), property, namespaces, writer);
     }
 }

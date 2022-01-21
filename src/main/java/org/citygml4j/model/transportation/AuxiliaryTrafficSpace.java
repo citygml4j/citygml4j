@@ -20,7 +20,6 @@
 package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.AbstractUnoccupiedSpace;
 import org.citygml4j.model.core.ClosureSurface;
@@ -28,8 +27,6 @@ import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -39,7 +36,6 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
     private List<Code> functions;
     private List<Code> usages;
     private GranularityValue granularity;
-    private List<ADEOfAuxiliaryTrafficSpace> adeOfAuxiliaryTrafficSpace;
 
     public AuxiliaryTrafficSpace() {
     }
@@ -98,37 +94,6 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
 
     public void setGranularity(GranularityValue granularity) {
         this.granularity = granularity;
-    }
-
-    public List<ADEOfAuxiliaryTrafficSpace> getADEOfAuxiliaryTrafficSpace() {
-        if (adeOfAuxiliaryTrafficSpace == null)
-            adeOfAuxiliaryTrafficSpace = new ChildList<>(this);
-
-        return adeOfAuxiliaryTrafficSpace;
-    }
-
-    public void setADEOfAuxiliaryTrafficSpace(List<ADEOfAuxiliaryTrafficSpace> adeOfAuxiliaryTrafficSpace) {
-        this.adeOfAuxiliaryTrafficSpace = asChild(adeOfAuxiliaryTrafficSpace);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfAuxiliaryTrafficSpace != null) {
-            for (ADEOfAuxiliaryTrafficSpace container : adeOfAuxiliaryTrafficSpace)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfAuxiliaryTrafficSpace != null) {
-            for (ADEOfAuxiliaryTrafficSpace container : adeOfAuxiliaryTrafficSpace)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 
     @Override

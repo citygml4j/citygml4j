@@ -59,8 +59,7 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
 
     @Override
     public void buildADEProperty(Bridge object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridge.class, object.getADEOfBridge(),
-                GenericADEOfBridge::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBridge::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -73,7 +72,7 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
     public void writeChildElements(Bridge object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfBridge container : object.getADEOfBridge())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfBridge property : object.getADEProperties(ADEOfBridge.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

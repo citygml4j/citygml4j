@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.versioning;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfVersionTransition extends ADEContainer {
+public abstract class ADEOfVersionTransition extends ADEProperty {
+
+    @Override
+    public final Class<VersionTransition> getTargetType() {
+        return VersionTransition.class;
+    }
 }

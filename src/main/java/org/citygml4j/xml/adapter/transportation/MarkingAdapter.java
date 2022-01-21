@@ -56,7 +56,7 @@ public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfMarking":
-                    ADEBuilderHelper.addADEContainer(ADEOfMarking.class, object.getADEOfMarking(), GenericADEOfMarking::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfMarking::of, reader);
                     return;
             }
         }
@@ -76,7 +76,7 @@ public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfMarking container : object.getADEOfMarking())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfMarking"), container, namespaces, writer);
+        for (ADEOfMarking property : object.getADEProperties(ADEOfMarking.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfMarking"), property, namespaces, writer);
     }
 }

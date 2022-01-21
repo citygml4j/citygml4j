@@ -20,8 +20,8 @@
 package org.citygml4j.model.core;
 
 import org.citygml4j.model.CityGMLObject;
-import org.citygml4j.model.ade.ADEContainer;
 import org.citygml4j.model.ade.ADEObject;
+import org.citygml4j.model.ade.ADEProperty;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractFeature;
 import org.citygml4j.visitor.VisitableObject;
@@ -32,10 +32,11 @@ import org.xmlobjects.model.ChildList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.AbstractFeature implements CityGMLObject, VisitableObject {
     private DeprecatedPropertiesOfAbstractFeature deprecatedProperties;
-    private List<ADEOfAbstractFeature> adeOfAbstractFeature;
+    private List<ADEProperty> adeProperties;
 
     public DeprecatedPropertiesOfAbstractFeature getDeprecatedProperties() {
         if (deprecatedProperties == null)
@@ -52,15 +53,39 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         return new DeprecatedPropertiesOfAbstractFeature();
     }
 
-    public List<ADEOfAbstractFeature> getADEOfAbstractFeature() {
-        if (adeOfAbstractFeature == null)
-            adeOfAbstractFeature = new ChildList<>(this);
-
-        return adeOfAbstractFeature;
+    public boolean hasADEProperties() {
+        return adeProperties != null && !adeProperties.isEmpty();
     }
 
-    public void setADEOfAbstractFeature(List<ADEOfAbstractFeature> adeOfAbstractFeature) {
-        this.adeOfAbstractFeature = asChild(adeOfAbstractFeature);
+    public boolean isValidADEProperty(ADEProperty adeProperty) {
+        return adeProperty != null && adeProperty.getTargetType().isInstance(this);
+    }
+
+    public List<ADEProperty> getADEProperties() {
+        if (adeProperties == null) {
+            adeProperties = new ChildList<>(this);
+        }
+
+        return adeProperties;
+    }
+
+    public <T extends ADEProperty> List<T> getADEProperties(Class<T> type) {
+        return hasADEProperties() ?
+                adeProperties.stream().filter(type::isInstance).map(type::cast).collect(Collectors.toList()) :
+                Collections.emptyList();
+    }
+
+    public void setADEProperties(List<ADEProperty> adeProperties) {
+        this.adeProperties = asChild(adeProperties);
+        if (this.adeProperties != null) {
+            this.adeProperties.removeIf(adeProperty -> !isValidADEProperty(adeProperty));
+        }
+    }
+
+    public void addADEProperty(ADEProperty property) {
+        if (isValidADEProperty(property)) {
+            getADEProperties().add(property);
+        }
     }
 
     @Override
@@ -74,14 +99,14 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
             }
         }
 
-        if (adeOfAbstractFeature != null) {
-            for (ADEOfAbstractFeature container : adeOfAbstractFeature)
-                updateEnvelope(container, envelope, options);
+        if (adeProperties != null) {
+            for (ADEProperty property : adeProperties)
+                updateEnvelope(property, envelope, options);
         }
     }
 
-    protected final void updateEnvelope(ADEContainer container, Envelope envelope, EnvelopeOptions options) {
-        ADEEnvelopeBuilder.updateEnvelope(container, envelope, options, Collections.newSetFromMap(new IdentityHashMap<>()));
+    protected final void updateEnvelope(ADEProperty property, Envelope envelope, EnvelopeOptions options) {
+        ADEEnvelopeBuilder.updateEnvelope(property, envelope, options, Collections.newSetFromMap(new IdentityHashMap<>()));
     }
 
     public final GeometryInfo getGeometryInfo() {
@@ -101,13 +126,13 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
             }
         }
 
-        if (adeOfAbstractFeature != null) {
-            for (ADEOfAbstractFeature container : adeOfAbstractFeature)
-                updateGeometryInfo(container, geometryInfo);
+        if (adeProperties != null) {
+            for (ADEProperty property : adeProperties)
+                updateGeometryInfo(property, geometryInfo);
         }
     }
 
-    protected final void updateGeometryInfo(ADEContainer container, GeometryInfo geometryInfo) {
-        ADEGeometryInfoBuilder.updateGeometryInfo(container, geometryInfo);
+    protected final void updateGeometryInfo(ADEProperty property, GeometryInfo geometryInfo) {
+        ADEGeometryInfoBuilder.updateGeometryInfo(property, geometryInfo);
     }
 }

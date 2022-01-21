@@ -71,7 +71,7 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
                     object.getReliefComponents().add(reader.getObjectUsingBuilder(AbstractReliefComponentPropertyAdapter.class));
                     return;
                 case "adeOfReliefFeature":
-                    ADEBuilderHelper.addADEContainer(ADEOfReliefFeature.class, object.getADEOfReliefFeature(), GenericADEOfReliefFeature::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfReliefFeature::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -84,8 +84,7 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
 
     @Override
     public void buildADEProperty(ReliefFeature object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfReliefFeature.class, object.getADEOfReliefFeature(),
-                GenericADEOfReliefFeature::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfReliefFeature::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -105,7 +104,7 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
         for (AbstractReliefComponentProperty property : object.getReliefComponents())
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefComponent"), property, AbstractReliefComponentPropertyAdapter.class, namespaces);
 
-        for (ADEOfReliefFeature container : object.getADEOfReliefFeature())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfReliefFeature") : null, container, namespaces, writer);
+        for (ADEOfReliefFeature property : object.getADEProperties(ADEOfReliefFeature.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfReliefFeature") : null, property, namespaces, writer);
     }
 }

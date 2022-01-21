@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.bridge;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfBridgeInstallation extends ADEContainer {
+public abstract class ADEOfBridgeInstallation extends ADEProperty {
+
+    @Override
+    public final Class<BridgeInstallation> getTargetType() {
+        return BridgeInstallation.class;
+    }
 }

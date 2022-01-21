@@ -87,7 +87,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfAbstractBuilding":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBuilding.class, object.getADEOfAbstractBuilding(), GenericADEOfAbstractBuilding::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractBuilding::of, reader);
                     return;
             }
         }
@@ -134,7 +134,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractBuilding container : object.getADEOfAbstractBuilding())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuilding"), container, namespaces, writer);
+        for (ADEOfAbstractBuilding property : object.getADEProperties(ADEOfAbstractBuilding.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuilding"), property, namespaces, writer);
     }
 }

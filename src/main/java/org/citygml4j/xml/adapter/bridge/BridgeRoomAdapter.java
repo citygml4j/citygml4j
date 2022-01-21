@@ -86,7 +86,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeRoom":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeRoom.class, object.getADEOfBridgeRoom(), GenericADEOfBridgeRoom::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBridgeRoom::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -99,8 +99,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
 
     @Override
     public void buildADEProperty(BridgeRoom object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeRoom.class, object.getADEOfBridgeRoom(),
-                GenericADEOfBridgeRoom::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBridgeRoom::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -134,7 +133,7 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
         for (BridgeInstallationProperty property : object.getBridgeInstallations())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeInstallation" : "bridgeRoomInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEOfBridgeRoom container : object.getADEOfBridgeRoom())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeRoom") : null, container, namespaces, writer);
+        for (ADEOfBridgeRoom property : object.getADEProperties(ADEOfBridgeRoom.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeRoom") : null, property, namespaces, writer);
     }
 }

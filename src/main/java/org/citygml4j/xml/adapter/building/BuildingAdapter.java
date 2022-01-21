@@ -55,7 +55,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
                     object.getBuildingParts().add(reader.getObjectUsingBuilder(BuildingPartPropertyAdapter.class));
                     return;
                 case "adeOfBuilding":
-                    ADEBuilderHelper.addADEContainer(ADEOfBuilding.class, object.getADEOfBuilding(), GenericADEOfBuilding::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBuilding::of, reader);
                     return;
             }
         }
@@ -75,7 +75,7 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
         for (BuildingPartProperty property : object.getBuildingParts())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
 
-        for (ADEOfBuilding container : object.getADEOfBuilding())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), container, namespaces, writer);
+        for (ADEOfBuilding property : object.getADEProperties(ADEOfBuilding.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), property, namespaces, writer);
     }
 }

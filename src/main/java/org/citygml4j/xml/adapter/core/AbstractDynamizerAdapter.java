@@ -42,7 +42,7 @@ public abstract class AbstractDynamizerAdapter<T extends AbstractDynamizer> exte
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractDynamizer".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractDynamizer.class, object.getADEOfAbstractDynamizer(), GenericADEOfAbstractDynamizer::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractDynamizer::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -51,7 +51,7 @@ public abstract class AbstractDynamizerAdapter<T extends AbstractDynamizer> exte
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractDynamizer container : object.getADEOfAbstractDynamizer())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractDynamizer"), container, namespaces, writer);
+        for (ADEOfAbstractDynamizer property : object.getADEProperties(ADEOfAbstractDynamizer.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractDynamizer"), property, namespaces, writer);
     }
 }

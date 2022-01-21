@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfClosureSurface extends ADEContainer {
+public abstract class ADEOfClosureSurface extends ADEProperty {
+
+    @Override
+    public final Class<ClosureSurface> getTargetType() {
+        return ClosureSurface.class;
+    }
 }

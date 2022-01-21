@@ -30,7 +30,6 @@ import java.util.List;
 public class Version extends AbstractVersion {
     private List<String> tags;
     private List<AbstractFeatureWithLifespanReference> versionMembers;
-    private List<ADEOfVersion> adeOfVersion;
 
     public List<String> getTags() {
         if (tags == null)
@@ -52,17 +51,6 @@ public class Version extends AbstractVersion {
 
     public void setVersionMembers(List<AbstractFeatureWithLifespanReference> versionMembers) {
         this.versionMembers = asChild(versionMembers);
-    }
-
-    public List<ADEOfVersion> getADEOfVersion() {
-        if (adeOfVersion == null)
-            adeOfVersion = new ChildList<>(this);
-
-        return adeOfVersion;
-    }
-
-    public void setADEOfVersion(List<ADEOfVersion> adeOfVersion) {
-        this.adeOfVersion = asChild(adeOfVersion);
     }
 
     @Override

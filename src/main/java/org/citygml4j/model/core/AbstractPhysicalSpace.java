@@ -19,20 +19,15 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.util.EnvelopeOptions;
-import org.xmlobjects.model.ChildList;
-
-import java.util.List;
 
 public abstract class AbstractPhysicalSpace extends AbstractSpace {
     private MultiCurveProperty lod1TerrainIntersectionCurve;
     private MultiCurveProperty lod2TerrainIntersectionCurve;
     private MultiCurveProperty lod3TerrainIntersectionCurve;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEOfAbstractPhysicalSpace> adeOfAbstractPhysicalSpace;
 
     public MultiCurveProperty getLod1TerrainIntersectionCurve() {
         return lod1TerrainIntersectionCurve;
@@ -64,17 +59,6 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
 
     public void setPointCloud(AbstractPointCloudProperty pointCloud) {
         this.pointCloud = asChild(pointCloud);
-    }
-
-    public List<ADEOfAbstractPhysicalSpace> getADEOfAbstractPhysicalSpace() {
-        if (adeOfAbstractPhysicalSpace == null)
-            adeOfAbstractPhysicalSpace = new ChildList<>(this);
-
-        return adeOfAbstractPhysicalSpace;
-    }
-
-    public void setADEOfAbstractPhysicalSpace(List<ADEOfAbstractPhysicalSpace> adeOfAbstractPhysicalSpace) {
-        this.adeOfAbstractPhysicalSpace = asChild(adeOfAbstractPhysicalSpace);
     }
 
     public MultiCurveProperty getTerrainIntersectionCurve(int lod) {
@@ -112,20 +96,5 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
 
         if (pointCloud != null && pointCloud.getObject() != null)
             envelope.include(pointCloud.getObject().computeEnvelope(options));
-
-        if (adeOfAbstractPhysicalSpace != null) {
-            for (ADEOfAbstractPhysicalSpace container : adeOfAbstractPhysicalSpace)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfAbstractPhysicalSpace != null) {
-            for (ADEOfAbstractPhysicalSpace container : adeOfAbstractPhysicalSpace)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 }

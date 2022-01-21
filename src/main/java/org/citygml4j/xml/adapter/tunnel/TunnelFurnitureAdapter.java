@@ -70,7 +70,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfTunnelFurniture":
-                    ADEBuilderHelper.addADEContainer(ADEOfTunnelFurniture.class, object.getADEOfTunnelFurniture(), GenericADEOfTunnelFurniture::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfTunnelFurniture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -83,8 +83,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
 
     @Override
     public void buildADEProperty(TunnelFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelFurniture.class, object.getADEOfTunnelFurniture(),
-                GenericADEOfTunnelFurniture::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfTunnelFurniture::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -109,7 +108,7 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTunnelFurniture container : object.getADEOfTunnelFurniture())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelFurniture") : null, container, namespaces, writer);
+        for (ADEOfTunnelFurniture property : object.getADEProperties(ADEOfTunnelFurniture.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelFurniture") : null, property, namespaces, writer);
     }
 }

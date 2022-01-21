@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.relief;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfReliefFeature extends ADEContainer {
+public abstract class ADEOfReliefFeature extends ADEProperty {
+
+    @Override
+    public final Class<ReliefFeature> getTargetType() {
+        return ReliefFeature.class;
+    }
 }

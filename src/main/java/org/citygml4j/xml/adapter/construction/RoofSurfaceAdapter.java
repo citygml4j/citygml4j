@@ -49,7 +49,7 @@ public class RoofSurfaceAdapter extends AbstractConstructionSurfaceAdapter<RoofS
     @Override
     public void buildChildObject(RoofSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfRoofSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfRoofSurface.class, object.getADEOfRoofSurface(), GenericADEOfRoofSurface::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfRoofSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -63,7 +63,7 @@ public class RoofSurfaceAdapter extends AbstractConstructionSurfaceAdapter<RoofS
     public void writeChildElements(RoofSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfRoofSurface container : object.getADEOfRoofSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfRoofSurface"), container, namespaces, writer);
+        for (ADEOfRoofSurface property : object.getADEProperties(ADEOfRoofSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfRoofSurface"), property, namespaces, writer);
     }
 }

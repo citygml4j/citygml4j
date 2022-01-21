@@ -17,13 +17,11 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.adapter.ade;
+package org.citygml4j.model.ade.generic;
 
-import java.lang.annotation.*;
+import org.w3c.dom.Element;
 
-@Documented
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface ReuseADEContainer {
-    String[] value() default {};
+public interface ADEGenericProperty {
+    Element getValue();
+    void setValue(Element value);
 }

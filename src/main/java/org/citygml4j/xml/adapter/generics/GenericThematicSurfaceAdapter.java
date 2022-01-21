@@ -55,7 +55,7 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfGenericThematicSurface".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfGenericThematicSurface.class, object.getADEOfGenericThematicSurface(), GenericADEOfGenericThematicSurface::of, reader);
+                ADEBuilderHelper.addADEProperty(object, GenericADEOfGenericThematicSurface::of, reader);
                 return;
             }
         }
@@ -74,7 +74,7 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEOfGenericThematicSurface container : object.getADEOfGenericThematicSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericThematicSurface"), container, namespaces, writer);
+        for (ADEOfGenericThematicSurface property : object.getADEProperties(ADEOfGenericThematicSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericThematicSurface"), property, namespaces, writer);
     }
 }

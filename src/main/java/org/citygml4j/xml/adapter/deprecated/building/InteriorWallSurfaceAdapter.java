@@ -66,8 +66,7 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
 
     @Override
     public void buildADEProperty(InteriorWallSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfInteriorWallSurface.class, object.getADEOfInteriorWallSurface(),
-                GenericADEOfInteriorWallSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfInteriorWallSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
     public void writeChildElements(InteriorWallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfInteriorWallSurface container : object.getADEOfInteriorWallSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfInteriorWallSurface property : object.getADEProperties(ADEOfInteriorWallSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

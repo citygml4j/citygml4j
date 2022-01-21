@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.tunnel;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -30,7 +29,6 @@ import java.util.List;
 
 public class Tunnel extends AbstractTunnel implements TopLevelFeature {
     private List<TunnelPartProperty> tunnelParts;
-    private List<ADEOfTunnel> adeOfTunnel;
 
     public List<TunnelPartProperty> getTunnelParts() {
         if (tunnelParts == null)
@@ -43,17 +41,6 @@ public class Tunnel extends AbstractTunnel implements TopLevelFeature {
         this.tunnelParts = asChild(tunnelParts);
     }
 
-    public List<ADEOfTunnel> getADEOfTunnel() {
-        if (adeOfTunnel == null)
-            adeOfTunnel = new ChildList<>(this);
-
-        return adeOfTunnel;
-    }
-
-    public void setADEOfTunnel(List<ADEOfTunnel> adeOfTunnel) {
-        this.adeOfTunnel = asChild(adeOfTunnel);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -63,21 +50,6 @@ public class Tunnel extends AbstractTunnel implements TopLevelFeature {
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfTunnel != null) {
-            for (ADEOfTunnel container : adeOfTunnel)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfTunnel != null) {
-            for (ADEOfTunnel container : adeOfTunnel)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

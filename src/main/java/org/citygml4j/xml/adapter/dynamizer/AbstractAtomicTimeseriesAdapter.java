@@ -50,7 +50,7 @@ public abstract class AbstractAtomicTimeseriesAdapter<T extends AbstractAtomicTi
                     reader.getTextContent().ifPresent(object::setUom);
                     return;
                 case "adeOfAbstractAtomicTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractAtomicTimeseries.class, object.getADEOfAbstractAtomicTimeseries(), GenericADEOfAbstractAtomicTimeseries::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractAtomicTimeseries::of, reader);
                     return;
             }
         }
@@ -68,7 +68,7 @@ public abstract class AbstractAtomicTimeseriesAdapter<T extends AbstractAtomicTi
         if (object.getUom() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "uom").addTextContent(object.getUom()));
 
-        for (ADEOfAbstractAtomicTimeseries container : object.getADEOfAbstractAtomicTimeseries())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfAbstractAtomicTimeseries"), container, namespaces, writer);
+        for (ADEOfAbstractAtomicTimeseries property : object.getADEProperties(ADEOfAbstractAtomicTimeseries.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfAbstractAtomicTimeseries"), property, namespaces, writer);
     }
 }

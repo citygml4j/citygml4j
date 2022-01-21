@@ -43,7 +43,6 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
     private List<RoomHeightProperty> roomHeights;
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<BuildingInstallationProperty> buildingInstallations;
-    private List<ADEOfBuildingRoom> adeOfBuildingRoom;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -132,17 +131,6 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         return new DeprecatedPropertiesOfBuildingRoom();
     }
 
-    public List<ADEOfBuildingRoom> getADEOfBuildingRoom() {
-        if (adeOfBuildingRoom == null)
-            adeOfBuildingRoom = new ChildList<>(this);
-
-        return adeOfBuildingRoom;
-    }
-
-    public void setADEOfBuildingRoom(List<ADEOfBuildingRoom> adeOfBuildingRoom) {
-        this.adeOfBuildingRoom = asChild(adeOfBuildingRoom);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -156,11 +144,6 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
             if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
-
-        if (adeOfBuildingRoom != null) {
-            for (ADEOfBuildingRoom container : adeOfBuildingRoom)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -172,11 +155,6 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
 
             geometryInfo.addGeometry(4, properties.getLod4Solid());
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
-        }
-
-        if (adeOfBuildingRoom != null) {
-            for (ADEOfBuildingRoom container : adeOfBuildingRoom)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

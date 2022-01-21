@@ -42,7 +42,6 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
     private List<Code> usages;
     private List<TunnelFurnitureProperty> tunnelFurniture;
     private List<TunnelInstallationProperty> tunnelInstallations;
-    private List<ADEOfHollowSpace> adeOfHollowSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -120,17 +119,6 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
         return new DeprecatedPropertiesOfHollowSpace();
     }
 
-    public List<ADEOfHollowSpace> getADEOfHollowSpace() {
-        if (adeOfHollowSpace == null)
-            adeOfHollowSpace = new ChildList<>(this);
-
-        return adeOfHollowSpace;
-    }
-
-    public void setADEOfHollowSpace(List<ADEOfHollowSpace> adeOfHollowSpace) {
-        this.adeOfHollowSpace = asChild(adeOfHollowSpace);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -144,11 +132,6 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
             if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
-
-        if (adeOfHollowSpace != null) {
-            for (ADEOfHollowSpace container : adeOfHollowSpace)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -160,11 +143,6 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
 
             geometryInfo.addGeometry(4, properties.getLod4Solid());
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
-        }
-
-        if (adeOfHollowSpace != null) {
-            for (ADEOfHollowSpace container : adeOfHollowSpace)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfAbstractAppearance extends ADEContainer {
+public abstract class ADEOfAbstractAppearance extends ADEProperty {
+
+    @Override
+    public final Class<AbstractAppearance> getTargetType() {
+        return AbstractAppearance.class;
+    }
 }

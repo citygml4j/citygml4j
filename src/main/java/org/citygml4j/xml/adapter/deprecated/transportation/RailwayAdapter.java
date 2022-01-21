@@ -66,8 +66,7 @@ public class RailwayAdapter extends AbstractTransportationObjectAdapter<Railway>
 
     @Override
     public void buildADEProperty(Railway object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfRailway.class, object.getADEOfRailway(),
-                GenericADEOfRailway::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfRailway::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class RailwayAdapter extends AbstractTransportationObjectAdapter<Railway>
     public void writeChildElements(Railway object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfRailway container : object.getADEOfRailway())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfRailway property : object.getADEProperties(ADEOfRailway.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

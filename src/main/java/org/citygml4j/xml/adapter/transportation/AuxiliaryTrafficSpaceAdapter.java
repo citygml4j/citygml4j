@@ -61,7 +61,7 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
                     reader.getTextContent().ifPresent(v -> object.setGranularity(GranularityValue.fromValue(v)));
                     return;
                 case "adeOfAuxiliaryTrafficSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAuxiliaryTrafficSpace.class, object.getADEOfAuxiliaryTrafficSpace(), GenericADEOfAuxiliaryTrafficSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAuxiliaryTrafficSpace::of, reader);
                     return;
             }
         }
@@ -82,7 +82,7 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
 
         writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "granularity").addTextContent(object.getGranularity().toValue()));
 
-        for (ADEOfAuxiliaryTrafficSpace container : object.getADEOfAuxiliaryTrafficSpace())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAuxiliaryTrafficSpace"), container, namespaces, writer);
+        for (ADEOfAuxiliaryTrafficSpace property : object.getADEProperties(ADEOfAuxiliaryTrafficSpace.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAuxiliaryTrafficSpace"), property, namespaces, writer);
     }
 }

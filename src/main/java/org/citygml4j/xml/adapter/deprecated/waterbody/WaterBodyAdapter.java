@@ -109,8 +109,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
 
     @Override
     public void buildADEProperty(WaterBody object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWaterBody.class, object.getADEOfWaterBody(),
-                GenericADEOfWaterBody::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfWaterBody::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -153,7 +152,7 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractWaterBoundarySurfacePropertyAdapter.class, namespaces);
 
-        for (ADEOfWaterBody container : object.getADEOfWaterBody())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfWaterBody property : object.getADEProperties(ADEOfWaterBody.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

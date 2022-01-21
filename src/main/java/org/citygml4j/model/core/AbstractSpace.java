@@ -45,7 +45,6 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private SolidProperty lod3Solid;
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
-    private List<ADEOfAbstractSpace> adeOfAbstractSpace;
 
     public abstract boolean isValidBoundary(AbstractSpaceBoundary boundary);
 
@@ -181,17 +180,6 @@ public abstract class AbstractSpace extends AbstractCityObject {
         this.lod3MultiCurve = asChild(lod3MultiCurve);
     }
 
-    public List<ADEOfAbstractSpace> getADEOfAbstractSpace() {
-        if (adeOfAbstractSpace == null)
-            adeOfAbstractSpace = new ChildList<>(this);
-
-        return adeOfAbstractSpace;
-    }
-
-    public void setADEOfAbstractSpace(List<ADEOfAbstractSpace> adeOfAbstractSpace) {
-        this.adeOfAbstractSpace = asChild(adeOfAbstractSpace);
-    }
-
     public SolidProperty getSolid(int lod) {
         switch (lod) {
             case 1:
@@ -310,11 +298,6 @@ public abstract class AbstractSpace extends AbstractCityObject {
             if (solidProperty != null && solidProperty.getObject() != null)
                 envelope.include(solidProperty.getObject().computeEnvelope());
         }
-
-        if (adeOfAbstractSpace != null) {
-            for (ADEOfAbstractSpace container : adeOfAbstractSpace)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -331,10 +314,5 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
         for (int lod = 0; lod < 4; lod++)
             geometryInfo.addGeometry(lod, getSolid(lod));
-
-        if (adeOfAbstractSpace != null) {
-            for (ADEOfAbstractSpace container : adeOfAbstractSpace)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 }

@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfAddress extends ADEContainer {
+public abstract class ADEOfAddress extends ADEProperty {
+
+    @Override
+    public final Class<Address> getTargetType() {
+        return Address.class;
+    }
 }

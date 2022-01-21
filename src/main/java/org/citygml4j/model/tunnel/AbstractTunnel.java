@@ -39,7 +39,6 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
     private List<TunnelInstallationProperty> tunnelInstallations;
     private List<HollowSpaceProperty> hollowSpaces;
     private List<TunnelFurnitureProperty> tunnelFurniture;
-    private List<ADEOfAbstractTunnel> adeOfAbstractTunnel;
 
     @Override
     public Code getClassifier() {
@@ -131,17 +130,6 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         return new DeprecatedPropertiesOfAbstractTunnel();
     }
 
-    public List<ADEOfAbstractTunnel> getADEOfAbstractTunnel() {
-        if (adeOfAbstractTunnel == null)
-            adeOfAbstractTunnel = new ChildList<>(this);
-
-        return adeOfAbstractTunnel;
-    }
-
-    public void setADEOfAbstractTunnel(List<ADEOfAbstractTunnel> adeOfAbstractTunnel) {
-        this.adeOfAbstractTunnel = asChild(adeOfAbstractTunnel);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -180,11 +168,6 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
             if (properties.getLod4Solid() != null && properties.getLod4Solid().getObject() != null)
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
-
-        if (adeOfAbstractTunnel != null) {
-            for (ADEOfAbstractTunnel container : adeOfAbstractTunnel)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -198,11 +181,6 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
             geometryInfo.addGeometry(4, properties.getLod4MultiCurve());
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
             geometryInfo.addGeometry(4, properties.getLod4Solid());
-        }
-
-        if (adeOfAbstractTunnel != null) {
-            for (ADEOfAbstractTunnel container : adeOfAbstractTunnel)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

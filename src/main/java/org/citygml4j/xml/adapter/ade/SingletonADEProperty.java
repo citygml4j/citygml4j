@@ -17,9 +17,13 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.core;
+package org.citygml4j.xml.adapter.ade;
 
-import org.citygml4j.model.ade.ADEContainer;
+import java.lang.annotation.*;
 
-public abstract class ADEOfImplicitGeometry extends ADEContainer {
+@Documented
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface SingletonADEProperty {
+    String[] value() default {};
 }

@@ -19,13 +19,10 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -34,7 +31,6 @@ public class Square extends AbstractTransportationSpace implements TopLevelFeatu
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfSquare> adeOfSquare;
 
     @Override
     public Code getClassifier() {
@@ -70,37 +66,6 @@ public class Square extends AbstractTransportationSpace implements TopLevelFeatu
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
-    }
-
-    public List<ADEOfSquare> getADEOfSquare() {
-        if (adeOfSquare == null)
-            adeOfSquare = new ChildList<>(this);
-
-        return adeOfSquare;
-    }
-
-    public void setADEOfSquare(List<ADEOfSquare> adeOfSquare) {
-        this.adeOfSquare = asChild(adeOfSquare);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfSquare != null) {
-            for (ADEOfSquare container : adeOfSquare)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfSquare != null) {
-            for (ADEOfSquare container : adeOfSquare)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 
     @Override

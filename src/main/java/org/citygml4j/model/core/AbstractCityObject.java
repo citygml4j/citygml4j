@@ -19,10 +19,7 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.deprecated.core.DeprecatedPropertiesOfAbstractCityObject;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -36,7 +33,6 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     private List<AbstractAppearanceProperty> appearances;
     private List<AbstractGenericAttributeProperty> genericAttributes;
     private List<AbstractDynamizerProperty> dynamizers;
-    private List<ADEOfAbstractCityObject> adeOfAbstractCityObject;
 
     public List<ExternalReferenceProperty> getExternalReferences() {
         if (externalReferences == null)
@@ -128,36 +124,5 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
     @Override
     protected DeprecatedPropertiesOfAbstractCityObject createDeprecatedProperties() {
         return new DeprecatedPropertiesOfAbstractCityObject();
-    }
-
-    public List<ADEOfAbstractCityObject> getADEOfAbstractCityObject() {
-        if (adeOfAbstractCityObject == null)
-            adeOfAbstractCityObject = new ChildList<>(this);
-
-        return adeOfAbstractCityObject;
-    }
-
-    public void setADEOfAbstractCityObject(List<ADEOfAbstractCityObject> adeOfAbstractCityObject) {
-        this.adeOfAbstractCityObject = asChild(adeOfAbstractCityObject);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfAbstractCityObject != null) {
-            for (ADEOfAbstractCityObject container : adeOfAbstractCityObject)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfAbstractCityObject != null) {
-            for (ADEOfAbstractCityObject container : adeOfAbstractCityObject)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 }

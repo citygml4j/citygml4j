@@ -66,8 +66,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
 
     @Override
     public void buildADEProperty(WaterGroundSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWaterGroundSurface.class, object.getADEOfWaterGroundSurface(),
-                GenericADEOfWaterGroundSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfWaterGroundSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     public void writeChildElements(WaterGroundSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfWaterGroundSurface container : object.getADEOfWaterGroundSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfWaterGroundSurface property : object.getADEProperties(ADEOfWaterGroundSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

@@ -95,8 +95,7 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
 
     @Override
     public void buildADEProperty(CityModel object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityModel.class, object.getADEOfCityModel(),
-                GenericADEOfCityModel::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfCityModel::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -122,7 +121,7 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
         for (AbstractFeatureProperty property : object.getFeatureMembers())
             writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
 
-        for (ADEOfCityModel container : object.getADEOfCityModel())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

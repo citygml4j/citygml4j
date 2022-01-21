@@ -21,9 +21,6 @@ package org.citygml4j.model.appearance;
 
 import org.citygml4j.model.CityGMLObject;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.model.ChildList;
-
-import java.util.List;
 
 public abstract class AbstractTexture extends AbstractSurfaceData implements CityGMLObject {
     private String imageURI;
@@ -31,7 +28,6 @@ public abstract class AbstractTexture extends AbstractSurfaceData implements Cit
     private TextureType textureType;
     private WrapMode wrapMode;
     private ColorPlusOpacity borderColor;
-    private List<ADEOfAbstractTexture> adeOfAbstractTexture;
 
     public String getImageURI() {
         return imageURI;
@@ -71,16 +67,5 @@ public abstract class AbstractTexture extends AbstractSurfaceData implements Cit
 
     public void setBorderColor(ColorPlusOpacity borderColor) {
         this.borderColor = asChild(borderColor);
-    }
-
-    public List<ADEOfAbstractTexture> getADEOfAbstractTexture() {
-        if (adeOfAbstractTexture == null)
-            adeOfAbstractTexture = new ChildList<>(this);
-
-        return adeOfAbstractTexture;
-    }
-
-    public void setADEOfAbstractTexture(List<ADEOfAbstractTexture> adeOfAbstractTexture) {
-        this.adeOfAbstractTexture = asChild(adeOfAbstractTexture);
     }
 }

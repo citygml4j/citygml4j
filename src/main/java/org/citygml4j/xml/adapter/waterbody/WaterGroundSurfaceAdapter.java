@@ -49,7 +49,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     @Override
     public void buildChildObject(WaterGroundSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfWaterGroundSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfWaterGroundSurface.class, object.getADEOfWaterGroundSurface(), GenericADEOfWaterGroundSurface::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfWaterGroundSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -63,7 +63,7 @@ public class WaterGroundSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapt
     public void writeChildElements(WaterGroundSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfWaterGroundSurface container : object.getADEOfWaterGroundSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterGroundSurface"), container, namespaces, writer);
+        for (ADEOfWaterGroundSurface property : object.getADEProperties(ADEOfWaterGroundSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterGroundSurface"), property, namespaces, writer);
     }
 }

@@ -26,16 +26,12 @@ import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 import org.xmlobjects.gml.util.EnvelopeOptions;
-import org.xmlobjects.model.ChildList;
-
-import java.util.List;
 
 public class PointCloud extends AbstractPointCloud {
     private Code mimeType;
     private String pointFile;
     private String pointFileSrsName;
     private MultiPointProperty points;
-    private List<ADEOfPointCloud> adeOfPointCloud;
 
     public PointCloud() {
     }
@@ -82,28 +78,12 @@ public class PointCloud extends AbstractPointCloud {
         this.points = asChild(points);
     }
 
-    public List<ADEOfPointCloud> getADEOfPointCloud() {
-        if (adeOfPointCloud == null)
-            adeOfPointCloud = new ChildList<>(this);
-
-        return adeOfPointCloud;
-    }
-
-    public void setADEOfPointCloud(List<ADEOfPointCloud> adeOfPointCloud) {
-        this.adeOfPointCloud = asChild(adeOfPointCloud);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
         if (points != null && points.getObject() != null)
             envelope.include(points.getObject().computeEnvelope());
-
-        if (adeOfPointCloud != null) {
-            for (ADEOfPointCloud container : adeOfPointCloud)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -111,11 +91,6 @@ public class PointCloud extends AbstractPointCloud {
         super.updateGeometryInfo(geometryInfo);
 
         geometryInfo.addGeometry(points);
-
-        if (adeOfPointCloud != null) {
-            for (ADEOfPointCloud container : adeOfPointCloud)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 
     @Override

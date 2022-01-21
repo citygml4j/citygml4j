@@ -36,7 +36,6 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfBuildingInstallation> adeOfBuildingInstallation;
 
     @Override
     public Code getClassifier() {
@@ -84,17 +83,6 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
         return new DeprecatedPropertiesOfBuildingInstallation();
     }
 
-    public List<ADEOfBuildingInstallation> getADEOfBuildingInstallation() {
-        if (adeOfBuildingInstallation == null)
-            adeOfBuildingInstallation = new ChildList<>(this);
-
-        return adeOfBuildingInstallation;
-    }
-
-    public void setADEOfBuildingInstallation(List<ADEOfBuildingInstallation> adeOfBuildingInstallation) {
-        this.adeOfBuildingInstallation = asChild(adeOfBuildingInstallation);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -114,11 +102,6 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfBuildingInstallation != null) {
-            for (ADEOfBuildingInstallation container : adeOfBuildingInstallation)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -132,11 +115,6 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
             geometryInfo.addGeometry(3, properties.getLod3Geometry());
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfBuildingInstallation != null) {
-            for (ADEOfBuildingInstallation container : adeOfBuildingInstallation)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.transportation.ADEOfAuxiliaryTrafficSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAuxiliaryTrafficSpace extends ADEOfAuxiliaryTrafficSpace implements ADEGenericContainer {
+public class GenericADEOfAuxiliaryTrafficSpace extends ADEOfAuxiliaryTrafficSpace implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfAuxiliaryTrafficSpace(Element value) {

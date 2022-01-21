@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.generics;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfGenericLogicalSpace extends ADEContainer {
+public abstract class ADEOfGenericLogicalSpace extends ADEProperty {
+
+    @Override
+    public final Class<GenericLogicalSpace> getTargetType() {
+        return GenericLogicalSpace.class;
+    }
 }

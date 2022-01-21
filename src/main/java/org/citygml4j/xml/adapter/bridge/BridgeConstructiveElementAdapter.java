@@ -114,7 +114,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeConstructiveElement":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeConstructiveElement.class, object.getADEOfBridgeConstructiveElement(), GenericADEOfBridgeConstructiveElement::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBridgeConstructiveElement::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -127,8 +127,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
 
     @Override
     public void buildADEProperty(BridgeConstructiveElement object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeConstructiveElement.class, object.getADEOfBridgeConstructiveElement(),
-                GenericADEOfBridgeConstructiveElement::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBridgeConstructiveElement::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -195,7 +194,7 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBridgeConstructiveElement container : object.getADEOfBridgeConstructiveElement())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeConstructiveElement") : null, container, namespaces, writer);
+        for (ADEOfBridgeConstructiveElement property : object.getADEProperties(ADEOfBridgeConstructiveElement.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeConstructiveElement") : null, property, namespaces, writer);
     }
 }

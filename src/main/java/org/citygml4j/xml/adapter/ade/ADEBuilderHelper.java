@@ -21,7 +21,8 @@ package org.citygml4j.xml.adapter.ade;
 
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSSchemaSet;
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
+import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
@@ -37,30 +38,30 @@ import javax.xml.namespace.QName;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 public class ADEBuilderHelper {
 
-    public static <T extends ADEContainer> void addADEContainer(Class<T> type, List<T> containers, Function<Element, T> creator, XMLReader reader) throws ObjectBuildException, XMLReadException {
+    public static void addADEProperty(AbstractFeature feature, Function<Element, ADEProperty> creator, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (reader.hasNext() && reader.nextTag() == EventType.START_ELEMENT) {
             QName name = reader.getName();
-            ObjectBuilder<T> builder = reader.getXMLObjects().getBuilder(name, type);
-            if (builder != null)
-                buildContainer(builder, name, containers, reader);
-            else if (reader.isCreateDOMAsFallback())
-                containers.add(creator.apply(reader.getDOMElement()));
+            ObjectBuilder<ADEProperty> builder = reader.getXMLObjects().getBuilder(name, ADEProperty.class);
+            if (builder != null) {
+                buildADEProperty(feature, name, builder, reader);
+            } else if (reader.isCreateDOMAsFallback()) {
+                feature.addADEProperty(creator.apply(reader.getDOMElement()));
+            }
         }
     }
 
-    public static <T extends ADEContainer> boolean addADEContainer(QName name, Class<T> type, List<T> containers, Function<Element, T> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
-        ObjectBuilder<T> builder = reader.getXMLObjects().getBuilder(name, type);
+    public static boolean addADEProperty(AbstractFeature feature, QName name, Function<Element, ADEProperty> creator, XMLReader reader, QName... substitutionGroups) throws ObjectBuildException, XMLReadException {
+        ObjectBuilder<ADEProperty> builder = reader.getXMLObjects().getBuilder(name, ADEProperty.class);
         if (builder != null) {
-            buildContainer(builder, name, containers, reader);
+            buildADEProperty(feature, name, builder, reader);
             return true;
         } else if (reader.isCreateDOMAsFallback() && substitutes(name, reader, substitutionGroups)) {
-            containers.add(creator.apply(reader.getDOMElement()));
+            feature.addADEProperty(creator.apply(reader.getDOMElement()));
             return true;
         }
 
@@ -68,36 +69,36 @@ public class ADEBuilderHelper {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T extends ADEContainer> void buildContainer(ObjectBuilder<T> builder, QName name, List<T> containers, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        Map<Object, Object> containerInfo = (Map<Object, Object>) reader.getProperties().getOrSet("org.citygml4j.reuseADEContainers", Map.class, HashMap::new);
+    private static void buildADEProperty(AbstractFeature feature, QName name, ObjectBuilder<ADEProperty> builder, XMLReader reader) throws ObjectBuildException, XMLReadException {
+        Map<Object, Object> singletonInfo = (Map<Object, Object>) reader.getProperties().getOrSet("org.citygml4j.singletonADEs", Map.class, HashMap::new);
 
-        Object entry = containerInfo.get(builder.getClass().getName());
+        Object entry = singletonInfo.get(builder.getClass().getName());
         if (entry == null) {
             try {
                 Method method = builder.getClass().getMethod("createObject", QName.class, Object.class);
-                ReuseADEContainer reuseADEContainer = method.getAnnotation(ReuseADEContainer.class);
-                entry = reuseADEContainer != null ? reuseADEContainer : Boolean.FALSE;
-                containerInfo.put(builder.getClass().getName(), entry);
+                SingletonADEProperty singleton = method.getAnnotation(SingletonADEProperty.class);
+                entry = singleton != null ? singleton : Boolean.FALSE;
+                singletonInfo.put(builder.getClass().getName(), entry);
             } catch (NoSuchMethodException e) {
                 throw new ObjectBuildException("Failed to find createObject method of builder " + builder.getClass().getName());
             }
         }
 
-        if (entry instanceof ReuseADEContainer) {
-            ReuseADEContainer reuseADEContainer = (ReuseADEContainer) entry;
-            if (reuseADEContainer.value().length == 0
-                    || Arrays.asList(reuseADEContainer.value()).contains(name.getNamespaceURI())) {
-                Class<?> objectType = reader.getXMLObjects().getObjectType(name.getNamespaceURI(), builder);
-                for (T container : containers) {
-                    if (container.getClass() == objectType) {
-                        reader.fillObjectUsingBuilder(container, builder);
+        if (entry instanceof SingletonADEProperty) {
+            SingletonADEProperty singleton = (SingletonADEProperty) entry;
+            if (singleton.value().length == 0
+                    || Arrays.asList(singleton.value()).contains(name.getNamespaceURI())) {
+                Class<ADEProperty> objectType = (Class<ADEProperty>) reader.getXMLObjects().getObjectType(name.getNamespaceURI(), builder);
+                for (ADEProperty property : feature.getADEProperties(objectType)) {
+                    if (property.getClass() == objectType) {
+                        reader.fillObjectUsingBuilder(property, builder);
                         return;
                     }
                 }
             }
         }
 
-        containers.add(reader.getObjectUsingBuilder(builder));
+        feature.addADEProperty(reader.getObjectUsingBuilder(builder));
     }
 
     private static boolean substitutes(QName name, XMLReader reader, QName... substitutionGroups) throws XMLReadException {

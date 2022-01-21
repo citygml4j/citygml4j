@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.relief.ADEOfMassPointRelief;
 import org.w3c.dom.Element;
 
-public class GenericADEOfMassPointRelief extends ADEOfMassPointRelief implements ADEGenericContainer {
+public class GenericADEOfMassPointRelief extends ADEOfMassPointRelief implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfMassPointRelief(Element value) {

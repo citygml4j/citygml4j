@@ -66,8 +66,7 @@ public class TransportationComplexAdapter extends AbstractTransportationObjectAd
 
     @Override
     public void buildADEProperty(TransportationComplex object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTransportationComplex.class, object.getADEOfTransportationComplex(),
-                GenericADEOfTransportationComplex::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfTransportationComplex::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class TransportationComplexAdapter extends AbstractTransportationObjectAd
     public void writeChildElements(TransportationComplex object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfTransportationComplex container : object.getADEOfTransportationComplex())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfTransportationComplex property : object.getADEProperties(ADEOfTransportationComplex.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

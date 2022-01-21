@@ -61,7 +61,7 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfDoor":
-                    ADEBuilderHelper.addADEContainer(ADEOfDoor.class, object.getADEOfDoor(), GenericADEOfDoor::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfDoor::of, reader);
                     return;
             }
         }
@@ -83,7 +83,7 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfDoor container : object.getADEOfDoor())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoor"), container, namespaces, writer);
+        for (ADEOfDoor property : object.getADEProperties(ADEOfDoor.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoor"), property, namespaces, writer);
     }
 }

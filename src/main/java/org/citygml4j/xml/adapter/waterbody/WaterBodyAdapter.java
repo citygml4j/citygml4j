@@ -55,7 +55,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfWaterBody".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfWaterBody.class, object.getADEOfWaterBody(), GenericADEOfWaterBody::of, reader);
+                ADEBuilderHelper.addADEProperty(object, GenericADEOfWaterBody::of, reader);
                 return;
             }
         }
@@ -74,7 +74,7 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, namespaces, writer);
 
-        for (ADEOfWaterBody container : object.getADEOfWaterBody())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterBody"), container, namespaces, writer);
+        for (ADEOfWaterBody property : object.getADEProperties(ADEOfWaterBody.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterBody"), property, namespaces, writer);
     }
 }

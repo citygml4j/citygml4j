@@ -96,7 +96,7 @@ public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdap
                     reader.getTextContent().ifPresent(object::setValueColumnName);
                     return;
                 case "adeOfTabulatedFileTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfTabulatedFileTimeseries.class, object.getADEOfTabulatedFileTimeseries(), GenericADEOfTabulatedFileTimeseries::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfTabulatedFileTimeseries::of, reader);
                     return;
             }
         }
@@ -155,7 +155,7 @@ public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdap
         if (object.getValueColumnName() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "valueColumnName").addTextContent(object.getValueColumnName()));
 
-        for (ADEOfTabulatedFileTimeseries container : object.getADEOfTabulatedFileTimeseries())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfTabulatedFileTimeseries"), container, namespaces, writer);
+        for (ADEOfTabulatedFileTimeseries property : object.getADEProperties(ADEOfTabulatedFileTimeseries.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfTabulatedFileTimeseries"), property, namespaces, writer);
     }
 }

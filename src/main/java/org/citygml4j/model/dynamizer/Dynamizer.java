@@ -22,9 +22,6 @@ package org.citygml4j.model.dynamizer;
 import org.citygml4j.model.core.AbstractDynamizer;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.temporal.TimePosition;
-import org.xmlobjects.model.ChildList;
-
-import java.util.List;
 
 public class Dynamizer extends AbstractDynamizer {
     private String attributeRef;
@@ -32,7 +29,6 @@ public class Dynamizer extends AbstractDynamizer {
     private TimePosition endTime;
     private AbstractTimeseriesProperty dynamicData;
     private SensorConnectionProperty sensorConnection;
-    private List<ADEOfDynamizer> adeOfDynamizer;
 
     public Dynamizer() {
     }
@@ -79,17 +75,6 @@ public class Dynamizer extends AbstractDynamizer {
 
     public void setSensorConnection(SensorConnectionProperty sensorConnection) {
         this.sensorConnection = asChild(sensorConnection);
-    }
-
-    public List<ADEOfDynamizer> getADEOfDynamizer() {
-        if (adeOfDynamizer == null)
-            adeOfDynamizer = new ChildList<>(this);
-
-        return adeOfDynamizer;
-    }
-
-    public void setADEOfDynamizer(List<ADEOfDynamizer> adeOfDynamizer) {
-        this.adeOfDynamizer = asChild(adeOfDynamizer);
     }
 
     @Override

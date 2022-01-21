@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.core.ADEOfAbstractPointCloud;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractPointCloud extends ADEOfAbstractPointCloud implements ADEGenericContainer {
+public class GenericADEOfAbstractPointCloud extends ADEOfAbstractPointCloud implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfAbstractPointCloud(Element value) {

@@ -64,7 +64,7 @@ public class TrackAdapter extends AbstractTransportationSpaceAdapter<Track> {
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfTrack":
-                    ADEBuilderHelper.addADEContainer(ADEOfTrack.class, object.getADEOfTrack(), GenericADEOfTrack::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfTrack::of, reader);
                     return;
             }
         }
@@ -89,7 +89,7 @@ public class TrackAdapter extends AbstractTransportationSpaceAdapter<Track> {
         for (IntersectionProperty property : object.getIntersections())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
 
-        for (ADEOfTrack container : object.getADEOfTrack())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrack"), container, namespaces, writer);
+        for (ADEOfTrack property : object.getADEProperties(ADEOfTrack.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrack"), property, namespaces, writer);
     }
 }

@@ -54,7 +54,7 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
                     object.setLod3ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfAbstractOccupiedSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractOccupiedSpace.class, object.getADEOfAbstractOccupiedSpace(), GenericADEOfAbstractOccupiedSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractOccupiedSpace::of, reader);
                     return;
             }
         }
@@ -77,8 +77,8 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractOccupiedSpace container : object.getADEOfAbstractOccupiedSpace())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractOccupiedSpace"), container, namespaces, writer);
+            for (ADEOfAbstractOccupiedSpace property : object.getADEProperties(ADEOfAbstractOccupiedSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractOccupiedSpace"), property, namespaces, writer);
         }
     }
 }

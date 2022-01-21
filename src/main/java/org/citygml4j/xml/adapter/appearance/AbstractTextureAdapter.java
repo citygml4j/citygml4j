@@ -66,7 +66,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
                     reader.getTextContent().ifDoubleList(v -> object.setBorderColor(ColorPlusOpacity.fromList(v)));
                     return;
                 case "adeOfAbstractTexture":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTexture.class, object.getADEOfAbstractTexture(), GenericADEOfAbstractTexture::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractTexture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -79,8 +79,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTexture.class, object.getADEOfAbstractTexture(),
-                GenericADEOfAbstractTexture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractTexture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -105,7 +104,7 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
         if (object.getBorderColor() != null)
             writer.writeElement(Element.of(appearanceNamespace, "borderColor").addTextContent(TextContent.ofDoubleList(object.getBorderColor().toList())));
 
-        for (ADEOfAbstractTexture container : object.getADEOfAbstractTexture())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractTexture") : null, container, namespaces, writer);
+        for (ADEOfAbstractTexture property : object.getADEProperties(ADEOfAbstractTexture.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractTexture") : null, property, namespaces, writer);
     }
 }

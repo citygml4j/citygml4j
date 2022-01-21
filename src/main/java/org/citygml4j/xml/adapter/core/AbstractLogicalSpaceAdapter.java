@@ -43,7 +43,7 @@ public abstract class AbstractLogicalSpaceAdapter<T extends AbstractLogicalSpace
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractLogicalSpace".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractLogicalSpace.class, object.getADEOfAbstractLogicalSpace(), GenericADEOfAbstractLogicalSpace::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractLogicalSpace::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -54,8 +54,8 @@ public abstract class AbstractLogicalSpaceAdapter<T extends AbstractLogicalSpace
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractLogicalSpace container : object.getADEOfAbstractLogicalSpace())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractLogicalSpace"), container, namespaces, writer);
+            for (ADEOfAbstractLogicalSpace property : object.getADEProperties(ADEOfAbstractLogicalSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractLogicalSpace"), property, namespaces, writer);
         }
     }
 }

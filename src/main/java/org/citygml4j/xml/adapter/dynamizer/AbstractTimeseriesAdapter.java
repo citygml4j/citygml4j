@@ -52,7 +52,7 @@ public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> ex
                     object.setLastTimestamp(reader.getObjectUsingBuilder(TimePositionAdapter.class));
                     return;
                 case "adeOfAbstractTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractTimeseries.class, object.getADEOfAbstractTimeseries(), GenericADEOfAbstractTimeseries::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractTimeseries::of, reader);
                     return;
             }
         }
@@ -70,7 +70,7 @@ public abstract class AbstractTimeseriesAdapter<T extends AbstractTimeseries> ex
         if (object.getLastTimestamp() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "lastTimestamp"), object.getLastTimestamp(), TimePositionAdapter.class, namespaces);
 
-        for (ADEOfAbstractTimeseries container : object.getADEOfAbstractTimeseries())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfAbstractTimeseries"), container, namespaces, writer);
+        for (ADEOfAbstractTimeseries property : object.getADEProperties(ADEOfAbstractTimeseries.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfAbstractTimeseries"), property, namespaces, writer);
     }
 }

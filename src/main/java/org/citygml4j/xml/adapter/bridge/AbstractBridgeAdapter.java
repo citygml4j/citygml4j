@@ -70,7 +70,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfAbstractBridge":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractBridge.class, object.getADEOfAbstractBridge(), GenericADEOfAbstractBridge::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractBridge::of, reader);
                     return;
             }
         }
@@ -102,7 +102,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractBridge container : object.getADEOfAbstractBridge())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfAbstractBridge"), container, namespaces, writer);
+        for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfAbstractBridge"), property, namespaces, writer);
     }
 }

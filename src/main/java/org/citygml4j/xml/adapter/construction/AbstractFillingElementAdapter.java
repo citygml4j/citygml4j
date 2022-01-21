@@ -43,7 +43,7 @@ public abstract class AbstractFillingElementAdapter<T extends AbstractFillingEle
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractFillingElement".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractFillingElement.class, object.getADEOfAbstractFillingElement(), GenericADEOfAbstractFillingElement::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractFillingElement::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -53,8 +53,8 @@ public abstract class AbstractFillingElementAdapter<T extends AbstractFillingEle
         super.writeChildElements(object, namespaces, writer);
 
         if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (ADEOfAbstractFillingElement container : object.getADEOfAbstractFillingElement())
-                ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractFillingElement"), container, namespaces, writer);
+            for (ADEOfAbstractFillingElement property : object.getADEProperties(ADEOfAbstractFillingElement.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractFillingElement"), property, namespaces, writer);
         }
     }
 }

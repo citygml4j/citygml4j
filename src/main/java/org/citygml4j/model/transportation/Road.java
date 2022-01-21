@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -36,7 +35,6 @@ public class Road extends AbstractTransportationSpace implements TopLevelFeature
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEOfRoad> adeOfRoad;
 
     @Override
     public Code getClassifier() {
@@ -96,17 +94,6 @@ public class Road extends AbstractTransportationSpace implements TopLevelFeature
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEOfRoad> getADEOfRoad() {
-        if (adeOfRoad == null)
-            adeOfRoad = new ChildList<>(this);
-
-        return adeOfRoad;
-    }
-
-    public void setADEOfRoad(List<ADEOfRoad> adeOfRoad) {
-        this.adeOfRoad = asChild(adeOfRoad);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -123,21 +110,6 @@ public class Road extends AbstractTransportationSpace implements TopLevelFeature
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfRoad != null) {
-            for (ADEOfRoad container : adeOfRoad)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfRoad != null) {
-            for (ADEOfRoad container : adeOfRoad)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

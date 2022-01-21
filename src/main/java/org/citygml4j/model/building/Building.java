@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.building;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -30,7 +29,6 @@ import java.util.List;
 
 public class Building extends AbstractBuilding implements TopLevelFeature {
     private List<BuildingPartProperty> buildingParts;
-    private List<ADEOfBuilding> adeOfBuilding;
 
     public List<BuildingPartProperty> getBuildingParts() {
         if (buildingParts == null)
@@ -43,17 +41,6 @@ public class Building extends AbstractBuilding implements TopLevelFeature {
         this.buildingParts = asChild(buildingParts);
     }
 
-    public List<ADEOfBuilding> getADEOfBuilding() {
-        if (adeOfBuilding == null)
-            adeOfBuilding = new ChildList<>(this);
-
-        return adeOfBuilding;
-    }
-
-    public void setADEOfBuilding(List<ADEOfBuilding> adeOfBuilding) {
-        this.adeOfBuilding = asChild(adeOfBuilding);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -63,21 +50,6 @@ public class Building extends AbstractBuilding implements TopLevelFeature {
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfBuilding != null) {
-            for (ADEOfBuilding container : adeOfBuilding)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfBuilding != null) {
-            for (ADEOfBuilding container : adeOfBuilding)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

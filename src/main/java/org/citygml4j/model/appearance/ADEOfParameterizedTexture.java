@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.appearance;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfParameterizedTexture extends ADEContainer {
+public abstract class ADEOfParameterizedTexture extends ADEProperty {
+
+    @Override
+    public final Class<ParameterizedTexture> getTargetType() {
+        return ParameterizedTexture.class;
+    }
 }

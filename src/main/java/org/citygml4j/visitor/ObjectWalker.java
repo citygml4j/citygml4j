@@ -20,8 +20,8 @@
 package org.citygml4j.visitor;
 
 import org.citygml4j.ADERegistry;
-import org.citygml4j.model.ade.ADEContainer;
 import org.citygml4j.model.ade.ADEObject;
+import org.citygml4j.model.ade.ADEProperty;
 import org.citygml4j.model.appearance.*;
 import org.citygml4j.model.bridge.*;
 import org.citygml4j.model.building.*;
@@ -153,22 +153,18 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractFeature feature) {
         visit((org.xmlobjects.gml.model.feature.AbstractFeature) feature);
 
-        for (ADEContainer container : new ArrayList<>(feature.getADEOfAbstractFeature()))
-            visit(container);
+        if (feature.hasADEProperties()) {
+            for (ADEProperty property : feature.getADEProperties())
+                visit(property);
+        }
     }
 
     public void visit(AbstractAppearance appearance) {
         visit((AbstractFeatureWithLifespan) appearance);
-
-        for (ADEContainer container : new ArrayList<>(appearance.getADEOfAbstractAppearance()))
-            visit(container);
     }
 
     public void visit(AbstractAtomicTimeseries atomicTimeseries) {
         visit((AbstractTimeseries) atomicTimeseries);
-
-        for (ADEContainer container : new ArrayList<>(atomicTimeseries.getADEOfAbstractAtomicTimeseries()))
-            visit(container);
     }
 
     public void visit(AbstractBridge bridge) {
@@ -210,9 +206,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4TerrainIntersectionCurve() != null)
                 visit(properties.getLod4TerrainIntersectionCurve());
         }
-
-        for (ADEContainer container : new ArrayList<>(bridge.getADEOfAbstractBridge()))
-            visit(container);
     }
 
     public void visit(AbstractBuilding building) {
@@ -260,9 +253,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4TerrainIntersectionCurve() != null)
                 visit(properties.getLod4TerrainIntersectionCurve());
         }
-
-        for (ADEContainer container : new ArrayList<>(building.getADEOfAbstractBuilding()))
-            visit(container);
     }
 
     public void visit(AbstractBuildingSubdivision buildingSubdivision) {
@@ -279,9 +269,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (BuildingRoomProperty property : new ArrayList<>(buildingSubdivision.getBuildingRooms()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(buildingSubdivision.getADEOfAbstractBuildingSubdivision()))
-            visit(container);
     }
 
     public void visit(AbstractCityObject cityObject) {
@@ -305,16 +292,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             for (AbstractCityObjectProperty property : new ArrayList<>(properties.getGeneralizesTo()))
                 visit(property);
         }
-
-        for (ADEContainer container : new ArrayList<>(cityObject.getADEOfAbstractCityObject()))
-            visit(container);
     }
 
     public void visit(AbstractConstruction construction) {
         visit((AbstractOccupiedSpace) construction);
-
-        for (ADEContainer container : new ArrayList<>(construction.getADEOfAbstractConstruction()))
-            visit(container);
     }
 
     public void visit(AbstractConstructionSurface constructionSurface) {
@@ -322,9 +303,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AbstractFillingSurfaceProperty property : new ArrayList<>(constructionSurface.getFillingSurfaces()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(constructionSurface.getADEOfAbstractConstructionSurface()))
-            visit(container);
     }
 
     public void visit(AbstractConstructiveElement constructiveElement) {
@@ -332,9 +310,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AbstractFillingElementProperty property : new ArrayList<>(constructiveElement.getFillings()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(constructiveElement.getADEOfAbstractConstructiveElement()))
-            visit(container);
     }
 
     public void visit(AbstractContinuousCoverage<?> continuousCoverage) {
@@ -361,23 +336,14 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
     public void visit(AbstractDynamizer dynamizer) {
         visit((AbstractFeatureWithLifespan) dynamizer);
-
-        for (ADEContainer container : new ArrayList<>(dynamizer.getADEOfAbstractDynamizer()))
-            visit(container);
     }
 
     public void visit(AbstractFeatureWithLifespan featureWithLifespan) {
         visit((AbstractFeature) featureWithLifespan);
-
-        for (ADEContainer container : new ArrayList<>(featureWithLifespan.getADEOfAbstractFeatureWithLifespan()))
-            visit(container);
     }
 
     public void visit(AbstractFillingElement fillingElement) {
         visit((AbstractOccupiedSpace) fillingElement);
-
-        for (ADEContainer container : new ArrayList<>(fillingElement.getADEOfAbstractFillingElement()))
-            visit(container);
     }
 
     public void visit(AbstractFillingSurface fillingSurface) {
@@ -392,30 +358,18 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(fillingSurface.getADEOfAbstractFillingSurface()))
-            visit(container);
     }
 
     public void visit(AbstractFurniture furniture) {
         visit((AbstractOccupiedSpace) furniture);
-
-        for (ADEContainer container : new ArrayList<>(furniture.getADEOfAbstractFurniture()))
-            visit(container);
     }
 
     public void visit(AbstractInstallation installation) {
         visit((AbstractOccupiedSpace) installation);
-
-        for (ADEContainer container : new ArrayList<>(installation.getADEOfAbstractInstallation()))
-            visit(container);
     }
 
     public void visit(AbstractLogicalSpace logicalSpace) {
         visit((AbstractSpace) logicalSpace);
-
-        for (ADEContainer container : new ArrayList<>(logicalSpace.getADEOfAbstractLogicalSpace()))
-            visit(container);
     }
 
     public void visit(AbstractOccupiedSpace occupiedSpace) {
@@ -429,9 +383,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (occupiedSpace.getLod3ImplicitRepresentation() != null)
             visit(occupiedSpace.getLod3ImplicitRepresentation());
-
-        for (ADEContainer container : new ArrayList<>(occupiedSpace.getADEOfAbstractOccupiedSpace()))
-            visit(container);
     }
 
     public void visit(AbstractPhysicalSpace physicalSpace) {
@@ -448,16 +399,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (physicalSpace.getLod3TerrainIntersectionCurve() != null)
             visit(physicalSpace.getLod3TerrainIntersectionCurve());
-
-        for (ADEContainer container : new ArrayList<>(physicalSpace.getADEOfAbstractPhysicalSpace()))
-            visit(container);
     }
 
     public void visit(AbstractPointCloud pointCloud) {
         visit((AbstractFeature) pointCloud);
-
-        for (ADEContainer container : new ArrayList<>(pointCloud.getADEOfAbstractPointCloud()))
-            visit(container);
     }
 
     public void visit(AbstractReliefComponent reliefComponent) {
@@ -465,9 +410,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (reliefComponent.getExtent() != null)
             visit(reliefComponent.getExtent());
-
-        for (ADEContainer container : new ArrayList<>(reliefComponent.getADEOfAbstractReliefComponent()))
-            visit(container);
     }
 
     public void visit(AbstractSpace space) {
@@ -505,30 +447,18 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (space.getLod3MultiCurve() != null)
             visit(space.getLod3MultiCurve());
-
-        for (ADEContainer container : new ArrayList<>(space.getADEOfAbstractSpace()))
-            visit(container);
     }
 
     public void visit(AbstractSpaceBoundary spaceBoundary) {
         visit((AbstractCityObject) spaceBoundary);
-
-        for (ADEContainer container : new ArrayList<>(spaceBoundary.getADEOfAbstractSpaceBoundary()))
-            visit(container);
     }
 
     public void visit(AbstractSurfaceData surfaceData) {
         visit((AbstractFeature) surfaceData);
-
-        for (ADEContainer container : new ArrayList<>(surfaceData.getADEOfAbstractSurfaceData()))
-            visit(container);
     }
 
     public void visit(AbstractTexture texture) {
         visit((AbstractSurfaceData) texture);
-
-        for (ADEContainer container : new ArrayList<>(texture.getADEOfAbstractTexture()))
-            visit(container);
     }
 
     public void visit(AbstractThematicSurface thematicSurface) {
@@ -558,16 +488,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4MultiSurface() != null)
                 visit(properties.getLod4MultiSurface());
         }
-
-        for (ADEContainer container : new ArrayList<>(thematicSurface.getADEOfAbstractThematicSurface()))
-            visit(container);
     }
 
     public void visit(AbstractTimeseries timeseries) {
         visit((AbstractFeature) timeseries);
-
-        for (ADEContainer container : new ArrayList<>(timeseries.getADEOfAbstractTimeseries()))
-            visit(container);
     }
 
     public void visit(AbstractTransportationSpace transportationSpace) {
@@ -597,9 +521,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4MultiSurface() != null)
                 visit(properties.getLod4MultiSurface());
         }
-
-        for (ADEContainer container : new ArrayList<>(transportationSpace.getADEOfAbstractTransportationSpace()))
-            visit(container);
     }
 
     public void visit(AbstractTunnel tunnel) {
@@ -638,44 +559,26 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4TerrainIntersectionCurve() != null)
                 visit(properties.getLod4TerrainIntersectionCurve());
         }
-
-        for (ADEContainer container : new ArrayList<>(tunnel.getADEOfAbstractTunnel()))
-            visit(container);
     }
 
     public void visit(AbstractUnoccupiedSpace unoccupiedSpace) {
         visit((AbstractPhysicalSpace) unoccupiedSpace);
-
-        for (ADEContainer container : new ArrayList<>(unoccupiedSpace.getADEOfAbstractUnoccupiedSpace()))
-            visit(container);
     }
 
     public void visit(AbstractVegetationObject vegetationObject) {
         visit((AbstractOccupiedSpace) vegetationObject);
-
-        for (ADEContainer container : new ArrayList<>(vegetationObject.getADEOfAbstractVegetationObject()))
-            visit(container);
     }
 
     public void visit(AbstractVersion version) {
         visit((AbstractFeatureWithLifespan) version);
-
-        for (ADEContainer container : new ArrayList<>(version.getADEOfAbstractVersion()))
-            visit(container);
     }
 
     public void visit(AbstractVersionTransition versionTransition) {
         visit((AbstractFeatureWithLifespan) versionTransition);
-
-        for (ADEContainer container : new ArrayList<>(versionTransition.getADEOfAbstractVersionTransition()))
-            visit(container);
     }
 
     public void visit(AbstractWaterBoundarySurface waterBoundarySurface) {
         visit((AbstractThematicSurface) waterBoundarySurface);
-
-        for (ADEContainer container : new ArrayList<>(waterBoundarySurface.getADEOfAbstractWaterBoundarySurface()))
-            visit(container);
     }
 
     @Override
@@ -684,9 +587,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (address.getMultiPoint() != null)
             visit(address.getMultiPoint());
-
-        for (ADEContainer container : new ArrayList<>(address.getADEOfAddress()))
-            visit(container);
     }
 
     @Override
@@ -695,25 +595,16 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AbstractSurfaceDataProperty property : new ArrayList<>(appearance.getSurfaceData()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(appearance.getADEOfAppearance()))
-            visit(container);
     }
 
     @Override
     public void visit(AuxiliaryTrafficArea auxiliaryTrafficArea) {
         visit((AbstractThematicSurface) auxiliaryTrafficArea);
-
-        for (ADEContainer container : new ArrayList<>(auxiliaryTrafficArea.getADEOfAuxiliaryTrafficArea()))
-            visit(container);
     }
 
     @Override
     public void visit(AuxiliaryTrafficSpace auxiliaryTrafficSpace) {
         visit((AbstractUnoccupiedSpace) auxiliaryTrafficSpace);
-
-        for (ADEContainer container : new ArrayList<>(auxiliaryTrafficSpace.getADEOfAuxiliaryTrafficSpace()))
-            visit(container);
     }
 
     @Override
@@ -725,9 +616,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (breaklineRelief.getBreaklines() != null)
             visit(breaklineRelief.getBreaklines());
-
-        for (ADEContainer container : new ArrayList<>(breaklineRelief.getADEOfBreaklineRelief()))
-            visit(container);
     }
 
     @Override
@@ -736,9 +624,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (BridgePartProperty property : new ArrayList<>(bridge.getBridgeParts()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(bridge.getADEOfBridge()))
-            visit(container);
     }
 
     @Override
@@ -766,9 +651,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(bridgeConstructiveElement.getADEOfBridgeConstructiveElement()))
-            visit(container);
     }
 
     @Override
@@ -784,9 +666,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(bridgeFurniture.getADEOfBridgeFurniture()))
-            visit(container);
     }
 
     @Override
@@ -808,17 +687,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(bridgeInstallation.getADEOfBridgeInstallation()))
-            visit(container);
     }
 
     @Override
     public void visit(BridgePart bridgePart) {
         visit((AbstractBridge) bridgePart);
-
-        for (ADEContainer container : new ArrayList<>(bridgePart.getADEOfBridgePart()))
-            visit(container);
     }
 
     @Override
@@ -840,9 +713,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4MultiSurface() != null)
                 visit(properties.getLod4MultiSurface());
         }
-
-        for (ADEContainer container : new ArrayList<>(bridgeRoom.getADEOfBridgeRoom()))
-            visit(container);
     }
 
     @Override
@@ -851,17 +721,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (BuildingPartProperty property : new ArrayList<>(building.getBuildingParts()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(building.getADEOfBuilding()))
-            visit(container);
     }
 
     @Override
     public void visit(BuildingConstructiveElement buildingConstructiveElement) {
         visit((AbstractConstructiveElement) buildingConstructiveElement);
-
-        for (ADEContainer container : new ArrayList<>(buildingConstructiveElement.getADEOfBuildingConstructiveElement()))
-            visit(container);
     }
 
     @Override
@@ -877,9 +741,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(buildingFurniture.getADEOfBuildingFurniture()))
-            visit(container);
     }
 
     @Override
@@ -901,17 +762,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(buildingInstallation.getADEOfBuildingInstallation()))
-            visit(container);
     }
 
     @Override
     public void visit(BuildingPart buildingPart) {
         visit((AbstractBuilding) buildingPart);
-
-        for (ADEContainer container : new ArrayList<>(buildingPart.getADEOfBuildingPart()))
-            visit(container);
     }
 
     @Override
@@ -933,9 +788,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4MultiSurface() != null)
                 visit(properties.getLod4MultiSurface());
         }
-
-        for (ADEContainer container : new ArrayList<>(buildingRoom.getADEOfBuildingRoom()))
-            visit(container);
     }
 
     @Override
@@ -947,17 +799,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AddressProperty property : new ArrayList<>(buildingUnit.getAddresses()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(buildingUnit.getADEOfBuildingUnit()))
-            visit(container);
     }
 
     @Override
     public void visit(CeilingSurface ceilingSurface) {
         visit((AbstractConstructionSurface) ceilingSurface);
-
-        for (ADEContainer container : new ArrayList<>(ceilingSurface.getADEOfCeilingSurface()))
-            visit(container);
     }
 
     @Override
@@ -985,9 +831,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(cityFurniture.getADEOfCityFurniture()))
-            visit(container);
     }
 
     @Override
@@ -1008,9 +851,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AbstractVersionTransitionProperty property : new ArrayList<>(cityModel.getVersionTransitionMembers()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(cityModel.getADEOfCityModel()))
-            visit(container);
     }
 
     @Override
@@ -1035,9 +875,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getGeometry() != null)
                 visit(properties.getGeometry());
         }
-
-        for (ADEContainer container : new ArrayList<>(cityObjectGroup.getADEOfCityObjectGroup()))
-            visit(container);
     }
 
     @Override
@@ -1051,17 +888,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(ClearanceSpace clearanceSpace) {
         visit((AbstractUnoccupiedSpace) clearanceSpace);
-
-        for (ADEContainer container : new ArrayList<>(clearanceSpace.getADEOfClearanceSpace()))
-            visit(container);
     }
 
     @Override
     public void visit(ClosureSurface closureSurface) {
         visit((AbstractThematicSurface) closureSurface);
-
-        for (ADEContainer container : new ArrayList<>(closureSurface.getADEOfClosureSurface()))
-            visit(container);
     }
 
     @Override
@@ -1070,9 +901,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (TimeseriesComponentProperty property : new ArrayList<>(compositeTimeseries.getComponents()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(compositeTimeseries.getADEOfCompositeTimeseries()))
-            visit(container);
     }
 
     @Override
@@ -1123,9 +951,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AddressProperty property : new ArrayList<>(door.getAddresses()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(door.getADEOfDoor()))
-            visit(container);
     }
 
     @Override
@@ -1134,9 +959,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AddressProperty property : new ArrayList<>(doorSurface.getAddresses()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(doorSurface.getADEOfDoorSurface()))
-            visit(container);
     }
 
     @Override
@@ -1150,25 +972,16 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (dynamizer.getDynamicData() != null)
             visit(dynamizer.getDynamicData());
-
-        for (ADEContainer container : new ArrayList<>(dynamizer.getADEOfDynamizer()))
-            visit(container);
     }
 
     @Override
     public void visit(FloorSurface floorSurface) {
         visit((AbstractConstructionSurface) floorSurface);
-
-        for (ADEContainer container : new ArrayList<>(floorSurface.getADEOfFloorSurface()))
-            visit(container);
     }
 
     @Override
     public void visit(GenericLogicalSpace genericLogicalSpace) {
         visit((AbstractLogicalSpace) genericLogicalSpace);
-
-        for (ADEContainer container : new ArrayList<>(genericLogicalSpace.getADEOfGenericLogicalSpace()))
-            visit(container);
     }
 
     @Override
@@ -1205,17 +1018,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(genericOccupiedSpace.getADEOfGenericOccupiedSpace()))
-            visit(container);
     }
 
     @Override
     public void visit(GenericThematicSurface genericThematicSurface) {
         visit((AbstractThematicSurface) genericThematicSurface);
-
-        for (ADEContainer container : new ArrayList<>(genericThematicSurface.getADEOfGenericThematicSurface()))
-            visit(container);
     }
 
     @Override
@@ -1226,17 +1033,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (property.getObject() != null)
                 visit(property.getObject());
         }
-
-        for (ADEContainer container : new ArrayList<>(genericTimeseries.getADEOfGenericTimeseries()))
-            visit(container);
     }
 
     @Override
     public void visit(GenericUnoccupiedSpace genericUnoccupiedSpace) {
         visit((AbstractUnoccupiedSpace) genericUnoccupiedSpace);
-
-        for (ADEContainer container : new ArrayList<>(genericUnoccupiedSpace.getADEOfGenericUnoccupiedSpace()))
-            visit(container);
     }
 
     @Override
@@ -1248,9 +1049,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (GeometryReference reference : georeferencedTexture.getTargets())
             visit(reference);
-
-        for (ADEContainer container : new ArrayList<>(georeferencedTexture.getADEOfGeoreferencedTexture()))
-            visit(container);
     }
 
     @Override
@@ -1261,25 +1059,16 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(GroundSurface groundSurface) {
         visit((AbstractConstructionSurface) groundSurface);
-
-        for (ADEContainer container : new ArrayList<>(groundSurface.getADEOfGroundSurface()))
-            visit(container);
     }
 
     @Override
     public void visit(Hole hole) {
         visit((AbstractUnoccupiedSpace) hole);
-
-        for (ADEContainer container : new ArrayList<>(hole.getADEOfHole()))
-            visit(container);
     }
 
     @Override
     public void visit(HoleSurface holeSurface) {
         visit((AbstractThematicSurface) holeSurface);
-
-        for (ADEContainer container : new ArrayList<>(holeSurface.getADEOfHoleSurface()))
-            visit(container);
     }
 
     @Override
@@ -1301,9 +1090,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4MultiSurface() != null)
                 visit(properties.getLod4MultiSurface());
         }
-
-        for (ADEContainer container : new ArrayList<>(hollowSpace.getADEOfHollowSpace()))
-            visit(container);
     }
 
     @Override
@@ -1323,33 +1109,21 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(InteriorWallSurface interiorWallSurface) {
         visit((AbstractConstructionSurface) interiorWallSurface);
-
-        for (ADEContainer container : new ArrayList<>(interiorWallSurface.getADEOfInteriorWallSurface()))
-            visit(container);
     }
 
     @Override
     public void visit(Intersection intersection) {
         visit((AbstractTransportationSpace) intersection);
-
-        for (ADEContainer container : new ArrayList<>(intersection.getADEOfIntersection()))
-            visit(container);
     }
 
     @Override
     public void visit(LandUse landUse) {
         visit((AbstractThematicSurface) landUse);
-
-        for (ADEContainer container : new ArrayList<>(landUse.getADEOfLandUse()))
-            visit(container);
     }
 
     @Override
     public void visit(Marking marking) {
         visit((AbstractThematicSurface) marking);
-
-        for (ADEContainer container : new ArrayList<>(marking.getADEOfMarking()))
-            visit(container);
     }
 
     @Override
@@ -1361,9 +1135,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (massPointRelief.getReliefPoints() != null)
             visit(massPointRelief.getReliefPoints());
-
-        for (ADEContainer container : new ArrayList<>(massPointRelief.getADEOfMassPointRelief()))
-            visit(container);
     }
 
     @Override
@@ -1389,25 +1160,16 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(OtherConstruction otherConstruction) {
         visit((AbstractConstruction) otherConstruction);
-
-        for (ADEContainer container : new ArrayList<>(otherConstruction.getADEOfOtherConstruction()))
-            visit(container);
     }
 
     @Override
     public void visit(OuterCeilingSurface outerCeilingSurface) {
         visit((AbstractConstructionSurface) outerCeilingSurface);
-
-        for (ADEContainer container : new ArrayList<>(outerCeilingSurface.getADEOfOuterCeilingSurface()))
-            visit(container);
     }
 
     @Override
     public void visit(OuterFloorSurface outerFloorSurface) {
         visit((AbstractConstructionSurface) outerFloorSurface);
-
-        for (ADEContainer container : new ArrayList<>(outerFloorSurface.getADEOfOuterFloorSurface()))
-            visit(container);
     }
 
     @Override
@@ -1423,9 +1185,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             for (TextureAssociationReference reference : new ArrayList<>(properties.getTargets()))
                 visit(reference);
         }
-
-        for (ADEContainer container : new ArrayList<>(parameterizedTexture.getADEOfParameterizedTexture()))
-            visit(container);
     }
 
     @Override
@@ -1453,9 +1212,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4MultiSolid() != null)
                 visit(properties.getLod4MultiSolid());
         }
-
-        for (ADEContainer container : new ArrayList<>(plantCover.getADEOfPlantCover()))
-            visit(container);
     }
 
     @Override
@@ -1464,9 +1220,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (pointCloud.getPoints() != null)
             visit(pointCloud.getPoints());
-
-        for (ADEContainer container : new ArrayList<>(pointCloud.getADEOfPointCloud()))
-            visit(container);
     }
 
     @Override
@@ -1478,9 +1231,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (IntersectionProperty property : new ArrayList<>(railway.getIntersections()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(railway.getADEOfRailway()))
-            visit(container);
     }
 
     @Override
@@ -1489,9 +1239,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (rasterRelief.getGrid() != null)
             visit(rasterRelief.getGrid());
-
-        for (ADEContainer container : new ArrayList<>(rasterRelief.getADEOfRasterRelief()))
-            visit(container);
     }
 
     @Override
@@ -1505,9 +1252,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AbstractReliefComponentProperty property : new ArrayList<>(reliefFeature.getReliefComponents()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(reliefFeature.getADEOfReliefFeature()))
-            visit(container);
     }
 
     @Override
@@ -1519,9 +1263,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (IntersectionProperty property : new ArrayList<>(road.getIntersections()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(road.getADEOfRoad()))
-            visit(container);
     }
 
     public void visit(Role role) {
@@ -1534,17 +1275,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     @Override
     public void visit(RoofSurface roofSurface) {
         visit((AbstractConstructionSurface) roofSurface);
-
-        for (ADEContainer container : new ArrayList<>(roofSurface.getADEOfRoofSurface()))
-            visit(container);
     }
 
     @Override
     public void visit(Section section) {
         visit((AbstractTransportationSpace) section);
-
-        for (ADEContainer container : new ArrayList<>(section.getADEOfSection()))
-            visit(container);
     }
 
     @Override
@@ -1569,25 +1304,16 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(solitaryVegetationObject.getADEOfSolitaryVegetationObject()))
-            visit(container);
     }
 
     @Override
     public void visit(Square square) {
         visit((AbstractTransportationSpace) square);
-
-        for (ADEContainer container : new ArrayList<>(square.getADEOfSquare()))
-            visit(container);
     }
 
     @Override
     public void visit(StandardFileTimeseries standardFileTimeseries) {
         visit((AbstractAtomicTimeseries) standardFileTimeseries);
-
-        for (ADEContainer container : new ArrayList<>(standardFileTimeseries.getADEOfStandardFileTimeseries()))
-            visit(container);
     }
 
     @Override
@@ -1596,17 +1322,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (BuildingUnitProperty property : new ArrayList<>(storey.getBuildingUnits()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(storey.getADEOfStorey()))
-            visit(container);
     }
 
     @Override
     public void visit(TabulatedFileTimeseries tabulatedFileTimeseries) {
         visit((AbstractAtomicTimeseries) tabulatedFileTimeseries);
-
-        for (ADEContainer container : new ArrayList<>(tabulatedFileTimeseries.getADEOfTabulatedFileTimeseries()))
-            visit(container);
     }
 
     @Override
@@ -1648,9 +1368,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (tinRelief.getTin() != null)
             visit(tinRelief.getTin());
-
-        for (ADEContainer container : new ArrayList<>(tinRelief.getADEOfTINRelief()))
-            visit(container);
     }
 
     @Override
@@ -1662,17 +1379,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (IntersectionProperty property : new ArrayList<>(track.getIntersections()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(track.getADEOfTrack()))
-            visit(container);
     }
 
     @Override
     public void visit(TrafficArea trafficArea) {
         visit((AbstractThematicSurface) trafficArea);
-
-        for (ADEContainer container : new ArrayList<>(trafficArea.getADEOfTrafficArea()))
-            visit(container);
     }
 
     @Override
@@ -1687,17 +1398,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (ClearanceSpaceProperty property : new ArrayList<>(trafficSpace.getClearanceSpaces()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(trafficSpace.getADEOfTrafficSpace()))
-            visit(container);
     }
 
     @Override
     public void visit(TransportationComplex transportationComplex) {
         visit((AbstractTransportationSpace) transportationComplex);
-
-        for (ADEContainer container : new ArrayList<>(transportationComplex.getADEOfTransportationComplex()))
-            visit(container);
     }
 
     @Override
@@ -1706,17 +1411,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (TunnelPartProperty property : new ArrayList<>(tunnel.getTunnelParts()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(tunnel.getADEOfTunnel()))
-            visit(container);
     }
 
     @Override
     public void visit(TunnelConstructiveElement tunnelConstructiveElement) {
         visit((AbstractConstructiveElement) tunnelConstructiveElement);
-
-        for (ADEContainer container : new ArrayList<>(tunnelConstructiveElement.getADEOfTunnelConstructiveElement()))
-            visit(container);
     }
 
     @Override
@@ -1732,9 +1431,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(tunnelFurniture.getADEOfTunnelFurniture()))
-            visit(container);
     }
 
     @Override
@@ -1756,17 +1452,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4ImplicitRepresentation() != null)
                 visit(properties.getLod4ImplicitRepresentation());
         }
-
-        for (ADEContainer container : new ArrayList<>(tunnelInstallation.getADEOfTunnelInstallation()))
-            visit(container);
     }
 
     @Override
     public void visit(TunnelPart tunnelPart) {
         visit((AbstractTunnel) tunnelPart);
-
-        for (ADEContainer container : new ArrayList<>(tunnelPart.getADEOfTunnelPart()))
-            visit(container);
     }
 
     @Override
@@ -1780,9 +1470,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (AbstractFeatureWithLifespanReference reference : new ArrayList<>(version.getVersionMembers()))
             visit(reference);
-
-        for (ADEContainer container : new ArrayList<>(version.getADEOfVersion()))
-            visit(container);
     }
 
     @Override
@@ -1801,17 +1488,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
                 visit(property.getObject().getNewFeature());
             }
         }
-
-        for (ADEContainer container : new ArrayList<>(versionTransition.getADEOfVersionTransition()))
-            visit(container);
     }
 
     @Override
     public void visit(WallSurface wallSurface) {
         visit((AbstractConstructionSurface) wallSurface);
-
-        for (ADEContainer container : new ArrayList<>(wallSurface.getADEOfWallSurface()))
-            visit(container);
     }
 
     @Override
@@ -1830,25 +1511,16 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             if (properties.getLod4Solid() != null)
                 visit(properties.getLod4Solid());
         }
-
-        for (ADEContainer container : new ArrayList<>(waterBody.getADEOfWaterBody()))
-            visit(container);
     }
 
     @Override
     public void visit(WaterGroundSurface waterGroundSurface) {
         visit((AbstractWaterBoundarySurface) waterGroundSurface);
-
-        for (ADEContainer container : new ArrayList<>(waterGroundSurface.getADEOfWaterGroundSurface()))
-            visit(container);
     }
 
     @Override
     public void visit(WaterSurface waterSurface) {
         visit((AbstractWaterBoundarySurface) waterSurface);
-
-        for (ADEContainer container : new ArrayList<>(waterSurface.getADEOfWaterSurface()))
-            visit(container);
     }
 
     @Override
@@ -1860,25 +1532,16 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (IntersectionProperty property : new ArrayList<>(waterway.getIntersections()))
             visit(property);
-
-        for (ADEContainer container : new ArrayList<>(waterway.getADEOfWaterway()))
-            visit(container);
     }
 
     @Override
     public void visit(Window window) {
         visit((AbstractFillingElement) window);
-
-        for (ADEContainer container : new ArrayList<>(window.getADEOfWindow()))
-            visit(container);
     }
 
     @Override
     public void visit(WindowSurface windowSurface) {
         visit((AbstractFillingSurface) windowSurface);
-
-        for (ADEContainer container : new ArrayList<>(windowSurface.getADEOfWindowSurface()))
-            visit(container);
     }
 
     @Override
@@ -1887,9 +1550,6 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         for (GeometryReference reference : x3dMaterial.getTargets())
             visit(reference);
-
-        for (ADEContainer container : new ArrayList<>(x3dMaterial.getADEOfX3DMaterial()))
-            visit(container);
     }
 
     @Override

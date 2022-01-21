@@ -153,8 +153,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractBridge.class, object.getADEOfAbstractBridge(),
-                GenericADEOfAbstractBridge::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractBridge::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -246,7 +245,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractBridge container : object.getADEOfAbstractBridge())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

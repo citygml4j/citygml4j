@@ -64,7 +64,7 @@ public class RailwayAdapter extends AbstractTransportationSpaceAdapter<Railway> 
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfRailway":
-                    ADEBuilderHelper.addADEContainer(ADEOfRailway.class, object.getADEOfRailway(), GenericADEOfRailway::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfRailway::of, reader);
                     return;
             }
         }
@@ -89,7 +89,7 @@ public class RailwayAdapter extends AbstractTransportationSpaceAdapter<Railway> 
         for (IntersectionProperty property : object.getIntersections())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
 
-        for (ADEOfRailway container : object.getADEOfRailway())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRailway"), container, namespaces, writer);
+        for (ADEOfRailway property : object.getADEProperties(ADEOfRailway.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRailway"), property, namespaces, writer);
     }
 }

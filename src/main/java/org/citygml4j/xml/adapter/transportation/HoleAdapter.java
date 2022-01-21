@@ -56,7 +56,7 @@ public class HoleAdapter extends AbstractUnoccupiedSpaceAdapter<Hole> {
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfHole":
-                    ADEBuilderHelper.addADEContainer(ADEOfHole.class, object.getADEOfHole(), GenericADEOfHole::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfHole::of, reader);
                     return;
             }
         }
@@ -76,7 +76,7 @@ public class HoleAdapter extends AbstractUnoccupiedSpaceAdapter<Hole> {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfHole container : object.getADEOfHole())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfHole"), container, namespaces, writer);
+        for (ADEOfHole property : object.getADEProperties(ADEOfHole.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfHole"), property, namespaces, writer);
     }
 }

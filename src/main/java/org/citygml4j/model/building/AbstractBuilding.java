@@ -48,7 +48,6 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<AbstractBuildingSubdivisionProperty> buildingSubdivisions;
     private List<AddressProperty> addresses;
-    private List<ADEOfAbstractBuilding> adeOfAbstractBuilding;
 
     @Override
     public Code getClassifier() {
@@ -202,17 +201,6 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         return new DeprecatedPropertiesOfAbstractBuilding();
     }
 
-    public List<ADEOfAbstractBuilding> getADEOfAbstractBuilding() {
-        if (adeOfAbstractBuilding == null)
-            adeOfAbstractBuilding = new ChildList<>(this);
-
-        return adeOfAbstractBuilding;
-    }
-
-    public void setADEOfAbstractBuilding(List<ADEOfAbstractBuilding> adeOfAbstractBuilding) {
-        this.adeOfAbstractBuilding = asChild(adeOfAbstractBuilding);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -261,11 +249,6 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
             if (properties.getLod4Solid() != null && properties.getLod4Solid().getObject() != null)
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
-
-        if (adeOfAbstractBuilding != null) {
-            for (ADEOfAbstractBuilding container : adeOfAbstractBuilding)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -280,11 +263,6 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
             geometryInfo.addGeometry(4, properties.getLod4MultiCurve());
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
             geometryInfo.addGeometry(4, properties.getLod4Solid());
-        }
-
-        if (adeOfAbstractBuilding != null) {
-            for (ADEOfAbstractBuilding container : adeOfAbstractBuilding)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

@@ -110,7 +110,7 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                     object.getDeprecatedProperties().setLod4MultiSolid(reader.getObjectUsingBuilder(MultiSolidPropertyAdapter.class));
                     return;
                 case "adeOfPlantCover":
-                    ADEBuilderHelper.addADEContainer(ADEOfPlantCover.class, object.getADEOfPlantCover(), GenericADEOfPlantCover::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfPlantCover::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -123,8 +123,7 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
 
     @Override
     public void buildADEProperty(PlantCover object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfPlantCover.class, object.getADEOfPlantCover(),
-                GenericADEOfPlantCover::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfPlantCover::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -184,8 +183,8 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSolid"), object.getDeprecatedProperties().getLod4MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfPlantCover container : object.getADEOfPlantCover())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(vegetationNamespace, "adeOfPlantCover") : null, container, namespaces, writer);
+        for (ADEOfPlantCover property : object.getADEProperties(ADEOfPlantCover.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfPlantCover") : null, property, namespaces, writer);
     }
 
     private MultiSolidProperty getMultiSolidProperty(SolidProperty src) {

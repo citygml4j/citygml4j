@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.dynamizer;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfAbstractTimeseries extends ADEContainer {
+public abstract class ADEOfAbstractTimeseries extends ADEProperty {
+
+    @Override
+    public final Class<AbstractTimeseries> getTargetType() {
+        return AbstractTimeseries.class;
+    }
 }

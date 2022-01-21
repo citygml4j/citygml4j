@@ -35,7 +35,6 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfTunnelInstallation> adeOfTunnelInstallation;
 
     @Override
     public Code getClassifier() {
@@ -83,17 +82,6 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
         return new DeprecatedPropertiesOfTunnelInstallation();
     }
 
-    public List<ADEOfTunnelInstallation> getADEOfTunnelInstallation() {
-        if (adeOfTunnelInstallation == null)
-            adeOfTunnelInstallation = new ChildList<>(this);
-
-        return adeOfTunnelInstallation;
-    }
-
-    public void setADEOfTunnelInstallation(List<ADEOfTunnelInstallation> adeOfTunnelInstallation) {
-        this.adeOfTunnelInstallation = asChild(adeOfTunnelInstallation);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -113,11 +101,6 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfTunnelInstallation != null) {
-            for (ADEOfTunnelInstallation container : adeOfTunnelInstallation)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -131,11 +114,6 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
             geometryInfo.addGeometry(3, properties.getLod3Geometry());
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfTunnelInstallation != null) {
-            for (ADEOfTunnelInstallation container : adeOfTunnelInstallation)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

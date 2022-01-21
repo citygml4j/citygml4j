@@ -68,7 +68,7 @@ public class DynamizerAdapter extends AbstractDynamizerAdapter<Dynamizer> {
                     object.setSensorConnection(reader.getObjectUsingBuilder(SensorConnectionPropertyAdapter.class));
                     return;
                 case "adeOfDynamizer":
-                    ADEBuilderHelper.addADEContainer(ADEOfDynamizer.class, object.getADEOfDynamizer(), GenericADEOfDynamizer::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfDynamizer::of, reader);
                     return;
             }
         }
@@ -100,7 +100,7 @@ public class DynamizerAdapter extends AbstractDynamizerAdapter<Dynamizer> {
         if (object.getSensorConnection() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "sensorConnection"), object.getSensorConnection(), SensorConnectionPropertyAdapter.class, namespaces);
 
-        for (ADEOfDynamizer container : object.getADEOfDynamizer())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfDynamizer"), container, namespaces, writer);
+        for (ADEOfDynamizer property : object.getADEProperties(ADEOfDynamizer.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfDynamizer"), property, namespaces, writer);
     }
 }

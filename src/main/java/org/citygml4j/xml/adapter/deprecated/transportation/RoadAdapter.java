@@ -66,8 +66,7 @@ public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
 
     @Override
     public void buildADEProperty(Road object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfRoad.class, object.getADEOfRoad(),
-                GenericADEOfRoad::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfRoad::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class RoadAdapter extends AbstractTransportationObjectAdapter<Road> {
     public void writeChildElements(Road object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfRoad container : object.getADEOfRoad())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfRoad property : object.getADEProperties(ADEOfRoad.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

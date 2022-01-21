@@ -20,14 +20,11 @@
 package org.citygml4j.model.construction;
 
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractOccupiedSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.model.core.ClosureSurface;
 import org.citygml4j.model.core.OccupancyProperty;
 import org.citygml4j.model.generics.GenericThematicSurface;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.time.LocalDate;
@@ -41,7 +38,6 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
     private List<ElevationProperty> elevations;
     private List<HeightProperty> heights;
     private List<OccupancyProperty> occupancies;
-    private List<ADEOfAbstractConstruction> adeOfAbstractConstruction;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -117,36 +113,5 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
 
     public void setOccupancies(List<OccupancyProperty> occupancies) {
         this.occupancies = asChild(occupancies);
-    }
-
-    public List<ADEOfAbstractConstruction> getADEOfAbstractConstruction() {
-        if (adeOfAbstractConstruction == null)
-            adeOfAbstractConstruction = new ChildList<>(this);
-
-        return adeOfAbstractConstruction;
-    }
-
-    public void setADEOfAbstractConstruction(List<ADEOfAbstractConstruction> adeOfAbstractConstruction) {
-        this.adeOfAbstractConstruction = asChild(adeOfAbstractConstruction);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfAbstractConstruction != null) {
-            for (ADEOfAbstractConstruction container : adeOfAbstractConstruction)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfAbstractConstruction != null) {
-            for (ADEOfAbstractConstruction container : adeOfAbstractConstruction)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 }

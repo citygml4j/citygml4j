@@ -40,7 +40,6 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
     private List<AuxiliaryTrafficSpaceProperty> auxiliaryTrafficSpaces;
     private List<HoleProperty> holes;
     private List<MarkingProperty> markings;
-    private List<ADEOfAbstractTransportationSpace> adeOfAbstractTransportationSpace;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -123,17 +122,6 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         return new DeprecatedPropertiesOfAbstractTransportationSpace();
     }
 
-    public List<ADEOfAbstractTransportationSpace> getADEOfAbstractTransportationSpace() {
-        if (adeOfAbstractTransportationSpace == null)
-            adeOfAbstractTransportationSpace = new ChildList<>(this);
-
-        return adeOfAbstractTransportationSpace;
-    }
-
-    public void setADEOfAbstractTransportationSpace(List<ADEOfAbstractTransportationSpace> adeOfAbstractTransportationSpace) {
-        this.adeOfAbstractTransportationSpace = asChild(adeOfAbstractTransportationSpace);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -163,12 +151,6 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
 
             if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
-
-        }
-
-        if (adeOfAbstractTransportationSpace != null) {
-            for (ADEOfAbstractTransportationSpace container : adeOfAbstractTransportationSpace)
-                updateEnvelope(container, envelope, options);
         }
     }
 
@@ -182,11 +164,6 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
             geometryInfo.addGeometry(0, properties.getLod0Network());
             geometryInfo.addGeometry(1, properties.getLod1MultiSurface());
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
-        }
-
-        if (adeOfAbstractTransportationSpace != null) {
-            for (ADEOfAbstractTransportationSpace container : adeOfAbstractTransportationSpace)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.deprecated.transportation;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfTransportationComplex extends ADEContainer {
+public abstract class ADEOfTransportationComplex extends ADEProperty {
+
+    @Override
+    public final Class<TransportationComplex> getTargetType() {
+        return TransportationComplex.class;
+    }
 }

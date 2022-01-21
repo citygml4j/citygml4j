@@ -58,7 +58,7 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
                     object.setExtent(reader.getObjectUsingBuilder(ExtentPropertyAdapter.class));
                     return;
                 case "adeOfAbstractReliefComponent":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractReliefComponent.class, object.getADEOfAbstractReliefComponent(), GenericADEOfAbstractReliefComponent::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractReliefComponent::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -71,8 +71,7 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractReliefComponent.class, object.getADEOfAbstractReliefComponent(),
-                GenericADEOfAbstractReliefComponent::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractReliefComponent::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -87,7 +86,7 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
         if (object.getExtent() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "extent"), object.getExtent(), ExtentPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractReliefComponent container : object.getADEOfAbstractReliefComponent())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfAbstractReliefComponent") : null, container, namespaces, writer);
+        for (ADEOfAbstractReliefComponent property : object.getADEProperties(ADEOfAbstractReliefComponent.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfAbstractReliefComponent") : null, property, namespaces, writer);
     }
 }

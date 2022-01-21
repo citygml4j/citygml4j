@@ -42,7 +42,7 @@ public abstract class AbstractPointCloudAdapter<T extends AbstractPointCloud> ex
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractPointCloud".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractPointCloud.class, object.getADEOfAbstractPointCloud(), GenericADEOfAbstractPointCloud::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractPointCloud::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -51,7 +51,7 @@ public abstract class AbstractPointCloudAdapter<T extends AbstractPointCloud> ex
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractPointCloud container : object.getADEOfAbstractPointCloud())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractPointCloud"), container, namespaces, writer);
+        for (ADEOfAbstractPointCloud property : object.getADEProperties(ADEOfAbstractPointCloud.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractPointCloud"), property, namespaces, writer);
     }
 }

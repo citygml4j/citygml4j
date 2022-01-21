@@ -49,7 +49,7 @@ public abstract class AbstractVegetationObjectAdapter<T extends AbstractVegetati
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractVegetationObject".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractVegetationObject.class, object.getADEOfAbstractVegetationObject(), GenericADEOfAbstractVegetationObject::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractVegetationObject::of, reader);
         else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
             buildADEProperty(object, name, reader);
         else
@@ -58,8 +58,7 @@ public abstract class AbstractVegetationObjectAdapter<T extends AbstractVegetati
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractVegetationObject.class, object.getADEOfAbstractVegetationObject(),
-                GenericADEOfAbstractVegetationObject::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractVegetationObject::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -69,7 +68,7 @@ public abstract class AbstractVegetationObjectAdapter<T extends AbstractVegetati
         String vegetationNamespace = CityGMLSerializerHelper.getVegetationNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
 
-        for (ADEOfAbstractVegetationObject container : object.getADEOfAbstractVegetationObject())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(vegetationNamespace, "adeOfAbstractVegetationObject") : null, container, namespaces, writer);
+        for (ADEOfAbstractVegetationObject property : object.getADEProperties(ADEOfAbstractVegetationObject.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfAbstractVegetationObject") : null, property, namespaces, writer);
     }
 }

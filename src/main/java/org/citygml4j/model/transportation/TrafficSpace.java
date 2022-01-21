@@ -20,7 +20,6 @@
 package org.citygml4j.model.transportation;
 
 import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.*;
 import org.citygml4j.model.generics.GenericThematicSurface;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -41,7 +40,6 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     private List<TrafficSpaceReference> predecessors;
     private List<TrafficSpaceReference> successors;
     private List<ClearanceSpaceProperty> clearanceSpaces;
-    private List<ADEOfTrafficSpace> adeOfTrafficSpace;
 
     public TrafficSpace() {
     }
@@ -154,17 +152,6 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         this.clearanceSpaces = asChild(clearanceSpaces);
     }
 
-    public List<ADEOfTrafficSpace> getADEOfTrafficSpace() {
-        if (adeOfTrafficSpace == null)
-            adeOfTrafficSpace = new ChildList<>(this);
-
-        return adeOfTrafficSpace;
-    }
-
-    public void setADEOfTrafficSpace(List<ADEOfTrafficSpace> adeOfTrafficSpace) {
-        this.adeOfTrafficSpace = asChild(adeOfTrafficSpace);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -174,21 +161,6 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfTrafficSpace != null) {
-            for (ADEOfTrafficSpace container : adeOfTrafficSpace)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfTrafficSpace != null) {
-            for (ADEOfTrafficSpace container : adeOfTrafficSpace)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

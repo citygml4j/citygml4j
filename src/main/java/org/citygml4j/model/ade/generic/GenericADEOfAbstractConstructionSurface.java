@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.construction.ADEOfAbstractConstructionSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractConstructionSurface extends ADEOfAbstractConstructionSurface implements ADEGenericContainer {
+public class GenericADEOfAbstractConstructionSurface extends ADEOfAbstractConstructionSurface implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfAbstractConstructionSurface(Element value) {

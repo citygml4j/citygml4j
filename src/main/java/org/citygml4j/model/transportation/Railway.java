@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -36,7 +35,6 @@ public class Railway extends AbstractTransportationSpace implements TopLevelFeat
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEOfRailway> adeOfRailway;
 
     @Override
     public Code getClassifier() {
@@ -96,17 +94,6 @@ public class Railway extends AbstractTransportationSpace implements TopLevelFeat
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEOfRailway> getADEOfRailway() {
-        if (adeOfRailway == null)
-            adeOfRailway = new ChildList<>(this);
-
-        return adeOfRailway;
-    }
-
-    public void setADEOfRailway(List<ADEOfRailway> adeOfRailway) {
-        this.adeOfRailway = asChild(adeOfRailway);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -123,21 +110,6 @@ public class Railway extends AbstractTransportationSpace implements TopLevelFeat
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfRailway != null) {
-            for (ADEOfRailway container : adeOfRailway)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfRailway != null) {
-            for (ADEOfRailway container : adeOfRailway)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

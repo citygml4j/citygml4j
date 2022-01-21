@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.tunnel.ADEOfHollowSpace;
 import org.w3c.dom.Element;
 
-public class GenericADEOfHollowSpace extends ADEOfHollowSpace implements ADEGenericContainer {
+public class GenericADEOfHollowSpace extends ADEOfHollowSpace implements ADEGenericProperty {
     private Element value;
 
     public GenericADEOfHollowSpace(Element value) {

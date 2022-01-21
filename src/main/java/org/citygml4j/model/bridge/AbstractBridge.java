@@ -42,7 +42,6 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
     private List<BridgeRoomProperty> bridgeRooms;
     private List<BridgeFurnitureProperty> bridgeFurniture;
     private List<AddressProperty> addresses;
-    private List<ADEOfAbstractBridge> adeOfAbstractBridge;
 
     @Override
     public Code getClassifier() {
@@ -157,17 +156,6 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         return new DeprecatedPropertiesOfAbstractBridge();
     }
 
-    public List<ADEOfAbstractBridge> getADEOfAbstractBridge() {
-        if (adeOfAbstractBridge == null)
-            adeOfAbstractBridge = new ChildList<>(this);
-
-        return adeOfAbstractBridge;
-    }
-
-    public void setADEOfAbstractBridge(List<ADEOfAbstractBridge> adeOfAbstractBridge) {
-        this.adeOfAbstractBridge = asChild(adeOfAbstractBridge);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -206,11 +194,6 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
             if (properties.getLod4Solid() != null && properties.getLod4Solid().getObject() != null)
                 envelope.include(properties.getLod4Solid().getObject().computeEnvelope());
         }
-
-        if (adeOfAbstractBridge != null) {
-            for (ADEOfAbstractBridge container : adeOfAbstractBridge)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -224,11 +207,6 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
             geometryInfo.addGeometry(4, properties.getLod4MultiCurve());
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
             geometryInfo.addGeometry(4, properties.getLod4Solid());
-        }
-
-        if (adeOfAbstractBridge != null) {
-            for (ADEOfAbstractBridge container : adeOfAbstractBridge)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

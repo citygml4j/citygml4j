@@ -39,7 +39,6 @@ public class PlantCover extends AbstractVegetationObject implements TopLevelFeat
     private Length averageHeight;
     private Length minHeight;
     private Length maxHeight;
-    private List<ADEOfPlantCover> adeOfPlantCover;
 
     @Override
     public Code getClassifier() {
@@ -111,17 +110,6 @@ public class PlantCover extends AbstractVegetationObject implements TopLevelFeat
         return new DeprecatedPropertiesOfPlantCover();
     }
 
-    public List<ADEOfPlantCover> getADEOfPlantCover() {
-        if (adeOfPlantCover == null)
-            adeOfPlantCover = new ChildList<>(this);
-
-        return adeOfPlantCover;
-    }
-
-    public void setADEOfPlantCover(List<ADEOfPlantCover> adeOfPlantCover) {
-        this.adeOfPlantCover = asChild(adeOfPlantCover);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -147,11 +135,6 @@ public class PlantCover extends AbstractVegetationObject implements TopLevelFeat
             if (properties.getLod4MultiSolid() != null && properties.getLod4MultiSolid().getObject() != null)
                 envelope.include(properties.getLod4MultiSolid().getObject().computeEnvelope());
         }
-
-        if (adeOfPlantCover != null) {
-            for (ADEOfPlantCover container : adeOfPlantCover)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -167,11 +150,6 @@ public class PlantCover extends AbstractVegetationObject implements TopLevelFeat
             geometryInfo.addGeometry(2, properties.getLod2MultiSolid());
             geometryInfo.addGeometry(3, properties.getLod3MultiSolid());
             geometryInfo.addGeometry(4, properties.getLod4MultiSolid());
-        }
-
-        if (adeOfPlantCover != null) {
-            for (ADEOfPlantCover container : adeOfPlantCover)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -55,7 +55,7 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfGenericUnoccupiedSpace".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfGenericUnoccupiedSpace.class, object.getADEOfGenericUnoccupiedSpace(), GenericADEOfGenericUnoccupiedSpace::of, reader);
+                ADEBuilderHelper.addADEProperty(object, GenericADEOfGenericUnoccupiedSpace::of, reader);
                 return;
             }
         }
@@ -74,7 +74,7 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEOfGenericUnoccupiedSpace container : object.getADEOfGenericUnoccupiedSpace())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericUnoccupiedSpace"), container, namespaces, writer);
+        for (ADEOfGenericUnoccupiedSpace property : object.getADEProperties(ADEOfGenericUnoccupiedSpace.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericUnoccupiedSpace"), property, namespaces, writer);
     }
 }

@@ -141,8 +141,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractTunnel.class, object.getADEOfAbstractTunnel(),
-                GenericADEOfAbstractTunnel::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractTunnel::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -225,7 +224,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         for (TunnelPartProperty property : object.getDeprecatedProperties().getConsistsOfTunnelParts())
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractTunnel container : object.getADEOfAbstractTunnel())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractTunnel property : object.getADEProperties(ADEOfAbstractTunnel.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

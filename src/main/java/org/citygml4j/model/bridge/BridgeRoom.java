@@ -42,7 +42,6 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
     private List<Code> usages;
     private List<BridgeFurnitureProperty> bridgeFurniture;
     private List<BridgeInstallationProperty> bridgeInstallations;
-    private List<ADEOfBridgeRoom> adeOfBridgeRoom;
 
     @Override
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
@@ -120,17 +119,6 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
         return new DeprecatedPropertiesOfBridgeRoom();
     }
 
-    public List<ADEOfBridgeRoom> getADEOfBridgeRoom() {
-        if (adeOfBridgeRoom == null)
-            adeOfBridgeRoom = new ChildList<>(this);
-
-        return adeOfBridgeRoom;
-    }
-
-    public void setADEOfBridgeRoom(List<ADEOfBridgeRoom> adeOfBridgeRoom) {
-        this.adeOfBridgeRoom = asChild(adeOfBridgeRoom);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -144,11 +132,6 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
             if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
-
-        if (adeOfBridgeRoom != null) {
-            for (ADEOfBridgeRoom container : adeOfBridgeRoom)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -160,11 +143,6 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
 
             geometryInfo.addGeometry(4, properties.getLod4Solid());
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
-        }
-
-        if (adeOfBridgeRoom != null) {
-            for (ADEOfBridgeRoom container : adeOfBridgeRoom)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.construction;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfDoorSurface extends ADEContainer {
+public abstract class ADEOfDoorSurface extends ADEProperty {
+
+    @Override
+    public final Class<DoorSurface> getTargetType() {
+        return DoorSurface.class;
+    }
 }

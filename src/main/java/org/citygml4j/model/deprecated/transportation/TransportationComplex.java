@@ -19,13 +19,10 @@
 
 package org.citygml4j.model.deprecated.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.model.transportation.AbstractTransportationSpace;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -34,7 +31,6 @@ public class TransportationComplex extends AbstractTransportationSpace implement
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfTransportationComplex> adeOfTransportationComplex;
 
     @Override
     public Code getClassifier() {
@@ -70,37 +66,6 @@ public class TransportationComplex extends AbstractTransportationSpace implement
     @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
-    }
-
-    public List<ADEOfTransportationComplex> getADEOfTransportationComplex() {
-        if (adeOfTransportationComplex == null)
-            adeOfTransportationComplex = new ChildList<>(this);
-
-        return adeOfTransportationComplex;
-    }
-
-    public void setADEOfTransportationComplex(List<ADEOfTransportationComplex> adeOfTransportationComplex) {
-        this.adeOfTransportationComplex = asChild(adeOfTransportationComplex);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfTransportationComplex != null) {
-            for (ADEOfTransportationComplex container : adeOfTransportationComplex)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfTransportationComplex != null) {
-            for (ADEOfTransportationComplex container : adeOfTransportationComplex)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 
     @Override

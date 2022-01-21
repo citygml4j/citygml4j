@@ -69,7 +69,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
                     object.setBreaklines(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "adeOfBreaklineRelief":
-                    ADEBuilderHelper.addADEContainer(ADEOfBreaklineRelief.class, object.getADEOfBreaklineRelief(), GenericADEOfBreaklineRelief::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBreaklineRelief::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -82,8 +82,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
 
     @Override
     public void buildADEProperty(BreaklineRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBreaklineRelief.class, object.getADEOfBreaklineRelief(),
-                GenericADEOfBreaklineRelief::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBreaklineRelief::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -104,7 +103,7 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
         if (object.getBreaklines() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "breaklines"), object.getBreaklines(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (ADEOfBreaklineRelief container : object.getADEOfBreaklineRelief())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfBreaklineRelief") : null, container, namespaces, writer);
+        for (ADEOfBreaklineRelief property : object.getADEProperties(ADEOfBreaklineRelief.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfBreaklineRelief") : null, property, namespaces, writer);
     }
 }

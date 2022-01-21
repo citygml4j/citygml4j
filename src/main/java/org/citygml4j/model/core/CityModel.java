@@ -33,7 +33,6 @@ public class CityModel extends AbstractFeatureWithLifespan {
     private List<AbstractVersionProperty> versionMembers;
     private List<AbstractVersionTransitionProperty> versionTransitionMembers;
     private List<AbstractFeatureProperty> featureMembers;
-    private List<ADEOfCityModel> adeOfCityModel;
 
     public EngineeringCRSProperty getEngineeringCRS() {
         return engineeringCRS;
@@ -98,17 +97,6 @@ public class CityModel extends AbstractFeatureWithLifespan {
         this.featureMembers = asChild(featureMembers);
     }
 
-    public List<ADEOfCityModel> getADEOfCityModel() {
-        if (adeOfCityModel == null)
-            adeOfCityModel = new ChildList<>(this);
-
-        return adeOfCityModel;
-    }
-
-    public void setADEOfCityModel(List<ADEOfCityModel> adeOfCityModel) {
-        this.adeOfCityModel = asChild(adeOfCityModel);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -125,11 +113,6 @@ public class CityModel extends AbstractFeatureWithLifespan {
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfCityModel != null) {
-            for (ADEOfCityModel container : adeOfCityModel)
-                updateEnvelope(container, envelope, options);
         }
     }
 

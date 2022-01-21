@@ -76,7 +76,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                     }
                     return;
                 case "adeOfParameterizedTexture":
-                    ADEBuilderHelper.addADEContainer(ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(), GenericADEOfParameterizedTexture::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfParameterizedTexture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -89,8 +89,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
 
     @Override
     public void buildADEProperty(ParameterizedTexture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfParameterizedTexture.class, object.getADEOfParameterizedTexture(),
-                GenericADEOfParameterizedTexture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfParameterizedTexture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -117,7 +116,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), reference, TextureAssociationReferenceAdapter.class, namespaces);
         }
 
-        for (ADEOfParameterizedTexture container : object.getADEOfParameterizedTexture())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfParameterizedTexture") : null, container, namespaces, writer);
+        for (ADEOfParameterizedTexture property : object.getADEProperties(ADEOfParameterizedTexture.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfParameterizedTexture") : null, property, namespaces, writer);
     }
 }

@@ -22,15 +22,11 @@ package org.citygml4j.model.core;
 import org.citygml4j.model.common.GeometryInfo;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
-import org.xmlobjects.model.ChildList;
-
-import java.util.List;
 
 public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
     private ImplicitGeometryProperty lod1ImplicitRepresentation;
     private ImplicitGeometryProperty lod2ImplicitRepresentation;
     private ImplicitGeometryProperty lod3ImplicitRepresentation;
-    private List<ADEOfAbstractOccupiedSpace> adeOfAbstractOccupiedSpace;
 
     public ImplicitGeometryProperty getLod1ImplicitRepresentation() {
         return lod1ImplicitRepresentation;
@@ -54,17 +50,6 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
 
     public void setLod3ImplicitRepresentation(ImplicitGeometryProperty lod3ImplicitRepresentation) {
         this.lod3ImplicitRepresentation = asChild(lod3ImplicitRepresentation);
-    }
-
-    public List<ADEOfAbstractOccupiedSpace> getADEOfAbstractOccupiedSpace() {
-        if (adeOfAbstractOccupiedSpace == null)
-            adeOfAbstractOccupiedSpace = new ChildList<>(this);
-
-        return adeOfAbstractOccupiedSpace;
-    }
-
-    public void setADEOfAbstractOccupiedSpace(List<ADEOfAbstractOccupiedSpace> adeOfAbstractOccupiedSpace) {
-        this.adeOfAbstractOccupiedSpace = asChild(adeOfAbstractOccupiedSpace);
     }
 
     public ImplicitGeometryProperty getImplicitRepresentation(int lod) {
@@ -105,11 +90,6 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
             if (property != null && property.getObject() != null)
                 envelope.include(property.getObject().computeEnvelope());
         }
-
-        if (adeOfAbstractOccupiedSpace != null) {
-            for (ADEOfAbstractOccupiedSpace container : adeOfAbstractOccupiedSpace)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -118,10 +98,5 @@ public abstract class AbstractOccupiedSpace extends AbstractPhysicalSpace {
 
         for (int lod = 1; lod < 4; lod++)
             geometryInfo.addImplicitGeometry(lod, getImplicitRepresentation(lod));
-
-        if (adeOfAbstractOccupiedSpace != null) {
-            for (ADEOfAbstractOccupiedSpace container : adeOfAbstractOccupiedSpace)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 }

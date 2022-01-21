@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.waterbody.ADEOfWaterSurface;
 import org.w3c.dom.Element;
 
-public class GenericADEOfWaterSurface extends ADEOfWaterSurface implements ADEGenericContainer {
+public class GenericADEOfWaterSurface extends ADEOfWaterSurface implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfWaterSurface(Element value) {

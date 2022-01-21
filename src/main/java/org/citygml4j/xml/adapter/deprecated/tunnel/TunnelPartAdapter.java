@@ -59,8 +59,7 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
 
     @Override
     public void buildADEProperty(TunnelPart object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTunnelPart.class, object.getADEOfTunnelPart(),
-                GenericADEOfTunnelPart::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfTunnelPart::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -73,7 +72,7 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
     public void writeChildElements(TunnelPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfTunnelPart container : object.getADEOfTunnelPart())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfTunnelPart property : object.getADEProperties(ADEOfTunnelPart.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

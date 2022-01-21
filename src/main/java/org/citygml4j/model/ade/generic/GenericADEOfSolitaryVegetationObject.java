@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.vegetation.ADEOfSolitaryVegetationObject;
 import org.w3c.dom.Element;
 
-public class GenericADEOfSolitaryVegetationObject extends ADEOfSolitaryVegetationObject implements ADEGenericContainer {
+public class GenericADEOfSolitaryVegetationObject extends ADEOfSolitaryVegetationObject implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfSolitaryVegetationObject(Element value) {

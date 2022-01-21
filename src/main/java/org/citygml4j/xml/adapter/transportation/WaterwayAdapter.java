@@ -64,7 +64,7 @@ public class WaterwayAdapter extends AbstractTransportationSpaceAdapter<Waterway
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfWaterway":
-                    ADEBuilderHelper.addADEContainer(ADEOfWaterway.class, object.getADEOfWaterway(), GenericADEOfWaterway::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfWaterway::of, reader);
                     return;
             }
         }
@@ -89,7 +89,7 @@ public class WaterwayAdapter extends AbstractTransportationSpaceAdapter<Waterway
         for (IntersectionProperty property : object.getIntersections())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
 
-        for (ADEOfWaterway container : object.getADEOfWaterway())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfWaterway"), container, namespaces, writer);
+        for (ADEOfWaterway property : object.getADEProperties(ADEOfWaterway.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfWaterway"), property, namespaces, writer);
     }
 }

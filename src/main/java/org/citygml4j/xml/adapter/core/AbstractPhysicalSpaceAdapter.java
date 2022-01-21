@@ -58,7 +58,7 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
                 case "adeOfAbstractPhysicalSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractPhysicalSpace.class, object.getADEOfAbstractPhysicalSpace(), GenericADEOfAbstractPhysicalSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractPhysicalSpace::of, reader);
                     return;
             }
         }
@@ -81,8 +81,8 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
             if (object.getLod3TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3TerrainIntersectionCurve"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractPhysicalSpace container : object.getADEOfAbstractPhysicalSpace())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractPhysicalSpace"), container, namespaces, writer);
+            for (ADEOfAbstractPhysicalSpace property : object.getADEProperties(ADEOfAbstractPhysicalSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractPhysicalSpace"), property, namespaces, writer);
         }
     }
 }

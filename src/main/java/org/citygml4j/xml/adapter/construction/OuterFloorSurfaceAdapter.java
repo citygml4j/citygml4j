@@ -49,7 +49,7 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
     @Override
     public void buildChildObject(OuterFloorSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfOuterFloorSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfOuterFloorSurface.class, object.getADEOfOuterFloorSurface(), GenericADEOfOuterFloorSurface::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfOuterFloorSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -63,7 +63,7 @@ public class OuterFloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter
     public void writeChildElements(OuterFloorSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfOuterFloorSurface container : object.getADEOfOuterFloorSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfOuterFloorSurface"), container, namespaces, writer);
+        for (ADEOfOuterFloorSurface property : object.getADEProperties(ADEOfOuterFloorSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfOuterFloorSurface"), property, namespaces, writer);
     }
 }

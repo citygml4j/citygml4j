@@ -86,7 +86,7 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfHollowSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfHollowSpace.class, object.getADEOfHollowSpace(), GenericADEOfHollowSpace::new, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfHollowSpace::new, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -99,8 +99,7 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
 
     @Override
     public void buildADEProperty(HollowSpace object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfHollowSpace.class, object.getADEOfHollowSpace(),
-                GenericADEOfHollowSpace::new, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfHollowSpace::new, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -134,7 +133,7 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
         for (TunnelInstallationProperty property : object.getTunnelInstallations())
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, isCityGML3 ? "tunnelInstallation" : "hollowSpaceInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEOfHollowSpace container : object.getADEOfHollowSpace())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(tunnelNamespace, "adeOfHollowSpace") : null, container, namespaces, writer);
+        for (ADEOfHollowSpace property : object.getADEProperties(ADEOfHollowSpace.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfHollowSpace") : null, property, namespaces, writer);
     }
 }

@@ -50,7 +50,7 @@ public class HoleSurfaceAdapter extends AbstractThematicSurfaceAdapter<HoleSurfa
     @Override
     public void buildChildObject(HoleSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfHoleSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfHoleSurface.class, object.getADEOfHoleSurface(), GenericADEOfHoleSurface::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfHoleSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -64,7 +64,7 @@ public class HoleSurfaceAdapter extends AbstractThematicSurfaceAdapter<HoleSurfa
     public void writeChildElements(HoleSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfHoleSurface container : object.getADEOfHoleSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfHoleSurface"), container, namespaces, writer);
+        for (ADEOfHoleSurface property : object.getADEProperties(ADEOfHoleSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfHoleSurface"), property, namespaces, writer);
     }
 }

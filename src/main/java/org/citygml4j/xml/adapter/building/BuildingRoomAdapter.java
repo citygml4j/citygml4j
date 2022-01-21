@@ -90,7 +90,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfBuildingRoom":
-                    ADEBuilderHelper.addADEContainer(ADEOfBuildingRoom.class, object.getADEOfBuildingRoom(), GenericADEOfBuildingRoom::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBuildingRoom::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -103,8 +103,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
 
     @Override
     public void buildADEProperty(BuildingRoom object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuildingRoom.class, object.getADEOfBuildingRoom(),
-                GenericADEOfBuildingRoom::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBuildingRoom::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -144,7 +143,7 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
         for (BuildingInstallationProperty property : object.getBuildingInstallations())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, isCityGML3 ? "buildingInstallation" : "roomInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
 
-        for (ADEOfBuildingRoom container : object.getADEOfBuildingRoom())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingRoom") : null, container, namespaces, writer);
+        for (ADEOfBuildingRoom property : object.getADEProperties(ADEOfBuildingRoom.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingRoom") : null, property, namespaces, writer);
     }
 }

@@ -49,7 +49,7 @@ public class BridgePartAdapter extends AbstractBridgeAdapter<BridgePart> {
     @Override
     public void buildChildObject(BridgePart object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfBridgePart".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfBridgePart.class, object.getADEOfBridgePart(), GenericADEOfBridgePart::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfBridgePart::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -63,7 +63,7 @@ public class BridgePartAdapter extends AbstractBridgeAdapter<BridgePart> {
     public void writeChildElements(BridgePart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfBridgePart container : object.getADEOfBridgePart())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfBridgePart"), container, namespaces, writer);
+        for (ADEOfBridgePart property : object.getADEProperties(ADEOfBridgePart.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfBridgePart"), property, namespaces, writer);
     }
 }

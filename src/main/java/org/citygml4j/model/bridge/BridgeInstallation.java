@@ -35,7 +35,6 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfBridgeInstallation> adeOfBridgeInstallation;
 
     @Override
     public Code getClassifier() {
@@ -83,17 +82,6 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
         return new DeprecatedPropertiesOfBridgeInstallation();
     }
 
-    public List<ADEOfBridgeInstallation> getADEOfBridgeInstallation() {
-        if (adeOfBridgeInstallation == null)
-            adeOfBridgeInstallation = new ChildList<>(this);
-
-        return adeOfBridgeInstallation;
-    }
-
-    public void setADEOfBridgeInstallation(List<ADEOfBridgeInstallation> adeOfBridgeInstallation) {
-        this.adeOfBridgeInstallation = asChild(adeOfBridgeInstallation);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -113,11 +101,6 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfBridgeInstallation != null) {
-            for (ADEOfBridgeInstallation container : adeOfBridgeInstallation)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -131,11 +114,6 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
             geometryInfo.addGeometry(3, properties.getLod3Geometry());
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfBridgeInstallation != null) {
-            for (ADEOfBridgeInstallation container : adeOfBridgeInstallation)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

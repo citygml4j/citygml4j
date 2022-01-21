@@ -49,7 +49,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapt
     @Override
     public void buildChildObject(OuterCeilingSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfOuterCeilingSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfOuterCeilingSurface.class, object.getADEOfOuterCeilingSurface(), GenericADEOfOuterCeilingSurface::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfOuterCeilingSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -63,7 +63,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapt
     public void writeChildElements(OuterCeilingSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfOuterCeilingSurface container : object.getADEOfOuterCeilingSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfOuterCeilingSurface"), container, namespaces, writer);
+        for (ADEOfOuterCeilingSurface property : object.getADEProperties(ADEOfOuterCeilingSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfOuterCeilingSurface"), property, namespaces, writer);
     }
 }

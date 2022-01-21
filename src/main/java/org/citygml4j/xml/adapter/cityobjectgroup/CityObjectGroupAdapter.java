@@ -95,7 +95,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                     object.getDeprecatedProperties().setGeometry(reader.getObjectUsingBuilder(GeometryPropertyAdapter.class));
                     return;
                 case "adeOfCityObjectGroup":
-                    ADEBuilderHelper.addADEContainer(ADEOfCityObjectGroup.class, object.getADEOfCityObjectGroup(), GenericADEOfCityObjectGroup::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfCityObjectGroup::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -108,8 +108,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
 
     @Override
     public void buildADEProperty(CityObjectGroup object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityObjectGroup.class, object.getADEOfCityObjectGroup(),
-                GenericADEOfCityObjectGroup::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfCityObjectGroup::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -146,7 +145,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         if (!isCityGML3 && object.getDeprecatedProperties().getGeometry() != null)
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), object.getDeprecatedProperties().getGeometry(), GeometryPropertyAdapter.class, namespaces);
 
-        for (ADEOfCityObjectGroup container : object.getADEOfCityObjectGroup())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(cityObjectGroupNamespace, "adeOfCityObjectGroup") : null, container, namespaces, writer);
+        for (ADEOfCityObjectGroup property : object.getADEProperties(ADEOfCityObjectGroup.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(cityObjectGroupNamespace, "adeOfCityObjectGroup") : null, property, namespaces, writer);
     }
 }

@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.appearance.ADEOfGeoreferencedTexture;
 import org.w3c.dom.Element;
 
-public class GenericADEOfGeoreferencedTexture extends ADEOfGeoreferencedTexture implements ADEGenericContainer {
+public class GenericADEOfGeoreferencedTexture extends ADEOfGeoreferencedTexture implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfGeoreferencedTexture(Element value) {

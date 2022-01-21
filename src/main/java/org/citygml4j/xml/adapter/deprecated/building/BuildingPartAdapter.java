@@ -66,8 +66,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
 
     @Override
     public void buildADEProperty(BuildingPart object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBuildingPart.class, object.getADEOfBuildingPart(),
-                GenericADEOfBuildingPart::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBuildingPart::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -80,7 +79,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     public void writeChildElements(BuildingPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfBuildingPart container : object.getADEOfBuildingPart())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfBuildingPart property : object.getADEProperties(ADEOfBuildingPart.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

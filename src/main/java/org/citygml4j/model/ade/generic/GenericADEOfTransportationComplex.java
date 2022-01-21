@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.deprecated.transportation.ADEOfTransportationComplex;
 import org.w3c.dom.Element;
 
-public class GenericADEOfTransportationComplex extends ADEOfTransportationComplex implements ADEGenericContainer {
+public class GenericADEOfTransportationComplex extends ADEOfTransportationComplex implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfTransportationComplex(Element value) {

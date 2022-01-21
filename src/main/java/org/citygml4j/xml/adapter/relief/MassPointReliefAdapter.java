@@ -70,7 +70,7 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
                     object.setPointCloud(reader.getObjectUsingBuilder(AbstractPointCloudPropertyAdapter.class));
                     return;
                 case "adeOfMassPointRelief":
-                    ADEBuilderHelper.addADEContainer(ADEOfMassPointRelief.class, object.getADEOfMassPointRelief(), GenericADEOfMassPointRelief::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfMassPointRelief::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -83,8 +83,7 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
 
     @Override
     public void buildADEProperty(MassPointRelief object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfMassPointRelief.class, object.getADEOfMassPointRelief(),
-                GenericADEOfMassPointRelief::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfMassPointRelief::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -105,7 +104,7 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
         if (object.getPointCloud() != null && isCityGML3)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-        for (ADEOfMassPointRelief container : object.getADEOfMassPointRelief())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(reliefNamespace, "adeOfMassPointRelief") : null, container, namespaces, writer);
+        for (ADEOfMassPointRelief property : object.getADEProperties(ADEOfMassPointRelief.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfMassPointRelief") : null, property, namespaces, writer);
     }
 }

@@ -25,14 +25,10 @@ import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 import org.xmlobjects.gml.util.EnvelopeOptions;
-import org.xmlobjects.model.ChildList;
-
-import java.util.List;
 
 public class MassPointRelief extends AbstractReliefComponent {
     private MultiPointProperty reliefPoints;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEOfMassPointRelief> adeOfMassPointRelief;
 
     public MassPointRelief() {
     }
@@ -63,17 +59,6 @@ public class MassPointRelief extends AbstractReliefComponent {
         this.pointCloud = asChild(pointCloud);
     }
 
-    public List<ADEOfMassPointRelief> getADEOfMassPointRelief() {
-        if (adeOfMassPointRelief == null)
-            adeOfMassPointRelief = new ChildList<>(this);
-
-        return adeOfMassPointRelief;
-    }
-
-    public void setADEOfMassPointRelief(List<ADEOfMassPointRelief> adeOfMassPointRelief) {
-        this.adeOfMassPointRelief = asChild(adeOfMassPointRelief);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -83,11 +68,6 @@ public class MassPointRelief extends AbstractReliefComponent {
 
         if (pointCloud != null && pointCloud.getObject() != null)
             envelope.include(pointCloud.getObject().computeEnvelope(options));
-
-        if (adeOfMassPointRelief != null) {
-            for (ADEOfMassPointRelief container : adeOfMassPointRelief)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -95,11 +75,6 @@ public class MassPointRelief extends AbstractReliefComponent {
         super.updateGeometryInfo(geometryInfo);
 
         geometryInfo.addGeometry(getLod(), reliefPoints);
-
-        if (adeOfMassPointRelief != null) {
-            for (ADEOfMassPointRelief container : adeOfMassPointRelief)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 
     @Override

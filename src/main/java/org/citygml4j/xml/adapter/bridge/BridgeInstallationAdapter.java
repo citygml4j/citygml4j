@@ -103,7 +103,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                     object.addBoundary(reader.getObjectUsingBuilder(AbstractSpaceBoundaryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeInstallation":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeInstallation.class, object.getADEOfBridgeInstallation(), GenericADEOfBridgeInstallation::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBridgeInstallation::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -116,8 +116,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
 
     @Override
     public void buildADEProperty(BridgeInstallation object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeInstallation.class, object.getADEOfBridgeInstallation(),
-                GenericADEOfBridgeInstallation::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBridgeInstallation::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -171,7 +170,7 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBridgeInstallation container : object.getADEOfBridgeInstallation())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeInstallation") : null, container, namespaces, writer);
+        for (ADEOfBridgeInstallation property : object.getADEProperties(ADEOfBridgeInstallation.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeInstallation") : null, property, namespaces, writer);
     }
 }

@@ -49,7 +49,7 @@ public class ClosureSurfaceAdapter extends AbstractThematicSurfaceAdapter<Closur
     @Override
     public void buildChildObject(ClosureSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfClosureSurface".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfClosureSurface.class, object.getADEOfClosureSurface(), GenericADEOfClosureSurface::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfClosureSurface::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -63,7 +63,7 @@ public class ClosureSurfaceAdapter extends AbstractThematicSurfaceAdapter<Closur
     public void writeChildElements(ClosureSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfClosureSurface container : object.getADEOfClosureSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfClosureSurface"), container, namespaces, writer);
+        for (ADEOfClosureSurface property : object.getADEProperties(ADEOfClosureSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfClosureSurface"), property, namespaces, writer);
     }
 }

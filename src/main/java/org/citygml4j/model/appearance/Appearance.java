@@ -28,7 +28,6 @@ import java.util.List;
 public class Appearance extends AbstractAppearance {
     private String theme;
     private List<AbstractSurfaceDataProperty> surfaceData;
-    private List<ADEOfAppearance> adeOfAppearance;
 
     public String getTheme() {
         return theme;
@@ -47,17 +46,6 @@ public class Appearance extends AbstractAppearance {
 
     public void setSurfaceData(List<AbstractSurfaceDataProperty> surfaceData) {
         this.surfaceData = asChild(surfaceData);
-    }
-
-    public List<ADEOfAppearance> getADEOfAppearance() {
-        if (adeOfAppearance == null)
-            adeOfAppearance = new ChildList<>(this);
-
-        return adeOfAppearance;
-    }
-
-    public void setADEOfAppearance(List<ADEOfAppearance> adeOfAppearance) {
-        this.adeOfAppearance = asChild(adeOfAppearance);
     }
 
     @Override

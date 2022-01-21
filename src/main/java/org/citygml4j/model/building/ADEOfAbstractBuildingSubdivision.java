@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.building;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfAbstractBuildingSubdivision extends ADEContainer {
+public abstract class ADEOfAbstractBuildingSubdivision extends ADEProperty {
+
+    @Override
+    public final Class<AbstractBuildingSubdivision> getTargetType() {
+        return AbstractBuildingSubdivision.class;
+    }
 }

@@ -66,8 +66,7 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
 
     @Override
     public void buildADEProperty(Track object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTrack.class, object.getADEOfTrack(),
-                GenericADEOfTrack::of, reader, substitutionGroups)) {
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfTrack::of, reader, substitutionGroups)) {
             super.buildADEProperty(object, name, reader);
         }
     }
@@ -81,7 +80,7 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
     public void writeChildElements(Track object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfTrack container : object.getADEOfTrack())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfTrack property : object.getADEProperties(ADEOfTrack.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

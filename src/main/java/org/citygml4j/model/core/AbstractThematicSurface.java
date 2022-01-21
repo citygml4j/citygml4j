@@ -37,7 +37,6 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
     private MultiSurfaceProperty lod2MultiSurface;
     private MultiSurfaceProperty lod3MultiSurface;
     private AbstractPointCloudProperty pointCloud;
-    private List<ADEOfAbstractThematicSurface> adeOfAbstractThematicSurface;
 
     public List<QualifiedAreaProperty> getAreas() {
         if (areas == null)
@@ -108,17 +107,6 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
         return new DeprecatedPropertiesOfAbstractThematicSurface();
     }
 
-    public List<ADEOfAbstractThematicSurface> getADEOfAbstractThematicSurface() {
-        if (adeOfAbstractThematicSurface == null)
-            adeOfAbstractThematicSurface = new ChildList<>(this);
-
-        return adeOfAbstractThematicSurface;
-    }
-
-    public void setADEOfAbstractThematicSurface(List<ADEOfAbstractThematicSurface> adeOfAbstractThematicSurface) {
-        this.adeOfAbstractThematicSurface = asChild(adeOfAbstractThematicSurface);
-    }
-
     public MultiSurfaceProperty getMultiSurface(int lod) {
         switch (lod) {
             case 0:
@@ -175,11 +163,6 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
             if (properties.getLod4MultiSurface() != null && properties.getLod4MultiSurface().getObject() != null)
                 envelope.include(properties.getLod4MultiSurface().getObject().computeEnvelope());
         }
-
-        if (adeOfAbstractThematicSurface != null) {
-            for (ADEOfAbstractThematicSurface container : adeOfAbstractThematicSurface)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -195,11 +178,6 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
             DeprecatedPropertiesOfAbstractThematicSurface properties = getDeprecatedProperties();
 
             geometryInfo.addGeometry(4, properties.getLod4MultiSurface());
-        }
-
-        if (adeOfAbstractThematicSurface != null) {
-            for (ADEOfAbstractThematicSurface container : adeOfAbstractThematicSurface)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 }

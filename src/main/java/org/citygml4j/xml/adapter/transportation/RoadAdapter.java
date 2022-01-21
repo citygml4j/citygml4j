@@ -64,7 +64,7 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
                     object.getIntersections().add(reader.getObjectUsingBuilder(IntersectionPropertyAdapter.class));
                     return;
                 case "adeOfRoad":
-                    ADEBuilderHelper.addADEContainer(ADEOfRoad.class, object.getADEOfRoad(), GenericADEOfRoad::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfRoad::of, reader);
                     return;
             }
         }
@@ -89,7 +89,7 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
         for (IntersectionProperty property : object.getIntersections())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
 
-        for (ADEOfRoad container : object.getADEOfRoad())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRoad"), container, namespaces, writer);
+        for (ADEOfRoad property : object.getADEProperties(ADEOfRoad.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRoad"), property, namespaces, writer);
     }
 }

@@ -42,7 +42,7 @@ public abstract class AbstractVersionTransitionAdapter<T extends AbstractVersion
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractVersionTransition".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractVersionTransition.class, object.getADEOfAbstractVersionTransition(), GenericADEOfAbstractVersionTransition::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractVersionTransition::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -51,7 +51,7 @@ public abstract class AbstractVersionTransitionAdapter<T extends AbstractVersion
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractVersionTransition container : object.getADEOfAbstractVersionTransition())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractVersionTransition"), container, namespaces, writer);
+        for (ADEOfAbstractVersionTransition property : object.getADEProperties(ADEOfAbstractVersionTransition.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractVersionTransition"), property, namespaces, writer);
     }
 }

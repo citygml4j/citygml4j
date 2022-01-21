@@ -17,11 +17,11 @@
  * limitations under the License.
  */
 
-package org.citygml4j.model.ade.generic;
+package org.citygml4j.model.ade;
 
-import org.w3c.dom.Element;
+import org.citygml4j.model.core.AbstractFeature;
+import org.xmlobjects.gml.model.GMLObject;
 
-public interface ADEGenericContainer {
-    Element getValue();
-    void setValue(Element value);
+public abstract class ADEProperty extends GMLObject implements ADEObject {
+    public abstract Class<? extends AbstractFeature> getTargetType();
 }

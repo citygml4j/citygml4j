@@ -66,7 +66,7 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
                     object.setPoints(reader.getObjectUsingBuilder(MultiPointPropertyAdapter.class));
                     return;
                 case "adeOfPointCloud":
-                    ADEBuilderHelper.addADEContainer(ADEOfPointCloud.class, object.getADEOfPointCloud(), GenericADEOfPointCloud::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfPointCloud::of, reader);
                     return;
             }
         }
@@ -95,7 +95,7 @@ public class PointCloudAdapter extends AbstractPointCloudAdapter<PointCloud> {
         if (object.getPoints() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "points"), object.getPoints(), MultiPointPropertyAdapter.class, namespaces);
 
-        for (ADEOfPointCloud container : object.getADEOfPointCloud())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "adeOfPointCloud"), container, namespaces, writer);
+        for (ADEOfPointCloud property : object.getADEProperties(ADEOfPointCloud.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE, "adeOfPointCloud"), property, namespaces, writer);
     }
 }

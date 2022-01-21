@@ -43,7 +43,7 @@ public abstract class AbstractFurnitureAdapter<T extends AbstractFurniture> exte
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractFurniture".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractFurniture.class, object.getADEOfAbstractFurniture(), GenericADEOfAbstractFurniture::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractFurniture::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -53,8 +53,8 @@ public abstract class AbstractFurnitureAdapter<T extends AbstractFurniture> exte
         super.writeChildElements(object, namespaces, writer);
 
         if (namespaces.contains(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE)) {
-            for (ADEOfAbstractFurniture container : object.getADEOfAbstractFurniture())
-                ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractFurniture"), container, namespaces, writer);
+            for (ADEOfAbstractFurniture property : object.getADEProperties(ADEOfAbstractFurniture.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractFurniture"), property, namespaces, writer);
         }
     }
 }

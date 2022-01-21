@@ -89,7 +89,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
                     reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
                     return;
                 case "adeOfX3DMaterial":
-                    ADEBuilderHelper.addADEContainer(ADEOfX3DMaterial.class, object.getADEOfX3DMaterial(), GenericADEOfX3DMaterial::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfX3DMaterial::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -102,8 +102,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
 
     @Override
     public void buildADEProperty(X3DMaterial object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfX3DMaterial.class, object.getADEOfX3DMaterial(),
-                GenericADEOfX3DMaterial::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfX3DMaterial::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -144,7 +143,7 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
                 writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getHref()));
         }
 
-        for (ADEOfX3DMaterial container : object.getADEOfX3DMaterial())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfX3DMaterial") : null, container, namespaces, writer);
+        for (ADEOfX3DMaterial property : object.getADEProperties(ADEOfX3DMaterial.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfX3DMaterial") : null, property, namespaces, writer);
     }
 }

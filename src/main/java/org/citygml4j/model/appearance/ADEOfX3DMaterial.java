@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.appearance;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfX3DMaterial extends ADEContainer {
+public abstract class ADEOfX3DMaterial extends ADEProperty {
+
+    @Override
+    public final Class<X3DMaterial> getTargetType() {
+        return X3DMaterial.class;
+    }
 }

@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -36,7 +35,6 @@ public class Track extends AbstractTransportationSpace implements TopLevelFeatur
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEOfTrack> adeOfTrack;
 
     @Override
     public Code getClassifier() {
@@ -96,17 +94,6 @@ public class Track extends AbstractTransportationSpace implements TopLevelFeatur
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEOfTrack> getADEOfTrack() {
-        if (adeOfTrack == null)
-            adeOfTrack = new ChildList<>(this);
-
-        return adeOfTrack;
-    }
-
-    public void setADEOfTrack(List<ADEOfTrack> adeOfTrack) {
-        this.adeOfTrack = asChild(adeOfTrack);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -123,21 +110,6 @@ public class Track extends AbstractTransportationSpace implements TopLevelFeatur
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfTrack != null) {
-            for (ADEOfTrack container : adeOfTrack)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfTrack != null) {
-            for (ADEOfTrack container : adeOfTrack)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -55,7 +55,7 @@ public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> 
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfSection":
-                    ADEBuilderHelper.addADEContainer(ADEOfSection.class, object.getADEOfSection(), GenericADEOfSection::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfSection::of, reader);
                     return;
             }
         }
@@ -75,7 +75,7 @@ public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> 
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfSection container : object.getADEOfSection())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSection"), container, namespaces, writer);
+        for (ADEOfSection property : object.getADEProperties(ADEOfSection.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSection"), property, namespaces, writer);
     }
 }

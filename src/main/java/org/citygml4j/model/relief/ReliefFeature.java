@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.relief;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractSpaceBoundary;
 import org.citygml4j.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -31,7 +30,6 @@ import java.util.List;
 public class ReliefFeature extends AbstractSpaceBoundary {
     private int lod;
     private List<AbstractReliefComponentProperty> reliefComponents;
-    private List<ADEOfReliefFeature> adeOfReliefFeature;
 
     public ReliefFeature() {
     }
@@ -61,17 +59,6 @@ public class ReliefFeature extends AbstractSpaceBoundary {
         this.reliefComponents = asChild(reliefComponents);
     }
 
-    public List<ADEOfReliefFeature> getADEOfReliefFeature() {
-        if (adeOfReliefFeature == null)
-            adeOfReliefFeature = new ChildList<>(this);
-
-        return adeOfReliefFeature;
-    }
-
-    public void setADEOfReliefFeature(List<ADEOfReliefFeature> adeOfReliefFeature) {
-        this.adeOfReliefFeature = asChild(adeOfReliefFeature);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -81,21 +68,6 @@ public class ReliefFeature extends AbstractSpaceBoundary {
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfReliefFeature != null) {
-            for (ADEOfReliefFeature container : adeOfReliefFeature)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfReliefFeature != null) {
-            for (ADEOfReliefFeature container : adeOfReliefFeature)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.landuse;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfLandUse extends ADEContainer {
+public abstract class ADEOfLandUse extends ADEProperty {
+
+    @Override
+    public final Class<LandUse> getTargetType() {
+        return LandUse.class;
+    }
 }

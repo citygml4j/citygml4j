@@ -90,7 +90,7 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
                     object.setLod3MultiCurve(reader.getObjectUsingBuilder(MultiCurvePropertyAdapter.class));
                     return;
                 case "adeOfAbstractSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractSpace.class, object.getADEOfAbstractSpace(), GenericADEOfAbstractSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractSpace::of, reader);
                     return;
             }
         }
@@ -146,8 +146,8 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             if (object.getLod3MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3MultiCurve"), object.getLod3MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractSpace container : object.getADEOfAbstractSpace())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractSpace"), container, namespaces, writer);
+            for (ADEOfAbstractSpace property : object.getADEProperties(ADEOfAbstractSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractSpace"), property, namespaces, writer);
         }
     }
 }

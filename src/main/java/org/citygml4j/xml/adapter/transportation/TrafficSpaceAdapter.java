@@ -76,7 +76,7 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                     object.getClearanceSpaces().add(reader.getObjectUsingBuilder(ClearanceSpacePropertyAdapter.class));
                     return;
                 case "adeOfTrafficSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfTrafficSpace.class, object.getADEOfTrafficSpace(), GenericADEOfTrafficSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfTrafficSpace::of, reader);
                     return;
             }
         }
@@ -112,7 +112,7 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
         for (ClearanceSpaceProperty property : object.getClearanceSpaces())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "clearanceSpace"), property, ClearanceSpacePropertyAdapter.class, namespaces);
 
-        for (ADEOfTrafficSpace container : object.getADEOfTrafficSpace())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrafficSpace"), container, namespaces, writer);
+        for (ADEOfTrafficSpace property : object.getADEProperties(ADEOfTrafficSpace.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrafficSpace"), property, namespaces, writer);
     }
 }

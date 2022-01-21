@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.dynamizer.ADEOfTabulatedFileTimeseries;
 import org.w3c.dom.Element;
 
-public class GenericADEOfTabulatedFileTimeseries extends ADEOfTabulatedFileTimeseries implements ADEGenericContainer {
+public class GenericADEOfTabulatedFileTimeseries extends ADEOfTabulatedFileTimeseries implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfTabulatedFileTimeseries(Element value) {

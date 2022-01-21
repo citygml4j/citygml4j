@@ -60,7 +60,7 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
                     object.getVersionMembers().add(reader.getObjectUsingBuilder(AbstractFeatureWithLifespanReferenceAdapter.class));
                     return;
                 case "adeOfVersion":
-                    ADEBuilderHelper.addADEContainer(ADEOfVersion.class, object.getADEOfVersion(), GenericADEOfVersion::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfVersion::of, reader);
                     return;
             }
         }
@@ -83,7 +83,7 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
         for (AbstractFeatureWithLifespanReference reference : object.getVersionMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), reference, AbstractFeatureWithLifespanReferenceAdapter.class, namespaces);
 
-        for (ADEOfVersion container : object.getADEOfVersion())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), container, namespaces, writer);
+        for (ADEOfVersion property : object.getADEProperties(ADEOfVersion.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), property, namespaces, writer);
     }
 }

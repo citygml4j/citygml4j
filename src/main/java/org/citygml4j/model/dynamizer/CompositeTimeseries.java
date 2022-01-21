@@ -26,7 +26,6 @@ import java.util.List;
 
 public class CompositeTimeseries extends AbstractTimeseries {
     private List<TimeseriesComponentProperty> components;
-    private List<ADEOfCompositeTimeseries> adeOfCompositeTimeseries;
 
     public CompositeTimeseries() {
     }
@@ -44,17 +43,6 @@ public class CompositeTimeseries extends AbstractTimeseries {
 
     public void setComponents(List<TimeseriesComponentProperty> components) {
         this.components = asChild(components);
-    }
-
-    public List<ADEOfCompositeTimeseries> getADEOfCompositeTimeseries() {
-        if (adeOfCompositeTimeseries == null)
-            adeOfCompositeTimeseries = new ChildList<>(this);
-
-        return adeOfCompositeTimeseries;
-    }
-
-    public void setADEOfCompositeTimeseries(List<ADEOfCompositeTimeseries> adeOfCompositeTimeseries) {
-        this.adeOfCompositeTimeseries = asChild(adeOfCompositeTimeseries);
     }
 
     @Override

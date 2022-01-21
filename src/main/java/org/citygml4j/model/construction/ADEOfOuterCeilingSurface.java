@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.construction;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfOuterCeilingSurface extends ADEContainer {
+public abstract class ADEOfOuterCeilingSurface extends ADEProperty {
+
+    @Override
+    public final Class<OuterCeilingSurface> getTargetType() {
+        return OuterCeilingSurface.class;
+    }
 }

@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.core.ADEOfAbstractDynamizer;
 import org.w3c.dom.Element;
 
-public class GenericADEOfAbstractDynamizer extends ADEOfAbstractDynamizer implements ADEGenericContainer {
+public class GenericADEOfAbstractDynamizer extends ADEOfAbstractDynamizer implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfAbstractDynamizer(Element value) {

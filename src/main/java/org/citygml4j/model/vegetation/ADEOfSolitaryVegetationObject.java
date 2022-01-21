@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.vegetation;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfSolitaryVegetationObject extends ADEContainer {
+public abstract class ADEOfSolitaryVegetationObject extends ADEProperty {
+
+    @Override
+    public final Class<SolitaryVegetationObject> getTargetType() {
+        return SolitaryVegetationObject.class;
+    }
 }

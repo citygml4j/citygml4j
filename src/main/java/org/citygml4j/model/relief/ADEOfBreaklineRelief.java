@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.relief;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfBreaklineRelief extends ADEContainer {
+public abstract class ADEOfBreaklineRelief extends ADEProperty {
+
+    @Override
+    public final Class<BreaklineRelief> getTargetType() {
+        return BreaklineRelief.class;
+    }
 }

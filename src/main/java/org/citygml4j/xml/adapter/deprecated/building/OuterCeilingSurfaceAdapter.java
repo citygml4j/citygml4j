@@ -59,8 +59,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<O
 
     @Override
     public void buildADEProperty(OuterCeilingSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfOuterCeilingSurface.class, object.getADEOfOuterCeilingSurface(),
-                GenericADEOfOuterCeilingSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfOuterCeilingSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -73,7 +72,7 @@ public class OuterCeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<O
     public void writeChildElements(OuterCeilingSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfOuterCeilingSurface container : object.getADEOfOuterCeilingSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfOuterCeilingSurface property : object.getADEProperties(ADEOfOuterCeilingSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

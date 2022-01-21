@@ -72,8 +72,7 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractFillingSurface.class, object.getADEOfAbstractFillingSurface(),
-                GenericADEOfAbstractFillingSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractFillingSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -94,7 +93,7 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
         if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractFillingSurface container : object.getADEOfAbstractFillingSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractFillingSurface property : object.getADEProperties(ADEOfAbstractFillingSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

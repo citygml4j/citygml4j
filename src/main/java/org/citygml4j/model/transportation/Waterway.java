@@ -19,7 +19,6 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.common.TopLevelFeature;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.citygml4j.visitor.ObjectVisitor;
@@ -36,7 +35,6 @@ public class Waterway extends AbstractTransportationSpace implements TopLevelFea
     private List<Code> usages;
     private List<SectionProperty> sections;
     private List<IntersectionProperty> intersections;
-    private List<ADEOfWaterway> adeOfWaterway;
 
     @Override
     public Code getClassifier() {
@@ -96,17 +94,6 @@ public class Waterway extends AbstractTransportationSpace implements TopLevelFea
         this.intersections = asChild(intersections);
     }
 
-    public List<ADEOfWaterway> getADEOfWaterway() {
-        if (adeOfWaterway == null)
-            adeOfWaterway = new ChildList<>(this);
-
-        return adeOfWaterway;
-    }
-
-    public void setADEOfWaterway(List<ADEOfWaterway> adeOfWaterway) {
-        this.adeOfWaterway = asChild(adeOfWaterway);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -123,21 +110,6 @@ public class Waterway extends AbstractTransportationSpace implements TopLevelFea
                 if (property.getObject() != null)
                     envelope.include(property.getObject().computeEnvelope(options));
             }
-        }
-
-        if (adeOfWaterway != null) {
-            for (ADEOfWaterway container : adeOfWaterway)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfWaterway != null) {
-            for (ADEOfWaterway container : adeOfWaterway)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

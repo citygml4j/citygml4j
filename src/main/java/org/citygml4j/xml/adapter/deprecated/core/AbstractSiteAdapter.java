@@ -54,8 +54,7 @@ public abstract class AbstractSiteAdapter<T extends AbstractConstruction> extend
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractConstruction.class, object.getADEOfAbstractConstruction(),
-                GenericADEOfAbstractConstruction::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractConstruction::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -63,7 +62,7 @@ public abstract class AbstractSiteAdapter<T extends AbstractConstruction> extend
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractConstruction container : object.getADEOfAbstractConstruction())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractConstruction property : object.getADEProperties(ADEOfAbstractConstruction.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

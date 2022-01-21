@@ -19,8 +19,8 @@
 
 package org.citygml4j.xml.adapter.ade;
 
-import org.citygml4j.model.ade.ADEContainer;
-import org.citygml4j.model.ade.generic.ADEGenericContainer;
+import org.citygml4j.model.ade.ADEProperty;
+import org.citygml4j.model.ade.generic.ADEGenericProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
@@ -29,19 +29,21 @@ import org.xmlobjects.xml.Namespaces;
 
 public class ADESerializerHelper {
 
-    public static void writeADEContainer(Element element, ADEContainer container, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+    public static void writeADEProperty(Element element, ADEProperty property, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (element != null) {
             writer.writeStartElement(element);
-            writeADEProperty(container, namespaces, writer);
+            writeADEProperty(property, namespaces, writer);
             writer.writeEndElement();
-        } else
-            writeADEProperty(container, namespaces, writer);
+        } else {
+            writeADEProperty(property, namespaces, writer);
+        }
     }
 
-    public static void writeADEProperty(ADEContainer container, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        if (container instanceof ADEGenericContainer)
-            writer.writeDOMElement(((ADEGenericContainer) container).getValue());
-        else
-            writer.writeObject(container, namespaces);
+    public static void writeADEProperty(ADEProperty property, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        if (property instanceof ADEGenericProperty) {
+            writer.writeDOMElement(((ADEGenericProperty) property).getValue());
+        } else {
+            writer.writeObject(property, namespaces);
+        }
     }
 }

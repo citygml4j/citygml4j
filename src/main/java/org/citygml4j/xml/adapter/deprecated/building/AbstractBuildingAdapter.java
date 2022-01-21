@@ -178,8 +178,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractBuilding.class, object.getADEOfAbstractBuilding(),
-                GenericADEOfAbstractBuilding::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractBuilding::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -292,7 +291,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractBuilding container : object.getADEOfAbstractBuilding())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractBuilding property : object.getADEProperties(ADEOfAbstractBuilding.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

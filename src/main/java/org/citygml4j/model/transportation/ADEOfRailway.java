@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.transportation;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfRailway extends ADEContainer {
+public abstract class ADEOfRailway extends ADEProperty {
+
+    @Override
+    public final Class<Railway> getTargetType() {
+        return Railway.class;
+    }
 }

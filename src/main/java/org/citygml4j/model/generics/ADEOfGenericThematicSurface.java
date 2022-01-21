@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.generics;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfGenericThematicSurface extends ADEContainer {
+public abstract class ADEOfGenericThematicSurface extends ADEProperty {
+
+    @Override
+    public final Class<GenericThematicSurface> getTargetType() {
+        return GenericThematicSurface.class;
+    }
 }

@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfAbstractFeatureWithLifespan extends ADEContainer {
+public abstract class ADEOfAbstractFeatureWithLifespan extends ADEProperty {
+
+    @Override
+    public final Class<AbstractFeatureWithLifespan> getTargetType() {
+        return AbstractFeatureWithLifespan.class;
+    }
 }

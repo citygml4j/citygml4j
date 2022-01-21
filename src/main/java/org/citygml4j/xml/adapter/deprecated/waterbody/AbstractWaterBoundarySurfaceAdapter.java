@@ -82,8 +82,7 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractThematicSurface.class, object.getADEOfAbstractThematicSurface(),
-                GenericADEOfAbstractThematicSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractThematicSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -103,12 +102,12 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
 
         if (object instanceof AbstractWaterBoundarySurface) {
             AbstractWaterBoundarySurface boundarySurface = (AbstractWaterBoundarySurface) object;
-            for (ADEOfAbstractWaterBoundarySurface container : boundarySurface.getADEOfAbstractWaterBoundarySurface())
-                ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+            for (ADEOfAbstractWaterBoundarySurface property : boundarySurface.getADEProperties(ADEOfAbstractWaterBoundarySurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
         }
 
-        for (ADEOfAbstractThematicSurface container : object.getADEOfAbstractThematicSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 
     private MultiSurfaceProperty getMultiSurfaceProperty(SurfaceProperty src) {

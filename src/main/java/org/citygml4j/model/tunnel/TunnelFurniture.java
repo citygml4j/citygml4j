@@ -35,7 +35,6 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
     private Code classifier;
     private List<Code> functions;
     private List<Code> usages;
-    private List<ADEOfTunnelFurniture> adeOfTunnelFurniture;
 
     @Override
     public Code getClassifier() {
@@ -83,17 +82,6 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
         return new DeprecatedPropertiesOfTunnelFurniture();
     }
 
-    public List<ADEOfTunnelFurniture> getADEOfTunnelFurniture() {
-        if (adeOfTunnelFurniture == null)
-            adeOfTunnelFurniture = new ChildList<>(this);
-
-        return adeOfTunnelFurniture;
-    }
-
-    public void setADEOfTunnelFurniture(List<ADEOfTunnelFurniture> adeOfTunnelFurniture) {
-        this.adeOfTunnelFurniture = asChild(adeOfTunnelFurniture);
-    }
-
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
@@ -107,11 +95,6 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
             if (properties.getLod4ImplicitRepresentation() != null && properties.getLod4ImplicitRepresentation().getObject() != null)
                 envelope.include(properties.getLod4ImplicitRepresentation().getObject().computeEnvelope());
         }
-
-        if (adeOfTunnelFurniture != null) {
-            for (ADEOfTunnelFurniture container : adeOfTunnelFurniture)
-                updateEnvelope(container, envelope, options);
-        }
     }
 
     @Override
@@ -123,11 +106,6 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
 
             geometryInfo.addGeometry(4, properties.getLod4Geometry());
             geometryInfo.addImplicitGeometry(4, properties.getLod4ImplicitRepresentation());
-        }
-
-        if (adeOfTunnelFurniture != null) {
-            for (ADEOfTunnelFurniture container : adeOfTunnelFurniture)
-                updateGeometryInfo(container, geometryInfo);
         }
     }
 

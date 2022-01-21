@@ -72,8 +72,7 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
 
     @Override
     public void buildADEProperty(WaterSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWaterSurface.class, object.getADEOfWaterSurface(),
-                GenericADEOfWaterSurface::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfWaterSurface::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -89,7 +88,7 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
         if (object.getWaterLevel() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLSerializerHelper.getWaterBodyNamespace(namespaces), "waterLevel"), object.getWaterLevel(), CodeAdapter.class, namespaces);
 
-        for (ADEOfWaterSurface container : object.getADEOfWaterSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfWaterSurface property : object.getADEProperties(ADEOfWaterSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

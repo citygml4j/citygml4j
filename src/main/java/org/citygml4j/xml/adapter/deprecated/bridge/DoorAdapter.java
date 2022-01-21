@@ -66,8 +66,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
 
     @Override
     public void buildADEProperty(DoorSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfDoorSurface.class, object.getADEOfDoorSurface(),
-                GenericADEOfDoorSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfDoorSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -84,7 +83,7 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfDoorSurface container : object.getADEOfDoorSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

@@ -33,7 +33,6 @@ public class X3DMaterial extends AbstractSurfaceData {
     private Double transparency;
     private Boolean isSmooth;
     private List<GeometryReference> targets;
-    private List<ADEOfX3DMaterial> adeOfX3DMaterial;
 
     public Double getAmbientIntensity() {
         return ambientIntensity != null ? ambientIntensity : 0.2;
@@ -131,17 +130,6 @@ public class X3DMaterial extends AbstractSurfaceData {
 
     public void setTargets(List<GeometryReference> targets) {
         this.targets = asChild(targets);
-    }
-
-    public List<ADEOfX3DMaterial> getADEOfX3DMaterial() {
-        if (adeOfX3DMaterial == null)
-            adeOfX3DMaterial = new ChildList<>(this);
-
-        return adeOfX3DMaterial;
-    }
-
-    public void setADEOfX3DMaterial(List<ADEOfX3DMaterial> adeOfX3DMaterial) {
-        this.adeOfX3DMaterial = asChild(adeOfX3DMaterial);
     }
 
     @Override

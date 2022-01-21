@@ -22,7 +22,7 @@ package org.citygml4j.model.ade.generic;
 import org.citygml4j.model.appearance.ADEOfParameterizedTexture;
 import org.w3c.dom.Element;
 
-public class GenericADEOfParameterizedTexture extends ADEOfParameterizedTexture implements ADEGenericContainer {
+public class GenericADEOfParameterizedTexture extends ADEOfParameterizedTexture implements ADEGenericProperty {
     private Element value;
 
     private GenericADEOfParameterizedTexture(Element value) {

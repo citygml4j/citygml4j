@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfAbstractSpaceBoundary extends ADEContainer {
+public abstract class ADEOfAbstractSpaceBoundary extends ADEProperty {
+
+    @Override
+    public final Class<AbstractSpaceBoundary> getTargetType() {
+        return AbstractSpaceBoundary.class;
+    }
 }

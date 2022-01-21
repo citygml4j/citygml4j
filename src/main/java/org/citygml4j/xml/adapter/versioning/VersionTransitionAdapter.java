@@ -73,7 +73,7 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
                     object.getTransactions().add(reader.getObjectUsingBuilder(TransactionPropertyAdapter.class));
                     return;
                 case "adeOfVersionTransition":
-                    ADEBuilderHelper.addADEContainer(ADEOfVersionTransition.class, object.getADEOfVersionTransition(), GenericADEOfVersionTransition::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfVersionTransition::of, reader);
                     return;
             }
         }
@@ -107,7 +107,7 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
         for (TransactionProperty property : object.getTransactions())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "transaction"), property, TransactionPropertyAdapter.class, namespaces);
 
-        for (ADEOfVersionTransition container : object.getADEOfVersionTransition())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersionTransition"), container, namespaces, writer);
+        for (ADEOfVersionTransition property : object.getADEProperties(ADEOfVersionTransition.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersionTransition"), property, namespaces, writer);
     }
 }

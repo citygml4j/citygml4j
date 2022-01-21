@@ -86,7 +86,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                     object.getDynamizers().add(reader.getObjectUsingBuilder(AbstractDynamizerPropertyAdapter.class));
                     return;
                 case "adeOfAbstractCityObject":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractCityObject.class, object.getADEOfAbstractCityObject(), GenericADEOfAbstractCityObject::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractCityObject::of, reader);
                     return;
             }
         } else if (CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE.equals(name.getNamespaceURI())
@@ -107,8 +107,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractCityObject.class, object.getADEOfAbstractCityObject(),
-                GenericADEOfAbstractCityObject::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractCityObject::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -167,7 +166,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "dynamizer"), property, AbstractDynamizerPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAbstractCityObject container : object.getADEOfAbstractCityObject())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(coreNamespace, "adeOfAbstractCityObject") : null, container, namespaces, writer);
+        for (ADEOfAbstractCityObject property : object.getADEProperties(ADEOfAbstractCityObject.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(coreNamespace, "adeOfAbstractCityObject") : null, property, namespaces, writer);
     }
 }

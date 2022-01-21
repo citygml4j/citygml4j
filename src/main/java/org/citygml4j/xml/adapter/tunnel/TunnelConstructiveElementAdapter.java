@@ -55,7 +55,7 @@ public class TunnelConstructiveElementAdapter extends AbstractConstructiveElemen
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfTunnelConstructiveElement".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfTunnelConstructiveElement.class, object.getADEOfTunnelConstructiveElement(), GenericADEOfTunnelConstructiveElement::of, reader);
+                ADEBuilderHelper.addADEProperty(object, GenericADEOfTunnelConstructiveElement::of, reader);
                 return;
             }
         }
@@ -74,7 +74,7 @@ public class TunnelConstructiveElementAdapter extends AbstractConstructiveElemen
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
 
-        for (ADEOfTunnelConstructiveElement container : object.getADEOfTunnelConstructiveElement())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnelConstructiveElement"), container, namespaces, writer);
+        for (ADEOfTunnelConstructiveElement property : object.getADEProperties(ADEOfTunnelConstructiveElement.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnelConstructiveElement"), property, namespaces, writer);
     }
 }

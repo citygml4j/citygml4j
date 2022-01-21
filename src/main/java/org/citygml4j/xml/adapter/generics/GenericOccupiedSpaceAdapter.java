@@ -119,7 +119,7 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfGenericOccupiedSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfGenericOccupiedSpace.class, object.getADEOfGenericOccupiedSpace(), GenericADEOfGenericOccupiedSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfGenericOccupiedSpace::of, reader);
                     return;
             }
         }
@@ -196,8 +196,8 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
             if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         } else {
-            for (ADEOfGenericOccupiedSpace container : object.getADEOfGenericOccupiedSpace())
-                ADESerializerHelper.writeADEContainer(Element.of(genericsNamespace, "adeOfGenericOccupiedSpace"), container, namespaces, writer);
+            for (ADEOfGenericOccupiedSpace property : object.getADEProperties(ADEOfGenericOccupiedSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(genericsNamespace, "adeOfGenericOccupiedSpace"), property, namespaces, writer);
         }
     }
 }

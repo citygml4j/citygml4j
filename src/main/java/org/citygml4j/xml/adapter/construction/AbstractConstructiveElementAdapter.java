@@ -53,7 +53,7 @@ public abstract class AbstractConstructiveElementAdapter<T extends AbstractConst
                     object.getFillings().add(reader.getObjectUsingBuilder(AbstractFillingElementPropertyAdapter.class));
                     return;
                 case "adeOfAbstractConstructiveElement":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractConstructiveElement.class, object.getADEOfAbstractConstructiveElement(), GenericADEOfAbstractConstructiveElement::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractConstructiveElement::of, reader);
                     return;
             }
         }
@@ -72,8 +72,8 @@ public abstract class AbstractConstructiveElementAdapter<T extends AbstractConst
             for (AbstractFillingElementProperty property : object.getFillings())
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "filling"), property, AbstractFillingElementPropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractConstructiveElement container : object.getADEOfAbstractConstructiveElement())
-                ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructiveElement"), container, namespaces, writer);
+            for (ADEOfAbstractConstructiveElement property : object.getADEProperties(ADEOfAbstractConstructiveElement.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructiveElement"), property, namespaces, writer);
         }
     }
 }

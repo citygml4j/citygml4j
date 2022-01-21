@@ -112,7 +112,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfCityFurniture":
-                    ADEBuilderHelper.addADEContainer(ADEOfCityFurniture.class, object.getADEOfCityFurniture(), GenericADEOfCityFurniture::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfCityFurniture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -125,8 +125,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
 
     @Override
     public void buildADEProperty(CityFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfCityFurniture.class, object.getADEOfCityFurniture(),
-                GenericADEOfCityFurniture::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfCityFurniture::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -187,7 +186,7 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
                 writer.writeElementUsingSerializer(Element.of(cityFurnitureNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfCityFurniture container : object.getADEOfCityFurniture())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(cityFurnitureNamespace, "adeOfCityFurniture") : null, container, namespaces, writer);
+        for (ADEOfCityFurniture property : object.getADEProperties(ADEOfCityFurniture.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(cityFurnitureNamespace, "adeOfCityFurniture") : null, property, namespaces, writer);
     }
 }

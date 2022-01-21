@@ -56,7 +56,7 @@ public class DoorSurfaceAdapter extends AbstractFillingSurfaceAdapter<DoorSurfac
                     object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
                     return;
                 case "adeOfDoorSurface":
-                    ADEBuilderHelper.addADEContainer(ADEOfDoorSurface.class, object.getADEOfDoorSurface(), GenericADEOfDoorSurface::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfDoorSurface::of, reader);
                     return;
             }
         }
@@ -76,7 +76,7 @@ public class DoorSurfaceAdapter extends AbstractFillingSurfaceAdapter<DoorSurfac
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
 
-        for (ADEOfDoorSurface container : object.getADEOfDoorSurface())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoorSurface"), container, namespaces, writer);
+        for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoorSurface"), property, namespaces, writer);
     }
 }

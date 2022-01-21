@@ -19,20 +19,13 @@
 
 package org.citygml4j.model.core;
 
-import org.citygml4j.model.common.GeometryInfo;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
-import org.xmlobjects.model.ChildList;
-
 import java.time.OffsetDateTime;
-import java.util.List;
 
 public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
     private OffsetDateTime creationDate;
     private OffsetDateTime terminationDate;
     private OffsetDateTime validFrom;
     private OffsetDateTime validTo;
-    private List<ADEOfAbstractFeatureWithLifespan> adeOfAbstractFeatureWithLifespan;
 
     public OffsetDateTime getCreationDate() {
         return creationDate;
@@ -64,36 +57,5 @@ public abstract class AbstractFeatureWithLifespan extends AbstractFeature {
 
     public void setValidTo(OffsetDateTime validTo) {
         this.validTo = validTo;
-    }
-
-    public List<ADEOfAbstractFeatureWithLifespan> getADEOfAbstractFeatureWithLifespan() {
-        if (adeOfAbstractFeatureWithLifespan == null)
-            adeOfAbstractFeatureWithLifespan = new ChildList<>(this);
-
-        return adeOfAbstractFeatureWithLifespan;
-    }
-
-    public void setADEOfAbstractFeatureWithLifespan(List<ADEOfAbstractFeatureWithLifespan> adeOfAbstractFeatureWithLifespan) {
-        this.adeOfAbstractFeatureWithLifespan = asChild(adeOfAbstractFeatureWithLifespan);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfAbstractFeatureWithLifespan != null) {
-            for (ADEOfAbstractFeatureWithLifespan container : adeOfAbstractFeatureWithLifespan)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfAbstractFeatureWithLifespan != null) {
-            for (ADEOfAbstractFeatureWithLifespan container : adeOfAbstractFeatureWithLifespan)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 }

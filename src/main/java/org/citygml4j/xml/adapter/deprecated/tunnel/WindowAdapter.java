@@ -59,8 +59,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
 
     @Override
     public void buildADEProperty(WindowSurface object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfWindowSurface.class, object.getADEOfWindowSurface(),
-                GenericADEOfWindowSurface::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfWindowSurface::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -73,7 +72,7 @@ public class WindowAdapter extends AbstractOpeningAdapter<WindowSurface> {
     public void writeChildElements(WindowSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfWindowSurface container : object.getADEOfWindowSurface())
-            ADESerializerHelper.writeADEProperty(container, namespaces, writer);
+        for (ADEOfWindowSurface property : object.getADEProperties(ADEOfWindowSurface.class))
+            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
     }
 }

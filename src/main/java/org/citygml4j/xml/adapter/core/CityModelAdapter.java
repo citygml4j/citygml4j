@@ -68,7 +68,7 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                     object.setEngineeringCRS(reader.getObjectUsingBuilder(EngineeringCRSPropertyAdapter.class));
                     return;
                 case "adeOfCityModel":
-                    ADEBuilderHelper.addADEContainer(ADEOfCityModel.class, object.getADEOfCityModel(), GenericADEOfCityModel::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfCityModel::of, reader);
                     return;
             }
         }
@@ -103,7 +103,7 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
         for (AbstractFeatureProperty property : object.getFeatureMembers())
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
 
-        for (ADEOfCityModel container : object.getADEOfCityModel())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfCityModel"), container, namespaces, writer);
+        for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfCityModel"), property, namespaces, writer);
     }
 }

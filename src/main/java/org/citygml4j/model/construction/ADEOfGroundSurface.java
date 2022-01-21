@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.construction;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfGroundSurface extends ADEContainer {
+public abstract class ADEOfGroundSurface extends ADEProperty {
+
+    @Override
+    public final Class<GroundSurface> getTargetType() {
+        return GroundSurface.class;
+    }
 }

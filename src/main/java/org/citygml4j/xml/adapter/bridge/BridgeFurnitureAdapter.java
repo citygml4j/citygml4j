@@ -70,7 +70,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
                     object.getDeprecatedProperties().setLod4ImplicitRepresentation(reader.getObjectUsingBuilder(ImplicitGeometryPropertyAdapter.class));
                     return;
                 case "adeOfBridgeFurniture":
-                    ADEBuilderHelper.addADEContainer(ADEOfBridgeFurniture.class, object.getADEOfBridgeFurniture(), GenericADEOfBridgeFurniture::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfBridgeFurniture::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -83,8 +83,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
 
     @Override
     public void buildADEProperty(BridgeFurniture object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfBridgeFurniture.class, object.getADEOfBridgeFurniture(),
-                GenericADEOfBridgeFurniture::of, reader, substitutionGroup))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfBridgeFurniture::of, reader, substitutionGroup))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -109,7 +108,7 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBridgeFurniture container : object.getADEOfBridgeFurniture())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeFurniture") : null, container, namespaces, writer);
+        for (ADEOfBridgeFurniture property : object.getADEProperties(ADEOfBridgeFurniture.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeFurniture") : null, property, namespaces, writer);
     }
 }

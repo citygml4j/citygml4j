@@ -49,7 +49,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     @Override
     public void buildChildObject(BuildingPart object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfBuildingPart".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfBuildingPart.class, object.getADEOfBuildingPart(), GenericADEOfBuildingPart::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfBuildingPart::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -63,7 +63,7 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     public void writeChildElements(BuildingPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfBuildingPart container : object.getADEOfBuildingPart())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingPart"), container, namespaces, writer);
+        for (ADEOfBuildingPart property : object.getADEProperties(ADEOfBuildingPart.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingPart"), property, namespaces, writer);
     }
 }

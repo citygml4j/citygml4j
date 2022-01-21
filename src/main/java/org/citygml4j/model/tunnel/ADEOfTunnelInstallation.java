@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.tunnel;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfTunnelInstallation extends ADEContainer {
+public abstract class ADEOfTunnelInstallation extends ADEProperty {
+
+    @Override
+    public final Class<TunnelInstallation> getTargetType() {
+        return TunnelInstallation.class;
+    }
 }

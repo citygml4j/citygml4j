@@ -70,7 +70,7 @@ public class WritingADE {
 
         log.print("Enriching the building with TestADE properties and features");
         AbstractBuildingProperties buildingProperties = new AbstractBuildingProperties();
-        building.getADEOfAbstractBuilding().add(buildingProperties);
+        building.addADEProperty(buildingProperties);
 
         log.print("Adding an owner name");
         buildingProperties.setOwnerName("Smith");

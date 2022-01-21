@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.versioning;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfVersion extends ADEContainer {
+public abstract class ADEOfVersion extends ADEProperty {
+
+    @Override
+    public final Class<Version> getTargetType() {
+        return Version.class;
+    }
 }

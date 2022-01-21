@@ -19,7 +19,12 @@
 
 package org.citygml4j.model.building;
 
-import org.citygml4j.model.ade.ADEContainer;
+import org.citygml4j.model.ade.ADEProperty;
 
-public abstract class ADEOfBuildingFurniture extends ADEContainer {
+public abstract class ADEOfBuildingFurniture extends ADEProperty {
+
+    @Override
+    public final Class<BuildingFurniture> getTargetType() {
+        return BuildingFurniture.class;
+    }
 }

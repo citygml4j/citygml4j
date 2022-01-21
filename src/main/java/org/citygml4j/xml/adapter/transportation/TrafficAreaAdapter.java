@@ -80,7 +80,7 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
                     object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "adeOfTrafficArea":
-                    ADEBuilderHelper.addADEContainer(ADEOfTrafficArea.class, object.getADEOfTrafficArea(), GenericADEOfTrafficArea::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfTrafficArea::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -93,8 +93,7 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
 
     @Override
     public void buildADEProperty(TrafficArea object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfTrafficArea.class, object.getADEOfTrafficArea(),
-                GenericADEOfTrafficArea::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfTrafficArea::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -125,7 +124,7 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTrafficArea container : object.getADEOfTrafficArea())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(transportationNamespace, "adeOfTrafficArea") : null, container, namespaces, writer);
+        for (ADEOfTrafficArea property : object.getADEProperties(ADEOfTrafficArea.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(transportationNamespace, "adeOfTrafficArea") : null, property, namespaces, writer);
     }
 }

@@ -56,7 +56,7 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
                     object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfClearanceSpace":
-                    ADEBuilderHelper.addADEContainer(ADEOfClearanceSpace.class, object.getADEOfClearanceSpace(), GenericADEOfClearanceSpace::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfClearanceSpace::of, reader);
                     return;
             }
         }
@@ -76,7 +76,7 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfClearanceSpace container : object.getADEOfClearanceSpace())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfClearanceSpace"), container, namespaces, writer);
+        for (ADEOfClearanceSpace property : object.getADEProperties(ADEOfClearanceSpace.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfClearanceSpace"), property, namespaces, writer);
     }
 }

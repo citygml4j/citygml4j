@@ -54,7 +54,7 @@ public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
             if (CityGMLBuilderHelper.buildStandardObjectClassifier(object, name.getLocalPart(), reader))
                 return;
             else if ("adeOfSquare".equals(name.getLocalPart())) {
-                ADEBuilderHelper.addADEContainer(ADEOfSquare.class, object.getADEOfSquare(), GenericADEOfSquare::of, reader);
+                ADEBuilderHelper.addADEProperty(object, GenericADEOfSquare::of, reader);
                 return;
             }
         }
@@ -73,7 +73,7 @@ public class SquareAdapter extends AbstractTransportationSpaceAdapter<Square> {
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, namespaces, writer);
 
-        for (ADEOfSquare container : object.getADEOfSquare())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSquare"), container, namespaces, writer);
+        for (ADEOfSquare property : object.getADEProperties(ADEOfSquare.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSquare"), property, namespaces, writer);
     }
 }

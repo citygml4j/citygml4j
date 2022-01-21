@@ -61,7 +61,7 @@ public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapt
                     object.setMimeType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfStandardFileTimeseries":
-                    ADEBuilderHelper.addADEContainer(ADEOfStandardFileTimeseries.class, object.getADEOfStandardFileTimeseries(), GenericADEOfStandardFileTimeseries::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfStandardFileTimeseries::of, reader);
                     return;
             }
         }
@@ -87,7 +87,7 @@ public class StandardFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdapt
         if (object.getMimeType() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
 
-        for (ADEOfStandardFileTimeseries container : object.getADEOfStandardFileTimeseries())
-            ADESerializerHelper.writeADEContainer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfStandardFileTimeseries"), container, namespaces, writer);
+        for (ADEOfStandardFileTimeseries property : object.getADEProperties(ADEOfStandardFileTimeseries.class))
+            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfStandardFileTimeseries"), property, namespaces, writer);
     }
 }

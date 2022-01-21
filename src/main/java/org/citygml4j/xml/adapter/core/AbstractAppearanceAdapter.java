@@ -43,7 +43,7 @@ public abstract class AbstractAppearanceAdapter<T extends AbstractAppearance> ex
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(name.getNamespaceURI()) && "adeOfAbstractAppearance".equals(name.getLocalPart()))
-            ADEBuilderHelper.addADEContainer(ADEOfAbstractAppearance.class, object.getADEOfAbstractAppearance(), GenericADEOfAbstractAppearance::of, reader);
+            ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractAppearance::of, reader);
         else
             super.buildChildObject(object, name, attributes, reader);
     }
@@ -54,8 +54,8 @@ public abstract class AbstractAppearanceAdapter<T extends AbstractAppearance> ex
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractAppearance container : object.getADEOfAbstractAppearance())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractAppearance"), container, namespaces, writer);
+            for (ADEOfAbstractAppearance property : object.getADEProperties(ADEOfAbstractAppearance.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractAppearance"), property, namespaces, writer);
         }
     }
 }

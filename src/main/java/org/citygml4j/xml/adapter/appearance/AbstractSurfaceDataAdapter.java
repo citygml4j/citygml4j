@@ -55,7 +55,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
                     reader.getTextContent().ifBoolean(object::setIsFront);
                     return;
                 case "adeOfAbstractSurfaceData":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractSurfaceData.class, object.getADEOfAbstractSurfaceData(), GenericADEOfAbstractSurfaceData::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractSurfaceData::of, reader);
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -68,8 +68,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (!ADEBuilderHelper.addADEContainer(name, ADEOfAbstractSurfaceData.class, object.getADEOfAbstractSurfaceData(),
-                GenericADEOfAbstractSurfaceData::of, reader, substitutionGroups))
+        if (!ADEBuilderHelper.addADEProperty(object, name, GenericADEOfAbstractSurfaceData::of, reader, substitutionGroups))
             super.buildADEProperty(object, name, reader);
     }
 
@@ -82,7 +81,7 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
         if (object.isSetIsFront())
             writer.writeElement(Element.of(appearanceNamespace, "isFront").addTextContent(TextContent.ofBoolean(object.getIsFront())));
 
-        for (ADEOfAbstractSurfaceData container : object.getADEOfAbstractSurfaceData())
-            ADESerializerHelper.writeADEContainer(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractSurfaceData") : null, container, namespaces, writer);
+        for (ADEOfAbstractSurfaceData property : object.getADEProperties(ADEOfAbstractSurfaceData.class))
+            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractSurfaceData") : null, property, namespaces, writer);
     }
 }

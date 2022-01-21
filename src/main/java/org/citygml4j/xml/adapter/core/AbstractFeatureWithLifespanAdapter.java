@@ -65,7 +65,7 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
                     reader.getTextContent().ifDateTime(object::setValidTo);
                     return;
                 case "adeOfAbstractFeatureWithLifespan":
-                    ADEBuilderHelper.addADEContainer(ADEOfAbstractFeatureWithLifespan.class, object.getADEOfAbstractFeatureWithLifespan(), GenericADEOfAbstractFeatureWithLifespan::of, reader);
+                    ADEBuilderHelper.addADEProperty(object, GenericADEOfAbstractFeatureWithLifespan::of, reader);
                     return;
             }
         }
@@ -100,8 +100,8 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
             if (object.getValidTo() != null)
                 writer.writeElement(Element.of(coreNamespace, "validTo").addTextContent(TextContent.ofDateTime(object.getValidTo())));
 
-            for (ADEOfAbstractFeatureWithLifespan container : object.getADEOfAbstractFeatureWithLifespan())
-                ADESerializerHelper.writeADEContainer(Element.of(coreNamespace, "adeOfAbstractFeatureWithLifespan"), container, namespaces, writer);
+            for (ADEOfAbstractFeatureWithLifespan property : object.getADEProperties(ADEOfAbstractFeatureWithLifespan.class))
+                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractFeatureWithLifespan"), property, namespaces, writer);
         }
     }
 }

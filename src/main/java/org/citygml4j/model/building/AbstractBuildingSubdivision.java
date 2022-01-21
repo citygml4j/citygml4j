@@ -19,13 +19,10 @@
 
 package org.citygml4j.model.building;
 
-import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.construction.ElevationProperty;
 import org.citygml4j.model.core.AbstractLogicalSpace;
 import org.citygml4j.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -40,7 +37,6 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     private List<BuildingFurnitureProperty> buildingFurniture;
     private List<BuildingInstallationProperty> buildingInstallations;
     private List<BuildingRoomProperty> buildingRooms;
-    private List<ADEOfAbstractBuildingSubdivision> adeOfAbstractBuildingSubdivision;
 
     @Override
     public Code getClassifier() {
@@ -139,36 +135,5 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
 
     public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {
         this.buildingRooms = asChild(buildingRooms);
-    }
-
-    public List<ADEOfAbstractBuildingSubdivision> getADEOfAbstractBuildingSubdivision() {
-        if (adeOfAbstractBuildingSubdivision == null)
-            adeOfAbstractBuildingSubdivision = new ChildList<>(this);
-
-        return adeOfAbstractBuildingSubdivision;
-    }
-
-    public void setADEOfAbstractBuildingSubdivision(List<ADEOfAbstractBuildingSubdivision> adeOfAbstractBuildingSubdivision) {
-        this.adeOfAbstractBuildingSubdivision = asChild(adeOfAbstractBuildingSubdivision);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        super.updateEnvelope(envelope, options);
-
-        if (adeOfAbstractBuildingSubdivision != null) {
-            for (ADEOfAbstractBuildingSubdivision container : adeOfAbstractBuildingSubdivision)
-                updateEnvelope(container, envelope, options);
-        }
-    }
-
-    @Override
-    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        super.updateGeometryInfo(geometryInfo);
-
-        if (adeOfAbstractBuildingSubdivision != null) {
-            for (ADEOfAbstractBuildingSubdivision container : adeOfAbstractBuildingSubdivision)
-                updateGeometryInfo(container, geometryInfo);
-        }
     }
 }

@@ -19,7 +19,9 @@
 
 package org.citygml4j.xml.writer;
 
-import org.citygml4j.model.core.*;
+import org.citygml4j.model.ade.ADEProperty;
+import org.citygml4j.model.core.CityModel;
+import org.citygml4j.model.core.EngineeringCRSProperty;
 import org.xmlobjects.gml.model.base.Reference;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.CodeWithAuthority;
@@ -110,14 +112,6 @@ public class CityModelInfo {
         cityModel.setLocation(location);
     }
 
-    public List<ADEOfAbstractFeature> getADEOfAbstractFeature() {
-        return cityModel.getADEOfAbstractFeature();
-    }
-
-    public void setADEOfAbstractFeature(List<ADEOfAbstractFeature> adeOfAbstractFeature) {
-        cityModel.setADEOfAbstractFeature(adeOfAbstractFeature);
-    }
-
     public OffsetDateTime getCreationDate() {
         return cityModel.getCreationDate();
     }
@@ -150,14 +144,6 @@ public class CityModelInfo {
         cityModel.setValidTo(validTo);
     }
 
-    public List<ADEOfAbstractFeatureWithLifespan> getADEOfAbstractFeatureWithLifespan() {
-        return cityModel.getADEOfAbstractFeatureWithLifespan();
-    }
-
-    public void setADEOfAbstractFeatureWithLifespan(List<ADEOfAbstractFeatureWithLifespan> adeOfAbstractFeatureWithLifespan) {
-        cityModel.setADEOfAbstractFeatureWithLifespan(adeOfAbstractFeatureWithLifespan);
-    }
-
     public EngineeringCRSProperty getEngineeringCRS() {
         return cityModel.getEngineeringCRS();
     }
@@ -166,11 +152,19 @@ public class CityModelInfo {
         cityModel.setEngineeringCRS(engineeringCRS);
     }
 
-    public List<ADEOfCityModel> getADEOfCityModel() {
-        return cityModel.getADEOfCityModel();
+    public boolean hasADEProperties() {
+        return cityModel.hasADEProperties();
     }
 
-    public void setADEOfCityModel(List<ADEOfCityModel> adeOfCityModel) {
-        cityModel.setADEOfCityModel(adeOfCityModel);
+    public List<ADEProperty> getADEProperties() {
+        return cityModel.getADEProperties();
+    }
+
+    public void setADEProperties(List<ADEProperty> adeProperties) {
+        cityModel.setADEProperties(adeProperties);
+    }
+
+    public void addADEProperty(ADEProperty adeProperty) {
+        cityModel.addADEProperty(adeProperty);
     }
 }
