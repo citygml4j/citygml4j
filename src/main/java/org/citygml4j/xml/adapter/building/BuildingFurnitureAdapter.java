@@ -22,6 +22,7 @@ package org.citygml4j.xml.adapter.building;
 import org.citygml4j.model.ade.generic.GenericADEOfBuildingFurniture;
 import org.citygml4j.model.building.ADEOfBuildingFurniture;
 import org.citygml4j.model.building.BuildingFurniture;
+import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingFurniture;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -104,12 +105,14 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
-        if (!isCityGML3) {
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+        if (!isCityGML3 && object.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfBuildingFurniture properties = object.getDeprecatedProperties();
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+
+            if (properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
         for (ADEOfBuildingFurniture property : object.getADEProperties(ADEOfBuildingFurniture.class))

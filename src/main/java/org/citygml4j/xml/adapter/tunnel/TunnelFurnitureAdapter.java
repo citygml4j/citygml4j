@@ -20,6 +20,7 @@
 package org.citygml4j.xml.adapter.tunnel;
 
 import org.citygml4j.model.ade.generic.GenericADEOfTunnelFurniture;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelFurniture;
 import org.citygml4j.model.tunnel.ADEOfTunnelFurniture;
 import org.citygml4j.model.tunnel.TunnelFurniture;
 import org.citygml4j.util.CityGMLConstants;
@@ -100,12 +101,14 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
-        if (!isCityGML3) {
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+        if (!isCityGML3 && object.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfTunnelFurniture properties = object.getDeprecatedProperties();
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+
+            if (properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
         for (ADEOfTunnelFurniture property : object.getADEProperties(ADEOfTunnelFurniture.class))

@@ -22,6 +22,7 @@ package org.citygml4j.xml.adapter.building;
 import org.citygml4j.model.ade.generic.GenericADEOfBuildingRoom;
 import org.citygml4j.model.building.*;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingRoom;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -127,11 +128,15 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
             for (RoomHeightProperty property : object.getRoomHeights())
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roomHeight"), property, RoomHeightPropertyAdapter.class, namespaces);
         } else {
-            if (object.getDeprecatedProperties().getLod4Solid() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+            DeprecatedPropertiesOfBuildingRoom properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
 
-            if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Solid() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+
+            if (properties != null && properties.getLod4MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

@@ -97,7 +97,7 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
         if (object.getLod3MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod3Surface"), getSurfaceProperty(object.getLod3MultiSurface()), SurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+        if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getLod4MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Surface"), getSurfaceProperty(object.getDeprecatedProperties().getLod4MultiSurface()), SurfacePropertyAdapter.class, namespaces);
 
         if (object instanceof AbstractWaterBoundarySurface) {

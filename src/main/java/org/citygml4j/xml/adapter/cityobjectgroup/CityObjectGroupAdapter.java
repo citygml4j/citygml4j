@@ -23,6 +23,7 @@ import org.citygml4j.model.ade.generic.GenericADEOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.ADEOfCityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.model.cityobjectgroup.RoleProperty;
+import org.citygml4j.model.deprecated.cityobjectgroup.DeprecatedPropertiesOfCityObjectGroup;
 import org.citygml4j.model.deprecated.cityobjectgroup.GroupMember;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
@@ -123,6 +124,10 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         String cityObjectGroupNamespace = CityGMLSerializerHelper.getCityObjectGroupNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE.equals(cityObjectGroupNamespace);
 
+        DeprecatedPropertiesOfCityObjectGroup properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, cityObjectGroupNamespace, namespaces, writer);
 
         for (RoleProperty property : object.getGroupMembers()) {
@@ -132,18 +137,18 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                 writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, org.citygml4j.xml.adapter.deprecated.cityobjectgroup.RolePropertyAdapter.class, namespaces);
         }
 
-        if (!isCityGML3) {
-            for (GroupMember property : object.getDeprecatedProperties().getGroupMembers())
+        if (!isCityGML3 && properties != null) {
+            for (GroupMember property : properties.getGroupMembers())
                 writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, GroupMemberAdapter.class, namespaces);
         }
 
         if (object.getGroupParent() != null)
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getGroupParent(), AbstractCityObjectReferenceAdapter.class, namespaces);
-        else if (!isCityGML3 && object.getDeprecatedProperties().getGroupParent() != null)
-            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), object.getDeprecatedProperties().getGroupParent(), GroupParentMemberAdapter.class, namespaces);
+        else if (!isCityGML3 && properties != null && properties.getGroupParent() != null)
+            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "parent"), properties.getGroupParent(), GroupParentMemberAdapter.class, namespaces);
 
-        if (!isCityGML3 && object.getDeprecatedProperties().getGeometry() != null)
-            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), object.getDeprecatedProperties().getGeometry(), GeometryPropertyAdapter.class, namespaces);
+        if (!isCityGML3 && properties != null && properties.getGeometry() != null)
+            writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), properties.getGeometry(), GeometryPropertyAdapter.class, namespaces);
 
         for (ADEOfCityObjectGroup property : object.getADEProperties(ADEOfCityObjectGroup.class))
             ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(cityObjectGroupNamespace, "adeOfCityObjectGroup") : null, property, namespaces, writer);

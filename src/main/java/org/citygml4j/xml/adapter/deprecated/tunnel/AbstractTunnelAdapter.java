@@ -22,6 +22,7 @@ package org.citygml4j.xml.adapter.deprecated.tunnel;
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractTunnel;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfAbstractTunnel;
 import org.citygml4j.model.tunnel.*;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
@@ -150,6 +151,10 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         super.writeChildElements(object, namespaces, writer);
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
 
+        DeprecatedPropertiesOfAbstractTunnel properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
         if (object.getDateOfConstruction() != null)
@@ -161,8 +166,8 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod1MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod1MultiSurface"), object.getDeprecatedProperties().getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod1MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod1MultiSurface"), properties.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod1TerrainIntersection"), object.getLod1TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -201,17 +206,17 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         if (object.getLod3TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4Solid() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiCurve"), object.getDeprecatedProperties().getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiCurve"), properties.getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         for (HollowSpaceProperty property : object.getHollowSpaces())
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorHollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
@@ -221,8 +226,10 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
         }
 
-        for (TunnelPartProperty property : object.getDeprecatedProperties().getConsistsOfTunnelParts())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
+        if (properties != null) {
+            for (TunnelPartProperty property : properties.getConsistsOfTunnelParts())
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractTunnel property : object.getADEProperties(ADEOfAbstractTunnel.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

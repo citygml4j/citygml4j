@@ -21,6 +21,7 @@ package org.citygml4j.xml.adapter.tunnel;
 
 import org.citygml4j.model.ade.generic.GenericADEOfHollowSpace;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfHollowSpace;
 import org.citygml4j.model.tunnel.ADEOfHollowSpace;
 import org.citygml4j.model.tunnel.HollowSpace;
 import org.citygml4j.model.tunnel.TunnelFurnitureProperty;
@@ -117,11 +118,15 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, tunnelNamespace, namespaces, writer);
 
         if (!isCityGML3) {
-            if (object.getDeprecatedProperties().getLod4Solid() != null)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+            DeprecatedPropertiesOfHollowSpace properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
 
-            if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Solid() != null)
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+
+            if (properties != null && properties.getLod4MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

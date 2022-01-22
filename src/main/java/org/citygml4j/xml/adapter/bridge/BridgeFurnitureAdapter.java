@@ -22,6 +22,7 @@ package org.citygml4j.xml.adapter.bridge;
 import org.citygml4j.model.ade.generic.GenericADEOfBridgeFurniture;
 import org.citygml4j.model.bridge.ADEOfBridgeFurniture;
 import org.citygml4j.model.bridge.BridgeFurniture;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeFurniture;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -100,12 +101,14 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
-        if (!isCityGML3) {
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+        if (!isCityGML3 && object.hasDeprecatedProperties()) {
+            DeprecatedPropertiesOfBridgeFurniture properties = object.getDeprecatedProperties();
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+
+            if (properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
         for (ADEOfBridgeFurniture property : object.getADEProperties(ADEOfBridgeFurniture.class))

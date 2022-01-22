@@ -25,6 +25,7 @@ import org.citygml4j.model.bridge.BridgeFurnitureProperty;
 import org.citygml4j.model.bridge.BridgeInstallationProperty;
 import org.citygml4j.model.bridge.BridgeRoom;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeRoom;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -117,11 +118,15 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (!isCityGML3) {
-            if (object.getDeprecatedProperties().getLod4Solid() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+            DeprecatedPropertiesOfBridgeRoom properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
 
-            if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Solid() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+
+            if (properties != null && properties.getLod4MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

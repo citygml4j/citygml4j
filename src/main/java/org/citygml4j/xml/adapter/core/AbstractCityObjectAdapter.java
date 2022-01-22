@@ -127,7 +127,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
         for (AbstractCityObjectReference reference : object.getGeneralizesTo())
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, AbstractCityObjectReferenceAdapter.class, namespaces);
 
-        if (!isCityGML3) {
+        if (!isCityGML3 && object.hasDeprecatedProperties()) {
             for (AbstractCityObjectProperty property : object.getDeprecatedProperties().getGeneralizesTo())
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
         }

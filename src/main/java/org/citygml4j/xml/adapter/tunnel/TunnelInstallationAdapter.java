@@ -22,6 +22,7 @@ package org.citygml4j.xml.adapter.tunnel;
 import org.citygml4j.model.ade.generic.GenericADEOfTunnelInstallation;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.tunnel.DeprecatedPropertiesOfTunnelInstallation;
 import org.citygml4j.model.tunnel.ADEOfTunnelInstallation;
 import org.citygml4j.model.tunnel.TunnelInstallation;
 import org.citygml4j.util.CityGMLConstants;
@@ -140,21 +141,24 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
 
         if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
+            DeprecatedPropertiesOfTunnelInstallation properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
 
             if (!isInterior) {
-                if (object.getDeprecatedProperties().getLod2Geometry() != null)
-                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+                if (properties != null && properties.getLod2Geometry() != null)
+                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod2Geometry"), properties.getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
                     CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", tunnelNamespace, namespaces, writer);
 
-                if (object.getDeprecatedProperties().getLod3Geometry() != null)
-                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+                if (properties != null && properties.getLod3Geometry() != null)
+                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3Geometry"), properties.getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
                     CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", tunnelNamespace, namespaces, writer);
             }
 
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (!isInterior) {
                 if (object.getLod2ImplicitRepresentation() != null)
@@ -164,8 +168,8 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
                     writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
             }
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

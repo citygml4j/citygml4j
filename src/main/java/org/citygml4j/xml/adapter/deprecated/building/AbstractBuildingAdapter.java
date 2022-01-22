@@ -26,6 +26,7 @@ import org.citygml4j.model.construction.HeightProperty;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
+import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -187,6 +188,10 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
 
+        DeprecatedPropertiesOfAbstractBuilding properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (object.getDateOfConstruction() != null)
@@ -219,14 +224,14 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getLod0MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0FootPrint"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod0RoofEdge() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0RoofEdge"), object.getDeprecatedProperties().getLod0RoofEdge(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod0RoofEdge() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0RoofEdge"), properties.getLod0RoofEdge(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod1MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod1MultiSurface"), object.getDeprecatedProperties().getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod1MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod1MultiSurface"), properties.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod1TerrainIntersection"), object.getLod1TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -265,17 +270,17 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getLod3TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4Solid() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiCurve"), object.getDeprecatedProperties().getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiCurve"), properties.getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         for (BuildingRoomProperty property : object.getBuildingRooms())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
@@ -285,8 +290,10 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
         }
 
-        for (BuildingPartProperty property : object.getDeprecatedProperties().getConsistsOfBuildingParts())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
+        if (properties != null) {
+            for (BuildingPartProperty property : properties.getConsistsOfBuildingParts())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
+        }
 
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);

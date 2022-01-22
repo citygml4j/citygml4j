@@ -21,6 +21,7 @@ package org.citygml4j.xml.adapter.deprecated.waterbody;
 
 import org.citygml4j.model.ade.generic.GenericADEOfWaterBody;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.waterbody.DeprecatedPropertiesOfWaterBody;
 import org.citygml4j.model.waterbody.ADEOfWaterBody;
 import org.citygml4j.model.waterbody.WaterBody;
 import org.citygml4j.util.CityGMLConstants;
@@ -123,6 +124,10 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         super.writeChildElements(object, namespaces, writer);
         String waterBodyNamespace = CityGMLSerializerHelper.getWaterBodyNamespace(namespaces);
 
+        DeprecatedPropertiesOfWaterBody properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, waterBodyNamespace, namespaces, writer);
 
         if (object.getLod0MultiCurve() != null)
@@ -131,11 +136,11 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         if (object.getLod0MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod0MultiSurface"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod1MultiCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiCurve"), object.getDeprecatedProperties().getLod1MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod1MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiCurve"), properties.getLod1MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod1MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiSurface"), object.getDeprecatedProperties().getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod1MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1MultiSurface"), properties.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
@@ -146,8 +151,8 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4Solid() != null)
+            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
         for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractWaterBoundarySurfacePropertyAdapter.class, namespaces);

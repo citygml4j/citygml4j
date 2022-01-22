@@ -24,6 +24,7 @@ import org.citygml4j.model.bridge.*;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.model.core.AddressProperty;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfAbstractBridge;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -162,6 +163,10 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         super.writeChildElements(object, namespaces, writer);
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
 
+        DeprecatedPropertiesOfAbstractBridge properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (object.getDateOfConstruction() != null)
@@ -176,8 +181,8 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod1MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1MultiSurface"), object.getDeprecatedProperties().getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod1MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1MultiSurface"), properties.getLod1MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object.getLod1TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1TerrainIntersection"), object.getLod1TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -219,17 +224,17 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.getLod3TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4Solid() != null)
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Solid"), object.getDeprecatedProperties().getLod4Solid(), SolidPropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4Solid() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiCurve"), object.getDeprecatedProperties().getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4MultiCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiCurve"), properties.getLod4MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
+            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
         for (BridgeRoomProperty property : object.getBridgeRooms())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
@@ -239,8 +244,10 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
         }
 
-        for (BridgePartProperty property : object.getDeprecatedProperties().getConsistsOfBridgeParts())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
+        if (properties != null) {
+            for (BridgePartProperty property : properties.getConsistsOfBridgeParts())
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
+        }
 
         for (AddressProperty property : object.getAddresses())
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);

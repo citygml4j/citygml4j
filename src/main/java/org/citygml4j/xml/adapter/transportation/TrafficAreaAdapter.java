@@ -120,7 +120,7 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
             if (object.getLod3MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
+            if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getLod4MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 

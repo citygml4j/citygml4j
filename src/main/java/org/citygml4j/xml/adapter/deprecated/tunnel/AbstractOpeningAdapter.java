@@ -22,6 +22,7 @@ package org.citygml4j.xml.adapter.deprecated.tunnel;
 import org.citygml4j.model.ade.generic.GenericADEOfAbstractFillingSurface;
 import org.citygml4j.model.construction.ADEOfAbstractFillingSurface;
 import org.citygml4j.model.construction.AbstractFillingSurface;
+import org.citygml4j.model.deprecated.construction.DeprecatedPropertiesOfAbstractFillingSurface;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -81,17 +82,21 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
         super.writeChildElements(object, namespaces, writer);
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
 
+        DeprecatedPropertiesOfAbstractFillingSurface properties = object.hasDeprecatedProperties() ?
+                object.getDeprecatedProperties() :
+                null;
+
         if (object.getLod3MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4MultiSurface() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod3ImplicitRepresentation() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3ImplicitRepresentation"), object.getDeprecatedProperties().getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod3ImplicitRepresentation() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3ImplicitRepresentation"), properties.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-        if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+        if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
         for (ADEOfAbstractFillingSurface property : object.getADEProperties(ADEOfAbstractFillingSurface.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

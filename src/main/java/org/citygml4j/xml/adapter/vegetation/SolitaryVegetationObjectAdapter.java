@@ -20,6 +20,7 @@
 package org.citygml4j.xml.adapter.vegetation;
 
 import org.citygml4j.model.ade.generic.GenericADEOfSolitaryVegetationObject;
+import org.citygml4j.model.deprecated.vegetation.DeprecatedPropertiesOfSolitaryVegetationObject;
 import org.citygml4j.model.vegetation.ADEOfSolitaryVegetationObject;
 import org.citygml4j.model.vegetation.SolitaryVegetationObject;
 import org.citygml4j.util.CityGMLConstants;
@@ -169,23 +170,27 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
         }
 
         if (!isCityGML3) {
-            if (object.getDeprecatedProperties().getLod1Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1Geometry"), object.getDeprecatedProperties().getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
+            DeprecatedPropertiesOfSolitaryVegetationObject properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
+
+            if (properties != null && properties.getLod1Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1Geometry"), properties.getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 1, "lod1Geometry", vegetationNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod2Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod2Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod2Geometry"), properties.getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", vegetationNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod3Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod3Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3Geometry"), properties.getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", vegetationNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (object.getLod1ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod1ImplicitRepresentation"), object.getLod1ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
@@ -196,8 +201,8 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
         for (ADEOfSolitaryVegetationObject property : object.getADEProperties(ADEOfSolitaryVegetationObject.class))

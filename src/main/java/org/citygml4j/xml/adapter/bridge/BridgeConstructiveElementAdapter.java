@@ -23,6 +23,7 @@ import org.citygml4j.model.ade.generic.GenericADEOfBridgeConstructiveElement;
 import org.citygml4j.model.bridge.ADEOfBridgeConstructiveElement;
 import org.citygml4j.model.bridge.BridgeConstructiveElement;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeConstructiveElement;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -148,23 +149,27 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, bridgeNamespace, namespaces, writer);
 
         if (!isCityGML3) {
-            if (object.getDeprecatedProperties().getLod1Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1Geometry"), object.getDeprecatedProperties().getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
+            DeprecatedPropertiesOfBridgeConstructiveElement properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
+
+            if (properties != null && properties.getLod1Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1Geometry"), properties.getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 1, "lod1Geometry", bridgeNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod2Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod2Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), properties.getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", bridgeNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod3Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod3Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), properties.getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", bridgeNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (object.getLod1TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1TerrainIntersection"), object.getLod1TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -175,8 +180,8 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
             if (object.getLod3TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
             if (object.getLod1ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod1ImplicitRepresentation"), object.getLod1ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
@@ -187,8 +192,8 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);

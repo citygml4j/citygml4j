@@ -20,6 +20,7 @@
 package org.citygml4j.xml.adapter.generics;
 
 import org.citygml4j.model.ade.generic.GenericADEOfGenericOccupiedSpace;
+import org.citygml4j.model.deprecated.generics.DeprecatedPropertiesOfGenericOccupiedSpace;
 import org.citygml4j.model.generics.ADEOfGenericOccupiedSpace;
 import org.citygml4j.model.generics.GenericOccupiedSpace;
 import org.citygml4j.util.CityGMLConstants;
@@ -143,31 +144,35 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, genericsNamespace, namespaces, writer);
 
         if (!CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE.equals(genericsNamespace)) {
-            if (object.getDeprecatedProperties().getLod0Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0Geometry"), object.getDeprecatedProperties().getLod0Geometry(), GeometryPropertyAdapter.class, namespaces);
+            DeprecatedPropertiesOfGenericOccupiedSpace properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
+
+            if (properties != null && properties.getLod0Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0Geometry"), properties.getLod0Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 0, "lod0Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod1Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod1Geometry"), object.getDeprecatedProperties().getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod1Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod1Geometry"), properties.getLod1Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 1, "lod1Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod2Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod2Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod2Geometry"), properties.getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod3Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod3Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3Geometry"), properties.getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
             else
                 CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", genericsNamespace, namespaces, writer);
 
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod0TerrainIntersectionCurve() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0TerrainIntersection"), object.getDeprecatedProperties().getLod0TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod0TerrainIntersectionCurve() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0TerrainIntersection"), properties.getLod0TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
             if (object.getLod1TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod1TerrainIntersection"), object.getLod1TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
@@ -178,11 +183,11 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
             if (object.getLod3TerrainIntersectionCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3TerrainIntersection"), object.getLod3TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4TerrainIntersectionCurve() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4TerrainIntersection"), object.getDeprecatedProperties().getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod0ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0ImplicitRepresentation"), object.getDeprecatedProperties().getLod0ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod0ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod0ImplicitRepresentation"), properties.getLod0ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
             if (object.getLod1ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod1ImplicitRepresentation"), object.getLod1ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
@@ -193,8 +198,8 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         } else {
             for (ADEOfGenericOccupiedSpace property : object.getADEProperties(ADEOfGenericOccupiedSpace.class))
                 ADESerializerHelper.writeADEProperty(Element.of(genericsNamespace, "adeOfGenericOccupiedSpace"), property, namespaces, writer);

@@ -111,7 +111,7 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), property, org.citygml4j.xml.adapter.deprecated.appearance.TextureAssociationPropertyAdapter.class, namespaces);
         }
 
-        if (!isCityGML3) {
+        if (!isCityGML3 && object.hasDeprecatedProperties()) {
             for (TextureAssociationReference reference : object.getDeprecatedProperties().getTargets())
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), reference, TextureAssociationReferenceAdapter.class, namespaces);
         }

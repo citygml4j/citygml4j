@@ -24,6 +24,7 @@ import org.citygml4j.model.bridge.ADEOfBridgeInstallation;
 import org.citygml4j.model.bridge.BridgeInstallation;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.bridge.DeprecatedPropertiesOfBridgeInstallation;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -139,21 +140,24 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
 
         if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
+            DeprecatedPropertiesOfBridgeInstallation properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
 
             if (!isInterior) {
-                if (object.getDeprecatedProperties().getLod2Geometry() != null)
-                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+                if (properties != null && properties.getLod2Geometry() != null)
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2Geometry"), properties.getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
                     CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", bridgeNamespace, namespaces, writer);
 
-                if (object.getDeprecatedProperties().getLod3Geometry() != null)
-                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+                if (properties != null && properties.getLod3Geometry() != null)
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Geometry"), properties.getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
                     CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", bridgeNamespace, namespaces, writer);
             }
 
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (!isInterior) {
                 if (object.getLod2ImplicitRepresentation() != null)
@@ -163,8 +167,8 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
                     writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
             }
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);

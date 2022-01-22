@@ -24,6 +24,7 @@ import org.citygml4j.model.building.ADEOfBuildingInstallation;
 import org.citygml4j.model.building.BuildingInstallation;
 import org.citygml4j.model.construction.RelationToConstruction;
 import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfBuildingInstallation;
 import org.citygml4j.util.CityGMLConstants;
 import org.citygml4j.xml.adapter.CityGMLBuilderHelper;
 import org.citygml4j.xml.adapter.CityGMLSerializerHelper;
@@ -144,21 +145,24 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
 
         if (!isCityGML3) {
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
+            DeprecatedPropertiesOfBuildingInstallation properties = object.hasDeprecatedProperties() ?
+                    object.getDeprecatedProperties() :
+                    null;
 
             if (!isInterior) {
-                if (object.getDeprecatedProperties().getLod2Geometry() != null)
-                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2Geometry"), object.getDeprecatedProperties().getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
+                if (properties != null && properties.getLod2Geometry() != null)
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2Geometry"), properties.getLod2Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
                     CityGMLSerializerHelper.writeDefaultGeometry(object, 2, "lod2Geometry", buildingNamespace, namespaces, writer);
 
-                if (object.getDeprecatedProperties().getLod3Geometry() != null)
-                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3Geometry"), object.getDeprecatedProperties().getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
+                if (properties != null && properties.getLod3Geometry() != null)
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3Geometry"), properties.getLod3Geometry(), GeometryPropertyAdapter.class, namespaces);
                 else
                     CityGMLSerializerHelper.writeDefaultGeometry(object, 3, "lod3Geometry", buildingNamespace, namespaces, writer);
             }
 
-            if (object.getDeprecatedProperties().getLod4Geometry() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), object.getDeprecatedProperties().getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4Geometry() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
             if (!isInterior) {
                 if (object.getLod2ImplicitRepresentation() != null)
@@ -168,8 +172,8 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
                     writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
             }
 
-            if (object.getDeprecatedProperties().getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), object.getDeprecatedProperties().getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
             for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
