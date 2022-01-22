@@ -146,8 +146,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         if (feature.getLocation() != null)
             visit(feature.getLocation());
 
-        for (GenericElement genericElement : feature.getGenericProperties())
-            visit(genericElement);
+        if (feature.isSetGenericProperties()) {
+            for (GenericElement genericElement : feature.getGenericProperties())
+                visit(genericElement);
+        }
     }
 
     public void visit(AbstractFeature feature) {
@@ -322,7 +324,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         if (coverage.getDomainSet() != null)
             visit(coverage.getDomainSet());
 
-        if (coverage.getRangeSet() != null && coverage.getRangeSet().getValueArrays() != null) {
+        if (coverage.getRangeSet() != null && coverage.getRangeSet().isSetValueArrays()) {
             for (ValueArray valueArray : coverage.getRangeSet().getValueArrays()) {
                 if (valueArray != null)
                     visit(valueArray);
@@ -907,12 +909,14 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(CompositeValue compositeValue) {
         visit((AbstractGML) compositeValue);
 
-        for (ValueProperty property : new ArrayList<>(compositeValue.getValueComponent())) {
-            if (property.getObject() != null)
-                visit(property.getObject());
+        if (compositeValue.isSetValueComponent()) {
+            for (ValueProperty property : new ArrayList<>(compositeValue.getValueComponent())) {
+                if (property.getObject() != null)
+                    visit(property.getObject());
+            }
         }
 
-        if (compositeValue.getValueComponents() != null) {
+        if (compositeValue.getValueComponents() != null && compositeValue.getValueComponents().isSetObjects()) {
             for (Value value : compositeValue.getValueComponents().getObjects()) {
                 if (value != null)
                     visit(value);
@@ -941,8 +945,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Dictionary dictionary) {
         visit((Definition) dictionary);
 
-        for (DefinitionProperty property : new ArrayList<>(dictionary.getDefinitions()))
-            visit(property);
+        if (dictionary.isSetDefinitions()) {
+            for (DefinitionProperty property : new ArrayList<>(dictionary.getDefinitions()))
+                visit(property);
+        }
     }
 
     @Override

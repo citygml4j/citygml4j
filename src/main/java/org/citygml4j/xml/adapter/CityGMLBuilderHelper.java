@@ -31,9 +31,6 @@ import org.xmlobjects.gml.model.geometry.primitives.*;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CityGMLBuilderHelper {
 
     public static boolean isBridgeNamespace(String namespaceURI) {
@@ -148,14 +145,15 @@ public class CityGMLBuilderHelper {
             } else if (geometry instanceof MultiSolid) {
                 MultiSolid multiSolid = (MultiSolid) geometry;
 
-                List<SolidProperty> properties = new ArrayList<>(multiSolid.getSolidMember());
-                if (multiSolid.getSolidMembers() != null) {
-                    for (AbstractSolid solid : multiSolid.getSolidMembers().getObjects())
-                        properties.add(new SolidProperty(solid));
+                SolidProperty solidProperty = null;
+                if (multiSolid.isSetSolidMember()) {
+                    solidProperty = multiSolid.getSolidMember().get(0);
+                } else if (multiSolid.getSolidMembers() != null && multiSolid.getSolidMembers().isSetObjects()) {
+                    solidProperty = new SolidProperty(multiSolid.getSolidMembers().getObjects().get(0));
                 }
 
-                if (properties.size() == 1) {
-                    return object.setSolid(lod, properties.get(0));
+                if (solidProperty != null) {
+                    return object.setSolid(lod, solidProperty);
                 }
             }
         }

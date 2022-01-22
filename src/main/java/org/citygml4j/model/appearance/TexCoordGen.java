@@ -67,6 +67,11 @@ public class TexCoordGen extends AbstractTextureParameterization implements SRSR
     }
 
     @Override
+    public boolean isSetAxisLabels() {
+        return axisLabels != null && !axisLabels.isEmpty();
+    }
+
+    @Override
     public void setAxisLabels(List<String> axisLabels) {
         if (axisLabels == null)
             axisLabels = new ArrayList<>();
@@ -80,6 +85,11 @@ public class TexCoordGen extends AbstractTextureParameterization implements SRSR
             uomLabels = new ArrayList<>();
 
         return uomLabels;
+    }
+
+    @Override
+    public boolean isSetUomLabels() {
+        return uomLabels != null && !uomLabels.isEmpty();
     }
 
     @Override

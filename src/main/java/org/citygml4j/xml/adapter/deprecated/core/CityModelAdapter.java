@@ -77,13 +77,17 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
                     break;
                 case "featureMembers":
                     FeatureArrayProperty<?> featureMembers = reader.getObjectUsingBuilder(FeatureArrayPropertyAdapter.class);
-                    for (org.xmlobjects.gml.model.feature.AbstractFeature feature : featureMembers.getObjects()) {
-                        if (feature instanceof AbstractFeature)
-                            object.getFeatureMembers().add(new AbstractFeatureProperty((AbstractFeature) feature));
+                    if (featureMembers.isSetObjects()) {
+                        for (org.xmlobjects.gml.model.feature.AbstractFeature feature : featureMembers.getObjects()) {
+                            if (feature instanceof AbstractFeature)
+                                object.getFeatureMembers().add(new AbstractFeatureProperty((AbstractFeature) feature));
+                        }
                     }
 
-                    for (GenericElement element : featureMembers.getGenericElements())
-                        object.getFeatureMembers().add(new AbstractFeatureProperty(element));
+                    if (featureMembers.isSetGenericElements()) {
+                        for (GenericElement element : featureMembers.getGenericElements())
+                            object.getFeatureMembers().add(new AbstractFeatureProperty(element));
+                    }
                     break;
                 default:
                     super.buildChildObject(object, name, attributes, reader);

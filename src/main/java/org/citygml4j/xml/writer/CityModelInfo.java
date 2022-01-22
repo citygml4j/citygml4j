@@ -60,6 +60,10 @@ public class CityModelInfo {
         return cityModel.getMetaDataProperties();
     }
 
+    public boolean isSetMetaDataProperties() {
+        return cityModel.isSetMetaDataProperties();
+    }
+
     public void setMetaDataProperties(List<MetaDataProperty<?>> metaDataProperties) {
         cityModel.setMetaDataProperties(metaDataProperties);
     }
@@ -90,6 +94,10 @@ public class CityModelInfo {
 
     public List<Code> getNames() {
         return cityModel.getNames();
+    }
+
+    public boolean isSetNames() {
+        return cityModel.isSetNames();
     }
 
     public void setNames(List<Code> names) {

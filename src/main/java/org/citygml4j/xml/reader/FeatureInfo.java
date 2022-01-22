@@ -70,6 +70,10 @@ public class FeatureInfo {
        return feature.getMetaDataProperties();
     }
 
+    public boolean isSetMetaDataProperties() {
+        return feature.isSetMetaDataProperties();
+    }
+
     public StringOrRef getDescription() {
         return feature.getDescription();
     }
@@ -84,6 +88,10 @@ public class FeatureInfo {
 
     public List<Code> getNames() {
         return feature.getNames();
+    }
+
+    public boolean isSetNames() {
+        return feature.isSetNames();
     }
 
     public BoundingShape getBoundedBy() {

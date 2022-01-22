@@ -68,13 +68,19 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         if (featureInfo != null) {
             cityModelInfo = new CityModelInfo();
             cityModelInfo.setId(featureInfo.getId());
-            cityModelInfo.setMetaDataProperties(featureInfo.getMetaDataProperties());
             cityModelInfo.setDescription(featureInfo.getDescription());
             cityModelInfo.setDescriptionReference(featureInfo.getDescriptionReference());
             cityModelInfo.setIdentifier(featureInfo.getIdentifier());
-            cityModelInfo.setNames(featureInfo.getNames());
             cityModelInfo.setBoundedBy(featureInfo.getBoundedBy());
             cityModelInfo.setEngineeringCRS(featureInfo.getEngineeringCRS());
+
+            if (featureInfo.isSetMetaDataProperties()) {
+                cityModelInfo.setMetaDataProperties(featureInfo.getMetaDataProperties());
+            }
+
+            if (featureInfo.isSetNames()) {
+                cityModelInfo.setNames(featureInfo.getNames());
+            }
         }
 
         return this;

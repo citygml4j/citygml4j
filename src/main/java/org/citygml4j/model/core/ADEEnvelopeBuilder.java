@@ -61,23 +61,27 @@ public class ADEEnvelopeBuilder {
         if (!visited.add(object))
             return;
 
-        if (object instanceof AbstractGeometry)
+        if (object instanceof AbstractGeometry) {
             envelope.include(((AbstractGeometry) object).computeEnvelope());
-        else if (object instanceof org.xmlobjects.gml.model.feature.AbstractFeature)
+        } else if (object instanceof org.xmlobjects.gml.model.feature.AbstractFeature) {
             envelope.include(((org.xmlobjects.gml.model.feature.AbstractFeature) object).computeEnvelope(options));
-        else if (object instanceof AbstractArrayProperty<?>)
-            ((AbstractArrayProperty<?>) object).getObjects().forEach(v -> updateEnvelope(v, envelope, options, visited));
-        else if (object instanceof AbstractInlineOrByReferenceProperty<?>)
+        } else if (object instanceof AbstractArrayProperty<?>) {
+            AbstractArrayProperty<?> property = (AbstractArrayProperty<?>) object;
+            if (property.isSetObjects()) {
+                property.getObjects().forEach(v -> updateEnvelope(v, envelope, options, visited));
+            }
+        } else if (object instanceof AbstractInlineOrByReferenceProperty<?>) {
             updateEnvelope(((AbstractInlineOrByReferenceProperty<?>) object).getObject(), envelope, options, visited);
-        else if (object instanceof AbstractInlineProperty<?>)
+        } else if (object instanceof AbstractInlineProperty<?>) {
             updateEnvelope(((AbstractInlineProperty<?>) object).getObject(), envelope, options, visited);
-        else if (object instanceof GMLObject)
+        } else if (object instanceof GMLObject) {
             updateEnvelope((GMLObject) object, envelope, options, visited);
-        else if (object instanceof Collection<?>)
+        } else if (object instanceof Collection<?>) {
             ((Collection<?>) object).forEach(v -> updateEnvelope(v, envelope, options, visited));
-        else if (object instanceof Object[])
+        } else if (object instanceof Object[]) {
             Arrays.stream(((Object[]) object)).forEach(v -> updateEnvelope(v, envelope, options, visited));
-        else if (object instanceof Map<?,?>)
+        } else if (object instanceof Map<?,?>) {
             ((Map<?, ?>) object).values().forEach(v -> updateEnvelope(v, envelope, options, visited));
+        }
     }
 }
