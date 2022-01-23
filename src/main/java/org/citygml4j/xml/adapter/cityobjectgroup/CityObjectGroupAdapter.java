@@ -123,7 +123,6 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         super.writeChildElements(object, namespaces, writer);
         String cityObjectGroupNamespace = CityGMLSerializerHelper.getCityObjectGroupNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CITYOBJECTGROUP_NAMESPACE.equals(cityObjectGroupNamespace);
-
         DeprecatedPropertiesOfCityObjectGroup properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

@@ -81,7 +81,6 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
-
         DeprecatedPropertiesOfAbstractFillingSurface properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

@@ -123,7 +123,6 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
     public void writeChildElements(WaterBody object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String waterBodyNamespace = CityGMLSerializerHelper.getWaterBodyNamespace(namespaces);
-
         DeprecatedPropertiesOfWaterBody properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

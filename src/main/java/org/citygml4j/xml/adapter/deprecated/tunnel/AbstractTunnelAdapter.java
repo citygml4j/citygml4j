@@ -150,7 +150,6 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
-
         DeprecatedPropertiesOfAbstractTunnel properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

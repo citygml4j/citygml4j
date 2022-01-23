@@ -121,7 +121,6 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String transportationNamespace = CityGMLSerializerHelper.getTransportationNamespace(namespaces);
-
         DeprecatedPropertiesOfAbstractTransportationSpace properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

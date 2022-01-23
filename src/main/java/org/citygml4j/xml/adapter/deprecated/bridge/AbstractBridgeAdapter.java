@@ -162,7 +162,6 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String bridgeNamespace = CityGMLSerializerHelper.getBridgeNamespace(namespaces);
-
         DeprecatedPropertiesOfAbstractBridge properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;

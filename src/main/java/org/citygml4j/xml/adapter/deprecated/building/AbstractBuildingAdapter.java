@@ -187,7 +187,6 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
-
         DeprecatedPropertiesOfAbstractBuilding properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;
