@@ -67,6 +67,10 @@ public class GeoreferencedTexture extends AbstractTexture {
         return targets;
     }
 
+    public boolean isSetTargets() {
+        return targets != null && !targets.isEmpty();
+    }
+
     public void setTargets(List<GeometryReference> targets) {
         this.targets = asChild(targets);
     }

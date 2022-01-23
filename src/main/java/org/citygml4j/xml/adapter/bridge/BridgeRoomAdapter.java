@@ -128,15 +128,21 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
             if (properties != null && properties.getLod4MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            if (object.isSetBoundaries()) {
+                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            }
         }
 
-        for (BridgeFurnitureProperty property : object.getBridgeFurniture())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeFurniture" : "interiorFurniture"), property, BridgeFurniturePropertyAdapter.class, namespaces);
+        if (object.isSetBridgeFurniture()) {
+            for (BridgeFurnitureProperty property : object.getBridgeFurniture())
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeFurniture" : "interiorFurniture"), property, BridgeFurniturePropertyAdapter.class, namespaces);
+        }
 
-        for (BridgeInstallationProperty property : object.getBridgeInstallations())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeInstallation" : "bridgeRoomInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetBridgeInstallations()) {
+            for (BridgeInstallationProperty property : object.getBridgeInstallations())
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeInstallation" : "bridgeRoomInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfBridgeRoom property : object.getADEProperties(ADEOfBridgeRoom.class))
             ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeRoom") : null, property, namespaces, writer);

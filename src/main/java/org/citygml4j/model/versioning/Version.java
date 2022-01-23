@@ -38,6 +38,10 @@ public class Version extends AbstractVersion {
         return tags;
     }
 
+    public boolean isSetTags() {
+        return tags != null && !tags.isEmpty();
+    }
+
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
@@ -47,6 +51,10 @@ public class Version extends AbstractVersion {
             versionMembers = new ChildList<>(this);
 
         return versionMembers;
+    }
+
+    public boolean isSetVersionMembers() {
+        return versionMembers != null && !versionMembers.isEmpty();
     }
 
     public void setVersionMembers(List<AbstractFeatureWithLifespanReference> versionMembers) {

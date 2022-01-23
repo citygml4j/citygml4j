@@ -117,17 +117,23 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace);
 
-        for (ExternalReferenceProperty property : object.getExternalReferences()) {
-            if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property, ExternalReferencePropertyAdapter.class, namespaces);
-            else
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property.getObject(), ExternalReferenceAdapter.class, namespaces);
+        if (object.isSetExternalReferences()) {
+            for (ExternalReferenceProperty property : object.getExternalReferences()) {
+                if (isCityGML3)
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property, ExternalReferencePropertyAdapter.class, namespaces);
+                else
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalReference"), property.getObject(), ExternalReferenceAdapter.class, namespaces);
+            }
         }
 
-        for (AbstractCityObjectReference reference : object.getGeneralizesTo())
-            writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, AbstractCityObjectReferenceAdapter.class, namespaces);
+        if (object.isSetGeneralizesTo()) {
+            for (AbstractCityObjectReference reference : object.getGeneralizesTo())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), reference, AbstractCityObjectReferenceAdapter.class, namespaces);
+        }
 
-        if (!isCityGML3 && object.hasDeprecatedProperties()) {
+        if (!isCityGML3
+                && object.hasDeprecatedProperties()
+                && object.getDeprecatedProperties().isSetGeneralizesTo()) {
             for (AbstractCityObjectProperty property : object.getDeprecatedProperties().getGeneralizesTo())
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
         }
@@ -138,30 +144,34 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
         if (object.getRelativeToWater() != null)
             writer.writeElement(Element.of(coreNamespace, "relativeToWater").addTextContent(object.getRelativeToWater().toValue()));
 
-        if (isCityGML3) {
+        if (isCityGML3 && object.isSetRelatedTo()) {
             for (CityObjectRelationProperty property : object.getRelatedTo())
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "relatedTo"), property, CityObjectRelationPropertyAdapter.class, namespaces);
         }
 
-        for (AbstractAppearanceProperty member : object.getAppearances()) {
-            if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
-            else {
-                String namespace = namespaces.contains(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE) ?
-                        CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE :
-                        CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE;
-                writer.writeElementUsingSerializer(Element.of(namespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
+        if (object.isSetAppearances()) {
+            for (AbstractAppearanceProperty member : object.getAppearances()) {
+                if (isCityGML3)
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
+                else {
+                    String namespace = namespaces.contains(CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE) ?
+                            CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE :
+                            CityGMLConstants.CITYGML_2_0_APPEARANCE_NAMESPACE;
+                    writer.writeElementUsingSerializer(Element.of(namespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
+                }
             }
         }
 
-        for (AbstractGenericAttributeProperty property : object.getGenericAttributes()) {
-            if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
-            else if (property.getObject() != null)
-                writer.writeObject(property.getObject(), namespaces);
+        if (object.isSetGenericAttributes()) {
+            for (AbstractGenericAttributeProperty property : object.getGenericAttributes()) {
+                if (isCityGML3)
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
+                else if (property.getObject() != null)
+                    writer.writeObject(property.getObject(), namespaces);
+            }
         }
 
-        if (isCityGML3) {
+        if (isCityGML3 && object.isSetDynamizers()) {
             for (AbstractDynamizerProperty property : object.getDynamizers())
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "dynamizer"), property, AbstractDynamizerPropertyAdapter.class, namespaces);
         }

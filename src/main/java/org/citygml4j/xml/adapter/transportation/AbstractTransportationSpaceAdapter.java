@@ -79,20 +79,30 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
         if (object.getTrafficDirection() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "trafficDirection").addTextContent(object.getTrafficDirection().toValue()));
 
-        for (OccupancyProperty property : object.getOccupancies())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
+        if (object.isSetOccupancies()) {
+            for (OccupancyProperty property : object.getOccupancies())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
+        }
 
-        for (TrafficSpaceProperty property : object.getTrafficSpaces())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "trafficSpace"), property, TrafficSpacePropertyAdapter.class, namespaces);
+        if (object.isSetTrafficSpaces()) {
+            for (TrafficSpaceProperty property : object.getTrafficSpaces())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "trafficSpace"), property, TrafficSpacePropertyAdapter.class, namespaces);
+        }
 
-        for (AuxiliaryTrafficSpaceProperty property : object.getAuxiliaryTrafficSpaces())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "auxiliaryTrafficSpace"), property, AuxiliaryTrafficSpacePropertyAdapter.class, namespaces);
+        if (object.isSetAuxiliaryTrafficSpaces()) {
+            for (AuxiliaryTrafficSpaceProperty property : object.getAuxiliaryTrafficSpaces())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "auxiliaryTrafficSpace"), property, AuxiliaryTrafficSpacePropertyAdapter.class, namespaces);
+        }
 
-        for (HoleProperty property : object.getHoles())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "hole"), property, HolePropertyAdapter.class, namespaces);
+        if (object.isSetHoles()) {
+            for (HoleProperty property : object.getHoles())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "hole"), property, HolePropertyAdapter.class, namespaces);
+        }
 
-        for (MarkingProperty property : object.getMarkings())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "marking"), property, MarkingPropertyAdapter.class, namespaces);
+        if (object.isSetMarkings()) {
+            for (MarkingProperty property : object.getMarkings())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "marking"), property, MarkingPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractTransportationSpace property : object.getADEProperties(ADEOfAbstractTransportationSpace.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAbstractTransportationSpace"), property, namespaces, writer);

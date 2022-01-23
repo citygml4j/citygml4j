@@ -44,6 +44,10 @@ public class Appearance extends AbstractAppearance {
         return surfaceData;
     }
 
+    public boolean isSetSurfaceData() {
+        return surfaceData != null && !surfaceData.isEmpty();
+    }
+
     public void setSurfaceData(List<AbstractSurfaceDataProperty> surfaceData) {
         this.surfaceData = asChild(surfaceData);
     }

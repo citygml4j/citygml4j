@@ -114,11 +114,15 @@ public abstract class AbstractBuildingUnitAdapter<T extends AbstractBuildingUnit
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (Code function : object.getFunctions())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "function"), function, CodeAdapter.class, namespaces);
+        if (object.isSetFunctions()) {
+            for (Code function : object.getFunctions())
+                writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "function"), function, CodeAdapter.class, namespaces);
+        }
 
-        for (Code usage : object.getUsages())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "usage"), usage, CodeAdapter.class, namespaces);
+        if (object.isSetUsages()) {
+            for (Code usage : object.getUsages())
+                writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "usage"), usage, CodeAdapter.class, namespaces);
+        }
 
         for (EnergyPerformanceCertificationProperty property : object.getEnergyPerformanceCertifications())
             writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "energyPerformanceCertification"), property, EnergyPerformanceCertificationPropertyAdapter.class, namespaces);

@@ -72,8 +72,10 @@ public class CompositeTimeseriesAdapter extends AbstractTimeseriesAdapter<Compos
     public void writeChildElements(CompositeTimeseries object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (TimeseriesComponentProperty property : object.getComponents())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "component"), property, TimeseriesComponentPropertyAdapter.class, namespaces);
+        if (object.isSetComponents()) {
+            for (TimeseriesComponentProperty property : object.getComponents())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "component"), property, TimeseriesComponentPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfCompositeTimeseries property : object.getADEProperties(ADEOfCompositeTimeseries.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfCompositeTimeseries"), property, namespaces, writer);

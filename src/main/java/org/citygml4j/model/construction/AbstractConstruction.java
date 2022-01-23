@@ -78,6 +78,10 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
         return constructionEvents;
     }
 
+    public boolean isSetConstructionEvents() {
+        return constructionEvents != null && !constructionEvents.isEmpty();
+    }
+
     public void setConstructionEvents(List<ConstructionEventProperty> constructionEvents) {
         this.constructionEvents = asChild(constructionEvents);
     }
@@ -87,6 +91,10 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
             elevations = new ChildList<>(this);
 
         return elevations;
+    }
+
+    public boolean isSetElevations() {
+        return elevations != null && !elevations.isEmpty();
     }
 
     public void setElevations(List<ElevationProperty> elevations) {
@@ -100,6 +108,10 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
         return heights;
     }
 
+    public boolean isSetHeights() {
+        return heights != null && !heights.isEmpty();
+    }
+
     public void setHeights(List<HeightProperty> heights) {
         this.heights = asChild(heights);
     }
@@ -109,6 +121,10 @@ public abstract class AbstractConstruction extends AbstractOccupiedSpace {
             occupancies = new ChildList<>(this);
 
         return occupancies;
+    }
+
+    public boolean isSetOccupancies() {
+        return occupancies != null && !occupancies.isEmpty();
     }
 
     public void setOccupancies(List<OccupancyProperty> occupancies) {

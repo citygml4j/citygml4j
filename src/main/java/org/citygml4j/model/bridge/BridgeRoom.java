@@ -70,6 +70,11 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -80,6 +85,11 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -94,6 +104,10 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
         return bridgeFurniture;
     }
 
+    public boolean isSetBridgeFurniture() {
+        return bridgeFurniture != null && !bridgeFurniture.isEmpty();
+    }
+
     public void setBridgeFurniture(List<BridgeFurnitureProperty> bridgeFurniture) {
         this.bridgeFurniture = asChild(bridgeFurniture);
     }
@@ -103,6 +117,10 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
             bridgeInstallations = new ChildList<>(this);
 
         return bridgeInstallations;
+    }
+
+    public boolean isSetBridgeInstallations() {
+        return bridgeInstallations != null && !bridgeInstallations.isEmpty();
     }
 
     public void setBridgeInstallations(List<BridgeInstallationProperty> bridgeInstallations) {

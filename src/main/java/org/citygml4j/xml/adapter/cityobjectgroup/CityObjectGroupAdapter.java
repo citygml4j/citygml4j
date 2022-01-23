@@ -129,14 +129,18 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, cityObjectGroupNamespace, namespaces, writer);
 
-        for (RoleProperty property : object.getGroupMembers()) {
-            if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, RolePropertyAdapter.class, namespaces);
-            else
-                writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, org.citygml4j.xml.adapter.deprecated.cityobjectgroup.RolePropertyAdapter.class, namespaces);
+        if (object.isSetGroupMembers()) {
+            for (RoleProperty property : object.getGroupMembers()) {
+                if (isCityGML3)
+                    writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, RolePropertyAdapter.class, namespaces);
+                else
+                    writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, org.citygml4j.xml.adapter.deprecated.cityobjectgroup.RolePropertyAdapter.class, namespaces);
+            }
         }
 
-        if (!isCityGML3 && properties != null) {
+        if (!isCityGML3
+                && properties != null
+                && properties.isSetGroupMembers()) {
             for (GroupMember property : properties.getGroupMembers())
                 writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "groupMember"), property, GroupMemberAdapter.class, namespaces);
         }

@@ -93,6 +93,10 @@ public class VersionTransition extends AbstractVersionTransition {
         return transactions;
     }
 
+    public boolean isSetTransactions() {
+        return transactions != null && !transactions.isEmpty();
+    }
+
     public void setTransactions(List<TransactionProperty> transactions) {
         this.transactions = asChild(transactions);
     }

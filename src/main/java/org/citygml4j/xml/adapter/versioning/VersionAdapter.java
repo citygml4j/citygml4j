@@ -77,11 +77,15 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
     public void writeChildElements(Version object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (String tag : object.getTags())
-            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "tag").addTextContent(tag));
+        if (object.isSetTags()) {
+            for (String tag : object.getTags())
+                writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "tag").addTextContent(tag));
+        }
 
-        for (AbstractFeatureWithLifespanReference reference : object.getVersionMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), reference, AbstractFeatureWithLifespanReferenceAdapter.class, namespaces);
+        if (object.isSetVersionMembers()) {
+            for (AbstractFeatureWithLifespanReference reference : object.getVersionMembers())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), reference, AbstractFeatureWithLifespanReferenceAdapter.class, namespaces);
+        }
 
         for (ADEOfVersion property : object.getADEProperties(ADEOfVersion.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), property, namespaces, writer);

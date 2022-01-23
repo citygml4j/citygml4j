@@ -88,20 +88,30 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
         if (object.getEngineeringCRS() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "engineeringCRS"), object.getEngineeringCRS(), EngineeringCRSPropertyAdapter.class, namespaces);
 
-        for (AbstractCityObjectProperty property : object.getCityObjectMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
+        if (object.isSetCityObjectMembers()) {
+            for (AbstractCityObjectProperty property : object.getCityObjectMembers())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
+        }
 
-        for (AbstractAppearanceProperty property : object.getAppearanceMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
+        if (object.isSetAppearanceMembers()) {
+            for (AbstractAppearanceProperty property : object.getAppearanceMembers())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
+        }
 
-        for (AbstractVersionProperty property : object.getVersionMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionMember"), property, AbstractVersionPropertyAdapter.class, namespaces);
+        if (object.isSetVersionMembers()) {
+            for (AbstractVersionProperty property : object.getVersionMembers())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionMember"), property, AbstractVersionPropertyAdapter.class, namespaces);
+        }
 
-        for (AbstractVersionTransitionProperty property : object.getVersionTransitionMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionTransitionMember"), property, AbstractVersionTransitionPropertyAdapter.class, namespaces);
+        if (object.isSetVersionTransitionMembers()) {
+            for (AbstractVersionTransitionProperty property : object.getVersionTransitionMembers())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "versionTransitionMember"), property, AbstractVersionTransitionPropertyAdapter.class, namespaces);
+        }
 
-        for (AbstractFeatureProperty property : object.getFeatureMembers())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
+        if (object.isSetFeatureMembers()) {
+            for (AbstractFeatureProperty property : object.getFeatureMembers())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfCityModel"), property, namespaces, writer);

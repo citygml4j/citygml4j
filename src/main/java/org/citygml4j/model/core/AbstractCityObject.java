@@ -41,6 +41,10 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         return externalReferences;
     }
 
+    public boolean isSetExternalReferences() {
+        return externalReferences != null && !externalReferences.isEmpty();
+    }
+
     public void setExternalReferences(List<ExternalReferenceProperty> externalReferences) {
         this.externalReferences = asChild(externalReferences);
     }
@@ -50,6 +54,10 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
             generalizesTo = new ChildList<>(this);
 
         return generalizesTo;
+    }
+
+    public boolean isSetGeneralizesTo() {
+        return generalizesTo != null && !generalizesTo.isEmpty();
     }
 
     public void setGeneralizesTo(List<AbstractCityObjectReference> generalizesTo) {
@@ -79,6 +87,10 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         return relatedTo;
     }
 
+    public boolean isSetRelatedTo() {
+        return relatedTo != null && !relatedTo.isEmpty();
+    }
+
     public void setRelatedTo(List<CityObjectRelationProperty> relatedTo) {
         this.relatedTo = asChild(relatedTo);
     }
@@ -88,6 +100,10 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
             appearances = new ChildList<>(this);
 
         return appearances;
+    }
+
+    public boolean isSetAppearances() {
+        return appearances != null && !appearances.isEmpty();
     }
 
     public void setAppearances(List<AbstractAppearanceProperty> appearances) {
@@ -101,6 +117,10 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
         return genericAttributes;
     }
 
+    public boolean isSetGenericAttributes() {
+        return genericAttributes != null && !genericAttributes.isEmpty();
+    }
+
     public void setGenericAttributes(List<AbstractGenericAttributeProperty> genericAttributes) {
         this.genericAttributes = asChild(genericAttributes);
     }
@@ -110,6 +130,10 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
             dynamizers = new ChildList<>(this);
 
         return dynamizers;
+    }
+
+    public boolean isSetDynamizers() {
+        return dynamizers != null && !dynamizers.isEmpty();
     }
 
     public void setDynamizers(List<AbstractDynamizerProperty> dynamizers) {

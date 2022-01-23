@@ -72,8 +72,10 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     public void writeChildElements(Building object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (BuildingPartProperty property : object.getBuildingParts())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingParts()) {
+            for (BuildingPartProperty property : object.getBuildingParts())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfBuilding property : object.getADEProperties(ADEOfBuilding.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), property, namespaces, writer);

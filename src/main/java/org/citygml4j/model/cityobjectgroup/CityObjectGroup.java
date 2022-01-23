@@ -67,6 +67,11 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -80,6 +85,11 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     }
 
     @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
+    }
+
+    @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
     }
@@ -89,6 +99,10 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
             groupMembers = new ChildList<>(this);
 
         return groupMembers;
+    }
+
+    public boolean isSetGroupMembers() {
+        return groupMembers != null && !groupMembers.isEmpty();
     }
 
     public void setGroupMembers(List<RoleProperty> groupMembers) {
@@ -120,9 +134,11 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfCityObjectGroup properties = getDeprecatedProperties();
 
-            for (GroupMember member : properties.getGroupMembers()) {
-                if (member.getObject() != null)
-                    envelope.include(member.getObject().computeEnvelope(options));
+            if (properties.isSetGroupMembers()) {
+                for (GroupMember member : properties.getGroupMembers()) {
+                    if (member.getObject() != null)
+                        envelope.include(member.getObject().computeEnvelope(options));
+                }
             }
 
             if (properties.getGeometry() != null && properties.getGeometry().getObject() != null)

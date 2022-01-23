@@ -125,8 +125,10 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (isCityGML3) {
-            for (RoomHeightProperty property : object.getRoomHeights())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roomHeight"), property, RoomHeightPropertyAdapter.class, namespaces);
+            if (object.isSetRoomHeights()) {
+                for (RoomHeightProperty property : object.getRoomHeights())
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roomHeight"), property, RoomHeightPropertyAdapter.class, namespaces);
+            }
         } else {
             DeprecatedPropertiesOfBuildingRoom properties = object.hasDeprecatedProperties() ?
                     object.getDeprecatedProperties() :
@@ -138,15 +140,21 @@ public class BuildingRoomAdapter extends AbstractUnoccupiedSpaceAdapter<Building
             if (properties != null && properties.getLod4MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            if (object.isSetBoundaries()) {
+                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            }
         }
 
-        for (BuildingFurnitureProperty property : object.getBuildingFurniture())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, isCityGML3 ? "buildingFurniture" : "interiorFurniture"), property, BuildingFurniturePropertyAdapter.class, namespaces);
+        if (object.isSetBuildingFurniture()) {
+            for (BuildingFurnitureProperty property : object.getBuildingFurniture())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, isCityGML3 ? "buildingFurniture" : "interiorFurniture"), property, BuildingFurniturePropertyAdapter.class, namespaces);
+        }
 
-        for (BuildingInstallationProperty property : object.getBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, isCityGML3 ? "buildingInstallation" : "roomInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingInstallations()) {
+            for (BuildingInstallationProperty property : object.getBuildingInstallations())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, isCityGML3 ? "buildingInstallation" : "roomInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfBuildingRoom property : object.getADEProperties(ADEOfBuildingRoom.class))
             ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingRoom") : null, property, namespaces, writer);

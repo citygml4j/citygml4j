@@ -51,6 +51,10 @@ public class CityObjectRelation extends AbstractGML implements CityGMLObject, Vi
         return genericAttributes;
     }
 
+    public boolean isSetGenericAttributes() {
+        return genericAttributes != null && !genericAttributes.isEmpty();
+    }
+
     public void setGenericAttributes(List<AbstractGenericAttributeProperty> genericAttributes) {
         this.genericAttributes = asChild(genericAttributes);
     }

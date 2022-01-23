@@ -116,23 +116,35 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getStoreyHeightsBelowGround() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storeyHeightsBelowGround"), object.getStoreyHeightsBelowGround(), MeasureOrNilReasonListAdapter.class, namespaces);
 
-        for (BuildingConstructiveElementProperty property : object.getBuildingConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingConstructiveElement"), property, BuildingConstructiveElementPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingConstructiveElements()) {
+            for (BuildingConstructiveElementProperty property : object.getBuildingConstructiveElements())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingConstructiveElement"), property, BuildingConstructiveElementPropertyAdapter.class, namespaces);
+        }
 
-        for (BuildingInstallationProperty property : object.getBuildingInstallations())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingInstallations()) {
+            for (BuildingInstallationProperty property : object.getBuildingInstallations())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+        }
 
-        for (BuildingRoomProperty property : object.getBuildingRooms())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingRooms()) {
+            for (BuildingRoomProperty property : object.getBuildingRooms())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
+        }
 
-        for (BuildingFurnitureProperty property : object.getBuildingFurniture())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingFurniture"), property, BuildingFurniturePropertyAdapter.class, namespaces);
+        if (object.isSetBuildingFurniture()) {
+            for (BuildingFurnitureProperty property : object.getBuildingFurniture())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingFurniture"), property, BuildingFurniturePropertyAdapter.class, namespaces);
+        }
 
-        for (AbstractBuildingSubdivisionProperty property : object.getBuildingSubdivisions())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingSubdivision"), property, AbstractBuildingSubdivisionPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingSubdivisions()) {
+            for (AbstractBuildingSubdivisionProperty property : object.getBuildingSubdivisions())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingSubdivision"), property, AbstractBuildingSubdivisionPropertyAdapter.class, namespaces);
+        }
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractBuilding property : object.getADEProperties(ADEOfAbstractBuilding.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuilding"), property, namespaces, writer);

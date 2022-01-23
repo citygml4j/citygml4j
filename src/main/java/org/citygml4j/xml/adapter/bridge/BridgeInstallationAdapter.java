@@ -170,8 +170,10 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
             if (properties != null && properties.getLod4ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+            if (object.isSetBoundaries()) {
+                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+            }
         }
 
         for (ADEOfBridgeInstallation property : object.getADEProperties(ADEOfBridgeInstallation.class))

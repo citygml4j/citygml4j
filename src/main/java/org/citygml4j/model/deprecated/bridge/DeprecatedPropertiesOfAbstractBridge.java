@@ -43,6 +43,10 @@ public class DeprecatedPropertiesOfAbstractBridge extends DeprecatedPropertiesOf
         return consistsOfBridgeParts;
     }
 
+    public boolean isSetConsistsOfBridgeParts() {
+        return consistsOfBridgeParts != null && !consistsOfBridgeParts.isEmpty();
+    }
+
     public void setConsistsOfBridgeParts(List<BridgePartProperty> consistsOfBridgeParts) {
         this.consistsOfBridgeParts = asChild(consistsOfBridgeParts);
     }

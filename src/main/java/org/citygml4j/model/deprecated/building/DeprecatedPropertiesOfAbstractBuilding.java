@@ -44,6 +44,10 @@ public class DeprecatedPropertiesOfAbstractBuilding extends DeprecatedProperties
         return consistsOfBuildingParts;
     }
 
+    public boolean isSetConsistsOfBuildingParts() {
+        return consistsOfBuildingParts != null && !consistsOfBuildingParts.isEmpty();
+    }
+
     public void setConsistsOfBuildingParts(List<BuildingPartProperty> consistsOfBuildingParts) {
         this.consistsOfBuildingParts = asChild(consistsOfBuildingParts);
     }

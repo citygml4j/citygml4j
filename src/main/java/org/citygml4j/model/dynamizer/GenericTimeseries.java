@@ -51,6 +51,10 @@ public class GenericTimeseries extends AbstractAtomicTimeseries {
         return timeValuePairs;
     }
 
+    public boolean isSetTimeValuePairs() {
+        return timeValuePairs != null && !timeValuePairs.isEmpty();
+    }
+
     public void setTimeValuePairs(List<TimeValuePairProperty> timeValuePairs) {
         this.timeValuePairs = asChild(timeValuePairs);
     }

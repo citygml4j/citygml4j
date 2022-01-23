@@ -107,14 +107,20 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             if (object.getSpaceType() != null)
                 writer.writeElement(Element.of(coreNamespace, "spaceType").addTextContent(object.getSpaceType().toValue()));
 
-            for (QualifiedVolumeProperty property : object.getVolumes())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "volume"), property, QualifiedVolumePropertyAdapter.class, namespaces);
+            if (object.isSetVolumes()) {
+                for (QualifiedVolumeProperty property : object.getVolumes())
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "volume"), property, QualifiedVolumePropertyAdapter.class, namespaces);
+            }
 
-            for (QualifiedAreaProperty property : object.getAreas())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "area"), property, QualifiedAreaPropertyAdapter.class, namespaces);
+            if (object.isSetAreas()) {
+                for (QualifiedAreaProperty property : object.getAreas())
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "area"), property, QualifiedAreaPropertyAdapter.class, namespaces);
+            }
 
-            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+            if (object.isSetBoundaries()) {
+                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "boundary"), property, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+            }
 
             if (object.getLod0Point() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0Point"), object.getLod0Point(), PointPropertyAdapter.class, namespaces);

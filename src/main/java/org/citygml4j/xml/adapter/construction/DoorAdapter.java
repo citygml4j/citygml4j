@@ -80,8 +80,10 @@ public class DoorAdapter extends AbstractFillingElementAdapter<Door> {
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, namespaces, writer);
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfDoor property : object.getADEProperties(ADEOfDoor.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoor"), property, namespaces, writer);

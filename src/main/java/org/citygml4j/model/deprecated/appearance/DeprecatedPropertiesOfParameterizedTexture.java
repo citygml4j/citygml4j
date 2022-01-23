@@ -35,6 +35,10 @@ public class DeprecatedPropertiesOfParameterizedTexture extends DeprecatedProper
         return targets;
     }
 
+    public boolean isSetTargets() {
+        return targets != null && !targets.isEmpty();
+    }
+
     public void setTargets(List<TextureAssociationReference> targets) {
         this.targets = asChild(targets);
     }

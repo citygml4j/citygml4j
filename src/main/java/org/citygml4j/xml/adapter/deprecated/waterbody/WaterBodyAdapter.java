@@ -153,8 +153,10 @@ public class WaterBodyAdapter extends AbstractCityObjectAdapter<WaterBody> {
         if (properties != null && properties.getLod4Solid() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Solid"), properties.getLod4Solid(), SolidPropertyAdapter.class, namespaces);
 
-        for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-            writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractWaterBoundarySurfacePropertyAdapter.class, namespaces);
+        if (object.isSetBoundaries()) {
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "boundedBy"), property, AbstractWaterBoundarySurfacePropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfWaterBody property : object.getADEProperties(ADEOfWaterBody.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

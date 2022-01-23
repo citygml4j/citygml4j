@@ -71,6 +71,11 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -81,6 +86,11 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override

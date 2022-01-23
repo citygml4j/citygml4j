@@ -101,8 +101,10 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
 
         writer.writeElement(Element.of(reliefNamespace, "lod").addTextContent(TextContent.ofInteger(object.getLod())));
 
-        for (AbstractReliefComponentProperty property : object.getReliefComponents())
-            writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefComponent"), property, AbstractReliefComponentPropertyAdapter.class, namespaces);
+        if (object.isSetReliefComponents()) {
+            for (AbstractReliefComponentProperty property : object.getReliefComponents())
+                writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefComponent"), property, AbstractReliefComponentPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfReliefFeature property : object.getADEProperties(ADEOfReliefFeature.class))
             ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfReliefFeature") : null, property, namespaces, writer);

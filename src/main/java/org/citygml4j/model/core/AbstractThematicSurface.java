@@ -45,6 +45,10 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
         return areas;
     }
 
+    public boolean isSetAreas() {
+        return areas != null && !areas.isEmpty();
+    }
+
     public void setAreas(List<QualifiedAreaProperty> areas) {
         this.areas = asChild(areas);
     }

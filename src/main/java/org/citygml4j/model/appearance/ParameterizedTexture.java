@@ -35,6 +35,10 @@ public class ParameterizedTexture extends AbstractTexture {
         return textureParameterizations;
     }
 
+    public boolean isSetTextureParameterizations() {
+        return textureParameterizations != null && !textureParameterizations.isEmpty();
+    }
+
     public void setTextureParameterizations(List<TextureAssociationProperty> textureParameterizations) {
         this.textureParameterizations = asChild(textureParameterizations);
     }

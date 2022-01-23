@@ -47,6 +47,10 @@ public class Storey extends AbstractBuildingSubdivision {
         return buildingUnits;
     }
 
+    public boolean isSetBuildingUnits() {
+        return buildingUnits != null && !buildingUnits.isEmpty();
+    }
+
     public void setBuildingUnits(List<BuildingUnitProperty> buildingUnits) {
         this.buildingUnits = asChild(buildingUnits);
     }

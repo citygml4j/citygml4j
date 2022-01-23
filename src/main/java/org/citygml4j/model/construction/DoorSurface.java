@@ -35,6 +35,10 @@ public class DoorSurface extends AbstractFillingSurface {
         return addresses;
     }
 
+    public boolean isSetAddresses() {
+        return addresses != null && !addresses.isEmpty();
+    }
+
     public void setAddresses(List<AddressProperty> addresses) {
         this.addresses = asChild(addresses);
     }

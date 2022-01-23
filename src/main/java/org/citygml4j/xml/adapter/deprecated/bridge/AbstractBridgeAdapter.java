@@ -198,18 +198,24 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.getLod2TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BridgeConstructiveElementProperty property : object.getBridgeConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), property, BridgeConstructiveElementPropertyAdapter.class, namespaces);
-
-        for (BridgeInstallationProperty property : object.getBridgeInstallations()) {
-            if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
-            else
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetBridgeConstructiveElements()) {
+            for (BridgeConstructiveElementProperty property : object.getBridgeConstructiveElements())
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeConstruction"), property, BridgeConstructiveElementPropertyAdapter.class, namespaces);
         }
 
-        for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        if (object.isSetBridgeInstallations()) {
+            for (BridgeInstallationProperty property : object.getBridgeInstallations()) {
+                if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "outerBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+                else
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+            }
+        }
+
+        if (object.isSetBoundaries()) {
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        }
 
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
@@ -235,21 +241,28 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BridgeRoomProperty property : object.getBridgeRooms())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
-
-        if (object instanceof Bridge) {
-            for (BridgePartProperty property : ((Bridge) object).getBridgeParts())
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
+        if (object.isSetBridgeRooms()) {
+            for (BridgeRoomProperty property : object.getBridgeRooms())
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
         }
 
-        if (properties != null) {
+        if (object instanceof Bridge) {
+            Bridge bridge = (Bridge) object;
+            if (bridge.isSetBridgeParts()) {
+                for (BridgePartProperty property : bridge.getBridgeParts())
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
+            }
+        }
+
+        if (properties != null && properties.isSetConsistsOfBridgeParts()) {
             for (BridgePartProperty property : properties.getConsistsOfBridgeParts())
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
         }
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

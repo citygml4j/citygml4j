@@ -87,20 +87,30 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
         if (object.isSetIsMovable())
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "isMovable").addTextContent(TextContent.ofBoolean(object.getIsMovable())));
 
-        for (BridgeConstructiveElementProperty property : object.getBridgeConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeConstructiveElement"), property, BridgeConstructiveElementPropertyAdapter.class, namespaces);
+        if (object.isSetBridgeConstructiveElements()) {
+            for (BridgeConstructiveElementProperty property : object.getBridgeConstructiveElements())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeConstructiveElement"), property, BridgeConstructiveElementPropertyAdapter.class, namespaces);
+        }
 
-        for (BridgeInstallationProperty property : object.getBridgeInstallations())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetBridgeInstallations()) {
+            for (BridgeInstallationProperty property : object.getBridgeInstallations())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
+        }
 
-        for (BridgeRoomProperty property : object.getBridgeRooms())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
+        if (object.isSetBridgeRooms()) {
+            for (BridgeRoomProperty property : object.getBridgeRooms())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
+        }
 
-        for (BridgeFurnitureProperty property : object.getBridgeFurniture())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeFurniture"), property, BridgeFurniturePropertyAdapter.class, namespaces);
+        if (object.isSetBridgeFurniture()) {
+            for (BridgeFurnitureProperty property : object.getBridgeFurniture())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgeFurniture"), property, BridgeFurniturePropertyAdapter.class, namespaces);
+        }
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfAbstractBridge"), property, namespaces, writer);

@@ -72,8 +72,10 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
     public void writeChildElements(Bridge object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (BridgePartProperty property : object.getBridgeParts())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
+        if (object.isSetBridgeParts()) {
+            for (BridgePartProperty property : object.getBridgeParts())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "bridgePart"), property, BridgePartPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfBridge property : object.getADEProperties(ADEOfBridge.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfBridge"), property, namespaces, writer);

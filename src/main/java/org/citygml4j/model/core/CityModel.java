@@ -49,6 +49,10 @@ public class CityModel extends AbstractFeatureWithLifespan {
         return cityObjectMembers;
     }
 
+    public boolean isSetCityObjectMembers() {
+        return cityObjectMembers != null && !cityObjectMembers.isEmpty();
+    }
+
     public void setCityObjectMembers(List<AbstractCityObjectProperty> cityObjectMembers) {
         this.cityObjectMembers = asChild(cityObjectMembers);
     }
@@ -58,6 +62,10 @@ public class CityModel extends AbstractFeatureWithLifespan {
             appearanceMembers = new ChildList<>(this);
 
         return appearanceMembers;
+    }
+
+    public boolean isSetAppearanceMembers() {
+        return appearanceMembers != null && !appearanceMembers.isEmpty();
     }
 
     public void setAppearanceMembers(List<AbstractAppearanceProperty> appearanceMembers) {
@@ -71,6 +79,10 @@ public class CityModel extends AbstractFeatureWithLifespan {
         return versionMembers;
     }
 
+    public boolean isSetVersionMembers() {
+        return versionMembers != null && !versionMembers.isEmpty();
+    }
+
     public void setVersionMembers(List<AbstractVersionProperty> versionMembers) {
         this.versionMembers = asChild(versionMembers);
     }
@@ -82,6 +94,10 @@ public class CityModel extends AbstractFeatureWithLifespan {
         return versionTransitionMembers;
     }
 
+    public boolean isSetVersionTransitionMembers() {
+        return versionTransitionMembers != null && !versionTransitionMembers.isEmpty();
+    }
+
     public void setVersionTransitionMembers(List<AbstractVersionTransitionProperty> versionTransitionMembers) {
         this.versionTransitionMembers = asChild(versionTransitionMembers);
     }
@@ -91,6 +107,10 @@ public class CityModel extends AbstractFeatureWithLifespan {
             featureMembers = new ChildList<>(this);
 
         return featureMembers;
+    }
+
+    public boolean isSetFeatureMembers() {
+        return featureMembers != null && !featureMembers.isEmpty();
     }
 
     public void setFeatureMembers(List<AbstractFeatureProperty> featureMembers) {

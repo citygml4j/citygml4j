@@ -38,6 +38,10 @@ public class DeprecatedPropertiesOfCityObjectGroup extends DeprecatedPropertiesO
         return groupMembers;
     }
 
+    public boolean isSetGroupMembers() {
+        return groupMembers != null && !groupMembers.isEmpty();
+    }
+
     public void setGroupMembers(List<GroupMember> groupMembers) {
         this.groupMembers = asChild(groupMembers);
     }

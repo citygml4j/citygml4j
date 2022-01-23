@@ -95,8 +95,12 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
             writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
         if (object instanceof AbstractConstructionSurface) {
-            for (AbstractFillingSurfaceProperty property : ((AbstractConstructionSurface) object).getFillingSurfaces())
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
+            AbstractConstructionSurface surface = (AbstractConstructionSurface) object;
+
+            if (surface.isSetFillingSurfaces()) {
+                for (AbstractFillingSurfaceProperty property : surface.getFillingSurfaces())
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
+            }
 
             for (ADEOfAbstractConstructionSurface property : object.getADEProperties(ADEOfAbstractConstructionSurface.class))
                 ADESerializerHelper.writeADEProperty(property, namespaces, writer);

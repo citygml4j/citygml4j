@@ -138,9 +138,11 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
         if (object.isSetIsSmooth())
             writer.writeElement(Element.of(appearanceNamespace, "isSmooth").addTextContent(TextContent.ofBoolean(object.getIsSmooth())));
 
-        for (GeometryReference target : object.getTargets()) {
-            if (target != null)
-                writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getHref()));
+        if (object.isSetTargets()) {
+            for (GeometryReference target : object.getTargets()) {
+                if (target != null)
+                    writer.writeElement(Element.of(appearanceNamespace, "target").addTextContent(target.getHref()));
+            }
         }
 
         for (ADEOfX3DMaterial property : object.getADEProperties(ADEOfX3DMaterial.class))

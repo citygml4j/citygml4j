@@ -64,6 +64,11 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -77,6 +82,11 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
     }
 
     @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
+    }
+
+    @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
     }
@@ -86,6 +96,10 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
             addresses = new ChildList<>(this);
 
         return addresses;
+    }
+
+    public boolean isSetAddresses() {
+        return addresses != null && !addresses.isEmpty();
     }
 
     public void setAddresses(List<AddressProperty> addresses) {

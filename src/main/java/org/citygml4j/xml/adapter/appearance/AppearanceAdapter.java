@@ -102,10 +102,12 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
         if (object.getTheme() != null)
             writer.writeElement(Element.of(appearanceNamespace, "theme").addTextContent(object.getTheme()));
 
-        for (AbstractSurfaceDataProperty property : object.getSurfaceData())
-            writer.writeElementUsingSerializer(
-                    Element.of(appearanceNamespace, isCityGML3 ? "surfaceData" : "surfaceDataMember"),
-                    property, AbstractSurfaceDataPropertyAdapter.class, namespaces);
+        if (object.isSetSurfaceData()) {
+            for (AbstractSurfaceDataProperty property : object.getSurfaceData())
+                writer.writeElementUsingSerializer(
+                        Element.of(appearanceNamespace, isCityGML3 ? "surfaceData" : "surfaceDataMember"),
+                        property, AbstractSurfaceDataPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAppearance property : object.getADEProperties(ADEOfAppearance.class))
             ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAppearance") : null, property, namespaces, writer);

@@ -147,7 +147,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             visit(feature.getLocation());
 
         if (feature.isSetGenericProperties()) {
-            for (GenericElement genericElement : feature.getGenericProperties())
+            for (GenericElement genericElement : new ArrayList<>(feature.getGenericProperties()))
                 visit(genericElement);
         }
     }
@@ -156,7 +156,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         visit((org.xmlobjects.gml.model.feature.AbstractFeature) feature);
 
         if (feature.hasADEProperties()) {
-            for (ADEProperty property : feature.getADEProperties())
+            for (ADEProperty property : new ArrayList<>(feature.getADEProperties()))
                 visit(property);
         }
     }
@@ -172,26 +172,38 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractBridge bridge) {
         visit((AbstractConstruction) bridge);
 
-        for (BridgeConstructiveElementProperty property : new ArrayList<>(bridge.getBridgeConstructiveElements()))
-            visit(property);
+        if (bridge.isSetBridgeConstructiveElements()) {
+            for (BridgeConstructiveElementProperty property : new ArrayList<>(bridge.getBridgeConstructiveElements()))
+                visit(property);
+        }
 
-        for (BridgeInstallationProperty property : new ArrayList<>(bridge.getBridgeInstallations()))
-            visit(property);
+        if (bridge.isSetBridgeInstallations()) {
+            for (BridgeInstallationProperty property : new ArrayList<>(bridge.getBridgeInstallations()))
+                visit(property);
+        }
 
-        for (BridgeRoomProperty property : new ArrayList<>(bridge.getBridgeRooms()))
-            visit(property);
+        if (bridge.isSetBridgeRooms()) {
+            for (BridgeRoomProperty property : new ArrayList<>(bridge.getBridgeRooms()))
+                visit(property);
+        }
 
-        for (BridgeFurnitureProperty property : new ArrayList<>(bridge.getBridgeFurniture()))
-            visit(property);
+        if (bridge.isSetBridgeFurniture()) {
+            for (BridgeFurnitureProperty property : new ArrayList<>(bridge.getBridgeFurniture()))
+                visit(property);
+        }
 
-        for (AddressProperty member : new ArrayList<>(bridge.getAddresses()))
-            visit(member);
+        if (bridge.isSetAddresses()) {
+            for (AddressProperty member : new ArrayList<>(bridge.getAddresses()))
+                visit(member);
+        }
 
         if (bridge.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBridge properties = bridge.getDeprecatedProperties();
 
-            for (BridgePartProperty property : new ArrayList<>(properties.getConsistsOfBridgeParts()))
-                visit(property);
+            if (properties.isSetConsistsOfBridgeParts()) {
+                for (BridgePartProperty property : new ArrayList<>(properties.getConsistsOfBridgeParts()))
+                    visit(property);
+            }
 
             if (properties.getLod1MultiSurface() != null)
                 visit(properties.getLod1MultiSurface());
@@ -213,29 +225,43 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractBuilding building) {
         visit((AbstractConstruction) building);
 
-        for (BuildingConstructiveElementProperty property : new ArrayList<>(building.getBuildingConstructiveElements()))
-            visit(property);
+        if (building.isSetBuildingConstructiveElements()) {
+            for (BuildingConstructiveElementProperty property : new ArrayList<>(building.getBuildingConstructiveElements()))
+                visit(property);
+        }
 
-        for (BuildingInstallationProperty property : new ArrayList<>(building.getBuildingInstallations()))
-            visit(property);
+        if (building.isSetBuildingInstallations()) {
+            for (BuildingInstallationProperty property : new ArrayList<>(building.getBuildingInstallations()))
+                visit(property);
+        }
 
-        for (BuildingRoomProperty property : new ArrayList<>(building.getBuildingRooms()))
-            visit(property);
+        if (building.isSetBuildingRooms()) {
+            for (BuildingRoomProperty property : new ArrayList<>(building.getBuildingRooms()))
+                visit(property);
+        }
 
-        for (BuildingFurnitureProperty property : new ArrayList<>(building.getBuildingFurniture()))
-            visit(property);
+        if (building.isSetBuildingFurniture()) {
+            for (BuildingFurnitureProperty property : new ArrayList<>(building.getBuildingFurniture()))
+                visit(property);
+        }
 
-        for (AbstractBuildingSubdivisionProperty property : new ArrayList<>(building.getBuildingSubdivisions()))
-            visit(property);
+        if (building.isSetBuildingSubdivisions()) {
+            for (AbstractBuildingSubdivisionProperty property : new ArrayList<>(building.getBuildingSubdivisions()))
+                visit(property);
+        }
 
-        for (AddressProperty member : new ArrayList<>(building.getAddresses()))
-            visit(member);
+        if (building.isSetAddresses()) {
+            for (AddressProperty member : new ArrayList<>(building.getAddresses()))
+                visit(member);
+        }
 
         if (building.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBuilding properties = building.getDeprecatedProperties();
 
-            for (BuildingPartProperty property : new ArrayList<>(properties.getConsistsOfBuildingParts()))
-                visit(property);
+            if (properties.isSetConsistsOfBuildingParts()) {
+                for (BuildingPartProperty property : new ArrayList<>(properties.getConsistsOfBuildingParts()))
+                    visit(property);
+            }
 
             if (properties.getLod0RoofEdge() != null)
                 visit(properties.getLod0RoofEdge());
@@ -260,39 +286,57 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractBuildingSubdivision buildingSubdivision) {
         visit((AbstractLogicalSpace) buildingSubdivision);
 
-        for (BuildingConstructiveElementProperty property : new ArrayList<>(buildingSubdivision.getBuildingConstructiveElements()))
-            visit(property);
+        if (buildingSubdivision.isSetBuildingConstructiveElements()) {
+            for (BuildingConstructiveElementProperty property : new ArrayList<>(buildingSubdivision.getBuildingConstructiveElements()))
+                visit(property);
+        }
 
-        for (BuildingFurnitureProperty property : new ArrayList<>(buildingSubdivision.getBuildingFurniture()))
-            visit(property);
+        if (buildingSubdivision.isSetBuildingFurniture()) {
+            for (BuildingFurnitureProperty property : new ArrayList<>(buildingSubdivision.getBuildingFurniture()))
+                visit(property);
+        }
 
-        for (BuildingInstallationProperty property : new ArrayList<>(buildingSubdivision.getBuildingInstallations()))
-            visit(property);
+        if (buildingSubdivision.isSetBuildingInstallations()) {
+            for (BuildingInstallationProperty property : new ArrayList<>(buildingSubdivision.getBuildingInstallations()))
+                visit(property);
+        }
 
-        for (BuildingRoomProperty property : new ArrayList<>(buildingSubdivision.getBuildingRooms()))
-            visit(property);
+        if (buildingSubdivision.isSetBuildingRooms()) {
+            for (BuildingRoomProperty property : new ArrayList<>(buildingSubdivision.getBuildingRooms()))
+                visit(property);
+        }
     }
 
     public void visit(AbstractCityObject cityObject) {
         visit((AbstractFeatureWithLifespan) cityObject);
 
-        for (AbstractCityObjectReference reference : new ArrayList<>(cityObject.getGeneralizesTo()))
-            visit(reference);
+        if (cityObject.isSetGeneralizesTo()) {
+            for (AbstractCityObjectReference reference : new ArrayList<>(cityObject.getGeneralizesTo()))
+                visit(reference);
+        }
 
-        for (CityObjectRelationProperty property : new ArrayList<>(cityObject.getRelatedTo()))
-            visit(property);
+        if (cityObject.isSetRelatedTo()) {
+            for (CityObjectRelationProperty property : new ArrayList<>(cityObject.getRelatedTo()))
+                visit(property);
+        }
 
-        for (AbstractAppearanceProperty property : new ArrayList<>(cityObject.getAppearances()))
-            visit(property);
+        if (cityObject.isSetAppearances()) {
+            for (AbstractAppearanceProperty property : new ArrayList<>(cityObject.getAppearances()))
+                visit(property);
+        }
 
-        for (AbstractDynamizerProperty property : new ArrayList<>(cityObject.getDynamizers()))
-            visit(property);
+        if (cityObject.isSetDynamizers()) {
+            for (AbstractDynamizerProperty property : new ArrayList<>(cityObject.getDynamizers()))
+                visit(property);
+        }
 
         if (cityObject.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractCityObject properties = cityObject.getDeprecatedProperties();
 
-            for (AbstractCityObjectProperty property : new ArrayList<>(properties.getGeneralizesTo()))
-                visit(property);
+            if (properties.isSetGeneralizesTo()) {
+                for (AbstractCityObjectProperty property : new ArrayList<>(properties.getGeneralizesTo()))
+                    visit(property);
+            }
         }
     }
 
@@ -303,15 +347,19 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractConstructionSurface constructionSurface) {
         visit((AbstractThematicSurface) constructionSurface);
 
-        for (AbstractFillingSurfaceProperty property : new ArrayList<>(constructionSurface.getFillingSurfaces()))
-            visit(property);
+        if (constructionSurface.isSetFillingSurfaces()) {
+            for (AbstractFillingSurfaceProperty property : new ArrayList<>(constructionSurface.getFillingSurfaces()))
+                visit(property);
+        }
     }
 
     public void visit(AbstractConstructiveElement constructiveElement) {
         visit((AbstractOccupiedSpace) constructiveElement);
 
-        for (AbstractFillingElementProperty property : new ArrayList<>(constructiveElement.getFillings()))
-            visit(property);
+        if (constructiveElement.isSetFillings()) {
+            for (AbstractFillingElementProperty property : new ArrayList<>(constructiveElement.getFillings()))
+                visit(property);
+        }
     }
 
     public void visit(AbstractContinuousCoverage<?> continuousCoverage) {
@@ -325,7 +373,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             visit(coverage.getDomainSet());
 
         if (coverage.getRangeSet() != null && coverage.getRangeSet().isSetValueArrays()) {
-            for (ValueArray valueArray : coverage.getRangeSet().getValueArrays()) {
+            for (ValueArray valueArray : new ArrayList<>(coverage.getRangeSet().getValueArrays())) {
                 if (valueArray != null)
                     visit(valueArray);
             }
@@ -417,8 +465,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractSpace space) {
         visit((AbstractCityObject) space);
 
-        for (AbstractSpaceBoundaryProperty property : new ArrayList<>(space.getBoundaries()))
-            visit(property);
+        if (space.isSetBoundaries()) {
+            for (AbstractSpaceBoundaryProperty property : new ArrayList<>(space.getBoundaries()))
+                visit(property);
+        }
 
         if (space.getLod0Point() != null)
             visit(space.getLod0Point());
@@ -499,17 +549,25 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractTransportationSpace transportationSpace) {
         visit((AbstractUnoccupiedSpace) transportationSpace);
 
-        for (TrafficSpaceProperty property : new ArrayList<>(transportationSpace.getTrafficSpaces()))
-            visit(property);
+        if (transportationSpace.isSetTrafficSpaces()) {
+            for (TrafficSpaceProperty property : new ArrayList<>(transportationSpace.getTrafficSpaces()))
+                visit(property);
+        }
 
-        for (AuxiliaryTrafficSpaceProperty property : new ArrayList<>(transportationSpace.getAuxiliaryTrafficSpaces()))
-            visit(property);
+        if (transportationSpace.isSetAuxiliaryTrafficSpaces()) {
+            for (AuxiliaryTrafficSpaceProperty property : new ArrayList<>(transportationSpace.getAuxiliaryTrafficSpaces()))
+                visit(property);
+        }
 
-        for (HoleProperty property : new ArrayList<>(transportationSpace.getHoles()))
-            visit(property);
+        if (transportationSpace.isSetHoles()) {
+            for (HoleProperty property : new ArrayList<>(transportationSpace.getHoles()))
+                visit(property);
+        }
 
-        for (MarkingProperty property : new ArrayList<>(transportationSpace.getMarkings()))
-            visit(property);
+        if (transportationSpace.isSetMarkings()) {
+            for (MarkingProperty property : new ArrayList<>(transportationSpace.getMarkings()))
+                visit(property);
+        }
 
         if (transportationSpace.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractTransportationSpace properties = transportationSpace.getDeprecatedProperties();
@@ -528,23 +586,33 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(AbstractTunnel tunnel) {
         visit((AbstractConstruction) tunnel);
 
-        for (TunnelConstructiveElementProperty property : new ArrayList<>(tunnel.getTunnelConstructiveElements()))
-            visit(property);
+        if (tunnel.isSetTunnelConstructiveElements()) {
+            for (TunnelConstructiveElementProperty property : new ArrayList<>(tunnel.getTunnelConstructiveElements()))
+                visit(property);
+        }
 
-        for (TunnelInstallationProperty property : new ArrayList<>(tunnel.getTunnelInstallations()))
-            visit(property);
+        if (tunnel.isSetTunnelInstallations()) {
+            for (TunnelInstallationProperty property : new ArrayList<>(tunnel.getTunnelInstallations()))
+                visit(property);
+        }
 
-        for (HollowSpaceProperty property : new ArrayList<>(tunnel.getHollowSpaces()))
-            visit(property);
+        if (tunnel.isSetHollowSpaces()) {
+            for (HollowSpaceProperty property : new ArrayList<>(tunnel.getHollowSpaces()))
+                visit(property);
+        }
 
-        for (TunnelFurnitureProperty property : new ArrayList<>(tunnel.getTunnelFurniture()))
-            visit(property);
+        if (tunnel.isSetTunnelFurniture()) {
+            for (TunnelFurnitureProperty property : new ArrayList<>(tunnel.getTunnelFurniture()))
+                visit(property);
+        }
 
         if (tunnel.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractTunnel properties = tunnel.getDeprecatedProperties();
 
-            for (TunnelPartProperty property : new ArrayList<>(properties.getConsistsOfTunnelParts()))
-                visit(property);
+            if (properties.isSetConsistsOfTunnelParts()) {
+                for (TunnelPartProperty property : new ArrayList<>(properties.getConsistsOfTunnelParts()))
+                    visit(property);
+            }
 
             if (properties.getLod1MultiSurface() != null)
                 visit(properties.getLod1MultiSurface());
@@ -595,8 +663,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Appearance appearance) {
         visit((AbstractAppearance) appearance);
 
-        for (AbstractSurfaceDataProperty property : new ArrayList<>(appearance.getSurfaceData()))
-            visit(property);
+        if (appearance.isSetSurfaceData()) {
+            for (AbstractSurfaceDataProperty property : new ArrayList<>(appearance.getSurfaceData()))
+                visit(property);
+        }
     }
 
     @Override
@@ -624,8 +694,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Bridge bridge) {
         visit((AbstractBridge) bridge);
 
-        for (BridgePartProperty property : new ArrayList<>(bridge.getBridgeParts()))
-            visit(property);
+        if (bridge.isSetBridgeParts()) {
+            for (BridgePartProperty property : new ArrayList<>(bridge.getBridgeParts()))
+                visit(property);
+        }
     }
 
     @Override
@@ -700,11 +772,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(BridgeRoom bridgeRoom) {
         visit((AbstractUnoccupiedSpace) bridgeRoom);
 
-        for (BridgeFurnitureProperty property : new ArrayList<>(bridgeRoom.getBridgeFurniture()))
-            visit(property);
+        if (bridgeRoom.isSetBridgeFurniture()) {
+            for (BridgeFurnitureProperty property : new ArrayList<>(bridgeRoom.getBridgeFurniture()))
+                visit(property);
+        }
 
-        for (BridgeInstallationProperty property : new ArrayList<>(bridgeRoom.getBridgeInstallations()))
-            visit(property);
+        if (bridgeRoom.isSetBridgeInstallations()) {
+            for (BridgeInstallationProperty property : new ArrayList<>(bridgeRoom.getBridgeInstallations()))
+                visit(property);
+        }
 
         if (bridgeRoom.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBridgeRoom properties = bridgeRoom.getDeprecatedProperties();
@@ -721,8 +797,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Building building) {
         visit((AbstractBuilding) building);
 
-        for (BuildingPartProperty property : new ArrayList<>(building.getBuildingParts()))
-            visit(property);
+        if (building.isSetBuildingParts()) {
+            for (BuildingPartProperty property : new ArrayList<>(building.getBuildingParts()))
+                visit(property);
+        }
     }
 
     @Override
@@ -775,11 +853,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(BuildingRoom buildingRoom) {
         visit((AbstractUnoccupiedSpace) buildingRoom);
 
-        for (BuildingFurnitureProperty property : new ArrayList<>(buildingRoom.getBuildingFurniture()))
-            visit(property);
+        if (buildingRoom.isSetBuildingFurniture()) {
+            for (BuildingFurnitureProperty property : new ArrayList<>(buildingRoom.getBuildingFurniture()))
+                visit(property);
+        }
 
-        for (BuildingInstallationProperty property : new ArrayList<>(buildingRoom.getBuildingInstallations()))
-            visit(property);
+        if (buildingRoom.isSetBuildingInstallations()) {
+            for (BuildingInstallationProperty property : new ArrayList<>(buildingRoom.getBuildingInstallations()))
+                visit(property);
+        }
 
         if (buildingRoom.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBuildingRoom properties = buildingRoom.getDeprecatedProperties();
@@ -796,11 +878,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(BuildingUnit buildingUnit) {
         visit((AbstractBuildingSubdivision) buildingUnit);
 
-        for (StoreyProperty property : new ArrayList<>(buildingUnit.getStoreys()))
-            visit(property);
+        if (buildingUnit.isSetStoreys()) {
+            for (StoreyProperty property : new ArrayList<>(buildingUnit.getStoreys()))
+                visit(property);
+        }
 
-        for (AddressProperty property : new ArrayList<>(buildingUnit.getAddresses()))
-            visit(property);
+        if (buildingUnit.isSetAddresses()) {
+            for (AddressProperty property : new ArrayList<>(buildingUnit.getAddresses()))
+                visit(property);
+        }
     }
 
     @Override
@@ -839,28 +925,40 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(CityModel cityModel) {
         visit((AbstractFeatureWithLifespan) cityModel);
 
-        for (AbstractCityObjectProperty property : new ArrayList<>(cityModel.getCityObjectMembers()))
-            visit(property);
+        if (cityModel.isSetCityObjectMembers()) {
+            for (AbstractCityObjectProperty property : new ArrayList<>(cityModel.getCityObjectMembers()))
+                visit(property);
+        }
 
-        for (AbstractAppearanceProperty property : new ArrayList<>(cityModel.getAppearanceMembers()))
-            visit(property);
+        if (cityModel.isSetAppearanceMembers()) {
+            for (AbstractAppearanceProperty property : new ArrayList<>(cityModel.getAppearanceMembers()))
+                visit(property);
+        }
 
-        for (AbstractFeatureProperty property : new ArrayList<>(cityModel.getFeatureMembers()))
-            visit(property);
+        if (cityModel.isSetFeatureMembers()) {
+            for (AbstractFeatureProperty property : new ArrayList<>(cityModel.getFeatureMembers()))
+                visit(property);
+        }
 
-        for (AbstractVersionProperty property : new ArrayList<>(cityModel.getVersionMembers()))
-            visit(property);
+        if (cityModel.isSetVersionMembers()) {
+            for (AbstractVersionProperty property : new ArrayList<>(cityModel.getVersionMembers()))
+                visit(property);
+        }
 
-        for (AbstractVersionTransitionProperty property : new ArrayList<>(cityModel.getVersionTransitionMembers()))
-            visit(property);
+        if (cityModel.isSetVersionTransitionMembers()) {
+            for (AbstractVersionTransitionProperty property : new ArrayList<>(cityModel.getVersionTransitionMembers()))
+                visit(property);
+        }
     }
 
     @Override
     public void visit(CityObjectGroup cityObjectGroup) {
         visit((AbstractLogicalSpace) cityObjectGroup);
 
-        for (RoleProperty property : new ArrayList<>(cityObjectGroup.getGroupMembers()))
-            visit(property);
+        if (cityObjectGroup.isSetGroupMembers()) {
+            for (RoleProperty property : new ArrayList<>(cityObjectGroup.getGroupMembers()))
+                visit(property);
+        }
 
         if (cityObjectGroup.getGroupParent() != null)
             visit(cityObjectGroup.getGroupParent());
@@ -868,8 +966,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         if (cityObjectGroup.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfCityObjectGroup properties = cityObjectGroup.getDeprecatedProperties();
 
-            for (GroupMember member : properties.getGroupMembers())
-                visit(member);
+            if (properties.isSetGroupMembers()) {
+                for (GroupMember member : new ArrayList<>(properties.getGroupMembers()))
+                    visit(member);
+            }
 
             if (properties.getGroupParent() != null)
                 visit(properties.getGroupParent());
@@ -901,8 +1001,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(CompositeTimeseries compositeTimeseries) {
         visit((AbstractTimeseries) compositeTimeseries);
 
-        for (TimeseriesComponentProperty property : new ArrayList<>(compositeTimeseries.getComponents()))
-            visit(property);
+        if (compositeTimeseries.isSetComponents()) {
+            for (TimeseriesComponentProperty property : new ArrayList<>(compositeTimeseries.getComponents()))
+                visit(property);
+        }
     }
 
     @Override
@@ -917,7 +1019,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         }
 
         if (compositeValue.getValueComponents() != null && compositeValue.getValueComponents().isSetObjects()) {
-            for (Value value : compositeValue.getValueComponents().getObjects()) {
+            for (Value value : new ArrayList<>(compositeValue.getValueComponents().getObjects())) {
                 if (value != null)
                     visit(value);
             }
@@ -955,16 +1057,20 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Door door) {
         visit((AbstractFillingElement) door);
 
-        for (AddressProperty property : new ArrayList<>(door.getAddresses()))
-            visit(property);
+        if (door.isSetAddresses()) {
+            for (AddressProperty property : new ArrayList<>(door.getAddresses()))
+                visit(property);
+        }
     }
 
     @Override
     public void visit(DoorSurface doorSurface) {
         visit((AbstractFillingSurface) doorSurface);
 
-        for (AddressProperty property : new ArrayList<>(doorSurface.getAddresses()))
-            visit(property);
+        if (doorSurface.isSetAddresses()) {
+            for (AddressProperty property : new ArrayList<>(doorSurface.getAddresses()))
+                visit(property);
+        }
     }
 
     @Override
@@ -1035,9 +1141,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(GenericTimeseries genericTimeseries) {
         visit((AbstractAtomicTimeseries) genericTimeseries);
 
-        for (TimeValuePairProperty property : genericTimeseries.getTimeValuePairs()) {
-            if (property.getObject() != null)
-                visit(property.getObject());
+        if (genericTimeseries.isSetTimeValuePairs()) {
+            for (TimeValuePairProperty property : new ArrayList<>(genericTimeseries.getTimeValuePairs())) {
+                if (property.getObject() != null)
+                    visit(property.getObject());
+            }
         }
     }
 
@@ -1053,8 +1161,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         if (georeferencedTexture.getReferencePoint() != null)
             visit(georeferencedTexture.getReferencePoint());
 
-        for (GeometryReference reference : georeferencedTexture.getTargets())
-            visit(reference);
+        if (georeferencedTexture.isSetTargets()) {
+            for (GeometryReference reference : new ArrayList<>(georeferencedTexture.getTargets()))
+                visit(reference);
+        }
     }
 
     @Override
@@ -1081,11 +1191,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(HollowSpace hollowSpace) {
         visit((AbstractUnoccupiedSpace) hollowSpace);
 
-        for (TunnelFurnitureProperty property : new ArrayList<>(hollowSpace.getTunnelFurniture()))
-            visit(property);
+        if (hollowSpace.isSetTunnelFurniture()) {
+            for (TunnelFurnitureProperty property : new ArrayList<>(hollowSpace.getTunnelFurniture()))
+                visit(property);
+        }
 
-        for (TunnelInstallationProperty property : new ArrayList<>(hollowSpace.getTunnelInstallations()))
-            visit(property);
+        if (hollowSpace.isSetTunnelInstallations()) {
+            for (TunnelInstallationProperty property : new ArrayList<>(hollowSpace.getTunnelInstallations()))
+                visit(property);
+        }
 
         if (hollowSpace.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfHollowSpace properties = hollowSpace.getDeprecatedProperties();
@@ -1102,8 +1216,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(ImplicitGeometry implicitGeometry) {
         visit((AbstractGML) implicitGeometry);
 
-        for (AbstractAppearanceProperty property : new ArrayList<>(implicitGeometry.getAppearances()))
-            visit(property);
+        if (implicitGeometry.isSetAppearances()) {
+            for (AbstractAppearanceProperty property : new ArrayList<>(implicitGeometry.getAppearances()))
+                visit(property);
+        }
 
         if (implicitGeometry.getReferencePoint() != null)
             visit(implicitGeometry.getReferencePoint());
@@ -1182,14 +1298,18 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(ParameterizedTexture parameterizedTexture) {
         visit((AbstractTexture) parameterizedTexture);
 
-        for (TextureAssociationProperty property : new ArrayList<>(parameterizedTexture.getTextureParameterizations()))
-            visit(property);
+        if (parameterizedTexture.isSetTextureParameterizations()) {
+            for (TextureAssociationProperty property : new ArrayList<>(parameterizedTexture.getTextureParameterizations()))
+                visit(property);
+        }
 
         if (parameterizedTexture.hasDeprecatedProperties()) {
             DeprecatedPropertiesOfParameterizedTexture properties = parameterizedTexture.getDeprecatedProperties();
 
-            for (TextureAssociationReference reference : new ArrayList<>(properties.getTargets()))
-                visit(reference);
+            if (properties.isSetTargets()) {
+                for (TextureAssociationReference reference : new ArrayList<>(properties.getTargets()))
+                    visit(reference);
+            }
         }
     }
 
@@ -1232,11 +1352,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Railway railway) {
         visit((AbstractTransportationSpace) railway);
 
-        for (SectionProperty property : new ArrayList<>(railway.getSections()))
-            visit(property);
+        if (railway.isSetSections()) {
+            for (SectionProperty property : new ArrayList<>(railway.getSections()))
+                visit(property);
+        }
 
-        for (IntersectionProperty property : new ArrayList<>(railway.getIntersections()))
-            visit(property);
+        if (railway.isSetIntersections()) {
+            for (IntersectionProperty property : new ArrayList<>(railway.getIntersections()))
+                visit(property);
+        }
     }
 
     @Override
@@ -1256,19 +1380,25 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(ReliefFeature reliefFeature) {
         visit((AbstractSpaceBoundary) reliefFeature);
 
-        for (AbstractReliefComponentProperty property : new ArrayList<>(reliefFeature.getReliefComponents()))
-            visit(property);
+        if (reliefFeature.isSetReliefComponents()) {
+            for (AbstractReliefComponentProperty property : new ArrayList<>(reliefFeature.getReliefComponents()))
+                visit(property);
+        }
     }
 
     @Override
     public void visit(Road road) {
         visit((AbstractTransportationSpace) road);
 
-        for (SectionProperty property : new ArrayList<>(road.getSections()))
-            visit(property);
+        if (road.isSetSections()) {
+            for (SectionProperty property : new ArrayList<>(road.getSections()))
+                visit(property);
+        }
 
-        for (IntersectionProperty property : new ArrayList<>(road.getIntersections()))
-            visit(property);
+        if (road.isSetIntersections()) {
+            for (IntersectionProperty property : new ArrayList<>(road.getIntersections()))
+                visit(property);
+        }
     }
 
     public void visit(Role role) {
@@ -1326,8 +1456,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Storey storey) {
         visit((AbstractBuildingSubdivision) storey);
 
-        for (BuildingUnitProperty property : new ArrayList<>(storey.getBuildingUnits()))
-            visit(property);
+        if (storey.isSetBuildingUnits()) {
+            for (BuildingUnitProperty property : new ArrayList<>(storey.getBuildingUnits()))
+                visit(property);
+        }
     }
 
     @Override
@@ -1345,9 +1477,11 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         if (textureAssociation.getTextureParameterization() != null
                 && textureAssociation.getTextureParameterization().getObject() instanceof TexCoordList) {
             TexCoordList texCoordList = (TexCoordList) textureAssociation.getTextureParameterization().getObject();
-            for (TextureCoordinates textureCoordinates : texCoordList.getTextureCoordinates()) {
-                if (textureCoordinates.getRing() != null)
-                    visit(textureCoordinates.getRing());
+            if (texCoordList.isSetTextureCoordinates()) {
+                for (TextureCoordinates textureCoordinates : texCoordList.getTextureCoordinates()) {
+                    if (textureCoordinates.getRing() != null)
+                        visit(textureCoordinates.getRing());
+                }
             }
         }
     }
@@ -1380,11 +1514,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Track track) {
         visit((AbstractTransportationSpace) track);
 
-        for (SectionProperty property : new ArrayList<>(track.getSections()))
-            visit(property);
+        if (track.isSetSections()) {
+            for (SectionProperty property : new ArrayList<>(track.getSections()))
+                visit(property);
+        }
 
-        for (IntersectionProperty property : new ArrayList<>(track.getIntersections()))
-            visit(property);
+        if (track.isSetIntersections()) {
+            for (IntersectionProperty property : new ArrayList<>(track.getIntersections()))
+                visit(property);
+        }
     }
 
     @Override
@@ -1396,14 +1534,20 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(TrafficSpace trafficSpace) {
         visit((AbstractUnoccupiedSpace) trafficSpace);
 
-        for (TrafficSpaceReference reference : new ArrayList<>(trafficSpace.getPredecessors()))
-            visit(reference);
+        if (trafficSpace.isSetPredecessors()) {
+            for (TrafficSpaceReference reference : new ArrayList<>(trafficSpace.getPredecessors()))
+                visit(reference);
+        }
 
-        for (TrafficSpaceReference reference : new ArrayList<>(trafficSpace.getSuccessors()))
-            visit(reference);
+        if (trafficSpace.isSetSuccessors()) {
+            for (TrafficSpaceReference reference : new ArrayList<>(trafficSpace.getSuccessors()))
+                visit(reference);
+        }
 
-        for (ClearanceSpaceProperty property : new ArrayList<>(trafficSpace.getClearanceSpaces()))
-            visit(property);
+        if (trafficSpace.isSetClearanceSpaces()) {
+            for (ClearanceSpaceProperty property : new ArrayList<>(trafficSpace.getClearanceSpaces()))
+                visit(property);
+        }
     }
 
     @Override
@@ -1415,8 +1559,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Tunnel tunnel) {
         visit((AbstractTunnel) tunnel);
 
-        for (TunnelPartProperty property : new ArrayList<>(tunnel.getTunnelParts()))
-            visit(property);
+        if (tunnel.isSetTunnelParts()) {
+            for (TunnelPartProperty property : new ArrayList<>(tunnel.getTunnelParts()))
+                visit(property);
+        }
     }
 
     @Override
@@ -1474,8 +1620,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Version version) {
         visit((AbstractVersion) version);
 
-        for (AbstractFeatureWithLifespanReference reference : new ArrayList<>(version.getVersionMembers()))
-            visit(reference);
+        if (version.isSetVersionMembers()) {
+            for (AbstractFeatureWithLifespanReference reference : new ArrayList<>(version.getVersionMembers()))
+                visit(reference);
+        }
     }
 
     @Override
@@ -1488,10 +1636,12 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         if (versionTransition.getTo() != null)
             visit(versionTransition.getTo());
 
-        for (TransactionProperty property : versionTransition.getTransactions()) {
-            if (property.getObject() != null) {
-                visit(property.getObject().getOldFeature());
-                visit(property.getObject().getNewFeature());
+        if (versionTransition.isSetTransactions()) {
+            for (TransactionProperty property : versionTransition.getTransactions()) {
+                if (property.getObject() != null) {
+                    visit(property.getObject().getOldFeature());
+                    visit(property.getObject().getNewFeature());
+                }
             }
         }
     }
@@ -1533,11 +1683,15 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(Waterway waterway) {
         visit((AbstractTransportationSpace) waterway);
 
-        for (SectionProperty property : new ArrayList<>(waterway.getSections()))
-            visit(property);
+        if (waterway.isSetSections()) {
+            for (SectionProperty property : new ArrayList<>(waterway.getSections()))
+                visit(property);
+        }
 
-        for (IntersectionProperty property : new ArrayList<>(waterway.getIntersections()))
-            visit(property);
+        if (waterway.isSetIntersections()) {
+            for (IntersectionProperty property : new ArrayList<>(waterway.getIntersections()))
+                visit(property);
+        }
     }
 
     @Override
@@ -1554,8 +1708,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     public void visit(X3DMaterial x3dMaterial) {
         visit((AbstractSurfaceData) x3dMaterial);
 
-        for (GeometryReference reference : x3dMaterial.getTargets())
-            visit(reference);
+        if (x3dMaterial.isSetTargets()) {
+            for (GeometryReference reference : new ArrayList<>(x3dMaterial.getTargets()))
+                visit(reference);
+        }
     }
 
     @Override

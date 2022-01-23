@@ -153,11 +153,15 @@ public class CityGMLSerializerHelper {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(namespaceURI, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (Code function : object.getFunctions())
-            writer.writeElementUsingSerializer(Element.of(namespaceURI, "function"), function, CodeAdapter.class, namespaces);
+        if (object.isSetFunctions()) {
+            for (Code function : object.getFunctions())
+                writer.writeElementUsingSerializer(Element.of(namespaceURI, "function"), function, CodeAdapter.class, namespaces);
+        }
 
-        for (Code usage : object.getUsages())
-            writer.writeElementUsingSerializer(Element.of(namespaceURI, "usage"), usage, CodeAdapter.class, namespaces);
+        if (object.isSetUsages()) {
+            for (Code usage : object.getUsages())
+                writer.writeElementUsingSerializer(Element.of(namespaceURI, "usage"), usage, CodeAdapter.class, namespaces);
+        }
     }
 
     public static boolean writeDefaultGeometry(AbstractSpace object, int lod, String propertyName, String namespaceURI, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {

@@ -202,7 +202,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getRoofType() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roofType"), object.getRoofType(), CodeAdapter.class, namespaces);
 
-        if (!object.getHeights().isEmpty()) {
+        if (object.isSetHeights()) {
             Height height = object.getHeights().get(0).getObject();
             if (height != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "measuredHeight"), height.getValue(), LengthAdapter.class, namespaces);
@@ -247,15 +247,19 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getLod2TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BuildingInstallationProperty property : object.getBuildingInstallations()) {
-            if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
-            else
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingInstallations()) {
+            for (BuildingInstallationProperty property : object.getBuildingInstallations()) {
+                if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "outerBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+                else
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorBuildingInstallation"), property, BuildingInstallationPropertyAdapter.class, namespaces);
+            }
         }
 
-        for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        if (object.isSetBoundaries()) {
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        }
 
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
@@ -281,21 +285,28 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (BuildingRoomProperty property : object.getBuildingRooms())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
-
-        if (object instanceof Building) {
-            for (BuildingPartProperty property : ((Building) object).getBuildingParts())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingRooms()) {
+            for (BuildingRoomProperty property : object.getBuildingRooms())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
         }
 
-        if (properties != null) {
+        if (object instanceof Building) {
+            Building building = (Building) object;
+            if (building.isSetBuildingParts()) {
+                for (BuildingPartProperty property : building.getBuildingParts())
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
+            }
+        }
+
+        if (properties != null && properties.isSetConsistsOfBuildingParts()) {
             for (BuildingPartProperty property : properties.getConsistsOfBuildingParts())
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
         }
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractBuilding property : object.getADEProperties(ADEOfAbstractBuilding.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

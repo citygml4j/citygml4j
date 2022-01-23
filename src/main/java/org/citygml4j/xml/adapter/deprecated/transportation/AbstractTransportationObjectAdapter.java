@@ -128,22 +128,30 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
         if (object instanceof StandardObjectClassifier)
             CityGMLSerializerHelper.writeStandardObjectClassifier((StandardObjectClassifier) object, transportationNamespace, namespaces, writer);
 
-        for (TrafficSpaceProperty property : object.getTrafficSpaces()) {
-            if (property.getObject() != null) {
-                TrafficSpace trafficSpace = property.getObject();
-                for (AbstractSpaceBoundaryProperty boundary : trafficSpace.getBoundaries()) {
-                    if (!boundary.isSetInlineObject() || boundary.getObject() instanceof TrafficArea)
-                        writer.writeElementUsingSerializer(Element.of(transportationNamespace, "trafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+        if (object.isSetTrafficSpaces()) {
+            for (TrafficSpaceProperty property : object.getTrafficSpaces()) {
+                if (property.getObject() != null) {
+                    TrafficSpace trafficSpace = property.getObject();
+                    if (trafficSpace.isSetBoundaries()) {
+                        for (AbstractSpaceBoundaryProperty boundary : trafficSpace.getBoundaries()) {
+                            if (!boundary.isSetInlineObject() || boundary.getObject() instanceof TrafficArea)
+                                writer.writeElementUsingSerializer(Element.of(transportationNamespace, "trafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+                        }
+                    }
                 }
             }
         }
 
-        for (AuxiliaryTrafficSpaceProperty property : object.getAuxiliaryTrafficSpaces()) {
-            if (property.getObject() != null) {
-                AuxiliaryTrafficSpace auxiliaryTrafficSpace = property.getObject();
-                for (AbstractSpaceBoundaryProperty boundary : auxiliaryTrafficSpace.getBoundaries()) {
-                    if (!boundary.isSetInlineObject() || boundary.getObject() instanceof AuxiliaryTrafficArea)
-                        writer.writeElementUsingSerializer(Element.of(transportationNamespace, "auxiliaryTrafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+        if (object.isSetAuxiliaryTrafficSpaces()) {
+            for (AuxiliaryTrafficSpaceProperty property : object.getAuxiliaryTrafficSpaces()) {
+                if (property.getObject() != null) {
+                    AuxiliaryTrafficSpace auxiliaryTrafficSpace = property.getObject();
+                    if (auxiliaryTrafficSpace.isSetBoundaries()) {
+                        for (AbstractSpaceBoundaryProperty boundary : auxiliaryTrafficSpace.getBoundaries()) {
+                            if (!boundary.isSetInlineObject() || boundary.getObject() instanceof AuxiliaryTrafficArea)
+                                writer.writeElementUsingSerializer(Element.of(transportationNamespace, "auxiliaryTrafficArea"), boundary, AbstractSpaceBoundaryPropertyAdapter.class, namespaces);
+                        }
+                    }
                 }
             }
         }

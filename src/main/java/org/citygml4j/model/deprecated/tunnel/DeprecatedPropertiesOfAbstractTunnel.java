@@ -43,6 +43,10 @@ public class DeprecatedPropertiesOfAbstractTunnel extends DeprecatedPropertiesOf
         return consistsOfTunnelParts;
     }
 
+    public boolean isSetConsistsOfTunnelParts() {
+        return consistsOfTunnelParts != null && !consistsOfTunnelParts.isEmpty();
+    }
+
     public void setConsistsOfTunnelParts(List<TunnelPartProperty> consistsOfTunnelParts) {
         this.consistsOfTunnelParts = asChild(consistsOfTunnelParts);
     }

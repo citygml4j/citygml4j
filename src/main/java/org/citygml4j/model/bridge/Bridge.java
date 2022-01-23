@@ -37,6 +37,10 @@ public class Bridge extends AbstractBridge implements TopLevelFeature {
         return bridgeParts;
     }
 
+    public boolean isSetBridgeParts() {
+        return bridgeParts != null && !bridgeParts.isEmpty();
+    }
+
     public void setBridgeParts(List<BridgePartProperty> bridgeParts) {
         this.bridgeParts = asChild(bridgeParts);
     }

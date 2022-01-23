@@ -46,6 +46,10 @@ public abstract class AbstractGenericAttribute<T> extends GMLObject implements C
         return value;
     }
 
+    public boolean isSetValue() {
+        return value != null;
+    }
+
     public void setValue(T value) {
         this.value = value;
     }

@@ -75,17 +75,25 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
 
-        for (TunnelConstructiveElementProperty property : object.getTunnelConstructiveElements())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelConstructiveElement"), property, TunnelConstructiveElementPropertyAdapter.class, namespaces);
+        if (object.isSetTunnelConstructiveElements()) {
+            for (TunnelConstructiveElementProperty property : object.getTunnelConstructiveElements())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelConstructiveElement"), property, TunnelConstructiveElementPropertyAdapter.class, namespaces);
+        }
 
-        for (TunnelInstallationProperty property : object.getTunnelInstallations())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetTunnelInstallations()) {
+            for (TunnelInstallationProperty property : object.getTunnelInstallations())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+        }
 
-        for (HollowSpaceProperty property : object.getHollowSpaces())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "hollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
+        if (object.isSetHollowSpaces()) {
+            for (HollowSpaceProperty property : object.getHollowSpaces())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "hollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
+        }
 
-        for (TunnelFurnitureProperty property : object.getTunnelFurniture())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelFurniture"), property, TunnelFurniturePropertyAdapter.class, namespaces);
+        if (object.isSetTunnelFurniture()) {
+            for (TunnelFurnitureProperty property : object.getTunnelFurniture())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelFurniture"), property, TunnelFurniturePropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractTunnel property : object.getADEProperties(ADEOfAbstractTunnel.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfAbstractTunnel"), property, namespaces, writer);

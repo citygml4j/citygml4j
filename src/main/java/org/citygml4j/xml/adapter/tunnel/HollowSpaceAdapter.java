@@ -128,15 +128,21 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
             if (properties != null && properties.getLod4MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            if (object.isSetBoundaries()) {
+                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            }
         }
 
-        for (TunnelFurnitureProperty property : object.getTunnelFurniture())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, isCityGML3 ? "tunnelFurniture" : "interiorFurniture"), property, TunnelFurniturePropertyAdapter.class, namespaces);
+        if (object.isSetTunnelFurniture()) {
+            for (TunnelFurnitureProperty property : object.getTunnelFurniture())
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, isCityGML3 ? "tunnelFurniture" : "interiorFurniture"), property, TunnelFurniturePropertyAdapter.class, namespaces);
+        }
 
-        for (TunnelInstallationProperty property : object.getTunnelInstallations())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, isCityGML3 ? "tunnelInstallation" : "hollowSpaceInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetTunnelInstallations()) {
+            for (TunnelInstallationProperty property : object.getTunnelInstallations())
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, isCityGML3 ? "tunnelInstallation" : "hollowSpaceInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfHollowSpace property : object.getADEProperties(ADEOfHollowSpace.class))
             ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfHollowSpace") : null, property, namespaces, writer);

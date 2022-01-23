@@ -53,6 +53,10 @@ public class TextureCoordinates extends GMLObject implements CityGMLObject {
         return value;
     }
 
+    public boolean isSetValue() {
+        return value != null && !value.isEmpty();
+    }
+
     public void setValue(List<Double> value) {
         this.value = value;
     }

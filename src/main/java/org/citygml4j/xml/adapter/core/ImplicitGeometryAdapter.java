@@ -110,8 +110,10 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
             if (object.getRelativeGeometry() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "relativeGeometry"), object.getRelativeGeometry(), GeometryPropertyAdapter.class, namespaces);
 
-            for (AbstractAppearanceProperty member : object.getAppearances())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
+            if (object.isSetAppearances()) {
+                for (AbstractAppearanceProperty member : object.getAppearances())
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
+            }
         } else {
             if (object.getMimeType() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);

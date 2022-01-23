@@ -100,11 +100,13 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
         if (isCityGML3 && object.getCodeSpace() != null)
             writer.writeElement(Element.of(genericsNamespace, "codeSpace").addTextContent(object.getCodeSpace()));
 
-        for (AbstractGenericAttributeProperty property : object.getValue()) {
-            if (isCityGML3)
-                writer.writeElementUsingSerializer(Element.of(genericsNamespace, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
-            else if (property.getObject() != null)
-                writer.writeObject(property.getObject(), namespaces);
+        if (object.isSetValue()) {
+            for (AbstractGenericAttributeProperty property : object.getValue()) {
+                if (isCityGML3)
+                    writer.writeElementUsingSerializer(Element.of(genericsNamespace, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
+                else if (property.getObject() != null)
+                    writer.writeObject(property.getObject(), namespaces);
+            }
         }
     }
 }

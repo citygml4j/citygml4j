@@ -59,6 +59,11 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -69,6 +74,11 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -83,6 +93,10 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         return tunnelConstructiveElements;
     }
 
+    public boolean isSetTunnelConstructiveElements() {
+        return tunnelConstructiveElements != null && !tunnelConstructiveElements.isEmpty();
+    }
+
     public void setTunnelConstructiveElements(List<TunnelConstructiveElementProperty> tunnelConstructiveElements) {
         this.tunnelConstructiveElements = asChild(tunnelConstructiveElements);
     }
@@ -92,6 +106,10 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
             tunnelInstallations = new ChildList<>(this);
 
         return tunnelInstallations;
+    }
+
+    public boolean isSetTunnelInstallations() {
+        return tunnelInstallations != null && !tunnelInstallations.isEmpty();
     }
 
     public void setTunnelInstallations(List<TunnelInstallationProperty> tunnelInstallations) {
@@ -105,6 +123,10 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         return hollowSpaces;
     }
 
+    public boolean isSetHollowSpaces() {
+        return hollowSpaces != null && !hollowSpaces.isEmpty();
+    }
+
     public void setHollowSpaces(List<HollowSpaceProperty> hollowSpaces) {
         this.hollowSpaces = asChild(hollowSpaces);
     }
@@ -114,6 +136,10 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
             tunnelFurniture = new ChildList<>(this);
 
         return tunnelFurniture;
+    }
+
+    public boolean isSetTunnelFurniture() {
+        return tunnelFurniture != null && !tunnelInstallations.isEmpty();
     }
 
     public void setTunnelFurniture(List<TunnelFurnitureProperty> tunnelFurniture) {
@@ -151,9 +177,11 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractTunnel properties = getDeprecatedProperties();
 
-            for (TunnelPartProperty property : properties.getConsistsOfTunnelParts()) {
-                if (property.getObject() != null)
-                    envelope.include(property.getObject().computeEnvelope(options));
+            if (properties.isSetConsistsOfTunnelParts()) {
+                for (TunnelPartProperty property : properties.getConsistsOfTunnelParts()) {
+                    if (property.getObject() != null)
+                        envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
 
             if (properties.getLod1MultiSurface() != null && properties.getLod1MultiSurface().getObject() != null)

@@ -93,17 +93,25 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
             if (object.getDateOfDemolition() != null)
                 writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "dateOfDemolition").addTextContent(TextContent.ofDate(OffsetDateTime.of(object.getDateOfDemolition(), LocalTime.MIN, ZoneOffset.UTC))));
 
-            for (ConstructionEventProperty property : object.getConstructionEvents())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "constructionEvent"), property, ConstructionEventPropertyAdapter.class, namespaces);
+            if (object.isSetConstructionEvents()) {
+                for (ConstructionEventProperty property : object.getConstructionEvents())
+                    writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "constructionEvent"), property, ConstructionEventPropertyAdapter.class, namespaces);
+            }
 
-            for (ElevationProperty property : object.getElevations())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "elevation"), property, ElevationPropertyAdapter.class, namespaces);
+            if (object.isSetElevations()) {
+                for (ElevationProperty property : object.getElevations())
+                    writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "elevation"), property, ElevationPropertyAdapter.class, namespaces);
+            }
 
-            for (HeightProperty property : object.getHeights())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "height"), property, HeightPropertyAdapter.class, namespaces);
+            if (object.isSetHeights()) {
+                for (HeightProperty property : object.getHeights())
+                    writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "height"), property, HeightPropertyAdapter.class, namespaces);
+            }
 
-            for (OccupancyProperty property : object.getOccupancies())
-                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
+            if (object.isSetOccupancies()) {
+                for (OccupancyProperty property : object.getOccupancies())
+                    writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "occupancy"), property, OccupancyPropertyAdapter.class, namespaces);
+            }
 
             for (ADEOfAbstractConstruction property : object.getADEProperties(ADEOfAbstractConstruction.class))
                 ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstruction"), property, namespaces, writer);

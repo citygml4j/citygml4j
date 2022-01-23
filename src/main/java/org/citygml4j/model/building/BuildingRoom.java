@@ -71,6 +71,11 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -81,6 +86,11 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -95,6 +105,10 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         return roomHeights;
     }
 
+    public boolean isSetRoomHeights() {
+        return roomHeights != null && !roomHeights.isEmpty();
+    }
+
     public void setRoomHeights(List<RoomHeightProperty> roomHeights) {
         this.roomHeights = asChild(roomHeights);
     }
@@ -106,6 +120,10 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
         return buildingFurniture;
     }
 
+    public boolean isSetBuildingFurniture() {
+        return buildingFurniture != null && !buildingFurniture.isEmpty();
+    }
+
     public void setBuildingFurniture(List<BuildingFurnitureProperty> buildingFurniture) {
         this.buildingFurniture = asChild(buildingFurniture);
     }
@@ -115,6 +133,10 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
             buildingInstallations = new ChildList<>(this);
 
         return buildingInstallations;
+    }
+
+    public boolean isSetBuildingInstallations() {
+        return buildingInstallations != null && !buildingInstallations.isEmpty();
     }
 
     public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {

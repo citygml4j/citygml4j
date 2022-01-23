@@ -47,6 +47,10 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
         return storeys;
     }
 
+    public boolean isSetStoreys() {
+        return storeys != null && !storeys.isEmpty();
+    }
+
     public void setStoreys(List<StoreyProperty> storeys) {
         this.storeys = asChild(storeys);
     }
@@ -56,6 +60,10 @@ public class BuildingUnit extends AbstractBuildingSubdivision {
             addresses = new ChildList<>(this);
 
         return addresses;
+    }
+
+    public boolean isSetAddresses() {
+        return addresses != null && !addresses.isEmpty();
     }
 
     public void setAddresses(List<AddressProperty> addresses) {

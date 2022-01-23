@@ -55,6 +55,11 @@ public class Track extends AbstractTransportationSpace implements TopLevelFeatur
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -65,6 +70,11 @@ public class Track extends AbstractTransportationSpace implements TopLevelFeatur
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -79,6 +89,10 @@ public class Track extends AbstractTransportationSpace implements TopLevelFeatur
         return sections;
     }
 
+    public boolean isSetSections() {
+        return sections != null && !sections.isEmpty();
+    }
+
     public void setSections(List<SectionProperty> sections) {
         this.sections = asChild(sections);
     }
@@ -88,6 +102,10 @@ public class Track extends AbstractTransportationSpace implements TopLevelFeatur
             intersections = new ChildList<>(this);
 
         return intersections;
+    }
+
+    public boolean isSetIntersections() {
+        return intersections != null && !intersections.isEmpty();
     }
 
     public void setIntersections(List<IntersectionProperty> intersections) {

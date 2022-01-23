@@ -34,6 +34,10 @@ public class DeprecatedPropertiesOfAbstractCityObject extends DeprecatedProperti
         return generalizesTo;
     }
 
+    public boolean isSetGeneralizesTo() {
+        return generalizesTo != null && !generalizesTo.isEmpty();
+    }
+
     public void setGeneralizesTo(List<AbstractCityObjectProperty> generalizesTo) {
         this.generalizesTo = asChild(generalizesTo);
     }

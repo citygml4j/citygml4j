@@ -34,6 +34,10 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
         return fillingSurfaces;
     }
 
+    public boolean isSetFillingSurfaces() {
+        return fillingSurfaces != null && !fillingSurfaces.isEmpty();
+    }
+
     public void setFillingSurfaces(List<AbstractFillingSurfaceProperty> fillingSurfaces) {
         this.fillingSurfaces = asChild(fillingSurfaces);
     }

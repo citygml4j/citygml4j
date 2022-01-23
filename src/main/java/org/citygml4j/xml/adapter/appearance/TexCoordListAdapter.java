@@ -100,17 +100,19 @@ public final class TexCoordListAdapter extends AbstractTextureParameterizationAd
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(appearanceNamespace);
 
-        for (TextureCoordinates textureCoordinates : object.getTextureCoordinates()) {
-            Element element = Element.of(appearanceNamespace, "textureCoordinates").addTextContent(TextContent.ofDoubleList(textureCoordinates.getValue()));
-            if (!isCityGML3)
-                element.addAttribute("ring", getRing(textureCoordinates));
+        if (object.isSetTextureCoordinates()) {
+            for (TextureCoordinates textureCoordinates : object.getTextureCoordinates()) {
+                Element element = Element.of(appearanceNamespace, "textureCoordinates").addTextContent(TextContent.ofDoubleList(textureCoordinates.getValue()));
+                if (!isCityGML3)
+                    element.addAttribute("ring", getRing(textureCoordinates));
 
-            writer.writeElement(element);
-        }
+                writer.writeElement(element);
+            }
 
-        if (isCityGML3) {
-            for (TextureCoordinates textureCoordinates : object.getTextureCoordinates())
-                writer.writeElement(Element.of(appearanceNamespace, "ring").addTextContent(getRing(textureCoordinates)));
+            if (isCityGML3) {
+                for (TextureCoordinates textureCoordinates : object.getTextureCoordinates())
+                    writer.writeElement(Element.of(appearanceNamespace, "ring").addTextContent(getRing(textureCoordinates)));
+            }
         }
     }
 

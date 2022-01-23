@@ -95,6 +95,10 @@ public class ImplicitGeometry extends AbstractGML implements CityGMLObject, Visi
         return appearances;
     }
 
+    public boolean isSetAppearances() {
+        return appearances != null && !appearances.isEmpty();
+    }
+
     public void setAppearances(List<AbstractAppearanceProperty> appearances) {
         this.appearances = asChild(appearances);
     }

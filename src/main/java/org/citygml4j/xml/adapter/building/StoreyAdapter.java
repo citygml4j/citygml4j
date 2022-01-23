@@ -72,8 +72,10 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
     public void writeChildElements(Storey object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (BuildingUnitProperty property : object.getBuildingUnits())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingUnit"), property, BuildingUnitPropertyAdapter.class, namespaces);
+        if (object.isSetBuildingUnits()) {
+            for (BuildingUnitProperty property : object.getBuildingUnits())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingUnit"), property, BuildingUnitPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfStorey property : object.getADEProperties(ADEOfStorey.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfStorey"), property, namespaces, writer);

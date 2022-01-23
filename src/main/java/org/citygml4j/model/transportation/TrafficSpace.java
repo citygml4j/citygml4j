@@ -75,6 +75,11 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -85,6 +90,11 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -115,6 +125,10 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         return occupancies;
     }
 
+    public boolean isSetOccupancies() {
+        return occupancies != null && !occupancies.isEmpty();
+    }
+
     public void setOccupancies(List<OccupancyProperty> occupancies) {
         this.occupancies = asChild(occupancies);
     }
@@ -124,6 +138,10 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
             predecessors = new ChildList<>(this);
 
         return predecessors;
+    }
+
+    public boolean isSetPredecessors() {
+        return predecessors != null && !predecessors.isEmpty();
     }
 
     public void setPredecessors(List<TrafficSpaceReference> predecessors) {
@@ -137,6 +155,10 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
         return successors;
     }
 
+    public boolean isSetSuccessors() {
+        return successors != null && !successors.isEmpty();
+    }
+
     public void setSuccessors(List<TrafficSpaceReference> successors) {
         this.successors = asChild(successors);
     }
@@ -146,6 +168,10 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
             clearanceSpaces = new ChildList<>(this);
 
         return clearanceSpaces;
+    }
+
+    public boolean isSetClearanceSpaces() {
+        return clearanceSpaces != null && !clearanceSpaces.isEmpty();
     }
 
     public void setClearanceSpaces(List<ClearanceSpaceProperty> clearanceSpaces) {

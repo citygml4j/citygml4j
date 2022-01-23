@@ -62,6 +62,11 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -72,6 +77,11 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -98,6 +108,10 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         return bridgeConstructiveElements;
     }
 
+    public boolean isSetBridgeConstructiveElements() {
+        return bridgeConstructiveElements != null && !bridgeConstructiveElements.isEmpty();
+    }
+
     public void setBridgeConstructiveElements(List<BridgeConstructiveElementProperty> bridgeConstructiveElements) {
         this.bridgeConstructiveElements = asChild(bridgeConstructiveElements);
     }
@@ -107,6 +121,10 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
             bridgeInstallations = new ChildList<>(this);
 
         return bridgeInstallations;
+    }
+
+    public boolean isSetBridgeInstallations() {
+        return bridgeInstallations != null && !bridgeInstallations.isEmpty();
     }
 
     public void setBridgeInstallations(List<BridgeInstallationProperty> bridgeInstallations) {
@@ -120,6 +138,10 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         return bridgeRooms;
     }
 
+    public boolean isSetBridgeRooms() {
+        return bridgeRooms != null && !bridgeRooms.isEmpty();
+    }
+
     public void setBridgeRooms(List<BridgeRoomProperty> bridgeRooms) {
         this.bridgeRooms = asChild(bridgeRooms);
     }
@@ -131,6 +153,10 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         return bridgeFurniture;
     }
 
+    public boolean isSetBridgeFurniture() {
+        return bridgeFurniture != null && !bridgeFurniture.isEmpty();
+    }
+
     public void setBridgeFurniture(List<BridgeFurnitureProperty> bridgeFurniture) {
         this.bridgeFurniture = asChild(bridgeFurniture);
     }
@@ -140,6 +166,10 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
             addresses = new ChildList<>(this);
 
         return addresses;
+    }
+
+    public boolean isSetAddresses() {
+        return addresses != null && !addresses.isEmpty();
     }
 
     public void setAddresses(List<AddressProperty> addresses) {
@@ -177,9 +207,11 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBridge properties = getDeprecatedProperties();
 
-            for (BridgePartProperty property : properties.getConsistsOfBridgeParts()) {
-                if (property.getObject() != null)
-                    envelope.include(property.getObject().computeEnvelope(options));
+            if (properties.isSetConsistsOfBridgeParts()) {
+                for (BridgePartProperty property : properties.getConsistsOfBridgeParts()) {
+                    if (property.getObject() != null)
+                        envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
 
             if (properties.getLod1MultiSurface() != null && properties.getLod1MultiSurface().getObject() != null)

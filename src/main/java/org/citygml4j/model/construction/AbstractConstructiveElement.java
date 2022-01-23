@@ -59,6 +59,10 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
         return fillings;
     }
 
+    public boolean isSetFillings() {
+        return fillings != null && !fillings.isEmpty();
+    }
+
     public void setFillings(List<AbstractFillingElementProperty> fillings) {
         this.fillings = asChild(fillings);
     }

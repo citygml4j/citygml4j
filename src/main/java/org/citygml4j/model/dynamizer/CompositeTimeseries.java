@@ -41,6 +41,10 @@ public class CompositeTimeseries extends AbstractTimeseries {
         return components;
     }
 
+    public boolean isSetComponents() {
+        return components != null && !components.isEmpty();
+    }
+
     public void setComponents(List<TimeseriesComponentProperty> components) {
         this.components = asChild(components);
     }

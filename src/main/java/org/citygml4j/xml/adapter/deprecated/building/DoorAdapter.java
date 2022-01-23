@@ -87,8 +87,10 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

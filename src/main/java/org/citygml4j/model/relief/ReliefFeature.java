@@ -55,6 +55,10 @@ public class ReliefFeature extends AbstractSpaceBoundary {
         return reliefComponents;
     }
 
+    public boolean isSetReliefComponents() {
+        return reliefComponents != null && !reliefComponents.isEmpty();
+    }
+
     public void setReliefComponents(List<AbstractReliefComponentProperty> reliefComponents) {
         this.reliefComponents = asChild(reliefComponents);
     }

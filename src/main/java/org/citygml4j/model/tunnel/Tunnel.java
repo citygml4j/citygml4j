@@ -37,6 +37,10 @@ public class Tunnel extends AbstractTunnel implements TopLevelFeature {
         return tunnelParts;
     }
 
+    public boolean isSetTunnelParts() {
+        return tunnelParts != null && !tunnelParts.isEmpty();
+    }
+
     public void setTunnelParts(List<TunnelPartProperty> tunnelParts) {
         this.tunnelParts = asChild(tunnelParts);
     }

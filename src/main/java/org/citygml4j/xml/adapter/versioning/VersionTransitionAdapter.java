@@ -104,8 +104,10 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
         if (object.getTo() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "to"), object.getTo(), VersionReferenceAdapter.class, namespaces);
 
-        for (TransactionProperty property : object.getTransactions())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "transaction"), property, TransactionPropertyAdapter.class, namespaces);
+        if (object.isSetTransactions()) {
+            for (TransactionProperty property : object.getTransactions())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "transaction"), property, TransactionPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfVersionTransition property : object.getADEProperties(ADEOfVersionTransition.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersionTransition"), property, namespaces, writer);

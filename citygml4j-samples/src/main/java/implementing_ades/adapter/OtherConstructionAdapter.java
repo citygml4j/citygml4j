@@ -63,7 +63,9 @@ public class OtherConstructionAdapter extends AbstractSiteAdapter<OtherConstruct
     public void writeChildElements(OtherConstruction object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-            writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        if (object.isSetBoundaries()) {
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(TestADEModule.TESTADE_NAMESPACE, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        }
     }
 }

@@ -63,6 +63,10 @@ public abstract class AbstractSpace extends AbstractCityObject {
         return volumes;
     }
 
+    public boolean isSetVolumes() {
+        return volumes != null && !volumes.isEmpty();
+    }
+
     public void setVolumes(List<QualifiedVolumeProperty> volumes) {
         this.volumes = asChild(volumes);
     }
@@ -72,6 +76,10 @@ public abstract class AbstractSpace extends AbstractCityObject {
             areas = new ChildList<>(this);
 
         return areas;
+    }
+
+    public boolean isSetAreas() {
+        return areas != null && !areas.isEmpty();
     }
 
     public void setAreas(List<QualifiedAreaProperty> areas) {
@@ -87,6 +95,10 @@ public abstract class AbstractSpace extends AbstractCityObject {
             boundaries = new ChildList<>(this);
 
         return boundaries;
+    }
+
+    public boolean isSetBoundaries() {
+        return boundaries != null && !boundaries.isEmpty();
     }
 
     public void setBoundaries(List<AbstractSpaceBoundaryProperty> boundaries) {

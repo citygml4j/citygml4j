@@ -57,6 +57,11 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -70,6 +75,11 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
     }
 
     @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
+    }
+
+    @Override
     public void setUsages(List<Code> usages) {
         this.usages = asChild(usages);
     }
@@ -79,6 +89,10 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
             elevations = new ChildList<>(this);
 
         return elevations;
+    }
+
+    public boolean isSetElevations() {
+        return elevations != null && !elevations.isEmpty();
     }
 
     public void setElevations(List<ElevationProperty> elevations) {
@@ -100,6 +114,10 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         return buildingConstructiveElements;
     }
 
+    public boolean isSetBuildingConstructiveElements() {
+        return buildingConstructiveElements != null && !buildingConstructiveElements.isEmpty();
+    }
+
     public void setBuildingConstructiveElements(List<BuildingConstructiveElementProperty> buildingConstructiveElements) {
         this.buildingConstructiveElements = asChild(buildingConstructiveElements);
     }
@@ -109,6 +127,10 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
             buildingFurniture = new ChildList<>(this);
 
         return buildingFurniture;
+    }
+
+    public boolean isSetBuildingFurniture() {
+        return buildingFurniture != null && !buildingFurniture.isEmpty();
     }
 
     public void setBuildingFurniture(List<BuildingFurnitureProperty> buildingFurniture) {
@@ -122,6 +144,10 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
         return buildingInstallations;
     }
 
+    public boolean isSetBuildingInstallations() {
+        return buildingInstallations != null && !buildingInstallations.isEmpty();
+    }
+
     public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {
         this.buildingInstallations = asChild(buildingInstallations);
     }
@@ -131,6 +157,10 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
             buildingRooms = new ChildList<>(this);
 
         return buildingRooms;
+    }
+
+    public boolean isSetBuildingRooms() {
+        return buildingRooms != null && !buildingRooms.isEmpty();
     }
 
     public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {

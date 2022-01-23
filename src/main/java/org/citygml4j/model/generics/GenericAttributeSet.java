@@ -44,6 +44,11 @@ public class GenericAttributeSet extends AbstractGenericAttribute<List<AbstractG
     }
 
     @Override
+    public boolean isSetValue() {
+        return super.isSetValue() && !super.getValue().isEmpty();
+    }
+
+    @Override
     public void setValue(List<AbstractGenericAttributeProperty> value) {
         super.setValue(asChild(value));
     }

@@ -77,11 +77,15 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
     public void writeChildElements(BuildingUnit object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (StoreyProperty property : object.getStoreys())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storey"), property, StoreyPropertyAdapter.class, namespaces);
+        if (object.isSetStoreys()) {
+            for (StoreyProperty property : object.getStoreys())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "storey"), property, StoreyPropertyAdapter.class, namespaces);
+        }
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfBuildingUnit property : object.getADEProperties(ADEOfBuildingUnit.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingUnit"), property, namespaces, writer);

@@ -64,6 +64,10 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         return occupancies;
     }
 
+    public boolean isSetOccupancies() {
+        return occupancies != null && !occupancies.isEmpty();
+    }
+
     public void setOccupancies(List<OccupancyProperty> occupancies) {
         this.occupancies = asChild(occupancies);
     }
@@ -73,6 +77,10 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
             trafficSpaces = new ChildList<>(this);
 
         return trafficSpaces;
+    }
+
+    public boolean isSetTrafficSpaces() {
+        return trafficSpaces != null && !trafficSpaces.isEmpty();
     }
 
     public void setTrafficSpaces(List<TrafficSpaceProperty> trafficSpaces) {
@@ -86,6 +94,10 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         return auxiliaryTrafficSpaces;
     }
 
+    public boolean isSetAuxiliaryTrafficSpaces() {
+        return auxiliaryTrafficSpaces != null && !auxiliaryTrafficSpaces.isEmpty();
+    }
+
     public void setAuxiliaryTrafficSpaces(List<AuxiliaryTrafficSpaceProperty> auxiliaryTrafficSpaces) {
         this.auxiliaryTrafficSpaces = asChild(auxiliaryTrafficSpaces);
     }
@@ -97,6 +109,10 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
         return holes;
     }
 
+    public boolean isSetHoles() {
+        return holes != null && !holes.isEmpty();
+    }
+
     public void setHoles(List<HoleProperty> holes) {
         this.holes = asChild(holes);
     }
@@ -106,6 +122,10 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
             markings = new ChildList<>(this);
 
         return markings;
+    }
+
+    public boolean isSetMarkings() {
+        return markings != null && !markings.isEmpty();
     }
 
     public void setMarkings(List<MarkingProperty> markings) {

@@ -62,6 +62,11 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements T
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -72,6 +77,11 @@ public class GenericUnoccupiedSpace extends AbstractUnoccupiedSpace implements T
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override

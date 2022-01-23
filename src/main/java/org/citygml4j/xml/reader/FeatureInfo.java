@@ -110,4 +110,13 @@ public class FeatureInfo {
         else
             return Collections.emptyList();
     }
+
+    public boolean isSetAppearances() {
+        if (feature instanceof AbstractCityObject)
+            return ((AbstractCityObject) feature).isSetAppearances();
+        else if (feature instanceof CityModel)
+            return ((CityModel) feature).isSetAppearanceMembers();
+        else
+            return false;
+    }
 }

@@ -70,6 +70,11 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -80,6 +85,11 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -94,6 +104,10 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
         return tunnelFurniture;
     }
 
+    public boolean isSetTunnelFurniture() {
+        return tunnelFurniture != null && !tunnelInstallations.isEmpty();
+    }
+
     public void setTunnelFurniture(List<TunnelFurnitureProperty> tunnelFurniture) {
         this.tunnelFurniture = asChild(tunnelFurniture);
     }
@@ -103,6 +117,10 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
             tunnelInstallations = new ChildList<>(this);
 
         return tunnelInstallations;
+    }
+
+    public boolean isSetTunnelInstallations() {
+        return tunnelInstallations != null && !tunnelInstallations.isEmpty();
     }
 
     public void setTunnelInstallations(List<TunnelInstallationProperty> tunnelInstallations) {

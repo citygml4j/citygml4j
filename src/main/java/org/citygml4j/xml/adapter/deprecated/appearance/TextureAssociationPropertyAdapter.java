@@ -51,8 +51,10 @@ public class TextureAssociationPropertyAdapter extends AbstractInlinePropertyAda
     public void buildChildObject(TextureAssociationProperty object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         AbstractTextureParameterization textureParameterization = reader.getObject(AbstractTextureParameterization.class);
         object.getObject().setTextureParameterization(new AbstractTextureParameterizationProperty(textureParameterization));
-        if (textureParameterization.getLocalProperties().contains(DeprecatedProperties.GML_ID))
+        if (textureParameterization.hasLocalProperties()
+                && textureParameterization.getLocalProperties().contains(DeprecatedProperties.GML_ID)) {
             object.getObject().setId(textureParameterization.getLocalProperties().get(DeprecatedProperties.GML_ID, String.class));
+        }
     }
 
     @Override

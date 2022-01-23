@@ -68,6 +68,11 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
     }
 
     @Override
+    public boolean isSetFunctions() {
+        return functions != null && !functions.isEmpty();
+    }
+
+    @Override
     public void setFunctions(List<Code> functions) {
         this.functions = asChild(functions);
     }
@@ -78,6 +83,11 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
             usages = new ChildList<>(this);
 
         return usages;
+    }
+
+    @Override
+    public boolean isSetUsages() {
+        return usages != null && !usages.isEmpty();
     }
 
     @Override
@@ -132,6 +142,10 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         return buildingConstructiveElements;
     }
 
+    public boolean isSetBuildingConstructiveElements() {
+        return buildingConstructiveElements != null && !buildingConstructiveElements.isEmpty();
+    }
+
     public void setBuildingConstructiveElements(List<BuildingConstructiveElementProperty> buildingConstructiveElements) {
         this.buildingConstructiveElements = asChild(buildingConstructiveElements);
     }
@@ -141,6 +155,10 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
             buildingInstallations = new ChildList<>(this);
 
         return buildingInstallations;
+    }
+
+    public boolean isSetBuildingInstallations() {
+        return buildingInstallations != null && !buildingInstallations.isEmpty();
     }
 
     public void setBuildingInstallations(List<BuildingInstallationProperty> buildingInstallations) {
@@ -154,6 +172,10 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         return buildingRooms;
     }
 
+    public boolean isSetBuildingRooms() {
+        return buildingRooms != null && !buildingRooms.isEmpty();
+    }
+
     public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {
         this.buildingRooms = asChild(buildingRooms);
     }
@@ -163,6 +185,10 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
             buildingFurniture = new ChildList<>(this);
 
         return buildingFurniture;
+    }
+
+    public boolean isSetBuildingFurniture() {
+        return buildingFurniture != null && !buildingFurniture.isEmpty();
     }
 
     public void setBuildingFurniture(List<BuildingFurnitureProperty> buildingFurniture) {
@@ -176,6 +202,10 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         return buildingSubdivisions;
     }
 
+    public boolean isSetBuildingSubdivisions() {
+        return buildingSubdivisions != null && !buildingSubdivisions.isEmpty();
+    }
+
     public void setBuildingSubdivisions(List<AbstractBuildingSubdivisionProperty> buildingSubdivisions) {
         this.buildingSubdivisions = asChild(buildingSubdivisions);
     }
@@ -185,6 +215,10 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
             addresses = new ChildList<>(this);
 
         return addresses;
+    }
+
+    public boolean isSetAddresses() {
+        return addresses != null && !addresses.isEmpty();
     }
 
     public void setAddresses(List<AddressProperty> addresses) {
@@ -229,9 +263,11 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfAbstractBuilding properties = getDeprecatedProperties();
 
-            for (BuildingPartProperty property : properties.getConsistsOfBuildingParts()) {
-                if (property.getObject() != null)
-                    envelope.include(property.getObject().computeEnvelope(options));
+            if (properties.isSetConsistsOfBuildingParts()) {
+                for (BuildingPartProperty property : properties.getConsistsOfBuildingParts()) {
+                    if (property.getObject() != null)
+                        envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
 
             if (properties.getLod0RoofEdge() != null && properties.getLod0RoofEdge().getObject() != null)

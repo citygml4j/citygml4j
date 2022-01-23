@@ -83,8 +83,10 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (QualifiedAreaProperty property : object.getAreas())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "area"), property, QualifiedAreaPropertyAdapter.class, namespaces);
+            if (object.isSetAreas()) {
+                for (QualifiedAreaProperty property : object.getAreas())
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "area"), property, QualifiedAreaPropertyAdapter.class, namespaces);
+            }
 
             if (object.getLod0MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod0MultiCurve"), object.getLod0MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);

@@ -72,8 +72,10 @@ public class CityObjectRelationAdapter extends AbstractGMLAdapter<CityObjectRela
     public void writeChildElements(CityObjectRelation object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (AbstractGenericAttributeProperty property : object.getGenericAttributes())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
+        if (object.isSetGenericAttributes()) {
+            for (AbstractGenericAttributeProperty property : object.getGenericAttributes())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "genericAttribute"), property, AbstractGenericAttributePropertyAdapter.class, namespaces);
+        }
 
         if (object.getRelationType() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "relationType"), object.getRelationType(), CodeAdapter.class, namespaces);

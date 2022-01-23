@@ -195,8 +195,10 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
             if (properties != null && properties.getLod4ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            if (object.isSetBoundaries()) {
+                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                    writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            }
         }
 
         for (ADEOfBridgeConstructiveElement property : object.getADEProperties(ADEOfBridgeConstructiveElement.class))

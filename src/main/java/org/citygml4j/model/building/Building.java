@@ -37,6 +37,10 @@ public class Building extends AbstractBuilding implements TopLevelFeature {
         return buildingParts;
     }
 
+    public boolean isSetBuildingParts() {
+        return buildingParts != null && !buildingParts.isEmpty();
+    }
+
     public void setBuildingParts(List<BuildingPartProperty> buildingParts) {
         this.buildingParts = asChild(buildingParts);
     }

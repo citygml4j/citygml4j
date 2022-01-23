@@ -53,10 +53,15 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
 
     @Override
     public void buildChildObject(DoorSurface object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI()))
+        if (CityGMLBuilderHelper.isTunnelNamespace(name.getNamespaceURI()) && "address".equals(name.getLocalPart())) {
+            object.getAddresses().add(reader.getObjectUsingBuilder(AddressPropertyAdapter.class));
+            return;
+        } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
             buildADEProperty(object, name, reader);
-        else
-            super.buildChildObject(object, name, attributes, reader);
+            return;
+        }
+
+        super.buildChildObject(object, name, attributes, reader);
     }
 
     @Override
@@ -75,8 +80,10 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
         super.writeChildElements(object, namespaces, writer);
         String tunnelNamespace = CityGMLSerializerHelper.getTunnelNamespace(namespaces);
 
-        for (AddressProperty property : object.getAddresses())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        if (object.isSetAddresses()) {
+            for (AddressProperty property : object.getAddresses())
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

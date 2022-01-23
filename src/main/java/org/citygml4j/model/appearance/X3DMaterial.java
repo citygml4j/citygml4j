@@ -128,6 +128,10 @@ public class X3DMaterial extends AbstractSurfaceData {
         return targets;
     }
 
+    public boolean isSetTargets() {
+        return targets != null && !targets.isEmpty();
+    }
+
     public void setTargets(List<GeometryReference> targets) {
         this.targets = asChild(targets);
     }

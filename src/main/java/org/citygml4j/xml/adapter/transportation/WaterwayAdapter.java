@@ -83,11 +83,15 @@ public class WaterwayAdapter extends AbstractTransportationSpaceAdapter<Waterway
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, namespaces, writer);
 
-        for (SectionProperty property : object.getSections())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "section"), property, SectionPropertyAdapter.class, namespaces);
+        if (object.isSetSections()) {
+            for (SectionProperty property : object.getSections())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "section"), property, SectionPropertyAdapter.class, namespaces);
+        }
 
-        for (IntersectionProperty property : object.getIntersections())
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
+        if (object.isSetIntersections()) {
+            for (IntersectionProperty property : object.getIntersections())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfWaterway property : object.getADEProperties(ADEOfWaterway.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfWaterway"), property, namespaces, writer);

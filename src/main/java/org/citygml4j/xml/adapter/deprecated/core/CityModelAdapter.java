@@ -113,17 +113,21 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
         super.writeChildElements(object, namespaces, writer);
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
-        for (AbstractCityObjectProperty property : object.getCityObjectMembers())
-            writer.writeElementUsingSerializer(Element.of(coreNamespace, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
+        if (object.isSetCityObjectMembers()) {
+            for (AbstractCityObjectProperty property : object.getCityObjectMembers())
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "cityObjectMember"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
+        }
 
-        if (!object.getAppearanceMembers().isEmpty()) {
+        if (object.isSetAppearanceMembers()) {
             String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
             for (AbstractAppearanceProperty property : object.getAppearanceMembers())
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "appearanceMember"), property, AbstractAppearancePropertyAdapter.class, namespaces);
         }
 
-        for (AbstractFeatureProperty property : object.getFeatureMembers())
-            writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
+        if (object.isSetFeatureMembers()) {
+            for (AbstractFeatureProperty property : object.getFeatureMembers())
+                writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

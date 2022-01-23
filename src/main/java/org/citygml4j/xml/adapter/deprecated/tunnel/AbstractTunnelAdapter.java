@@ -183,15 +183,19 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         if (object.getLod2TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod2TerrainIntersection"), object.getLod2TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (TunnelInstallationProperty property : object.getTunnelInstallations()) {
-            if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
-            else
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+        if (object.isSetTunnelInstallations()) {
+            for (TunnelInstallationProperty property : object.getTunnelInstallations()) {
+                if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "outerTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+                else
+                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorTunnelInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
+            }
         }
 
-        for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        if (object.isSetBoundaries()) {
+            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+        }
 
         if (object.getLod3Solid() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod3Solid"), object.getLod3Solid(), SolidPropertyAdapter.class, namespaces);
@@ -217,15 +221,20 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
         if (properties != null && properties.getLod4TerrainIntersectionCurve() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4TerrainIntersection"), properties.getLod4TerrainIntersectionCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (HollowSpaceProperty property : object.getHollowSpaces())
-            writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorHollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
-
-        if (object instanceof Tunnel) {
-            for (TunnelPartProperty property : ((Tunnel) object).getTunnelParts())
-                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
+        if (object.isSetHollowSpaces()) {
+            for (HollowSpaceProperty property : object.getHollowSpaces())
+                writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorHollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
         }
 
-        if (properties != null) {
+        if (object instanceof Tunnel) {
+            Tunnel tunnel = (Tunnel) object;
+            if (tunnel.isSetTunnelParts()) {
+                for (TunnelPartProperty property : tunnel.getTunnelParts())
+                    writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
+            }
+        }
+
+        if (properties != null && properties.isSetConsistsOfTunnelParts()) {
             for (TunnelPartProperty property : properties.getConsistsOfTunnelParts())
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
         }

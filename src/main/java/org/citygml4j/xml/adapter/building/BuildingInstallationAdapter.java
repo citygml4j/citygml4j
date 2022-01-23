@@ -175,8 +175,10 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
             if (properties != null && properties.getLod4ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            if (object.isSetBoundaries()) {
+                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+            }
         }
 
         for (ADEOfBuildingInstallation property : object.getADEProperties(ADEOfBuildingInstallation.class))

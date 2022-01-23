@@ -33,6 +33,10 @@ public class TexCoordList extends AbstractTextureParameterization {
         return textureCoordinates;
     }
 
+    public boolean isSetTextureCoordinates() {
+        return textureCoordinates != null && !textureCoordinates.isEmpty();
+    }
+
     public void setTextureCoordinates(List<TextureCoordinates> textureCoordinates) {
         this.textureCoordinates = asChild(textureCoordinates);
     }

@@ -50,7 +50,7 @@ public abstract class AbstractTextureParameterizationAdapter<T extends AbstractT
 
     @Override
     public void initializeElement(Element element, T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        if (!namespaces.contains(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE))
+        if (object.hasLocalProperties() && !namespaces.contains(CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE))
             element.addAttribute(GMLSerializerHelper.getGMLBaseNamespace(namespaces), "id", object.getLocalProperties().get(DeprecatedProperties.GML_ID, String.class));
     }
 }
