@@ -222,6 +222,9 @@ public class DefaultReferenceResolver implements ReferenceResolver {
             public void visit(AbstractGML object) {
                 if (storeRefereesWithReferencedObject && object.hasLocalProperties()) {
                     object.getLocalProperties().remove(Referees.PROPERTY_NAME);
+                    if (object.getLocalProperties().isEmpty()) {
+                        object.setLocalProperties(null);
+                    }
                 }
 
                 super.visit(object);
