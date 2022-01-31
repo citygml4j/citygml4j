@@ -1,6 +1,22 @@
 Change Log
 ==========
 
+### 2.12.0 - 2022-01-31
+
+##### Changes
+* Calculation of bounding boxes for implicit geometries now always uses the reference point as fallback value.
+As a consequence, the `BoundingBoxOptions` interface has been slightly changed.
+
+##### Additions
+* Added option to set the fallback theme when writing CityJSON files.
+* Added option to use CityGML default values for X3DMaterial properties when writing CityJSON files. [citygml-tools #24](https://github.com/citygml4j/citygml-tools/issues/24)
+
+##### Fixes
+* Fixed bug when collecting the boundary surfaces for the `"semantics"` property in CityJSON.
+* Only process CityJSON `"semantics"` for geometries with LoD > 1 when converting to CityGML.
+* Avoid empty CityGML boundary surfaces for unreferenced semantic surfaces in CityJSON.
+* Avoid duplicate `"materials"` when writing CityJSON files.
+
 ### 2.11.4 - 2021-09-25
 
 ##### Additions
