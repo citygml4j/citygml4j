@@ -143,8 +143,10 @@ publishing {
     }
 }
 
-signing {
-    sign publishing.publications.mavenJava
+if (!project.hasProperty("skip.signing")) {
+    signing {
+        sign publishing.publications.mavenJava
+    }
 }
 
 nexusPublishing {
