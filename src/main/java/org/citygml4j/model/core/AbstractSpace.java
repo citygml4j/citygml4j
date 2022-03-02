@@ -107,9 +107,13 @@ public abstract class AbstractSpace extends AbstractCityObject {
             this.boundaries.removeIf(property -> !isValidBoundary(property));
     }
 
-    public void addBoundary(AbstractSpaceBoundaryProperty property) {
-        if (isValidBoundary(property))
+    public boolean addBoundary(AbstractSpaceBoundaryProperty property) {
+        if (isValidBoundary(property)) {
             getBoundaries().add(property);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public PointProperty getLod0Point() {

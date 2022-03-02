@@ -44,8 +44,18 @@ public class ImplicitGeometry extends AbstractGML implements CityGMLObject, Visi
     public ImplicitGeometry() {
     }
 
-    public ImplicitGeometry(TransformationMatrix4x4 transformationMatrix) {
+    public ImplicitGeometry(GeometryProperty<?> relativeGeometry) {
+        setRelativeGeometry(relativeGeometry);
+    }
+
+    public ImplicitGeometry(GeometryProperty<?> relativeGeometry, PointProperty referencePoint, TransformationMatrix4x4 transformationMatrix) {
+        this(relativeGeometry);
+        setReferencePoint(referencePoint);
         setTransformationMatrix(transformationMatrix);
+    }
+
+    public ImplicitGeometry(String libraryObject) {
+        this.libraryObject = libraryObject;
     }
 
     public TransformationMatrix4x4 getTransformationMatrix() {

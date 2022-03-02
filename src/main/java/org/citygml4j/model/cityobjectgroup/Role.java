@@ -32,6 +32,10 @@ public class Role extends AbstractGML implements CityGMLObject, VisitableObject 
     public Role() {
     }
 
+    public Role(AbstractCityObjectReference groupMember) {
+        setGroupMember(groupMember);
+    }
+
     public Role(String role, AbstractCityObjectReference groupMember) {
         this.role = role;
         setGroupMember(groupMember);
