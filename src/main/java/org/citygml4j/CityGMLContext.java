@@ -19,9 +19,10 @@
 
 package org.citygml4j;
 
-import org.citygml4j.ade.ADE;
 import org.citygml4j.ade.ADEException;
+import org.citygml4j.ade.ADERegistry;
 import org.citygml4j.model.CityGMLVersion;
+import org.citygml4j.xml.ade.CityGMLADE;
 import org.citygml4j.xml.module.ade.ADEModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -42,18 +43,22 @@ public class CityGMLContext {
         try {
             xmlObjects = XMLObjects.newInstance(classLoader);
 
-            // load ADE objects registered with the ADE registry
             ADERegistry registry = ADERegistry.getInstance();
-            for (ADE ade : registry.getADEs()) {
-                if (ade.getClass().getClassLoader() != classLoader)
+            CityGMLADELoader loader = CityGMLADELoader.getInstance();
+            registry.registerADELoader(loader, CityGMLADE.class);
+
+            // load ADE objects registered with the ADE registry
+            for (CityGMLADE ade : registry.getADEs(CityGMLADE.class)) {
+                if (ade.getClass().getClassLoader() != classLoader) {
                     loadADE(ade);
+                }
             }
 
             // unload ADE objects available from the class loader
             // but not registered with the ADE registry
             removeUnregisteredADEObjects();
 
-            registry.addListener(this);
+            loader.addListener(this);
         } catch (XMLObjectsException | ADEException e) {
             throw new CityGMLContextException("Failed to instantiate XML objects.", e);
         }
@@ -80,13 +85,14 @@ public class CityGMLContext {
     }
 
     public CityGMLSchemaHandler getDefaultSchemaHandler() throws SchemaHandlerException {
-        if (schemaHandler == null)
+        if (schemaHandler == null) {
             schemaHandler = CityGMLSchemaHandler.newInstance();
+        }
 
         return schemaHandler;
     }
 
-    void loadADE(ADE ade) throws ADEException {
+    void loadADE(CityGMLADE ade) throws ADEException {
         try {
             loadADEObjects(ade.getClass().getClassLoader());
         } catch (XMLObjectsException e) {
@@ -94,9 +100,10 @@ public class CityGMLContext {
         }
     }
 
-    void unloadADE(ADE ade) {
-        for (ADEModule module : ade.getADEModules())
+    void unloadADE(CityGMLADE ade) {
+        for (ADEModule module : ade.getADEModules()) {
             unloadADEObjects(module.getNamespaceURI());
+        }
     }
 
     private void loadADEObjects(ClassLoader classLoader) throws XMLObjectsException {
@@ -111,7 +118,7 @@ public class CityGMLContext {
     }
 
     private void removeUnregisteredADEObjects() {
-        Set<String> adeNamespaces = ADERegistry.getInstance().getADENamespaces();
+        Set<String> adeNamespaces = CityGMLADELoader.getInstance().getADENamespaces();
         for (String namespaceURI : xmlObjects.getSerializableNamespaces()) {
             if (!CityGMLModules.isCityGMLNamespace(namespaceURI)
                     && !CityGMLModules.isGMLNamespace(namespaceURI)

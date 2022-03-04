@@ -19,8 +19,8 @@
 
 package org.citygml4j.visitor;
 
-import org.citygml4j.ADERegistry;
 import org.citygml4j.ade.ADE;
+import org.citygml4j.ade.ADERegistry;
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.ade.ADEProperty;
 import org.citygml4j.model.appearance.*;

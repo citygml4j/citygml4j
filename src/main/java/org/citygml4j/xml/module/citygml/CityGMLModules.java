@@ -19,7 +19,7 @@
 
 package org.citygml4j.xml.module.citygml;
 
-import org.citygml4j.ADERegistry;
+import org.citygml4j.CityGMLADELoader;
 import org.citygml4j.model.CityGMLVersion;
 import org.citygml4j.xml.module.Module;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
@@ -148,14 +148,14 @@ public class CityGMLModules {
 
     public List<Module> getModules() {
         List<Module> modules = new ArrayList<>(this.modules.values());
-        modules.addAll(ADERegistry.getInstance().getADEModules(version));
+        modules.addAll(CityGMLADELoader.getInstance().getADEModules(version));
         return modules;
     }
 
     public Module getModule(String namespaceURI) {
         Module module = modules.get(namespaceURI);
         if (module == null)
-            module = ADERegistry.getInstance().getADEModule(namespaceURI, version);
+            module = CityGMLADELoader.getInstance().getADEModule(namespaceURI, version);
 
         return module;
     }

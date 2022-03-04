@@ -22,7 +22,7 @@ package org.citygml4j.xml.reader;
 import com.sun.xml.xsom.XSAttributeDecl;
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSSchemaSet;
-import org.citygml4j.ADERegistry;
+import org.citygml4j.CityGMLADELoader;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.model.core.AbstractFeature;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
@@ -69,7 +69,7 @@ public class CityGMLChunkReader extends CityGMLReader {
         this.context = context;
 
         streamReader = reader.getStreamReader();
-        adeNamespaces = ADERegistry.getInstance().getADENamespaces();
+        adeNamespaces = CityGMLADELoader.getInstance().getADENamespaces();
     }
 
     @Override

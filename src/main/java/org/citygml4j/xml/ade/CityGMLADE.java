@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,26 +17,13 @@
  * limitations under the License.
  */
 
-package implementing_ades;
+package org.citygml4j.xml.ade;
 
-import implementing_ades.module.TestADEModule;
-import implementing_ades.walker.TestADEWalker;
-import org.citygml4j.visitor.ADEWalker;
-import org.citygml4j.xml.ade.CityGMLADE;
+import org.citygml4j.ade.ADE;
 import org.citygml4j.xml.module.ade.ADEModule;
 
-import java.util.Collections;
 import java.util.List;
 
-public class TestADE implements CityGMLADE {
-
-    @Override
-    public List<ADEModule> getADEModules() {
-        return Collections.singletonList(new TestADEModule());
-    }
-
-    @Override
-    public ADEWalker getADEWalker() {
-        return new TestADEWalker();
-    }
+public interface CityGMLADE extends ADE {
+    List<ADEModule> getADEModules();
 }

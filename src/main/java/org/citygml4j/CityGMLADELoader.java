@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,40 +19,30 @@
 
 package org.citygml4j;
 
-import org.atteo.classindex.ClassFilter;
-import org.atteo.classindex.ClassIndex;
-import org.citygml4j.ade.ADE;
 import org.citygml4j.ade.ADEException;
+import org.citygml4j.ade.ADELoader;
 import org.citygml4j.model.CityGMLVersion;
+import org.citygml4j.xml.ade.CityGMLADE;
 import org.citygml4j.xml.module.ade.ADEModule;
 
-import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class ADERegistry {
-    private static ADERegistry instance;
-    private final Map<String, ADE> ades = new ConcurrentHashMap<>();
+public class CityGMLADELoader extends ADELoader<CityGMLADE> {
+    private static CityGMLADELoader instance;
     private final Map<CityGMLVersion, Map<String, ADEModule>> modules = new ConcurrentHashMap<>();
     private final Map<CityGMLContext, Boolean> listeners = Collections.synchronizedMap(new WeakHashMap<>());
 
-    private ADERegistry() {
+    private CityGMLADELoader() {
     }
 
-    public static synchronized ADERegistry getInstance() {
-        if (instance == null)
-            instance = new ADERegistry();
+    public static synchronized CityGMLADELoader getInstance() {
+        if (instance == null) {
+            instance = new CityGMLADELoader();
+        }
 
         return instance;
-    }
-
-    public boolean hasADEs() {
-        return !ades.isEmpty();
-    }
-
-    public List<ADE> getADEs() {
-        return new ArrayList<>(ades.values());
     }
 
     public List<ADEModule> getADEModules() {
@@ -69,8 +59,9 @@ public class ADERegistry {
     public ADEModule getADEModule(String namespaceURI) {
         for (Map<String, ADEModule> value : modules.values()) {
             ADEModule module = value.get(namespaceURI);
-            if (module != null)
+            if (module != null) {
                 return module;
+            }
         }
 
         return null;
@@ -87,17 +78,21 @@ public class ADERegistry {
                 .collect(Collectors.toSet());
     }
 
-    public void loadADE(ADE ade) throws ADEException {
+    @Override
+    protected void loadADE(CityGMLADE ade) throws ADEException {
         List<ADEModule> modules = ade.getADEModules();
-        if (modules == null || modules.isEmpty())
-            throw new ADEException("No ADE module defined for the ADE " + ade.getClass().getName() + ".");
+        if (modules == null || modules.isEmpty()) {
+            throw new ADEException("No ADE modules defined for the ADE " + ade.getClass().getName() + ".");
+        }
 
         for (ADEModule module : modules) {
-            if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty())
+            if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty()) {
                 throw new ADEException("The ADE " + ade.getClass().getName() + " defines an ADE module without a namespace URI.");
+            }
 
-            if (module.getCityGMLVersion() == null)
+            if (module.getCityGMLVersion() == null) {
                 throw new ADEException("The ADE " + ade.getClass().getName() + " defines an ADE module without a CityGML version.");
+            }
 
             if (this.modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).get(module.getNamespaceURI()) != null) {
                 throw new ADEException("An ADE module has already been registered for the namespace '" + module.getNamespaceURI() +
@@ -107,51 +102,18 @@ public class ADERegistry {
             this.modules.computeIfAbsent(module.getCityGMLVersion(), v -> new ConcurrentHashMap<>()).put(module.getNamespaceURI(), module);
         }
 
-        for (CityGMLContext listener : listeners.keySet())
+        for (CityGMLContext listener : listeners.keySet()) {
             listener.loadADE(ade);
-
-        ades.put(ade.getClass().getName(), ade);
-    }
-
-    public void loadADE(Class<? extends ADE> type) throws ADEException {
-        ADE ade;
-        try {
-            ade = type.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            throw new ADEException("The ADE " + type.getName() + " lacks a default constructor.", e);
-        }
-
-        loadADE(ade);
-    }
-
-    public void loadADEs(ClassLoader classLoader) throws ADEException {
-        for (Class<? extends ADE> type : ClassFilter.only()
-                .withoutModifiers(Modifier.ABSTRACT)
-                .from(ClassIndex.getSubclasses(ADE.class, classLoader))) {
-            loadADE(type);
         }
     }
 
-    public void unloadADE(Class<? extends ADE> type) {
-        ADE ade = ades.remove(type.getName());
-        if (ade != null) {
-            for (ADEModule module : ade.getADEModules())
-                modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).remove(module.getNamespaceURI());
-
-            listeners.keySet().forEach(v -> v.unloadADE(ade));
+    @Override
+    protected void unloadADE(CityGMLADE ade) throws ADEException {
+        for (ADEModule module : ade.getADEModules()) {
+            modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).remove(module.getNamespaceURI());
         }
-    }
 
-    public void unloadADE(ADE ade) {
-        unloadADE(ade.getClass());
-    }
-
-    public void unloadADEs(ClassLoader classLoader) {
-        for (Class<? extends ADE> type : ClassFilter.only()
-                .withoutModifiers(Modifier.ABSTRACT)
-                .from(ClassIndex.getSubclasses(ADE.class, classLoader))) {
-            unloadADE(type);
-        }
+        listeners.keySet().forEach(v -> v.unloadADE(ade));
     }
 
     void addListener(CityGMLContext context) {

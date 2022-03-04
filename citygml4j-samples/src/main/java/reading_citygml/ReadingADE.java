@@ -21,9 +21,10 @@ package reading_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.ADERegistry;
+import org.citygml4j.CityGMLADELoader;
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.ade.ADE;
+import org.citygml4j.ade.ADERegistry;
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractFeature;
@@ -46,7 +47,7 @@ public class ReadingADE {
         for (ADE ade : ServiceLoader.load(ADE.class))
             adeRegistry.loadADE(ade);
 
-        for (ADEModule module : adeRegistry.getADEModules()) {
+        for (ADEModule module : CityGMLADELoader.getInstance().getADEModules()) {
             log.print("Loaded ADE module for namespace " + module.getNamespaceURI() +
                     " and CityGML version " + module.getCityGMLVersion());
         }

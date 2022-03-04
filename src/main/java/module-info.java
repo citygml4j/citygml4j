@@ -69,6 +69,7 @@ module org.citygml4j {
     exports org.citygml4j.xml.adapter.vegetation;
     exports org.citygml4j.xml.adapter.versioning;
     exports org.citygml4j.xml.adapter.waterbody;
+    exports org.citygml4j.xml.ade;
     exports org.citygml4j.xml.converter;
     exports org.citygml4j.xml.module;
     exports org.citygml4j.xml.module.ade;
