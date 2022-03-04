@@ -21,7 +21,7 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import implementing_ades.TestADEContext;
+import implementing_ades.TestADE;
 import implementing_ades.model.BuildingUnit;
 import implementing_ades.model.IndustrialBuildingRoofSurface;
 import implementing_ades.walker.TestADEWalker;
@@ -44,7 +44,7 @@ public class ADEObjectWalker {
         Logger log = Logger.start(ADEObjectWalker.class);
 
         log.print("Loading TestADE context via ADE registry");
-        ADERegistry.getInstance().loadADEContext(new TestADEContext());
+        ADERegistry.getInstance().loadADE(new TestADE());
 
         CityGMLContext context = CityGMLContext.newInstance();
 

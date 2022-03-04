@@ -21,7 +21,7 @@ package org.citygml4j.xml.schema;
 
 import org.citygml4j.ADERegistry;
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.xml.ade.ADEContext;
+import org.citygml4j.ade.ADE;
 import org.citygml4j.xml.module.ade.ADEModule;
 import org.xmlobjects.schema.SchemaHandler;
 import org.xmlobjects.schema.SchemaHandlerException;
@@ -45,9 +45,9 @@ public class CityGMLSchemaHandler extends SchemaHandler {
         schemaHandler.visitedSchemaLocations.putAll(instance.visitedSchemaLocations);
 
         ADERegistry registry = ADERegistry.getInstance();
-        if (registry.hasADEContexts()) {
-            for (ADEContext context : registry.getADEContexts()) {
-                for (ADEModule module : context.getADEModules()) {
+        if (registry.hasADEs()) {
+            for (ADE ade : registry.getADEs()) {
+                for (ADEModule module : ade.getADEModules()) {
                     URL schemaResource = module.getSchemaResource();
                     if (schemaResource != null)
                         schemaHandler.parseSchema(schemaResource);

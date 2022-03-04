@@ -21,7 +21,7 @@ package writing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import implementing_ades.TestADEContext;
+import implementing_ades.TestADE;
 import implementing_ades.model.*;
 import implementing_ades.module.TestADEModule;
 import org.citygml4j.ADERegistry;
@@ -48,7 +48,7 @@ public class WritingADE {
     public static void main(String[] args) throws Exception {
         Logger log = Logger.start(WritingADE.class);
 
-        ADERegistry.getInstance().loadADEContext(new TestADEContext());
+        ADERegistry.getInstance().loadADE(new TestADE());
 
         CityGMLContext context = CityGMLContext.newInstance();
 

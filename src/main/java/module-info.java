@@ -3,6 +3,7 @@ module org.citygml4j {
     requires transitive org.xmlobjects.xal;
 
     exports org.citygml4j;
+    exports org.citygml4j.ade;
     exports org.citygml4j.model;
     exports org.citygml4j.model.ade;
     exports org.citygml4j.model.ade.generic;
@@ -68,7 +69,6 @@ module org.citygml4j {
     exports org.citygml4j.xml.adapter.vegetation;
     exports org.citygml4j.xml.adapter.versioning;
     exports org.citygml4j.xml.adapter.waterbody;
-    exports org.citygml4j.xml.ade;
     exports org.citygml4j.xml.converter;
     exports org.citygml4j.xml.module;
     exports org.citygml4j.xml.module.ade;

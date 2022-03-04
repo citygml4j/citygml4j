@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,26 +17,24 @@
  * limitations under the License.
  */
 
-package implementing_ades;
+package org.citygml4j.ade;
 
-import implementing_ades.module.TestADEModule;
-import implementing_ades.walker.TestADEWalker;
-import org.citygml4j.visitor.ADEWalker;
-import org.citygml4j.xml.ade.ADEContext;
-import org.citygml4j.xml.module.ade.ADEModule;
+public class ADEException extends Exception {
+    private static final long serialVersionUID = -2359107805047203847L;
 
-import java.util.Collections;
-import java.util.List;
-
-public class TestADEContext implements ADEContext {
-
-    @Override
-    public List<ADEModule> getADEModules() {
-        return Collections.singletonList(new TestADEModule());
+    public ADEException() {
+        super();
     }
 
-    @Override
-    public ADEWalker getADEWalker() {
-        return new TestADEWalker();
+    public ADEException(String message) {
+        super(message);
+    }
+
+    public ADEException(Throwable cause) {
+        super(cause);
+    }
+
+    public ADEException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

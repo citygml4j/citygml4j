@@ -23,10 +23,10 @@ import helpers.Logger;
 import helpers.Util;
 import org.citygml4j.ADERegistry;
 import org.citygml4j.CityGMLContext;
+import org.citygml4j.ade.ADE;
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.common.GeometryInfo;
 import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.xml.ade.ADEContext;
 import org.citygml4j.xml.module.ade.ADEModule;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -42,9 +42,9 @@ public class ReadingADE {
 
         ADERegistry adeRegistry = ADERegistry.getInstance();
 
-        log.print("Loading ADE contexts using a service loader");
-        for (ADEContext adeContext : ServiceLoader.load(ADEContext.class))
-            adeRegistry.loadADEContext(adeContext);
+        log.print("Loading ADEs using a service loader");
+        for (ADE ade : ServiceLoader.load(ADE.class))
+            adeRegistry.loadADE(ade);
 
         for (ADEModule module : adeRegistry.getADEModules()) {
             log.print("Loaded ADE module for namespace " + module.getNamespaceURI() +

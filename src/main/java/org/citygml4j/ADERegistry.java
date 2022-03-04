@@ -21,9 +21,9 @@ package org.citygml4j;
 
 import org.atteo.classindex.ClassFilter;
 import org.atteo.classindex.ClassIndex;
+import org.citygml4j.ade.ADE;
+import org.citygml4j.ade.ADEException;
 import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.xml.ade.ADEContext;
-import org.citygml4j.xml.ade.ADEException;
 import org.citygml4j.xml.module.ade.ADEModule;
 
 import java.lang.reflect.Modifier;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 public class ADERegistry {
     private static ADERegistry instance;
-    private final Map<String, ADEContext> contexts = new ConcurrentHashMap<>();
+    private final Map<String, ADE> ades = new ConcurrentHashMap<>();
     private final Map<CityGMLVersion, Map<String, ADEModule>> modules = new ConcurrentHashMap<>();
     private final Map<CityGMLContext, Boolean> listeners = Collections.synchronizedMap(new WeakHashMap<>());
 
@@ -47,12 +47,12 @@ public class ADERegistry {
         return instance;
     }
 
-    public boolean hasADEContexts() {
-        return !contexts.isEmpty();
+    public boolean hasADEs() {
+        return !ades.isEmpty();
     }
 
-    public List<ADEContext> getADEContexts() {
-        return new ArrayList<>(contexts.values());
+    public List<ADE> getADEs() {
+        return new ArrayList<>(ades.values());
     }
 
     public List<ADEModule> getADEModules() {
@@ -87,17 +87,17 @@ public class ADERegistry {
                 .collect(Collectors.toSet());
     }
 
-    public void loadADEContext(ADEContext context) throws ADEException {
-        List<ADEModule> modules = context.getADEModules();
+    public void loadADE(ADE ade) throws ADEException {
+        List<ADEModule> modules = ade.getADEModules();
         if (modules == null || modules.isEmpty())
-            throw new ADEException("No ADE module defined for the ADE context " + context.getClass().getName() + ".");
+            throw new ADEException("No ADE module defined for the ADE " + ade.getClass().getName() + ".");
 
         for (ADEModule module : modules) {
             if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty())
-                throw new ADEException("The ADE context " + context.getClass().getName() + " defines an ADE module without a namespace URI.");
+                throw new ADEException("The ADE " + ade.getClass().getName() + " defines an ADE module without a namespace URI.");
 
             if (module.getCityGMLVersion() == null)
-                throw new ADEException("The ADE context " + context.getClass().getName() + " defines an ADE module without a CityGML version.");
+                throw new ADEException("The ADE " + ade.getClass().getName() + " defines an ADE module without a CityGML version.");
 
             if (this.modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).get(module.getNamespaceURI()) != null) {
                 throw new ADEException("An ADE module has already been registered for the namespace '" + module.getNamespaceURI() +
@@ -108,49 +108,49 @@ public class ADERegistry {
         }
 
         for (CityGMLContext listener : listeners.keySet())
-            listener.loadADEContext(context);
+            listener.loadADE(ade);
 
-        contexts.put(context.getClass().getName(), context);
+        ades.put(ade.getClass().getName(), ade);
     }
 
-    public void loadADEContext(Class<? extends ADEContext> type) throws ADEException {
-        ADEContext context;
+    public void loadADE(Class<? extends ADE> type) throws ADEException {
+        ADE ade;
         try {
-            context = type.getDeclaredConstructor().newInstance();
+            ade = type.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            throw new ADEException("The ADE context " + type.getName() + " lacks a default constructor.", e);
+            throw new ADEException("The ADE " + type.getName() + " lacks a default constructor.", e);
         }
 
-        loadADEContext(context);
+        loadADE(ade);
     }
 
-    public void loadADEContexts(ClassLoader classLoader) throws ADEException {
-        for (Class<? extends ADEContext> type : ClassFilter.only()
+    public void loadADEs(ClassLoader classLoader) throws ADEException {
+        for (Class<? extends ADE> type : ClassFilter.only()
                 .withoutModifiers(Modifier.ABSTRACT)
-                .from(ClassIndex.getSubclasses(ADEContext.class, classLoader))) {
-            loadADEContext(type);
+                .from(ClassIndex.getSubclasses(ADE.class, classLoader))) {
+            loadADE(type);
         }
     }
 
-    public void unloadADEContext(Class<? extends ADEContext> type) {
-        ADEContext context = contexts.remove(type.getName());
-        if (context != null) {
-            for (ADEModule module : context.getADEModules())
+    public void unloadADE(Class<? extends ADE> type) {
+        ADE ade = ades.remove(type.getName());
+        if (ade != null) {
+            for (ADEModule module : ade.getADEModules())
                 modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).remove(module.getNamespaceURI());
 
-            listeners.keySet().forEach(v -> v.unloadADEContext(context));
+            listeners.keySet().forEach(v -> v.unloadADE(ade));
         }
     }
 
-    public void unloadADEContext(ADEContext context) {
-        unloadADEContext(context.getClass());
+    public void unloadADE(ADE ade) {
+        unloadADE(ade.getClass());
     }
 
-    public void unloadADEContexts(ClassLoader classLoader) {
-        for (Class<? extends ADEContext> type : ClassFilter.only()
+    public void unloadADEs(ClassLoader classLoader) {
+        for (Class<? extends ADE> type : ClassFilter.only()
                 .withoutModifiers(Modifier.ABSTRACT)
-                .from(ClassIndex.getSubclasses(ADEContext.class, classLoader))) {
-            unloadADEContext(type);
+                .from(ClassIndex.getSubclasses(ADE.class, classLoader))) {
+            unloadADE(type);
         }
     }
 

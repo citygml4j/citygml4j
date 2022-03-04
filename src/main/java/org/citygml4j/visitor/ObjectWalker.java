@@ -20,6 +20,7 @@
 package org.citygml4j.visitor;
 
 import org.citygml4j.ADERegistry;
+import org.citygml4j.ade.ADE;
 import org.citygml4j.model.ade.ADEObject;
 import org.citygml4j.model.ade.ADEProperty;
 import org.citygml4j.model.appearance.*;
@@ -74,7 +75,6 @@ import org.citygml4j.model.waterbody.AbstractWaterBoundarySurface;
 import org.citygml4j.model.waterbody.WaterBody;
 import org.citygml4j.model.waterbody.WaterGroundSurface;
 import org.citygml4j.model.waterbody.WaterSurface;
-import org.citygml4j.xml.ade.ADEContext;
 import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.gml.model.base.*;
 import org.xmlobjects.gml.model.common.GenericElement;
@@ -106,9 +106,9 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
     public ObjectWalker() {
         ADERegistry registry = ADERegistry.getInstance();
-        if (registry.hasADEContexts()) {
-            for (ADEContext context : registry.getADEContexts())
-                withADEWalker(context.getADEWalker());
+        if (registry.hasADEs()) {
+            for (ADE ade : registry.getADEs())
+                withADEWalker(ade.getADEWalker());
         }
     }
 

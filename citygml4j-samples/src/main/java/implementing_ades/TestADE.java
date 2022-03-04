@@ -17,19 +17,26 @@
  * limitations under the License.
  */
 
-package org.citygml4j.xml.ade;
+package implementing_ades;
 
-import org.atteo.classindex.IndexSubclasses;
+import implementing_ades.module.TestADEModule;
+import implementing_ades.walker.TestADEWalker;
+import org.citygml4j.ade.ADE;
 import org.citygml4j.visitor.ADEWalker;
 import org.citygml4j.xml.module.ade.ADEModule;
 
+import java.util.Collections;
 import java.util.List;
 
-@IndexSubclasses
-public interface ADEContext {
-    List<ADEModule> getADEModules();
+public class TestADE implements ADE {
 
-    default ADEWalker getADEWalker() {
-        return null;
+    @Override
+    public List<ADEModule> getADEModules() {
+        return Collections.singletonList(new TestADEModule());
+    }
+
+    @Override
+    public ADEWalker getADEWalker() {
+        return new TestADEWalker();
     }
 }

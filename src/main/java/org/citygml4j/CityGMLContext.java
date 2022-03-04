@@ -19,9 +19,9 @@
 
 package org.citygml4j;
 
+import org.citygml4j.ade.ADE;
+import org.citygml4j.ade.ADEException;
 import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.xml.ade.ADEContext;
-import org.citygml4j.xml.ade.ADEException;
 import org.citygml4j.xml.module.ade.ADEModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -44,9 +44,9 @@ public class CityGMLContext {
 
             // load ADE objects registered with the ADE registry
             ADERegistry registry = ADERegistry.getInstance();
-            for (ADEContext context : registry.getADEContexts()) {
-                if (context.getClass().getClassLoader() != classLoader)
-                    loadADEContext(context);
+            for (ADE ade : registry.getADEs()) {
+                if (ade.getClass().getClassLoader() != classLoader)
+                    loadADE(ade);
             }
 
             // unload ADE objects available from the class loader
@@ -86,16 +86,16 @@ public class CityGMLContext {
         return schemaHandler;
     }
 
-    void loadADEContext(ADEContext context) throws ADEException {
+    void loadADE(ADE ade) throws ADEException {
         try {
-            loadADEObjects(context.getClass().getClassLoader());
+            loadADEObjects(ade.getClass().getClassLoader());
         } catch (XMLObjectsException e) {
-            throw new ADEException("Failed to load ADE context.", e);
+            throw new ADEException("Failed to load ADE.", e);
         }
     }
 
-    void unloadADEContext(ADEContext context) {
-        for (ADEModule module : context.getADEModules())
+    void unloadADE(ADE ade) {
+        for (ADEModule module : ade.getADEModules())
             unloadADEObjects(module.getNamespaceURI());
     }
 
