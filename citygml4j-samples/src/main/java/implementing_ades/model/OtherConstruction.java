@@ -19,11 +19,11 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.construction.AbstractConstruction;
-import org.citygml4j.model.construction.AbstractConstructionSurface;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.construction.AbstractConstruction;
+import org.citygml4j.core.model.construction.AbstractConstructionSurface;
+import org.citygml4j.core.model.core.AbstractSpaceBoundary;
+import org.citygml4j.core.model.core.ClosureSurface;
 
 public class OtherConstruction extends AbstractConstruction implements ADEObject {
 

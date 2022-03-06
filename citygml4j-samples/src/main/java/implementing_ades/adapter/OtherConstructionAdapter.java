@@ -21,7 +21,7 @@ package implementing_ades.adapter;
 
 import implementing_ades.model.OtherConstruction;
 import implementing_ades.module.TestADEModule;
-import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.core.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.xml.adapter.deprecated.building.AbstractBoundarySurfacePropertyAdapter;
 import org.citygml4j.xml.adapter.deprecated.core.AbstractSiteAdapter;
 import org.xmlobjects.annotation.XMLElement;

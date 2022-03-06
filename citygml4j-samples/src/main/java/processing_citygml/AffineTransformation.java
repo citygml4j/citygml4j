@@ -21,11 +21,11 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.core.CityModel;
-import org.citygml4j.visitor.ObjectWalker;
+import org.citygml4j.core.model.CityGMLVersion;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.core.CityModel;
+import org.citygml4j.core.visitor.ObjectWalker;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;

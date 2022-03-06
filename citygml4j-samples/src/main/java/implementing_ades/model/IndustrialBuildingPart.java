@@ -19,8 +19,8 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.building.BuildingPart;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.building.BuildingPart;
 
 public class IndustrialBuildingPart extends BuildingPart implements ADEObject {
     private String remark;

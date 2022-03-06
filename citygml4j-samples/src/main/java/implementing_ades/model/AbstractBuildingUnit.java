@@ -19,12 +19,12 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.common.LevelOfDetail;
-import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.AddressProperty;
-import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.common.LevelOfDetail;
+import org.citygml4j.core.model.core.AbstractLogicalSpace;
+import org.citygml4j.core.model.core.AbstractSpaceBoundary;
+import org.citygml4j.core.model.core.AddressProperty;
+import org.citygml4j.core.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;

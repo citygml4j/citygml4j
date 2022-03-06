@@ -21,12 +21,12 @@ package reading_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.core.AbstractCityObject;
+import org.citygml4j.core.model.core.AbstractCityObjectProperty;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.model.core.CityModel;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.citygml.CityGMLModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.reader.CityGMLInputFactory;

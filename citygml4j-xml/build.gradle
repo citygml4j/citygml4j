@@ -1,0 +1,14 @@
+plugins {
+    id 'idea'
+}
+
+dependencies {
+    api project(':citygml4j-core')
+    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-SNAPSHOT'
+}
+
+idea {
+    module {
+        outputDir file('out/production/classes')
+    }
+}

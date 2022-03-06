@@ -19,8 +19,8 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.core.AbstractFeature;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.model.basictypes.Measure;
 
 public abstract class Facilities extends AbstractFeature implements ADEObject {

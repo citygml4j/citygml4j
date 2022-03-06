@@ -21,9 +21,9 @@ package writing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.core.AbstractFeature;
+import org.citygml4j.core.model.CityGMLVersion;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;

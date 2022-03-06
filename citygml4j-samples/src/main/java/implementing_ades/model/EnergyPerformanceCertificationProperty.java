@@ -19,7 +19,7 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
+import org.citygml4j.core.model.ade.ADEObject;
 import org.xmlobjects.gml.model.base.AbstractInlineProperty;
 
 public class EnergyPerformanceCertificationProperty extends AbstractInlineProperty<EnergyPerformanceCertification> implements ADEObject {

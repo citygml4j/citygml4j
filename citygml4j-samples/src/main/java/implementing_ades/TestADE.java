@@ -21,7 +21,7 @@ package implementing_ades;
 
 import implementing_ades.module.TestADEModule;
 import implementing_ades.walker.TestADEWalker;
-import org.citygml4j.visitor.ADEWalker;
+import org.citygml4j.core.visitor.ADEWalker;
 import org.citygml4j.xml.ade.CityGMLADE;
 import org.citygml4j.xml.module.ade.ADEModule;
 

@@ -24,7 +24,7 @@ import implementing_ades.model.BuildingUnitPartProperty;
 import implementing_ades.model.EnergyPerformanceCertificationProperty;
 import implementing_ades.model.FacilitiesProperty;
 import implementing_ades.module.TestADEModule;
-import org.citygml4j.model.core.AddressProperty;
+import org.citygml4j.core.model.core.AddressProperty;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;

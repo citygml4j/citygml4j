@@ -19,7 +19,7 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.building.ADEOfAbstractBuilding;
+import org.citygml4j.core.model.building.ADEOfAbstractBuilding;
 import org.xmlobjects.gml.model.measures.Area;
 import org.xmlobjects.model.ChildList;
 

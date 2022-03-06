@@ -21,10 +21,10 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.common.GeometryInfo;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.visitor.ObjectWalker;
+import org.citygml4j.core.model.common.GeometryInfo;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.visitor.ObjectWalker;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;

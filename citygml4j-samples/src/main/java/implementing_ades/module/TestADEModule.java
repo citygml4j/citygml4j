@@ -19,7 +19,7 @@
 
 package implementing_ades.module;
 
-import org.citygml4j.model.CityGMLVersion;
+import org.citygml4j.core.model.CityGMLVersion;
 import org.citygml4j.xml.module.ade.ADEModule;
 
 import java.net.URL;

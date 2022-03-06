@@ -19,8 +19,8 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.construction.RoofSurface;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.construction.RoofSurface;
 
 public class IndustrialBuildingRoofSurface extends RoofSurface implements ADEObject {
     private String remark;

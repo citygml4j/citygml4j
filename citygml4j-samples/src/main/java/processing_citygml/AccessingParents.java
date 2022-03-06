@@ -21,11 +21,11 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.landuse.LandUse;
-import org.citygml4j.util.reference.DefaultReferenceResolver;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.model.landuse.LandUse;
+import org.citygml4j.core.util.reference.DefaultReferenceResolver;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;

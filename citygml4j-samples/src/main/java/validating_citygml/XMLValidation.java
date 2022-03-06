@@ -21,7 +21,7 @@ package validating_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.schema.CityGMLSchemaHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;

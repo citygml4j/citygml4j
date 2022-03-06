@@ -20,13 +20,13 @@
 package implementing_ades.walker;
 
 import implementing_ades.model.*;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.building.BuildingPart;
-import org.citygml4j.model.construction.AbstractConstruction;
-import org.citygml4j.model.construction.RoofSurface;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.visitor.ADEWalker;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.building.BuildingPart;
+import org.citygml4j.core.model.construction.AbstractConstruction;
+import org.citygml4j.core.model.construction.RoofSurface;
+import org.citygml4j.core.model.core.AbstractCityObject;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.visitor.ADEWalker;
 
 public class TestADEWalker extends ADEWalker {
 

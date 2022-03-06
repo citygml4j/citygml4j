@@ -15,8 +15,9 @@ sourceSets {
 }
 
 dependencies {
-    implementation rootProject
-    annotationProcessor rootProject
+    implementation project(':citygml4j-core')
+    implementation project(':citygml4j-xml')
+    annotationProcessor project(':citygml4j-xml')
 }
 
 apply from: 'run-samples.gradle'

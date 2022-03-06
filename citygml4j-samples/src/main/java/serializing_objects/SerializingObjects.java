@@ -21,10 +21,10 @@ package serializing_objects;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.core.model.core.AbstractCityObjectProperty;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.model.core.CityModel;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 

@@ -21,8 +21,8 @@ package reading_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.building.Building;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
