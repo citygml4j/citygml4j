@@ -17,6 +17,7 @@ sourceSets {
 dependencies {
     implementation project(':citygml4j-core')
     implementation project(':citygml4j-xml')
+    implementation project(':citygml4j-cityjson')
     annotationProcessor project(':citygml4j-xml')
 }
 
