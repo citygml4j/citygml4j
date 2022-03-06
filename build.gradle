@@ -9,7 +9,12 @@ allprojects {
     group 'org.citygml4j'
     version '3.0.0-SNAPSHOT'
     description 'The Open Source Java API for CityGML'
-    ext.date = new Date()
+
+    ext {
+        gmlObjectsVersion = '1.0.0-SNAPSHOT'
+        xalObjectsVersion = '1.0.0-SNAPSHOT'
+        date = new Date()
+    }
 }
 
 subprojects {

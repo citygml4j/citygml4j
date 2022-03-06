@@ -1,10 +1,11 @@
 plugins {
+    id 'maven-publish'
     id 'idea'
 }
 
 dependencies {
     api project(':citygml4j-core')
-    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-SNAPSHOT'
+    annotationProcessor "org.xmlobjects.gml:gml-objects:$gmlObjectsVersion"
 }
 
 idea {
