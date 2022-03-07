@@ -1,8 +1,6 @@
 /*
- * citygml4j-cityjson - CityJSON module for citygml4j
- * https://github.com/citygml4j/citygml4j-cityjson
- *
- * citygml4j-cityjson is part of the citygml4j project
+ * citygml4j - The Open Source Java API for CityGML
+ * https://github.com/citygml4j
  *
  * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
