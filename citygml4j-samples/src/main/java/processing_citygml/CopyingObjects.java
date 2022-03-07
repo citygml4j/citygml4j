@@ -91,7 +91,7 @@ public class CopyingObjects {
         CityGMLVersion version = CityGMLVersion.v3_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Writing the bridge as CityGML " + version + " file " + output);
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {

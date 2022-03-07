@@ -1,6 +1,7 @@
 module org.citygml4j.samples {
     requires org.citygml4j.core;
     requires org.citygml4j.xml;
+    requires org.citygml4j.cityjson;
 
     exports implementing_ades.adapter to org.xmlobjects;
     exports implementing_ades.walker to org.citygml4j.core;

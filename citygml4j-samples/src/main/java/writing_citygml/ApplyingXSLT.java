@@ -60,7 +60,7 @@ public class ApplyingXSLT {
 
         out.withTransformer(pipeline);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Creating CityGML " + version + " writer for file " + output);
 
         try (CityGMLReader reader = in.createCityGMLReader(file);

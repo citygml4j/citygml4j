@@ -85,7 +85,7 @@ public class AccessingLoD4 {
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Writing the building as CityGML " + version + " file " + output);
         log.print("Deprecated properties will be considered when writing to CityGML 2.0 and 1.0 but ignored in case of CityGML 3.0");
 

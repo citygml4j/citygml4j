@@ -71,7 +71,7 @@ public class ReplacingAdapters {
                 CityModel.class,
                 CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Writing the file as WFS 2.0 feature collection");
 
         try (CityGMLWriter writer = out.createCityGMLWriter(output, StandardCharsets.UTF_8.name())) {

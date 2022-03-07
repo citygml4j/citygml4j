@@ -35,7 +35,11 @@ public class Util {
         return OUTPUT_DIR.resolve(fileName);
     }
 
-    public static Path getOutputFile() throws IOException {
+    public static Path getGMLOutputFile() throws IOException {
         return getOutputFile("out.gml");
+    }
+
+    public static Path getJSONOutputFile() throws IOException {
+        return getOutputFile("out.json");
     }
 }

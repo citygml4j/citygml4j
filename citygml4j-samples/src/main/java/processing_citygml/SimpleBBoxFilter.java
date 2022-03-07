@@ -54,7 +54,7 @@ public class SimpleBBoxFilter {
         CityGMLVersion version = CityGMLVersion.v3_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Creating CityGML " + version + " writer for file " + output);
 
         log.print("Creating a simple 2D bounding box (20 20, 60 60) as spatial filter");
