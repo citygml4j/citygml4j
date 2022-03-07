@@ -42,7 +42,11 @@ public class CityGMLContext {
     private CityGMLContext(ClassLoader classLoader) throws CityGMLContextException {
         try {
             xmlObjects = XMLObjects.newInstance(classLoader);
+        } catch (XMLObjectsException e) {
+            throw new CityGMLContextException("Failed to instantiate XML objects.", e);
+        }
 
+        try {
             ADERegistry registry = ADERegistry.getInstance();
             CityGMLADELoader loader = CityGMLADELoader.getInstance();
             registry.registerADELoader(loader, CityGMLADE.class);
@@ -59,8 +63,8 @@ public class CityGMLContext {
             removeUnregisteredADEObjects();
 
             loader.addListener(this);
-        } catch (XMLObjectsException | ADEException e) {
-            throw new CityGMLContextException("Failed to instantiate XML objects.", e);
+        } catch (ADEException e) {
+            throw new CityGMLContextException("Failed to load CityGML ADEs.", e);
         }
     }
 

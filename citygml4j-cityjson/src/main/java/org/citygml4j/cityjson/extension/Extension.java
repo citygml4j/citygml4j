@@ -19,14 +19,13 @@
 
 package org.citygml4j.cityjson.extension;
 
-import org.atteo.classindex.IndexSubclasses;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.util.CityJSONPatterns;
+import org.citygml4j.core.ade.ADE;
 
 import java.net.URL;
 
-@IndexSubclasses
-public interface Extension {
+public interface Extension extends ADE {
     String getName();
     String getSchemaLocation();
     String getVersion();

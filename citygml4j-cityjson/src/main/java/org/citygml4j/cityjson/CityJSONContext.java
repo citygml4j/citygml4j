@@ -28,13 +28,14 @@ import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.extension.Extension;
-import org.citygml4j.cityjson.extension.ExtensionException;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.reader.CityJSONInputFactory;
 import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONOutputFactory;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
+import org.citygml4j.core.ade.ADEException;
+import org.citygml4j.core.ade.ADERegistry;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -52,21 +53,24 @@ public class CityJSONContext {
         loadBuilders(classLoader, true);
         loadSerializers(classLoader, true);
 
-        // load extension objects registered with the extension registry
-        ExtensionRegistry registry = ExtensionRegistry.getInstance();
-        for (Extension extension : registry.getExtensions()) {
-            try {
+        try {
+            ADERegistry registry = ADERegistry.getInstance();
+            ExtensionLoader loader = ExtensionLoader.getInstance();
+            registry.registerADELoader(loader, Extension.class);
+
+            // load extension objects registered with the extension registry
+            for (Extension extension : registry.getADEs(Extension.class)) {
                 loadExtension(extension);
-            } catch (ExtensionException e) {
-                throw new CityJSONContextException("Failed to load extension.", e);
             }
+
+            // unload extension objects available from the class loader
+            // but not registered with the extension registry
+            removeUnregisteredExtensionObjects();
+
+            loader.addListener(this);
+        } catch (ADEException e) {
+            throw new CityJSONContextException("Failed to load CityJSON extensions.", e);
         }
-
-        // unload extension objects available from the class loader
-        // but not registered with the extension registry
-        removeUnregisteredExtensionObjects();
-
-        registry.addListener(this);
     }
 
     public static CityJSONContext newInstance() throws CityJSONContextException {
@@ -279,23 +283,31 @@ public class CityJSONContext {
         return objectType;
     }
 
-    void loadExtension(Extension extension) throws ExtensionException {
+    void loadExtension(Extension extension) throws ADEException {
         try {
-            loadBuilders(extension.getClass().getClassLoader(), false);
-            loadSerializers(extension.getClass().getClassLoader(), false);
-            removeUnregisteredExtensionObjects();
+            loadExtensionObjects(extension.getClass().getClassLoader());
         } catch (CityJSONContextException e) {
-            throw new ExtensionException("Failed to load extension.", e);
+            throw new ADEException("Failed to load extension.", e);
         }
     }
 
-    void unloadExtension(String name) {
+    void unloadExtension(Extension extension) {
+        unloadExtensionObjects(extension.getName());
+    }
+
+    private void loadExtensionObjects(ClassLoader classLoader) throws CityJSONContextException {
+        loadBuilders(classLoader, false);
+        loadSerializers(classLoader, false);
+        removeUnregisteredExtensionObjects();
+    }
+
+    private void unloadExtensionObjects(String name) {
         builders.values().forEach(v -> v.values().removeIf(info -> info.schema.equals(name)));
         serializers.values().forEach(v -> v.values().removeIf(info -> info.schema.equals(name)));
     }
 
     private void removeUnregisteredExtensionObjects() {
-        Set<String> extensionNames = ExtensionRegistry.getInstance().getExtensionNames();
+        Set<String> extensionNames = ExtensionLoader.getInstance().getExtensionNames();
         Set<String> schemas = serializers.values().stream()
                 .flatMap(map -> map.values().stream())
                 .map(info -> info.schema).collect(Collectors.toSet());
@@ -303,7 +315,7 @@ public class CityJSONContext {
         for (String schema : schemas) {
             if (!CityJSONConstants.CORE_SCHEMA.equals(schema)
                     && !extensionNames.contains(schema)) {
-                unloadExtension(schema);
+                unloadExtensionObjects(schema);
             }
         }
     }

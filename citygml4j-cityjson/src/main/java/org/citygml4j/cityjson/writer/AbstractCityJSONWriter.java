@@ -22,7 +22,7 @@ package org.citygml4j.cityjson.writer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.citygml4j.cityjson.ExtensionRegistry;
+import org.citygml4j.cityjson.ExtensionLoader;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
 import org.citygml4j.cityjson.adapter.extension.ExtensionInfo;
@@ -218,11 +218,11 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     }
 
     void writeExtensions() throws CityJSONWriteException, IOException {
-        ExtensionRegistry registry = ExtensionRegistry.getInstance();
-        if (registry.hasExtensions() || helper.hasExtensions()) {
+        ExtensionLoader loader = ExtensionLoader.getInstance();
+        if (loader.hasExtensions() || helper.hasExtensions()) {
             try {
                 writer.writeObjectFieldStart(Fields.EXTENSIONS);
-                for (Extension extension : registry.getExtensions()) {
+                for (Extension extension : loader.getExtensions()) {
                     ObjectNode node = helper.getObjectUsingSerializer(ExtensionInfo.of(extension), ExtensionInfoAdapter.class);
                     if (node != null) {
                         writer.writeObjectField(extension.getName(), node);
@@ -230,7 +230,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 }
 
                 for (Map.Entry<String, ObjectNode> entry : helper.getExternalExtensions().entrySet()) {
-                    if (registry.getExtension(entry.getKey()) == null) {
+                    if (loader.getExtension(entry.getKey()) == null) {
                         writer.writeObjectField(entry.getKey(), entry.getValue());
                     }
                 }

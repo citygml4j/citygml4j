@@ -49,6 +49,10 @@ public class ADERegistry {
         return !ades.isEmpty();
     }
 
+    public boolean hasADEs(Class<? extends ADE> type) {
+        return ades.values().stream().anyMatch(type::isInstance);
+    }
+
     public List<ADE> getADEs() {
         return new ArrayList<>(ades.values());
     }
