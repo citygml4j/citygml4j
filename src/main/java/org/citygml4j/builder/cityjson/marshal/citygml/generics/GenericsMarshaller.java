@@ -169,9 +169,12 @@ public class GenericsMarshaller {
     public void marshalGenericAttributes(AbstractCityObject src, SemanticsType dest) {
         if (src.isSetGenericAttribute()) {
             for (AbstractGenericAttribute attribute : src.getGenericAttribute()) {
-                Object value = marshalGenericAttribute(attribute);
-                if (value != null)
-                    dest.addAttribute(attribute.getName(), value);
+                // skip attributes with name "type" to avoid replacing the CityJSON "type" attribute
+                if (!"type".equals(attribute.getName())) {
+                    Object value = marshalGenericAttribute(attribute);
+                    if (value != null)
+                        dest.addAttribute(attribute.getName(), value);
+                }
             }
         }
     }
