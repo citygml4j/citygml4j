@@ -53,14 +53,11 @@ import java.util.Map;
 public class GenericsMarshaller {
     private final CityJSONMarshaller json;
     private final CityGMLMarshaller citygml;
-    private Map<String, GenericAttributeType> genericAttributeTypes;
+    private final Map<String, GenericAttributeType> genericAttributeTypes = new HashMap<>();
 
     public GenericsMarshaller(CityGMLMarshaller citygml) {
         this.citygml = citygml;
         json = citygml.getCityJSONMarshaller();
-
-        if (json.isGenerateCityGMLMetadata())
-            genericAttributeTypes = new HashMap<>();
     }
 
     public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
@@ -180,7 +177,7 @@ public class GenericsMarshaller {
     }
 
     public boolean hasGenericAttributeTypes() {
-        return genericAttributeTypes != null && !genericAttributeTypes.isEmpty();
+        return !genericAttributeTypes.isEmpty();
     }
 
     public Map<String, GenericAttributeType> getGenericAttributeTypes() {
@@ -188,7 +185,7 @@ public class GenericsMarshaller {
     }
 
     private Object marshalGenericAttribute(AbstractGenericAttribute src) {
-        if (genericAttributeTypes != null) {
+        if (json.isGenerateCityGMLMetadata()) {
             GenericAttributeType type = GenericAttributeType.fromType(src.getCityGMLClass());
             if (type != null)
                 genericAttributeTypes.put(src.getName(), type);

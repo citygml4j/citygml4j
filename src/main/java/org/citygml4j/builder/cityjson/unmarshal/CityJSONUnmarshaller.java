@@ -56,10 +56,12 @@ public class CityJSONUnmarshaller {
 		ade = new ADEUnmarshaller(this);
 		registry = CityJSONRegistry.getInstance();
 
-		try {
-			registry.registerExtensionProperty(CityGMLMetadata.JSON_KEY, CityGMLMetadata.class, CityJSON.class);
-		} catch (ExtensionException e) {
-			//
+		if (!registry.hasExtensionProperty(CityGMLMetadata.JSON_KEY, CityJSON.class)) {
+			try {
+				registry.registerExtensionProperty(CityGMLMetadata.JSON_KEY, CityGMLMetadata.class, CityJSON.class);
+			} catch (ExtensionException e) {
+				//
+			}
 		}
 	}
 

@@ -23,9 +23,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.builder.cityjson.util.CityGMLMetadata;
 import org.citygml4j.builder.cityjson.util.TextureFileHandler;
 import org.citygml4j.cityjson.CityJSON;
+import org.citygml4j.cityjson.CityJSONRegistry;
 import org.citygml4j.cityjson.CityJSONTypeAdapterFactory;
+import org.citygml4j.cityjson.extension.ExtensionException;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
@@ -43,6 +46,15 @@ public abstract class AbstractCityJSONReader implements AutoCloseable {
     public AbstractCityJSONReader(Reader reader, boolean processUnknownExtensions) {
         this.reader = reader;
         this.processUnknownExtensions = processUnknownExtensions;
+
+        CityJSONRegistry registry = CityJSONRegistry.getInstance();
+        if (!registry.hasExtensionProperty(CityGMLMetadata.JSON_KEY, CityJSON.class)) {
+            try {
+                registry.registerExtensionProperty(CityGMLMetadata.JSON_KEY, CityGMLMetadata.class, CityJSON.class);
+            } catch (ExtensionException e) {
+                //
+            }
+        }
     }
 
     public TextureFileHandler getTextureFileHandler() {
