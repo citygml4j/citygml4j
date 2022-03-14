@@ -21,6 +21,7 @@ package org.citygml4j.cityjson.adapter.core;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.reader.Attributes;
@@ -91,7 +92,8 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
 
         if (object.isSetGenericAttributes()) {
             for (AbstractGenericAttributeProperty property : object.getGenericAttributes()) {
-                if (property.getObject() != null) {
+                // skip attributes with name "type" to avoid replacing the CityJSON "type" attribute
+                if (property.getObject() != null && !Fields.TYPE.equals(property.getObject().getName())) {
                     JsonObjectSerializer<?> serializer = helper.getContext().getSerializer(property.getObject().getClass(), helper.getVersion());
                     if (serializer != null) {
                         ((JsonObjectSerializer<AbstractGenericAttribute<?>>) serializer).writeObject(property.getObject(), node, helper);
