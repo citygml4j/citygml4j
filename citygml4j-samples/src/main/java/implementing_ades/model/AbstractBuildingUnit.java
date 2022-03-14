@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.common.LevelOfDetail;
-import org.citygml4j.model.core.AbstractLogicalSpace;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.AddressProperty;
-import org.citygml4j.model.core.StandardObjectClassifier;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.common.LevelOfDetail;
+import org.citygml4j.core.model.core.AbstractLogicalSpace;
+import org.citygml4j.core.model.core.AbstractSpaceBoundary;
+import org.citygml4j.core.model.core.AddressProperty;
+import org.citygml4j.core.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;

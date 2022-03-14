@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.construction.*;
-import org.citygml4j.model.core.AbstractSpaceBoundaryProperty;
-import org.citygml4j.model.core.AbstractThematicSurface;
-import org.citygml4j.util.geometry.GeometryFactory;
+import org.citygml4j.core.model.CityGMLVersion;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.construction.*;
+import org.citygml4j.core.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.core.model.core.AbstractThematicSurface;
+import org.citygml4j.core.util.geometry.GeometryFactory;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
@@ -92,7 +92,7 @@ public class CreatingSimpleBuilding {
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Creating CityGML " + version + " writer for the file " + output);
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {

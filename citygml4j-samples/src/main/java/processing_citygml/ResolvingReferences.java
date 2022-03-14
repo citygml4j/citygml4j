@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.appearance.GeometryReference;
-import org.citygml4j.model.appearance.X3DMaterial;
-import org.citygml4j.model.cityobjectgroup.CityObjectGroup;
-import org.citygml4j.model.cityobjectgroup.Role;
-import org.citygml4j.model.cityobjectgroup.RoleProperty;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.CityModel;
-import org.citygml4j.util.reference.DefaultReferenceResolver;
+import org.citygml4j.core.model.appearance.GeometryReference;
+import org.citygml4j.core.model.appearance.X3DMaterial;
+import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
+import org.citygml4j.core.model.cityobjectgroup.Role;
+import org.citygml4j.core.model.cityobjectgroup.RoleProperty;
+import org.citygml4j.core.model.core.AbstractCityObject;
+import org.citygml4j.core.model.core.CityModel;
+import org.citygml4j.core.util.reference.DefaultReferenceResolver;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;

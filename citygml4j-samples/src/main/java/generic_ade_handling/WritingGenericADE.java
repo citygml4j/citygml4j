@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@ package generic_ade_handling;
 import helpers.Logger;
 import helpers.Util;
 import implementing_ades.module.TestADEModule;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.ade.generic.GenericADEOfAbstractBuilding;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.util.geometry.GeometryFactory;
+import org.citygml4j.core.model.CityGMLVersion;
+import org.citygml4j.core.model.ade.generic.GenericADEOfAbstractBuilding;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.util.geometry.GeometryFactory;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.ChunkOptions;
@@ -115,7 +115,7 @@ public class WritingGenericADE {
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Writing the ADE-enriched building as CityGML " + version + " file " + output);
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {

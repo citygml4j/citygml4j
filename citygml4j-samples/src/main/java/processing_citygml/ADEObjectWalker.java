@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,16 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import implementing_ades.TestADEContext;
+import implementing_ades.TestADE;
 import implementing_ades.model.BuildingUnit;
 import implementing_ades.model.IndustrialBuildingRoofSurface;
 import implementing_ades.walker.TestADEWalker;
-import org.citygml4j.ADERegistry;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.visitor.ObjectWalker;
+import org.citygml4j.core.ade.ADERegistry;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.visitor.ObjectWalker;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReadException;
@@ -44,7 +44,7 @@ public class ADEObjectWalker {
         Logger log = Logger.start(ADEObjectWalker.class);
 
         log.print("Loading TestADE context via ADE registry");
-        ADERegistry.getInstance().loadADEContext(new TestADEContext());
+        ADERegistry.getInstance().loadADE(new TestADE());
 
         CityGMLContext context = CityGMLContext.newInstance();
 

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@
 
 package implementing_ades.model;
 
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.construction.AbstractConstruction;
-import org.citygml4j.model.construction.AbstractConstructionSurface;
-import org.citygml4j.model.core.AbstractSpaceBoundary;
-import org.citygml4j.model.core.ClosureSurface;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.construction.AbstractConstruction;
+import org.citygml4j.core.model.construction.AbstractConstructionSurface;
+import org.citygml4j.core.model.core.AbstractSpaceBoundary;
+import org.citygml4j.core.model.core.ClosureSurface;
 
 public class OtherConstruction extends AbstractConstruction implements ADEObject {
 

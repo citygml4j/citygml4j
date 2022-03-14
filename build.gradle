@@ -1,11 +1,7 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id 'java-library'
     id 'distribution'
-    id 'maven-publish'
-    id 'signing'
-    id 'idea'
     id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
 }
 
@@ -13,7 +9,27 @@ allprojects {
     group 'org.citygml4j'
     version '3.0.0-SNAPSHOT'
     description 'The Open Source Java API for CityGML'
-    ext.date = new Date()
+
+    ext {
+        gmlObjectsVersion = '1.0.0-SNAPSHOT'
+        xalObjectsVersion = '1.0.0-SNAPSHOT'
+        date = new Date()
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'signing'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(11)
+        }
+    }
+
+    tasks.named('compileJava') {
+        options.javaModuleVersion = provider { project.version }
+    }
 
     repositories {
         maven {
@@ -21,66 +37,89 @@ allprojects {
         }
         mavenCentral()
     }
-}
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-    withJavadocJar()
-    withSourcesJar()
-}
-
-tasks.named('compileJava') {
-    options.javaModuleVersion = provider { project.version }
-}
-
-dependencies {
-    api 'org.xmlobjects.gml:gml-objects:1.0.0-SNAPSHOT'
-    api 'org.xmlobjects.xal:xal-objects:1.0.0-SNAPSHOT'
-    annotationProcessor 'org.xmlobjects.gml:gml-objects:1.0.0-SNAPSHOT'
-}
-
-idea {
-    module {
-        outputDir file('out/production/classes')
-    }
-}
-
-javadoc {
-    options {
-        overview "$buildDir/tmp/javadoc/overview.html"
-        header "$project.name $project.version"
-        bottom """
-            <a target="_blank" href="https://github.com/citygml4j/citygml4j/issues">Report a bug or suggest an enhancement</a><br />
-            $project.name is open source and licensed under the <a target="_blank" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a><br />
-            Official website and more information at: <a target="_blank" href="https://github.com/citygml4j">https://github.com/citygml4j</a><br />
-            Copyright &copy; 2013-${date.format('yyyy')}<br />
-            Claus Nagel &lt;claus.nagel@gmail.com&gt;
-            """.replaceAll("[\r|\n]+", "")
-        addStringOption('doctitle', project.name + ' - ' + project.description)
+    javadoc {
+        options {
+            title = "$project.name $project.version"
+            header = title
+            overview = title
+            bottom = file("$rootDir/resources/javadoc/bottom.html").text.replaceAll("@date@", "${date.format('yyyy')}")
+        }
     }
 
-    doFirst {
-        copy {
-            from 'resources/javadoc/overview.html'
-            into "$buildDir/tmp/javadoc"
-            filter(ReplaceTokens, tokens: [
-                    name: project.name,
-                    version: project.version
-            ])
+    jar {
+        manifest.attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+        )
+        into('META-INF') {
+            from "$rootDir/LICENSE"
+        }
+    }
+
+    plugins.withType(MavenPublishPlugin) {
+        java {
+            withJavadocJar()
+            withSourcesJar()
+        }
+
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+                    pom {
+                        name = project.name
+                        description = project.description
+                        url = 'https://github.com/citygml4j'
+                        licenses {
+                            license {
+                                name = 'The Apache License, Version 2.0'
+                                url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                                distribution = 'repo'
+                            }
+                        }
+                        developers {
+                            developer {
+                                id = 'clausnagel'
+                                name = 'Claus Nagel'
+                                email = 'claus.nagel@gmail.com'
+                                roles = ['architect', 'developer']
+                                timezone = '+1'
+                            }
+                        }
+                        scm {
+                            url = 'https://github.com/citygml4j/citygml4j'
+                            connection = 'scm:git:https://github.com/citygml4j/citygml4j.git'
+                        }
+                    }
+                }
+            }
+        }
+
+        signing {
+            required { !project.hasProperty("skip.signing") }
+            sign publishing.publications.mavenJava
         }
     }
 }
 
-jar {
-    manifest {
-        attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version
-        )
+task allJavadoc(type: Javadoc, group: 'documentation') {
+    rootProject.subprojects.each { project ->
+        project.tasks.withType(Javadoc).each { javadocTask ->
+            source += javadocTask.source
+            classpath += javadocTask.classpath
+        }
     }
-    into('META-INF') {
-        from 'LICENSE'
+
+    exclude "**/module-info.java"
+    source -= project(':citygml4j-samples').javadoc.source
+    destinationDir = file("$buildDir/docs/javadoc")
+
+    options {
+        title = "$project.name $project.version"
+        header = title
+        overview = "resources/javadoc/overview.html"
+        bottom = file("resources/javadoc/bottom.html").text.replaceAll("@date@", "${date.format('yyyy')}")
     }
 }
 
@@ -90,63 +129,22 @@ distributions.main.contents {
                 version: project.version,
                 date: date.format('yyyy-MM-dd'),
                 copyright: date.format('yyyy'),
-                javaCompatibility: java.sourceCompatibility.toString(),
-                jar: jar.archiveFileName.get(),
+                javaCompatibility: project('citygml4j-core').java.sourceCompatibility.toString(),
                 groupId: project.group,
                 artifactId: project.name
         ])
     }
     into('lib') {
-        from jar
-        from configurations.compileClasspath
+        from subprojects.configurations.compileClasspath
     }
     into('javadoc') {
-        from javadoc
+        from allJavadoc
     }
     into('license') {
         from 'LICENSE'
     }
     into('samples') {
-        from tasks.getByPath(':citygml4j-samples:copySamples').outputs
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            pom {
-                name = project.name
-                description = project.description
-                url = 'https://github.com/citygml4j'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
-                        distribution = 'repo'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'clausnagel'
-                        name = 'Claus Nagel'
-                        email = 'claus.nagel@gmail.com'
-                        roles = ['architect', 'developer']
-                        timezone = '+1'
-                    }
-                }
-                scm {
-                    url = 'https://github.com/citygml4j/citygml4j'
-                    connection = 'scm:git:https://github.com/citygml4j/citygml4j.git'
-                }
-            }
-        }
-    }
-}
-
-if (!project.hasProperty("skip.signing")) {
-    signing {
-        sign publishing.publications.mavenJava
+        from tasks.getByPath(':citygml4j-samples:copySamples')
     }
 }
 

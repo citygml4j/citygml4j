@@ -1,0 +1,9 @@
+plugins {
+    id 'maven-publish'
+}
+
+dependencies {
+    api project(':citygml4j-core')
+    api 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+    annotationProcessor "org.xmlobjects.gml:gml-objects:$gmlObjectsVersion"
+}

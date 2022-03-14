@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ package deprecated_properties;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.common.GeometryInfo;
-import org.citygml4j.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
+import org.citygml4j.core.model.CityGMLVersion;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.common.GeometryInfo;
+import org.citygml4j.core.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -85,7 +85,7 @@ public class AccessingLoD4 {
         CityGMLVersion version = CityGMLVersion.v2_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Writing the building as CityGML " + version + " file " + output);
         log.print("Deprecated properties will be considered when writing to CityGML 2.0 and 1.0 but ignored in case of CityGML 3.0");
 

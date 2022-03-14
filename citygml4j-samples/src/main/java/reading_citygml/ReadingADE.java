@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,13 @@ package reading_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.ADERegistry;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.ade.ADEObject;
-import org.citygml4j.model.common.GeometryInfo;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.xml.ade.ADEContext;
+import org.citygml4j.core.ade.ADE;
+import org.citygml4j.core.ade.ADERegistry;
+import org.citygml4j.core.model.ade.ADEObject;
+import org.citygml4j.core.model.common.GeometryInfo;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.xml.CityGMLADELoader;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.ade.ADEModule;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
@@ -42,11 +43,11 @@ public class ReadingADE {
 
         ADERegistry adeRegistry = ADERegistry.getInstance();
 
-        log.print("Loading ADE contexts using a service loader");
-        for (ADEContext adeContext : ServiceLoader.load(ADEContext.class))
-            adeRegistry.loadADEContext(adeContext);
+        log.print("Loading ADEs using a service loader");
+        for (ADE ade : ServiceLoader.load(ADE.class))
+            adeRegistry.loadADE(ade);
 
-        for (ADEModule module : adeRegistry.getADEModules()) {
+        for (ADEModule module : CityGMLADELoader.getInstance().getADEModules()) {
             log.print("Loaded ADE module for namespace " + module.getNamespaceURI() +
                     " and CityGML version " + module.getCityGMLVersion());
         }

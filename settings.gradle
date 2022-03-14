@@ -1,2 +1,5 @@
 rootProject.name = 'citygml4j'
+include 'citygml4j-core'
+include 'citygml4j-xml'
+include 'citygml4j-cityjson'
 include 'citygml4j-samples'

@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import implementing_ades.model.BuildingUnitPartProperty;
 import implementing_ades.model.EnergyPerformanceCertificationProperty;
 import implementing_ades.model.FacilitiesProperty;
 import implementing_ades.module.TestADEModule;
-import org.citygml4j.model.core.AddressProperty;
+import org.citygml4j.core.model.core.AddressProperty;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.citygml4j.xml.adapter.core.AddressPropertyAdapter;
 import org.xmlobjects.builder.ObjectBuildException;

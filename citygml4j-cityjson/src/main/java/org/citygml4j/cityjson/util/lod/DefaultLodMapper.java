@@ -1,0 +1,54 @@
+/*
+ * citygml4j - The Open Source Java API for CityGML
+ * https://github.com/citygml4j
+ *
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.citygml4j.cityjson.util.lod;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class DefaultLodMapper implements LodMapper {
+    private final Map<Integer, Double> mappings = new HashMap<>();
+    private Strategy strategy = Strategy.MAXIMUM_LOD;
+
+    public enum Strategy {
+        MAXIMUM_LOD,
+        MINIMUM_LOD
+    }
+
+    public DefaultLodMapper withMappingStrategy(Strategy strategy) {
+        this.strategy = strategy;
+        return this;
+    }
+
+    @Override
+    public void buildMapping(Set<Double> lods) {
+        lods.stream()
+                .sorted(strategy == Strategy.MAXIMUM_LOD ?
+                        Comparator.naturalOrder() :
+                        Comparator.reverseOrder())
+                .forEach(lod -> mappings.put(lod.intValue(), lod));
+    }
+
+    @Override
+    public double getMappingFor(int lod) {
+        return mappings.getOrDefault(lod, (double) lod);
+    }
+}

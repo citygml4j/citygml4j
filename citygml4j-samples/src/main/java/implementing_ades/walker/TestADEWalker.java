@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@
 package implementing_ades.walker;
 
 import implementing_ades.model.*;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.building.BuildingPart;
-import org.citygml4j.model.construction.AbstractConstruction;
-import org.citygml4j.model.construction.RoofSurface;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.visitor.ADEWalker;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.building.BuildingPart;
+import org.citygml4j.core.model.construction.AbstractConstruction;
+import org.citygml4j.core.model.construction.RoofSurface;
+import org.citygml4j.core.model.core.AbstractCityObject;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.visitor.ADEWalker;
 
 public class TestADEWalker extends ADEWalker {
 

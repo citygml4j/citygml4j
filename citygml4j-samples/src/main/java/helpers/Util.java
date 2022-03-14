@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,11 @@ public class Util {
         return OUTPUT_DIR.resolve(fileName);
     }
 
-    public static Path getOutputFile() throws IOException {
+    public static Path getGMLOutputFile() throws IOException {
         return getOutputFile("out.gml");
+    }
+
+    public static Path getJSONOutputFile() throws IOException {
+        return getOutputFile("out.json");
     }
 }

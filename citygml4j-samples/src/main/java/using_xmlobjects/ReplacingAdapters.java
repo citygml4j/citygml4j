@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@ package using_xmlobjects;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.CityGMLVersion;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.AbstractFeature;
-import org.citygml4j.model.core.CityModel;
-import org.citygml4j.util.CityGMLConstants;
+import org.citygml4j.core.model.CityGMLVersion;
+import org.citygml4j.core.model.core.AbstractCityObjectProperty;
+import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.model.core.CityModel;
+import org.citygml4j.core.util.CityGMLConstants;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
@@ -71,7 +71,7 @@ public class ReplacingAdapters {
                 CityModel.class,
                 CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE);
 
-        Path output = Util.getOutputFile();
+        Path output = Util.getGMLOutputFile();
         log.print("Writing the file as WFS 2.0 feature collection");
 
         try (CityGMLWriter writer = out.createCityGMLWriter(output, StandardCharsets.UTF_8.name())) {

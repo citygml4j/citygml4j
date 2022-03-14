@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2021 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,13 +24,13 @@ import com.sun.xml.xsom.XSSchemaSet;
 import com.sun.xml.xsom.XSType;
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.CityGMLContext;
-import org.citygml4j.model.ade.ADEProperty;
-import org.citygml4j.model.ade.generic.ADEGenericProperty;
-import org.citygml4j.model.building.Building;
-import org.citygml4j.model.core.AbstractCityObject;
-import org.citygml4j.model.core.AbstractCityObjectProperty;
-import org.citygml4j.model.core.CityModel;
+import org.citygml4j.core.model.ade.ADEProperty;
+import org.citygml4j.core.model.ade.generic.ADEGenericProperty;
+import org.citygml4j.core.model.building.Building;
+import org.citygml4j.core.model.core.AbstractCityObject;
+import org.citygml4j.core.model.core.AbstractCityObjectProperty;
+import org.citygml4j.core.model.core.CityModel;
+import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.reader.CityGMLInputFactory;

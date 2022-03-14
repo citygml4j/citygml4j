@@ -1,0 +1,44 @@
+module org.citygml4j.cityjson {
+    requires transitive org.citygml4j.core;
+    requires com.fasterxml.jackson.databind;
+
+    exports org.citygml4j.cityjson;
+    exports org.citygml4j.cityjson.adapter;
+    exports org.citygml4j.cityjson.adapter.address;
+    exports org.citygml4j.cityjson.adapter.appearance;
+    exports org.citygml4j.cityjson.adapter.appearance.builder;
+    exports org.citygml4j.cityjson.adapter.appearance.serializer;
+    exports org.citygml4j.cityjson.adapter.bridge;
+    exports org.citygml4j.cityjson.adapter.building;
+    exports org.citygml4j.cityjson.adapter.cityfurniture;
+    exports org.citygml4j.cityjson.adapter.cityobjectgroup;
+    exports org.citygml4j.cityjson.adapter.construction;
+    exports org.citygml4j.cityjson.adapter.core;
+    exports org.citygml4j.cityjson.adapter.extension;
+    exports org.citygml4j.cityjson.adapter.generics;
+    exports org.citygml4j.cityjson.adapter.geometry;
+    exports org.citygml4j.cityjson.adapter.geometry.builder;
+    exports org.citygml4j.cityjson.adapter.geometry.serializer;
+    exports org.citygml4j.cityjson.adapter.metadata;
+    exports org.citygml4j.cityjson.adapter.relief;
+    exports org.citygml4j.cityjson.adapter.transportation;
+    exports org.citygml4j.cityjson.adapter.tunnel;
+    exports org.citygml4j.cityjson.adapter.vegetation;
+    exports org.citygml4j.cityjson.adapter.waterbody;
+    exports org.citygml4j.cityjson.annotation;
+    exports org.citygml4j.cityjson.builder;
+    exports org.citygml4j.cityjson.extension;
+    exports org.citygml4j.cityjson.model;
+    exports org.citygml4j.cityjson.model.address;
+    exports org.citygml4j.cityjson.model.core;
+    exports org.citygml4j.cityjson.model.generics;
+    exports org.citygml4j.cityjson.model.geometry;
+    exports org.citygml4j.cityjson.model.metadata;
+    exports org.citygml4j.cityjson.reader;
+    exports org.citygml4j.cityjson.serializer;
+    exports org.citygml4j.cityjson.util;
+    exports org.citygml4j.cityjson.util.composite;
+    exports org.citygml4j.cityjson.util.lod;
+    exports org.citygml4j.cityjson.util.texture;
+    exports org.citygml4j.cityjson.writer;
+}
