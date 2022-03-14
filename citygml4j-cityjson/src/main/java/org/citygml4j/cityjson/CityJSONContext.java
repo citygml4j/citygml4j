@@ -89,6 +89,10 @@ public class CityJSONContext {
         return new CityJSONOutputFactory(version, objectMapper, this);
     }
 
+    public CityJSONOutputFactory createCityJSONOutputFactory() {
+        return createCityJSONOutputFactory(CityJSONVersion.v1_1);
+    }
+
     public CityJSONContext registerBuilder(JsonObjectBuilder<?> builder, String name, CityJSONVersion version) throws CityJSONContextException {
         registerBuilder(builder, name, null, version, false);
         return this;
