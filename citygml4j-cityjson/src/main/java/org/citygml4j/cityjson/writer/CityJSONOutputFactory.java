@@ -306,7 +306,7 @@ public class CityJSONOutputFactory {
         }
 
         if (textureVertexPrecision != AppearanceSerializer.DEFAULT_TEXTURE_VERTEX_PRECISION) {
-            helper.getAppearanceSerializer().getTextureVerticesBuilder().setPrecision(templatePrecision);
+            helper.getAppearanceSerializer().getTextureVerticesBuilder().setPrecision(textureVertexPrecision);
         }
 
         if (idCreator != null) {
