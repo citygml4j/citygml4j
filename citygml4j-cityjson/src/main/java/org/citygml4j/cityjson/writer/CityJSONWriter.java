@@ -58,7 +58,7 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
         return this;
     }
 
-    private void writeStartDocument() throws CityJSONWriteException {
+    private void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
         if (state != State.INITIAL) {
             throw new CityJSONWriteException("The document has already been started.");
         }
@@ -68,6 +68,8 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
             writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
             writer.writeStringField(Fields.VERSION, helper.getVersion().toValue());
             writer.writeObjectFieldStart(Fields.CITY_OBJECTS);
+
+            getAndSetReferenceSystem(feature);
         } catch (IOException e) {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
@@ -81,7 +83,7 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
             case CLOSED:
                 throw new CityJSONWriteException("Illegal to write city objects after writer has been closed.");
             case INITIAL:
-                writeStartDocument();
+                writeStartDocument(feature);
         }
 
         super.writeCityObject(feature);
@@ -103,7 +105,7 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
 
     private void writeEndDocument() throws CityJSONWriteException {
         if (state == State.INITIAL) {
-            writeStartDocument();
+            writeStartDocument(null);
         }
 
         for (Visitable visitable : resolveScopes) {

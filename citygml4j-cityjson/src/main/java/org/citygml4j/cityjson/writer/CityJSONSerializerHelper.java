@@ -43,6 +43,7 @@ import org.citygml4j.cityjson.util.ArrayBuffer;
 import org.citygml4j.core.model.ade.ADEProperty;
 import org.citygml4j.core.model.common.GeometryInfo;
 import org.citygml4j.core.model.core.*;
+import org.citygml4j.core.visitor.ObjectWalker;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
@@ -50,6 +51,7 @@ import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
+import org.xmlobjects.model.Child;
 import org.xmlobjects.util.Properties;
 
 import java.util.*;
@@ -554,6 +556,38 @@ public class CityJSONSerializerHelper {
         }
 
         return Arrays.asList(extent);
+    }
+
+    String getReferenceSystem(AbstractFeature feature) {
+        Child parent = feature;
+        do {
+            if (parent instanceof AbstractFeature) {
+                AbstractFeature tmp = (AbstractFeature) parent;
+                if (tmp.getBoundedBy() != null
+                        && tmp.getBoundedBy().getEnvelope() != null
+                        && tmp.getBoundedBy().getEnvelope().getSrsName() != null) {
+                    return tmp.getBoundedBy().getEnvelope().getSrsName();
+                }
+            }
+        } while ((parent = parent.getParent()) != null);
+
+        String[] reference = new String[1];
+        feature.accept(new ObjectWalker() {
+            @Override
+            public void visit(AbstractFeature feature) {
+                if (feature.getBoundedBy() != null
+                        && feature.getBoundedBy().getEnvelope() != null
+                        && feature.getBoundedBy().getEnvelope().getSrsName() != null) {
+                    reference[0] = feature.getBoundedBy().getEnvelope().getSrsName();
+                    shouldWalk = false;
+                    return;
+                }
+
+                super.visit(feature);
+            }
+        });
+
+        return reference[0];
     }
 
     void reset() {

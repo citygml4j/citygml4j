@@ -27,8 +27,6 @@ import org.citygml4j.cityjson.adapter.geometry.serializer.VerticesBuilder;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.geometry.Transform;
 import org.citygml4j.cityjson.model.geometry.Vertex;
-import org.citygml4j.cityjson.model.metadata.Metadata;
-import org.citygml4j.cityjson.model.metadata.ReferenceSystem;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.Envelope;
@@ -86,7 +84,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
 
             writeTransform(computeTransform(feature));
             writeExtensions();
-            computeMetadata(feature);
+            getAndSetReferenceSystem(feature);
             writeMetadata();
 
             writer.writeEndObject();
@@ -146,6 +144,10 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
     }
 
     private void writeEndDocument() throws CityJSONWriteException {
+        if (state == State.INITIAL) {
+            writeStartDocument(null);
+        }
+
         if (state == State.DOCUMENT_STARTED) {
             for (Visitable visitable : resolveScopes) {
                 if (visitable instanceof CityObjectGroup) {
@@ -180,7 +182,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
         double scale = 1 / Math.pow(10, builder.getPrecision());
         transform.setScale(Vertex.of(scale, scale, scale));
 
-        if (builder.getTranslation() == null) {
+        if (feature != null && builder.getTranslation() == null) {
             Envelope envelope = feature.computeEnvelope();
             List<Double> lowerCorner = envelope.getLowerCorner().toCoordinateList3D();
             if (!lowerCorner.isEmpty()) {
@@ -194,14 +196,5 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
         }
 
         return transform;
-    }
-
-    private void computeMetadata(AbstractFeature feature) {
-        if (feature.getBoundedBy() != null && feature.getBoundedBy().isSetEnvelope()) {
-            Metadata metadata = helper.getMetadata();
-            if (metadata.getReferenceSystem() == null) {
-                metadata.setReferenceSystem(ReferenceSystem.parse(feature.getBoundedBy().getEnvelope().getSrsName()));
-            }
-        }
     }
 }

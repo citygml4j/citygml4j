@@ -36,6 +36,7 @@ import org.citygml4j.cityjson.model.geometry.TextureVertex;
 import org.citygml4j.cityjson.model.geometry.Transform;
 import org.citygml4j.cityjson.model.geometry.Vertex;
 import org.citygml4j.cityjson.model.metadata.Metadata;
+import org.citygml4j.cityjson.model.metadata.ReferenceSystem;
 import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.util.ArrayBuffer;
 import org.citygml4j.core.model.appearance.Appearance;
@@ -345,5 +346,14 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
 
         writer.writeEndArray();
+    }
+
+    void getAndSetReferenceSystem(AbstractFeature feature) {
+        if (feature != null && (!helper.hasMetadata() || helper.getMetadata().getReferenceSystem() == null)) {
+            String referenceSystem = helper.getReferenceSystem(feature);
+            if (referenceSystem != null) {
+                helper.getMetadata().setReferenceSystem(ReferenceSystem.parse(referenceSystem));
+            }
+        }
     }
 }

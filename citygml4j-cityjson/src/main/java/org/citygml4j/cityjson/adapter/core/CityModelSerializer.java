@@ -23,8 +23,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.model.CityJSONVersion;
-import org.citygml4j.cityjson.model.metadata.Metadata;
-import org.citygml4j.cityjson.model.metadata.ReferenceSystem;
 import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.util.CityJSONConstants;
@@ -42,13 +40,6 @@ public class CityModelSerializer implements JsonObjectSerializer<CityModel> {
 
     @Override
     public void writeObject(CityModel object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
-        if (object.getBoundedBy() != null && object.getBoundedBy().isSetEnvelope()) {
-            Metadata metadata = helper.getMetadata();
-            if (metadata.getReferenceSystem() == null) {
-                metadata.setReferenceSystem(ReferenceSystem.parse(object.getBoundedBy().getEnvelope().getSrsName()));
-            }
-        }
-
         if (object.isSetCityObjectMembers()) {
             for (AbstractCityObjectProperty property : object.getCityObjectMembers()) {
                 helper.writeCityObject(property.getObject());
