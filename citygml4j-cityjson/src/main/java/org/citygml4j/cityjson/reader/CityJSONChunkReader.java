@@ -78,6 +78,10 @@ public class CityJSONChunkReader extends CityJSONReader {
     public AbstractFeature next() throws CityJSONReadException {
         if (hasNext()) {
             try {
+                if (resolver != null) {
+                    resolver.resolveReferences(next);
+                }
+
                 return next;
             } finally {
                 next = null;

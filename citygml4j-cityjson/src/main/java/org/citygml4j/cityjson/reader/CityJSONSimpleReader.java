@@ -107,6 +107,10 @@ public class CityJSONSimpleReader extends CityJSONReader {
     public AbstractFeature next() throws CityJSONReadException {
         if (hasNext()) {
             try {
+                if (resolver != null) {
+                    resolver.resolveReferences(cityModel);
+                }
+
                 return cityModel;
             } finally {
                 hasNext = false;

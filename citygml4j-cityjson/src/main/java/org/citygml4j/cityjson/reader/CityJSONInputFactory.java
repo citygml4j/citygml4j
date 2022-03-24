@@ -28,6 +28,7 @@ import org.citygml4j.cityjson.util.texture.DefaultTextureFileHandler;
 import org.citygml4j.cityjson.util.texture.TextureFileHandler;
 import org.citygml4j.core.model.CityGMLVersion;
 import org.xmlobjects.gml.util.id.IdCreator;
+import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.util.Properties;
 
 import java.io.*;
@@ -46,6 +47,7 @@ public class CityJSONInputFactory {
     private boolean mapUnsupportedTypesToGenerics = true;
     private boolean transformTemplateGeometries;
     private boolean assignAppearanceToImplicitGeometry;
+    private ReferenceResolver resolver;
     private LodMapper lodMapper;
     private IdCreator idCreator;
 
@@ -97,6 +99,15 @@ public class CityJSONInputFactory {
 
     public CityJSONInputFactory assignAppearanceToImplicitGeometry(boolean assignAppearanceToImplicitGeometry) {
         this.assignAppearanceToImplicitGeometry = assignAppearanceToImplicitGeometry;
+        return this;
+    }
+
+    public ReferenceResolver getReferenceResolver() {
+        return resolver;
+    }
+
+    public CityJSONInputFactory withReferenceResolver(ReferenceResolver resolver) {
+        this.resolver = resolver;
         return this;
     }
 
@@ -215,6 +226,7 @@ public class CityJSONInputFactory {
         reader.mapUnsupportedTypesToGenerics = mapUnsupportedTypesToGenerics;
         reader.transformTemplateGeometries = transformTemplateGeometries;
         reader.assignAppearanceToImplicitGeometry = targetCityGMLVersion == CityGMLVersion.v3_0 && assignAppearanceToImplicitGeometry;
+        reader.resolver = resolver;
         reader.lodMapper = lodMapper;
         reader.idCreator = idCreator;
         reader.properties = properties;
