@@ -21,6 +21,7 @@ package processing_citygml;
 
 import helpers.Logger;
 import helpers.Util;
+import org.citygml4j.core.model.appearance.AbstractSurfaceData;
 import org.citygml4j.core.model.appearance.GeometryReference;
 import org.citygml4j.core.model.appearance.X3DMaterial;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
@@ -29,10 +30,12 @@ import org.citygml4j.core.model.cityobjectgroup.RoleProperty;
 import org.citygml4j.core.model.core.AbstractCityObject;
 import org.citygml4j.core.model.core.CityModel;
 import org.citygml4j.core.util.reference.DefaultReferenceResolver;
+import org.citygml4j.core.util.reference.Referees;
 import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
+import org.xmlobjects.gml.model.geometry.primitives.Polygon;
 
 import java.nio.file.Path;
 
@@ -70,16 +73,38 @@ public class ResolvingReferences {
             }
         }
 
+        // You can also resolve all references in one step. This can be more efficient
+        // than resolving references one after the other as this always requires searching
+        // the entire object tree for the matching gml:id.
         log.print("Step 2: Resolving all references in the dataset in one run");
+
+        // Optionally, you can let the resolver store pointers to the referees with the referenced object.
+        resolver.storeRefereesWithReferencedObject(true);
+
+        // Ok, so let's resolve all references inside the city model with just one method call.
         resolver.resolveReferences(cityModel);
 
-        log.print("Retrieving the X3DMaterial feature with gml:id UUID_2e70b948-c8db-4bd2-a99e-1d99a352cabc");
-        X3DMaterial material = resolver.resolveReference("UUID_2e70b948-c8db-4bd2-a99e-1d99a352cabc", X3DMaterial.class, cityModel);
+        log.print("Retrieving the X3DMaterial feature with gml:id UUID_56c58629-e1fc-4043-9c01-002a9865308c");
+        X3DMaterial material = resolver.resolveReference("UUID_56c58629-e1fc-4043-9c01-002a9865308c", X3DMaterial.class, cityModel);
 
         log.print("Iterating through the targets of the X3DMaterial and printing the referenced surface geometries");
         for (GeometryReference target : material.getTargets()) {
+            // Note that the getReferencedObject method returns null unless
+            // you have resolved the target references beforehand as we did above
             AbstractGeometry geometry = target.getReferencedObject();
             log.print("- Found " + geometry.getClass().getSimpleName() + " with gml:id " + geometry.getId());
+        }
+
+        log.print("Retrieving the polygon with gml:id PolyID90_1961_472156_255025");
+        Polygon polygon = resolver.resolveReference("PolyID90_1961_472156_255025", Polygon.class, cityModel);
+
+        // If you have chosen to store the referees with the referenced object, you can also access
+        // the above X3DMaterial (referee) from the polygons (referenced objects). This might be useful
+        // if you access and process the data via the geometries rather than the features.
+        log.print("Iterating through all surface data objects that reference this polygon");
+        Referees referees = polygon.getLocalProperties().get(Referees.PROPERTY_NAME, Referees.class);
+        for (AbstractSurfaceData surfaceData : referees.get(AbstractSurfaceData.class)) {
+            log.print("- Found " + surfaceData.getClass().getSimpleName() + " with gml:id " + surfaceData.getId());
         }
 
         log.finish();
