@@ -27,6 +27,13 @@ A release candidate version of the upcoming **next major version 3.0 of citygml4
 draft of [CityGML 3.0](https://github.com/opengeospatial/CityGML-3.0CM) is available
 [here](https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0-rc.3).
 
+Development version with CityGML 3.0 support
+--------------------------------------------
+
+Interested in CityGML 3.0? We are intensively working on the next major version 3.0 of citygml4j with support for
+CityGML 3.0, 2.0 and 1.0 and CityJSON 1.1 and 1.0 (more encodings might follow in the future). Please check out the
+`citygml3-devel` branch to follow the development. The latest release candidate is [citygml4j v3.0.0-rc.4](https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0-rc.4).
+
 Contributing
 ------------
 * To file bugs found in the software create a GitHub issue.
