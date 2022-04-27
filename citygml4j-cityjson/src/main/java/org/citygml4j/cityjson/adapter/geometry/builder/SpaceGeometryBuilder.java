@@ -95,15 +95,17 @@ public class SpaceGeometryBuilder {
             space.setSolid(lod, new SolidProperty((Solid) geometry));
         } else if (geometry instanceof MultiSurface) {
             MultiSurface multiSurface = (MultiSurface) geometry;
-            if (lod == 1) {
-                if (providers.containsKey(1)) {
-                    providers.get(1).set(new MultiSurfaceProperty(multiSurface));
+            if (multiSurface.getSurfaceMember().stream().anyMatch(SurfaceProperty::isSetInlineObject)) {
+                if (lod == 1) {
+                    if (providers.containsKey(1)) {
+                        providers.get(1).set(new MultiSurfaceProperty(multiSurface));
+                    } else {
+                        Solid solid = new Solid(new Shell(multiSurface.getSurfaceMember()));
+                        space.setLod1Solid(new SolidProperty(solid));
+                    }
                 } else {
-                    Solid solid = new Solid(new Shell(multiSurface.getSurfaceMember()));
-                    space.setLod1Solid(new SolidProperty(solid));
+                    space.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
                 }
-            } else if (multiSurface.getSurfaceMember().stream().anyMatch(SurfaceProperty::isSetInlineObject)) {
-                space.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
             }
         } else if (geometry instanceof MultiCurve) {
             space.setMultiCurve(lod, new MultiCurveProperty((MultiCurve) geometry));
