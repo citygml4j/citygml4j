@@ -20,7 +20,7 @@
 package org.citygml4j.cityjson.adapter.generics;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.citygml4j.cityjson.adapter.core.AbstractThematicSurfaceAdapter;
+import org.citygml4j.cityjson.adapter.core.AbstractSemanticObjectAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -33,7 +33,7 @@ import org.citygml4j.core.model.generics.GenericThematicSurface;
         @CityJSONElement(name = "+GenericSurface", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "+GenericSurface", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })
-public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapter<GenericThematicSurface> {
+public class GenericThematicSurfaceAdapter extends AbstractSemanticObjectAdapter<GenericThematicSurface> {
 
     @Override
     public GenericThematicSurface createObject(JsonNode node, Object parent) throws CityJSONBuildException {
