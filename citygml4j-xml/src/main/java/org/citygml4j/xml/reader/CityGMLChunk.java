@@ -114,8 +114,7 @@ public class CityGMLChunk {
     }
 
     public AbstractFeature build(boolean release) throws CityGMLReadException {
-        try {
-            XMLReader reader = factory.createReader(buffer.toXMLStreamReader(release));
+        try (XMLReader reader = factory.createReader(buffer.toXMLStreamReader(release))) {
             reader.nextTag();
 
             AbstractFeature feature = reader.getObject(AbstractFeature.class);
@@ -139,11 +138,12 @@ public class CityGMLChunk {
                 send(buffer, false);
                 buffer.complete();
 
-                XMLReader reader = factory.createReader(buffer.toXMLStreamReader(true));
-                reader.nextTag();
-                AbstractFeature feature = reader.getObject(AbstractFeature.class);
-                if (feature != null)
-                    featureInfo = new FeatureInfo(firstElement, feature, parent);
+                try (XMLReader reader = factory.createReader(buffer.toXMLStreamReader(true))) {
+                    reader.nextTag();
+                    AbstractFeature feature = reader.getObject(AbstractFeature.class);
+                    if (feature != null)
+                        featureInfo = new FeatureInfo(firstElement, feature, parent);
+                }
             } catch (SAXException | XMLReadException | ObjectBuildException e) {
                 throw new CityGMLReadException("Caused by:", e);
             }
