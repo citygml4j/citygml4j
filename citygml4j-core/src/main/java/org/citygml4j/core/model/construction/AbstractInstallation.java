@@ -29,11 +29,11 @@ public abstract class AbstractInstallation extends AbstractOccupiedSpace {
     private RelationToConstruction relationToConstruction;
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof AbstractConstructionSurface
-                || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface
-                || boundary instanceof ADEObject;
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
+        return AbstractConstructionSurface.class.isAssignableFrom(type)
+                || ClosureSurface.class.isAssignableFrom(type)
+                || GenericThematicSurface.class.isAssignableFrom(type)
+                || ADEObject.class.isAssignableFrom(type);
     }
 
     public RelationToConstruction getRelationToConstruction() {

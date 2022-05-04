@@ -51,7 +51,7 @@ public abstract class AbstractBuildingUnit extends AbstractLogicalSpace implemen
     private List<BuildingUnitPartProperty> consistsOf;
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
         return false;
     }
 

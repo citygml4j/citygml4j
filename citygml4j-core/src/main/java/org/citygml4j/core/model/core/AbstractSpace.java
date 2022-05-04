@@ -46,7 +46,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
     private MultiSurfaceProperty lod3MultiSurface;
     private MultiCurveProperty lod3MultiCurve;
 
-    public abstract boolean isValidBoundary(AbstractSpaceBoundary boundary);
+    public abstract boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type);
 
     public SpaceType getSpaceType() {
         return spaceType;
@@ -84,6 +84,10 @@ public abstract class AbstractSpace extends AbstractCityObject {
 
     public void setAreas(List<QualifiedAreaProperty> areas) {
         this.areas = areas;
+    }
+
+    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return boundary != null && isValidBoundary(boundary.getClass());
     }
 
     public boolean isValidBoundary(AbstractSpaceBoundaryProperty property) {

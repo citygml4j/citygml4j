@@ -38,11 +38,11 @@ public class Door extends AbstractFillingElement implements StandardObjectClassi
     private List<AddressProperty> addresses;
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof DoorSurface
-                || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface
-                || boundary instanceof ADEObject;
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
+        return DoorSurface.class.isAssignableFrom(type)
+                || ClosureSurface.class.isAssignableFrom(type)
+                || GenericThematicSurface.class.isAssignableFrom(type)
+                || ADEObject.class.isAssignableFrom(type);
     }
 
     @Override

@@ -42,10 +42,10 @@ public class CityFurniture extends AbstractOccupiedSpace implements TopLevelFeat
     private List<Code> usages;
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface
-                || boundary instanceof ADEObject;
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
+        return ClosureSurface.class.isAssignableFrom(type)
+                || GenericThematicSurface.class.isAssignableFrom(type)
+                || ADEObject.class.isAssignableFrom(type);
     }
 
     @Override

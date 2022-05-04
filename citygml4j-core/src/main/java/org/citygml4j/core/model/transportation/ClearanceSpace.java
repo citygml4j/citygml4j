@@ -31,10 +31,10 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
     private Code classifier;
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface
-                || boundary instanceof ADEObject;
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
+        return ClosureSurface.class.isAssignableFrom(type)
+                || GenericThematicSurface.class.isAssignableFrom(type)
+                || ADEObject.class.isAssignableFrom(type);
     }
 
     public Code getClassifier() {

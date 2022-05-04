@@ -49,11 +49,11 @@ public class TrafficSpace extends AbstractUnoccupiedSpace implements StandardObj
     }
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof TrafficArea
-                || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface
-                || boundary instanceof ADEObject;
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
+        return TrafficArea.class.isAssignableFrom(type)
+                || ClosureSurface.class.isAssignableFrom(type)
+                || GenericThematicSurface.class.isAssignableFrom(type)
+                || ADEObject.class.isAssignableFrom(type);
     }
 
     @Override

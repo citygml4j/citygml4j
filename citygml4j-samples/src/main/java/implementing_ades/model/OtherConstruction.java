@@ -28,8 +28,8 @@ import org.citygml4j.core.model.core.ClosureSurface;
 public class OtherConstruction extends AbstractConstruction implements ADEObject {
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof AbstractConstructionSurface
-                || boundary instanceof ClosureSurface;
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
+        return AbstractConstructionSurface.class.isAssignableFrom(type)
+                || ClosureSurface.class.isAssignableFrom(type);
     }
 }

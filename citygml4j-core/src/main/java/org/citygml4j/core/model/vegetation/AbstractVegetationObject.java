@@ -25,7 +25,7 @@ import org.citygml4j.core.model.core.AbstractSpaceBoundary;
 public abstract class AbstractVegetationObject extends AbstractOccupiedSpace {
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
         return false;
     }
 }

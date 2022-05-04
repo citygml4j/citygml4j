@@ -62,11 +62,11 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
             object.setTrafficDirection(TrafficDirectionValue.fromValue(trafficDirection.asText()));
         }
 
-        helper.addGeometries(object, geometries, boundary -> object.isValidBoundary(boundary)
-                || boundary instanceof TrafficArea
-                || boundary instanceof AuxiliaryTrafficArea
+        helper.addGeometries(object, geometries, type -> object.isValidBoundary(type)
+                || TrafficArea.class.isAssignableFrom(type)
+                || AuxiliaryTrafficArea.class.isAssignableFrom(type)
                 || (helper.getTargetCityGMLVersion() == CityGMLVersion.v3_0
-                && (boundary instanceof HoleSurface || boundary instanceof Marking)));
+                && (HoleSurface.class.isAssignableFrom(type) || Marking.class.isAssignableFrom(type))));
 
         if (object.isSetBoundaries()) {
             Iterator<AbstractSpaceBoundaryProperty> iterator = object.getBoundaries().iterator();

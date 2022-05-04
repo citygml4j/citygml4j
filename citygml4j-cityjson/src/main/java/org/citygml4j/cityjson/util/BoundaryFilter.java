@@ -23,5 +23,9 @@ import org.citygml4j.core.model.core.AbstractSpaceBoundary;
 
 @FunctionalInterface
 public interface BoundaryFilter {
-    boolean isValidBoundary(AbstractSpaceBoundary boundary);
+    boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type);
+
+    default boolean isValidBoundary(AbstractSpaceBoundary boundary) {
+        return isValidBoundary(boundary.getClass());
+    }
 }

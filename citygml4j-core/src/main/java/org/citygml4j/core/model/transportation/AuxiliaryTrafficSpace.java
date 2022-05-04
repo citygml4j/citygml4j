@@ -45,11 +45,11 @@ public class AuxiliaryTrafficSpace extends AbstractUnoccupiedSpace implements St
     }
 
     @Override
-    public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
-        return boundary instanceof AuxiliaryTrafficArea
-                || boundary instanceof ClosureSurface
-                || boundary instanceof GenericThematicSurface
-                || boundary instanceof ADEObject;
+    public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
+        return AuxiliaryTrafficArea.class.isAssignableFrom(type)
+                || ClosureSurface.class.isAssignableFrom(type)
+                || GenericThematicSurface.class.isAssignableFrom(type)
+                || ADEObject.class.isAssignableFrom(type);
     }
 
     @Override
