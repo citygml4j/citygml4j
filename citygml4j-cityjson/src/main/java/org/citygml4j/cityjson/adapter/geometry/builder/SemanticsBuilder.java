@@ -38,19 +38,20 @@ import org.citygml4j.core.model.transportation.Marking;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import org.xmlobjects.util.copy.CopyBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SemanticsBuilder {
     private final CityJSONBuilderHelper helper;
-    private final CityGMLVersion version;
+    private CopyBuilder copyBuilder;
 
     SemanticsBuilder(CityJSONBuilderHelper helper) {
         this.helper = helper;
-        version = helper.getTargetCityGMLVersion();
     }
 
     void build(AbstractSpace object, JsonNode node, BoundaryFilter filter, List<SurfaceProperty> geometries, int lod, GeometryObject geometryObject) {
@@ -65,62 +66,89 @@ public class SemanticsBuilder {
         }
 
         Map<Integer, AbstractThematicSurface> boundaries = new HashMap<>();
-        createBoundaries((ArrayNode) surfaces, filter, boundaries);
-        assignGeometries(boundaries, (ArrayNode) values, geometries, lod);
 
-        boundaries.values().removeIf(boundary -> boundary.getParent() != null);
+        createBoundaries((ArrayNode) surfaces, boundaries, filter);
+        assignGeometries(boundaries, (ArrayNode) values, geometries, lod);
+        rebuildHierarchies((ArrayNode) surfaces, boundaries);
+        cleanupBoundaries((ArrayNode) surfaces, filter, boundaries);
+
         if (!boundaries.isEmpty()) {
             geometryObject.setBoundaries(new ArrayList<>(boundaries.values()));
         }
     }
 
-    private void createBoundaries(ArrayNode surfaces, BoundaryFilter filter, Map<Integer, AbstractThematicSurface> boundaries) {
+    private void createBoundaries(ArrayNode surfaces, Map<Integer, AbstractThematicSurface> boundaries, BoundaryFilter filter) {
         for (int i = 0; i < surfaces.size(); i++) {
-            JsonNode surface = surfaces.get(i);
-            AbstractThematicSurface boundary = getOrCreateBoundary(boundaries, i, surface, filter);
-
-            if (filter.isValidBoundary(boundary)) {
-                for (JsonNode element : surface.path(Fields.CHILDREN)) {
-                    int index = element.asInt(-1);
-                    AbstractThematicSurface child = getOrCreateBoundary(boundaries, index, surfaces.path(index), filter);
-                    if (boundary instanceof AbstractConstructionSurface && child instanceof AbstractFillingSurface) {
-                        ((AbstractConstructionSurface) boundary)
-                                .getFillingSurfaces()
-                                .add(new AbstractFillingSurfaceProperty((AbstractFillingSurface) child));
-                    }
-                }
-            }
-        }
-
-        boundaries.values().removeIf(boundary -> !filter.isValidBoundary(boundary) && boundary.getParent() == null);
-    }
-
-    private AbstractThematicSurface getOrCreateBoundary(Map<Integer, AbstractThematicSurface> boundaries, int value, JsonNode surface, BoundaryFilter filter) {
-        AbstractThematicSurface boundary = boundaries.get(value);
-        if (boundary == null) {
             try {
+                JsonNode surface = surfaces.get(i);
                 String type = surface.path(Fields.TYPE).asText();
-                boundary = helper.getObject(type, surface, AbstractThematicSurface.class);
 
-                if (helper.isMapUnsupportedTypesToGenerics()
-                        && helper.getTargetCityGMLVersion() == CityGMLVersion.v3_0
-                        && (boundary == null || !filter.isValidBoundary(boundary))) {
+                AbstractThematicSurface boundary = helper.getObject(type, surface, AbstractThematicSurface.class);
+                if (boundary == null
+                        && helper.isMapUnsupportedTypesToGenerics()
+                        && filter.isValidBoundary(GenericThematicSurface.class)) {
                     boundary = helper.getObjectUsingBuilder(surface, GenericThematicSurfaceAdapter.class);
-                    if (type.startsWith("+")) {
-                        type = type.substring(1);
-                    }
-
-                    StringAttribute stringAttribute = new StringAttribute(CityJSONConstants.GENERIC_TYPE_ATTRIBUTE, type);
-                    boundary.getGenericAttributes().add(new AbstractGenericAttributeProperty(stringAttribute));
+                    addGenericTypeAttribute(type, boundary);
                 }
 
-                boundaries.put(value, boundary);
+                if (boundary != null) {
+                    boundaries.put(i, boundary);
+                }
             } catch (Exception e) {
                 //
             }
         }
+    }
 
-        return boundary;
+    private void rebuildHierarchies(ArrayNode surfaces, Map<Integer, AbstractThematicSurface> boundaries) {
+        for (int i = 0; i < surfaces.size(); i++) {
+            JsonNode surface = surfaces.get(i);
+            AbstractThematicSurface boundary = boundaries.get(i);
+
+            if (boundary instanceof AbstractConstructionSurface) {
+                for (JsonNode element : surface.path(Fields.CHILDREN)) {
+                    int index = element.asInt(-1);
+                    AbstractThematicSurface child = boundaries.get(index);
+                    if (child instanceof AbstractFillingSurface) {
+                        ((AbstractConstructionSurface) boundary)
+                                .getFillingSurfaces()
+                                .add(new AbstractFillingSurfaceProperty((AbstractFillingSurface) child));
+                        boundaries.remove(index);
+                    }
+                }
+            } else if (boundary instanceof AbstractFillingSurface) {
+                AbstractThematicSurface parent = boundaries.get(surface.path(Fields.PARENT).asInt(-1));
+                if (parent instanceof AbstractConstructionSurface) {
+                    ((AbstractConstructionSurface) parent)
+                            .getFillingSurfaces()
+                            .add(new AbstractFillingSurfaceProperty((AbstractFillingSurface) boundary));
+                    boundaries.remove(i);
+                }
+            }
+        }
+    }
+
+    private void cleanupBoundaries(ArrayNode surfaces, BoundaryFilter filter, Map<Integer, AbstractThematicSurface> boundaries) {
+        List<Map.Entry<Integer, AbstractThematicSurface>> entries = boundaries.entrySet().stream()
+                .filter(e -> !filter.isValidBoundary(e.getValue()))
+                .collect(Collectors.toList());
+
+        if (!entries.isEmpty()) {
+            if (helper.isMapUnsupportedTypesToGenerics()
+                    && filter.isValidBoundary(GenericThematicSurface.class)) {
+                CopyBuilder copyBuilder = getOrCreateCopyBuilder();
+                for (Map.Entry<Integer, AbstractThematicSurface> entry : entries) {
+                    GenericThematicSurface boundary = new GenericThematicSurface();
+                    copyBuilder.shallowCopy(entry.getValue(), boundary, AbstractThematicSurface.class);
+
+                    JsonNode surface = surfaces.get(entry.getKey());
+                    addGenericTypeAttribute(surface.path(Fields.TYPE).asText(), boundary);
+                    entry.setValue(boundary);
+                }
+            } else {
+                entries.forEach(entry -> boundaries.remove(entry.getKey()));
+            }
+        }
     }
 
     private void assignGeometries(Map<Integer, AbstractThematicSurface> boundaries, ArrayNode values, List<SurfaceProperty> geometries, int lod) {
@@ -156,7 +184,7 @@ public class SemanticsBuilder {
     }
 
     private boolean isAvailableForLod(AbstractThematicSurface boundary, int lod) {
-        if (version == CityGMLVersion.v3_0) {
+        if (helper.getTargetCityGMLVersion() == CityGMLVersion.v3_0) {
             return lod >= 0 && lod < 4;
         } else {
             if (boundary instanceof DoorSurface
@@ -189,5 +217,22 @@ public class SemanticsBuilder {
                 flatValues.add(value.asInt(-1));
             }
         }
+    }
+
+    private void addGenericTypeAttribute(String type, AbstractThematicSurface boundary) {
+        if (type.startsWith("+")) {
+            type = type.substring(1);
+        }
+
+        StringAttribute stringAttribute = new StringAttribute(CityJSONConstants.GENERIC_TYPE_ATTRIBUTE, type);
+        boundary.getGenericAttributes().add(new AbstractGenericAttributeProperty(stringAttribute));
+    }
+
+    private CopyBuilder getOrCreateCopyBuilder() {
+        if (copyBuilder == null) {
+            copyBuilder = new CopyBuilder();
+        }
+
+        return copyBuilder;
     }
 }
