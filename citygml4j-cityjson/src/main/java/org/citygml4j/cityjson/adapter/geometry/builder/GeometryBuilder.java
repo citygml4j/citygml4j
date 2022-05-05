@@ -58,7 +58,7 @@ public class GeometryBuilder {
         verticesBuilder = new VerticesBuilder(vertices);
         templatesVerticesBuilder = new VerticesBuilder(helper.getOrPutArray(Fields.VERTICES_TEMPLATES, templates));
 
-        spaceGeometryBuilder = new SpaceGeometryBuilder(this);
+        spaceGeometryBuilder = new SpaceGeometryBuilder(this, helper);
         semanticsBuilder = new SemanticsBuilder(helper);
         materialBuilder = new MaterialBuilder(appearanceBuilder, helper);
         textureBuilder = new TextureBuilder(appearanceBuilder, helper);

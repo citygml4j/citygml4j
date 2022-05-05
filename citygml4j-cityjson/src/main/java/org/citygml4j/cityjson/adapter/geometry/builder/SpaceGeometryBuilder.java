@@ -21,8 +21,10 @@ package org.citygml4j.cityjson.adapter.geometry.builder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
+import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.util.BoundaryFilter;
 import org.citygml4j.cityjson.util.lod.LodMapper;
+import org.citygml4j.core.model.CityGMLVersion;
 import org.citygml4j.core.model.appearance.Appearance;
 import org.citygml4j.core.model.core.*;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
@@ -41,9 +43,11 @@ import java.util.Map;
 public class SpaceGeometryBuilder {
     private final GeometryBuilder geometryBuilder;
     private final VerticesBuilder verticesBuilder;
+    private final CityJSONBuilderHelper helper;
 
-    SpaceGeometryBuilder(GeometryBuilder geometryBuilder) {
+    SpaceGeometryBuilder(GeometryBuilder geometryBuilder, CityJSONBuilderHelper helper) {
         this.geometryBuilder = geometryBuilder;
+        this.helper = helper;
         verticesBuilder = geometryBuilder.getVerticesBuilder();
     }
 
@@ -95,7 +99,8 @@ public class SpaceGeometryBuilder {
             space.setSolid(lod, new SolidProperty((Solid) geometry));
         } else if (geometry instanceof MultiSurface) {
             MultiSurface multiSurface = (MultiSurface) geometry;
-            if (multiSurface.getSurfaceMember().stream().anyMatch(SurfaceProperty::isSetInlineObject)) {
+            if (helper.getTargetCityGMLVersion() != CityGMLVersion.v3_0
+                    || multiSurface.getSurfaceMember().stream().anyMatch(SurfaceProperty::isSetInlineObject)) {
                 if (lod == 1) {
                     if (providers.containsKey(1)) {
                         providers.get(1).set(new MultiSurfaceProperty(multiSurface));
