@@ -24,6 +24,7 @@ import org.citygml4j.core.model.ade.ADEObject;
 import org.citygml4j.core.model.ade.ADEProperty;
 import org.citygml4j.core.model.common.GeometryInfo;
 import org.citygml4j.core.model.deprecated.core.DeprecatedPropertiesOfAbstractFeature;
+import org.citygml4j.core.visitor.ObjectWalker;
 import org.citygml4j.core.visitor.VisitableObject;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -39,8 +40,9 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
     private List<ADEProperty> adeProperties;
 
     public DeprecatedPropertiesOfAbstractFeature getDeprecatedProperties() {
-        if (deprecatedProperties == null)
+        if (deprecatedProperties == null) {
             deprecatedProperties = asChild(createDeprecatedProperties());
+        }
 
         return deprecatedProperties;
     }
@@ -100,8 +102,9 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         }
 
         if (adeProperties != null) {
-            for (ADEProperty property : adeProperties)
+            for (ADEProperty property : adeProperties) {
                 updateEnvelope(property, envelope, options);
+            }
         }
     }
 
@@ -110,8 +113,22 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
     }
 
     public final GeometryInfo getGeometryInfo() {
+        return getGeometryInfo(false);
+    }
+
+    public final GeometryInfo getGeometryInfo(boolean includeNestedFeatures) {
         GeometryInfo geometryInfo = new GeometryInfo();
-        updateGeometryInfo(geometryInfo);
+
+        if (!includeNestedFeatures) {
+            updateGeometryInfo(geometryInfo);
+        } else {
+            accept(new ObjectWalker() {
+                @Override
+                public void visit(AbstractFeature feature) {
+                    feature.updateGeometryInfo(geometryInfo);
+                }
+            });
+        }
 
         return geometryInfo;
     }
@@ -127,8 +144,9 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
         }
 
         if (adeProperties != null) {
-            for (ADEProperty property : adeProperties)
+            for (ADEProperty property : adeProperties) {
                 updateGeometryInfo(property, geometryInfo);
+            }
         }
     }
 
