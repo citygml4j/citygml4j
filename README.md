@@ -25,7 +25,7 @@ Previous releases are available from the [releases section](https://github.com/c
 
 A release candidate version of the upcoming **next major version 3.0 of citygml4j** with full support for the latest
 draft of [CityGML 3.0](https://github.com/opengeospatial/CityGML-3.0CM) is available
-[here](https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0-rc.3).
+[here](https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0-rc.4).
 
 Contributing
 ------------
