@@ -34,6 +34,7 @@ import org.citygml4j.xml.schema.SchemaHandler;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
@@ -53,6 +54,9 @@ import java.util.Objects;
 
 public class JAXBInputFactory implements CityGMLInputFactory {
 	final CityGMLBuilder builder;
+	private final List<QName> excludes;
+	private final List<QName> splitAtFeatureProperties;
+
 	private SchemaHandler schemaHandler;
 	private XMLInputFactory xmlInputFactory;
 	private GMLIdManager gmlIdManager;
@@ -60,8 +64,6 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 	private TransformerChainFactory transformerChainFactory;
 
 	private FeatureReadMode featureReadMode;
-	private List<QName> excludes;
-	private List<QName> splitAtFeatureProperties;
 	private boolean keepInlineAppearance;
 	private boolean parseSchema;
 	private boolean useValidation;
@@ -74,7 +76,10 @@ public class JAXBInputFactory implements CityGMLInputFactory {
 		this.schemaHandler = schemaHandler;
 
 		xmlInputFactory = XMLInputFactory.newInstance();
-		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
+		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
+		xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+		xmlInputFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		xmlInputFactory.setProperty("javax.xml.stream.isSupportingExternalEntities", false);
 
 		gmlIdManager = DefaultGMLIdManager.getInstance();
 		validationEventHandler = null;

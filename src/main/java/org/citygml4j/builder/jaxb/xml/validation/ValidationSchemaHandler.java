@@ -28,11 +28,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ValidationSchemaHandler {
 	private final SchemaFactory schemaFactory;
-	
+	private final AtomicInteger size = new AtomicInteger(-1);
+
 	private SchemaHandler schemaHandler;
 	private Schema schema;
-	private AtomicInteger size = new AtomicInteger(-1);
-		
+
 	public ValidationSchemaHandler(SchemaHandler schemaHandler) {
 		this.schemaHandler = schemaHandler;
 		schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

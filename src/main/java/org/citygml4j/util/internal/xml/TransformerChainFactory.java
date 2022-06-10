@@ -18,6 +18,7 @@
  */
 package org.citygml4j.util.internal.xml;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
@@ -34,7 +35,8 @@ public class TransformerChainFactory {
 			throw new IllegalArgumentException("no transformation templates provided.");
 				
 		this.templates = templates;		
-		this.factory = (SAXTransformerFactory)TransformerFactory.newInstance();
+		factory = (SAXTransformerFactory) TransformerFactory.newInstance();
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
 	}
 	
 	public TransformerChain buildChain() throws TransformerConfigurationException {

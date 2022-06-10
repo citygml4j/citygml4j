@@ -29,11 +29,7 @@ import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.model.module.citygml.CityGMLModule;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
+import org.xml.sax.*;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParserFactory;
@@ -44,12 +40,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class SchemaHandler {	
 	private static SchemaHandler instance = null;
@@ -59,6 +51,7 @@ public class SchemaHandler {
 	private final Map<String, String> visited;
 	private final Map<String, Schema> schemas;
 
+	private SAXParserFactory saxParserFactory;
 	private EntityResolver schemaEntityResolver;
 	private ErrorHandler schemaErrorHandler;
 	private AnnotationParserFactory annotationParserFactory;
@@ -261,7 +254,7 @@ public class SchemaHandler {
 		if (is == null)
 			return;
 
-		XSOMParser parser = new XSOMParser(SAXParserFactory.newInstance());
+		XSOMParser parser = new XSOMParser(getSAXParserFactory());
 		parser.setEntityResolver((publicId, systemId) -> {
 			InputSource inputSource = null;
 
@@ -361,4 +354,20 @@ public class SchemaHandler {
 		return null;
 	}
 
+	private SAXParserFactory getSAXParserFactory() throws SAXException {
+		if (saxParserFactory == null) {
+			try {
+				saxParserFactory = SAXParserFactory.newInstance();
+				saxParserFactory.setXIncludeAware(false);
+				saxParserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+				saxParserFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+				saxParserFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+				saxParserFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+			} catch (Exception e) {
+				throw new SAXException("Failed to initialize secure XML schema reader.", e);
+			}
+		}
+
+		return saxParserFactory;
+	}
 }
