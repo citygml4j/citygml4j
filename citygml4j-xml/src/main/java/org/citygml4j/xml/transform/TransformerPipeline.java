@@ -21,6 +21,7 @@ package org.citygml4j.xml.transform;
 
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
+import org.xmlobjects.util.xml.SecureXMLProcessors;
 
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXResult;
@@ -64,9 +65,10 @@ public class TransformerPipeline {
         return newInstance(templates);
     }
 
-    static synchronized SAXTransformerFactory getTransformerFactory() {
-        if (factory == null)
-            factory = (SAXTransformerFactory) TransformerFactory.newInstance();
+    static synchronized SAXTransformerFactory getTransformerFactory() throws TransformerConfigurationException {
+        if (factory == null) {
+            factory = (SAXTransformerFactory) SecureXMLProcessors.newTransformerFactory();
+        }
 
         return factory;
     }
