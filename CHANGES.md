@@ -11,7 +11,7 @@ Change Log
 ##### Fixes
 * Fixed reading and writing the CityGML-specific `"CityGMLMetadata"` property in CityJSON.
 * Skip generic attributes of name _type_ for boundary surfaces when writing to CityJSON to avoid overwriting the
-  predefined CityJSON `"type"` property.
+  predefined CityJSON `"type"` property. [citygml-tools #27](https://github.com/citygml4j/citygml-tools/issues/27)
 
 ### 2.12.0 - 2022-01-31
 
