@@ -18,9 +18,9 @@ previous release of citygml4j under Apache License 2.0 create a GitHub issue.
 
 Latest release
 --------------
-The latest stable release of citygml4j is 2.12.0.
+The latest stable release of citygml4j is 2.12.1.
 
-Download the citygml4j 2.12.0 release binaries [here](https://github.com/citygml4j/citygml4j/releases/download/v2.12.0/citygml4j-2.12.0.zip).
+Download the citygml4j 2.12.1 release binaries [here](https://github.com/citygml4j/citygml4j/releases/download/v2.12.1/citygml4j-2.12.1.zip).
 Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
 A release candidate version of the upcoming **next major version 3.0 of citygml4j** with full support for the latest
@@ -59,7 +59,7 @@ project with Maven, add the following code to your `pom.xml`. You may need to ad
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j</artifactId>
-  <version>2.12.0</version>
+  <version>2.12.1</version>
 </dependency>
 ```
 
@@ -71,7 +71,7 @@ repositories {
 }
 
 dependencies {
-  compile 'org.citygml4j:citygml4j:2.12.0'
+  compile 'org.citygml4j:citygml4j:2.12.1'
 }
 ```
 
