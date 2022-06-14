@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+### 2.12.1 - 2022-06-14
+
+##### Additions
+* Added code to prevent [XXE vulnerabilities](https://owasp.org/www-project-top-ten/2017/A4_2017-XML_External_Entities_(XXE).html)
+  when parsing XML files.
+* Updated to citygson version 1.1.5.
+
+##### Fixes
+* Fixed reading and writing the CityGML-specific `"CityGMLMetadata"` property in CityJSON.
+* Skip generic attributes of name _type_ for boundary surfaces when writing to CityJSON to avoid overwriting the
+  predefined CityJSON `"type"` property.
+
 ### 2.12.0 - 2022-01-31
 
 ##### Changes
