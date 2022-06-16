@@ -120,6 +120,7 @@ task allJavadoc(type: Javadoc, group: 'documentation') {
         header = title
         overview = "resources/javadoc/overview.html"
         bottom = file("resources/javadoc/bottom.html").text.replaceAll("@date@", "${date.format('yyyy')}")
+        addStringOption('Xdoclint:none', '-quiet')
     }
 }
 
