@@ -39,6 +39,7 @@ import org.citygml4j.cityjson.model.metadata.Metadata;
 import org.citygml4j.cityjson.model.metadata.ReferenceSystem;
 import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.util.ArrayBuffer;
+import org.citygml4j.core.ade.ADERegistry;
 import org.citygml4j.core.model.appearance.Appearance;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.ADEOfCityModel;
@@ -219,7 +220,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     }
 
     void writeExtensions() throws CityJSONWriteException, IOException {
-        ExtensionLoader loader = ExtensionLoader.getInstance();
+        ExtensionLoader loader = ADERegistry.getInstance().getADELoader(ExtensionLoader.class);
         if (loader.hasExtensions() || helper.hasExtensions()) {
             try {
                 writer.writeObjectFieldStart(Fields.EXTENSIONS);

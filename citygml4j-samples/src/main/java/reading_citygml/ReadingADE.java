@@ -26,9 +26,8 @@ import org.citygml4j.core.ade.ADERegistry;
 import org.citygml4j.core.model.ade.ADEObject;
 import org.citygml4j.core.model.common.GeometryInfo;
 import org.citygml4j.core.model.core.AbstractFeature;
-import org.citygml4j.xml.CityGMLADELoader;
 import org.citygml4j.xml.CityGMLContext;
-import org.citygml4j.xml.module.ade.ADEModule;
+import org.citygml4j.xml.ade.CityGMLADE;
 import org.citygml4j.xml.reader.ChunkOptions;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -41,16 +40,17 @@ public class ReadingADE {
     public static void main(String[] args) throws Exception {
         Logger log = Logger.start(ReadingADE.class);
 
-        ADERegistry adeRegistry = ADERegistry.getInstance();
+        ADERegistry registry = ADERegistry.getInstance();
 
         log.print("Loading ADEs using a service loader");
-        for (ADE ade : ServiceLoader.load(ADE.class))
-            adeRegistry.loadADE(ade);
-
-        for (ADEModule module : CityGMLADELoader.getInstance().getADEModules()) {
-            log.print("Loaded ADE module for namespace " + module.getNamespaceURI() +
-                    " and CityGML version " + module.getCityGMLVersion());
+        for (ADE ade : ServiceLoader.load(ADE.class)) {
+            registry.loadADE(ade);
         }
+
+        registry.getADEs(CityGMLADE.class).stream()
+                .flatMap(ade -> ade.getADEModules().stream())
+                .forEach(module -> log.print("Loaded ADE module for namespace " + module.getNamespaceURI() +
+                        " and CityGML version " + module.getCityGMLVersion()));
 
         CityGMLContext context = CityGMLContext.newInstance();
 

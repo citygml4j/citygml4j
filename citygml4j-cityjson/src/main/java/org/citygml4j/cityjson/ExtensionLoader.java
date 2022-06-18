@@ -10,17 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class ExtensionLoader extends ADELoader<Extension> {
-    private static ExtensionLoader instance;
     private final Map<String, Extension> extensions = new ConcurrentHashMap<>();
     private final Map<CityJSONContext, Boolean> listeners = Collections.synchronizedMap(new WeakHashMap<>());
-
-    public static ExtensionLoader getInstance() {
-        if (instance == null) {
-            instance = new ExtensionLoader();
-        }
-
-        return instance;
-    }
 
     public boolean hasExtensions() {
         return !extensions.isEmpty();

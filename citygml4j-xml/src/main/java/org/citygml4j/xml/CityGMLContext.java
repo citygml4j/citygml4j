@@ -48,8 +48,6 @@ public class CityGMLContext {
 
         try {
             ADERegistry registry = ADERegistry.getInstance();
-            CityGMLADELoader loader = CityGMLADELoader.getInstance();
-            registry.registerADELoader(loader, CityGMLADE.class);
 
             // load ADE objects registered with the ADE registry
             for (CityGMLADE ade : registry.getADEs(CityGMLADE.class)) {
@@ -62,7 +60,7 @@ public class CityGMLContext {
             // but not registered with the ADE registry
             removeUnregisteredADEObjects();
 
-            loader.addListener(this);
+            registry.getADELoader(CityGMLADELoader.class).addListener(this);
         } catch (ADEException e) {
             throw new CityGMLContextException("Failed to load CityGML ADEs.", e);
         }
@@ -122,7 +120,8 @@ public class CityGMLContext {
     }
 
     private void removeUnregisteredADEObjects() {
-        Set<String> adeNamespaces = CityGMLADELoader.getInstance().getADENamespaces();
+        CityGMLADELoader loader = ADERegistry.getInstance().getADELoader(CityGMLADELoader.class);
+        Set<String> adeNamespaces = loader.getADENamespaces();
         for (String namespaceURI : xmlObjects.getSerializableNamespaces()) {
             if (!CityGMLModules.isCityGMLNamespace(namespaceURI)
                     && !CityGMLModules.isGMLNamespace(namespaceURI)

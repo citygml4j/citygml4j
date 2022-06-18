@@ -30,20 +30,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class CityGMLADELoader extends ADELoader<CityGMLADE> {
-    private static CityGMLADELoader instance;
     private final Map<CityGMLVersion, Map<String, ADEModule>> modules = new ConcurrentHashMap<>();
     private final Map<CityGMLContext, Boolean> listeners = Collections.synchronizedMap(new WeakHashMap<>());
-
-    private CityGMLADELoader() {
-    }
-
-    public static synchronized CityGMLADELoader getInstance() {
-        if (instance == null) {
-            instance = new CityGMLADELoader();
-        }
-
-        return instance;
-    }
 
     public List<ADEModule> getADEModules() {
         return modules.values().stream()

@@ -55,8 +55,6 @@ public class CityJSONContext {
 
         try {
             ADERegistry registry = ADERegistry.getInstance();
-            ExtensionLoader loader = ExtensionLoader.getInstance();
-            registry.registerADELoader(loader, Extension.class);
 
             // load extension objects registered with the extension registry
             for (Extension extension : registry.getADEs(Extension.class)) {
@@ -67,7 +65,7 @@ public class CityJSONContext {
             // but not registered with the extension registry
             removeUnregisteredExtensionObjects();
 
-            loader.addListener(this);
+            registry.getADELoader(ExtensionLoader.class).addListener(this);
         } catch (ADEException e) {
             throw new CityJSONContextException("Failed to load CityJSON extensions.", e);
         }
@@ -311,7 +309,8 @@ public class CityJSONContext {
     }
 
     private void removeUnregisteredExtensionObjects() {
-        Set<String> extensionNames = ExtensionLoader.getInstance().getExtensionNames();
+        ExtensionLoader loader = ADERegistry.getInstance().getADELoader(ExtensionLoader.class);
+        Set<String> extensionNames = loader.getExtensionNames();
         Set<String> schemas = serializers.values().stream()
                 .flatMap(map -> map.values().stream())
                 .map(info -> info.schema).collect(Collectors.toSet());

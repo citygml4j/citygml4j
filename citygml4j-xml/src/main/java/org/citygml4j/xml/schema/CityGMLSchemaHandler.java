@@ -19,6 +19,7 @@
 
 package org.citygml4j.xml.schema;
 
+import org.citygml4j.core.ade.ADERegistry;
 import org.citygml4j.xml.CityGMLADELoader;
 import org.citygml4j.xml.CityGMLContext;
 import org.citygml4j.xml.module.ade.ADEModule;
@@ -43,10 +44,12 @@ public class CityGMLSchemaHandler extends SchemaHandler {
         schemaHandler.schemas.putAll(instance.schemas);
         schemaHandler.visitedSchemaLocations.putAll(instance.visitedSchemaLocations);
 
-        for (ADEModule module : CityGMLADELoader.getInstance().getADEModules()) {
+        CityGMLADELoader loader = ADERegistry.getInstance().getADELoader(CityGMLADELoader.class);
+        for (ADEModule module : loader.getADEModules()) {
             URL schemaResource = module.getSchemaResource();
-            if (schemaResource != null)
+            if (schemaResource != null) {
                 schemaHandler.parseSchema(schemaResource);
+            }
         }
 
         return schemaHandler;

@@ -19,6 +19,7 @@
 
 package org.citygml4j.xml.module.citygml;
 
+import org.citygml4j.core.ade.ADERegistry;
 import org.citygml4j.core.model.CityGMLVersion;
 import org.citygml4j.xml.CityGMLADELoader;
 import org.citygml4j.xml.module.Module;
@@ -105,8 +106,9 @@ public class CityGMLModules {
 
     private CityGMLModules(CityGMLVersion version, Module... modules) {
         this.version = version;
-        for (Module module : modules)
+        for (Module module : modules) {
             this.modules.put(module.getNamespaceURI(), module);
+        }
     }
 
     public static CityGMLModules of(CityGMLVersion version) {
@@ -123,8 +125,9 @@ public class CityGMLModules {
     public static CityGMLModule getCityGMLModule(String namespaceURI) {
         for (CityGMLModules context : Arrays.asList(v3_0, v2_0, v1_0)) {
             Module module = context.modules.get(namespaceURI);
-            if (module instanceof CityGMLModule)
+            if (module instanceof CityGMLModule) {
                 return (CityGMLModule) module;
+            }
         }
 
         return null;
@@ -148,14 +151,15 @@ public class CityGMLModules {
 
     public List<Module> getModules() {
         List<Module> modules = new ArrayList<>(this.modules.values());
-        modules.addAll(CityGMLADELoader.getInstance().getADEModules(version));
+        modules.addAll(getCityGMLADELoader().getADEModules(version));
         return modules;
     }
 
     public Module getModule(String namespaceURI) {
         Module module = modules.get(namespaceURI);
-        if (module == null)
-            module = CityGMLADELoader.getInstance().getADEModule(namespaceURI, version);
+        if (module == null) {
+            module = getCityGMLADELoader().getADEModule(namespaceURI, version);
+        }
 
         return module;
     }
@@ -168,5 +172,9 @@ public class CityGMLModules {
 
     public CityGMLVersion getCityGMLVersion() {
         return version;
+    }
+
+    private CityGMLADELoader getCityGMLADELoader() {
+        return ADERegistry.getInstance().getADELoader(CityGMLADELoader.class);
     }
 }
