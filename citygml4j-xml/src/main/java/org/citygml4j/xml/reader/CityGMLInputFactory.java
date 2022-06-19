@@ -164,9 +164,25 @@ public class CityGMLInputFactory {
         }
     }
 
+    public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException {
+        try {
+            return validate().createReader(factory.createReader(file, encoding));
+        } catch (SchemaHandlerException | XMLReadException e) {
+            throw new CityGMLReadException("Caused by:", e);
+        }
+    }
+
     public CityGMLReader createCityGMLReader(Path path) throws CityGMLReadException {
         try {
             return validate().createReader(factory.createReader(path));
+        } catch (SchemaHandlerException | XMLReadException e) {
+            throw new CityGMLReadException("Caused by:", e);
+        }
+    }
+
+    public CityGMLReader createCityGMLReader(Path path, String encoding) throws CityGMLReadException {
+        try {
+            return validate().createReader(factory.createReader(path, encoding));
         } catch (SchemaHandlerException | XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }
