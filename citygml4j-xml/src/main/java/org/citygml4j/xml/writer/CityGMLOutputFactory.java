@@ -57,7 +57,7 @@ public class CityGMLOutputFactory {
         return version;
     }
 
-    public CityGMLOutputFactory useCityGMLVersion(CityGMLVersion version) {
+    public CityGMLOutputFactory withCityGMLVersion(CityGMLVersion version) {
         this.version = Objects.requireNonNull(version, "The CityGML version must not be null.");
         return this;
     }

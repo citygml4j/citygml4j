@@ -86,6 +86,10 @@ public class CityGMLContext {
         return new CityGMLOutputFactory(version, this);
     }
 
+    public CityGMLOutputFactory createCityGMLOutputFactory() {
+        return new CityGMLOutputFactory(CityGMLVersion.v3_0, this);
+    }
+
     public CityGMLSchemaHandler getDefaultSchemaHandler() throws SchemaHandlerException {
         if (schemaHandler == null) {
             schemaHandler = CityGMLSchemaHandler.newInstance();

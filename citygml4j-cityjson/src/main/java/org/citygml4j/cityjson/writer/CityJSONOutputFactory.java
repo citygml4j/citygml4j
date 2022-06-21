@@ -64,7 +64,7 @@ public class CityJSONOutputFactory {
         return version;
     }
 
-    public CityJSONOutputFactory withVersion(CityJSONVersion version) {
+    public CityJSONOutputFactory withCityJSONVersion(CityJSONVersion version) {
         this.version = Objects.requireNonNull(version, "The CityJSON version must not be null.");
         return this;
     }
