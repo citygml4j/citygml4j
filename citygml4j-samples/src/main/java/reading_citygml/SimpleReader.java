@@ -21,13 +21,13 @@ package reading_citygml;
 
 import helpers.Logger;
 import helpers.Util;
+import org.citygml4j.core.model.CityGMLVersion;
 import org.citygml4j.core.model.building.Building;
 import org.citygml4j.core.model.core.AbstractCityObject;
 import org.citygml4j.core.model.core.AbstractCityObjectProperty;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.citygml4j.core.model.core.CityModel;
 import org.citygml4j.xml.CityGMLContext;
-import org.citygml4j.xml.module.citygml.CityGMLModule;
 import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
@@ -49,13 +49,13 @@ public class SimpleReader {
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             AbstractFeature feature = reader.next();
 
-            String localName = reader.getName().getLocalPart();
-            CityGMLModule module = CityGMLModules.getCityGMLModule(reader.getName().getNamespaceURI());
-
-            if (feature instanceof CityModel && module != null) {
+            if (feature instanceof CityModel) {
                 CityModel cityModel = (CityModel) feature;
 
-                log.print("Found " + localName + " version " + module.getCityGMLVersion());
+                String localName = reader.getName().getLocalPart();
+                CityGMLVersion version = CityGMLModules.getCityGMLVersion(reader.getName().getNamespaceURI());
+
+                log.print("Found " + localName + " version " + version);
                 log.print("Counting top-level buildings");
 
                 int count = 0;

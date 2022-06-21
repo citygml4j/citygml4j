@@ -122,11 +122,11 @@ public class CityGMLModules {
         }
     }
 
-    public static CityGMLModule getCityGMLModule(String namespaceURI) {
+    public static CityGMLVersion getCityGMLVersion(String namespaceURI) {
         for (CityGMLModules context : Arrays.asList(v3_0, v2_0, v1_0)) {
-            Module module = context.modules.get(namespaceURI);
-            if (module instanceof CityGMLModule) {
-                return (CityGMLModule) module;
+            Module module = context.getModule(namespaceURI);
+            if (module != null) {
+                return context.getCityGMLVersion();
             }
         }
 
