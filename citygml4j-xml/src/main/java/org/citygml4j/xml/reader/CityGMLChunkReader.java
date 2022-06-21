@@ -136,11 +136,7 @@ public class CityGMLChunkReader extends CityGMLReader {
     @Override
     public AbstractFeature next() throws CityGMLReadException {
         if (hasNext()) {
-            try {
-                return nextChunk().build(true);
-            } finally {
-                hasNext = false;
-            }
+            return nextChunk().build(true);
         }
 
         throw new NoSuchElementException();
@@ -179,7 +175,11 @@ public class CityGMLChunkReader extends CityGMLReader {
 
     @Override
     public FeatureInfo getParentInfo() throws CityGMLReadException {
-        return current != null ? current.getFeatureInfo() : null;
+        if (hasNext) {
+            return !chunks.isEmpty() ? chunks.peek().getFeatureInfo() : null;
+        } else {
+            return current != null ? current.getFeatureInfo() : null;
+        }
     }
 
     @Override
