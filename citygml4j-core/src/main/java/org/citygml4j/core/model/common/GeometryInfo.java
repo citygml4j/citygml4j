@@ -30,9 +30,8 @@ public class GeometryInfo {
     private final Map<Integer, List<ImplicitGeometryProperty>> implicitGeometries = new HashMap<>();
 
     public Set<Integer> getLods() {
-        Set<Integer> lods = new HashSet<>(geometries.keySet());
-        lods.addAll(implicitGeometries.keySet());
-
+        Set<Integer> lods = getLods(geometries);
+        lods.addAll(getLods(implicitGeometries));
         return lods;
     }
 
@@ -108,5 +107,11 @@ public class GeometryInfo {
 
     public boolean hasNonLodImplicitGeometries() {
         return implicitGeometries.containsKey(Integer.MIN_VALUE);
+    }
+
+    private Set<Integer> getLods(Map<Integer, ?> geometries) {
+        return geometries.keySet().stream()
+                .filter(lod -> lod != Integer.MIN_VALUE)
+                .collect(Collectors.toSet());
     }
 }
