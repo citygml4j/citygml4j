@@ -58,6 +58,10 @@ public class ChunkOptions {
         return chunkByProperties(properties != null ? List.of(properties) : null);
     }
 
+    public static ChunkOptions empty() {
+        return new ChunkOptions();
+    }
+
     boolean shouldChunk(QName property) {
         return properties.isEmpty() || containsProperty(property.getNamespaceURI(), property.getLocalPart());
     }
