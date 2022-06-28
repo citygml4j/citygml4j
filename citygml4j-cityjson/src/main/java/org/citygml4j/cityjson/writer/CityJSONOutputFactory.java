@@ -50,6 +50,7 @@ public class CityJSONOutputFactory {
     private boolean computeCityModelExtent = true;
     private boolean transformTemplateGeometries;
     private boolean writeGenericAttributeTypes;
+    private String fallbackTheme = AppearanceSerializer.FALLBACK_THEME;
 
     public CityJSONOutputFactory(CityJSONVersion version, ObjectMapper objectMapper, CityJSONContext context) {
         this.version = version;
@@ -159,6 +160,16 @@ public class CityJSONOutputFactory {
         withProperty(TextureFileHandler.class.getName(), textureFileHandler);
         return this;
     }
+
+    public String getFallbackTheme() {
+        return fallbackTheme;
+    }
+
+    public CityJSONOutputFactory withFallbackTheme(String fallbackTheme) {
+        this.fallbackTheme = fallbackTheme != null ? fallbackTheme : AppearanceSerializer.FALLBACK_THEME;
+        return this;
+    }
+
 
     public boolean isUseMaterialDefaults() {
         return properties.getAndCompare(CityJSONConstants.USE_MATERIAL_DEFAULTS, true);
@@ -305,8 +316,11 @@ public class CityJSONOutputFactory {
             geometrySerializer.getTemplatesVerticesBuilder().setPrecision(templatePrecision);
         }
 
+        AppearanceSerializer appearanceSerializer = helper.getAppearanceSerializer();
+        appearanceSerializer.setFallbackTheme(fallbackTheme);
+
         if (textureVertexPrecision != AppearanceSerializer.DEFAULT_TEXTURE_VERTEX_PRECISION) {
-            helper.getAppearanceSerializer().getTextureVerticesBuilder().setPrecision(textureVertexPrecision);
+            appearanceSerializer.getTextureVerticesBuilder().setPrecision(textureVertexPrecision);
         }
 
         if (idCreator != null) {

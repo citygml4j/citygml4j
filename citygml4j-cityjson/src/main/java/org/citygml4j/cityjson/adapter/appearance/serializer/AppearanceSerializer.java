@@ -31,6 +31,7 @@ import org.citygml4j.core.model.appearance.X3DMaterial;
 import java.util.*;
 
 public class AppearanceSerializer {
+    public static final String FALLBACK_THEME = "unnamed";
     public static final int DEFAULT_TEXTURE_VERTEX_PRECISION = 7;
 
     private final CityJSONSerializerHelper helper;
@@ -38,10 +39,18 @@ public class AppearanceSerializer {
     private final Map<Integer, AppearanceInfo> textures = new HashMap<>();
     private final TextureVerticesBuilder textureVerticesBuilder = new TextureVerticesBuilder(DEFAULT_TEXTURE_VERTEX_PRECISION);
 
-    private String fallbackTheme = "unnamed";
+    private String fallbackTheme = FALLBACK_THEME;
 
     public AppearanceSerializer(CityJSONSerializerHelper helper) {
         this.helper = helper;
+    }
+
+    public String getFallbackTheme() {
+        return fallbackTheme;
+    }
+
+    public void setFallbackTheme(String fallbackTheme) {
+        this.fallbackTheme = fallbackTheme != null ? fallbackTheme : FALLBACK_THEME;
     }
 
     public TextureVerticesBuilder getTextureVerticesBuilder() {
