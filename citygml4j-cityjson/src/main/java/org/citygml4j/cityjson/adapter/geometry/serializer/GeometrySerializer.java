@@ -39,7 +39,7 @@ public class GeometrySerializer {
 
     private final AppearanceSerializer appearanceSerializer;
     private final CityJSONSerializerHelper helper;
-    private final Map<AbstractGeometry, TemplateInfo> templates = new IdentityHashMap<>();
+    private final Map<String, TemplateInfo> templates = new HashMap<>();
     private final VerticesBuilder verticesBuilder = new VerticesBuilder(DEFAULT_VERTEX_PRECISION);
     private final VerticesBuilder templatesVerticesBuilder = new VerticesBuilder(DEFAULT_TEMPLATE_PRECISION);
 
@@ -118,14 +118,14 @@ public class GeometrySerializer {
 
     private void buildTemplateGeometry(ImplicitGeometry geometry, Number lod, ObjectNode object, EnumSet<GeometryType> allowedTypes) {
         AbstractGeometry relativeGeometry = geometry.getRelativeGeometry().getObject();
-        TemplateInfo templateInfo = templates.get(relativeGeometry);
+        TemplateInfo templateInfo = templates.get(helper.getOrCreateId(relativeGeometry));
         if (templateInfo == null) {
             ObjectNode template = createGeometry(relativeGeometry, lod, templatesVerticesBuilder, EnumSet.allOf(GeometryType.class));
             templateInfo = template != null ?
                     new TemplateInfo(template, templates.size()) :
                     TemplateInfo.NULL_TEMPLATE;
 
-            templates.put(relativeGeometry, templateInfo);
+            templates.put(relativeGeometry.getId(), templateInfo);
         }
 
         if (templateInfo == TemplateInfo.NULL_TEMPLATE) {
