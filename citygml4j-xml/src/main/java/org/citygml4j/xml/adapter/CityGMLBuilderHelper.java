@@ -130,9 +130,9 @@ public class CityGMLBuilderHelper {
             AbstractGeometry geometry = property.getObject();
             if (geometry instanceof AbstractSolid) {
                 return object.setSolid(lod, new SolidProperty((AbstractSolid) geometry));
-            } else if (geometry instanceof MultiSurface) {
+            } else if (lod != 1 && geometry instanceof MultiSurface) {
                 return object.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
-            } else if (geometry instanceof AbstractSurface) {
+            } else if (lod != 1 && geometry instanceof AbstractSurface) {
                 MultiSurface multiSurface = new MultiSurface();
                 multiSurface.getSurfaceMember().add(new SurfaceProperty((AbstractSurface) geometry));
                 return object.setMultiSurface(lod, new MultiSurfaceProperty(multiSurface));
