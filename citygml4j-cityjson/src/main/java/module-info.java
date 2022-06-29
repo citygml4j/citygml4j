@@ -1,6 +1,6 @@
 module org.citygml4j.cityjson {
     requires transitive org.citygml4j.core;
-    requires com.fasterxml.jackson.databind;
+    requires transitive com.fasterxml.jackson.databind;
 
     exports org.citygml4j.cityjson;
     exports org.citygml4j.cityjson.adapter;
