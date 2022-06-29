@@ -46,7 +46,7 @@ public class CityJSONInputFactory {
     private boolean chunkByTopLevelCityObjects;
     private boolean mapUnsupportedTypesToGenerics = true;
     private boolean transformTemplateGeometries;
-    private boolean assignAppearanceToImplicitGeometry;
+    private boolean assignAppearancesToImplicitGeometries;
     private ReferenceResolver resolver;
     private LodMapper lodMapper;
     private IdCreator idCreator;
@@ -93,12 +93,12 @@ public class CityJSONInputFactory {
         return this;
     }
 
-    public boolean isAssignAppearanceToImplicitGeometry() {
-        return assignAppearanceToImplicitGeometry;
+    public boolean isAssignAppearancesToImplicitGeometries() {
+        return assignAppearancesToImplicitGeometries;
     }
 
-    public CityJSONInputFactory assignAppearanceToImplicitGeometry(boolean assignAppearanceToImplicitGeometry) {
-        this.assignAppearanceToImplicitGeometry = assignAppearanceToImplicitGeometry;
+    public CityJSONInputFactory assignAppearancesToImplicitGeometries(boolean assignAppearancesToImplicitGeometries) {
+        this.assignAppearancesToImplicitGeometries = assignAppearancesToImplicitGeometries;
         return this;
     }
 
@@ -225,7 +225,7 @@ public class CityJSONInputFactory {
         reader.targetCityGMLVersion = targetCityGMLVersion;
         reader.mapUnsupportedTypesToGenerics = mapUnsupportedTypesToGenerics;
         reader.transformTemplateGeometries = transformTemplateGeometries;
-        reader.assignAppearanceToImplicitGeometry = targetCityGMLVersion == CityGMLVersion.v3_0 && assignAppearanceToImplicitGeometry;
+        reader.assignAppearancesToImplicitGeometries = targetCityGMLVersion == CityGMLVersion.v3_0 && assignAppearancesToImplicitGeometries;
         reader.resolver = resolver;
         reader.lodMapper = lodMapper;
         reader.idCreator = idCreator;

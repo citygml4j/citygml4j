@@ -50,7 +50,7 @@ public class GeometryBuilder {
 
     private LodMapper lodMapper = new DefaultLodMapper();
     private boolean transformTemplateGeometries;
-    private boolean assignAppearanceToImplicitGeometry;
+    private boolean assignAppearancesToImplicitGeometries;
 
     public GeometryBuilder(ArrayNode vertices, ObjectNode templates, AppearanceBuilder appearanceBuilder, CityJSONBuilderHelper helper) {
         this.helper = helper;
@@ -82,12 +82,12 @@ public class GeometryBuilder {
         this.transformTemplateGeometries = transformTemplateGeometries;
     }
 
-    public boolean isAssignAppearanceToImplicitGeometry() {
-        return assignAppearanceToImplicitGeometry;
+    public boolean isAssignAppearancesToImplicitGeometries() {
+        return assignAppearancesToImplicitGeometries;
     }
 
-    public void setAssignAppearanceToImplicitGeometry(boolean assignAppearancesToImplicitGeometry) {
-        this.assignAppearanceToImplicitGeometry = assignAppearancesToImplicitGeometry;
+    public void setAssignAppearancesToImplicitGeometries(boolean assignAppearancesToImplicitGeometries) {
+        this.assignAppearancesToImplicitGeometries = assignAppearancesToImplicitGeometries;
     }
 
     public LodMapper getLodMapper() {

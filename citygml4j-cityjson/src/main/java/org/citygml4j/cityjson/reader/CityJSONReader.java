@@ -57,7 +57,7 @@ public abstract class CityJSONReader implements AutoCloseable {
     CityGMLVersion targetCityGMLVersion;
     boolean mapUnsupportedTypesToGenerics = true;
     boolean transformTemplateGeometries;
-    boolean assignAppearanceToImplicitGeometry;
+    boolean assignAppearancesToImplicitGeometries;
     ReferenceResolver resolver;
     LodMapper lodMapper;
     IdCreator idCreator;
@@ -139,7 +139,7 @@ public abstract class CityJSONReader implements AutoCloseable {
         helper.setTargetCityGMLVersion(targetCityGMLVersion);
         helper.setMapUnsupportedTypesToGenerics(mapUnsupportedTypesToGenerics);
         helper.setTransformTemplateGeometries(transformTemplateGeometries);
-        helper.setAssignAppearanceToImplicitGeometry(assignAppearanceToImplicitGeometry);
+        helper.setAssignAppearancesToImplicitGeometries(assignAppearancesToImplicitGeometries);
         helper.setProperties(properties);
 
         if (idCreator != null) {

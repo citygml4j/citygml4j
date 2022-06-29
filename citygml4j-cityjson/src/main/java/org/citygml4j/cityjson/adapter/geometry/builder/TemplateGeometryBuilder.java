@@ -84,7 +84,7 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
             return new ImplicitGeometry(new GeometryProperty<>(reference));
         } else {
             GeometryObject geometryObject = GeometryObject.newInstance();
-            if (!geometryBuilder.isAssignAppearanceToImplicitGeometry()) {
+            if (!geometryBuilder.isAssignAppearancesToImplicitGeometries()) {
                 geometryObject.setAppearanceInfo(templateInfo.getAppearanceInfo());
             }
 
@@ -94,7 +94,7 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
                 templateInfo.addReference(index, "#" + helper.getOrCreateId(geometry));
                 ImplicitGeometry implicitGeometry = new ImplicitGeometry(new GeometryProperty<>(geometry));
 
-                if (geometryObject.hasAppearances() && geometryBuilder.isAssignAppearanceToImplicitGeometry()) {
+                if (geometryObject.hasAppearances() && geometryBuilder.isAssignAppearancesToImplicitGeometries()) {
                     for (Appearance appearance : geometryObject.getAppearances()) {
                         implicitGeometry.getAppearances().add(new AbstractAppearanceProperty(appearance));
                     }

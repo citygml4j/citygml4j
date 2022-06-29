@@ -178,12 +178,12 @@ public class CityJSONBuilderHelper {
         geometryBuilder.setTransformTemplateGeometries(transformTemplateGeometries);
     }
 
-    public boolean isAssignAppearanceToImplicitGeometry() {
-        return geometryBuilder.isAssignAppearanceToImplicitGeometry();
+    public boolean isAssignAppearancesToImplicitGeometries() {
+        return geometryBuilder.isAssignAppearancesToImplicitGeometries();
     }
 
-    void setAssignAppearanceToImplicitGeometry(boolean assignAppearanceToImplicitGeometry) {
-        geometryBuilder.setAssignAppearanceToImplicitGeometry(assignAppearanceToImplicitGeometry);
+    void setAssignAppearancesToImplicitGeometries(boolean assignAppearancesToImplicitGeometries) {
+        geometryBuilder.setAssignAppearancesToImplicitGeometries(assignAppearancesToImplicitGeometries);
     }
 
     public IdCreator getIdCreator() {
