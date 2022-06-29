@@ -115,8 +115,9 @@ public class CityJSONInputFactory {
         return lodMapper;
     }
 
-    public void setLodMapper(LodMapper lodMapper) {
+    public CityJSONInputFactory withLodMapper(LodMapper lodMapper) {
         this.lodMapper = Objects.requireNonNull(lodMapper, "The LoD mapper must not be null.");
+        return this;
     }
 
     public IdCreator getIdCreator() {
