@@ -40,6 +40,7 @@ public class DefaultLodMapper implements LodMapper {
 
     @Override
     public void buildMapping(Set<Double> lods) {
+        mappings.clear();
         lods.stream()
                 .sorted(strategy == Strategy.MAXIMUM_LOD ?
                         Comparator.naturalOrder() :
