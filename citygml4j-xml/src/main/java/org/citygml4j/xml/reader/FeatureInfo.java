@@ -50,6 +50,10 @@ public class FeatureInfo {
         return feature.getClass();
     }
 
+    public AbstractFeature getBackingFeature() {
+        return feature;
+    }
+
     public boolean hasParentInfo() {
         try {
             return getParentInfo() != null;
