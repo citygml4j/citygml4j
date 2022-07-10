@@ -24,6 +24,7 @@ import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
+import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.namespace.QName;
 import java.net.URI;
@@ -53,6 +54,10 @@ public abstract class CityGMLReader implements AutoCloseable {
         } catch (XMLReadException e) {
             return null;
         }
+    }
+
+    public Namespaces getNamespaces() {
+        return reader.getNamespaces();
     }
 
     public boolean hasParentInfo() {
