@@ -60,7 +60,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
     }
 
     @Override
-    public <T extends Child> T resolveReference(String reference, Class<T> type, Collection<Visitable> scopes) {
+    public <T extends Child> T resolveReference(String reference, Class<T> type, Collection<? extends Visitable> scopes) {
         if (reference == null
                 || scopes == null
                 || !mode.getType().isAssignableFrom(type)) {
@@ -95,7 +95,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
     }
 
     @Override
-    public Child resolveReference(String reference, Collection<Visitable> scopes) {
+    public Child resolveReference(String reference, Collection<? extends Visitable> scopes) {
         return resolveReference(reference, mode.getType(), scopes);
     }
 
@@ -105,7 +105,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
     }
 
     @Override
-    public void resolveReferences(Collection<Visitable> scopes) {
+    public void resolveReferences(Collection<? extends Visitable> scopes) {
         if (scopes == null) {
             return;
         }
@@ -170,7 +170,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
     }
 
     @Override
-    public <T extends Child> Map<String, T> getObjectsById(Class<T> type, Collection<Visitable> scopes) {
+    public <T extends Child> Map<String, T> getObjectsById(Class<T> type, Collection<? extends Visitable> scopes) {
         if (scopes == null
                 || !mode.getType().isAssignableFrom(type)) {
             return Collections.emptyMap();
@@ -202,7 +202,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
     }
 
     @Override
-    public Map<String, ? extends Child> getObjectsById(Collection<Visitable> scopes) {
+    public Map<String, ? extends Child> getObjectsById(Collection<? extends Visitable> scopes) {
         return getObjectsById(mode.getType(), scopes);
     }
 
@@ -212,7 +212,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
     }
 
     @Override
-    public void removeResolvedReferences(Collection<Visitable> scopes) {
+    public void removeResolvedReferences(Collection<? extends Visitable> scopes) {
         if (scopes == null) {
             return;
         }
