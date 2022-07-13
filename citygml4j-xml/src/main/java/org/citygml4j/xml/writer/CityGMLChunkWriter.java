@@ -87,19 +87,23 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
     }
 
     public void writeMember(AbstractFeature feature) throws CityGMLWriteException {
-        if (feature instanceof AbstractCityObject)
+        if (feature instanceof AbstractCityObject) {
             writeMember(feature, CoreModule.of(version).getNamespaceURI(), "cityObjectMember");
-        else if (feature instanceof AbstractAppearance)
-            writeMember(feature, AppearanceModule.of(version).getNamespaceURI(), "appearanceMember");
-        else if (version == CityGMLVersion.v3_0) {
-            if (feature instanceof AbstractVersion)
+        } else if (feature instanceof AbstractAppearance) {
+            writeMember(feature, version != CityGMLVersion.v3_0 ?
+                    AppearanceModule.of(version).getNamespaceURI() :
+                    CoreModule.of(version).getNamespaceURI(), "appearanceMember");
+        } else if (version == CityGMLVersion.v3_0) {
+            if (feature instanceof AbstractVersion) {
                 writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "versionMember");
-            else if (feature instanceof AbstractVersionTransition)
+            } else if (feature instanceof AbstractVersionTransition) {
                 writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "versionTransitionMember");
-            else
+            } else {
                 writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "featureMember");
-        } else
+            }
+        } else {
             writeMember(feature, GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
+        }
     }
 
     private void writeMember(AbstractFeature feature, String namespaceURI, String propertyName) throws CityGMLWriteException {
