@@ -23,6 +23,7 @@ import org.citygml4j.core.ade.ADE;
 import org.citygml4j.core.ade.ADERegistry;
 import org.citygml4j.core.model.ade.ADEObject;
 import org.citygml4j.core.model.ade.ADEProperty;
+import org.citygml4j.core.model.ade.generic.ADEGenericProperty;
 import org.citygml4j.core.model.appearance.*;
 import org.citygml4j.core.model.bridge.*;
 import org.citygml4j.core.model.building.*;
@@ -156,8 +157,13 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         visit((org.xmlobjects.gml.model.feature.AbstractFeature) feature);
 
         if (feature.hasADEProperties()) {
-            for (ADEProperty property : new ArrayList<>(feature.getADEProperties()))
-                visit(property);
+            for (ADEProperty property : new ArrayList<>(feature.getADEProperties())) {
+                if (property instanceof ADEGenericProperty) {
+                    visit((ADEGenericProperty) property);
+                } else {
+                    visit(property);
+                }
+            }
         }
     }
 
@@ -1730,6 +1736,9 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     }
 
     public void visit(GenericElement genericElement) {
+    }
+
+    public void visit(ADEGenericProperty genericProperty) {
     }
 
     public void visit(FeatureProperty<?> property) {
