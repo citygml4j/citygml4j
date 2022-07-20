@@ -26,9 +26,7 @@ import org.citygml4j.core.ade.ADE;
 import java.net.URL;
 
 public interface Extension extends ADE {
-    String getName();
     String getSchemaLocation();
-    String getVersion();
     CityJSONVersion getCityJSONVersion();
 
     default URL getSchemaResource() {

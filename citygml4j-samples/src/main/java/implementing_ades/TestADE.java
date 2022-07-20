@@ -31,6 +31,16 @@ import java.util.List;
 public class TestADE implements CityGMLADE {
 
     @Override
+    public String getName() {
+        return "TestADE";
+    }
+
+    @Override
+    public String getVersion() {
+        return "1.0";
+    }
+
+    @Override
     public List<ADEModule> getADEModules() {
         return Collections.singletonList(new TestADEModule());
     }
