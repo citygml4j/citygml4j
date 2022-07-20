@@ -122,15 +122,36 @@ public class CityGMLModules {
         }
     }
 
-    public static CityGMLVersion getCityGMLVersion(String namespaceURI) {
+    public static CityGMLModules of(String namespaceURI) {
         for (CityGMLModules context : Arrays.asList(v3_0, v2_0, v1_0)) {
             Module module = context.getModule(namespaceURI);
             if (module != null) {
-                return context.getCityGMLVersion();
+                return context;
             }
         }
 
         return null;
+    }
+
+    public static CityGMLVersion getCityGMLVersion(String namespaceURI) {
+        CityGMLModules context = of(namespaceURI);
+        return context != null ? context.getCityGMLVersion() : null;
+    }
+
+    public static Module getModuleFor(String namespaceURI) {
+        for (CityGMLModules context : Arrays.asList(v3_0, v2_0, v1_0)) {
+            Module module = context.getModule(namespaceURI);
+            if (module != null) {
+                return module;
+            }
+        }
+
+        return null;
+    }
+
+    public static <T extends Module> T getModuleFor(String namespaceURI, Class<T> type) {
+        Module module = getModuleFor(namespaceURI);
+        return type.isInstance(module) ? type.cast(module) : null;
     }
 
     public static boolean isCityGMLNamespace(String namespaceURI) {
