@@ -104,6 +104,10 @@ public class CityGMLModules {
         );
     }
 
+    public static List<CityGMLModules> all() {
+        return List.of(v3_0, v2_0, v1_0);
+    }
+
     private CityGMLModules(CityGMLVersion version, Module... modules) {
         this.version = version;
         for (Module module : modules) {
@@ -123,7 +127,7 @@ public class CityGMLModules {
     }
 
     public static CityGMLModules of(String namespaceURI) {
-        for (CityGMLModules context : Arrays.asList(v3_0, v2_0, v1_0)) {
+        for (CityGMLModules context : all()) {
             Module module = context.getModule(namespaceURI);
             if (module != null) {
                 return context;
@@ -183,6 +187,16 @@ public class CityGMLModules {
         }
 
         return module;
+    }
+
+    public <T extends Module> T getModule(Class<T> type) {
+        for (Module module : getModules()) {
+            if (type.isInstance(module)) {
+                return type.cast(module);
+            }
+        }
+
+        return null;
     }
 
     public Set<String> getNamespaces() {
