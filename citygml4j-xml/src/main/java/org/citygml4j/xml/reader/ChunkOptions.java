@@ -19,7 +19,9 @@
 
 package org.citygml4j.xml.reader;
 
+import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
+import org.citygml4j.xml.module.citygml.CityObjectGroupModule;
 import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 
@@ -149,9 +151,9 @@ public class ChunkOptions {
     }
 
     public ChunkOptions addGroupMemberProperties() {
-        return withProperty(CoreModule.v2_0.getNamespaceURI(), "groupMember")
-                .withProperty(AppearanceModule.v2_0.getNamespaceURI(), "parent")
-                .withProperty(CoreModule.v1_0.getNamespaceURI(), "groupMember")
-                .withProperty(AppearanceModule.v1_0.getNamespaceURI(), "parent");
+        return withProperty(CityObjectGroupModule.v2_0.getNamespaceURI(), "groupMember")
+                .withProperty(CityObjectGroupModule.v2_0.getNamespaceURI(), "parent")
+                .withProperty(CityObjectGroupModule.v1_0.getNamespaceURI(), "groupMember")
+                .withProperty(CityObjectGroupModule.v1_0.getNamespaceURI(), "parent");
     }
 }
