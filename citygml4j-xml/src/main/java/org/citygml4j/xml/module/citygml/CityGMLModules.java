@@ -104,15 +104,15 @@ public class CityGMLModules {
         );
     }
 
-    public static List<CityGMLModules> all() {
-        return List.of(v3_0, v2_0, v1_0);
-    }
-
     private CityGMLModules(CityGMLVersion version, Module... modules) {
         this.version = version;
         for (Module module : modules) {
             this.modules.put(module.getNamespaceURI(), module);
         }
+    }
+
+    public static List<CityGMLModules> all() {
+        return List.of(v3_0, v2_0, v1_0);
     }
 
     public static CityGMLModules of(CityGMLVersion version) {
