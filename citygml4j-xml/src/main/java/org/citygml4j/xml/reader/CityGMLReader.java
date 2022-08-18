@@ -60,6 +60,14 @@ public abstract class CityGMLReader implements AutoCloseable {
         return reader.getNamespaces();
     }
 
+    public String getPrefix() {
+        try {
+            return reader.getPrefix();
+        } catch (XMLReadException e) {
+            return null;
+        }
+    }
+
     public boolean hasParentInfo() {
         return false;
     }
