@@ -199,8 +199,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         }
 
         if (bridge.isSetAddresses()) {
-            for (AddressProperty member : new ArrayList<>(bridge.getAddresses()))
-                visit(member);
+            for (AddressProperty property : new ArrayList<>(bridge.getAddresses()))
+                visit(property);
         }
 
         if (bridge.hasDeprecatedProperties()) {
@@ -257,8 +257,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         }
 
         if (building.isSetAddresses()) {
-            for (AddressProperty member : new ArrayList<>(building.getAddresses()))
-                visit(member);
+            for (AddressProperty property : new ArrayList<>(building.getAddresses()))
+                visit(property);
         }
 
         if (building.hasDeprecatedProperties()) {
