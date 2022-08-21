@@ -35,7 +35,7 @@ public class CoreModule extends CityGMLModule {
         v3_0 = new CoreModule(
                 CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE,
                 "core",
-                "http://schemas.opengis.net/citygml/3.0/cityGMLBase.xsd",
+                "http://schemas.opengis.net/citygml/3.0/core.xsd",
                 CityGMLVersion.v3_0
         );
 
