@@ -11,8 +11,8 @@ allprojects {
     description 'The Open Source Java API for CityGML'
 
     ext {
-        gmlObjectsVersion = '1.0.0-SNAPSHOT'
-        xalObjectsVersion = '1.0.0-SNAPSHOT'
+        gmlObjectsVersion = '1.0.0'
+        xalObjectsVersion = '1.0.0'
         date = new Date()
     }
 }
