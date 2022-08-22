@@ -22,8 +22,9 @@ package processing_citygml;
 import helpers.Logger;
 import helpers.Util;
 import implementing_ades.TestADE;
-import implementing_ades.model.BuildingUnit;
-import implementing_ades.model.IndustrialBuildingRoofSurface;
+import implementing_ades.model.BuildingUnderground;
+import implementing_ades.model.LightingFacility;
+import implementing_ades.model.SolarRoofSurface;
 import implementing_ades.walker.TestADEWalker;
 import org.citygml4j.core.ade.ADERegistry;
 import org.citygml4j.core.model.ade.ADEObject;
@@ -51,7 +52,7 @@ public class ADEObjectWalker {
         CityGMLInputFactory in = context.createCityGMLInputFactory()
                 .withChunking(ChunkOptions.defaults());
 
-        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_test_ade_v2.gml");
+        Path file = Util.SAMPLE_DATA_DIR.resolve("test_ade_objects_v3.gml");
         log.print("Reading the first building from the TestADE file " + file + " by using a filtered reader");
 
         Building building;
@@ -80,15 +81,21 @@ public class ADEObjectWalker {
         log.print("This time we also apply an ADE object walker to make use of the explicit visit methods for ADE objects");
         TestADEWalker adeWalker = new TestADEWalker() {
             @Override
-            public void visit(IndustrialBuildingRoofSurface roofSurface) {
-                log.print("- ADE walker visits " + roofSurface.getClass().getSimpleName() + " feature with gml:id " + roofSurface.getId());
-                super.visit(roofSurface);
+            public void visit(BuildingUnderground buildingUnderground) {
+                log.print("- ADE walker visits " + buildingUnderground.getClass().getSimpleName() + " feature with gml:id " + buildingUnderground.getId());
+                super.visit(buildingUnderground);
             }
 
             @Override
-            public void visit(BuildingUnit buildingUnit) {
-                log.print("- ADE walker visits " + buildingUnit.getClass().getSimpleName() + " feature with gml:id " + buildingUnit.getId());
-                super.visit(buildingUnit);
+            public void visit(SolarRoofSurface solarRoofSurface) {
+                log.print("- ADE walker visits " + solarRoofSurface.getClass().getSimpleName() + " feature with gml:id " + solarRoofSurface.getId());
+                super.visit(solarRoofSurface);
+            }
+
+            @Override
+            public void visit(LightingFacility lightingFacility) {
+                log.print("- ADE walker visits " + lightingFacility.getClass().getSimpleName() + " object with gml:id " + lightingFacility.getId());
+                super.visit(lightingFacility);
             }
         };
 

@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xmlobjects.XMLObjects;
 import org.xmlobjects.gml.model.GMLObject;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
+import org.xmlobjects.gml.model.geometry.primitives.Polygon;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
@@ -48,7 +48,6 @@ import org.xmlobjects.stream.XMLWriterFactory;
 import org.xmlobjects.xml.Namespaces;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.dom.DOMResult;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -81,38 +80,42 @@ public class WritingGenericADE {
         domFactory.setNamespaceAware(true);
         Document document = domFactory.newDocumentBuilder().newDocument();
 
+        Element buildingProperties = document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "BuildingProperties");
+        building.addADEProperty(GenericADEOfAbstractBuilding.of(buildingProperties));
+
         log.print("Adding an owner name");
-        Element ownerName = document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "ownerName");
-        ownerName.setTextContent("Smith");
-        building.addADEProperty(GenericADEOfAbstractBuilding.of(ownerName));
+        buildingProperties
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "ownerName"))
+                .setTextContent("Smith");
 
         log.print("Adding an energy performance certification");
-        Element certificationProperty = document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "energyPerformanceCertification");
-        Node certification = certificationProperty.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "EnergyPerformanceCertification"));
-        certification.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "certificationName")).setTextContent("certName");
-        certification.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "certificationid")).setTextContent("certId");
-        building.addADEProperty(GenericADEOfAbstractBuilding.of(certificationProperty));
+        Node certification = buildingProperties
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "energyPerformanceCertification"))
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "EnergyPerformanceCertification"));
+        certification.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "certificationName"))
+                .setTextContent("certName");
+        certification.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "certificationId"))
+                .setTextContent("certId");
 
-        log.print("Adding a building unit with LoD2 geometry and lighting facility");
-        Element buildingUnitProperty = document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "buildingUnit");
-        Node buildingUnit = buildingUnitProperty.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "BuildingUnit"));
+        log.print("Adding a building underground object with LoD0 geometry and lighting facility");
+        Node buildingUnderground = buildingProperties
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "buildingUnderground"))
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "BuildingUnderground"));
 
-        Node lod2MultiSurfaceProperty = buildingUnit.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "lod2MultiSurface"));
-        GeometryFactory geometryFactory = GeometryFactory.newInstance();
-        MultiSurface multiSurface = geometryFactory.createMultiSurface(new double[][]{{6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 6.0, 8.0, 0.0, 6.0, 0.0, 0.0}}, 3);
-        appendChild(lod2MultiSurfaceProperty, multiSurface, CityGMLVersion.v2_0, context.getXMLObjects());
+        GeometryFactory factory = GeometryFactory.newInstance();
+        Polygon polygon = factory.createPolygon(new double[]{6.0, 0.0, -2.0, 0.0, 0.0, -2.0, 0.0, 8.0, -2.0, 6.0, 8.0, -2.0, 6.0, 0.0, -2.0}, 3);
+        Node lod0GeometryProperty = buildingUnderground
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "lod0GenericGeometry"));
+        appendChild(lod0GeometryProperty, polygon, CityGMLVersion.v3_0, context.getXMLObjects());
 
-        Node equippedWith = buildingUnit.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "equippedWith"));
-        Node lightingFacilities = equippedWith.appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "LightingFacilities"));
-        Element totalValue = document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "totalValue");
-        totalValue.setTextContent("4000.0");
-        totalValue.setAttribute("uom", "W");
-        lightingFacilities.appendChild(totalValue);
-        buildingUnit.appendChild(equippedWith);
+        Element electricalPower = (Element) buildingUnderground
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "equippedWith"))
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "LightingFacility"))
+                .appendChild(document.createElementNS(TestADEModule.TESTADE_NAMESPACE, "electricalPower"));
+        electricalPower.setTextContent("4000.0");
+        electricalPower.setAttribute("uom", "W");
 
-        building.addADEProperty(GenericADEOfAbstractBuilding.of(buildingUnitProperty));
-
-        CityGMLVersion version = CityGMLVersion.v2_0;
+        CityGMLVersion version = CityGMLVersion.v3_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
         Path output = Util.getGMLOutputFile();
@@ -121,7 +124,7 @@ public class WritingGenericADE {
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndent("  ")
                     .withSchemaLocation(TestADEModule.TESTADE_NAMESPACE, Util.OUTPUT_DIR.relativize(
-                            Util.SCHEMAS_DIR.resolve("test-ade.xsd")).toString())
+                            Util.SCHEMAS_DIR.resolve("testADE.xsd")).toString())
                     .withDefaultPrefixes()
                     .withPrefix("test", TestADEModule.TESTADE_NAMESPACE)
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
@@ -131,7 +134,7 @@ public class WritingGenericADE {
         log.finish();
     }
 
-    static void appendChild(Node parent, GMLObject child, CityGMLVersion version, XMLObjects xmlObjects) throws TransformerConfigurationException, XMLWriteException, ObjectSerializeException {
+    static void appendChild(Node parent, GMLObject child, CityGMLVersion version, XMLObjects xmlObjects) throws XMLWriteException, ObjectSerializeException {
         DOMResult result = new DOMResult(parent);
         XMLWriterFactory xmlWriterFactory = XMLWriterFactory.newInstance(xmlObjects);
         XMLWriter writer = xmlWriterFactory.createWriter(result);

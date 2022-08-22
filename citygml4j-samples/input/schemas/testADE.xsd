@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bldg="http://www.opengis.net/citygml/building/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:test="http://www.citygml.org/ade/TestADE/2.0" elementFormDefault="qualified" targetNamespace="http://www.citygml.org/ade/TestADE/2.0" version="2.0">
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="http://schemas.opengis.net/citygml/3.0/core.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/building/3.0" schemaLocation="http://schemas.opengis.net/citygml/building/3.0/building.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="ttp://schemas.opengis.net/citygml/construction/3.0/construction.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="AbstractBuildingUnderground" substitutionGroup="core:AbstractOccupiedSpace" type="test:AbstractBuildingUndergroundType"/>
+  <complexType abstract="true" name="AbstractBuildingUndergroundType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="energyPerformanceCertification" type="test:EnergyPerformanceCertificationPropertyType"/>
+          <element minOccurs="0" name="lod0GenericGeometry" type="gml:GeometryPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="equippedWith">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="test:Facility"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractBuildingUndergroundPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:AbstractBuildingUnderground"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingProperties" substitutionGroup="bldg:ADEOfAbstractBuilding" type="test:BuildingPropertiesType"/>
+  <complexType name="BuildingPropertiesType">
+    <complexContent>
+      <extension base="bldg:ADEOfAbstractBuildingType">
+        <sequence>
+          <element minOccurs="0" name="ownerName" type="string"/>
+          <element name="energyPerformanceCertification" type="test:EnergyPerformanceCertificationPropertyType"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingUnderground">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="test:BuildingUnderground"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="floorArea" type="gml:AreaType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingPropertiesPropertyType">
+    <sequence>
+      <element ref="test:BuildingProperties"/>
+    </sequence>
+  </complexType>
+  <element name="BuildingUnderground" substitutionGroup="test:AbstractBuildingUnderground" type="test:BuildingUndergroundType"/>
+  <complexType name="BuildingUndergroundType">
+    <complexContent>
+      <extension base="test:AbstractBuildingUndergroundType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="consistsOf">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="test:BuildingUndergroundPart"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingUndergroundPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:BuildingUnderground"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingUndergroundPart" substitutionGroup="test:AbstractBuildingUnderground" type="test:BuildingUndergroundPartType"/>
+  <complexType name="BuildingUndergroundPartType">
+    <complexContent>
+      <extension base="test:AbstractBuildingUndergroundType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingUndergroundPartPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:BuildingUndergroundPart"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="ElectricalAppliance" substitutionGroup="test:Facility" type="test:ElectricalApplianceType"/>
+  <complexType name="ElectricalApplianceType">
+    <complexContent>
+      <extension base="test:FacilityType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ElectricalAppliancePropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:ElectricalAppliance"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="EnergyPerformanceCertification" substitutionGroup="gml:AbstractObject" type="test:EnergyPerformanceCertificationType"/>
+  <complexType name="EnergyPerformanceCertificationType">
+    <sequence>
+      <element maxOccurs="unbounded" name="certificationName" type="string"/>
+      <element name="certificationId" type="string"/>
+    </sequence>
+  </complexType>
+  <complexType name="EnergyPerformanceCertificationPropertyType">
+    <sequence>
+      <element ref="test:EnergyPerformanceCertification"/>
+    </sequence>
+  </complexType>
+  <element name="Facility" substitutionGroup="gml:AbstractGML" type="test:FacilityType"/>
+  <complexType name="FacilityType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element name="electricalPower" type="gml:MeasureType"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="FacilityPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:Facility"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="IndustrialBuilding" substitutionGroup="bldg:Building" type="test:IndustrialBuildingType"/>
+  <complexType name="IndustrialBuildingType">
+    <complexContent>
+      <extension base="bldg:BuildingType">
+        <sequence>
+          <element minOccurs="0" name="remark" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="IndustrialBuildingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:IndustrialBuilding"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="IndustrialBuildingPart" substitutionGroup="bldg:BuildingPart" type="test:IndustrialBuildingPartType"/>
+  <complexType name="IndustrialBuildingPartType">
+    <complexContent>
+      <extension base="bldg:BuildingPartType">
+        <sequence>
+          <element minOccurs="0" name="remark" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="IndustrialBuildingPartPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:IndustrialBuildingPart"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="LightingFacility" substitutionGroup="test:Facility" type="test:LightingFacilityType"/>
+  <complexType name="LightingFacilityType">
+    <complexContent>
+      <extension base="test:FacilityType">
+        <sequence/>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="LightingFacilityPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:LightingFacility"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="MovingConstruction" substitutionGroup="con:OtherConstruction" type="test:MovingConstructionType"/>
+  <complexType name="MovingConstructionType">
+    <complexContent>
+      <extension base="con:OtherConstructionType">
+        <sequence>
+          <element minOccurs="0" name="remark" type="string"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="coveredBy">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="test:SolarRoofSurface"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MovingConstructionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:MovingConstruction"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="SolarRoofSurface" substitutionGroup="con:RoofSurface" type="test:SolarRoofSurfaceType"/>
+  <complexType name="SolarRoofSurfaceType">
+    <complexContent>
+      <extension base="con:RoofSurfaceType">
+        <sequence>
+          <element minOccurs="0" name="remark" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SolarRoofSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="test:SolarRoofSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

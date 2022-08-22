@@ -37,8 +37,8 @@ import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.xmlobjects.gml.model.basictypes.Measure;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
-import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.model.geometry.primitives.Polygon;
+import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -69,7 +69,7 @@ public class WritingADE {
         }
 
         log.print("Enriching the building with TestADE properties and features");
-        AbstractBuildingProperties buildingProperties = new AbstractBuildingProperties();
+        BuildingProperties buildingProperties = new BuildingProperties();
         building.addADEProperty(buildingProperties);
 
         log.print("Adding an owner name");
@@ -82,21 +82,21 @@ public class WritingADE {
         EnergyPerformanceCertificationProperty certificationProperty = new EnergyPerformanceCertificationProperty(certification);
         buildingProperties.setEnergyPerformanceCertification(certificationProperty);
 
-        log.print("Adding a building unit with LoD2 geometry and lighting facility");
-        BuildingUnit buildingUnit = new BuildingUnit();
+        log.print("Adding a building underground object with LoD0 geometry and lighting facility");
+        BuildingUnderground buildingUnderground = new BuildingUnderground();
 
         GeometryFactory factory = GeometryFactory.newInstance();
-        MultiSurface multiSurface = factory.createMultiSurface(new double[][]{{6.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 6.0, 8.0, 0.0, 6.0, 0.0, 0.0}}, 3);
-        buildingUnit.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+        Polygon polygon = factory.createPolygon(new double[]{6.0, 0.0, -2.0, 0.0, 0.0, -2.0, 0.0, 8.0, -2.0, 6.0, 8.0, -2.0, 6.0, 0.0, -2.0}, 3);
+        buildingUnderground.setLod0GenericGeometry(new SurfaceProperty(polygon));
 
-        LightingFacilities lightingFacilities = new LightingFacilities();
-        lightingFacilities.setTotalValue(new Measure(4000.0, "W"));
-        buildingUnit.getEquippedWith().add(new FacilitiesProperty(lightingFacilities));
+        LightingFacility lightingFacility = new LightingFacility();
+        lightingFacility.setElectricalPower(new Measure(4000.0, "W"));
+        buildingUnderground.getEquippedWith().add(new FacilityProperty(lightingFacility));
 
-        AbstractBuildingUnitProperty unitProperty = new AbstractBuildingUnitProperty(buildingUnit);
-        buildingProperties.getBuildingUnits().add(unitProperty);
+        BuildingUndergroundProperty undergroundProperty = new BuildingUndergroundProperty(buildingUnderground);
+        buildingProperties.getBuildingUndergrounds().add(undergroundProperty);
 
-        CityGMLVersion version = CityGMLVersion.v2_0;
+        CityGMLVersion version = CityGMLVersion.v3_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
         Path output = Util.getGMLOutputFile();
@@ -105,7 +105,7 @@ public class WritingADE {
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndent("  ")
                     .withSchemaLocation(TestADEModule.TESTADE_NAMESPACE, Util.OUTPUT_DIR.relativize(
-                            Util.SCHEMAS_DIR.resolve("test-ade.xsd")).toString())
+                            Util.SCHEMAS_DIR.resolve("testADE.xsd")).toString())
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
                     .writeMember(building);

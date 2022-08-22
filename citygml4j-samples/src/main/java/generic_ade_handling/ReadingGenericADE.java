@@ -52,7 +52,7 @@ public class ReadingGenericADE {
         CityGMLInputFactory in = context.createCityGMLInputFactory()
                 .createGenericADEContent(true);
 
-        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_test_ade_v2.gml");
+        Path file = Util.SAMPLE_DATA_DIR.resolve("test_ade_objects_v3.gml");
         log.print("Reading the TestADE file " + file + " into main memory");
 
         CityModel cityModel;
@@ -62,10 +62,10 @@ public class ReadingGenericADE {
 
         SchemaHandler handler = in.getSchemaHandler();
 
-        XSSchemaSet schemas = handler.getSchemaSet(CoreModule.v2_0.getNamespaceURI());
-        XSType cityObjectType = schemas.getType(CoreModule.v2_0.getNamespaceURI(), "AbstractCityObjectType");
-        XSType featureType = schemas.getType(GMLCoreModule.v3_1.getNamespaceURI(), "AbstractFeatureType");
-        XSType geometryType = schemas.getType(GMLCoreModule.v3_1.getNamespaceURI(), "AbstractGeometryType");
+        XSSchemaSet schemas = handler.getSchemaSet(CoreModule.v3_0.getNamespaceURI());
+        XSType cityObjectType = schemas.getType(CoreModule.v3_0.getNamespaceURI(), "AbstractCityObjectType");
+        XSType geometryType = schemas.getType(GMLCoreModule.v3_2.getNamespaceURI(), "AbstractGeometryType");
+        XSType gmlObjectType = schemas.getType(GMLCoreModule.v3_2.getNamespaceURI(), "AbstractGMLType");
 
         log.print("Iterating over the city object members");
         for (AbstractCityObjectProperty member : cityModel.getCityObjectMembers()) {
@@ -78,15 +78,15 @@ public class ReadingGenericADE {
                     for (ADEProperty property : building.getADEProperties()) {
                         if (property instanceof ADEGenericProperty) {
                             Element element = ((ADEGenericProperty) property).getValue();
-                            log.print(indent(2) + "- with ADE property " + element.getLocalName() + " {" + element.getNamespaceURI() + "}");
-                            printADEInfo(handler, element, cityObjectType, featureType, geometryType, 5);
+                            log.print("  - with ADE property " + element.getLocalName() + " {" + element.getNamespaceURI() + "}");
+                            printADEInfo(handler, element, cityObjectType, gmlObjectType, geometryType, 5);
                         }
                     }
                 }
             } else if (member.isSetGenericElement()) {
                 GenericElement genericElement = member.getGenericElement();
                 log.print("Found ADE feature " + genericElement.getLocalName() + " {" + genericElement.getNamespaceURI() + "}");
-                printADEInfo(handler, genericElement.getContent(), cityObjectType, featureType, geometryType, 2);
+                printADEInfo(handler, genericElement.getContent(), cityObjectType, gmlObjectType, geometryType, 2);
             }
         }
 
@@ -94,23 +94,23 @@ public class ReadingGenericADE {
     }
 
     static void printADEInfo(SchemaHandler handler, Element element, XSType cityObjectType, XSType featureType, XSType geometryType, int level) {
-        StringBuilder builder = new StringBuilder(indent(level) + element.getLocalName());
+        String info = " ".repeat(level) + element.getLocalName();
 
         XSSchemaSet schemas = handler.getSchemaSet(element.getNamespaceURI());
         XSElementDecl elementDecl = schemas.getElementDecl(element.getNamespaceURI(), element.getLocalName());
         if (elementDecl != null) {
             XSType type = elementDecl.getType();
             if (type.isDerivedFrom(cityObjectType))
-                builder.append(" [CityObject]");
-            else if (type.isDerivedFrom(featureType))
-                builder.append(" [Feature]");
+                info += " [CityObject]";
             else if (type.isDerivedFrom(geometryType))
-                builder.append(" [Geometry]");
+                info += " [Geometry]";
+            else if (type.isDerivedFrom(featureType))
+                info += " [GML Object]";
         }
 
         NodeList children = element.getChildNodes();
         if (children.getLength() > 1) {
-            log.print(builder.toString());
+            log.print(info);
             for (int i = 0; i < children.getLength(); i++) {
                 Node child = children.item(i);
                 if (child.getNodeType() == Node.ELEMENT_NODE)
@@ -118,17 +118,9 @@ public class ReadingGenericADE {
             }
         } else {
             if (element.getFirstChild().getNodeType() == Node.TEXT_NODE)
-                builder.append(": ").append(element.getFirstChild().getNodeValue());
+                info += ": " + element.getFirstChild().getNodeValue();
 
-            log.print(builder.toString());
+            log.print(info);
         }
-    }
-
-    static String indent(int level) {
-        StringBuilder builder = new StringBuilder();
-        while (level-- > 0)
-            builder.append(" ");
-
-        return builder.toString();
     }
 }

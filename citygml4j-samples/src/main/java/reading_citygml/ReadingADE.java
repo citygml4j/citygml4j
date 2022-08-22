@@ -57,7 +57,7 @@ public class ReadingADE {
         CityGMLInputFactory in = context.createCityGMLInputFactory()
                 .withChunking(ChunkOptions.chunkByFeatures());
 
-        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_test_ade_v2.gml");
+        Path file = Util.SAMPLE_DATA_DIR.resolve("test_ade_objects_v3.gml");
         log.print("Reading the TestADE file " + file + " chunk-wise by city model members");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
