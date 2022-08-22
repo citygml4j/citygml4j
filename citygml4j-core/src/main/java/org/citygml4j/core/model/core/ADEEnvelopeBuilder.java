@@ -74,7 +74,7 @@ public class ADEEnvelopeBuilder {
             updateEnvelope(((AbstractInlineOrByReferenceProperty<?>) object).getObject(), envelope, options, visited);
         } else if (object instanceof AbstractInlineProperty<?>) {
             updateEnvelope(((AbstractInlineProperty<?>) object).getObject(), envelope, options, visited);
-        } else if (object instanceof GMLObject) {
+        } else if (object instanceof GMLObject && object instanceof ADEObject) {
             updateEnvelope((GMLObject) object, envelope, options, visited);
         } else if (object instanceof Collection<?>) {
             ((Collection<?>) object).forEach(v -> updateEnvelope(v, envelope, options, visited));
