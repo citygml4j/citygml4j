@@ -19,7 +19,6 @@
 
 package org.citygml4j.xml.reader;
 
-import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.xml.module.citygml.AppearanceModule;
 import org.citygml4j.xml.module.citygml.CityObjectGroupModule;
 import org.citygml4j.xml.module.citygml.CoreModule;
