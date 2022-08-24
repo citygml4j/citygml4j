@@ -16,7 +16,7 @@ information loss. Check out the `citygml4j-samples` module for examples how to u
 
 ## Support for CityGML ADEs
 CityGML ADEs encoded in GML/XML are supported by the `citygml4j-xml` module in two ways. Firstly, the citygml4j default
-way is to implement explicit model classes for the ADE using the extension API of the `citygml4j-core` module and to
+way is to implement explicit model classes for an ADE using the extension API of the `citygml4j-core` module and to
 provide additional classes for serializing the model classes to and from GML/XML. A benefit of this approach is that
 the ADE model classes seamlessly integrate with the core model classes and can be fed to your existing business code.
 
