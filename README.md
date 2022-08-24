@@ -2,8 +2,8 @@
 citygml4j is an open source Java library and API for [OGC CityGML](http://www.opengeospatial.org/standards/citygml).
 citygml4j makes it easy to parse, process, and write CityGML datasets and to develop CityGML-aware software.
 
-The library consists of the `citygml4j-core` module that provides a Java data model based on the
-[CityGML 3.0 Conceptual Model](https://docs.ogc.org/is/20-010/20-010.html) for processing CityGML data, helper classes
+The library consists of the `citygml4j-core` module that provides a Java data model for processing CityGML data
+based on the [CityGML 3.0 Conceptual Model](https://docs.ogc.org/is/20-010/20-010.html), helper classes
 for working with the data model, and an extension API for adding support for
 [CityGML ADEs](https://docs.ogc.org/is/20-010/20-010.html#toc66). Additional serialization modules enable the parsing
 of different file formats and encodings into the data model and writing content back out again.
