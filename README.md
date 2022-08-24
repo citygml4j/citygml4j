@@ -2,14 +2,15 @@
 citygml4j is an open source Java library and API for [OGC CityGML](http://www.opengeospatial.org/standards/citygml).
 citygml4j makes it easy to parse, process, and write CityGML datasets and to develop CityGML-aware software.
 
-The library consists of the `citygml4j-core` module that provides a Java data model for processing CityGML data
-based on the [CityGML 3.0 Conceptual Model](https://docs.ogc.org/is/20-010/20-010.html), helper classes
-for working with the data model, and an extension API for adding support for
-[CityGML ADEs](https://docs.ogc.org/is/20-010/20-010.html#toc66). Additional serialization modules enable the parsing
-of different file formats and encodings into the data model and writing content back out again.
+The library consists of a `citygml4j-core` module that provides Java classes for processing CityGML data based on
+the [CityGML 3.0 Conceptual Model](https://docs.ogc.org/is/20-010/20-010.html), helper classes
+for working with the model classes, and an extension API for implementing support for
+[CityGML ADEs](https://docs.ogc.org/is/20-010/20-010.html#toc66).
 
+Serialization modules on top of the core add support for parsing datasets with different file formats and encodings
+into the model classes and writing them back out again.
 - `citygml4j-xml` provides the default GML/XML encoding and supports CityGML 3.0, 2.0, and 1.0.
-- `citygml4j-cityjson` adds [CityJSON](https://www.cityjson.org/) encodings for CityJSON 1.1 and 1.0.
+- `citygml4j-cityjson` adds [CityJSON](https://www.cityjson.org/) as encoding with support for CityJSON 1.1 and 1.0.
 
 ## License
 citygml4j is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
