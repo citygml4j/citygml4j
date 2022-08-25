@@ -29,6 +29,11 @@ The latest stable release of citygml4j is 2.12.1.
 Download the latest citygml4j release binaries [here](https://github.com/citygml4j/citygml4j/releases/latest).
 Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
 
+Note that [citygml4j version 2](https://github.com/citygml4j/citygml4j/tree/citygml4j-v2) is in _maintenance mode_,
+and we are focusing all of our attention on version 3 with support for
+[CityGML 3.0](https://docs.ogc.org/is/20-010/20-010.html). This means that citygml4j v2 is not updated with new
+features but at most receives critical bug fixes.
+
 ## Contributing
 * To file bugs found in the software create a GitHub issue.
 * To contribute code for fixing filed issues create a pull request with the issue id.
