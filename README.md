@@ -1,3 +1,8 @@
+![build](https://img.shields.io/github/workflow/status/citygml4j/citygml4j/citygml4j-build?logo=Gradle)
+![release](https://img.shields.io/github/v/release/citygml4j/citygml4j?display_name=tag)
+[![maven](https://maven-badges.herokuapp.com/maven-central/org.citygml4j/citygml4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.citygml4j/citygml4j-core)
+[![license](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # citygml4j - The Open Source Java API for CityGML
 citygml4j is an open source Java library and API for [OGC CityGML](http://www.opengeospatial.org/standards/citygml).
 citygml4j makes it easy to parse, process, and write CityGML datasets and to develop CityGML-aware software.
