@@ -1,4 +1,4 @@
-![build](https://img.shields.io/github/workflow/status/citygml4j/citygml4j/citygml4j-build?logo=Gradle)
+![build](https://img.shields.io/github/workflow/status/citygml4j/citygml4j/Build%20citygml4j?logo=Gradle)
 ![release](https://img.shields.io/github/v/release/citygml4j/citygml4j?display_name=tag)
 [![maven](https://maven-badges.herokuapp.com/maven-central/org.citygml4j/citygml4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.citygml4j/citygml4j-core)
 [![license](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
