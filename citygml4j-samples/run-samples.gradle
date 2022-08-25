@@ -1,0 +1,18 @@
+import java.util.regex.Pattern
+
+task createExecTasks {
+    sourceSets.main.allSource.each {
+        if (it.text.matches(Pattern.compile(".*public\\s+static\\s+void\\s+main.*", Pattern.DOTALL))) {
+            def className = file('src/main/java').toPath().relativize(it.toPath()).join('.').replace(".java", '')
+            task("$className", type: JavaExec, dependsOn: ['build', 'cleanOutput'], group: 'samples') {
+                mainModule = 'org.citygml4j.samples'
+                mainClass = className
+                classpath sourceSets.main.runtimeClasspath
+            }
+        }
+    }
+}
+
+task cleanOutput(type: Delete, group: 'samples') {
+    delete 'output'
+}

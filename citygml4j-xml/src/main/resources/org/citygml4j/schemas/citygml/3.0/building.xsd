@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bldg="http://www.opengis.net/citygml/building/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/building/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Building module supports representation of thematic and spatial aspects of buildings, building parts, building installations, building subdivisions, and interior building structures.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractBuilding" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfAbstractBuildingType">
+    <annotation>
+      <documentation>ADEOfAbstractBuilding acts as a hook to define properties within an ADE that are to be added to AbstractBuilding.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractBuildingType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractBuildingPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfAbstractBuilding"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractBuildingSubdivision" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfAbstractBuildingSubdivisionType">
+    <annotation>
+      <documentation>ADEOfAbstractBuildingSubdivision acts as a hook to define properties within an ADE that are to be added to AbstractBuildingSubdivision.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractBuildingSubdivisionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractBuildingSubdivisionPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfAbstractBuildingSubdivision"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuilding" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingType">
+    <annotation>
+      <documentation>ADEOfBuilding acts as a hook to define properties within an ADE that are to be added to a Building.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuilding"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingConstructiveElement" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingConstructiveElementType">
+    <annotation>
+      <documentation>ADEOfBuildingConstructiveElement acts as a hook to define properties within an ADE that are to be added to a BuildingConstructiveElement.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingConstructiveElementType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingConstructiveElementPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingConstructiveElement"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingFurniture" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingFurnitureType">
+    <annotation>
+      <documentation>ADEOfBuildingFurniture acts as a hook to define properties within an ADE that are to be added to a BuildingFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingFurniturePropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingFurniture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingInstallation" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingInstallationType">
+    <annotation>
+      <documentation>ADEOfBuildingInstallation acts as a hook to define properties within an ADE that are to be added to a BuildingInstallation.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingInstallationType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingInstallationPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingInstallation"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingPart" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingPartType">
+    <annotation>
+      <documentation>ADEOfBuildingPart acts as a hook to define properties within an ADE that are to be added to a BuildingPart.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingPartType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingPartPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingPart"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingRoom" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingRoomType">
+    <annotation>
+      <documentation>ADEOfBuildingRoom acts as a hook to define properties within an ADE that are to be added to a BuildingRoom.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingRoomType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingRoomPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingRoom"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBuildingUnit" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfBuildingUnitType">
+    <annotation>
+      <documentation>ADEOfBuildingUnit acts as a hook to define properties within an ADE that are to be added to a BuildingUnit.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBuildingUnitType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBuildingUnitPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfBuildingUnit"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfStorey" substitutionGroup="gml:AbstractObject" type="bldg:ADEOfStoreyType">
+    <annotation>
+      <documentation>ADEOfStorey acts as a hook to define properties within an ADE that are to be added to a Storey.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfStoreyType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfStoreyPropertyType">
+    <sequence>
+      <element ref="bldg:ADEOfStorey"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="AbstractBuilding" substitutionGroup="con:AbstractConstruction" type="bldg:AbstractBuildingType">
+    <annotation>
+      <documentation>AbstractBuilding is an abstract superclass representing the common attributes and associations of the classes Building and BuildingPart.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractBuildingType">
+    <complexContent>
+      <extension base="con:AbstractConstructionType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the Building or BuildingPart.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the Building or BuildingPart.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the Building or BuildingPart.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="roofType" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the shape of the roof of the Building or BuildingPart.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="storeysAboveGround" type="integer">
+            <annotation>
+              <documentation>Indicates the number of storeys positioned above ground level.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="storeysBelowGround" type="integer">
+            <annotation>
+              <documentation>Indicates the number of storeys positioned below ground level.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="storeyHeightsAboveGround" type="gml:MeasureOrNilReasonListType">
+            <annotation>
+              <documentation>Lists the heights of each storey above ground. The first value in the list denotes the height of the storey closest to the ground level, the last value denotes the height furthest away.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="storeyHeightsBelowGround" type="gml:MeasureOrNilReasonListType">
+            <annotation>
+              <documentation>Lists the height of each storey below ground. The first value in the list denotes the height of the storey closest to the ground level, the last value denotes the height furthest away.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingConstructiveElement">
+            <annotation>
+              <documentation>Relates the constructive elements to the Building or BuildingPart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingConstructiveElement"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingInstallation">
+            <annotation>
+              <documentation>Relates the installation objects to the Building or BuildingPart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingInstallation"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingRoom">
+            <annotation>
+              <documentation>Relates the rooms to the Building or BuildingPart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingRoom"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingFurniture">
+            <annotation>
+              <documentation>Relates the furniture objects to the Building or BuildingPart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingFurniture"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingSubdivision">
+            <annotation>
+              <documentation>Relates the logical subdivisions to the Building or BuildingPart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:AbstractBuildingSubdivision"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
+            <annotation>
+              <documentation>Relates the addresses to the Building or BuildingPart.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractBuilding" type="bldg:ADEOfAbstractBuildingPropertyType">
+            <annotation>
+              <documentation>Augments AbstractBuilding with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractBuildingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:AbstractBuilding"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractBuildingSubdivision" substitutionGroup="core:AbstractLogicalSpace" type="bldg:AbstractBuildingSubdivisionType">
+    <annotation>
+      <documentation>AbstractBuildingSubdivision is the abstract superclass for different kinds of logical building subdivisions.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractBuildingSubdivisionType">
+    <complexContent>
+      <extension base="core:AbstractLogicalSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the building subdivision.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the building subdivision.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the building subdivision.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="elevation" type="con:ElevationPropertyType">
+            <annotation>
+              <documentation>Specifies qualified elevations of the building subdivision in relation to a well-defined surface which is commonly taken as origin (e.g. geoid or water level). [cf. INSPIRE]</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="sortKey" type="double">
+            <annotation>
+              <documentation>Defines an order among the objects that belong to the building subdivision. An example is the sorting of storeys.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingConstructiveElement" type="bldg:BuildingConstructiveElementPropertyType">
+            <annotation>
+              <documentation>Relates the constructive elements to the building subdivision.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingFurniture">
+            <annotation>
+              <documentation>Relates the furniture objects to the building subdivision.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingFurniture"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingInstallation">
+            <annotation>
+              <documentation>Relates the installation objects to the building subdivision.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingInstallation"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingRoom" type="bldg:BuildingRoomPropertyType">
+            <annotation>
+              <documentation>Relates the rooms to the building subdivision.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractBuildingSubdivision" type="bldg:ADEOfAbstractBuildingSubdivisionPropertyType">
+            <annotation>
+              <documentation>Augments AbstractBuildingSubdivision with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractBuildingSubdivisionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:AbstractBuildingSubdivision"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="Building" substitutionGroup="bldg:AbstractBuilding" type="bldg:BuildingType">
+    <annotation>
+      <documentation>A Building is a free-standing, self-supporting construction that is roofed, usually walled, and can be entered by humans and is normally designed to stand permanently in one place. It is intended for human occupancy (e.g. a place of work or recreation), habitation and/or shelter of humans, animals or things.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BuildingType">
+    <complexContent>
+      <extension base="bldg:AbstractBuildingType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingPart">
+            <annotation>
+              <documentation>Relates the building parts to the Building.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingPart"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuilding" type="bldg:ADEOfBuildingPropertyType">
+            <annotation>
+              <documentation>Augments the Building with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:Building"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="bldg:BuildingConstructiveElementType">
+    <annotation>
+      <documentation>A BuildingConstructiveElement is an element of a Building which is essential from a structural point of view. Examples are walls, slabs, staircases, beams.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BuildingConstructiveElementType">
+    <complexContent>
+      <extension base="con:AbstractConstructiveElementType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BuildingConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BuildingConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BuildingConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingConstructiveElement" type="bldg:ADEOfBuildingConstructiveElementPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingConstructiveElement with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingConstructiveElementPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:BuildingConstructiveElement"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingFurniture" substitutionGroup="con:AbstractFurniture" type="bldg:BuildingFurnitureType">
+    <annotation>
+      <documentation>A BuildingFurniture is an equipment for occupant use, usually not fixed to the building. [cf. ISO 6707-1]</documentation>
+    </annotation>
+  </element>
+  <complexType name="BuildingFurnitureType">
+    <complexContent>
+      <extension base="con:AbstractFurnitureType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BuildingFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BuildingFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BuildingFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingFurniture" type="bldg:ADEOfBuildingFurniturePropertyType">
+            <annotation>
+              <documentation>Augments the BuildingFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingFurniturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:BuildingFurniture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingInstallation" substitutionGroup="con:AbstractInstallation" type="bldg:BuildingInstallationType">
+    <annotation>
+      <documentation>A BuildingInstallation is a permanent part of a Building (inside and/or outside) which has not the significance of a BuildingPart. Examples are stairs, antennas, balconies or small roofs.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BuildingInstallationType">
+    <complexContent>
+      <extension base="con:AbstractInstallationType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BuildingInstallation.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BuildingInstallation.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BuildingInstallation.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingInstallation" type="bldg:ADEOfBuildingInstallationPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingInstallation with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingInstallationPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:BuildingInstallation"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingPart" substitutionGroup="bldg:AbstractBuilding" type="bldg:BuildingPartType">
+    <annotation>
+      <documentation>A BuildingPart is a physical or functional subdivision of a Building. It would be considered a Building, if it were not part of a collection of other BuildingParts.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BuildingPartType">
+    <complexContent>
+      <extension base="bldg:AbstractBuildingType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingPart" type="bldg:ADEOfBuildingPartPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingPart with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingPartPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:BuildingPart"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingRoom" substitutionGroup="core:AbstractUnoccupiedSpace" type="bldg:BuildingRoomType">
+    <annotation>
+      <documentation>A BuildingRoom is a space within a Building or BuildingPart intended for human occupancy (e.g. a place of work or recreation) and/or containment of animals or things. A BuildingRoom is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces).</documentation>
+    </annotation>
+  </element>
+  <complexType name="BuildingRoomType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BuildingRoom.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BuildingRoom.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BuildingRoom.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="roomHeight" type="bldg:RoomHeightPropertyType">
+            <annotation>
+              <documentation>Specifies qualified heights of the BuildingRoom.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingFurniture">
+            <annotation>
+              <documentation>Relates the furniture objects to the BuildingRoom.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingFurniture"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingInstallation">
+            <annotation>
+              <documentation>Relates the installation objects to the BuildingRoom.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="bldg:BuildingInstallation"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingRoom" type="bldg:ADEOfBuildingRoomPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingRoom with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingRoomPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:BuildingRoom"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BuildingUnit" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:BuildingUnitType">
+    <annotation>
+      <documentation>A BuildingUnit is a logical subdivision of a Building. BuildingUnits are formed according to some homogeneous property like function, ownership, management, or accessibility. They may be separately sold, rented out, inherited, managed, etc.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BuildingUnitType">
+    <complexContent>
+      <extension base="bldg:AbstractBuildingSubdivisionType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="storey" type="bldg:StoreyPropertyType">
+            <annotation>
+              <documentation>Relates to the storeys on which the BuildingUnit is located.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
+            <annotation>
+              <documentation>Relates to the addresses that are assigned to the BuildingUnit.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBuildingUnit" type="bldg:ADEOfBuildingUnitPropertyType">
+            <annotation>
+              <documentation>Augments the BuildingUnit with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BuildingUnitPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:BuildingUnit"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="RoomHeight" substitutionGroup="gml:AbstractObject" type="bldg:RoomHeightType">
+    <annotation>
+      <documentation>The RoomHeight represents a vertical distance (measured or estimated) between a low reference and a high reference. [cf. INSPIRE]</documentation>
+    </annotation>
+  </element>
+  <complexType name="RoomHeightType">
+    <sequence>
+      <element name="highReference" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the high point used to calculate the value of the room height.</documentation>
+        </annotation>
+      </element>
+      <element name="lowReference" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the low point used to calculate the value of the room height.</documentation>
+        </annotation>
+      </element>
+      <element name="status" type="con:HeightStatusValueType">
+        <annotation>
+          <documentation>Indicates the way the room height has been captured.</documentation>
+        </annotation>
+      </element>
+      <element name="value" type="gml:LengthType">
+        <annotation>
+          <documentation>Specifies the value of the room height.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="RoomHeightPropertyType">
+    <sequence>
+      <element ref="bldg:RoomHeight"/>
+    </sequence>
+  </complexType>
+  <element name="Storey" substitutionGroup="bldg:AbstractBuildingSubdivision" type="bldg:StoreyType">
+    <annotation>
+      <documentation>A Storey is typically a horizontal section of a Building. Storeys are not always defined according to the building structure, but can also be defined according to logical considerations.</documentation>
+    </annotation>
+  </element>
+  <complexType name="StoreyType">
+    <complexContent>
+      <extension base="bldg:AbstractBuildingSubdivisionType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="buildingUnit" type="bldg:BuildingUnitPropertyType">
+            <annotation>
+              <documentation>Relates to the building units that belong to the Storey.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfStorey" type="bldg:ADEOfStoreyPropertyType">
+            <annotation>
+              <documentation>Augments the Storey with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="StoreyPropertyType">
+    <sequence minOccurs="0">
+      <element ref="bldg:Storey"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

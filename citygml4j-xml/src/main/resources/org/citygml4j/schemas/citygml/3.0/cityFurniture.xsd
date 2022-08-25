@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:frn="http://www.opengis.net/citygml/cityfurniture/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/cityfurniture/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The CityFurniture module supports representation of city furniture objects. City furniture objects are immovable objects like lanterns, traffic signs, advertising columns, benches, or bus stops that can be found in traffic areas, residential areas, on squares, or in built-up areas.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfCityFurniture" substitutionGroup="gml:AbstractObject" type="frn:ADEOfCityFurnitureType">
+    <annotation>
+      <documentation>ADEOfCityFurniture acts as a hook to define properties within an ADE that are to be added to a CityFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfCityFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfCityFurniturePropertyType">
+    <sequence>
+      <element ref="frn:ADEOfCityFurniture"/>
+    </sequence>
+  </complexType>
+  <element name="CityFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="frn:CityFurnitureType">
+    <annotation>
+      <documentation>CityFurniture is an object or piece of equipment installed in the outdoor environment for various purposes. Examples include street signs, traffic signals, street lamps, benches, fountains.</documentation>
+    </annotation>
+  </element>
+  <complexType name="CityFurnitureType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the CityFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the CityFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the CityFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfCityFurniture" type="frn:ADEOfCityFurniturePropertyType">
+            <annotation>
+              <documentation>Augments the CityFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CityFurniturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="frn:CityFurniture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

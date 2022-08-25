@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:dem="http://www.opengis.net/citygml/relief/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/relief/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Relief module supports representation of the terrain. CityGML supports terrain representations at different levels of detail, reflecting different accuracies or resolutions. Terrain may be specified as a regular raster or grid, as a TIN, by break lines, and/or by mass points.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractReliefComponent" substitutionGroup="gml:AbstractObject" type="dem:ADEOfAbstractReliefComponentType">
+    <annotation>
+      <documentation>ADEOfAbstractReliefComponent acts as a hook to define properties within an ADE that are to be added to AbstractReliefComponent.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractReliefComponentType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractReliefComponentPropertyType">
+    <sequence>
+      <element ref="dem:ADEOfAbstractReliefComponent"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBreaklineRelief" substitutionGroup="gml:AbstractObject" type="dem:ADEOfBreaklineReliefType">
+    <annotation>
+      <documentation>ADEOfBreaklineRelief acts as a hook to define properties within an ADE that are to be added to a BreaklineRelief.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBreaklineReliefType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBreaklineReliefPropertyType">
+    <sequence>
+      <element ref="dem:ADEOfBreaklineRelief"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfMassPointRelief" substitutionGroup="gml:AbstractObject" type="dem:ADEOfMassPointReliefType">
+    <annotation>
+      <documentation>ADEOfMassPointRelief acts as a hook to define properties within an ADE that are to be added to a MassPointRelief.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfMassPointReliefType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfMassPointReliefPropertyType">
+    <sequence>
+      <element ref="dem:ADEOfMassPointRelief"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfRasterRelief" substitutionGroup="gml:AbstractObject" type="dem:ADEOfRasterReliefType">
+    <annotation>
+      <documentation>ADEOfRasterRelief acts as a hook to define properties within an ADE that are to be added to a RasterRelief.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfRasterReliefType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfRasterReliefPropertyType">
+    <sequence>
+      <element ref="dem:ADEOfRasterRelief"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfReliefFeature" substitutionGroup="gml:AbstractObject" type="dem:ADEOfReliefFeatureType">
+    <annotation>
+      <documentation>ADEOfReliefFeature acts as a hook to define properties within an ADE that are to be added to a ReliefFeature.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfReliefFeatureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfReliefFeaturePropertyType">
+    <sequence>
+      <element ref="dem:ADEOfReliefFeature"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfTINRelief" substitutionGroup="gml:AbstractObject" type="dem:ADEOfTINReliefType">
+    <annotation>
+      <documentation>ADEOfTINRelief acts as a hook to define properties within an ADE that are to be added to a TINRelief.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfTINReliefType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfTINReliefPropertyType">
+    <sequence>
+      <element ref="dem:ADEOfTINRelief"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="AbstractReliefComponent" substitutionGroup="core:AbstractSpaceBoundary" type="dem:AbstractReliefComponentType">
+    <annotation>
+      <documentation>An AbstractReliefComponent represents an element of the terrain surface - either a TIN, a raster or grid, mass points or break lines.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractReliefComponentType">
+    <complexContent>
+      <extension base="core:AbstractSpaceBoundaryType">
+        <sequence>
+          <element name="lod" type="core:IntegerBetween0and3Type">
+            <annotation>
+              <documentation>Indicates the Level of Detail of the terrain component.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="extent" type="gml:SurfacePropertyType">
+            <annotation>
+              <documentation>Indicates the geometrical extent of the terrain component. The geometrical extent is provided as a 2D Surface geometry.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractReliefComponent" type="dem:ADEOfAbstractReliefComponentPropertyType">
+            <annotation>
+              <documentation>Augments AbstractReliefComponent with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractReliefComponentPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:AbstractReliefComponent"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BreaklineRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:BreaklineReliefType">
+    <annotation>
+      <documentation>A BreaklineRelief represents a terrain component with 3D lines. These lines denote break lines or ridge/valley lines.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BreaklineReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element minOccurs="0" name="ridgeOrValleyLines" type="gml:MultiCurvePropertyType">
+            <annotation>
+              <documentation>Relates to the 3D MultiCurve geometry of the MassPointRelief. This association role is used to represent ridge or valley lines.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="breaklines" type="gml:MultiCurvePropertyType">
+            <annotation>
+              <documentation>Relates to the 3D MultiCurve geometry of the MassPointRelief. This association role is used to represent break lines.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBreaklineRelief" type="dem:ADEOfBreaklineReliefPropertyType">
+            <annotation>
+              <documentation>Augments the BreaklineRelief with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BreaklineReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:BreaklineRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="MassPointRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:MassPointReliefType">
+    <annotation>
+      <documentation>A MassPointRelief represents a terrain component as a collection of 3D points.</documentation>
+    </annotation>
+  </element>
+  <complexType name="MassPointReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element minOccurs="0" name="reliefPoints" type="gml:MultiPointPropertyType">
+            <annotation>
+              <documentation>Relates to the 3D MultiPoint geometry of the MassPointRelief.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="pointCloud" type="core:AbstractPointCloudPropertyType">
+            <annotation>
+              <documentation>Relates to the 3D PointCloud of the MassPointRelief.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfMassPointRelief" type="dem:ADEOfMassPointReliefPropertyType">
+            <annotation>
+              <documentation>Augments the MassPointRelief with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MassPointReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:MassPointRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="RasterRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:RasterReliefType">
+    <annotation>
+      <documentation>A RasterRelief represents a terrain component as a regular raster or grid.</documentation>
+    </annotation>
+  </element>
+  <complexType name="RasterReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element name="grid">
+            <annotation>
+              <documentation>Relates to the DiscreteGridPointCoverage of the RasterRelief.</documentation>
+            </annotation>
+            <complexType>
+              <sequence minOccurs="0">
+                <element ref="gml:RectifiedGridCoverage"/>
+              </sequence>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+              <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfRasterRelief" type="dem:ADEOfRasterReliefPropertyType">
+            <annotation>
+              <documentation>Augments the RasterRelief with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RasterReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:RasterRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="ReliefFeature" substitutionGroup="core:AbstractSpaceBoundary" type="dem:ReliefFeatureType">
+    <annotation>
+      <documentation>A ReliefFeature is a collection of terrain components representing the Earth's surface, also known as the Digital Terrain Model.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ReliefFeatureType">
+    <complexContent>
+      <extension base="core:AbstractSpaceBoundaryType">
+        <sequence>
+          <element name="lod" type="core:IntegerBetween0and3Type">
+            <annotation>
+              <documentation>Indicates the Level of Detail of the ReliefFeature.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="reliefComponent">
+            <annotation>
+              <documentation>Relates to the terrain components that are part of the ReliefFeature.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="dem:AbstractReliefComponent"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfReliefFeature" type="dem:ADEOfReliefFeaturePropertyType">
+            <annotation>
+              <documentation>Augments the ReliefFeature with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="ReliefFeaturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:ReliefFeature"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="TINRelief" substitutionGroup="dem:AbstractReliefComponent" type="dem:TINReliefType">
+    <annotation>
+      <documentation>A TINRelief represents a terrain component as a triangulated irregular network.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TINReliefType">
+    <complexContent>
+      <extension base="dem:AbstractReliefComponentType">
+        <sequence>
+          <element name="tin">
+            <annotation>
+              <documentation>Relates to the triangulated surface of the TINRelief.</documentation>
+            </annotation>
+            <complexType>
+              <sequence minOccurs="0">
+                <element ref="gml:TriangulatedSurface"/>
+              </sequence>
+              <attributeGroup ref="gml:AssociationAttributeGroup"/>
+              <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfTINRelief" type="dem:ADEOfTINReliefPropertyType">
+            <annotation>
+              <documentation>Augments the TINRelief with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="TINReliefPropertyType">
+    <sequence minOccurs="0">
+      <element ref="dem:TINRelief"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

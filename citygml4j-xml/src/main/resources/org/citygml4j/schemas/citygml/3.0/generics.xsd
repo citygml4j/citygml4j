@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gen="http://www.opengis.net/citygml/generics/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/generics/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Generics module supports application-specific extensions to the CityGML conceptual model. These extensions may be used to model and exchange additional attributes and features not covered by the predefined thematic classes of CityGML. Generic extensions shall only be used if appropriate thematic classes or attributes are not provided by any other CityGML module.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfGenericLogicalSpace" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericLogicalSpaceType">
+    <annotation>
+      <documentation>ADEOfGenericLogicalSpace acts as a hook to define properties within an ADE that are to be added to a GenericLogicalSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericLogicalSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericLogicalSpacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericLogicalSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGenericOccupiedSpace" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericOccupiedSpaceType">
+    <annotation>
+      <documentation>ADEOfGenericOccupiedSpace acts as a hook to define properties within an ADE that are to be added to a GenericOccupiedSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericOccupiedSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericOccupiedSpacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericOccupiedSpace"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGenericThematicSurface" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericThematicSurfaceType">
+    <annotation>
+      <documentation>ADEOfGenericThematicSurface acts as a hook to define properties within an ADE that are to be added to a GenericThematicSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericThematicSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericThematicSurfacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericThematicSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGenericUnoccupiedSpace" substitutionGroup="gml:AbstractObject" type="gen:ADEOfGenericUnoccupiedSpaceType">
+    <annotation>
+      <documentation>ADEOfGenericUnoccupiedSpace acts as a hook to define properties within an ADE that are to be added to a GenericUnoccupiedSpace.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGenericUnoccupiedSpaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGenericUnoccupiedSpacePropertyType">
+    <sequence>
+      <element ref="gen:ADEOfGenericUnoccupiedSpace"/>
+    </sequence>
+  </complexType>
+  <element name="CodeAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:CodeAttributeType">
+    <annotation>
+      <documentation>CodeAttribute is a data type used to define generic attributes of type "Code".</documentation>
+    </annotation>
+  </element>
+  <complexType name="CodeAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the CodeAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the "Code" value.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CodeAttributePropertyType">
+    <sequence>
+      <element ref="gen:CodeAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="DateAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:DateAttributeType">
+    <annotation>
+      <documentation>DateAttribute is a data type used to define generic attributes of type "Date".</documentation>
+    </annotation>
+  </element>
+  <complexType name="DateAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the DateAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="date">
+            <annotation>
+              <documentation>Specifies the "Date" value.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DateAttributePropertyType">
+    <sequence>
+      <element ref="gen:DateAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="DoubleAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:DoubleAttributeType">
+    <annotation>
+      <documentation>DoubleAttribute is a data type used to define generic attributes of type "Double".</documentation>
+    </annotation>
+  </element>
+  <complexType name="DoubleAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the DoubleAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="double">
+            <annotation>
+              <documentation>Specifies the "Double" value.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DoubleAttributePropertyType">
+    <sequence>
+      <element ref="gen:DoubleAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="GenericAttributeSet" substitutionGroup="core:AbstractGenericAttribute" type="gen:GenericAttributeSetType">
+    <annotation>
+      <documentation>A GenericAttributeSet is a named collection of generic attributes.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GenericAttributeSetType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the GenericAttributeSet.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="codeSpace" type="anyURI">
+            <annotation>
+              <documentation>Associates the GenericAttributeSet with an authority that maintains the collection of generic attributes.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" name="genericAttribute" type="core:AbstractGenericAttributePropertyType">
+            <annotation>
+              <documentation>Relates to the generic attributes that are part of the GenericAttributeSet.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericAttributeSetPropertyType">
+    <sequence>
+      <element ref="gen:GenericAttributeSet"/>
+    </sequence>
+  </complexType>
+  <element name="GenericLogicalSpace" substitutionGroup="core:AbstractLogicalSpace" type="gen:GenericLogicalSpaceType">
+    <annotation>
+      <documentation>A GenericLogicalSpace is a space that is not represented by any explicitly modelled AbstractLogicalSpace subclass within CityGML.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GenericLogicalSpaceType">
+    <complexContent>
+      <extension base="core:AbstractLogicalSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the GenericLogicalSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the GenericLogicalSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the GenericLogicalSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericLogicalSpace" type="gen:ADEOfGenericLogicalSpacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericLogicalSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericLogicalSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericLogicalSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="GenericOccupiedSpace" substitutionGroup="core:AbstractOccupiedSpace" type="gen:GenericOccupiedSpaceType">
+    <annotation>
+      <documentation>A GenericOccupiedSpace is a space that is not represented by any explicitly modelled AbstractOccupiedSpace subclass within CityGML.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GenericOccupiedSpaceType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the GenericOccupiedSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the GenericOccupiedSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the GenericOccupiedSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericOccupiedSpace" type="gen:ADEOfGenericOccupiedSpacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericOccupiedSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericOccupiedSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericOccupiedSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="GenericThematicSurface" substitutionGroup="core:AbstractThematicSurface" type="gen:GenericThematicSurfaceType">
+    <annotation>
+      <documentation>A GenericThematicSurface is a surface that is not represented by any explicitly modelled AbstractThematicSurface subclass within CityGML.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GenericThematicSurfaceType">
+    <complexContent>
+      <extension base="core:AbstractThematicSurfaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the GenericThematicSurface.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the GenericThematicSurface.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the GenericThematicSurface.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericThematicSurface" type="gen:ADEOfGenericThematicSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericThematicSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericThematicSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericThematicSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="GenericUnoccupiedSpace" substitutionGroup="core:AbstractUnoccupiedSpace" type="gen:GenericUnoccupiedSpaceType">
+    <annotation>
+      <documentation>A GenericUnoccupiedSpace is a space that is not represented by any explicitly modelled AbstractUnoccupiedSpace subclass within CityGML.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GenericUnoccupiedSpaceType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the GenericUnoccupiedSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the GenericUnoccupiedSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the GenericUnoccupiedSpace.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGenericUnoccupiedSpace" type="gen:ADEOfGenericUnoccupiedSpacePropertyType">
+            <annotation>
+              <documentation>Augments the GenericUnoccupiedSpace with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GenericUnoccupiedSpacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="gen:GenericUnoccupiedSpace"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="IntAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:IntAttributeType">
+    <annotation>
+      <documentation>IntAttribute is a data type used to define generic attributes of type "Integer".</documentation>
+    </annotation>
+  </element>
+  <complexType name="IntAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the IntAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="integer">
+            <annotation>
+              <documentation>Specifies the "Integer" value.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="IntAttributePropertyType">
+    <sequence>
+      <element ref="gen:IntAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="MeasureAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:MeasureAttributeType">
+    <annotation>
+      <documentation>MeasureAttribute is a data type used to define generic attributes of type "Measure".</documentation>
+    </annotation>
+  </element>
+  <complexType name="MeasureAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the MeasureAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="gml:MeasureType">
+            <annotation>
+              <documentation>Specifies the value of the MeasureAttribute. The value is of type "Measure", which can additionally provide the units of measure. [cf. ISO 19103]</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="MeasureAttributePropertyType">
+    <sequence>
+      <element ref="gen:MeasureAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="StringAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:StringAttributeType">
+    <annotation>
+      <documentation>StringAttribute is a data type used to define generic attributes of type "String".</documentation>
+    </annotation>
+  </element>
+  <complexType name="StringAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the StringAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="string">
+            <annotation>
+              <documentation>Specifies the "String" value.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="StringAttributePropertyType">
+    <sequence>
+      <element ref="gen:StringAttribute"/>
+    </sequence>
+  </complexType>
+  <element name="UriAttribute" substitutionGroup="core:AbstractGenericAttribute" type="gen:UriAttributeType">
+    <annotation>
+      <documentation>UriAttribute is a data type used to define generic attributes of type "URI".</documentation>
+    </annotation>
+  </element>
+  <complexType name="UriAttributeType">
+    <complexContent>
+      <extension base="core:AbstractGenericAttributeType">
+        <sequence>
+          <element name="name" type="string">
+            <annotation>
+              <documentation>Specifies the name of the UriAttribute.</documentation>
+            </annotation>
+          </element>
+          <element name="value" type="anyURI">
+            <annotation>
+              <documentation>Specifies the "URI" value.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="UriAttributePropertyType">
+    <sequence>
+      <element ref="gen:UriAttribute"/>
+    </sequence>
+  </complexType>
+</schema>

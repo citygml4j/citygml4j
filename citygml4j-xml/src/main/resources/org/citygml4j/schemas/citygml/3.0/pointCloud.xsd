@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:pcl="http://www.opengis.net/citygml/pointcloud/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/pointcloud/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The PointCloud module supports representation of CityGML features by a collection of points.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfPointCloud" substitutionGroup="gml:AbstractObject" type="pcl:ADEOfPointCloudType">
+    <annotation>
+      <documentation>ADEOfPointCloud acts as a hook to define properties within an ADE that are to be added to a PointCloud.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfPointCloudType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfPointCloudPropertyType">
+    <sequence>
+      <element ref="pcl:ADEOfPointCloud"/>
+    </sequence>
+  </complexType>
+  <element name="PointCloud" substitutionGroup="core:AbstractPointCloud" type="pcl:PointCloudType">
+    <annotation>
+      <documentation>A PointCloud is an unordered collection of points that is a sampling of the geometry of a space or space boundary.</documentation>
+    </annotation>
+  </element>
+  <complexType name="PointCloudType">
+    <complexContent>
+      <extension base="core:AbstractPointCloudType">
+        <sequence>
+          <element minOccurs="0" name="mimeType" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the MIME type of the external point cloud file.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="pointFile" type="anyURI">
+            <annotation>
+              <documentation>Specifies the URI that points to the external point cloud file.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="pointFileSrsName" type="string">
+            <annotation>
+              <documentation>Indicates the coordinate reference system used by the external point cloud file.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="points" type="gml:MultiPointPropertyType">
+            <annotation>
+              <documentation>Relates to the 3D MultiPoint geometry of the PointCloud stored inline with the city model.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfPointCloud" type="pcl:ADEOfPointCloudPropertyType">
+            <annotation>
+              <documentation>Augments the PointCloud with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PointCloudPropertyType">
+    <sequence minOccurs="0">
+      <element ref="pcl:PointCloud"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

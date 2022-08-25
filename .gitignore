@@ -16,3 +16,4 @@ out/
 
 # samples
 citygml4j-samples/output/
+src/test

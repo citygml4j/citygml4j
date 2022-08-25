@@ -1,0 +1,15 @@
+plugins {
+    id 'maven-publish'
+    id 'idea'
+}
+
+dependencies {
+    api project(':citygml4j-core')
+    annotationProcessor "org.xmlobjects.gml:gml-objects:$gmlObjectsVersion"
+}
+
+idea {
+    module {
+        outputDir file('out/production/classes')
+    }
+}

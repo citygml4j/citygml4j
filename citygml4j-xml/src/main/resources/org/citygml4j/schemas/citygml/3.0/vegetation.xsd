@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:veg="http://www.opengis.net/citygml/vegetation/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/vegetation/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Vegetation module supports representation of vegetation objects with vegetation-specific thematic classes. CityGML’s vegetation model distinguishes between solitary vegetation objects like trees, and vegetation areas which represent biotopes like forests or other plant communities.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractVegetationObject" substitutionGroup="gml:AbstractObject" type="veg:ADEOfAbstractVegetationObjectType">
+    <annotation>
+      <documentation>ADEOfAbstractVegetationObject acts as a hook to define properties within an ADE that are to be added to AbstractVegetationObject.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractVegetationObjectType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractVegetationObjectPropertyType">
+    <sequence>
+      <element ref="veg:ADEOfAbstractVegetationObject"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfPlantCover" substitutionGroup="gml:AbstractObject" type="veg:ADEOfPlantCoverType">
+    <annotation>
+      <documentation>ADEOfPlantCover acts as a hook to define properties within an ADE that are to be added to a PlantCover.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfPlantCoverType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfPlantCoverPropertyType">
+    <sequence>
+      <element ref="veg:ADEOfPlantCover"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfSolitaryVegetationObject" substitutionGroup="gml:AbstractObject" type="veg:ADEOfSolitaryVegetationObjectType">
+    <annotation>
+      <documentation>ADEOfSolitaryVegetationObject acts as a hook to define properties within an ADE that are to be added to a SolitaryVegetationObject.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfSolitaryVegetationObjectType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfSolitaryVegetationObjectPropertyType">
+    <sequence>
+      <element ref="veg:ADEOfSolitaryVegetationObject"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="AbstractVegetationObject" substitutionGroup="core:AbstractOccupiedSpace" type="veg:AbstractVegetationObjectType">
+    <annotation>
+      <documentation>AbstractVegetationObject is the abstract superclass for all kinds of vegetation objects.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractVegetationObjectType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractVegetationObject" type="veg:ADEOfAbstractVegetationObjectPropertyType">
+            <annotation>
+              <documentation>Augments AbstractVegetationObject with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractVegetationObjectPropertyType">
+    <sequence minOccurs="0">
+      <element ref="veg:AbstractVegetationObject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="PlantCover" substitutionGroup="veg:AbstractVegetationObject" type="veg:PlantCoverType">
+    <annotation>
+      <documentation>A PlantCover represents a space covered by vegetation.</documentation>
+    </annotation>
+  </element>
+  <complexType name="PlantCoverType">
+    <complexContent>
+      <extension base="veg:AbstractVegetationObjectType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the PlantCover.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the PlantCover.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the PlantCover.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="averageHeight" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the average height of the PlantCover.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="minHeight" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the minimum height of the PlantCover.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="maxHeight" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the maximum height of the PlantCover.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfPlantCover" type="veg:ADEOfPlantCoverPropertyType">
+            <annotation>
+              <documentation>Augments the PlantCover with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="PlantCoverPropertyType">
+    <sequence minOccurs="0">
+      <element ref="veg:PlantCover"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="SolitaryVegetationObject" substitutionGroup="veg:AbstractVegetationObject" type="veg:SolitaryVegetationObjectType">
+    <annotation>
+      <documentation>A SolitaryVegetationObject represents individual vegetation objects, e.g. trees or bushes.</documentation>
+    </annotation>
+  </element>
+  <complexType name="SolitaryVegetationObjectType">
+    <complexContent>
+      <extension base="veg:AbstractVegetationObjectType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the SolitaryVegetationObject.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the SolitaryVegetationObject.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the SolitaryVegetationObject.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="species" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the botanical name of the SolitaryVegetationObject.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="height" type="gml:LengthType">
+            <annotation>
+              <documentation>Distance between the highest point of the vegetation object and the lowest point of the terrain at the bottom of the object.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="trunkDiameter" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the diameter of the SolitaryCityObject's trunk.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="crownDiameter" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the diameter of the SolitaryCityObject's crown.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="rootBallDiameter" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the diameter of the SolitaryCityObject's root ball.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="maxRootBallDepth" type="gml:LengthType">
+            <annotation>
+              <documentation>Specifies the vertical distance between the lowest point of the SolitaryVegetationObject's root ball and the terrain surface.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfSolitaryVegetationObject" type="veg:ADEOfSolitaryVegetationObjectPropertyType">
+            <annotation>
+              <documentation>Augments the SolitaryVegetationObject with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="SolitaryVegetationObjectPropertyType">
+    <sequence minOccurs="0">
+      <element ref="veg:SolitaryVegetationObject"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

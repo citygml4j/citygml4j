@@ -2,83 +2,26 @@ plugins {
     id 'java'
 }
 
-apply from: 'samples.gradle'
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
     }
-    compileJava {
-        options.release = 8
+}
+
+sourceSets {
+    main {
+        output.setResourcesDir(java.classesDirectory)
     }
-}
-
-jar.enabled false
-javadoc.enabled false
-
-ext {
-    noiseADEVersion = '2.5.2'
-}
-
-configurations {
-    ade
 }
 
 dependencies {
-    implementation rootProject
-    implementation "org.citygml4j.ade:noise-ade-citygml4j:$noiseADEVersion"
-
-    ade("org.citygml4j.ade:noise-ade-citygml4j:$noiseADEVersion") {
-        transitive = false
-    }
+    implementation project(':citygml4j-core')
+    implementation project(':citygml4j-xml')
+    implementation project(':citygml4j-cityjson')
+    annotationProcessor project(':citygml4j-xml')
 }
+
+apply from: 'run-samples.gradle'
+apply from: 'copy-samples.gradle'
 
 clean.dependsOn(cleanOutput)
-
-task copySamples {
-    def outputsDir = file("$buildDir/samples")
-    outputs.dir outputsDir
-
-    inputs.dir 'src/main/java'
-    inputs.dir 'datasets'
-    inputs.dir "$rootProject.projectDir/gradle"
-
-    doLast {
-        copy {
-            from 'src/main/java'
-            into "$outputsDir/src/main/java"
-        }
-        copy {
-            from 'datasets'
-            into "$outputsDir/datasets"
-        }
-        copy {
-            from configurations.ade
-            into "$outputsDir/lib"
-        }
-        copy {
-            from "$rootProject.projectDir/gradle"
-            into "$outputsDir/gradle"
-        }
-        copy {
-            from "$rootProject.projectDir"
-            into "$outputsDir"
-            include 'gradlew*'
-        }
-        copy {
-            from 'samples.gradle'
-            into "$outputsDir"
-        }
-
-        def buildFile = file("$outputsDir/build.gradle")
-        buildFile.write "apply plugin: 'java'\n"
-        buildFile << "apply from: 'samples.gradle'\n\n"
-        buildFile << "dependencies {\n"
-        buildFile << "    implementation fileTree(dir: '../lib', include: '*.jar')\n"
-        buildFile << "    implementation fileTree(dir: 'lib', include: '*.jar')\n"
-        buildFile << "}\n\n"
-        buildFile << "clean.dependsOn(cleanOutput)"
-
-        file("$outputsDir/settings.gradle").text = ''
-    }
-}

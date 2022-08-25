@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:brid="http://www.opengis.net/citygml/bridge/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/bridge/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Bridge module supports representation of thematic and spatial aspects of bridges, bridge parts, bridge installations, and interior bridge structures.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/citygml/construction/3.0" schemaLocation="./construction.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractBridge" substitutionGroup="gml:AbstractObject" type="brid:ADEOfAbstractBridgeType">
+    <annotation>
+      <documentation>ADEOfAbstractBridge acts as a hook to define properties within an ADE that are to be added to AbstractBridge.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractBridgeType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractBridgePropertyType">
+    <sequence>
+      <element ref="brid:ADEOfAbstractBridge"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridge" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeType">
+    <annotation>
+      <documentation>ADEOfBridge acts as a hook to define properties within an ADE that are to be added to a Bridge.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgePropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridge"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeConstructiveElement" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeConstructiveElementType">
+    <annotation>
+      <documentation>ADEOfBridgeConstructiveElement acts as a hook to define properties within an ADE that are to be added to a BridgeConstructiveElement.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeConstructiveElementType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeConstructiveElementPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeConstructiveElement"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeFurniture" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeFurnitureType">
+    <annotation>
+      <documentation>ADEOfBridgeFurniture acts as a hook to define properties within an ADE that are to be added to a BridgeFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeFurniturePropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeFurniture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeInstallation" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeInstallationType">
+    <annotation>
+      <documentation>ADEOfBridgeInstallation acts as a hook to define properties within an ADE that are to be added to a BridgeInstallation.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeInstallationType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeInstallationPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeInstallation"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgePart" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgePartType">
+    <annotation>
+      <documentation>ADEOfBridgePart acts as a hook to define properties within an ADE that are to be added to a BridgePart.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgePartType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgePartPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgePart"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfBridgeRoom" substitutionGroup="gml:AbstractObject" type="brid:ADEOfBridgeRoomType">
+    <annotation>
+      <documentation>ADEOfBridgeRoom acts as a hook to define properties within an ADE that are to be added to a BridgeRoom.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfBridgeRoomType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfBridgeRoomPropertyType">
+    <sequence>
+      <element ref="brid:ADEOfBridgeRoom"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="AbstractBridge" substitutionGroup="con:AbstractConstruction" type="brid:AbstractBridgeType">
+    <annotation>
+      <documentation>AbstractBridge is an abstract superclass representing the common attributes and associations of the classes Bridge and BridgePart.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractBridgeType">
+    <complexContent>
+      <extension base="con:AbstractConstructionType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the Bridge or BridgePart.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the Bridge or BridgePart.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the Bridge or BridgePart.</documentation>
+            </annotation>
+          </element>
+          <element default="false" minOccurs="0" name="isMovable" type="boolean">
+            <annotation>
+              <documentation>Indicates whether the Bridge or BridgePart can be moved to allow for watercraft to pass.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="bridgeConstructiveElement">
+            <annotation>
+              <documentation>Relates the constructive elements to the Bridge or BridgePart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeConstructiveElement"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="bridgeInstallation">
+            <annotation>
+              <documentation>Relates the installation objects to the Bridge or BridgePart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeInstallation"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="bridgeRoom">
+            <annotation>
+              <documentation>Relates the rooms to the Bridge or BridgePart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeRoom"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="bridgeFurniture">
+            <annotation>
+              <documentation>Relates the furniture objects to the Bridge or BridgePart.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeFurniture"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
+            <annotation>
+              <documentation>Relates the addresses to the Bridge or BridgePart.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractBridge" type="brid:ADEOfAbstractBridgePropertyType">
+            <annotation>
+              <documentation>Augments AbstractBridge with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractBridgePropertyType">
+    <sequence minOccurs="0">
+      <element ref="brid:AbstractBridge"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="Bridge" substitutionGroup="brid:AbstractBridge" type="brid:BridgeType">
+    <annotation>
+      <documentation>A Bridge represents a structure that affords the passage of pedestrians, animals, vehicles, and service(s) above obstacles or between two points at a height above ground. [cf. ISO 6707-1]</documentation>
+    </annotation>
+  </element>
+  <complexType name="BridgeType">
+    <complexContent>
+      <extension base="brid:AbstractBridgeType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="bridgePart">
+            <annotation>
+              <documentation>Relates the bridge parts to the Bridge.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgePart"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridge" type="brid:ADEOfBridgePropertyType">
+            <annotation>
+              <documentation>Augments the Bridge with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BridgePropertyType">
+    <sequence minOccurs="0">
+      <element ref="brid:Bridge"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BridgeConstructiveElement" substitutionGroup="con:AbstractConstructiveElement" type="brid:BridgeConstructiveElementType">
+    <annotation>
+      <documentation>A BridgeConstructiveElement is an element of a bridge which is essential from a structural point of view. Examples are pylons, anchorages, slabs, beams.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BridgeConstructiveElementType">
+    <complexContent>
+      <extension base="con:AbstractConstructiveElementType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BridgeConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BridgeConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BridgeConstructiveElement.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeConstructiveElement" type="brid:ADEOfBridgeConstructiveElementPropertyType">
+            <annotation>
+              <documentation>Augments the BridgeConstructiveElement with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BridgeConstructiveElementPropertyType">
+    <sequence minOccurs="0">
+      <element ref="brid:BridgeConstructiveElement"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BridgeFurniture" substitutionGroup="con:AbstractFurniture" type="brid:BridgeFurnitureType">
+    <annotation>
+      <documentation>A BridgeFurniture is an equipment for occupant use, usually not fixed to the bridge. [cf. ISO 6707-1]</documentation>
+    </annotation>
+  </element>
+  <complexType name="BridgeFurnitureType">
+    <complexContent>
+      <extension base="con:AbstractFurnitureType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BridgeFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BridgeFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BridgeFurniture.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeFurniture" type="brid:ADEOfBridgeFurniturePropertyType">
+            <annotation>
+              <documentation>Augments the BridgeFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BridgeFurniturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="brid:BridgeFurniture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BridgeInstallation" substitutionGroup="con:AbstractInstallation" type="brid:BridgeInstallationType">
+    <annotation>
+      <documentation>A BridgeInstallation is a permanent part of a Bridge (inside and/or outside) which does not have the significance of a BridgePart. In contrast to BridgeConstructiveElements, a BridgeInstallation is not essential from a structural point of view. Examples are stairs, antennas or railways.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BridgeInstallationType">
+    <complexContent>
+      <extension base="con:AbstractInstallationType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BridgeInstallation.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BridgeInstallation.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BridgeInstallation.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeInstallation" type="brid:ADEOfBridgeInstallationPropertyType">
+            <annotation>
+              <documentation>Augments the BridgeInstallation with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BridgeInstallationPropertyType">
+    <sequence minOccurs="0">
+      <element ref="brid:BridgeInstallation"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BridgePart" substitutionGroup="brid:AbstractBridge" type="brid:BridgePartType">
+    <annotation>
+      <documentation>A BridgePart is a physical or functional subdivision of a Bridge. It would be considered a Bridge, if it were not part of a collection of other BridgeParts.</documentation>
+    </annotation>
+  </element>
+  <complexType name="BridgePartType">
+    <complexContent>
+      <extension base="brid:AbstractBridgeType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgePart" type="brid:ADEOfBridgePartPropertyType">
+            <annotation>
+              <documentation>Augments the BridgePart with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BridgePartPropertyType">
+    <sequence minOccurs="0">
+      <element ref="brid:BridgePart"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="BridgeRoom" substitutionGroup="core:AbstractUnoccupiedSpace" type="brid:BridgeRoomType">
+    <annotation>
+      <documentation>A BridgeRoom is a space within a Bridge or BridgePart intended for human occupancy (e.g. a place of work or recreation) and/or containment (storage) of animals or things. A BridgeRoom is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces).</documentation>
+    </annotation>
+  </element>
+  <complexType name="BridgeRoomType">
+    <complexContent>
+      <extension base="core:AbstractUnoccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the BridgeRoom.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the BridgeRoom.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the BridgeRoom.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="bridgeFurniture">
+            <annotation>
+              <documentation>Relates the furniture objects to the BridgeRoom.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeFurniture"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="bridgeInstallation">
+            <annotation>
+              <documentation>Relates to the installation objects to the BridgeRoom.</documentation>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence minOccurs="0">
+                    <element ref="brid:BridgeInstallation"/>
+                  </sequence>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfBridgeRoom" type="brid:ADEOfBridgeRoomPropertyType">
+            <annotation>
+              <documentation>Augments the BridgeRoom with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="BridgeRoomPropertyType">
+    <sequence minOccurs="0">
+      <element ref="brid:BridgeRoom"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

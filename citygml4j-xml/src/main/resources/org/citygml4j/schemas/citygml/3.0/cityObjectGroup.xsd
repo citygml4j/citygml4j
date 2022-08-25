@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/cityobjectgroup/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The CityObjectGroup module supports grouping of city objects. Arbitrary city objects may be aggregated in groups according to user-defined criteria. A group may be further classified by application-specific attributes.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfCityObjectGroup" substitutionGroup="gml:AbstractObject" type="grp:ADEOfCityObjectGroupType">
+    <annotation>
+      <documentation>ADEOfCityObjectGroup acts as a hook to define properties within an ADE that are to be added to a CityObjectGroup.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfCityObjectGroupType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfCityObjectGroupPropertyType">
+    <sequence>
+      <element ref="grp:ADEOfCityObjectGroup"/>
+    </sequence>
+  </complexType>
+  <element name="CityObjectGroup" substitutionGroup="core:AbstractLogicalSpace" type="grp:CityObjectGroupType">
+    <annotation>
+      <documentation>A CityObjectGroup represents an application-specific aggregation of city objects according to some user-defined criteria. Examples for groups are the buildings in a specific region, the result of a query, or objects put together for visualization purposes. Each member of a group may be qualified by a role name, reflecting the role each city object plays in the context of the group.</documentation>
+    </annotation>
+  </element>
+  <complexType name="CityObjectGroupType">
+    <complexContent>
+      <extension base="core:AbstractLogicalSpaceType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the CityObjectGroup.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the CityObjectGroup.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual usages of the CityObjectGroup.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="groupMember">
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractMemberType">
+                  <sequence>
+                    <element ref="grp:Role"/>
+                  </sequence>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element minOccurs="0" name="parent" type="gml:ReferenceType">
+            <annotation>
+              <documentation>Relates to a city object to which the CityObjectGroup belongs.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractCityObject</targetElement>
+              </appinfo>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfCityObjectGroup" type="grp:ADEOfCityObjectGroupPropertyType">
+            <annotation>
+              <documentation>Augments the CityObjectGroup with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CityObjectGroupPropertyType">
+    <sequence minOccurs="0">
+      <element ref="grp:CityObjectGroup"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="Role" substitutionGroup="gml:AbstractGML" type="grp:RoleType">
+    <annotation>
+      <documentation>Role qualifies the function of a city object within the CityObjectGroup.</documentation>
+    </annotation>
+  </element>
+  <complexType name="RoleType">
+    <complexContent>
+      <extension base="gml:AbstractGMLType">
+        <sequence>
+          <element minOccurs="0" name="role" type="string"/>
+          <element name="groupMember">
+            <annotation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractCityObject</targetElement>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence/>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RolePropertyType">
+    <sequence minOccurs="0">
+      <element ref="grp:Role"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

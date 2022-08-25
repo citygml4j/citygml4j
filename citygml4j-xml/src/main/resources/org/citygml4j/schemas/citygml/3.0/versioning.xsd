@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/versioning/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Versioning module supports representation of multiple versions of CityGML features within a single CityGML model. In addition, also the version transitions and transactions that lead to the different versions can be represented.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfVersion" substitutionGroup="gml:AbstractObject" type="vers:ADEOfVersionType">
+    <annotation>
+      <documentation>ADEOfVersion acts as a hook to define properties within an ADE that are to be added to a Version.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfVersionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfVersionPropertyType">
+    <sequence>
+      <element ref="vers:ADEOfVersion"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfVersionTransition" substitutionGroup="gml:AbstractObject" type="vers:ADEOfVersionTransitionType">
+    <annotation>
+      <documentation>ADEOfVersionTransition acts as a hook to define properties within an ADE that are to be added to a VersionTransition.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfVersionTransitionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfVersionTransitionPropertyType">
+    <sequence>
+      <element ref="vers:ADEOfVersionTransition"/>
+    </sequence>
+  </complexType>
+  <element name="Transaction" substitutionGroup="gml:AbstractObject" type="vers:TransactionType">
+    <annotation>
+      <documentation>Transaction represents a modification of the city model by the creation, termination, or replacement of a specific city object. While the creation of a city object also marks its first object version, the termination marks the end of existence of a real world object and, hence, also terminates the final version of a city object. The replacement of a city object means that a specific version of it is replaced by a new version.</documentation>
+    </annotation>
+  </element>
+  <complexType name="TransactionType">
+    <sequence>
+      <element name="type" type="vers:TransactionTypeValueType">
+        <annotation>
+          <documentation>Indicates the specific type of the Transaction.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="oldFeature" type="gml:ReferenceType">
+        <annotation>
+          <documentation>Relates to the version of the city object prior to the Transaction.</documentation>
+          <appinfo>
+            <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractFeatureWithLifespan</targetElement>
+          </appinfo>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="newFeature" type="gml:ReferenceType">
+        <annotation>
+          <documentation>Relates to the version of the city object subsequent to the Transaction.</documentation>
+          <appinfo>
+            <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractFeatureWithLifespan</targetElement>
+          </appinfo>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="TransactionPropertyType">
+    <sequence>
+      <element ref="vers:Transaction"/>
+    </sequence>
+  </complexType>
+  <simpleType name="TransactionTypeValueType">
+    <annotation>
+      <documentation>TransactionTypeValue enumerates the three possible types of transactions: insert, delete, or replace.</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="insert">
+        <annotation>
+          <documentation>Indicates that the feature referenced from the Transaction via the "newFeature" association has been newly created; the association "oldFeature" is empty in this case.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="delete">
+        <annotation>
+          <documentation>Indicates that the feature referenced from the Transaction via the "oldFeature" association ceases to exist; the association "newFeature" is empty in this case.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="replace">
+        <annotation>
+          <documentation>Indicates that the feature referenced from the Transaction via the "oldFeature" association has been replaced by the feature referenced via the "newFeature" association.</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <simpleType name="TransitionTypeValueType">
+    <annotation>
+      <documentation>TransitionTypeValue enumerates the different kinds of version transitions. “planned” and “fork” should be used in cases when from one city model version multiple successor versions are being created. “realized” and “merge” should be used when different city model versions are converging into a common successor version.</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="planned">
+        <annotation>
+          <documentation>Indicates that the successor version of the city model represents a planning state for a possible future of the city.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="realized">
+        <annotation>
+          <documentation>Indicates that the predecessor version is the chosen one from a number of possible planning versions.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="historicalSuccession">
+        <annotation>
+          <documentation>Indicates that the successor version reflects updates on the city model over time (historical timeline). It shall only be used for at most one version transition outgoing from a city model version.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="fork">
+        <annotation>
+          <documentation>Indicates other reasons to create alternative city model versions, for example, when different parties are updating parts of the city model or to reflect the results of different simulation runs.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="merge">
+        <annotation>
+          <documentation>Indicates other reasons to converge multiple versions back into a common city model version.</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <element name="Version" substitutionGroup="core:AbstractVersion" type="vers:VersionType">
+    <annotation>
+      <documentation>Version represents a defined state of a city model consisting of the dedicated versions of all city object instances that belong to the respective city model version. Versions can have names, a description and can be labeled with an arbitrary number of user defined tags.</documentation>
+    </annotation>
+  </element>
+  <complexType name="VersionType">
+    <complexContent>
+      <extension base="core:AbstractVersionType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="tag" type="string">
+            <annotation>
+              <documentation>Allows for adding keywords to the city model version.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="versionMember">
+            <annotation>
+              <documentation>Relates to all city objects that are part of the city model version.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">core:AbstractFeatureWithLifespan</targetElement>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <complexContent>
+                <extension base="gml:AbstractFeatureMemberType">
+                  <sequence/>
+                  <attributeGroup ref="gml:AssociationAttributeGroup"/>
+                </extension>
+              </complexContent>
+            </complexType>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfVersion" type="vers:ADEOfVersionPropertyType">
+            <annotation>
+              <documentation>Augments the Version with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VersionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="vers:Version"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="VersionTransition" substitutionGroup="core:AbstractVersionTransition" type="vers:VersionTransitionType">
+    <annotation>
+      <documentation>VersionTransition describes the change of the state of a city model from one version to another. Version transitions can have names, a description and can be further qualified by a type and a reason.</documentation>
+    </annotation>
+  </element>
+  <complexType name="VersionTransitionType">
+    <complexContent>
+      <extension base="core:AbstractVersionTransitionType">
+        <sequence>
+          <element minOccurs="0" name="reason" type="string">
+            <annotation>
+              <documentation>Specifies why the VersionTransition has been carried out.</documentation>
+            </annotation>
+          </element>
+          <element name="clonePredecessor" type="boolean">
+            <annotation>
+              <documentation>Indicates whether the set of city object instances belonging to the successor version of the city model is either explicitly enumerated within the successor version object (attribute clonePredecessor=false),  or has to be derived from the modifications of the city model provided as a list of transactions on the city object versions contained in the predecessor version (attribute clonePredecessor=true).</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="type" type="vers:TransitionTypeValueType">
+            <annotation>
+              <documentation>Indicates the specific type of the VersionTransition.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="from" type="gml:ReferenceType">
+            <annotation>
+              <documentation>Relates to the predecessor version of the VersionTransition.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">vers:Version</targetElement>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="to" type="gml:ReferenceType">
+            <annotation>
+              <documentation>Relates to the successor version of the VersionTransition.</documentation>
+              <appinfo>
+                <targetElement xmlns="http://www.opengis.net/gml/3.2">vers:Version</targetElement>
+              </appinfo>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="transaction" type="vers:TransactionPropertyType">
+            <annotation>
+              <documentation>Relates to all transactions that have been applied as part of the VersionTransition.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfVersionTransition" type="vers:ADEOfVersionTransitionPropertyType">
+            <annotation>
+              <documentation>Augments the VersionTransition with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="VersionTransitionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="vers:VersionTransition"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/construction/3.0" version="3.0.0">
+  <annotation>
+    <documentation>The Construction module supports representation of key elements of different types of constructions. These key elements include construction surfaces (e.g floor and ceiling), windows and doors, constructive elements (e.g. beams and slabs), installations, and furniture.</documentation>
+  </annotation>
+  <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
+  <!--XML Schema document created by ShapeChange - http://shapechange.net/-->
+  <element abstract="true" name="ADEOfAbstractConstruction" substitutionGroup="gml:AbstractObject" type="con:ADEOfAbstractConstructionType">
+    <annotation>
+      <documentation>ADEOfAbstractConstruction acts as a hook to define properties within an ADE that are to be added to AbstractConstruction.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractConstructionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractConstructionPropertyType">
+    <sequence>
+      <element ref="con:ADEOfAbstractConstruction"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractConstructionSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfAbstractConstructionSurfaceType">
+    <annotation>
+      <documentation>ADEOfAbstractConstructionSurface acts as a hook to define properties within an ADE that are to be added to AbstractConstructionSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractConstructionSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractConstructionSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfAbstractConstructionSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractConstructiveElement" substitutionGroup="gml:AbstractObject" type="con:ADEOfAbstractConstructiveElementType">
+    <annotation>
+      <documentation>ADEOfAbstractConstructiveElement acts as a hook to define properties within an ADE that are to be added to AbstractConstructiveElement.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractConstructiveElementType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractConstructiveElementPropertyType">
+    <sequence>
+      <element ref="con:ADEOfAbstractConstructiveElement"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractFillingElement" substitutionGroup="gml:AbstractObject" type="con:ADEOfAbstractFillingElementType">
+    <annotation>
+      <documentation>ADEOfAbstractFillingElement acts as a hook to define properties within an ADE that are to be added to AbstractFillingElement.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractFillingElementType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractFillingElementPropertyType">
+    <sequence>
+      <element ref="con:ADEOfAbstractFillingElement"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractFillingSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfAbstractFillingSurfaceType">
+    <annotation>
+      <documentation>ADEOfAbstractFillingSurface acts as a hook to define properties within an ADE that are to be added to AbstractFillingSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractFillingSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractFillingSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfAbstractFillingSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractFurniture" substitutionGroup="gml:AbstractObject" type="con:ADEOfAbstractFurnitureType">
+    <annotation>
+      <documentation>ADEOfAbstractFurniture acts as a hook to define properties within an ADE that are to be added to AbstractFurniture.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractFurnitureType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractFurniturePropertyType">
+    <sequence>
+      <element ref="con:ADEOfAbstractFurniture"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfAbstractInstallation" substitutionGroup="gml:AbstractObject" type="con:ADEOfAbstractInstallationType">
+    <annotation>
+      <documentation>ADEOfAbstractInstallation acts as a hook to define properties within an ADE that are to be added to AbstractInstallation.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfAbstractInstallationType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfAbstractInstallationPropertyType">
+    <sequence>
+      <element ref="con:ADEOfAbstractInstallation"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfCeilingSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfCeilingSurfaceType">
+    <annotation>
+      <documentation>ADEOfCeilingSurface acts as a hook to define properties within an ADE that are to be added to a CeilingSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfCeilingSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfCeilingSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfCeilingSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfDoor" substitutionGroup="gml:AbstractObject" type="con:ADEOfDoorType">
+    <annotation>
+      <documentation>ADEOfDoor acts as a hook to define properties within an ADE that are to be added to a Door.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfDoorType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfDoorPropertyType">
+    <sequence>
+      <element ref="con:ADEOfDoor"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfDoorSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfDoorSurfaceType">
+    <annotation>
+      <documentation>ADEOfDoorSurface acts as a hook to define properties within an ADE that are to be added to a DoorSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfDoorSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfDoorSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfDoorSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfFloorSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfFloorSurfaceType">
+    <annotation>
+      <documentation>ADEOfFloorSurface acts as a hook to define properties within an ADE that are to be added to a FloorSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfFloorSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfFloorSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfFloorSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfGroundSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfGroundSurfaceType">
+    <annotation>
+      <documentation>ADEOfGroundSurface acts as a hook to define properties within an ADE that are to be added to a GroundSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfGroundSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfGroundSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfGroundSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfInteriorWallSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfInteriorWallSurfaceType">
+    <annotation>
+      <documentation>ADEOfInteriorWallSurface acts as a hook to define properties within an ADE that are to be added to an InteriorWallSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfInteriorWallSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfInteriorWallSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfInteriorWallSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfOtherConstruction" substitutionGroup="gml:AbstractObject" type="con:ADEOfOtherConstructionType">
+    <annotation>
+      <documentation>ADEOfOtherConstruction acts as a hook to define properties within an ADE that are to be added to an OtherConstruction.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfOtherConstructionType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfOtherConstructionPropertyType">
+    <sequence>
+      <element ref="con:ADEOfOtherConstruction"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfOuterCeilingSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfOuterCeilingSurfaceType">
+    <annotation>
+      <documentation>ADEOfOuterCeilingSurface acts as a hook to define properties within an ADE that are to be added to an OuterCeilingSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfOuterCeilingSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfOuterCeilingSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfOuterCeilingSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfOuterFloorSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfOuterFloorSurfaceType">
+    <annotation>
+      <documentation>ADEOfOuterFloorSurface acts as a hook to define properties within an ADE that are to be added to an OuterFloorSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfOuterFloorSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfOuterFloorSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfOuterFloorSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfRoofSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfRoofSurfaceType">
+    <annotation>
+      <documentation>ADEOfRoofSurface acts as a hook to define properties within an ADE that are to be added to a RoofSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfRoofSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfRoofSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfRoofSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfWallSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfWallSurfaceType">
+    <annotation>
+      <documentation>ADEOfWallSurface acts as a hook to define properties within an ADE that are to be added to a WallSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfWallSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfWallSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfWallSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfWindow" substitutionGroup="gml:AbstractObject" type="con:ADEOfWindowType">
+    <annotation>
+      <documentation>ADEOfWindow acts as a hook to define properties within an ADE that are to be added to a Window.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfWindowType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfWindowPropertyType">
+    <sequence>
+      <element ref="con:ADEOfWindow"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="ADEOfWindowSurface" substitutionGroup="gml:AbstractObject" type="con:ADEOfWindowSurfaceType">
+    <annotation>
+      <documentation>ADEOfWindowSurface acts as a hook to define properties within an ADE that are to be added to a WindowSurface.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="ADEOfWindowSurfaceType">
+    <sequence/>
+  </complexType>
+  <complexType name="ADEOfWindowSurfacePropertyType">
+    <sequence>
+      <element ref="con:ADEOfWindowSurface"/>
+    </sequence>
+  </complexType>
+  <element abstract="true" name="AbstractConstruction" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructionType">
+    <annotation>
+      <documentation>AbstractConstruction is the abstract superclass for objects that are manufactured by humans from construction materials, are connected to earth, and are intended to be permanent. A connection with the ground also exists when the construction rests by its own weight on the ground or is moveable limited on stationary rails or if the construction  is intended to be used mainly stationary.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractConstructionType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="conditionOfConstruction" type="con:ConditionOfConstructionValueType">
+            <annotation>
+              <documentation>Indicates the life-cycle status of the construction. [cf. INSPIRE]</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="dateOfConstruction" type="date">
+            <annotation>
+              <documentation>Indicates the date at which the construction was completed.</documentation>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="dateOfDemolition" type="date">
+            <annotation>
+              <documentation>Indicates the date at which the construction was demolished.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="constructionEvent" type="con:ConstructionEventPropertyType">
+            <annotation>
+              <documentation>Describes specific events in the life-time of the construction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="elevation" type="con:ElevationPropertyType">
+            <annotation>
+              <documentation>Specifies qualified elevations of the construction in relation to a well-defined surface which is commonly taken as origin (e.g. geoid or water level). [cf. INSPIRE]</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="height" type="con:HeightPropertyType">
+            <annotation>
+              <documentation>Specifies qualified heights of the construction above ground or below ground. [cf. INSPIRE]</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="occupancy" type="core:OccupancyPropertyType">
+            <annotation>
+              <documentation>Provides qualified information on the residency of persons, animals, or other moveable objects in the construction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractConstruction" type="con:ADEOfAbstractConstructionPropertyType">
+            <annotation>
+              <documentation>Augments AbstractConstruction with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractConstructionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:AbstractConstruction"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractConstructionSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractConstructionSurfaceType">
+    <annotation>
+      <documentation>AbstractConstructionSurface is the abstract superclass for different kinds of surfaces that bound a construction.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractConstructionSurfaceType">
+    <complexContent>
+      <extension base="core:AbstractThematicSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fillingSurface" type="con:AbstractFillingSurfacePropertyType">
+            <annotation>
+              <documentation>Relates to the surfaces that seal the openings of the construction surface.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractConstructionSurface" type="con:ADEOfAbstractConstructionSurfacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractConstructionSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractConstructionSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:AbstractConstructionSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractConstructiveElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractConstructiveElementType">
+    <annotation>
+      <documentation>AbstractConstructiveElement is the abstract superclass for the representation of volumetric elements of a construction. Examples are walls, beams, slabs.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractConstructiveElementType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="isStructuralElement" type="boolean">
+            <annotation>
+              <documentation>Indicates whether the constructive element is essential from a structural point of view. A structural element cannot be omitted without collapsing of the construction. Examples are pylons and anchorages of bridges.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="filling" type="con:AbstractFillingElementPropertyType">
+            <annotation>
+              <documentation>Relates to the elements that fill the opening of the constructive element.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractConstructiveElement" type="con:ADEOfAbstractConstructiveElementPropertyType">
+            <annotation>
+              <documentation>Augments AbstractConstructiveElement with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractConstructiveElementPropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:AbstractConstructiveElement"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractFillingElement" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFillingElementType">
+    <annotation>
+      <documentation>AbstractFillingElement is the abstract superclass for different kinds of elements that fill the openings of a construction.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractFillingElementType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractFillingElement" type="con:ADEOfAbstractFillingElementPropertyType">
+            <annotation>
+              <documentation>Augments AbstractFillingElement with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractFillingElementPropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:AbstractFillingElement"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractFillingSurface" substitutionGroup="core:AbstractThematicSurface" type="con:AbstractFillingSurfaceType">
+    <annotation>
+      <documentation>AbstractFillingSurface is the abstract superclass for different kinds of surfaces that seal openings filled by filling elements.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractFillingSurfaceType">
+    <complexContent>
+      <extension base="core:AbstractThematicSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractFillingSurface" type="con:ADEOfAbstractFillingSurfacePropertyType">
+            <annotation>
+              <documentation>Augments AbstractFillingSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractFillingSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:AbstractFillingSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractFurniture" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractFurnitureType">
+    <annotation>
+      <documentation>AbstractFurniture is the abstract superclass for the representation of furniture objects of a construction.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractFurnitureType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractFurniture" type="con:ADEOfAbstractFurniturePropertyType">
+            <annotation>
+              <documentation>Augments AbstractFurniture with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractFurniturePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:AbstractFurniture"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element abstract="true" name="AbstractInstallation" substitutionGroup="core:AbstractOccupiedSpace" type="con:AbstractInstallationType">
+    <annotation>
+      <documentation>AbstractInstallation is the abstract superclass for the representation of installation objects of a construction.</documentation>
+    </annotation>
+  </element>
+  <complexType abstract="true" name="AbstractInstallationType">
+    <complexContent>
+      <extension base="core:AbstractOccupiedSpaceType">
+        <sequence>
+          <element minOccurs="0" name="relationToConstruction" type="con:RelationToConstructionType">
+            <annotation>
+              <documentation>Indicates whether the installation is located inside and/or outside of the construction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfAbstractInstallation" type="con:ADEOfAbstractInstallationPropertyType">
+            <annotation>
+              <documentation>Augments AbstractInstallation with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="AbstractInstallationPropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:AbstractInstallation"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="CeilingSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:CeilingSurfaceType">
+    <annotation>
+      <documentation>A CeilingSurface is a surface that represents the interior ceiling of a construction. An example is the ceiling of a room.</documentation>
+    </annotation>
+  </element>
+  <complexType name="CeilingSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfCeilingSurface" type="con:ADEOfCeilingSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the CeilingSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="CeilingSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:CeilingSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <simpleType name="ConditionOfConstructionValueType">
+    <annotation>
+      <documentation>ConditionOfConstructionValue enumerates different conditions of a construction. [cf. INSPIRE]</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="declined">
+        <annotation>
+          <documentation>Indicates that the construction cannot be used under normal conditions, though its main elements (walls, roof) are still present. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="demolished">
+        <annotation>
+          <documentation>Indicates that the construction has been demolished. There are no more visible remains. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="functional">
+        <annotation>
+          <documentation>Indicates that the construction is functional. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="projected">
+        <annotation>
+          <documentation>Indicates that the construction is being designed. Construction works have not yet started. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="ruin">
+        <annotation>
+          <documentation>Indicates that the construction has been partly demolished and some main elements (roof, walls) have been destroyed. There are some visible remains of the construction. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="underConstruction">
+        <annotation>
+          <documentation>Indicates that the construction is under construction and not yet functional. This applies only to the initial construction works of the construction and not to maintenance work. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <element name="ConstructionEvent" substitutionGroup="gml:AbstractObject" type="con:ConstructionEventType">
+    <annotation>
+      <documentation>A ConstructionEvent is a data type used to describe a specific event that is associated with a construction. Examples are the issuing of a building permit or the renovation of a building.</documentation>
+    </annotation>
+  </element>
+  <complexType name="ConstructionEventType">
+    <sequence>
+      <element name="event" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the specific event type.</documentation>
+        </annotation>
+      </element>
+      <element name="dateOfEvent" type="date">
+        <annotation>
+          <documentation>Specifies the date at which the event took or will take place.</documentation>
+        </annotation>
+      </element>
+      <element minOccurs="0" name="description" type="string">
+        <annotation>
+          <documentation>Provides additional information on the event.</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="ConstructionEventPropertyType">
+    <sequence>
+      <element ref="con:ConstructionEvent"/>
+    </sequence>
+  </complexType>
+  <element name="Door" substitutionGroup="con:AbstractFillingElement" type="con:DoorType">
+    <annotation>
+      <documentation>A Door is a construction for closing an opening intended primarily for access or egress or both. [cf. ISO 6707-1]</documentation>
+    </annotation>
+  </element>
+  <complexType name="DoorType">
+    <complexContent>
+      <extension base="con:AbstractFillingElementType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the Door.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the Door.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the Door.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
+            <annotation>
+              <documentation>Relates to the addresses that are assigned to the Door.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfDoor" type="con:ADEOfDoorPropertyType">
+            <annotation>
+              <documentation>Augments the Door with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DoorPropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:Door"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="DoorSurface" substitutionGroup="con:AbstractFillingSurface" type="con:DoorSurfaceType">
+    <annotation>
+      <documentation>A DoorSurface is either a boundary surface of a Door feature or a surface that seals an opening filled by a door.</documentation>
+    </annotation>
+  </element>
+  <complexType name="DoorSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractFillingSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="address" type="core:AddressPropertyType">
+            <annotation>
+              <documentation>Relates to the addresses that are assigned to the DoorSurface.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfDoorSurface" type="con:ADEOfDoorSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the DoorSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="DoorSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:DoorSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="Elevation" substitutionGroup="gml:AbstractObject" type="con:ElevationType">
+    <annotation>
+      <documentation>Elevation is a data type that includes the elevation value itself and information on how this elevation was measured. [cf. INSPIRE]</documentation>
+    </annotation>
+  </element>
+  <complexType name="ElevationType">
+    <sequence>
+      <element name="elevationReference" type="gml:CodeType">
+        <annotation>
+          <documentation>Specifies the level from which the elevation was measured. [cf. INSPIRE]</documentation>
+        </annotation>
+      </element>
+      <element name="elevationValue" type="gml:DirectPositionType">
+        <annotation>
+          <documentation>Specifies the value of the elevation. [cf. INSPIRE]</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="ElevationPropertyType">
+    <sequence>
+      <element ref="con:Elevation"/>
+    </sequence>
+  </complexType>
+  <element name="FloorSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:FloorSurfaceType">
+    <annotation>
+      <documentation>A FloorSurface is surface that represents the interior floor of a construction. An example is the floor of a room.</documentation>
+    </annotation>
+  </element>
+  <complexType name="FloorSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfFloorSurface" type="con:ADEOfFloorSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the FloorSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="FloorSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:FloorSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="GroundSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:GroundSurfaceType">
+    <annotation>
+      <documentation>A GroundSurface is a surface that represents the ground plate of a construction. The polygon defining the ground plate is congruent with the footprint of the construction.</documentation>
+    </annotation>
+  </element>
+  <complexType name="GroundSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfGroundSurface" type="con:ADEOfGroundSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the GroundSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="GroundSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:GroundSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="Height" substitutionGroup="gml:AbstractObject" type="con:HeightType">
+    <annotation>
+      <documentation>Height represents a vertical distance (measured or estimated) between a low reference and a high reference. [cf. INSPIRE]</documentation>
+    </annotation>
+  </element>
+  <complexType name="HeightType">
+    <sequence>
+      <element name="highReference" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the high point used to calculate the value of the height. [cf. INSPIRE]</documentation>
+        </annotation>
+      </element>
+      <element name="lowReference" type="gml:CodeType">
+        <annotation>
+          <documentation>Indicates the low point used to calculate the value of the height. [cf. INSPIRE]</documentation>
+        </annotation>
+      </element>
+      <element name="status" type="con:HeightStatusValueType">
+        <annotation>
+          <documentation>Indicates the way the height has been captured. [cf. INSPIRE]</documentation>
+        </annotation>
+      </element>
+      <element name="value" type="gml:LengthType">
+        <annotation>
+          <documentation>Specifies the value of the height above or below ground. [cf. INSPIRE]</documentation>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <complexType name="HeightPropertyType">
+    <sequence>
+      <element ref="con:Height"/>
+    </sequence>
+  </complexType>
+  <simpleType name="HeightStatusValueType">
+    <annotation>
+      <documentation>HeightStatusValue enumerates the different methods used to capture a height. [cf. INSPIRE]</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="estimated">
+        <annotation>
+          <documentation>Indicates that the height has been estimated and not measured. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="measured">
+        <annotation>
+          <documentation>Indicates that the height has been (directly or indirectly) measured. [cf. INSPIRE]</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <element name="InteriorWallSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:InteriorWallSurfaceType">
+    <annotation>
+      <documentation>An InteriorWallSurface is a surface that is visible from inside a construction. An example is the wall of a room.</documentation>
+    </annotation>
+  </element>
+  <complexType name="InteriorWallSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfInteriorWallSurface" type="con:ADEOfInteriorWallSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the InteriorWallSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="InteriorWallSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:InteriorWallSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="OtherConstruction" substitutionGroup="con:AbstractConstruction" type="con:OtherConstructionType">
+    <annotation>
+      <documentation>An OtherConstruction is a construction that is not covered by any of the other subclasses of AbstractConstruction.</documentation>
+    </annotation>
+  </element>
+  <complexType name="OtherConstructionType">
+    <complexContent>
+      <extension base="con:AbstractConstructionType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the OtherConstruction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the OtherConstruction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the OtherConstruction.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfOtherConstruction" type="con:ADEOfOtherConstructionPropertyType">
+            <annotation>
+              <documentation>Augments the OtherConstruction with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OtherConstructionPropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:OtherConstruction"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="OuterCeilingSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:OuterCeilingSurfaceType">
+    <annotation>
+      <documentation>An OuterCeilingSurface is a surface that belongs to the outer building shell with the orientation pointing downwards. An example is the ceiling of a loggia.</documentation>
+    </annotation>
+  </element>
+  <complexType name="OuterCeilingSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfOuterCeilingSurface" type="con:ADEOfOuterCeilingSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the OuterCeilingSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OuterCeilingSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:OuterCeilingSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="OuterFloorSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:OuterFloorSurfaceType">
+    <annotation>
+      <documentation>An OuterFloorSurface is a surface that belongs to the outer construction shell with the orientation pointing upwards. An example is the floor of a loggia.</documentation>
+    </annotation>
+  </element>
+  <complexType name="OuterFloorSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfOuterFloorSurface" type="con:ADEOfOuterFloorSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the OuterFloorSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="OuterFloorSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:OuterFloorSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <simpleType name="RelationToConstructionType">
+    <annotation>
+      <documentation>RelationToConstruction is an enumeration used to describe whether an installation is positioned inside and/or outside of a construction.</documentation>
+    </annotation>
+    <restriction base="string">
+      <enumeration value="inside">
+        <annotation>
+          <documentation>Indicates that the installation is positioned inside of the construction.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="outside">
+        <annotation>
+          <documentation>Indicates that the installation is positioned outside of the construction.</documentation>
+        </annotation>
+      </enumeration>
+      <enumeration value="bothInsideAndOutside">
+        <annotation>
+          <documentation>Indicates that the installation is positioned inside as well as outside of the construction.</documentation>
+        </annotation>
+      </enumeration>
+    </restriction>
+  </simpleType>
+  <element name="RoofSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:RoofSurfaceType">
+    <annotation>
+      <documentation>A RoofSurface is a surface that delimits major roof parts of a construction.</documentation>
+    </annotation>
+  </element>
+  <complexType name="RoofSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfRoofSurface" type="con:ADEOfRoofSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the RoofSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="RoofSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:RoofSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="WallSurface" substitutionGroup="con:AbstractConstructionSurface" type="con:WallSurfaceType">
+    <annotation>
+      <documentation>A WallSurface is a surface that is part of the building facade visible from the outside.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WallSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractConstructionSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfWallSurface" type="con:ADEOfWallSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the WallSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WallSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:WallSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="Window" substitutionGroup="con:AbstractFillingElement" type="con:WindowType">
+    <annotation>
+      <documentation>A Window is a construction for closing an opening in a wall  or roof, primarily intended to admit light and/or provide ventilation. [cf. ISO  6707-1]</documentation>
+    </annotation>
+  </element>
+  <complexType name="WindowType">
+    <complexContent>
+      <extension base="con:AbstractFillingElementType">
+        <sequence>
+          <element minOccurs="0" name="class" type="gml:CodeType">
+            <annotation>
+              <documentation>Indicates the specific type of the Window.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="function" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the intended purposes of the Window.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="usage" type="gml:CodeType">
+            <annotation>
+              <documentation>Specifies the actual uses of the Window.</documentation>
+            </annotation>
+          </element>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfWindow" type="con:ADEOfWindowPropertyType">
+            <annotation>
+              <documentation>Augments the Window with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WindowPropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:Window"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+  <element name="WindowSurface" substitutionGroup="con:AbstractFillingSurface" type="con:WindowSurfaceType">
+    <annotation>
+      <documentation>A WindowSurface is either a boundary surface of a Window feature or a surface that seals an opening filled by a window.</documentation>
+    </annotation>
+  </element>
+  <complexType name="WindowSurfaceType">
+    <complexContent>
+      <extension base="con:AbstractFillingSurfaceType">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="adeOfWindowSurface" type="con:ADEOfWindowSurfacePropertyType">
+            <annotation>
+              <documentation>Augments the WindowSurface with properties defined in an ADE.</documentation>
+            </annotation>
+          </element>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <complexType name="WindowSurfacePropertyType">
+    <sequence minOccurs="0">
+      <element ref="con:WindowSurface"/>
+    </sequence>
+    <attributeGroup ref="gml:AssociationAttributeGroup"/>
+    <attributeGroup ref="gml:OwnershipAttributeGroup"/>
+  </complexType>
+</schema>

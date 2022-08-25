@@ -1,0 +1,8 @@
+plugins {
+    id 'maven-publish'
+}
+
+dependencies {
+    api "org.xmlobjects.gml:gml-objects:$gmlObjectsVersion"
+    api "org.xmlobjects.xal:xal-objects:$xalObjectsVersion"
+}
