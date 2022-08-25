@@ -9,9 +9,9 @@ for working with the model classes, and an extension API for implementing suppor
 
 Serialization modules on top of the core add support for parsing datasets with different file formats and encodings
 into the model classes and writing them back out again.
-- [`citygml4j-xml`](citygml4j-xml/README.md) provides the default GML/XML encoding and supports
+- [`citygml4j-xml`](citygml4j-xml) provides the default GML/XML encoding and supports
   CityGML 3.0, 2.0, and 1.0.
-- [`citygml4j-cityjson`](citygml4j-cityjson/README.md) adds [CityJSON](https://www.cityjson.org/) as encoding with
+- [`citygml4j-cityjson`](citygml4j-cityjson) adds [CityJSON](https://www.cityjson.org/) as encoding with
   support for CityJSON 1.1 and 1.0.
 
 ## License
