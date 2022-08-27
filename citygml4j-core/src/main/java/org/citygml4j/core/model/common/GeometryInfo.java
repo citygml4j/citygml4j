@@ -68,6 +68,10 @@ public class GeometryInfo {
         return lod > Integer.MIN_VALUE && geometries.containsKey(lod);
     }
 
+    public boolean hasLodGeometries() {
+        return geometries.keySet().stream().anyMatch(lod -> lod > Integer.MIN_VALUE);
+    }
+
     public boolean hasNonLodGeometries() {
         return geometries.containsKey(Integer.MIN_VALUE);
     }
@@ -103,6 +107,10 @@ public class GeometryInfo {
 
     public boolean hasImplicitGeometries(int lod) {
         return lod > Integer.MIN_VALUE && implicitGeometries.containsKey(lod);
+    }
+
+    public boolean hasLodImplicitGeometries() {
+        return implicitGeometries.keySet().stream().anyMatch(lod -> lod > Integer.MIN_VALUE);
     }
 
     public boolean hasNonLodImplicitGeometries() {
