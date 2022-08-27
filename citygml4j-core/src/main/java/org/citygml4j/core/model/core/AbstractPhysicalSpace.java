@@ -19,6 +19,7 @@
 
 package org.citygml4j.core.model.core;
 
+import org.citygml4j.core.model.common.GeometryInfo;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
 import org.xmlobjects.gml.util.EnvelopeOptions;
@@ -96,5 +97,14 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
 
         if (pointCloud != null && pointCloud.getObject() != null)
             envelope.include(pointCloud.getObject().computeEnvelope(options));
+    }
+
+    @Override
+    protected void updateGeometryInfo(GeometryInfo geometryInfo) {
+        super.updateGeometryInfo(geometryInfo);
+
+        for (int lod = 1; lod < 4; lod++) {
+            geometryInfo.addGeometry(lod, getTerrainIntersectionCurve(lod));
+        }
     }
 }
