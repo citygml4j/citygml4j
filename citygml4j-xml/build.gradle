@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     api project(':citygml4j-core')
-    annotationProcessor "org.xmlobjects.gml:gml-objects:$gmlObjectsVersion"
+    annotationProcessor "org.xmlobjects:xml-objects:$xmlObjectsVersion"
 }
 
 idea {
