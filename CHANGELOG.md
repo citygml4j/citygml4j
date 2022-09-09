@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [3.0.0-rc.5]
+## [3.0.0-rc.5] - 2022-09-09
 ### Changed
 - Completely revised object model for processing CityGML data based on the
   [CityGML 3.0 Conceptual Model](https://docs.ogc.org/is/20-010/20-010.html).
