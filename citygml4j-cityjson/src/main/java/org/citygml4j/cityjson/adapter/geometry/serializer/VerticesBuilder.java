@@ -99,9 +99,9 @@ public class VerticesBuilder {
 
         // set scale factor and offset
         double scale = Math.pow(10, precision);
-        int[] offset = new int[]{(int) (translation.getX() * scale),
-                (int) (translation.getY() * scale),
-                (int) (translation.getZ() * scale)};
+        long[] offset = new long[]{(long) (translation.getX() * scale),
+                (long) (translation.getY() * scale),
+                (long) (translation.getZ() * scale)};
 
         // apply transformation
         for (Vertex vertex : vertices) {

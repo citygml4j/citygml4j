@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Fixed integer overflow leading to incorrect coordinates when using `"transform"` for CityJSON output files.
+  ([citygml-tools #31](https://github.com/citygml4j/citygml-tools/issues/31))
 
 ## [3.0.0-rc.5] - 2022-09-09
 ### Changed
