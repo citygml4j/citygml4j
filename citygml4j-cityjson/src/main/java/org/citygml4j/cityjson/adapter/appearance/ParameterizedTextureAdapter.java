@@ -39,6 +39,8 @@ import org.citygml4j.core.model.appearance.TextureType;
 import org.citygml4j.core.model.appearance.WrapMode;
 import org.xmlobjects.gml.model.basictypes.Code;
 
+import java.util.Locale;
+
 public class ParameterizedTextureAdapter implements JsonObjectBuilder<ParameterizedTexture>, JsonObjectSerializer<ParameterizedTexture> {
 
     @Override
@@ -129,7 +131,7 @@ public class ParameterizedTextureAdapter implements JsonObjectBuilder<Parameteri
     }
 
     private String getMimeType(String type) {
-        switch (type.toLowerCase()) {
+        switch (type.toLowerCase(Locale.ROOT)) {
             case "png":
                 return "image/png";
             case "jpg":
@@ -141,7 +143,7 @@ public class ParameterizedTextureAdapter implements JsonObjectBuilder<Parameteri
 
     private String getType(Code mimeType) {
         if (mimeType.getValue() != null) {
-            switch (mimeType.getValue().toLowerCase()) {
+            switch (mimeType.getValue().toLowerCase(Locale.ROOT)) {
                 case "image/png":
                     return "PNG";
                 case "image/jpeg":
@@ -149,13 +151,13 @@ public class ParameterizedTextureAdapter implements JsonObjectBuilder<Parameteri
             }
         }
 
-        return null;
+        return "unknown";
     }
 
     private String getType(String image) {
         int index = image.lastIndexOf('.');
-        if (index >= 0 && index < image.length()) {
-            String extension = image.substring(index + 1).toUpperCase();
+        if (index >= 0 && index < image.length() - 1) {
+            String extension = image.substring(index + 1).toUpperCase(Locale.ROOT);
             switch (extension) {
                 case "JPG":
                 case "JPEG":
@@ -171,6 +173,6 @@ public class ParameterizedTextureAdapter implements JsonObjectBuilder<Parameteri
             }
         }
 
-        return null;
+        return "unknown";
     }
 }
