@@ -36,7 +36,9 @@ public class TransformerChainFactory {
 				
 		this.templates = templates;		
 		factory = (SAXTransformerFactory) TransformerFactory.newInstance();
+		factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
 	}
 	
 	public TransformerChain buildChain() throws TransformerConfigurationException {
