@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+### 2.12.2 - 2022-10-13
+
+##### Fixes
+* Adapted XML settings introduced with 2.12.1 so that they are supported by external StAX libraries.
+
 ### 2.12.1 - 2022-06-14
 
 ##### Additions
