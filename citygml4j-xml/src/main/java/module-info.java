@@ -1,5 +1,5 @@
 module org.citygml4j.xml {
-    requires org.citygml4j.core;
+    requires transitive org.citygml4j.core;
 
     exports org.citygml4j.xml;
     exports org.citygml4j.xml.adapter;
