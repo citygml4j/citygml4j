@@ -894,7 +894,7 @@
         <sequence>
           <element minOccurs="0" name="engineeringCRS">
             <annotation>
-              <documentation>Specifies the local engineering coordinate reference system of the CityModel that can be provided inline the CityModel instead of referencing a well-known CRS definition. The definition of an engineering CRS requires an anchor point which relates the origin of the local coordinate system to a point on the earth’s surface in order to facilitate the transformation of coordinates from the local engineering CRS.</documentation>
+              <documentation>Specifies the local engineering coordinate reference system of the CityModel that can be provided inline the CityModel instead of referencing a well-known CRS definition. The definition of an engineering CRS requires an anchor point which relates the origin of the local coordinate system to a point on the earth's surface in order to facilitate the transformation of coordinates from the local engineering CRS.</documentation>
             </annotation>
             <complexType>
               <complexContent>

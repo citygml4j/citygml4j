@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:luse="http://www.opengis.net/citygml/landuse/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/landuse/3.0" version="3.0.0">
   <annotation>
-    <documentation>The LandUse module supports representation of areas of the earth’s surface dedicated to a specific land use.</documentation>
+    <documentation>The LandUse module supports representation of areas of the earth's surface dedicated to a specific land use.</documentation>
   </annotation>
   <import namespace="http://www.opengis.net/citygml/3.0" schemaLocation="./core.xsd"/>
   <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../../gml/3.2/gml.xsd"/>
