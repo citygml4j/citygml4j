@@ -225,7 +225,10 @@
     <annotation>
       <documentation>Color is a list of three double values between 0 and 1 defining an RGB color value.</documentation>
     </annotation>
-    <restriction base="core:DoubleBetween0and1ListType">
+    <restriction>
+      <simpleType>
+        <list itemType="core:DoubleBetween0and1Type"/>
+      </simpleType>
       <length value="3"/>
     </restriction>
   </simpleType>
@@ -233,7 +236,10 @@
     <annotation>
       <documentation>Color is a list of four double values between 0 and 1 defining an RGBA color value. Opacity value of 0 means transparent.</documentation>
     </annotation>
-    <restriction base="core:DoubleBetween0and1ListType">
+    <restriction>
+      <simpleType>
+        <list itemType="core:DoubleBetween0and1Type"/>
+      </simpleType>
       <minLength value="3"/>
       <maxLength value="4"/>
     </restriction>

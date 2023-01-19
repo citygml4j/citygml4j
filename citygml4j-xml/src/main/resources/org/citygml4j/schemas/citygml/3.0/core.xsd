@@ -1077,12 +1077,6 @@
       <maxInclusive value="1"/>
     </restriction>
   </simpleType>
-  <simpleType name="DoubleBetween0and1ListType">
-    <annotation>
-      <documentation>DoubleBetween0and1List is a basic type that represents a list of double values greater or equal than 0 and less or equal than 1. The type is used for color encoding, for example.</documentation>
-    </annotation>
-    <list itemType="core:DoubleBetween0and1Type"/>
-  </simpleType>
   <element name="ExternalReference" substitutionGroup="gml:AbstractObject" type="core:ExternalReferenceType">
     <annotation>
       <documentation>ExternalReference is a reference to a corresponding object in another information system, for example in the German cadastre (ALKIS), the German topographic information system (ATKIS), or the OS UK MasterMap®.</documentation>
@@ -1343,7 +1337,10 @@
     <annotation>
       <documentation>TransformationMatrix2x2 is a 2 by 2 matrix represented as a list of four double values in row major order.</documentation>
     </annotation>
-    <restriction base="gml:doubleList">
+    <restriction>
+      <simpleType>
+        <list itemType="double"/>
+      </simpleType>
       <length value="4"/>
     </restriction>
   </simpleType>
@@ -1351,7 +1348,10 @@
     <annotation>
       <documentation>TransformationMatrix3x4 is a 3 by 4 matrix represented as a list of twelve double values in row major order.</documentation>
     </annotation>
-    <restriction base="gml:doubleList">
+    <restriction>
+      <simpleType>
+        <list itemType="double"/>
+      </simpleType>
       <length value="12"/>
     </restriction>
   </simpleType>
@@ -1359,7 +1359,10 @@
     <annotation>
       <documentation>TransformationMatrix4x4 is a 4 by 4 matrix represented as a list of sixteen double values in row major order.</documentation>
     </annotation>
-    <restriction base="gml:doubleList">
+    <restriction>
+      <simpleType>
+        <list itemType="double"/>
+      </simpleType>
       <length value="16"/>
     </restriction>
   </simpleType>

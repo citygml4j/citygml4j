@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:metadata="http://www.opengis.net/citygml/codelistmetadata/3.0" elementFormDefault="qualified" targetNamespace="http://www.opengis.net/citygml/codelistmetadata/3.0" version="3.0.0">
+  <import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+  <element name="CodeListMetaData" substitutionGroup="gml:AbstractMetaData" type="metadata:CodeListMetaDataType"/>
+  <complexType name="CodeListMetaDataType" mixed="true">
+    <complexContent>
+      <extension base="gml:AbstractMetaDataType">
+        <sequence>
+          <element name="dataType" type="string"/>
+          <element name="namespace" type="anyURI"/>
+          <element name="language" type="string"/>
+          <element name="authority" type="string"/>
+          <element name="version" type="string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>
