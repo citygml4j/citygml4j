@@ -39,7 +39,6 @@ public class TransformerChainFactory {
 		factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
 		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
-		factory.setFeature("http://www.oracle.com/xml/jaxp/properties/enableExtensionFunctions", true);
 	}
 	
 	public TransformerChain buildChain() throws TransformerConfigurationException {
