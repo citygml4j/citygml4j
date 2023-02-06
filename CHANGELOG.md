@@ -1,6 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- The `module-info.java` of the `citygml-xml` module now uses `requires transitive` for implied readability
+  of the `citygml-core` module.
+- Updated jackson-databind to 2.14.2.
+- Updated gml-objects to 1.0.2.
+- Updated xal-objects to 1.0.2.
+- Updated xml-objects to 1.0.2.
+
 ### Fixed
 - Fixed integer overflow leading to incorrect coordinates when using `"transform"` for CityJSON output files.
   ([citygml-tools #31](https://github.com/citygml4j/citygml-tools/issues/31))
