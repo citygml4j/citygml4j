@@ -97,7 +97,7 @@ public class WaterBody extends AbstractOccupiedSpace implements TopLevelFeature,
 
     @Override
     public DeprecatedPropertiesOfWaterBody getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfWaterBody) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfWaterBody.class);
     }
 
     @Override

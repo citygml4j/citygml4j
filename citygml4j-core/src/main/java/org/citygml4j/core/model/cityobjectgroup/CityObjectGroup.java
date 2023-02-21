@@ -119,7 +119,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
 
     @Override
     public DeprecatedPropertiesOfCityObjectGroup getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfCityObjectGroup) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfCityObjectGroup.class);
     }
 
     @Override

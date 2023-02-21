@@ -84,7 +84,7 @@ public class TunnelInstallation extends AbstractInstallation implements Standard
 
     @Override
     public DeprecatedPropertiesOfTunnelInstallation getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfTunnelInstallation) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfTunnelInstallation.class);
     }
 
     @Override

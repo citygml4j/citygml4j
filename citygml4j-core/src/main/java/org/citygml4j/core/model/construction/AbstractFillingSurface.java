@@ -29,7 +29,7 @@ public abstract class AbstractFillingSurface extends AbstractThematicSurface {
 
     @Override
     public DeprecatedPropertiesOfAbstractFillingSurface getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfAbstractFillingSurface) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfAbstractFillingSurface.class);
     }
 
     @Override

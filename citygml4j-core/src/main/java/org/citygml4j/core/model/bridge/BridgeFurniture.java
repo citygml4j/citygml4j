@@ -84,7 +84,7 @@ public class BridgeFurniture extends AbstractFurniture implements StandardObject
 
     @Override
     public DeprecatedPropertiesOfBridgeFurniture getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfBridgeFurniture) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfBridgeFurniture.class);
     }
 
     @Override

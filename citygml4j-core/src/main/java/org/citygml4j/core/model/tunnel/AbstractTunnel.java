@@ -148,7 +148,7 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
 
     @Override
     public DeprecatedPropertiesOfAbstractTunnel getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfAbstractTunnel) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfAbstractTunnel.class);
     }
 
     @Override

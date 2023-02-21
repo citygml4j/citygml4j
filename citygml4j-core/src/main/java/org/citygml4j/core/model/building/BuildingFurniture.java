@@ -85,7 +85,7 @@ public class BuildingFurniture extends AbstractFurniture implements StandardObje
 
     @Override
     public DeprecatedPropertiesOfBuildingFurniture getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfBuildingFurniture) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfBuildingFurniture.class);
     }
 
     @Override

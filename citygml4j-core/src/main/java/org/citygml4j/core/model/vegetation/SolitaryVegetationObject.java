@@ -139,7 +139,7 @@ public class SolitaryVegetationObject extends AbstractVegetationObject implement
 
     @Override
     public DeprecatedPropertiesOfSolitaryVegetationObject getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfSolitaryVegetationObject) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfSolitaryVegetationObject.class);
     }
 
     @Override

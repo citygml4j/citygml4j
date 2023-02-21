@@ -84,7 +84,7 @@ public class BridgeConstructiveElement extends AbstractConstructiveElement imple
 
     @Override
     public DeprecatedPropertiesOfBridgeConstructiveElement getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfBridgeConstructiveElement) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfBridgeConstructiveElement.class);
     }
 
     @Override

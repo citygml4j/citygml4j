@@ -23,6 +23,7 @@ import org.citygml4j.core.model.CityGMLObject;
 import org.citygml4j.core.model.ade.ADEObject;
 import org.citygml4j.core.model.ade.ADEProperty;
 import org.citygml4j.core.model.common.GeometryInfo;
+import org.citygml4j.core.model.deprecated.DeprecatedProperties;
 import org.citygml4j.core.model.deprecated.core.DeprecatedPropertiesOfAbstractFeature;
 import org.citygml4j.core.visitor.ObjectWalker;
 import org.citygml4j.core.visitor.VisitableObject;
@@ -40,11 +41,15 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
     private List<ADEProperty> adeProperties;
 
     public DeprecatedPropertiesOfAbstractFeature getDeprecatedProperties() {
-        if (deprecatedProperties == null) {
+        return getDeprecatedProperties(DeprecatedPropertiesOfAbstractFeature.class);
+    }
+
+    protected <T extends DeprecatedProperties> T getDeprecatedProperties(Class<T> type) {
+        if (!type.isInstance(deprecatedProperties)) {
             deprecatedProperties = asChild(createDeprecatedProperties());
         }
 
-        return deprecatedProperties;
+        return type.cast(deprecatedProperties);
     }
 
     public boolean hasDeprecatedProperties() {

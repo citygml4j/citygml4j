@@ -45,7 +45,7 @@ public class ParameterizedTexture extends AbstractTexture {
 
     @Override
     public DeprecatedPropertiesOfParameterizedTexture getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfParameterizedTexture) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfParameterizedTexture.class);
     }
 
     @Override

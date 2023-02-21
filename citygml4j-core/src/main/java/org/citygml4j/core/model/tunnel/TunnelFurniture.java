@@ -84,7 +84,7 @@ public class TunnelFurniture extends AbstractFurniture implements StandardObject
 
     @Override
     public DeprecatedPropertiesOfTunnelFurniture getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfTunnelFurniture) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfTunnelFurniture.class);
     }
 
     @Override

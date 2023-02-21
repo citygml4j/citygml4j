@@ -95,7 +95,7 @@ public class GenericOccupiedSpace extends AbstractOccupiedSpace implements TopLe
 
     @Override
     public DeprecatedPropertiesOfGenericOccupiedSpace getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfGenericOccupiedSpace) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfGenericOccupiedSpace.class);
     }
 
     @Override

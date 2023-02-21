@@ -96,7 +96,7 @@ public class CityFurniture extends AbstractOccupiedSpace implements TopLevelFeat
 
     @Override
     public DeprecatedPropertiesOfCityFurniture getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfCityFurniture) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfCityFurniture.class);
     }
 
     @Override

@@ -112,7 +112,7 @@ public class PlantCover extends AbstractVegetationObject implements TopLevelFeat
 
     @Override
     public DeprecatedPropertiesOfPlantCover getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfPlantCover) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfPlantCover.class);
     }
 
     @Override

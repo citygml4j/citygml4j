@@ -129,7 +129,7 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
 
     @Override
     public DeprecatedPropertiesOfHollowSpace getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfHollowSpace) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfHollowSpace.class);
     }
 
     @Override

@@ -145,7 +145,7 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
 
     @Override
     public DeprecatedPropertiesOfBuildingRoom getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfBuildingRoom) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfBuildingRoom.class);
     }
 
     @Override

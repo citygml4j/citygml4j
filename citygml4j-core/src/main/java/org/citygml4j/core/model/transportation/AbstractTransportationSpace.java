@@ -134,7 +134,7 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
 
     @Override
     public DeprecatedPropertiesOfAbstractTransportationSpace getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfAbstractTransportationSpace) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfAbstractTransportationSpace.class);
     }
 
     @Override

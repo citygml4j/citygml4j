@@ -84,7 +84,7 @@ public class BridgeInstallation extends AbstractInstallation implements Standard
 
     @Override
     public DeprecatedPropertiesOfBridgeInstallation getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfBridgeInstallation) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfBridgeInstallation.class);
     }
 
     @Override

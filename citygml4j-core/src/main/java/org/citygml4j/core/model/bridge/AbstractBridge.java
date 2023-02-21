@@ -178,7 +178,7 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
 
     @Override
     public DeprecatedPropertiesOfAbstractBridge getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfAbstractBridge) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfAbstractBridge.class);
     }
 
     @Override

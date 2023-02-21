@@ -129,7 +129,7 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
 
     @Override
     public DeprecatedPropertiesOfBridgeRoom getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfBridgeRoom) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfBridgeRoom.class);
     }
 
     @Override

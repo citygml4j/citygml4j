@@ -103,7 +103,7 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
 
     @Override
     public DeprecatedPropertiesOfAbstractThematicSurface getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfAbstractThematicSurface) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfAbstractThematicSurface.class);
     }
 
     @Override

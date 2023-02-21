@@ -142,7 +142,7 @@ public abstract class AbstractCityObject extends AbstractFeatureWithLifespan {
 
     @Override
     public DeprecatedPropertiesOfAbstractCityObject getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfAbstractCityObject) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfAbstractCityObject.class);
     }
 
     @Override

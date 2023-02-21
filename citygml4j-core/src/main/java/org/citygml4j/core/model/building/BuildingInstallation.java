@@ -85,7 +85,7 @@ public class BuildingInstallation extends AbstractInstallation implements Standa
 
     @Override
     public DeprecatedPropertiesOfBuildingInstallation getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfBuildingInstallation) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfBuildingInstallation.class);
     }
 
     @Override

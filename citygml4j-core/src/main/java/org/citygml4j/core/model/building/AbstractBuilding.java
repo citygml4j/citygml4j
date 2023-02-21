@@ -227,7 +227,7 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
 
     @Override
     public DeprecatedPropertiesOfAbstractBuilding getDeprecatedProperties() {
-        return (DeprecatedPropertiesOfAbstractBuilding) super.getDeprecatedProperties();
+        return super.getDeprecatedProperties(DeprecatedPropertiesOfAbstractBuilding.class);
     }
 
     @Override
