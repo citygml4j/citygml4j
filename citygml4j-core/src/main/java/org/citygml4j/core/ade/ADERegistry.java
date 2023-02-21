@@ -44,7 +44,7 @@ public class ADERegistry {
             instance = new ADERegistry();
 
             try {
-                instance.loadADELoaders(Thread.currentThread().getContextClassLoader(), true);
+                instance.loadADELoaders(ADERegistry.class.getClassLoader(), true);
             } catch (ADEException e) {
                 throw new RuntimeException("Failed to load ADE loaders.", e);
             }
