@@ -31,6 +31,7 @@ import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLReaderFactory;
 import org.xmlobjects.util.Properties;
 
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLReporter;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamReader;
@@ -40,6 +41,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class CityGMLInputFactory {
     public static final String FAIL_ON_MISSING_ADE_SCHEMA = "org.citygml4j.failOnMissingADESchema";
@@ -52,11 +54,11 @@ public class CityGMLInputFactory {
     private ReferenceResolver resolver;
     private IdCreator idCreator;
 
-    public CityGMLInputFactory(CityGMLContext context) throws CityGMLReadException {
-        this.context = context;
+    public CityGMLInputFactory(CityGMLContext context, XMLInputFactory factory) throws CityGMLReadException {
+        this.context = Objects.requireNonNull(context, "CityGML context must not be null.");
 
         try {
-            factory = XMLReaderFactory.newInstance(context.getXMLObjects());
+            this.factory = XMLReaderFactory.newInstance(context.getXMLObjects(), factory);
         } catch (XMLReadException e) {
             throw new CityGMLReadException("Caused by:", e);
         }

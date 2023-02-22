@@ -32,7 +32,9 @@ import org.citygml4j.xml.writer.CityGMLOutputFactory;
 import org.xmlobjects.XMLObjects;
 import org.xmlobjects.XMLObjectsException;
 import org.xmlobjects.schema.SchemaHandlerException;
+import org.xmlobjects.util.xml.SecureXMLProcessors;
 
+import javax.xml.stream.XMLInputFactory;
 import java.util.Set;
 
 public class CityGMLContext {
@@ -78,8 +80,12 @@ public class CityGMLContext {
         return xmlObjects;
     }
 
+    public CityGMLInputFactory createCityGMLInputFactory(XMLInputFactory factory) throws CityGMLReadException {
+        return new CityGMLInputFactory(this, factory);
+    }
+
     public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLReadException {
-        return new CityGMLInputFactory(this);
+        return createCityGMLInputFactory(SecureXMLProcessors.newXMLInputFactory());
     }
 
     public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) {

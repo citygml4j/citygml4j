@@ -49,7 +49,7 @@ public class CityGMLOutputFactory {
     private TransformerPipeline transformer;
 
     public CityGMLOutputFactory(CityGMLVersion version, CityGMLContext context) {
-        this.version = version;
+        this.version = Objects.requireNonNull(version, "The CityGML version must not be null.");
         factory = XMLWriterFactory.newInstance(context.getXMLObjects());
     }
 

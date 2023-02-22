@@ -30,47 +30,49 @@ import javax.xml.transform.sax.TransformerHandler;
 import java.util.Objects;
 
 public class TransformerPipeline {
-    private static SAXTransformerFactory factory;
+    private final SAXTransformerFactory factory;
     private final Templates[] templates;
     private TransformerHandler[] handlers;
 
-    private TransformerPipeline(Templates[] templates) throws TransformerConfigurationException {
+    private TransformerPipeline(SAXTransformerFactory factory, Templates[] templates) throws TransformerConfigurationException {
+        this.factory = Objects.requireNonNull(factory, "SAX transformer factory must not be null.");
         this.templates = templates;
         buildPipeline();
     }
 
     public TransformerPipeline(TransformerPipeline other) throws TransformerConfigurationException {
         Objects.requireNonNull(other, "Transformation pipeline must not be null.");
+        factory = other.factory;
         templates = other.templates;
         handlers = other.handlers;
         buildPipeline();
     }
 
-    public static TransformerPipeline newInstance(Templates... templates) throws TransformerConfigurationException {
+    public static TransformerPipeline newInstance(SAXTransformerFactory factory, Templates... templates) throws TransformerConfigurationException {
         if (templates == null || templates.length == 0)
             throw new IllegalArgumentException("No transformation templates provided.");
 
-        return new TransformerPipeline(templates);
+        return new TransformerPipeline(factory, templates);
     }
 
-    public static TransformerPipeline newInstance(Source... xsltSource) throws TransformerConfigurationException {
+    public static TransformerPipeline newInstance(Templates... templates) throws TransformerConfigurationException {
+        return newInstance((SAXTransformerFactory) SecureXMLProcessors.newTransformerFactory(), templates);
+    }
+
+    public static TransformerPipeline newInstance(SAXTransformerFactory factory, Source... xsltSource) throws TransformerConfigurationException {
+        Objects.requireNonNull(factory, "SAX transformer factory must not be null.");
         if (xsltSource == null || xsltSource.length == 0)
             throw new IllegalArgumentException("No transformation sources provided.");
 
-        SAXTransformerFactory factory = getTransformerFactory();
         Templates[] templates = new Templates[xsltSource.length];
         for (int i = 0; i < xsltSource.length; i++)
             templates[i] = factory.newTemplates(xsltSource[i]);
 
-        return newInstance(templates);
+        return newInstance(factory, templates);
     }
 
-    static synchronized SAXTransformerFactory getTransformerFactory() throws TransformerConfigurationException {
-        if (factory == null) {
-            factory = (SAXTransformerFactory) SecureXMLProcessors.newTransformerFactory();
-        }
-
-        return factory;
+    public static TransformerPipeline newInstance(Source... xsltSource) throws TransformerConfigurationException {
+        return newInstance((SAXTransformerFactory) SecureXMLProcessors.newTransformerFactory(), xsltSource);
     }
 
     public ContentHandler getRootHandler() {
@@ -87,7 +89,7 @@ public class TransformerPipeline {
             if (isFragment)
                 handlers[0].startDocument();
 
-            getTransformerFactory().newTransformer().transform(xmlSource, new SAXResult(handlers[0]));
+            factory.newTransformer().transform(xmlSource, new SAXResult(handlers[0]));
 
             if (isFragment)
                 handlers[0].endDocument();
@@ -137,7 +139,6 @@ public class TransformerPipeline {
     }
 
     private void buildPipeline() throws TransformerConfigurationException {
-        SAXTransformerFactory factory = getTransformerFactory();
         handlers = new TransformerHandler[templates.length];
 
         for (int i = templates.length - 1; i >= 0; i--) {
