@@ -1,6 +1,10 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Added support for providing an XML factory when creating an instance of `CityGMLInputFactory`,
+  `CityGMLSchemaHandler`, and `TransformerPipeline`.
+
 ### Changed
 - The `module-info.java` of the `citygml-xml` module now uses `requires transitive` for implied readability
   of the `citygml-core` module.
@@ -13,6 +17,8 @@
 - Fixed integer overflow leading to incorrect coordinates when using `"transform"` for CityJSON output files.
   ([citygml-tools #31](https://github.com/citygml4j/citygml-tools/issues/31))
 - Avoid localization issues when internally converting strings to lower or upper case.
+- Fixed class loader used in `ADERegistry` to load ADE loaders.
+- Added type checks to `getDeprecatedProperties` methods to avoid class cast exceptions.
 
 ## [3.0.0-rc.5] - 2022-09-09
 ### Changed
