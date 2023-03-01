@@ -26,6 +26,7 @@ import org.citygml4j.core.model.core.AbstractFeature;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.MissingADESchemaException;
 import org.w3c.dom.Element;
+import org.xmlobjects.annotation.XMLElements;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.builder.ObjectBuilder;
 import org.xmlobjects.schema.SchemaHandler;
@@ -70,30 +71,22 @@ public class ADEBuilderHelper {
 
     @SuppressWarnings("unchecked")
     private static void buildADEProperty(AbstractFeature feature, QName name, ObjectBuilder<ADEProperty> builder, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        Map<Object, Object> singletonInfo = (Map<Object, Object>) reader.getProperties().getOrSet("org.citygml4j.singletonADEs", Map.class, HashMap::new);
+        Map<Object, Boolean> singletons = (Map<Object, Boolean>) reader.getProperties()
+                .getOrSet("org.citygml4j.singletonADEs", Map.class, HashMap::new);
 
-        Object entry = singletonInfo.get(builder.getClass().getName());
-        if (entry == null) {
-            try {
-                Method method = builder.getClass().getMethod("createObject", QName.class, Object.class);
-                SingletonADEProperty singleton = method.getAnnotation(SingletonADEProperty.class);
-                entry = singleton != null ? singleton : Boolean.FALSE;
-                singletonInfo.put(builder.getClass().getName(), entry);
-            } catch (NoSuchMethodException e) {
-                throw new ObjectBuildException("Failed to find createObject method of builder " + builder.getClass().getName());
-            }
+        Boolean isSingleton = singletons.get(builder.getClass().getName());
+        if (isSingleton == null) {
+            XMLElements elements = builder.getClass().getAnnotation(XMLElements.class);
+            isSingleton = elements != null && elements.value().length > 0;
+            singletons.put(builder.getClass().getName(), isSingleton);
         }
 
-        if (entry instanceof SingletonADEProperty) {
-            SingletonADEProperty singleton = (SingletonADEProperty) entry;
-            if (singleton.value().length == 0
-                    || Arrays.asList(singleton.value()).contains(name.getNamespaceURI())) {
-                Class<ADEProperty> objectType = (Class<ADEProperty>) reader.getXMLObjects().getObjectType(name.getNamespaceURI(), builder);
-                for (ADEProperty property : feature.getADEProperties(objectType)) {
-                    if (property.getClass() == objectType) {
-                        reader.fillObjectUsingBuilder(property, builder);
-                        return;
-                    }
+        if (isSingleton) {
+            Class<ADEProperty> objectType = (Class<ADEProperty>) reader.getXMLObjects().getObjectType(name.getNamespaceURI(), builder);
+            for (ADEProperty property : feature.getADEProperties(objectType)) {
+                if (property.getClass() == objectType) {
+                    reader.fillObjectUsingBuilder(property, builder);
+                    return;
                 }
             }
         }
