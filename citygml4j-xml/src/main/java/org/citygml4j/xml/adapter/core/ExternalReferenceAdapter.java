@@ -64,10 +64,9 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
                 case "externalObject":
                     if (object.getTargetResource() == null) {
                         ExternalObject externalObject = reader.getObjectUsingBuilder(ExternalObjectAdapter.class);
-                        if (externalObject.isSetURI())
-                            object.setTargetResource(externalObject.getURI());
-                        else if (externalObject.isSetName())
-                            object.setExternalObjectName(externalObject.getName());
+                        object.setTargetResource(externalObject.isSetURI() ?
+                                externalObject.getURI() :
+                                externalObject.getName());
                     }
                     break;
             }
@@ -84,9 +83,8 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            String targetResource = object.isSetTargetResource() ? object.getTargetResource() : object.getExternalObjectName();
-            if (targetResource != null)
-                writer.writeElement(Element.of(coreNamespace, "targetResource").addTextContent(targetResource));
+            if (object.getTargetResource() != null)
+                writer.writeElement(Element.of(coreNamespace, "targetResource").addTextContent(object.getTargetResource()));
 
             if (object.getInformationSystem() != null)
                 writer.writeElement(Element.of(coreNamespace, "informationSystem").addTextContent(object.getInformationSystem()));
@@ -97,10 +95,12 @@ public class ExternalReferenceAdapter implements ObjectBuilder<ExternalReference
             if (object.getInformationSystem() != null)
                 writer.writeElement(Element.of(coreNamespace, "informationSystem").addTextContent(object.getInformationSystem()));
 
-            if (object.isSetTargetResource())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalObject"), ExternalObject.ofURI(object.getTargetResource()), ExternalObjectAdapter.class, namespaces);
-            else if (object.isSetExternalObjectName())
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalObject"), ExternalObject.ofName(object.getExternalObjectName()), ExternalObjectAdapter.class, namespaces);
+            if (object.getTargetResource() != null) {
+                ExternalObject externalObject = object.getInformationSystem() != null ?
+                        ExternalObject.ofName(object.getTargetResource()) :
+                        ExternalObject.ofURI(object.getTargetResource());
+                writer.writeElementUsingSerializer(Element.of(coreNamespace, "externalObject"), externalObject, ExternalObjectAdapter.class, namespaces);
+            }
         }
     }
 }
