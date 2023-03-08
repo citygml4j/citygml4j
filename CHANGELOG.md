@@ -6,7 +6,7 @@
   `CityGMLSchemaHandler`, and `TransformerPipeline`.
 
 ### Changed
-- Removed the `@SingleADEProperty` annotation. A singleton is now automatically created in case the
+- Removed the `@SingletonADEProperty` annotation. A singleton is now automatically created in case the
   `ObjectBuilder` for the ADE property uses the `@XMLElements` annotation with more than one target XML element.
 - The `module-info.java` of the `citygml-xml` module now uses `requires transitive` for implied readability
   of the `citygml-core` module.
