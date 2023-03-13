@@ -32,7 +32,7 @@ public class VersioningModule extends CityGMLModule {
     static {
         v3_0 = new VersioningModule(
                 CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE,
-                "ver",
+                "vers",
                 "http://schemas.opengis.net/citygml/versioning/3.0/versioning.xsd",
                 CityGMLVersion.v3_0
         );
