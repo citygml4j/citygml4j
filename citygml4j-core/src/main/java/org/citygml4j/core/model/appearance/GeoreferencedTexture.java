@@ -33,7 +33,7 @@ public class GeoreferencedTexture extends AbstractTexture {
     private List<GeometryReference> targets;
 
     public Boolean getPreferWorldFile() {
-        return preferWorldFile;
+        return preferWorldFile != null ? preferWorldFile : true;
     }
 
     public boolean isSetPreferWorldFile() {
