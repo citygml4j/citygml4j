@@ -101,6 +101,10 @@ public class ADERegistry {
         }
     }
 
+    public void loadADEs() throws ADEException {
+        loadADEs(ADERegistry.class.getClassLoader());
+    }
+
     public void unloadADE(Class<? extends ADE> type) throws ADEException {
         ADE ade = ades.remove(type.getName());
         if (ade != null) {

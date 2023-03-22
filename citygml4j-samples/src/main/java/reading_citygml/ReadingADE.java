@@ -21,7 +21,6 @@ package reading_citygml;
 
 import helpers.Logger;
 import helpers.Util;
-import org.citygml4j.core.ade.ADE;
 import org.citygml4j.core.ade.ADERegistry;
 import org.citygml4j.core.model.ade.ADEObject;
 import org.citygml4j.core.model.common.GeometryInfo;
@@ -33,7 +32,6 @@ import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 
 import java.nio.file.Path;
-import java.util.ServiceLoader;
 
 public class ReadingADE {
 
@@ -42,10 +40,8 @@ public class ReadingADE {
 
         ADERegistry registry = ADERegistry.getInstance();
 
-        log.print("Loading ADEs using a service loader");
-        for (ADE ade : ServiceLoader.load(ADE.class)) {
-            registry.loadADE(ade);
-        }
+        log.print("Loading ADEs through the ADE registry");
+        registry.loadADEs();
 
         registry.getADEs(CityGMLADE.class).stream()
                 .flatMap(ade -> ade.getADEModules().stream())

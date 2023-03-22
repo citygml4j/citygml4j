@@ -8,9 +8,6 @@ module org.citygml4j.samples {
     exports implementing_ades.adapter to org.xmlobjects;
     exports implementing_ades.walker to org.citygml4j.core;
 
-    uses org.citygml4j.core.ade.ADE;
-    provides org.citygml4j.core.ade.ADE with implementing_ades.TestADE;
-
     opens implementing_ades.model to org.citygml4j.core, org.xmlobjects.gml, org.xmlobjects;
     opens processing_citygml to org.citygml4j.core;
 }
