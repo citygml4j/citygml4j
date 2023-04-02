@@ -26,9 +26,12 @@ import org.citygml4j.core.model.core.ClosureSurface;
 import org.citygml4j.core.model.generics.GenericThematicSurface;
 import org.citygml4j.core.visitor.ObjectVisitor;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.model.ChildList;
+
+import java.util.List;
 
 public class ClearanceSpace extends AbstractUnoccupiedSpace {
-    private Code classifier;
+    private List<Code> classifiers;
 
     @Override
     public boolean isValidBoundary(Class<? extends AbstractSpaceBoundary> type) {
@@ -37,12 +40,19 @@ public class ClearanceSpace extends AbstractUnoccupiedSpace {
                 || ADEObject.class.isAssignableFrom(type);
     }
 
-    public Code getClassifier() {
-        return classifier;
+    public List<Code> getClassifiers() {
+        if (classifiers == null)
+            classifiers = new ChildList<>(this);
+
+        return classifiers;
     }
 
-    public void setClassifier(Code classifier) {
-        this.classifier = asChild(classifier);
+    public boolean isSetClassifiers() {
+        return classifiers != null && !classifiers.isEmpty();
+    }
+
+    public void setClassifiers(List<Code> classifiers) {
+        this.classifiers = asChild(classifiers);
     }
 
     @Override

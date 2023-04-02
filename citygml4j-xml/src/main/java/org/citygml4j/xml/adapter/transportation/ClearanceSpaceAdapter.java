@@ -29,6 +29,7 @@ import org.citygml4j.xml.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.xmlobjects.annotation.XMLElement;
 import org.xmlobjects.builder.ObjectBuildException;
 import org.xmlobjects.gml.adapter.basictypes.CodeAdapter;
+import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -53,7 +54,7 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
         if (CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "class":
-                    object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
+                    object.getClassifiers().add(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "adeOfClearanceSpace":
                     ADEBuilderHelper.addADEProperty(object, GenericADEOfClearanceSpace::of, reader);
@@ -73,8 +74,10 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
     public void writeChildElements(ClearanceSpace object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        if (object.getClassifier() != null)
-            writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
+        if (object.isSetClassifiers()) {
+            for (Code classifier : object.getClassifiers())
+                writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), classifier, CodeAdapter.class, namespaces);
+        }
 
         for (ADEOfClearanceSpace property : object.getADEProperties(ADEOfClearanceSpace.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfClearanceSpace"), property, namespaces, writer);
