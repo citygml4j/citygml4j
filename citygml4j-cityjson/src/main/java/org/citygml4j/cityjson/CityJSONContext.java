@@ -39,7 +39,6 @@ import org.citygml4j.core.ade.ADERegistry;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -244,24 +243,22 @@ public class CityJSONContext {
         for (Method method : clazz.getDeclaredMethods()) {
             if (!method.isSynthetic() && Modifier.isPublic(method.getModifiers())) {
                 Class<?> candidateType = null;
-                Type[] parameters;
+                Class<?>[] parameters;
 
                 switch (method.getName()) {
                     case "createType":
-                        parameters = method.getGenericParameterTypes();
+                        parameters = method.getParameterTypes();
                         if (parameters.length == 2
-                                && parameters[0] instanceof Class<?>
                                 && parameters[1] == CityJSONVersion.class) {
-                            candidateType = (Class<?>) parameters[0];
+                            candidateType = parameters[0];
                         }
                         break;
                     case "writeObject":
-                        parameters = method.getGenericParameterTypes();
+                        parameters = method.getParameterTypes();
                         if (parameters.length == 3
-                                && parameters[0] instanceof Class<?>
                                 && parameters[1] == ObjectNode.class
                                 && parameters[2] == CityJSONSerializerHelper.class) {
-                            return (Class<?>) parameters[0];
+                            return parameters[0];
                         }
                         break;
                 }
@@ -277,12 +274,12 @@ public class CityJSONContext {
             }
         }
 
-        if (objectType == null) {
+        if (objectType != null) {
+            return objectType;
+        } else {
             throw new CityJSONContextException("The serializer " + serializer.getClass().getName() + " must " +
                     "implement at least one of the methods createType and writeObject.");
         }
-
-        return objectType;
     }
 
     void loadExtension(Extension extension) throws ADEException {
