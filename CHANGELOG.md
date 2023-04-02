@@ -16,6 +16,7 @@
 - Updated xml-objects to 1.0.2.
 
 ### Fixed
+- **Breaking:** Fixed the multiplicity of the `class` attribute of `ClearanceSpace`.
 - Fixed integer overflow leading to incorrect coordinates when using `"transform"` for CityJSON output files.
   ([citygml-tools #31](https://github.com/citygml4j/citygml-tools/issues/31))
 - Fixed mapping of CityGML 2.0 `ExternalReference` elements onto the internal data model.
