@@ -1,19 +1,21 @@
 # Changelog
 
 ## [Unreleased]
+
+## [3.0.0] - 2023-04-04
 ### Added
 - Added support for providing an XML factory when creating an instance of `CityGMLInputFactory`,
   `CityGMLSchemaHandler`, and `TransformerPipeline`.
 
 ### Changed
-- Removed the `@SingletonADEProperty` annotation. A singleton is now automatically created in case the
+- **Breaking:** Removed the `@SingletonADEProperty` annotation. A singleton is now automatically created in case the
   `ObjectBuilder` for the ADE property uses the `@XMLElements` annotation with more than one target XML element.
 - The `module-info.java` of the `citygml-xml` module now uses `requires transitive` for implied readability
   of the `citygml-core` module.
 - Updated jackson-databind to 2.14.2.
-- Updated gml-objects to 1.0.2.
-- Updated xal-objects to 1.0.2.
-- Updated xml-objects to 1.0.2.
+- Updated gml-objects to 1.0.3.
+- Updated xal-objects to 1.0.3.
+- Updated xml-objects to 1.0.3.
 
 ### Fixed
 - **Breaking:** Fixed the multiplicity of the `class` attribute of `ClearanceSpace`.
@@ -54,6 +56,7 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.0.0-rc.5..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.0.0..HEAD
+[3.0.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0
 [3.0.0-rc.5]: https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0-rc.5
 [Before 3.0.0]: https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md
