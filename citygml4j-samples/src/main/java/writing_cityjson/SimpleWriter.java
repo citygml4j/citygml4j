@@ -53,7 +53,7 @@ public class SimpleWriter {
 
         CityJSONContext cityJSONContext = CityJSONContext.newInstance();
 
-        CityJSONVersion version = CityJSONVersion.v1_0;
+        CityJSONVersion version = CityJSONVersion.v1_1;
         CityJSONOutputFactory out = cityJSONContext.createCityJSONOutputFactory(version)
                 .withVertexPrecision(3)
                 .withTextureVertexPrecision(5)
