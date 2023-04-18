@@ -26,6 +26,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.model.common.LocalProperties;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
@@ -50,6 +51,7 @@ public class CityGMLChunk {
     private StAXStream2SAX mapper;
     private QName lastElement;
     private int depth = 0;
+    private LocalProperties localProperties;
 
     CityGMLChunk(QName firstElement, XMLReaderFactory factory, CityGMLChunk parent, ReferenceResolver resolver) {
         this.firstElement = lastElement = firstElement;
@@ -168,6 +170,21 @@ public class CityGMLChunk {
         } finally {
             pipeline.reset();
         }
+    }
+
+    public boolean hasLocalProperties() {
+        return localProperties != null && !localProperties.isEmpty();
+    }
+
+    public LocalProperties getLocalProperties() {
+        if (localProperties == null)
+            localProperties = new LocalProperties();
+
+        return localProperties;
+    }
+
+    public void setLocalProperties(LocalProperties localProperties) {
+        this.localProperties = localProperties;
     }
 
     private static class TransformerBuffer extends SAXBuffer {
