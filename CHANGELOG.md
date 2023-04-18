@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Added possibility to store local properties for `CityGMLChunk` objects.
 
 ## [3.0.0] - 2023-04-04
 ### Added
