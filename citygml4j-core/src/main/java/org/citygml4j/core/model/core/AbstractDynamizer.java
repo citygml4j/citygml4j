@@ -19,12 +19,5 @@
 
 package org.citygml4j.core.model.core;
 
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
-
 public abstract class AbstractDynamizer extends AbstractFeatureWithLifespan {
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-    }
 }

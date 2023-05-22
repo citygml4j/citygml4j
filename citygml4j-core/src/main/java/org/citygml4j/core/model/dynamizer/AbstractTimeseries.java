@@ -20,9 +20,7 @@
 package org.citygml4j.core.model.dynamizer;
 
 import org.citygml4j.core.model.core.AbstractFeature;
-import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.temporal.TimePosition;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 
 public abstract class AbstractTimeseries extends AbstractFeature {
     private TimePosition firstTimestamp;
@@ -42,9 +40,5 @@ public abstract class AbstractTimeseries extends AbstractFeature {
 
     public void setLastTimestamp(TimePosition lastTimestamp) {
         this.lastTimestamp = asChild(lastTimestamp);
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
     }
 }

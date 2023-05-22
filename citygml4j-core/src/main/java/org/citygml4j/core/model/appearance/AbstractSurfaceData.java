@@ -20,8 +20,6 @@
 package org.citygml4j.core.model.appearance;
 
 import org.citygml4j.core.model.core.AbstractFeature;
-import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.util.EnvelopeOptions;
 
 public abstract class AbstractSurfaceData extends AbstractFeature {
     private Boolean isFront;
@@ -36,9 +34,5 @@ public abstract class AbstractSurfaceData extends AbstractFeature {
 
     public void setIsFront(Boolean front) {
         isFront = front;
-    }
-
-    @Override
-    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
     }
 }
