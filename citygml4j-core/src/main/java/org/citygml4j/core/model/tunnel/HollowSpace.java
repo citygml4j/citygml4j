@@ -141,6 +141,22 @@ public class HollowSpace extends AbstractUnoccupiedSpace implements StandardObje
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
+        if (tunnelFurniture != null) {
+            for (TunnelFurnitureProperty property : tunnelFurniture) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (tunnelInstallations != null) {
+            for (TunnelInstallationProperty property : tunnelInstallations) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfHollowSpace properties = getDeprecatedProperties();
 

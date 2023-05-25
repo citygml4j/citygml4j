@@ -23,6 +23,8 @@ import org.citygml4j.core.model.construction.ElevationProperty;
 import org.citygml4j.core.model.core.AbstractLogicalSpace;
 import org.citygml4j.core.model.core.StandardObjectClassifier;
 import org.xmlobjects.gml.model.basictypes.Code;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -165,5 +167,42 @@ public abstract class AbstractBuildingSubdivision extends AbstractLogicalSpace i
 
     public void setBuildingRooms(List<BuildingRoomProperty> buildingRooms) {
         this.buildingRooms = asChild(buildingRooms);
+    }
+
+    @Override
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (buildingConstructiveElements != null) {
+            for (BuildingConstructiveElementProperty property : buildingConstructiveElements) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (buildingFurniture != null) {
+            for (BuildingFurnitureProperty property : buildingFurniture) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (buildingInstallations != null) {
+            for (BuildingInstallationProperty property : buildingInstallations) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (buildingRooms != null) {
+            for (BuildingRoomProperty property : buildingRooms) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
     }
 }

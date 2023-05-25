@@ -20,6 +20,8 @@
 package org.citygml4j.core.model.construction;
 
 import org.citygml4j.core.model.core.AbstractThematicSurface;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -40,5 +42,18 @@ public abstract class AbstractConstructionSurface extends AbstractThematicSurfac
 
     public void setFillingSurfaces(List<AbstractFillingSurfaceProperty> fillingSurfaces) {
         this.fillingSurfaces = asChild(fillingSurfaces);
+    }
+
+    @Override
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (fillingSurfaces != null) {
+            for (AbstractFillingSurfaceProperty property : fillingSurfaces) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
     }
 }

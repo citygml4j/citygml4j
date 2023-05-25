@@ -21,7 +21,6 @@ package org.citygml4j.core.model.bridge;
 
 import org.citygml4j.core.model.common.GeometryInfo;
 import org.citygml4j.core.model.construction.AbstractConstruction;
-import org.citygml4j.core.model.construction.RelationToConstruction;
 import org.citygml4j.core.model.core.AddressProperty;
 import org.citygml4j.core.model.core.StandardObjectClassifier;
 import org.citygml4j.core.model.deprecated.bridge.DeprecatedPropertiesOfAbstractBridge;
@@ -192,15 +191,33 @@ public abstract class AbstractBridge extends AbstractConstruction implements Sta
 
         if (bridgeConstructiveElements != null) {
             for (BridgeConstructiveElementProperty property : bridgeConstructiveElements) {
-                if (property.getObject() != null)
+                if (property.getObject() != null) {
                     envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 
         if (bridgeInstallations != null) {
             for (BridgeInstallationProperty property : bridgeInstallations) {
-                if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                if (property.getObject() != null) {
                     envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (bridgeRooms != null) {
+            for (BridgeRoomProperty property : bridgeRooms) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (bridgeFurniture != null) {
+            for (BridgeFurnitureProperty property : bridgeFurniture) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 

@@ -157,6 +157,22 @@ public class BuildingRoom extends AbstractUnoccupiedSpace implements StandardObj
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
+        if (buildingFurniture != null) {
+            for (BuildingFurnitureProperty property : buildingFurniture) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (buildingInstallations != null) {
+            for (BuildingInstallationProperty property : buildingInstallations) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBuildingRoom properties = getDeprecatedProperties();
 

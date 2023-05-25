@@ -21,7 +21,6 @@ package org.citygml4j.core.model.building;
 
 import org.citygml4j.core.model.common.GeometryInfo;
 import org.citygml4j.core.model.construction.AbstractConstruction;
-import org.citygml4j.core.model.construction.RelationToConstruction;
 import org.citygml4j.core.model.core.AddressProperty;
 import org.citygml4j.core.model.core.StandardObjectClassifier;
 import org.citygml4j.core.model.deprecated.building.DeprecatedPropertiesOfAbstractBuilding;
@@ -241,22 +240,41 @@ public abstract class AbstractBuilding extends AbstractConstruction implements S
 
         if (buildingConstructiveElements != null) {
             for (BuildingConstructiveElementProperty property : buildingConstructiveElements) {
-                if (property.getObject() != null)
+                if (property.getObject() != null) {
                     envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 
         if (buildingInstallations != null) {
             for (BuildingInstallationProperty property : buildingInstallations) {
-                if (property.getObject() != null && property.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                if (property.getObject() != null) {
                     envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (buildingRooms != null) {
+            for (BuildingRoomProperty property : buildingRooms) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (buildingFurniture != null) {
+            for (BuildingFurnitureProperty property : buildingFurniture) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 
         if (buildingSubdivisions != null) {
             for (AbstractBuildingSubdivisionProperty property : buildingSubdivisions) {
-                if (property.getObject() != null)
+                if (property.getObject() != null) {
                     envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 

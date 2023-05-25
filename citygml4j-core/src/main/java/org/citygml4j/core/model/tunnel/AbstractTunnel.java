@@ -21,7 +21,6 @@ package org.citygml4j.core.model.tunnel;
 
 import org.citygml4j.core.model.common.GeometryInfo;
 import org.citygml4j.core.model.construction.AbstractConstruction;
-import org.citygml4j.core.model.construction.RelationToConstruction;
 import org.citygml4j.core.model.core.StandardObjectClassifier;
 import org.citygml4j.core.model.deprecated.tunnel.DeprecatedPropertiesOfAbstractTunnel;
 import org.xmlobjects.gml.model.basictypes.Code;
@@ -162,15 +161,33 @@ public abstract class AbstractTunnel extends AbstractConstruction implements Sta
 
         if (tunnelConstructiveElements != null) {
             for (TunnelConstructiveElementProperty member : tunnelConstructiveElements) {
-                if (member.getObject() != null)
+                if (member.getObject() != null) {
                     envelope.include(member.getObject().computeEnvelope(options));
+                }
             }
         }
 
         if (tunnelInstallations != null) {
             for (TunnelInstallationProperty member : tunnelInstallations) {
-                if (member.getObject() != null && member.getObject().getRelationToConstruction() != RelationToConstruction.INSIDE)
+                if (member.getObject() != null) {
                     envelope.include(member.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (hollowSpaces != null) {
+            for (HollowSpaceProperty property : hollowSpaces) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (tunnelFurniture != null) {
+            for (TunnelFurnitureProperty property : tunnelFurniture) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 

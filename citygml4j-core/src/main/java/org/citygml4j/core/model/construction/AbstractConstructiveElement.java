@@ -24,6 +24,8 @@ import org.citygml4j.core.model.core.AbstractOccupiedSpace;
 import org.citygml4j.core.model.core.AbstractSpaceBoundary;
 import org.citygml4j.core.model.core.ClosureSurface;
 import org.citygml4j.core.model.generics.GenericThematicSurface;
+import org.xmlobjects.gml.model.geometry.Envelope;
+import org.xmlobjects.gml.util.EnvelopeOptions;
 import org.xmlobjects.model.ChildList;
 
 import java.util.List;
@@ -65,5 +67,18 @@ public abstract class AbstractConstructiveElement extends AbstractOccupiedSpace 
 
     public void setFillings(List<AbstractFillingElementProperty> fillings) {
         this.fillings = asChild(fillings);
+    }
+
+    @Override
+    protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
+        super.updateEnvelope(envelope, options);
+
+        if (fillings != null) {
+            for (AbstractFillingElementProperty property : fillings) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
     }
 }

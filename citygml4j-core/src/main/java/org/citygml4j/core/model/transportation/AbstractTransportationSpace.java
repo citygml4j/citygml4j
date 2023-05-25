@@ -148,15 +148,33 @@ public abstract class AbstractTransportationSpace extends AbstractUnoccupiedSpac
 
         if (trafficSpaces != null) {
             for (TrafficSpaceProperty property : trafficSpaces) {
-                if (property.getObject() != null)
+                if (property.getObject() != null) {
                     envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 
         if (auxiliaryTrafficSpaces != null) {
             for (AuxiliaryTrafficSpaceProperty property : auxiliaryTrafficSpaces) {
-                if (property.getObject() != null)
+                if (property.getObject() != null) {
                     envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (holes != null) {
+            for (HoleProperty property : holes) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (markings != null) {
+            for (MarkingProperty property : markings) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
             }
         }
 

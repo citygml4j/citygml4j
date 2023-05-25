@@ -141,6 +141,22 @@ public class BridgeRoom extends AbstractUnoccupiedSpace implements StandardObjec
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
         super.updateEnvelope(envelope, options);
 
+        if (bridgeFurniture != null) {
+            for (BridgeFurnitureProperty property : bridgeFurniture) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
+        if (bridgeInstallations != null) {
+            for (BridgeInstallationProperty property : bridgeInstallations) {
+                if (property.getObject() != null) {
+                    envelope.include(property.getObject().computeEnvelope(options));
+                }
+            }
+        }
+
         if (hasDeprecatedProperties()) {
             DeprecatedPropertiesOfBridgeRoom properties = getDeprecatedProperties();
 
