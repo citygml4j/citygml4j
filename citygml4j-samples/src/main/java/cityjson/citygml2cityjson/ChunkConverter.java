@@ -2,7 +2,7 @@
  * citygml4j - The Open Source Java API for CityGML
  * https://github.com/citygml4j
  *
- * Copyright 2013-2022 Claus Nagel <claus.nagel@gmail.com>
+ * Copyright 2013-2023 Claus Nagel <claus.nagel@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class ChunkConverter {
 		
 		/*
 		 * This example demonstrates how to write a CityJSON file chunk-wise.
-		 * Note that the chunk-wise approach faces some limitations in CityJSON v0.9:
+		 * Note that the chunk-wise approach faces some limitations in CityJSON v1.0:
 		 * 
 		 * Firstly, some CityJSON elements like the "vertices" and "vertices-texture"
 		 * arrays are global. Thus, even if we write city objects chunk-wise, these
