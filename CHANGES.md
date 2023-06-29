@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+### 2.12.3 - tba
+
+##### Fixes
+* Fixed missing template geometries when converting CityGML to CityJSON chunk-wise.
+
 ### 2.12.2 - 2022-10-13
 
 ##### Fixes
