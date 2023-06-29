@@ -26,19 +26,10 @@ import org.citygml4j.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.cityjson.feature.AddressType;
 import org.citygml4j.cityjson.feature.Attributes;
 import org.citygml4j.cityjson.feature.CityObjectGroupType;
-import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
-import org.citygml4j.cityjson.geometry.GeometryInstanceType;
-import org.citygml4j.cityjson.geometry.GeometryTypeName;
-import org.citygml4j.cityjson.geometry.MultiPointType;
-import org.citygml4j.cityjson.geometry.SemanticsType;
+import org.citygml4j.cityjson.geometry.*;
 import org.citygml4j.geometry.Matrix;
-import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citygml4j.model.citygml.core.AbstractSite;
 import org.citygml4j.model.citygml.core.Address;
-import org.citygml4j.model.citygml.core.CityModel;
-import org.citygml4j.model.citygml.core.CityObjectMember;
-import org.citygml4j.model.citygml.core.ImplicitGeometry;
-import org.citygml4j.model.citygml.core.ImplicitRepresentationProperty;
+import org.citygml4j.model.citygml.core.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.feature.AbstractFeature;
@@ -48,11 +39,7 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 import org.citygml4j.model.gml.geometry.primitives.DirectPosition;
 import org.citygml4j.model.gml.geometry.primitives.Point;
-import org.citygml4j.model.xal.CountryName;
-import org.citygml4j.model.xal.LocalityName;
-import org.citygml4j.model.xal.PostalCodeNumber;
-import org.citygml4j.model.xal.ThoroughfareName;
-import org.citygml4j.model.xal.ThoroughfareNumber;
+import org.citygml4j.model.xal.*;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 import org.citygml4j.util.gmlid.GMLIdManager;
 import org.citygml4j.util.walker.XALWalker;
@@ -170,7 +157,7 @@ public class CoreMarshaller {
 	}
 
 	public GeometryInstanceType marshalImplicitGeometry(ImplicitGeometry src, int lod) {
-		// get relative geometry
+		String templateId = null;
 		AbstractGeometry relativeGeometry = null;
 
 		GeometryProperty<?> property = src.getRelativeGMLGeometry();
@@ -179,25 +166,26 @@ public class CoreMarshaller {
 				relativeGeometry = property.getGeometry();
 			} else if (property.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK)) {
 				relativeGeometry = (AbstractGeometry) property.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK);
+			} else if (property.getHref() != null) {
+				templateId = property.getHref().replaceAll("^.*?#+?", "");
 			}
 		}
 
-		if (relativeGeometry == null) {
+		if (relativeGeometry != null) {
+			templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : gmlIdManager.generateUUID();
+		} else if (templateId == null) {
 			return null;
 		}
 
-		String templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : gmlIdManager.generateUUID();
-		Integer sequenceNumber = templateIds.get(templateId);
-		if (sequenceNumber == null) {
-			int tmp = templatesIndex.getAndIncrement();
-			sequenceNumber = templateIds.putIfAbsent(templateId, tmp);
-			if (sequenceNumber == null) {
-				sequenceNumber = tmp;
-
-				// marshal template geometry
-				AbstractGeometryObjectType template = implicit.marshalGeometryProperty(property);
-				template.setLod(lod);
-				templates.put(sequenceNumber, template);
+		Integer sequenceNumber = templateIds.computeIfAbsent(templateId, v -> templatesIndex.getAndIncrement());
+		if (relativeGeometry != null) {
+			synchronized (this) {
+				if (!templates.containsKey(sequenceNumber)) {
+					// marshal template geometry
+					AbstractGeometryObjectType template = implicit.marshalGeometryProperty(property);
+					template.setLod(lod);
+					templates.put(sequenceNumber, template);
+				}
 			}
 		}
 
