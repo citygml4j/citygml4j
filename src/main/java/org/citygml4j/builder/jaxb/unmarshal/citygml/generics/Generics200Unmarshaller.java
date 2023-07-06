@@ -46,6 +46,7 @@ import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import javax.xml.bind.JAXBElement;
+import java.time.LocalDate;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Generics200Unmarshaller {
@@ -170,7 +171,7 @@ public class Generics200Unmarshaller {
 		unmarshalAbstractGenericAttribute(src, dest);
 
 		if (src.isSetValue())
-			dest.setValue(src.getValue().toGregorianCalendar().toZonedDateTime().toLocalDate());
+			dest.setValue(LocalDate.of(src.getValue().getYear(), src.getValue().getMonth(), src.getValue().getDay()));
 	}
 
 	public DateAttribute unmarshalDateAttribute(DateAttributeType src) {
