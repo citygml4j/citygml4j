@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+### 2.12.4 - 2023-07-16
+
+##### Fixes
+* Fixed edge case errors when unmarshalling of generic date attributes. [importer-exporter #280](https://github.com/3dcitydb/importer-exporter/issues/280), [#40](https://github.com/citygml4j/citygml4j/pull/40)
+
 ### 2.12.3 - 2023-06-29
 
 ##### Fixes
