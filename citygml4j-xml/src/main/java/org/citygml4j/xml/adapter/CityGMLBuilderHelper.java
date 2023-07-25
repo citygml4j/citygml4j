@@ -142,13 +142,32 @@ public class CityGMLBuilderHelper {
                 MultiCurve multiCurve = new MultiCurve();
                 multiCurve.getCurveMember().add(new CurveProperty((AbstractCurve) geometry));
                 return object.setMultiCurve(lod, new MultiCurveProperty(multiCurve));
+            } else if (lod == 0 && geometry instanceof Point) {
+                object.setLod0Point(new PointProperty((Point) geometry));
+                return true;
+            } else if (lod == 0 && geometry instanceof MultiPoint) {
+                MultiPoint multiPoint = (MultiPoint) geometry;
+                PointProperty pointProperty = null;
+                if (multiPoint.isSetPointMember() && multiPoint.getPointMember().size() == 1) {
+                    pointProperty = multiPoint.getPointMember().get(0);
+                } else if (multiPoint.getPointMembers() != null
+                        && multiPoint.getPointMembers().isSetObjects()
+                        && multiPoint.getPointMembers().getObjects().size() == 1) {
+                    pointProperty = new PointProperty(multiPoint.getPointMembers().getObjects().get(0));
+                }
+
+                if (pointProperty != null) {
+                    object.setLod0Point(pointProperty);
+                    return true;
+                }
             } else if (geometry instanceof MultiSolid) {
                 MultiSolid multiSolid = (MultiSolid) geometry;
-
                 SolidProperty solidProperty = null;
-                if (multiSolid.isSetSolidMember()) {
+                if (multiSolid.isSetSolidMember() && multiSolid.getSolidMember().size() == 1) {
                     solidProperty = multiSolid.getSolidMember().get(0);
-                } else if (multiSolid.getSolidMembers() != null && multiSolid.getSolidMembers().isSetObjects()) {
+                } else if (multiSolid.getSolidMembers() != null
+                        && multiSolid.getSolidMembers().isSetObjects()
+                        && multiSolid.getSolidMembers().getObjects().size() == 1) {
                     solidProperty = new SolidProperty(multiSolid.getSolidMembers().getObjects().get(0));
                 }
 
