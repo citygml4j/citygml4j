@@ -138,7 +138,9 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
             } else if (properties.size() == 1) {
                 dest = properties.get(0);
             } else {
-                dest = new SurfaceProperty(new CompositeSurface(properties));
+                CompositeSurface compositeSurface = new CompositeSurface(properties);
+                compositeSurface.setId(multiSurface.getId());
+                dest = new SurfaceProperty(compositeSurface);
             }
         } else {
             dest = new SurfaceProperty();
