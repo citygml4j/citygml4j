@@ -1,7 +1,12 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Fixed CityGML writer to output the `pointCloud` property of `AbstractPhysicalSpace` objects.
+- Fixed the `computeEnvelope` method to also include interior nested features.
+
 ### Added
+- Added mapping of CityGML 2.0 LoD0 point geometries to the `lod0Point` property of `AbstractSpace`.
 - Added possibility to store local properties for `CityGMLChunk` objects.
 
 ## [3.0.0] - 2023-04-04
