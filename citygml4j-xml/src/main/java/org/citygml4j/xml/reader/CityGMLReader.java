@@ -48,6 +48,10 @@ public abstract class CityGMLReader implements AutoCloseable {
         return reader.getBaseURI();
     }
 
+    public String getEncoding() {
+        return reader.getEncoding();
+    }
+
     public QName getName() {
         try {
             return reader.getName();
