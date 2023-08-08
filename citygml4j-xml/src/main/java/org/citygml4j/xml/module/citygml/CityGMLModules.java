@@ -143,7 +143,7 @@ public class CityGMLModules {
     }
 
     public static Module getModuleFor(String namespaceURI) {
-        for (CityGMLModules context : Arrays.asList(v3_0, v2_0, v1_0)) {
+        for (CityGMLModules context : all()) {
             Module module = context.getModule(namespaceURI);
             if (module != null) {
                 return module;
