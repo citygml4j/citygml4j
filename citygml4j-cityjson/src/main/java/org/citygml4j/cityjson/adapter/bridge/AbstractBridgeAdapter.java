@@ -66,6 +66,15 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
             object.setIsMovable(isMovable.asBoolean());
         }
 
+        JsonNode address = attributes.consume("address");
+        if (address.isArray()) {
+            for (JsonNode element : address) {
+                object.getAddresses().add(new AddressProperty(helper.getObjectUsingBuilder(element, AddressAdapter.class)));
+            }
+        } else if (address.isObject()) {
+            object.getAddresses().add(new AddressProperty(helper.getObjectUsingBuilder(address, AddressAdapter.class)));
+        }
+
         Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
         while (children.hasNext()) {
             String child = children.next().asText();

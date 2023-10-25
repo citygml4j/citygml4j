@@ -53,6 +53,15 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
     public void buildObject(BuildingUnit object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         super.buildObject(object, attributes, node, parent, helper);
 
+        JsonNode address = attributes.consume("address");
+        if (address.isArray()) {
+            for (JsonNode element : address) {
+                object.getAddresses().add(new AddressProperty(helper.getObjectUsingBuilder(element, AddressAdapter.class)));
+            }
+        } else if (address.isObject()) {
+            object.getAddresses().add(new AddressProperty(helper.getObjectUsingBuilder(address, AddressAdapter.class)));
+        }
+
         Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
         while (children.hasNext()) {
             String child = children.next().asText();
