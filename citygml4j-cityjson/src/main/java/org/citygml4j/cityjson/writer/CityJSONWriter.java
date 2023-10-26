@@ -28,15 +28,26 @@ import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
+import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     private String indent;
 
     CityJSONWriter(JsonGenerator writer) {
         super(writer);
+    }
+
+    public CityJSONWriter withGlobalTemplateGeometry(AbstractGeometry geometry) {
+        Objects.requireNonNull(geometry, "The template geometry must not be null.");
+        if (geometry.getId() != null) {
+            resolveScopes.push(geometry);
+        }
+
+        return this;
     }
 
     public String getIndent() {
@@ -117,8 +128,8 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
         try {
             writer.writeEndObject();
             writeVertices(true);
-            writeExtensions();
             writeMetadata();
+            writeExtensions();
             writeAppearance();
             writeTemplates();
             writeExtraRootProperties();

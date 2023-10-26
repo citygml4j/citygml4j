@@ -91,6 +91,30 @@ public class GeometrySerializer {
         }
     }
 
+    public TemplateInfo addTemplateGeometry(AbstractGeometry geometry, Number lod) {
+        if (geometry != null) {
+            TemplateInfo templateInfo = templates.get(helper.getOrCreateId(geometry));
+            if (templateInfo == null) {
+                ObjectNode template = createGeometry(geometry, lod, templatesVerticesBuilder, EnumSet.allOf(GeometryType.class));
+                templateInfo = template != null ?
+                        new TemplateInfo(template, templates.size()) :
+                        TemplateInfo.NULL_TEMPLATE;
+
+                templates.put(geometry.getId(), templateInfo);
+            }
+
+            return templateInfo;
+        } else {
+            return TemplateInfo.NULL_TEMPLATE;
+        }
+    }
+
+    public void addTemplateInfo(String templateId, TemplateInfo templateInfo) {
+        if (templateId != null) {
+            templates.put(templateId, templateInfo != null ? templateInfo : TemplateInfo.NULL_TEMPLATE);
+        }
+    }
+
     public boolean hasTemplates() {
         return !templates.isEmpty();
     }
@@ -118,16 +142,7 @@ public class GeometrySerializer {
 
     private void buildTemplateGeometry(ImplicitGeometry geometry, Number lod, ObjectNode object, EnumSet<GeometryType> allowedTypes) {
         AbstractGeometry relativeGeometry = geometry.getRelativeGeometry().getObject();
-        TemplateInfo templateInfo = templates.get(helper.getOrCreateId(relativeGeometry));
-        if (templateInfo == null) {
-            ObjectNode template = createGeometry(relativeGeometry, lod, templatesVerticesBuilder, EnumSet.allOf(GeometryType.class));
-            templateInfo = template != null ?
-                    new TemplateInfo(template, templates.size()) :
-                    TemplateInfo.NULL_TEMPLATE;
-
-            templates.put(relativeGeometry.getId(), templateInfo);
-        }
-
+        TemplateInfo templateInfo = addTemplateGeometry(relativeGeometry, lod);
         if (templateInfo == TemplateInfo.NULL_TEMPLATE) {
             return;
         }

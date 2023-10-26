@@ -42,4 +42,8 @@ public class Util {
     public static Path getJSONOutputFile() throws IOException {
         return getOutputFile("out.json");
     }
+
+    public static Path getJSONLOutputFile() throws IOException {
+        return getOutputFile("out.jsonl");
+    }
 }

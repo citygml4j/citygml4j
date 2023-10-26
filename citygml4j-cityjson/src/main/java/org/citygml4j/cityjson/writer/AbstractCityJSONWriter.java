@@ -45,7 +45,6 @@ import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.ADEOfCityModel;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.citygml4j.core.util.reference.DefaultReferenceResolver;
-import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.gml.visitor.Visitable;
 
@@ -94,16 +93,6 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     @SuppressWarnings("unchecked")
     public T withGlobalAppearance(Appearance appearance) {
         resolveScopes.push(Objects.requireNonNull(appearance, "The appearance must not be null."));
-        return (T) this;
-    }
-
-    @SuppressWarnings("unchecked")
-    public T withGlobalTemplateGeometry(AbstractGeometry geometry) {
-        Objects.requireNonNull(geometry, "The template geometry must not be null.");
-        if (geometry.getId() != null) {
-            resolveScopes.push(geometry);
-        }
-
         return (T) this;
     }
 
@@ -180,7 +169,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 helper.getMetadata().setGeographicalExtent(helper.computeExtent(vertices));
             }
 
-            if (helper.getVersion() != CityJSONVersion.v1_0 || helper.isApplyTransformation()) {
+            if (helper.isApplyTransformation()) {
                 Transform transform = geometrySerializer.getVerticesBuilder().transform();
                 if (writeTransform) {
                     writeTransform(transform);

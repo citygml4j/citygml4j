@@ -294,18 +294,19 @@ public class CityJSONOutputFactory {
 
     private <T extends AbstractCityJSONWriter<?>> T initialize(T writer) {
         boolean writeCityJSONFeature = writer instanceof CityJSONFeatureWriter;
+        CityJSONVersion targetVersion = writeCityJSONFeature ?
+                CityJSONVersion.max(version, CityJSONVersion.v1_1) :
+                version;
 
-        CityJSONSerializerHelper helper = new CityJSONSerializerHelper(writer,
-                writeCityJSONFeature ? CityJSONVersion.max(version, CityJSONVersion.v1_1) : version,
-                objectMapper, context);
+        CityJSONSerializerHelper helper = new CityJSONSerializerHelper(writer, targetVersion, objectMapper, context);
 
         helper.setProperties(properties);
-        helper.setApplyTransformation(writeCityJSONFeature || applyTransformation);
+        helper.setApplyTransformation(targetVersion != CityJSONVersion.v1_0 || applyTransformation);
         helper.setComputeCityModelExtent(!writeCityJSONFeature && computeCityModelExtent);
         helper.setWriteGenericAttributeTypes(!writeCityJSONFeature && writeGenericAttributeTypes);
 
         GeometrySerializer geometrySerializer = helper.getGeometrySerializer();
-        geometrySerializer.setTransformTemplateGeometries(writeCityJSONFeature || transformTemplateGeometries);
+        geometrySerializer.setTransformTemplateGeometries(transformTemplateGeometries);
 
         if (vertexPrecision != GeometrySerializer.DEFAULT_VERTEX_PRECISION) {
             geometrySerializer.getVerticesBuilder().setPrecision(vertexPrecision);

@@ -23,27 +23,38 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
+import org.citygml4j.cityjson.adapter.geometry.serializer.TemplateInfo;
 import org.citygml4j.cityjson.adapter.geometry.serializer.VerticesBuilder;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.geometry.Transform;
 import org.citygml4j.cityjson.model.geometry.Vertex;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
+import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatureWriter> {
     private final Deque<ObjectNode> topLevelObjects = new ArrayDeque<>();
+    private final Map<String, TemplateInfo> templates = new HashMap<>();
+    private final Map<String, Number> templateLods = new HashMap<>();
 
     CityJSONFeatureWriter(JsonGenerator writer) {
         super(writer);
         writer.setPrettyPrinter(new MinimalPrettyPrinter("\n"));
+    }
+
+    public CityJSONFeatureWriter withGlobalTemplateGeometry(AbstractGeometry geometry, Number lod) {
+        Objects.requireNonNull(geometry, "The template geometry must not be null.");
+        if (geometry.getId() != null) {
+            resolveScopes.push(geometry);
+            templateLods.put(geometry.getId(), lod != null ? lod : 0);
+        }
+
+        return this;
     }
 
     public boolean isSetExternalExtension(String name) {
@@ -83,15 +94,22 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             writer.writeEndArray();
 
             writeTransform(computeTransform(feature));
-            writeExtensions();
             getAndSetReferenceSystem(feature);
             writeMetadata();
+            writeExtensions();
+
+            if (!helper.getGeometrySerializer().isTransformTemplateGeometries()) {
+                processGlobalTemplates();
+                writeAppearance();
+                writeTemplates();
+            }
 
             writer.writeEndObject();
         } catch (IOException e) {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             state = State.DOCUMENT_STARTED;
+            helper.reset();
         }
     }
 
@@ -103,6 +121,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
                 writeStartDocument(feature);
         }
 
+        templates.forEach(helper.getGeometrySerializer()::addTemplateInfo);
         super.writeCityObject(feature);
     }
 
@@ -172,6 +191,17 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             super.close();
         } finally {
             state = State.CLOSED;
+        }
+    }
+
+    private void processGlobalTemplates() {
+        referenceResolver.resolveReferences(resolveScopes);
+        for (Visitable visitable : resolveScopes) {
+            if (visitable instanceof AbstractGeometry) {
+                AbstractGeometry geometry = (AbstractGeometry) visitable;
+                templates.put(geometry.getId(), helper.getGeometrySerializer()
+                        .addTemplateGeometry(geometry, templateLods.getOrDefault(geometry.getId(), 0)));
+            }
         }
     }
 
