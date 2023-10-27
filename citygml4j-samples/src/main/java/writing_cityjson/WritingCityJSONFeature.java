@@ -58,9 +58,10 @@ public class WritingCityJSONFeature {
         log.print("Reading the file " + file + " chunk-wise by top-level features");
 
         CityJSONContext cityJSONContext = CityJSONContext.newInstance();
-        CityJSONOutputFactory out = cityJSONContext.createCityJSONOutputFactory();
+        CityJSONOutputFactory out = cityJSONContext.createCityJSONOutputFactory()
+                .transformTemplateGeometries(true);
 
-        Path output = Util.getJSONOutputFile();
+        Path output = Util.getJSONLOutputFile();
         log.print("Creating a CityJSONFeature writer for the file " + output);
         log.print("Every top-level feature is written as separate \"CityJSONFeature\" object on a " +
                 "new line of the output file");
