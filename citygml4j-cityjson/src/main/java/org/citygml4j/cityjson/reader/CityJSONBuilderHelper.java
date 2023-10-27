@@ -25,13 +25,13 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.adapter.Fields;
-import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.adapter.core.AbstractFeatureAdapter;
 import org.citygml4j.cityjson.adapter.core.AbstractSemanticObjectAdapter;
 import org.citygml4j.cityjson.adapter.core.AbstractSpaceAdapter;
 import org.citygml4j.cityjson.adapter.extension.ExtensionInfo;
 import org.citygml4j.cityjson.adapter.geometry.builder.GeometryBuilder;
 import org.citygml4j.cityjson.adapter.geometry.builder.GeometryObject;
+import org.citygml4j.cityjson.adapter.geometry.builder.TemplateInfo;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.builder.TypeMapper;
@@ -67,7 +67,6 @@ public class CityJSONBuilderHelper {
 
     private ObjectNode cityObjects;
     private GeometryBuilder geometryBuilder;
-    private AppearanceBuilder appearanceBuilder;
 
     private WeakReference<?> parent = new WeakReference<>(null);
     private CityGMLVersion targetCityGMLVersion = CityGMLVersion.v3_0;
@@ -106,6 +105,7 @@ public class CityJSONBuilderHelper {
 
         if (content.path(Fields.GEOMETRY_TEMPLATES).isObject()) {
             globalScope.set(Fields.GEOMETRY_TEMPLATES, content.path(Fields.GEOMETRY_TEMPLATES));
+            globalScope.set(Fields.APPEARANCE, content.path(Fields.APPEARANCE));
         }
 
         CityJSONVersion version = CityJSONVersion.fromValue(globalScope.path(Fields.VERSION).asText());
@@ -118,13 +118,13 @@ public class CityJSONBuilderHelper {
         CityJSONBuilderHelper helper = new CityJSONBuilderHelper(reader, type, version, objectMapper, context);
         helper.cityObjects = helper.getOrPutObject(Fields.CITY_OBJECTS, content);
 
-        ObjectNode appearance = helper.getOrPutObject(Fields.APPEARANCE, content);
         ArrayNode vertices = helper.getOrPutArray(Fields.VERTICES, content);
+        ObjectNode appearance = helper.getOrPutObject(Fields.APPEARANCE, content);
         ObjectNode templates = helper.getOrPutObject(Fields.GEOMETRY_TEMPLATES, globalScope);
+        ObjectNode templatesAppearance = helper.getOrPutObject(Fields.APPEARANCE, globalScope);
         ObjectNode transform = helper.getOrPutObject(Fields.TRANSFORM, globalScope);
 
-        helper.appearanceBuilder = new AppearanceBuilder(appearance, helper);
-        helper.geometryBuilder = new GeometryBuilder(vertices, templates, helper.appearanceBuilder, helper);
+        helper.geometryBuilder = new GeometryBuilder(vertices, templates, appearance, templatesAppearance, helper);
         helper.geometryBuilder.getVerticesBuilder().applyTransformation(transform);
 
         return helper;
@@ -200,6 +200,14 @@ public class CityJSONBuilderHelper {
 
     void setLodMapper(LodMapper lodMapper) {
         geometryBuilder.setLodMapper(lodMapper);
+    }
+
+    TemplateInfo getTemplateInfo() {
+        return geometryBuilder.getTemplateInfo();
+    }
+
+    void setTemplateInfo(TemplateInfo templateInfo) {
+        geometryBuilder.setTemplateInfo(templateInfo);
     }
 
     public Metadata getMetadata() {

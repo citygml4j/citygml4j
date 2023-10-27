@@ -20,6 +20,7 @@
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.util.BoundaryFilter;
@@ -43,12 +44,14 @@ import java.util.Map;
 public class SpaceGeometryBuilder {
     private final GeometryBuilder geometryBuilder;
     private final VerticesBuilder verticesBuilder;
+    private final AppearanceBuilder appearanceBuilder;
     private final CityJSONBuilderHelper helper;
 
     SpaceGeometryBuilder(GeometryBuilder geometryBuilder, CityJSONBuilderHelper helper) {
         this.geometryBuilder = geometryBuilder;
         this.helper = helper;
         verticesBuilder = geometryBuilder.getVerticesBuilder();
+        appearanceBuilder = geometryBuilder.getAppearanceBuilder();
     }
 
     void build(AbstractSpace object, JsonNode node, BoundaryFilter filter, Map<Integer, MultiSurfaceProvider> providers) {
@@ -61,7 +64,7 @@ public class SpaceGeometryBuilder {
         for (int lod = 0; lod < 4; lod++) {
             List<JsonNode> geometries = geometriesByLod.getOrDefault(lodMapper.getMappingFor(lod), Collections.emptyList());
             for (JsonNode element : geometries) {
-                geometryBuilder.getGeometry(object, geometryObject, element, lod, filter, verticesBuilder);
+                geometryBuilder.getGeometry(object, geometryObject, element, lod, filter, appearanceBuilder, verticesBuilder);
 
                 if (geometryObject.isSetGeometry()) {
                     addGeometry(object, geometryObject.getGeometry(), lod, providers);

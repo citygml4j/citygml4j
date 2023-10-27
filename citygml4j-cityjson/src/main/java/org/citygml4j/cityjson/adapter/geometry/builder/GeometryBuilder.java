@@ -41,27 +41,31 @@ public class GeometryBuilder {
     private final CityJSONBuilderHelper helper;
     private final VerticesBuilder verticesBuilder;
     private final VerticesBuilder templatesVerticesBuilder;
+    private final AppearanceBuilder appearanceBuilder;
+    private final AppearanceBuilder templatesAppearanceBuilder;
     private final SpaceGeometryBuilder spaceGeometryBuilder;
     private final SemanticsBuilder semanticsBuilder;
     private final MaterialBuilder materialBuilder;
     private final TextureBuilder textureBuilder;
-    private final TemplateInfo templateInfo;
     private final Map<AbstractSpace, Map<Integer, MultiSurfaceProvider>> providers = new IdentityHashMap<>();
 
     private LodMapper lodMapper = new DefaultLodMapper();
+    private TemplateInfo templateInfo;
     private boolean transformTemplateGeometries;
     private boolean assignAppearancesToImplicitGeometries;
 
-    public GeometryBuilder(ArrayNode vertices, ObjectNode templates, AppearanceBuilder appearanceBuilder, CityJSONBuilderHelper helper) {
+    public GeometryBuilder(ArrayNode vertices, ObjectNode templates, ObjectNode appearance, ObjectNode templatesAppearance, CityJSONBuilderHelper helper) {
         this.helper = helper;
 
         verticesBuilder = new VerticesBuilder(vertices);
         templatesVerticesBuilder = new VerticesBuilder(helper.getOrPutArray(Fields.VERTICES_TEMPLATES, templates));
+        appearanceBuilder = new AppearanceBuilder(appearance, helper);
+        templatesAppearanceBuilder = new AppearanceBuilder(templatesAppearance, helper);
 
         spaceGeometryBuilder = new SpaceGeometryBuilder(this, helper);
         semanticsBuilder = new SemanticsBuilder(helper);
-        materialBuilder = new MaterialBuilder(appearanceBuilder, helper);
-        textureBuilder = new TextureBuilder(appearanceBuilder, helper);
+        materialBuilder = new MaterialBuilder(helper);
+        textureBuilder = new TextureBuilder(helper);
 
         templateInfo = new TemplateInfo(helper.getOrPutArray(Fields.TEMPLATES, templates));
     }
@@ -72,6 +76,14 @@ public class GeometryBuilder {
 
     public VerticesBuilder getTemplatesVerticesBuilder() {
         return templatesVerticesBuilder;
+    }
+
+    public AppearanceBuilder getAppearanceBuilder() {
+        return appearanceBuilder;
+    }
+
+    public AppearanceBuilder getTemplatesAppearanceBuilder() {
+        return templatesAppearanceBuilder;
     }
 
     public boolean isTransformTemplateGeometries() {
@@ -98,6 +110,14 @@ public class GeometryBuilder {
         this.lodMapper = Objects.requireNonNull(lodMapper, "The LoD mapper must not be null.");
     }
 
+    public TemplateInfo getTemplateInfo() {
+        return templateInfo;
+    }
+
+    public void setTemplateInfo(TemplateInfo templateInfo) {
+        this.templateInfo = Objects.requireNonNull(templateInfo, "The template info must not be null.");
+    }
+
     public List<Appearance> getGlobalAppearances() {
         return templateInfo.getAppearances();
     }
@@ -114,13 +134,14 @@ public class GeometryBuilder {
 
     public GeometryObject getGeometry(AbstractFeature object, JsonNode geometry, int lod, BoundaryFilter filter) {
         GeometryObject geometryObject = GeometryObject.newInstance();
-        getGeometry(object, geometryObject, geometry, lod, filter, verticesBuilder);
+        getGeometry(object, geometryObject, geometry, lod, filter, appearanceBuilder, verticesBuilder);
         return geometryObject.isSetGeometry() || geometryObject.isSetImplicitGeometry() ?
                 geometryObject :
                 null;
     }
 
-    void getGeometry(AbstractFeature object, GeometryObject geometryObject, JsonNode geometry, int lod, BoundaryFilter filter, VerticesBuilder verticesBuilder) {
+    void getGeometry(AbstractFeature object, GeometryObject geometryObject, JsonNode geometry, int lod,
+                     BoundaryFilter filter, AppearanceBuilder appearanceBuilder, VerticesBuilder verticesBuilder) {
         if (geometry != null && geometry.isObject()) {
             GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asText());
 
@@ -142,8 +163,8 @@ public class GeometryBuilder {
 
                 if (geometryObject.getGeometry() != null && builder instanceof SurfaceProvider) {
                     List<SurfaceProperty> surfaces = ((SurfaceProvider) builder).getSurfaces();
-                    materialBuilder.build(geometry.path(Fields.MATERIAL), surfaces, geometryObject);
-                    textureBuilder.build(geometry.path(Fields.TEXTURE), surfaces, geometryObject);
+                    materialBuilder.build(geometry.path(Fields.MATERIAL), surfaces, appearanceBuilder, geometryObject);
+                    textureBuilder.build(geometry.path(Fields.TEXTURE), surfaces, appearanceBuilder, geometryObject);
                     if (object instanceof AbstractSpace) {
                         AbstractSpace space = (AbstractSpace) object;
                         JsonNode semantics = geometry.path(Fields.SEMANTICS);

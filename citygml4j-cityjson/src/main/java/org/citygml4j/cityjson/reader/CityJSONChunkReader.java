@@ -33,11 +33,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class CityJSONChunkReader extends CityJSONReader {
-    private final Deque<Appearance> globalAppearances = new ArrayDeque<>();
-
     private AbstractFeature next;
     private CityJSONBuilderHelper helper;
     private TopLevelIterator iterator;
+    private Deque<Appearance> globalAppearances;
 
     CityJSONChunkReader(JsonParser reader, ObjectMapper mapper, CityJSONContext context) {
         super(reader, mapper, context);
@@ -63,7 +62,7 @@ public class CityJSONChunkReader extends CityJSONReader {
                     }
                 }
 
-                while (next == null && !globalAppearances.isEmpty()) {
+                while (next == null && globalAppearances != null && !globalAppearances.isEmpty()) {
                     next = globalAppearances.pop();
                 }
             } catch (CityJSONBuildException e) {
@@ -96,9 +95,11 @@ public class CityJSONChunkReader extends CityJSONReader {
         try {
             super.close();
         } finally {
-            globalAppearances.clear();
             helper = null;
             iterator = null;
+            if (globalAppearances != null) {
+                globalAppearances.clear();
+            }
         }
     }
 
@@ -118,20 +119,14 @@ public class CityJSONChunkReader extends CityJSONReader {
     private boolean updateTopLevelIterator() throws CityJSONReadException {
         if (iterator == null || !iterator.hasNext()) {
             try {
-                if (helper != null && helper.hasGlobalAppearances()) {
-                    globalAppearances.addAll(helper.getGlobalAppearances());
-                }
-
-                helper = null;
                 iterator = null;
-
-                if (globalAppearances.isEmpty()) {
-                    TreeNode node = objectMapper.readTree(reader);
-                    if (node != null && node.isObject()) {
-                        ObjectNode content = (ObjectNode) node;
-                        helper = createHelper(content);
-                        iterator = TopLevelIterator.of(helper, filter);
-                    }
+                TreeNode node = objectMapper.readTree(reader);
+                if (node != null && node.isObject()) {
+                    ObjectNode content = (ObjectNode) node;
+                    helper = createHelper(content, helper);
+                    iterator = TopLevelIterator.of(helper, filter);
+                } else if (globalAppearances == null && helper.hasGlobalAppearances()) {
+                    globalAppearances = new ArrayDeque<>(helper.getGlobalAppearances());
                 }
 
                 return iterator != null;

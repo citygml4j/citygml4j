@@ -39,6 +39,7 @@ import java.util.*;
 public class CityJSONSimpleReader extends CityJSONReader {
     private boolean hasNext = false;
     private CityModel cityModel;
+    private CityJSONBuilderHelper helper;
 
     CityJSONSimpleReader(JsonParser reader, ObjectMapper mapper, CityJSONContext context) {
         super(reader, mapper, context);
@@ -53,7 +54,7 @@ public class CityJSONSimpleReader extends CityJSONReader {
                 TreeNode node;
                 while ((node = objectMapper.readTree(reader)) != null && node.isObject()) {
                     ObjectNode content = (ObjectNode) node;
-                    CityJSONBuilderHelper helper = createHelper(content);
+                    helper = createHelper(content, helper);
 
                     TopLevelIterator iterator = TopLevelIterator.of(helper, filter);
                     while (iterator.hasNext()) {

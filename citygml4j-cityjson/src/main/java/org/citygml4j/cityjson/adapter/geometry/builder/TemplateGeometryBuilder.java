@@ -22,6 +22,7 @@ package org.citygml4j.cityjson.adapter.geometry.builder;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.citygml4j.cityjson.adapter.Fields;
+import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.util.BoundaryFilter;
@@ -45,6 +46,7 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
     private final GeometryBuilder geometryBuilder;
     private final CityJSONBuilderHelper helper;
     private final VerticesBuilder templatesVerticesBuilder;
+    private final AppearanceBuilder templatesAppearanceBuilder;
     private final PointGeometryBuilder pointGeometryBuilder;
 
     TemplateGeometryBuilder(AbstractFeature object, BoundaryFilter filter, TemplateInfo templateInfo, GeometryBuilder geometryBuilder, CityJSONBuilderHelper helper) {
@@ -54,6 +56,7 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
         this.helper = helper;
 
         templatesVerticesBuilder = geometryBuilder.getTemplatesVerticesBuilder();
+        templatesAppearanceBuilder = geometryBuilder.getTemplatesAppearanceBuilder();
         pointGeometryBuilder = new PointGeometryBuilder(object, filter, geometryBuilder.getVerticesBuilder());
     }
 
@@ -88,7 +91,8 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
                 geometryObject.setAppearanceInfo(templateInfo.getAppearanceInfo());
             }
 
-            geometryBuilder.getGeometry(object, geometryObject, templateInfo.getTemplate(index), lod, filter, templatesVerticesBuilder);
+            geometryBuilder.getGeometry(object, geometryObject, templateInfo.getTemplate(index), lod, filter,
+                    templatesAppearanceBuilder, templatesVerticesBuilder);
             if (geometryObject.isSetGeometry()) {
                 AbstractGeometry geometry = geometryObject.getGeometry();
                 templateInfo.addReference(index, "#" + helper.getOrCreateId(geometry));
@@ -123,7 +127,8 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
             }
         };
 
-        geometryBuilder.getGeometry(object, geometryObject, templateInfo.getTemplate(index), lod, filter, verticesBuilder);
+        geometryBuilder.getGeometry(object, geometryObject, templateInfo.getTemplate(index), lod, filter,
+                templatesAppearanceBuilder, verticesBuilder);
     }
 
     private PointProperty getReferencePoint(JsonNode geometry, int lod, GeometryObject geometryObject) {

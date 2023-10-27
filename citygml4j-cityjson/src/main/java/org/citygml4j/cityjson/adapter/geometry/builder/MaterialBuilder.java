@@ -38,15 +38,13 @@ import java.util.List;
 import java.util.Map;
 
 public class MaterialBuilder {
-    private final AppearanceBuilder appearanceBuilder;
     private final CityJSONBuilderHelper helper;
 
-    MaterialBuilder(AppearanceBuilder appearanceBuilder, CityJSONBuilderHelper helper) {
-        this.appearanceBuilder = appearanceBuilder;
+    MaterialBuilder(CityJSONBuilderHelper helper) {
         this.helper = helper;
     }
 
-    void build(JsonNode materials, List<SurfaceProperty> geometries, GeometryObject geometryObject) {
+    void build(JsonNode materials, List<SurfaceProperty> geometries, AppearanceBuilder appearanceBuilder, GeometryObject geometryObject) {
         Iterator<Map.Entry<String, JsonNode>> iterator = materials.fields();
         while (iterator.hasNext()) {
             Map.Entry<String, JsonNode> entry = iterator.next();
@@ -58,31 +56,35 @@ public class MaterialBuilder {
                     int materialIndex = flatValues.get(index);
                     if (materialIndex != -1) {
                         AbstractSurface surface = geometries.get(index).getObject();
-                        addMaterial(materialIndex, entry.getKey(), helper.getOrCreateId(surface), geometryObject);
+                        addMaterial(materialIndex, entry.getKey(), helper.getOrCreateId(surface),
+                                appearanceBuilder, geometryObject);
                     }
                 }
             } else {
                 geometryObject.getGeometry().accept(new GeometryWalker() {
                     @Override
                     public void visit(MultiSurface multiSurface) {
-                        addMaterial(value, entry.getKey(), helper.getOrCreateId(multiSurface), geometryObject);
+                        addMaterial(value, entry.getKey(), helper.getOrCreateId(multiSurface),
+                                appearanceBuilder, geometryObject);
                     }
 
                     @Override
                     public void visit(CompositeSurface compositeSurface) {
-                        addMaterial(value, entry.getKey(), helper.getOrCreateId(compositeSurface), geometryObject);
+                        addMaterial(value, entry.getKey(), helper.getOrCreateId(compositeSurface),
+                                appearanceBuilder, geometryObject);
                     }
 
                     @Override
                     public void visit(Shell shell) {
-                        addMaterial(value, entry.getKey(), helper.getOrCreateId(shell), geometryObject);
+                        addMaterial(value, entry.getKey(), helper.getOrCreateId(shell),
+                                appearanceBuilder, geometryObject);
                     }
                 });
             }
         }
     }
 
-    private void addMaterial(int index, String theme, String target, GeometryObject geometryObject) {
+    private void addMaterial(int index, String theme, String target, AppearanceBuilder appearanceBuilder, GeometryObject geometryObject) {
         X3DMaterial material = appearanceBuilder.getOrCreateMaterial(index, theme, geometryObject.getAppearanceInfo());
         if (material != null) {
             material.getTargets().add(new GeometryReference("#" + target));

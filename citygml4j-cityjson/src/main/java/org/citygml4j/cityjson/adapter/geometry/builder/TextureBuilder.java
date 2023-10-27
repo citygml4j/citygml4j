@@ -36,17 +36,14 @@ import java.util.List;
 import java.util.Map;
 
 public class TextureBuilder {
-    private final AppearanceBuilder appearanceBuilder;
     private final CityJSONBuilderHelper helper;
-    private final TextureVerticesBuilder textureVerticesBuilder;
 
-    TextureBuilder(AppearanceBuilder appearanceBuilder, CityJSONBuilderHelper helper) {
-        this.appearanceBuilder = appearanceBuilder;
+    TextureBuilder(CityJSONBuilderHelper helper) {
         this.helper = helper;
-        textureVerticesBuilder = appearanceBuilder.getTextureVerticesBuilder();
     }
 
-    void build(JsonNode textures, List<SurfaceProperty> geometries, GeometryObject geometryObject) {
+    void build(JsonNode textures, List<SurfaceProperty> geometries, AppearanceBuilder appearanceBuilder, GeometryObject geometryObject) {
+        TextureVerticesBuilder textureVerticesBuilder = appearanceBuilder.getTextureVerticesBuilder();
         Iterator<Map.Entry<String, JsonNode>> iterator = textures.fields();
         while (iterator.hasNext()) {
             Map.Entry<String, JsonNode> entry = iterator.next();
