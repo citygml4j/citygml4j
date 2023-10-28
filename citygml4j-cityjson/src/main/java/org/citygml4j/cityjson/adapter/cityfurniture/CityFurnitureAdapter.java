@@ -37,6 +37,7 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.cityfurniture.CityFurniture;
 
 @CityJSONElements({
+        @CityJSONElement(name = "CityFurniture", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "CityFurniture", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "CityFurniture", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

@@ -37,6 +37,7 @@ import org.citygml4j.core.model.generics.MeasureAttribute;
 import org.xmlobjects.gml.model.basictypes.Measure;
 
 @CityJSONElements({
+        @CityJSONElement(name = "MeasureAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "MeasureAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "MeasureAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

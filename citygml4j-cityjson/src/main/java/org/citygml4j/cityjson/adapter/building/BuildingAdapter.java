@@ -40,6 +40,7 @@ import org.citygml4j.core.model.building.BuildingPartProperty;
 import java.util.Iterator;
 
 @CityJSONElements({
+        @CityJSONElement(name = "Building", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "Building", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "Building", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

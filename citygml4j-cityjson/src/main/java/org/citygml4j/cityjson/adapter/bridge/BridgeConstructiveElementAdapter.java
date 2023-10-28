@@ -37,6 +37,7 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.bridge.BridgeConstructiveElement;
 
 @CityJSONElements({
+        @CityJSONElement(name = "BridgeConstructiveElement", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "BridgeConstructiveElement", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "BridgeConstructionElement", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

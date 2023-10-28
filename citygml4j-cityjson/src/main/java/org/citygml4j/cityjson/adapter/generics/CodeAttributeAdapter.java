@@ -37,6 +37,7 @@ import org.citygml4j.core.model.generics.CodeAttribute;
 import org.xmlobjects.gml.model.basictypes.Code;
 
 @CityJSONElements({
+        @CityJSONElement(name = "CodeAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "CodeAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "CodeAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

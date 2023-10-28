@@ -40,6 +40,7 @@ import org.citygml4j.core.model.bridge.BridgePartProperty;
 import java.util.Iterator;
 
 @CityJSONElements({
+        @CityJSONElement(name = "Bridge", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "Bridge", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "Bridge", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

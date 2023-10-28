@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
+import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.reader.Attributes;
@@ -35,7 +36,10 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.transportation.Marking;
 import org.xmlobjects.gml.model.basictypes.Code;
 
-@CityJSONElement(name = "TransportationMarking", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+@CityJSONElements({
+        @CityJSONElement(name = "TransportationMarking", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
+        @CityJSONElement(name = "TransportationMarking", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+})
 public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
 
     @Override

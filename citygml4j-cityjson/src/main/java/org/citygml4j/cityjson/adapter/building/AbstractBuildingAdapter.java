@@ -52,6 +52,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
     private final Map<CityJSONVersion, EnumSet<GeometryType>> allowedTypes = new EnumMap<>(CityJSONVersion.class);
 
     public AbstractBuildingAdapter() {
+        allowedTypes.put(CityJSONVersion.v2_0, EnumSet.of(GeometryType.MULTI_SURFACE, GeometryType.COMPOSITE_SURFACE,
+                GeometryType.SOLID, GeometryType.COMPOSITE_SOLID));
         allowedTypes.put(CityJSONVersion.v1_1, EnumSet.of(GeometryType.MULTI_SURFACE, GeometryType.COMPOSITE_SURFACE,
                 GeometryType.SOLID, GeometryType.COMPOSITE_SOLID));
         allowedTypes.put(CityJSONVersion.v1_0, EnumSet.of(GeometryType.MULTI_SURFACE, GeometryType.SOLID,
@@ -205,7 +207,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
             }
         }
 
-        if (version == CityJSONVersion.v1_1) {
+        if (version != CityJSONVersion.v1_0) {
             if (object.isSetBuildingConstructiveElements()) {
                 for (BuildingConstructiveElementProperty property : object.getBuildingConstructiveElements()) {
                     if (property.isSetInlineObject()) {

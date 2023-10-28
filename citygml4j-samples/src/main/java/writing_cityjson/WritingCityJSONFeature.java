@@ -38,14 +38,13 @@ public class WritingCityJSONFeature {
         // A "CityJSONFeature" object stores one city object, for instance a "Building", including its children.
         // Unlike a "CityJSON" object, all vertices and appearances are stored _locally_ with each
         // "CityJSONFeature" object. In the output file, every "CityJSONFeature" object is put on
-        // a separate line (also called Newline Delimited JSON, ndjson).
+        // a separate line (also called JSON lines, jsonl).
         //
         // This format allows us to process one city object at a time and stream it to the output file.
         // Since vertices and appearances are local, they are written with each "CityJSONFeature" object
         // and do _not_ have to be kept in main memory for the entire file. Thus, using a CityJSONFeatureWriter
         // is much more memory efficient than using a regular CityJSONWriter, even if you also just
         // pass single city objects to the CityJSONWriter (see ChunkWriter example).
-
         Logger log = Logger.start(WritingCityJSONFeature.class);
 
         CityGMLContext cityGMLContext = CityGMLContext.newInstance();
@@ -68,13 +67,6 @@ public class WritingCityJSONFeature {
 
         try (CityGMLReader reader = in.createCityGMLReader(file);
              CityJSONFeatureWriter writer = out.createCityJSONFeatureWriter(output)) {
-
-            // add the "Generic" extension that is used for mapping the
-            // generic city objects in the CityGML input file
-            writer.addExternalExtension("Generic",
-                    "https://www.cityjson.org/extensions/download/generic.ext.json",
-                    "1.0");
-
             while (reader.hasNext()) {
                 writer.writeCityObject(reader.next());
             }

@@ -40,6 +40,7 @@ import org.xmlobjects.gml.model.basictypes.Code;
 import java.util.Iterator;
 
 @CityJSONElements({
+        @CityJSONElement(name = "Road", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "Road", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "Road", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

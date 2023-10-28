@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 
 @CityJSONElements({
+        @CityJSONElement(name = "TINRelief", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "TINRelief", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "TINRelief", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

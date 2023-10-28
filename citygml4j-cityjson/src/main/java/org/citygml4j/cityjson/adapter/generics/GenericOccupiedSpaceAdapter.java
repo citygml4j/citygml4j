@@ -39,6 +39,7 @@ import org.citygml4j.core.model.generics.GenericOccupiedSpace;
 import org.citygml4j.core.model.generics.StringAttribute;
 
 @CityJSONElements({
+        @CityJSONElement(name = "GenericCityObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "+GenericCityObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "GenericCityObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })
@@ -57,8 +58,8 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
 
         if (helper.isMapUnsupportedTypesToGenerics()) {
             String type = node.path(Fields.TYPE).asText();
-            if ((helper.getVersion() == CityJSONVersion.v1_0 && !type.equals("GenericCityObject"))
-                    || !type.equals("+GenericCityObject")) {
+            if ((helper.getVersion() == CityJSONVersion.v1_1 && !type.equals("+GenericCityObject"))
+                    || !type.equals("GenericCityObject")) {
                 if (type.startsWith("+")) {
                     type = type.substring(1);
                 }
@@ -71,9 +72,9 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
 
     @Override
     public String createType(GenericOccupiedSpace object, CityJSONVersion version) throws CityJSONSerializeException {
-        return version == CityJSONVersion.v1_0 ?
-                "GenericCityObject" :
-                "+GenericCityObject";
+        return version == CityJSONVersion.v1_1 ?
+                "+GenericCityObject" :
+                "GenericCityObject";
     }
 
     @Override

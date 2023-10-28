@@ -25,6 +25,7 @@ import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
+import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
@@ -42,7 +43,10 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Map;
 
-@CityJSONElement(name = "BridgeRoom", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+@CityJSONElements({
+        @CityJSONElement(name = "BridgeRoom", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
+        @CityJSONElement(name = "BridgeRoom", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+})
 public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom> {
     private final EnumSet<GeometryType> allowedTypes = EnumSet.of(GeometryType.MULTI_SURFACE,
             GeometryType.COMPOSITE_SURFACE, GeometryType.SOLID, GeometryType.COMPOSITE_SOLID);

@@ -41,6 +41,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 @CityJSONElements({
+        @CityJSONElement(name = "+GenericAttributeTypes", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "+GenericAttributeTypes", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "+GenericAttributeTypes", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

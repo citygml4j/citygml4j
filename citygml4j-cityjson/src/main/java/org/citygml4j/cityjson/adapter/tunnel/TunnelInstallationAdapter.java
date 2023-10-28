@@ -37,6 +37,7 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.tunnel.TunnelInstallation;
 
 @CityJSONElements({
+        @CityJSONElement(name = "TunnelInstallation", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "TunnelInstallation", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "TunnelInstallation", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

@@ -43,6 +43,7 @@ import java.util.EnumSet;
 import java.util.Map;
 
 @CityJSONElements({
+        @CityJSONElement(name = "WaterBody", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "WaterBody", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "WaterBody", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

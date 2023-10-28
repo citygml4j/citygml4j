@@ -33,6 +33,7 @@ import org.citygml4j.core.model.core.AbstractCityObjectProperty;
 import org.citygml4j.core.model.core.CityModel;
 
 @CityJSONElements({
+        @CityJSONElement(name = "CityModel", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "CityModel", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "CityModel", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.construction.AbstractFurnitureAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
+import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.reader.Attributes;
@@ -35,7 +36,10 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.bridge.BridgeFurniture;
 
-@CityJSONElement(name = "BridgeFurniture", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+@CityJSONElements({
+        @CityJSONElement(name = "BridgeFurniture", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
+        @CityJSONElement(name = "BridgeFurniture", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+})
 public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurniture> {
 
     @Override

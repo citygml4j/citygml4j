@@ -48,6 +48,7 @@ import java.util.EnumSet;
 import java.util.Iterator;
 
 @CityJSONElements({
+        @CityJSONElement(name = "CityObjectGroup", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "CityObjectGroup", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "CityObjectGroup", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

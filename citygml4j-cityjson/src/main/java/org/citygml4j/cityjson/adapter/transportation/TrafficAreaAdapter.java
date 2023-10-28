@@ -37,6 +37,7 @@ import org.citygml4j.core.model.transportation.TrafficArea;
 import org.xmlobjects.gml.model.basictypes.Code;
 
 @CityJSONElements({
+        @CityJSONElement(name = "TrafficArea", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "TrafficArea", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "TrafficArea", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AddressAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
+import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.reader.Attributes;
@@ -41,7 +42,10 @@ import org.citygml4j.core.model.core.AddressProperty;
 
 import java.util.Iterator;
 
-@CityJSONElement(name = "BuildingUnit", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+@CityJSONElements({
+        @CityJSONElement(name = "BuildingUnit", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
+        @CityJSONElement(name = "BuildingUnit", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1)
+})
 public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<BuildingUnit> {
 
     @Override

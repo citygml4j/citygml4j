@@ -30,6 +30,7 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.core.model.generics.GenericThematicSurface;
 
 @CityJSONElements({
+        @CityJSONElement(name = "+GenericSurface", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "+GenericSurface", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "+GenericSurface", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

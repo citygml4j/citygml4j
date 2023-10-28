@@ -91,7 +91,7 @@ public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>,
 
         if (object.getContactName() != null) {
             node.put("contactName", object.getContactName());
-        } else if (version == CityJSONVersion.v1_1) {
+        } else if (version != CityJSONVersion.v1_0) {
             node.put("contactName", "");
         }
 
@@ -105,7 +105,7 @@ public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>,
 
         if (object.getEmailAddress() != null) {
             node.put("emailAddress", object.getEmailAddress());
-        } else if (version == CityJSONVersion.v1_1) {
+        } else if (version != CityJSONVersion.v1_0) {
             node.put("emailAddress", "");
         }
 
@@ -129,7 +129,7 @@ public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>,
             }
         }
 
-        if (version == CityJSONVersion.v1_1) {
+        if (version != CityJSONVersion.v1_0) {
             if (object.getRole() != null) {
                 node.put("role", object.getRole().toValue());
             }

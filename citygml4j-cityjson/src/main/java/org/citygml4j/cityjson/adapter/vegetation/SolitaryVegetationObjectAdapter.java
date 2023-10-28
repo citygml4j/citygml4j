@@ -38,6 +38,7 @@ import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Length;
 
 @CityJSONElements({
+        @CityJSONElement(name = "SolitaryVegetationObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "SolitaryVegetationObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "SolitaryVegetationObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

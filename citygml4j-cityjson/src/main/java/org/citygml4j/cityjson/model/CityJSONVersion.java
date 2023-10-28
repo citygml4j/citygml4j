@@ -20,6 +20,7 @@
 package org.citygml4j.cityjson.model;
 
 public enum CityJSONVersion {
+    v2_0(2, 0),
     v1_1(1, 1),
     v1_0(1, 0);
 
@@ -37,6 +38,14 @@ public enum CityJSONVersion {
 
     public int getMinor() {
         return minor;
+    }
+
+    public boolean isLessThanOrEqual(CityJSONVersion version) {
+        return compare(this, version) <= 0;
+    }
+
+    public boolean isGreaterThanOrEqual(CityJSONVersion version) {
+        return compare(this, version) >= 0;
     }
 
     public String toValue() {

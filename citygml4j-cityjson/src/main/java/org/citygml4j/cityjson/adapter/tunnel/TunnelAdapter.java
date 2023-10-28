@@ -40,6 +40,7 @@ import org.citygml4j.core.model.tunnel.TunnelPartProperty;
 import java.util.Iterator;
 
 @CityJSONElements({
+        @CityJSONElement(name = "Tunnel", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "Tunnel", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "Tunnel", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

@@ -434,9 +434,9 @@ public class CityJSONBuilderHelper {
             JsonObjectBuilder<T> builder = context.getBuilder(name, version, type);
 
             if (builder == null && mapUnsupportedTypesToGenerics) {
-                name = version == CityJSONVersion.v1_0 ?
-                        "GenericCityObject" :
-                        "+GenericCityObject";
+                name = version == CityJSONVersion.v1_1 ?
+                        "+GenericCityObject" :
+                        "GenericCityObject";
                 builder = context.getBuilder(name, version, type);
             }
 

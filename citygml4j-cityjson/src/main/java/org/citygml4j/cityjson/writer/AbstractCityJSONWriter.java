@@ -180,7 +180,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 writeVertices(Fields.VERTICES, vertices);
             }
         } else {
-            if (writeTransform && helper.getVersion() == CityJSONVersion.v1_1) {
+            if (writeTransform && helper.getVersion() != CityJSONVersion.v1_0) {
                 writeTransform(new Transform());
             }
 

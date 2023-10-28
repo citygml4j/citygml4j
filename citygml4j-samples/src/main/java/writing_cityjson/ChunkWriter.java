@@ -51,7 +51,6 @@ public class ChunkWriter {
         // for which all vertices and appearances are stored _locally_. This allows a real
         // chunk-wise writing of data. To write "CityJSONFeature" objects, use the
         // CityJSONFeatureWriter instead (see WritingCityJSONFeature example).
-
         Logger log = Logger.start(ChunkWriter.class);
 
         CityGMLContext cityGMLContext = CityGMLContext.newInstance();

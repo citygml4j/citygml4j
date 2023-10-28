@@ -44,6 +44,7 @@ import java.util.EnumSet;
 import java.util.Map;
 
 @CityJSONElements({
+        @CityJSONElement(name = "PlantCover", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "PlantCover", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "PlantCover", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })
@@ -51,6 +52,8 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
     private final Map<CityJSONVersion, EnumSet<GeometryType>> allowedTypes = new EnumMap<>(CityJSONVersion.class);
 
     public PlantCoverAdapter() {
+        allowedTypes.put(CityJSONVersion.v2_0, EnumSet.of(GeometryType.MULTI_SURFACE, GeometryType.COMPOSITE_SURFACE,
+                GeometryType.SOLID, GeometryType.COMPOSITE_SOLID, GeometryType.MULTI_SOLID));
         allowedTypes.put(CityJSONVersion.v1_1, EnumSet.of(GeometryType.MULTI_SURFACE, GeometryType.COMPOSITE_SURFACE,
                 GeometryType.SOLID, GeometryType.COMPOSITE_SOLID, GeometryType.MULTI_SOLID));
         allowedTypes.put(CityJSONVersion.v1_0, EnumSet.of(GeometryType.MULTI_SURFACE, GeometryType.MULTI_SOLID));

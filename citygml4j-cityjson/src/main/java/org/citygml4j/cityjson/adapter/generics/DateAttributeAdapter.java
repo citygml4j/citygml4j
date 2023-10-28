@@ -38,6 +38,7 @@ import org.citygml4j.core.model.generics.DateAttribute;
 import java.time.LocalDate;
 
 @CityJSONElements({
+        @CityJSONElement(name = "DateAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "DateAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "DateAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })

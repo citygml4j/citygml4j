@@ -29,6 +29,7 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.core.model.construction.DoorSurface;
 
 @CityJSONElements({
+        @CityJSONElement(name = "Door", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
         @CityJSONElement(name = "Door", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_1),
         @CityJSONElement(name = "Door", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v1_0)
 })
