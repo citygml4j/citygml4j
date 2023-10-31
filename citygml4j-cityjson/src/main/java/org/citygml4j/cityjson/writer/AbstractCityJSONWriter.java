@@ -45,6 +45,7 @@ import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.ADEOfCityModel;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.citygml4j.core.util.reference.DefaultReferenceResolver;
+import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.gml.visitor.Visitable;
 
@@ -55,6 +56,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     final JsonGenerator writer;
     final ReferenceResolver referenceResolver;
     final Deque<Visitable> resolveScopes = new ArrayDeque<>();
+    final Map<String, Number> templateLods = new HashMap<>();
 
     CityJSONSerializerHelper helper;
     State state = State.INITIAL;
@@ -93,6 +95,17 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     @SuppressWarnings("unchecked")
     public T withGlobalAppearance(Appearance appearance) {
         resolveScopes.push(Objects.requireNonNull(appearance, "The appearance must not be null."));
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T withGlobalTemplateGeometry(AbstractGeometry geometry, Number lod) {
+        Objects.requireNonNull(geometry, "The template geometry must not be null.");
+        if (geometry.getId() != null) {
+            resolveScopes.push(geometry);
+            templateLods.put(geometry.getId(), lod != null ? lod : 0);
+        }
+
         return (T) this;
     }
 

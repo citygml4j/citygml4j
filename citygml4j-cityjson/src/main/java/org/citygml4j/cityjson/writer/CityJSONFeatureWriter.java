@@ -40,21 +40,10 @@ import java.util.*;
 public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatureWriter> {
     private final Deque<ObjectNode> topLevelObjects = new ArrayDeque<>();
     private final Map<String, TemplateInfo> templates = new HashMap<>();
-    private final Map<String, Number> templateLods = new HashMap<>();
 
     CityJSONFeatureWriter(JsonGenerator writer) {
         super(writer);
         writer.setPrettyPrinter(new MinimalPrettyPrinter("\n"));
-    }
-
-    public CityJSONFeatureWriter withGlobalTemplateGeometry(AbstractGeometry geometry, Number lod) {
-        Objects.requireNonNull(geometry, "The template geometry must not be null.");
-        if (geometry.getId() != null) {
-            resolveScopes.push(geometry);
-            templateLods.put(geometry.getId(), lod != null ? lod : 0);
-        }
-
-        return this;
     }
 
     public boolean isSetExternalExtension(String name) {

@@ -32,7 +32,6 @@ import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     private String indent;
@@ -42,12 +41,7 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     }
 
     public CityJSONWriter withGlobalTemplateGeometry(AbstractGeometry geometry) {
-        Objects.requireNonNull(geometry, "The template geometry must not be null.");
-        if (geometry.getId() != null) {
-            resolveScopes.push(geometry);
-        }
-
-        return this;
+        return super.withGlobalTemplateGeometry(geometry, 0);
     }
 
     public String getIndent() {
