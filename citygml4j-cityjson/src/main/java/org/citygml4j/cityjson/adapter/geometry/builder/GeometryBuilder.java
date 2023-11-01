@@ -119,11 +119,11 @@ public class GeometryBuilder {
     }
 
     public List<Appearance> getGlobalAppearances() {
-        return templateInfo.getAppearances();
+        return templateInfo.getGlobalAppearances();
     }
 
     public boolean hasGlobalAppearances() {
-        return templateInfo.hasAppearances();
+        return templateInfo.hasGlobalAppearances();
     }
 
     public void setMultiSurfaceProviders(AbstractSpace space, Map<Integer, MultiSurfaceProvider> providers) {

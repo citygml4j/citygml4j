@@ -84,7 +84,14 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
     private ImplicitGeometry createImplicitGeometry(int index, int lod) {
         String reference = templateInfo.getReference(index);
         if (reference != null) {
-            return new ImplicitGeometry(new GeometryProperty<>(reference));
+            ImplicitGeometry implicitGeometry = new ImplicitGeometry(new GeometryProperty<>(reference));
+            if (geometryBuilder.isAssignAppearancesToImplicitGeometries()) {
+                for (String appearance : templateInfo.getLocalAppearances(reference)) {
+                    implicitGeometry.getAppearances().add(new AbstractAppearanceProperty(appearance));
+                }
+            }
+
+            return implicitGeometry;
         } else {
             GeometryObject geometryObject = GeometryObject.newInstance();
             if (!geometryBuilder.isAssignAppearancesToImplicitGeometries()) {
@@ -93,14 +100,17 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
 
             geometryBuilder.getGeometry(object, geometryObject, templateInfo.getTemplate(index), lod, filter,
                     templatesAppearanceBuilder, templatesVerticesBuilder);
+
             if (geometryObject.isSetGeometry()) {
                 AbstractGeometry geometry = geometryObject.getGeometry();
-                templateInfo.addReference(index, "#" + helper.getOrCreateId(geometry));
                 ImplicitGeometry implicitGeometry = new ImplicitGeometry(new GeometryProperty<>(geometry));
+                reference = "#" + helper.getOrCreateId(geometry);
+                templateInfo.addReference(index, reference);
 
                 if (geometryObject.hasAppearances() && geometryBuilder.isAssignAppearancesToImplicitGeometries()) {
                     for (Appearance appearance : geometryObject.getAppearances()) {
                         implicitGeometry.getAppearances().add(new AbstractAppearanceProperty(appearance));
+                        templateInfo.addLocalAppearance(reference, "#" + helper.getOrCreateId(appearance));
                     }
                 }
 

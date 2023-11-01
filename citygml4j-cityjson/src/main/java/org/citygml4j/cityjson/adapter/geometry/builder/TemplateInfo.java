@@ -24,14 +24,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceInfo;
 import org.citygml4j.core.model.appearance.Appearance;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TemplateInfo {
     private final ArrayNode templates;
     private Map<Integer, String> references;
+    private Map<String, Set<String>> localAppearances;
     private AppearanceInfo appearanceInfo;
 
     TemplateInfo(ArrayNode templates) {
@@ -54,11 +52,25 @@ public class TemplateInfo {
         references.put(index, reference);
     }
 
-    List<Appearance> getAppearances() {
-        return hasAppearances() ? appearanceInfo.getAppearances() : Collections.emptyList();
+    Set<String> getLocalAppearances(String reference) {
+        return localAppearances != null ?
+                localAppearances.getOrDefault(reference, Collections.emptySet()) :
+                Collections.emptySet();
     }
 
-    boolean hasAppearances() {
+    void addLocalAppearance(String reference, String localAppearance) {
+        if (localAppearances == null) {
+            localAppearances = new HashMap<>();
+        }
+
+        localAppearances.computeIfAbsent(reference, v -> new HashSet<>()).add(localAppearance);
+    }
+
+    List<Appearance> getGlobalAppearances() {
+        return hasGlobalAppearances() ? appearanceInfo.getAppearances() : Collections.emptyList();
+    }
+
+    boolean hasGlobalAppearances() {
         return appearanceInfo != null && appearanceInfo.hasAppearances();
     }
 
