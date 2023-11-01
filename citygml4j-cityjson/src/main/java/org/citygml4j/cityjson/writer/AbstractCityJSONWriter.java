@@ -103,10 +103,16 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         Objects.requireNonNull(geometry, "The template geometry must not be null.");
         if (geometry.getId() != null) {
             resolveScopes.push(geometry);
-            templateLods.put(geometry.getId(), lod != null ? lod : 0);
+            if (lod != null) {
+                templateLods.put(geometry.getId(), lod);
+            }
         }
 
         return (T) this;
+    }
+
+    public T withGlobalTemplateGeometry(AbstractGeometry geometry) {
+        return withGlobalTemplateGeometry(geometry, null);
     }
 
     @SuppressWarnings("unchecked")

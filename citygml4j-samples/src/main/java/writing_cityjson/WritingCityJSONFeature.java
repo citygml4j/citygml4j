@@ -38,7 +38,7 @@ public class WritingCityJSONFeature {
         // A "CityJSONFeature" object stores one city object, for instance a "Building", including its children.
         // Unlike a "CityJSON" object, all vertices and appearances are stored _locally_ with each
         // "CityJSONFeature" object. In the output file, every "CityJSONFeature" object is put on
-        // a separate line (also called JSON lines, jsonl).
+        // a separate line (also called JSON Lines, jsonl).
         //
         // This format allows us to process one city object at a time and stream it to the output file.
         // Since vertices and appearances are local, they are written with each "CityJSONFeature" object

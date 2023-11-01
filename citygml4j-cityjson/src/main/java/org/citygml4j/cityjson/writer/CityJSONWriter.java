@@ -28,7 +28,6 @@ import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
-import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
@@ -38,10 +37,6 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
 
     CityJSONWriter(JsonGenerator writer) {
         super(writer);
-    }
-
-    public CityJSONWriter withGlobalTemplateGeometry(AbstractGeometry geometry) {
-        return super.withGlobalTemplateGeometry(geometry, 0);
     }
 
     public String getIndent() {
