@@ -1,14 +1,20 @@
 # Changelog
 
 ## [Unreleased]
-### Fixed
-- Fixed CityGML writer to output the `pointCloud` property of `AbstractPhysicalSpace` objects.
-- Fixed the `computeEnvelope` method to also include interior nested features.
-
 ### Added
+- Added support for [CityJSON 2.0](https://www.cityjson.org/specs/2.0.0/). ([citygml-tools #50](https://github.com/citygml4j/citygml-tools/issues/50))
 - Added mapping of CityGML 2.0 LoD0 point geometries to the `lod0Point` property of `AbstractSpace`.
 - Added `getEncoding` method to `CityGMLReader`, which returns the input encoding if known or null if unknown.
 - Added possibility to store local properties for `CityGMLChunk` objects.
+- Added support for geometry templates when parsing and writing CityJSON files in JSON Lines format. The
+  `"geometry-templates"` property must be placed in the `"CityJSON"` object in the first line.
+
+- ### Fixed
+- Fixed CityGML writer to output the `pointCloud` property of `AbstractPhysicalSpace` objects.
+- Fixed the `computeEnvelope` method to also include interior nested features.
+- Fixed reading of `"address"` properties for CityJSON bridges and building units.
+- When parsing CityJSON, appearances of geometry templates were only mapped for the first `ImplicitGeometry` object.
+  Subsequent `ImplicitGeometry` objects now correctly reference the appearances.
 
 ## [3.0.0] - 2023-04-04
 ### Added
