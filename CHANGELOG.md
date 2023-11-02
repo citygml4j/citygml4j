@@ -9,7 +9,7 @@
 - Added support for geometry templates when parsing and writing CityJSON files in JSON Lines format. The
   `"geometry-templates"` property must be placed in the `"CityJSON"` object in the first line.
 
-- ### Fixed
+### Fixed
 - Fixed CityGML writer to output the `pointCloud` property of `AbstractPhysicalSpace` objects.
 - Fixed the `computeEnvelope` method to also include interior nested features.
 - Fixed reading of `"address"` properties for CityJSON bridges and building units.
