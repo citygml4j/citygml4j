@@ -55,11 +55,11 @@ public class ChunkReader {
         CityJSONInputFactory in = context.createCityJSONInputFactory()
                 .chunkByTopLevelCityObjects(true);
 
-        // The input file "lod2_buildings_v1_1.json" uses a "CityJSON" object.
+        // The input file "lod2_buildings_v2.json" uses a "CityJSON" object.
         // To test the same code with "CityJSONFeature" objects, use the file
-        // "lod2_buildings_as_CityJSON_features.json" as input instead.
+        // "lod2_buildings_as_CityJSON_features.jsonl" as input instead.
 
-        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v1_1.json");
+        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v2.json");
         log.print("Reading the file " + file + " chunk-wise feature by top-level features");
 
         try (CityJSONReader reader = in.createCityJSONReader(file)) {

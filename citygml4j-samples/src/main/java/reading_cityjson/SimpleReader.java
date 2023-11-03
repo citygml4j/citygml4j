@@ -41,7 +41,7 @@ public class SimpleReader {
 
         CityJSONInputFactory in = context.createCityJSONInputFactory();
 
-        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v1_1.json");
+        Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v2.json");
         log.print("Reading the file " + file + " into main memory");
 
         CityModel cityModel;
