@@ -51,7 +51,6 @@ import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
-import org.xmlobjects.util.Properties;
 
 import java.lang.ref.WeakReference;
 import java.util.*;
