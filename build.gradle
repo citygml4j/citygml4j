@@ -1,6 +1,6 @@
 plugins {
     id 'distribution'
-    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
+    id 'io.github.gradle-nexus.publish-plugin' version '1.3.0'
 }
 
 allprojects {
@@ -112,7 +112,7 @@ task allJavadoc(type: Javadoc, group: 'documentation') {
 
     exclude "**/module-info.java"
     source -= project(':citygml4j-samples').javadoc.source
-    destinationDir = file("$buildDir/docs/javadoc")
+    destinationDir = file("$projectDir/build/docs/javadoc")
 
     options {
         title = "$project.name $project.version"
