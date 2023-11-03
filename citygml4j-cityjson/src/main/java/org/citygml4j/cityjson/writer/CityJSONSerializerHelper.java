@@ -52,6 +52,7 @@ import org.xmlobjects.gml.model.geometry.GeometryProperty;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.model.Child;
+import org.xmlobjects.util.Properties;
 
 import java.util.*;
 

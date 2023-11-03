@@ -21,6 +21,7 @@ package org.citygml4j.xml.adapter.core;
 
 import org.citygml4j.core.model.core.AddressProperty;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.gml.adapter.feature.AbstractFeaturePropertyAdapter;
 
 import javax.xml.namespace.QName;
 

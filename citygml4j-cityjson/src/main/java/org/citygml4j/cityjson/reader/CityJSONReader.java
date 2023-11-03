@@ -37,6 +37,7 @@ import org.citygml4j.core.model.core.ADEOfCityModel;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
+import org.xmlobjects.util.Properties;
 
 import java.io.IOException;
 import java.util.*;
