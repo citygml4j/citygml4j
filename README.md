@@ -17,14 +17,14 @@ into the model classes and writing them back out again.
 - [`citygml4j-xml`](citygml4j-xml) provides the default GML/XML encoding and supports
   CityGML 3.0, 2.0, and 1.0.
 - [`citygml4j-cityjson`](citygml4j-cityjson) adds [CityJSON](https://www.cityjson.org/) as encoding with
-  support for CityJSON 1.1 and 1.0.
+  support for CityJSON 2.0, 1.1, and 1.0.
 
 ## License
 citygml4j is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 See the `LICENSE` file for more details.
 
 ## Latest release
-The latest release of citygml4j is 3.0.0.
+The latest release of citygml4j is 3.1.0.
 
 Download the latest citygml4j release binaries [here](https://github.com/citygml4j/citygml4j/releases/latest).
 Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
@@ -65,7 +65,7 @@ have to adapt the citygml4j version number.
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j-xml</artifactId>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
 </dependency>
 ```
 
@@ -78,8 +78,8 @@ repositories {
 }
 
 dependencies {
-  implementation 'org.citygml4j:citygml4j-xml:3.0.0'
-  implementation 'org.citygml4j:citygml4j-cityjson:3.0.0'
+  implementation 'org.citygml4j:citygml4j-xml:3.1.0'
+  implementation 'org.citygml4j:citygml4j-cityjson:3.1.0'
 }
 ```
 

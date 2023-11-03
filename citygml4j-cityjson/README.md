@@ -4,9 +4,9 @@ The `citygml4j-cityjson` module adds [CityJSON](https://www.cityjson.org/) as en
 classes.
 
 ## Supported CityJSON versions
-`citygml4j-cityjson` supports parsing and writing `"CityJSON"` JSON objects as specified by CityJSON version 1.1 and
-1.0. In addition, the `"CityJSONFeature"` object introduced in CityJSON 1.1 for efficiently streaming large CityJSON
-files based on [JSON Lines](https://jsonlines.org/) is supported.
+`citygml4j-cityjson` supports parsing and writing `"CityJSON"` JSON objects as specified by CityJSON version 2.0, 1.1,
+and 1.0. In addition, the `"CityJSONFeature"` object introduced in CityJSON 1.1 for efficiently streaming large
+CityJSON files based on [JSON Lines](https://jsonlines.org/) is supported.
 
 CityJSON only encodes a subset of the CityGML conceptual model, and also provides extra content not available
 in CityGML. Since `citygml4j-cityjson` is based on the `citygml4j-core` module, which implements the

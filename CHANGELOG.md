@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [3.1.0] - 2023-11-03
 ### Added
 - Added support for [CityJSON 2.0](https://www.cityjson.org/specs/2.0.0/). ([citygml-tools #50](https://github.com/citygml4j/citygml-tools/issues/50))
 - Added mapping of CityGML 2.0 LoD0 point geometries to the `lod0Point` property of `AbstractSpace`.
@@ -70,7 +72,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.0.0..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.1.0..HEAD
+[3.1.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.1.0
 [3.0.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0
 [3.0.0-rc.5]: https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0-rc.5
 [Before 3.0.0]: https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md
