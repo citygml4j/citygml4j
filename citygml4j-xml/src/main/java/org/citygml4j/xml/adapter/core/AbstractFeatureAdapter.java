@@ -55,7 +55,9 @@ public abstract class AbstractFeatureAdapter<T extends AbstractFeature> extends 
 
     @Override
     public void buildADEProperty(T object, QName name, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
+        if (reader.isCreateDOMAsFallback()) {
+            object.getGenericProperties().add(GenericElement.of(reader.getDOMElement()));
+        }
     }
 
     @Override
