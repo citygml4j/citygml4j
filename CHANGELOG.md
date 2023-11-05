@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Unknown XML content was mapped to DOM elements even if `createGenericADEContent` was set to false on the
+  `CityGMLInputFactory`.
 
 ## [3.1.0] - 2023-11-03
 ### Added
