@@ -22,7 +22,6 @@ package org.citygml4j.cityjson;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.atteo.classindex.ClassFilter;
 import org.atteo.classindex.ClassIndex;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -132,11 +131,10 @@ public class CityJSONContext {
 
     @SuppressWarnings("rawtypes")
     private void loadBuilders(ClassLoader classLoader, boolean failOnDuplicates) throws CityJSONContextException {
-        for (Class<? extends JsonObjectBuilder> type : ClassFilter.only()
-                .withoutModifiers(Modifier.ABSTRACT)
-                .satisfying(c -> c.isAnnotationPresent(CityJSONElement.class) || c.isAnnotationPresent(CityJSONElements.class))
-                .from(ClassIndex.getSubclasses(JsonObjectBuilder.class, classLoader))) {
-
+        for (Class<? extends JsonObjectBuilder> type : ClassIndex.getSubclasses(JsonObjectBuilder.class, classLoader).stream()
+                .filter(c -> !Modifier.isAbstract(c.getModifiers()))
+                .filter(c -> c.isAnnotationPresent(CityJSONElement.class) || c.isAnnotationPresent(CityJSONElements.class))
+                .toList()) {
             boolean isSetElement = type.isAnnotationPresent(CityJSONElement.class);
             boolean isSetElements = type.isAnnotationPresent(CityJSONElements.class);
 
@@ -165,11 +163,10 @@ public class CityJSONContext {
 
     @SuppressWarnings("rawtypes")
     private void loadSerializers(ClassLoader classLoader, boolean failOnDuplicates) throws CityJSONContextException {
-        for (Class<? extends JsonObjectSerializer> type : ClassFilter.only()
-                .withoutModifiers(Modifier.ABSTRACT)
-                .satisfying(c -> c.isAnnotationPresent(CityJSONElement.class) || c.isAnnotationPresent(CityJSONElements.class))
-                .from(ClassIndex.getSubclasses(JsonObjectSerializer.class, classLoader))) {
-
+        for (Class<? extends JsonObjectSerializer> type : ClassIndex.getSubclasses(JsonObjectSerializer.class, classLoader).stream()
+                .filter(c -> !Modifier.isAbstract(c.getModifiers()))
+                .filter(c -> c.isAnnotationPresent(CityJSONElement.class) || c.isAnnotationPresent(CityJSONElements.class))
+                .toList()) {
             boolean isSetElement = type.isAnnotationPresent(CityJSONElement.class);
             boolean isSetElements = type.isAnnotationPresent(CityJSONElements.class);
 

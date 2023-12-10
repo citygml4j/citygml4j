@@ -1,5 +1,5 @@
 task copySamples {
-    def outputsDir = file("$buildDir/samples")
+    def outputsDir = file("$rootProject.projectDir/build/samples")
     outputs.dir outputsDir
 
     inputs.dir 'src/main/java'

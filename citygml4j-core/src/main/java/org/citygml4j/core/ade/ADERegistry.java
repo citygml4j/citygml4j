@@ -19,7 +19,6 @@
 
 package org.citygml4j.core.ade;
 
-import org.atteo.classindex.ClassFilter;
 import org.atteo.classindex.ClassIndex;
 
 import java.lang.reflect.Method;
@@ -94,9 +93,9 @@ public class ADERegistry {
     }
 
     public void loadADEs(ClassLoader classLoader) throws ADEException {
-        for (Class<? extends ADE> type : ClassFilter.only()
-                .withoutModifiers(Modifier.ABSTRACT)
-                .from(ClassIndex.getSubclasses(ADE.class, classLoader))) {
+        for (Class<? extends ADE> type : ClassIndex.getSubclasses(ADE.class, classLoader).stream()
+                .filter(c -> !Modifier.isAbstract(c.getModifiers()))
+                .toList()) {
             loadADE(type);
         }
     }
@@ -120,9 +119,9 @@ public class ADERegistry {
     }
 
     public void unloadADEs(ClassLoader classLoader) throws ADEException {
-        for (Class<? extends ADE> type : ClassFilter.only()
-                .withoutModifiers(Modifier.ABSTRACT)
-                .from(ClassIndex.getSubclasses(ADE.class, classLoader))) {
+        for (Class<? extends ADE> type : ClassIndex.getSubclasses(ADE.class, classLoader).stream()
+                .filter(c -> !Modifier.isAbstract(c.getModifiers()))
+                .toList()) {
             unloadADE(type);
         }
     }
@@ -139,10 +138,9 @@ public class ADERegistry {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void loadADELoaders(ClassLoader classLoader, boolean failOnDuplicates) throws ADEException {
-        for (Class<? extends ADELoader> type : ClassFilter.only()
-                .withoutModifiers(Modifier.ABSTRACT)
-                .from(ClassIndex.getSubclasses(ADELoader.class, classLoader))) {
-
+        for (Class<? extends ADELoader> type : ClassIndex.getSubclasses(ADELoader.class, classLoader).stream()
+                .filter(c -> !Modifier.isAbstract(c.getModifiers()))
+                .toList()) {
             ADELoader<ADE> loader;
             try {
                 loader = type.getDeclaredConstructor().newInstance();
