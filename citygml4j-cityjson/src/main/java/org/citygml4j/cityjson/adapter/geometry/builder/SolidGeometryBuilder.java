@@ -46,18 +46,12 @@ public class SolidGeometryBuilder extends GeometryObjectBuilder implements Surfa
     void build(JsonNode node, GeometryType type, int lod, GeometryObject geometryObject) {
         JsonNode boundaries = node.path(Fields.BOUNDARIES);
         if (boundaries.isArray()) {
-            AbstractGeometry geometry = null;
-            switch (type) {
-                case SOLID:
-                    geometry = createSolid((ArrayNode) boundaries);
-                    break;
-                case COMPOSITE_SOLID:
-                    geometry = createCompositeSolid((ArrayNode) boundaries);
-                    break;
-                case MULTI_SOLID:
-                    geometry = createMultiSolid((ArrayNode) boundaries);
-                    break;
-            }
+            AbstractGeometry geometry = switch (type) {
+                case SOLID -> createSolid((ArrayNode) boundaries);
+                case COMPOSITE_SOLID -> createCompositeSolid((ArrayNode) boundaries);
+                case MULTI_SOLID -> createMultiSolid((ArrayNode) boundaries);
+                default -> null;
+            };
 
             if (geometry != null) {
                 geometryObject.setGeometry(geometry);

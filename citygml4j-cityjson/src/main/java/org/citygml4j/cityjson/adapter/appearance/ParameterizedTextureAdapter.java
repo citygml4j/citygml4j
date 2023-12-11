@@ -131,24 +131,20 @@ public class ParameterizedTextureAdapter implements JsonObjectBuilder<Parameteri
     }
 
     private String getMimeType(String type) {
-        switch (type.toLowerCase(Locale.ROOT)) {
-            case "png":
-                return "image/png";
-            case "jpg":
-                return "image/jpeg";
-            default:
-                return null;
-        }
+        return switch (type.toLowerCase(Locale.ROOT)) {
+            case "png" -> "image/png";
+            case "jpg" -> "image/jpeg";
+            default -> null;
+        };
     }
 
     private String getType(Code mimeType) {
         if (mimeType.getValue() != null) {
-            switch (mimeType.getValue().toLowerCase(Locale.ROOT)) {
-                case "image/png":
-                    return "PNG";
-                case "image/jpeg":
-                    return "JPG";
-            }
+            return switch (mimeType.getValue().toLowerCase(Locale.ROOT)) {
+                case "image/png" -> "PNG";
+                case "image/jpeg" -> "JPG";
+                default -> "unknown";
+            };
         }
 
         return "unknown";
@@ -158,19 +154,10 @@ public class ParameterizedTextureAdapter implements JsonObjectBuilder<Parameteri
         int index = image.lastIndexOf('.');
         if (index >= 0 && index < image.length() - 1) {
             String extension = image.substring(index + 1).toUpperCase(Locale.ROOT);
-            switch (extension) {
-                case "JPG":
-                case "JPEG":
-                case "JPE":
-                case "JFIF":
-                case "JIF":
-                case "JFI":
-                case "PJPEG":
-                case "PJP":
-                    return "JPG";
-                default:
-                    return extension;
-            }
+            return switch (extension) {
+                case "JPG", "JPEG", "JPE", "JFIF", "JIF", "JFI", "PJPEG", "PJP" -> "JPG";
+                default -> extension;
+            };
         }
 
         return "unknown";

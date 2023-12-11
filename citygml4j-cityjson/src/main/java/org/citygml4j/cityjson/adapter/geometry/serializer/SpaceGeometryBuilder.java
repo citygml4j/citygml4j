@@ -153,8 +153,7 @@ public class SpaceGeometryBuilder {
 
     private void addUnreferencedCurveGeometries(AbstractSpace space) {
         for (Map.Entry<Integer, List<AbstractCurve>> entry : finder.curves.entrySet()) {
-            MultiCurve multiCurve = null;
-
+            MultiCurve multiCurve;
             MultiCurveProvider provider = multiCurveProviders != null ?
                     multiCurveProviders.get(entry.getKey()) :
                     null;
@@ -162,17 +161,12 @@ public class SpaceGeometryBuilder {
             if (provider != null) {
                 multiCurve = getOrSetMultiCurve(provider.get(), provider::set);
             } else {
-                switch (entry.getKey()) {
-                    case 0:
-                        multiCurve = getOrSetMultiCurve(space.getLod0MultiCurve(), space::setLod0MultiCurve);
-                        break;
-                    case 2:
-                        multiCurve = getOrSetMultiCurve(space.getLod2MultiCurve(), space::setLod2MultiCurve);
-                        break;
-                    case 3:
-                        multiCurve = getOrSetMultiCurve(space.getLod3MultiCurve(), space::setLod3MultiCurve);
-                        break;
-                }
+                multiCurve = switch (entry.getKey()) {
+                    case 0 -> getOrSetMultiCurve(space.getLod0MultiCurve(), space::setLod0MultiCurve);
+                    case 2 -> getOrSetMultiCurve(space.getLod2MultiCurve(), space::setLod2MultiCurve);
+                    case 3 -> getOrSetMultiCurve(space.getLod3MultiCurve(), space::setLod3MultiCurve);
+                    default -> null;
+                };
             }
 
             if (multiCurve != null) {

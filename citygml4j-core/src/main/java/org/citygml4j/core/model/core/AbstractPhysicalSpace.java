@@ -63,32 +63,30 @@ public abstract class AbstractPhysicalSpace extends AbstractSpace {
     }
 
     public MultiCurveProperty getTerrainIntersectionCurve(int lod) {
-        switch (lod) {
-            case 1:
-                return getLod1TerrainIntersectionCurve();
-            case 2:
-                return getLod2TerrainIntersectionCurve();
-            case 3:
-                return getLod3TerrainIntersectionCurve();
-            default:
-                return null;
-        }
+        return switch (lod) {
+            case 1 -> getLod1TerrainIntersectionCurve();
+            case 2 -> getLod2TerrainIntersectionCurve();
+            case 3 -> getLod3TerrainIntersectionCurve();
+            default -> null;
+        };
     }
 
     public boolean setTerrainIntersectionCurve(int lod, MultiCurveProperty property) {
-        switch (lod) {
-            case 1:
+        return switch (lod) {
+            case 1 -> {
                 setLod1TerrainIntersectionCurve(property);
-                return true;
-            case 2:
+                yield true;
+            }
+            case 2 -> {
                 setLod2TerrainIntersectionCurve(property);
-                return true;
-            case 3:
+                yield true;
+            }
+            case 3 -> {
                 setLod3TerrainIntersectionCurve(property);
-                return true;
-            default:
-                return false;
-        }
+                yield true;
+            }
+            default -> false;
+        };
     }
 
     @Override

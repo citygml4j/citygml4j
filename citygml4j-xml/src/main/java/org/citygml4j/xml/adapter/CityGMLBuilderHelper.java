@@ -110,19 +110,21 @@ public class CityGMLBuilderHelper {
     }
 
     public static boolean buildStandardObjectClassifier(StandardObjectClassifier object, String localName, XMLReader reader) throws ObjectBuildException, XMLReadException {
-        switch (localName) {
-            case "class":
+        return switch (localName) {
+            case "class" -> {
                 object.setClassifier(reader.getObjectUsingBuilder(CodeAdapter.class));
-                return true;
-            case "function":
+                yield true;
+            }
+            case "function" -> {
                 object.getFunctions().add(reader.getObjectUsingBuilder(CodeAdapter.class));
-                return true;
-            case "usage":
+                yield true;
+            }
+            case "usage" -> {
                 object.getUsages().add(reader.getObjectUsingBuilder(CodeAdapter.class));
-                return true;
-            default:
-                return false;
-        }
+                yield true;
+            }
+            default -> false;
+        };
     }
 
     public static boolean assignDefaultGeometry(AbstractSpace object, int lod, GeometryProperty<?> property) {

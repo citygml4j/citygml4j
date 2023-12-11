@@ -47,13 +47,10 @@ public class BridgeModule extends CityGMLModule {
     }
 
     public static BridgeModule of(CityGMLVersion version) {
-        switch (version) {
-            case v3_0:
-                return v3_0;
-            case v2_0:
-                return v2_0;
-            default:
-                return null;
-        }
+        return switch (version) {
+            case v3_0 -> v3_0;
+            case v2_0 -> v2_0;
+            default -> null;
+        };
     }
 }

@@ -163,49 +163,29 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
     }
 
     public Object getValue(TimeseriesValue valueType) {
-        switch (valueType) {
-            case INTEGER:
-                return getIntValue();
-            case DOUBLE:
-                return getDoubleValue();
-            case STRING:
-                return getStringValue();
-            case GEOMETRY:
-                return getGeometryValue();
-            case URI:
-                return getUriValue();
-            case BOOL:
-                return getBoolValue();
-            case IMPLICIT_GEOMETRY:
-                return getImplicitGeometryValue();
-            case APPEARANCE:
-                return getAppearanceValue();
-            default:
-                return null;
-        }
+        return switch (valueType) {
+            case INTEGER -> getIntValue();
+            case DOUBLE -> getDoubleValue();
+            case STRING -> getStringValue();
+            case GEOMETRY -> getGeometryValue();
+            case URI -> getUriValue();
+            case BOOL -> getBoolValue();
+            case IMPLICIT_GEOMETRY -> getImplicitGeometryValue();
+            case APPEARANCE -> getAppearanceValue();
+        };
     }
 
     public boolean isSetValue(TimeseriesValue valueType) {
-        switch (valueType) {
-            case INTEGER:
-                return isSetIntValue();
-            case DOUBLE:
-                return isSetDoubleValue();
-            case STRING:
-                return isSetStringValue();
-            case GEOMETRY:
-                return isSetGeometryValue();
-            case URI:
-                return isSetUriValue();
-            case BOOL:
-                return isSetBoolValue();
-            case IMPLICIT_GEOMETRY:
-                return isSetImplicitGeometryValue();
-            case APPEARANCE:
-                return isSetAppearanceValue();
-            default:
-                return false;
-        }
+        return switch (valueType) {
+            case INTEGER -> isSetIntValue();
+            case DOUBLE -> isSetDoubleValue();
+            case STRING -> isSetStringValue();
+            case GEOMETRY -> isSetGeometryValue();
+            case URI -> isSetUriValue();
+            case BOOL -> isSetBoolValue();
+            case IMPLICIT_GEOMETRY -> isSetImplicitGeometryValue();
+            case APPEARANCE -> isSetAppearanceValue();
+        };
     }
 
     public void setValue(TimeseriesValue valueType, Object value) {

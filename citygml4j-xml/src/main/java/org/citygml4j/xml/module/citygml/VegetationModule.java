@@ -55,13 +55,10 @@ public class VegetationModule extends CityGMLModule {
     }
 
     public static VegetationModule of(CityGMLVersion version) {
-        switch (version) {
-            case v2_0:
-                return v2_0;
-            case v1_0:
-                return v1_0;
-            default:
-                return v3_0;
-        }
+        return switch (version) {
+            case v2_0 -> v2_0;
+            case v1_0 -> v1_0;
+            default -> v3_0;
+        };
     }
 }

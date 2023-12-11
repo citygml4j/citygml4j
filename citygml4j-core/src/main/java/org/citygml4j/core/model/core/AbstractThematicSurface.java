@@ -112,37 +112,35 @@ public abstract class AbstractThematicSurface extends AbstractSpaceBoundary {
     }
 
     public MultiSurfaceProperty getMultiSurface(int lod) {
-        switch (lod) {
-            case 0:
-                return getLod0MultiSurface();
-            case 1:
-                return getLod1MultiSurface();
-            case 2:
-                return getLod2MultiSurface();
-            case 3:
-                return getLod3MultiSurface();
-            default:
-                return null;
-        }
+        return switch (lod) {
+            case 0 -> getLod0MultiSurface();
+            case 1 -> getLod1MultiSurface();
+            case 2 -> getLod2MultiSurface();
+            case 3 -> getLod3MultiSurface();
+            default -> null;
+        };
     }
 
     public boolean setMultiSurface(int lod, MultiSurfaceProperty property) {
-        switch (lod) {
-            case 0:
+        return switch (lod) {
+            case 0 -> {
                 setLod0MultiSurface(property);
-                return true;
-            case 1:
+                yield true;
+            }
+            case 1 -> {
                 setLod1MultiSurface(property);
-                return true;
-            case 2:
+                yield true;
+            }
+            case 2 -> {
                 setLod2MultiSurface(property);
-                return true;
-            case 3:
+                yield true;
+            }
+            case 3 -> {
                 setLod3MultiSurface(property);
-                return true;
-            default:
-                return false;
-        }
+                yield true;
+            }
+            default -> false;
+        };
     }
 
     @Override
