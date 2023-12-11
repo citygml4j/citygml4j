@@ -37,7 +37,7 @@ public class CityGMLADELoader extends ADELoader<CityGMLADE> {
         return modules.values().stream()
                 .map(Map::values)
                 .flatMap(Collection::stream)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<ADEModule> getADEModules(CityGMLVersion version) {

@@ -26,6 +26,7 @@ import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.util.copy.Copyable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
 public abstract class AbstractMatrix extends GMLObject implements CityGMLObject {
@@ -54,7 +55,7 @@ public abstract class AbstractMatrix extends GMLObject implements CityGMLObject 
     }
 
     public List<Double> toRowMajorList() {
-        return DoubleStream.of(matrix.getRowPackedCopy()).boxed().toList();
+        return DoubleStream.of(matrix.getRowPackedCopy()).boxed().collect(Collectors.toList());
     }
 
     public void fromRowMajorList(List<Double> values) {
@@ -62,7 +63,7 @@ public abstract class AbstractMatrix extends GMLObject implements CityGMLObject 
     }
 
     public List<Double> toColumnMajorList() {
-        return DoubleStream.of(matrix.getColumnPackedCopy()).boxed().toList();
+        return DoubleStream.of(matrix.getColumnPackedCopy()).boxed().collect(Collectors.toList());
     }
 
     public void fromColumnMajorList(List<Double> values) {

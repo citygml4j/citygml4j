@@ -38,7 +38,7 @@ public class GeometryInfo {
     public List<GeometryProperty<?>> getGeometries() {
         return geometries.values().stream()
                 .flatMap(Collection::stream)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<GeometryProperty<?>> getGeometries(int lod) {
@@ -79,7 +79,7 @@ public class GeometryInfo {
     public List<ImplicitGeometryProperty> getImplicitGeometries() {
         return implicitGeometries.values().stream()
                 .flatMap(Collection::stream)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<ImplicitGeometryProperty> getImplicitGeometries(int lod) {
