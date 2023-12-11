@@ -58,8 +58,8 @@ public class AddressAdapter implements JsonObjectBuilder<Address>, JsonObjectSer
         JsonNode location = helper.consumeProperty("location", node);
         if (location.isObject()) {
             GeometryObject geometryObject = helper.getGeometry(object, location);
-            if (geometryObject.getGeometry() instanceof MultiPoint) {
-                object.setMultiPoint(new MultiPointProperty((MultiPoint) geometryObject.getGeometry()));
+            if (geometryObject.getGeometry() instanceof MultiPoint multiPoint) {
+                object.setMultiPoint(new MultiPointProperty(multiPoint));
             }
         }
 

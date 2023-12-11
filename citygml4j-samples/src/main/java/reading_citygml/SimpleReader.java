@@ -49,9 +49,7 @@ public class SimpleReader {
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             AbstractFeature feature = reader.next();
 
-            if (feature instanceof CityModel) {
-                CityModel cityModel = (CityModel) feature;
-
+            if (feature instanceof CityModel cityModel) {
                 String localName = reader.getName().getLocalPart();
                 CityGMLVersion version = CityGMLModules.getCityGMLVersion(reader.getName().getNamespaceURI());
 

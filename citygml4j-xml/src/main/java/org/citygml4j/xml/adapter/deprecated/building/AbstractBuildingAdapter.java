@@ -160,8 +160,9 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     return;
                 case "consistsOfBuildingPart":
                     BuildingPartProperty consistsOfBuildingPart = reader.getObjectUsingBuilder(BuildingPartPropertyAdapter.class);
-                    if ((consistsOfBuildingPart.getObject() != null || consistsOfBuildingPart.getGenericElement() != null) && object instanceof Building)
-                        ((Building) object).getBuildingParts().add(consistsOfBuildingPart);
+                    if ((consistsOfBuildingPart.getObject() != null || consistsOfBuildingPart.getGenericElement() != null)
+                            && object instanceof Building building)
+                        building.getBuildingParts().add(consistsOfBuildingPart);
                     else
                         object.getDeprecatedProperties().getConsistsOfBuildingParts().add(consistsOfBuildingPart);
                     return;
@@ -290,8 +291,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "interiorRoom"), property, BuildingRoomPropertyAdapter.class, namespaces);
         }
 
-        if (object instanceof Building) {
-            Building building = (Building) object;
+        if (object instanceof Building building) {
             if (building.isSetBuildingParts()) {
                 for (BuildingPartProperty property : building.getBuildingParts())
                     writer.writeElementUsingSerializer(Element.of(buildingNamespace, "consistsOfBuildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);

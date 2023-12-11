@@ -71,8 +71,7 @@ public class AddingLoD1 {
             while (reader.hasNext()) {
                 AbstractFeature feature = reader.next();
 
-                if (feature instanceof AbstractSpace) {
-                    AbstractSpace space = (AbstractSpace) feature;
+                if (feature instanceof AbstractSpace space) {
                     log.print("Adding LoD1 representation to " + reader.getName().getLocalPart() + " with gml:id " + space.getId());
 
                     Envelope envelope = space.computeEnvelope();

@@ -73,8 +73,8 @@ public class SpaceGeometryBuilder {
                             object.getBoundaries().add(new AbstractSpaceBoundaryProperty(boundary));
                         }
                     }
-                } else if (geometryObject.isSetImplicitGeometry() && object instanceof AbstractOccupiedSpace) {
-                    addImplicitGeometry((AbstractOccupiedSpace) object, geometryObject.getImplicitGeometry(), lod);
+                } else if (geometryObject.isSetImplicitGeometry() && object instanceof AbstractOccupiedSpace space) {
+                    addImplicitGeometry(space, geometryObject.getImplicitGeometry(), lod);
                 }
 
                 geometryObject.reset(true);
@@ -90,18 +90,16 @@ public class SpaceGeometryBuilder {
 
     private void addGeometry(AbstractSpace space, AbstractGeometry geometry, int lod, Map<Integer, MultiSurfaceProvider> providers) {
         // convert unsupported geometry types
-        if (geometry instanceof CompositeSurface) {
-            geometry = new MultiSurface(((CompositeSurface) geometry).getSurfaceMembers());
-        } else if (geometry instanceof MultiSolid) {
-            MultiSolid multiSolid = (MultiSolid) geometry;
+        if (geometry instanceof CompositeSurface compositeSurface) {
+            geometry = new MultiSurface(compositeSurface.getSurfaceMembers());
+        } else if (geometry instanceof MultiSolid multiSolid) {
             space.setSolid(lod, new SolidProperty(new CompositeSolid(multiSolid.getSolidMember())));
         }
 
         // assign geometries
-        if (geometry instanceof Solid) {
-            space.setSolid(lod, new SolidProperty((Solid) geometry));
-        } else if (geometry instanceof MultiSurface) {
-            MultiSurface multiSurface = (MultiSurface) geometry;
+        if (geometry instanceof Solid solid) {
+            space.setSolid(lod, new SolidProperty(solid));
+        } else if (geometry instanceof MultiSurface multiSurface) {
             if (helper.getTargetCityGMLVersion() != CityGMLVersion.v3_0
                     || multiSurface.getSurfaceMember().stream().anyMatch(SurfaceProperty::isSetInlineObject)) {
                 if (lod == 1) {
@@ -115,10 +113,9 @@ public class SpaceGeometryBuilder {
                     space.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
                 }
             }
-        } else if (geometry instanceof MultiCurve) {
-            space.setMultiCurve(lod, new MultiCurveProperty((MultiCurve) geometry));
-        } else if (lod == 0 && geometry instanceof MultiPoint) {
-            MultiPoint multiPoint = (MultiPoint) geometry;
+        } else if (geometry instanceof MultiCurve multiCurve) {
+            space.setMultiCurve(lod, new MultiCurveProperty(multiCurve));
+        } else if (lod == 0 && geometry instanceof MultiPoint multiPoint) {
             if (multiPoint.getPointMember().size() == 1) {
                 space.setLod0Point(multiPoint.getPointMember().get(0));
             }

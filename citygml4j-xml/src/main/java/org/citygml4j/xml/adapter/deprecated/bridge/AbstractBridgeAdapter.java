@@ -135,8 +135,9 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                     return;
                 case "consistsOfBridgePart":
                     BridgePartProperty consistsOfBridgePart = reader.getObjectUsingBuilder(BridgePartPropertyAdapter.class);
-                    if ((consistsOfBridgePart.getObject() != null || consistsOfBridgePart.getGenericElement() != null) && object instanceof Bridge)
-                        ((Bridge) object).getBridgeParts().add(consistsOfBridgePart);
+                    if ((consistsOfBridgePart.getObject() != null || consistsOfBridgePart.getGenericElement() != null)
+                            && object instanceof Bridge bridge)
+                        bridge.getBridgeParts().add(consistsOfBridgePart);
                     else
                         object.getDeprecatedProperties().getConsistsOfBridgeParts().add(consistsOfBridgePart);
                     return;
@@ -246,8 +247,7 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "interiorBridgeRoom"), property, BridgeRoomPropertyAdapter.class, namespaces);
         }
 
-        if (object instanceof Bridge) {
-            Bridge bridge = (Bridge) object;
+        if (object instanceof Bridge bridge) {
             if (bridge.isSetBridgeParts()) {
                 for (BridgePartProperty property : bridge.getBridgeParts())
                     writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "consistsOfBridgePart"), property, BridgePartPropertyAdapter.class, namespaces);

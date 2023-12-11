@@ -62,8 +62,9 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
             GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asText());
             if (type == GeometryType.COMPOSITE_SURFACE) {
                 GeometryObject geometryObject = helper.getGeometry(object, geometry);
-                if (geometryObject != null && geometryObject.getGeometry() instanceof CompositeSurface) {
-                    TriangulatedSurface triangulatedSurface = toTriangulatedSurface((CompositeSurface) geometryObject.getGeometry());
+                if (geometryObject != null
+                        && geometryObject.getGeometry() instanceof CompositeSurface compositeSurface) {
+                    TriangulatedSurface triangulatedSurface = toTriangulatedSurface(compositeSurface);
                     if (triangulatedSurface != null) {
                         object.setLod(geometry.path(Fields.LOD).asInt(0));
                         object.setTin(new TinProperty(triangulatedSurface));
@@ -92,10 +93,9 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
         Iterator<SurfaceProperty> iterator = compositeSurface.getSurfaceMembers().iterator();
         while (iterator.hasNext()) {
             SurfaceProperty property = iterator.next();
-            if (property.getObject() instanceof Polygon) {
-                Polygon polygon = (Polygon) property.getObject();
-                if (polygon.getExterior() != null && polygon.getExterior().getObject() instanceof LinearRing) {
-                    LinearRing linearRing = (LinearRing) polygon.getExterior().getObject();
+            if (property.getObject() instanceof Polygon polygon) {
+                if (polygon.getExterior() != null
+                        && polygon.getExterior().getObject() instanceof LinearRing linearRing) {
                     if (linearRing.getControlPoints() != null
                             && linearRing.getControlPoints().isSetPosList()
                             && linearRing.getControlPoints().getPosList().getValue().size() == 12) {
@@ -124,14 +124,12 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
             while (iterator.hasNext()) {
                 AbstractSurfaceData surfaceData = iterator.next().getObject();
 
-                if (surfaceData instanceof X3DMaterial) {
-                    X3DMaterial x3DMaterial = (X3DMaterial) surfaceData;
-                    if (x3DMaterial.getTargets().size() == 1
-                            && x3DMaterial.getTargets().get(0).getHref().equals(target)) {
+                if (surfaceData instanceof X3DMaterial material) {
+                    if (material.getTargets().size() == 1
+                            && material.getTargets().get(0).getHref().equals(target)) {
                         continue;
                     }
-                } else if (surfaceData instanceof ParameterizedTexture) {
-                    ParameterizedTexture texture = (ParameterizedTexture) surfaceData;
+                } else if (surfaceData instanceof ParameterizedTexture texture) {
                     if (texture.getTextureParameterizations().size() == 1) {
                         TextureAssociation association = texture.getTextureParameterizations().get(0).getObject();
                         if (association != null

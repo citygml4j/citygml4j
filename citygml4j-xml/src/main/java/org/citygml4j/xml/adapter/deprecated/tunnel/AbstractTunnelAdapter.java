@@ -126,8 +126,9 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                     return;
                 case "consistsOfTunnelPart":
                     TunnelPartProperty consistsOfTunnelPart = reader.getObjectUsingBuilder(TunnelPartPropertyAdapter.class);
-                    if ((consistsOfTunnelPart.getObject() != null || consistsOfTunnelPart.getGenericElement() != null) && object instanceof Tunnel)
-                        ((Tunnel) object).getTunnelParts().add(consistsOfTunnelPart);
+                    if ((consistsOfTunnelPart.getObject() != null || consistsOfTunnelPart.getGenericElement() != null)
+                            && object instanceof Tunnel tunnel)
+                        tunnel.getTunnelParts().add(consistsOfTunnelPart);
                     else
                         object.getDeprecatedProperties().getConsistsOfTunnelParts().add(consistsOfTunnelPart);
                     return;
@@ -226,8 +227,7 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "interiorHollowSpace"), property, HollowSpacePropertyAdapter.class, namespaces);
         }
 
-        if (object instanceof Tunnel) {
-            Tunnel tunnel = (Tunnel) object;
+        if (object instanceof Tunnel tunnel) {
             if (tunnel.isSetTunnelParts()) {
                 for (TunnelPartProperty property : tunnel.getTunnelParts())
                     writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "consistsOfTunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);

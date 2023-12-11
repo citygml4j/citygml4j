@@ -109,8 +109,8 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
         }
 
         for (Visitable visitable : resolveScopes) {
-            if (visitable instanceof CityObjectGroup) {
-                writeCityObject((CityObjectGroup) visitable);
+            if (visitable instanceof CityObjectGroup group) {
+                writeCityObject(group);
             }
         }
 

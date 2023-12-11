@@ -73,11 +73,10 @@ public class ReadingGenericADE {
                 AbstractCityObject cityObject = member.getObject();
                 log.print("Found " + cityObject.getClass().getSimpleName() + " with gml:id " + cityObject.getId());
 
-                if (cityObject instanceof Building) {
-                    Building building = (Building) cityObject;
+                if (cityObject instanceof Building building) {
                     for (ADEProperty property : building.getADEProperties()) {
-                        if (property instanceof ADEGenericProperty) {
-                            Element element = ((ADEGenericProperty) property).getValue();
+                        if (property instanceof ADEGenericProperty generic) {
+                            Element element = generic.getValue();
                             log.print("  - with ADE property " + element.getLocalName() + " {" + element.getNamespaceURI() + "}");
                             printADEInfo(handler, element, cityObjectType, gmlObjectType, geometryType, 5);
                         }

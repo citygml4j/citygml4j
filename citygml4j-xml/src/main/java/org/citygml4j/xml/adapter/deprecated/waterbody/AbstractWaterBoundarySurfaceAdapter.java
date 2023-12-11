@@ -100,9 +100,8 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
         if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getLod4MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Surface"), getSurfaceProperty(object.getDeprecatedProperties().getLod4MultiSurface()), SurfacePropertyAdapter.class, namespaces);
 
-        if (object instanceof AbstractWaterBoundarySurface) {
-            AbstractWaterBoundarySurface boundarySurface = (AbstractWaterBoundarySurface) object;
-            for (ADEOfAbstractWaterBoundarySurface property : boundarySurface.getADEProperties(ADEOfAbstractWaterBoundarySurface.class))
+        if (object instanceof AbstractWaterBoundarySurface surface) {
+            for (ADEOfAbstractWaterBoundarySurface property : surface.getADEProperties(ADEOfAbstractWaterBoundarySurface.class))
                 ADESerializerHelper.writeADEProperty(property, namespaces, writer);
         }
 

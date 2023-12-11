@@ -139,8 +139,8 @@ public class CityJSONSimpleReader extends CityJSONReader {
 
         if (object != null) {
             object.setId(identifier);
-            if (object instanceof AbstractCityObject && object instanceof TopLevelFeature) {
-                cityModel.getCityObjectMembers().add(new AbstractCityObjectProperty((AbstractCityObject) object));
+            if (object instanceof AbstractCityObject cityObject && object instanceof TopLevelFeature) {
+                cityModel.getCityObjectMembers().add(new AbstractCityObjectProperty(cityObject));
             } else {
                 cityModel.getFeatureMembers().add(new AbstractFeatureProperty(object));
             }

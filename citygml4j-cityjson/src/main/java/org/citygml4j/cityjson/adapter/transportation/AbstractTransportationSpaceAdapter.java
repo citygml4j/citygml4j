@@ -86,8 +86,8 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
                     Hole hole = new Hole();
                     hole.addBoundary(property);
                     object.getHoles().add(new HoleProperty(hole));
-                } else if (boundary instanceof Marking) {
-                    object.getMarkings().add(new MarkingProperty((Marking) boundary));
+                } else if (boundary instanceof Marking marking) {
+                    object.getMarkings().add(new MarkingProperty(marking));
                 } else {
                     continue;
                 }

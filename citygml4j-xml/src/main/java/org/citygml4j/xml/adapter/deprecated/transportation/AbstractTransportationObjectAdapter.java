@@ -66,8 +66,8 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
     @Override
     public void buildChildObject(T object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLBuilderHelper.isTransportationNamespace(name.getNamespaceURI())) {
-            if (object instanceof StandardObjectClassifier
-                    && CityGMLBuilderHelper.buildStandardObjectClassifier((StandardObjectClassifier) object, name.getLocalPart(), reader))
+            if (object instanceof StandardObjectClassifier classifier
+                    && CityGMLBuilderHelper.buildStandardObjectClassifier(classifier, name.getLocalPart(), reader))
                 return;
 
             switch (name.getLocalPart()) {
@@ -125,8 +125,8 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
                 object.getDeprecatedProperties() :
                 null;
 
-        if (object instanceof StandardObjectClassifier)
-            CityGMLSerializerHelper.writeStandardObjectClassifier((StandardObjectClassifier) object, transportationNamespace, namespaces, writer);
+        if (object instanceof StandardObjectClassifier classifier)
+            CityGMLSerializerHelper.writeStandardObjectClassifier(classifier, transportationNamespace, namespaces, writer);
 
         if (object.isSetTrafficSpaces()) {
             for (TrafficSpaceProperty property : object.getTrafficSpaces()) {

@@ -40,8 +40,8 @@ public class ADESerializerHelper {
     }
 
     public static void writeADEProperty(ADEProperty property, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        if (property instanceof ADEGenericProperty) {
-            writer.writeDOMElement(((ADEGenericProperty) property).getValue());
+        if (property instanceof ADEGenericProperty generic) {
+            writer.writeDOMElement(generic.getValue());
         } else {
             writer.writeObject(property, namespaces);
         }

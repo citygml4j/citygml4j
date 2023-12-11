@@ -128,25 +128,24 @@ public class CityGMLBuilderHelper {
     public static boolean assignDefaultGeometry(AbstractSpace object, int lod, GeometryProperty<?> property) {
         if (property != null && property.getObject() != null) {
             AbstractGeometry geometry = property.getObject();
-            if (geometry instanceof AbstractSolid) {
-                return object.setSolid(lod, new SolidProperty((AbstractSolid) geometry));
-            } else if (lod != 1 && geometry instanceof MultiSurface) {
-                return object.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
-            } else if (lod != 1 && geometry instanceof AbstractSurface) {
-                MultiSurface multiSurface = new MultiSurface();
-                multiSurface.getSurfaceMember().add(new SurfaceProperty((AbstractSurface) geometry));
+            if (geometry instanceof AbstractSolid solid) {
+                return object.setSolid(lod, new SolidProperty(solid));
+            } else if (lod != 1 && geometry instanceof MultiSurface multiSurface) {
                 return object.setMultiSurface(lod, new MultiSurfaceProperty(multiSurface));
-            } else if (geometry instanceof MultiCurve) {
-                return object.setMultiCurve(lod, new MultiCurveProperty((MultiCurve) geometry));
-            } else if (geometry instanceof AbstractCurve) {
-                MultiCurve multiCurve = new MultiCurve();
-                multiCurve.getCurveMember().add(new CurveProperty((AbstractCurve) geometry));
+            } else if (lod != 1 && geometry instanceof AbstractSurface surface) {
+                MultiSurface multiSurface = new MultiSurface();
+                multiSurface.getSurfaceMember().add(new SurfaceProperty(surface));
+                return object.setMultiSurface(lod, new MultiSurfaceProperty(multiSurface));
+            } else if (geometry instanceof MultiCurve multiCurve) {
                 return object.setMultiCurve(lod, new MultiCurveProperty(multiCurve));
-            } else if (lod == 0 && geometry instanceof Point) {
-                object.setLod0Point(new PointProperty((Point) geometry));
+            } else if (geometry instanceof AbstractCurve curve) {
+                MultiCurve multiCurve = new MultiCurve();
+                multiCurve.getCurveMember().add(new CurveProperty(curve));
+                return object.setMultiCurve(lod, new MultiCurveProperty(multiCurve));
+            } else if (lod == 0 && geometry instanceof Point point) {
+                object.setLod0Point(new PointProperty(point));
                 return true;
-            } else if (lod == 0 && geometry instanceof MultiPoint) {
-                MultiPoint multiPoint = (MultiPoint) geometry;
+            } else if (lod == 0 && geometry instanceof MultiPoint multiPoint) {
                 PointProperty pointProperty = null;
                 if (multiPoint.isSetPointMember() && multiPoint.getPointMember().size() == 1) {
                     pointProperty = multiPoint.getPointMember().get(0);
@@ -160,8 +159,7 @@ public class CityGMLBuilderHelper {
                     object.setLod0Point(pointProperty);
                     return true;
                 }
-            } else if (geometry instanceof MultiSolid) {
-                MultiSolid multiSolid = (MultiSolid) geometry;
+            } else if (geometry instanceof MultiSolid multiSolid) {
                 SolidProperty solidProperty = null;
                 if (multiSolid.isSetSolidMember() && multiSolid.getSolidMember().size() == 1) {
                     solidProperty = multiSolid.getSolidMember().get(0);

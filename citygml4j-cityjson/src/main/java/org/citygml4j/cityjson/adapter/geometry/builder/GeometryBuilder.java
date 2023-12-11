@@ -161,12 +161,11 @@ public class GeometryBuilder {
             if (builder != null) {
                 builder.build(geometry, type, lod, geometryObject);
 
-                if (geometryObject.getGeometry() != null && builder instanceof SurfaceProvider) {
-                    List<SurfaceProperty> surfaces = ((SurfaceProvider) builder).getSurfaces();
+                if (geometryObject.getGeometry() != null && builder instanceof SurfaceProvider provider) {
+                    List<SurfaceProperty> surfaces = provider.getSurfaces();
                     materialBuilder.build(geometry.path(Fields.MATERIAL), surfaces, appearanceBuilder, geometryObject);
                     textureBuilder.build(geometry.path(Fields.TEXTURE), surfaces, appearanceBuilder, geometryObject);
-                    if (object instanceof AbstractSpace) {
-                        AbstractSpace space = (AbstractSpace) object;
+                    if (object instanceof AbstractSpace space) {
                         JsonNode semantics = geometry.path(Fields.SEMANTICS);
                         semanticsBuilder.build(space, semantics, filter, surfaces, lod, geometryObject);
                     }

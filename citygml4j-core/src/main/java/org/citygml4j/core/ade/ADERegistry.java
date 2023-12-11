@@ -190,8 +190,8 @@ public class ADERegistry {
                     case "unloadADE":
                         parameters = method.getGenericParameterTypes();
                         if (parameters.length == 1
-                                && parameters[0] instanceof Class<?>
-                                && ADE.class.isAssignableFrom((Class<?>) parameters[0])) {
+                                && parameters[0] instanceof Class<?> type
+                                && ADE.class.isAssignableFrom(type)) {
                             candidateType = (Class<ADE>) parameters[0];
                         }
                         break;

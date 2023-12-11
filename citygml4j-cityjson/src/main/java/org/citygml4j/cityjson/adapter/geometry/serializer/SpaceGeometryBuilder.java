@@ -310,8 +310,8 @@ public class SpaceGeometryBuilder {
                 finder.spaceGeometries.computeIfAbsent(geometry.getId(), v -> new HashMap<>()).put(lod, geometry);
 
                 AbstractFeature parent = geometry.getParent(AbstractFeature.class);
-                if (parent instanceof AbstractSpaceBoundary) {
-                    decorate(geometry, (AbstractSpaceBoundary) parent);
+                if (parent instanceof AbstractSpaceBoundary boundary) {
+                    decorate(geometry, boundary);
                 }
             }
         }
@@ -374,8 +374,7 @@ public class SpaceGeometryBuilder {
 
         private boolean isNotReferenced(Child child) {
             do {
-                if (child instanceof AbstractGeometry) {
-                    AbstractGeometry geometry = (AbstractGeometry) child;
+                if (child instanceof AbstractGeometry geometry) {
                     if (geometry.getId() != null) {
                         AbstractGeometry spaceGeometry = spaceGeometries.getOrDefault(geometry.getId(), Collections.emptyMap()).get(lod);
                         if (spaceGeometry != null) {

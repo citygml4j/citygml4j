@@ -62,8 +62,8 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
                     object.getDeprecatedProperties().setLod4MultiSurface(reader.getObjectUsingBuilder(MultiSurfacePropertyAdapter.class));
                     return;
                 case "opening":
-                    if (object instanceof AbstractConstructionSurface)
-                        ((AbstractConstructionSurface) object).getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
+                    if (object instanceof AbstractConstructionSurface surface)
+                        surface.getFillingSurfaces().add(reader.getObjectUsingBuilder(AbstractFillingSurfacePropertyAdapter.class));
                     return;
             }
         } else if (CityGMLBuilderHelper.isADENamespace(name.getNamespaceURI())) {
@@ -94,9 +94,7 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
         if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getLod4MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (object instanceof AbstractConstructionSurface) {
-            AbstractConstructionSurface surface = (AbstractConstructionSurface) object;
-
+        if (object instanceof AbstractConstructionSurface surface) {
             if (surface.isSetFillingSurfaces()) {
                 for (AbstractFillingSurfaceProperty property : surface.getFillingSurfaces())
                     writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);

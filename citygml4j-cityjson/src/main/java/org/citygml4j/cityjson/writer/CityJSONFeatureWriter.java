@@ -158,12 +158,12 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
 
         if (state == State.DOCUMENT_STARTED) {
             for (Visitable visitable : resolveScopes) {
-                if (visitable instanceof CityObjectGroup) {
+                if (visitable instanceof CityObjectGroup group) {
                     if (state == State.INITIAL) {
-                        writeStartDocument((CityObjectGroup) visitable);
+                        writeStartDocument(group);
                     }
 
-                    writeCityObject((CityObjectGroup) visitable);
+                    writeCityObject(group);
                 }
             }
         }

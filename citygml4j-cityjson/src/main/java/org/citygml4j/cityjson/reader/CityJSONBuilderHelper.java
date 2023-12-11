@@ -441,8 +441,8 @@ public class CityJSONBuilderHelper {
             }
 
             if (builder != null) {
-                if (builder instanceof TypeMapper) {
-                    String mapping = ((TypeMapper) builder).mapType(node, type);
+                if (builder instanceof TypeMapper typeMapper) {
+                    String mapping = typeMapper.mapType(node, type);
                     if (mapping != null && !name.equals(mapping)) {
                         return getObject(mapping, node, type);
                     }
@@ -477,10 +477,10 @@ public class CityJSONBuilderHelper {
             boolean isCityObject = isObject && builder instanceof AbstractFeatureAdapter;
             boolean isSemanticObject = isObject && builder instanceof AbstractSemanticObjectAdapter;
 
-            if (targetCityGMLVersion != CityGMLVersion.v3_0 && builder instanceof AbstractSpaceAdapter) {
+            if (targetCityGMLVersion != CityGMLVersion.v3_0 && builder instanceof AbstractSpaceAdapter adapter) {
                 AbstractSpace space = (AbstractSpace) object;
                 space.getDeprecatedProperties();
-                geometryBuilder.setMultiSurfaceProviders(space, ((AbstractSpaceAdapter) builder).getMultiSurfaceProviders(space));
+                geometryBuilder.setMultiSurfaceProviders(space, adapter.getMultiSurfaceProviders(space));
             }
 
             Attributes attributes = isCityObject || isSemanticObject ?

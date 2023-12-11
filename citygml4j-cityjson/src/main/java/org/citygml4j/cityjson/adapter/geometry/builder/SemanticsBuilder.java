@@ -105,23 +105,23 @@ public class SemanticsBuilder {
             JsonNode surface = surfaces.get(i);
             AbstractThematicSurface boundary = boundaries.get(i);
 
-            if (boundary instanceof AbstractConstructionSurface) {
+            if (boundary instanceof AbstractConstructionSurface constructionSurface) {
                 for (JsonNode element : surface.path(Fields.CHILDREN)) {
                     int index = element.asInt(-1);
                     AbstractThematicSurface child = boundaries.get(index);
-                    if (child instanceof AbstractFillingSurface) {
-                        ((AbstractConstructionSurface) boundary)
+                    if (child instanceof AbstractFillingSurface fillingSurface) {
+                        constructionSurface
                                 .getFillingSurfaces()
-                                .add(new AbstractFillingSurfaceProperty((AbstractFillingSurface) child));
+                                .add(new AbstractFillingSurfaceProperty(fillingSurface));
                         boundaries.remove(index);
                     }
                 }
-            } else if (boundary instanceof AbstractFillingSurface) {
+            } else if (boundary instanceof AbstractFillingSurface fillingSurface) {
                 AbstractThematicSurface parent = boundaries.get(surface.path(Fields.PARENT).asInt(-1));
-                if (parent instanceof AbstractConstructionSurface) {
-                    ((AbstractConstructionSurface) parent)
+                if (parent instanceof AbstractConstructionSurface constructionSurface) {
+                    constructionSurface
                             .getFillingSurfaces()
-                            .add(new AbstractFillingSurfaceProperty((AbstractFillingSurface) boundary));
+                            .add(new AbstractFillingSurfaceProperty(fillingSurface));
                     boundaries.remove(i);
                 }
             }

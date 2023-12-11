@@ -68,8 +68,7 @@ public class SerializingObjects {
         try (ObjectInputStream stream = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(output)))) {
             Object object = stream.readObject();
 
-            if (object instanceof CityModel) {
-                CityModel cityModel = (CityModel) object;
+            if (object instanceof CityModel cityModel) {
                 Map<String, Integer> counter = new TreeMap<>();
 
                 log.print("Counting city object members of the de-serialized object");

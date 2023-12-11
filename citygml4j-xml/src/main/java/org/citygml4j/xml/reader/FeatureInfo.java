@@ -103,23 +103,23 @@ public class FeatureInfo {
     }
 
     public EngineeringCRSProperty getEngineeringCRS() {
-        return feature instanceof CityModel ? ((CityModel) feature).getEngineeringCRS() : null;
+        return feature instanceof CityModel cityModel ? cityModel.getEngineeringCRS() : null;
     }
 
     public List<AbstractAppearanceProperty> getAppearances() {
-        if (feature instanceof AbstractCityObject)
-            return ((AbstractCityObject) feature).getAppearances();
-        else if (feature instanceof CityModel)
-            return ((CityModel) feature).getAppearanceMembers();
+        if (feature instanceof AbstractCityObject cityObject)
+            return cityObject.getAppearances();
+        else if (feature instanceof CityModel cityModel)
+            return cityModel.getAppearanceMembers();
         else
             return Collections.emptyList();
     }
 
     public boolean isSetAppearances() {
-        if (feature instanceof AbstractCityObject)
-            return ((AbstractCityObject) feature).isSetAppearances();
-        else if (feature instanceof CityModel)
-            return ((CityModel) feature).isSetAppearanceMembers();
+        if (feature instanceof AbstractCityObject cityObject)
+            return cityObject.isSetAppearances();
+        else if (feature instanceof CityModel cityModel)
+            return cityModel.isSetAppearanceMembers();
         else
             return false;
     }

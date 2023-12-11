@@ -90,10 +90,10 @@ public class ADEWalkerHelper {
                 field.setAccessible(true);
                 Object value = field.get(adeObject);
 
-                if (value instanceof Collection<?>)
-                    new ArrayList<>((Collection<?>) value).forEach(parent::visitObject);
-                else if (value instanceof Object[])
-                    Arrays.stream(((Object[]) value)).forEach(parent::visitObject);
+                if (value instanceof Collection<?> collection)
+                    new ArrayList<>(collection).forEach(parent::visitObject);
+                else if (value instanceof Object[] array)
+                    Arrays.stream(array).forEach(parent::visitObject);
                 else if (value != null)
                     parent.visitObject(value);
             } catch (Throwable e) {

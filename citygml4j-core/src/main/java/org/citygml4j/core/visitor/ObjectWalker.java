@@ -124,12 +124,12 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
     @Override
     public void visit(Visitable visitable) {
-        if (visitable instanceof VisitableObject) {
-            ((VisitableObject) visitable).accept(this);
-        } else if (visitable instanceof org.xmlobjects.gml.visitor.VisitableObject) {
-            ((org.xmlobjects.gml.visitor.VisitableObject) visitable).accept(this);
-        } else if (visitable instanceof VisitableGeometry) {
-            ((VisitableGeometry) visitable).accept(this);
+        if (visitable instanceof VisitableObject object) {
+            object.accept(this);
+        } else if (visitable instanceof org.xmlobjects.gml.visitor.VisitableObject object) {
+            object.accept(this);
+        } else if (visitable instanceof VisitableGeometry geometry) {
+            geometry.accept(this);
         }
     }
 
@@ -158,8 +158,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
         if (feature.hasADEProperties()) {
             for (ADEProperty property : new ArrayList<>(feature.getADEProperties())) {
-                if (property instanceof ADEGenericProperty) {
-                    visit((ADEGenericProperty) property);
+                if (property instanceof ADEGenericProperty generic) {
+                    visit(generic);
                 } else {
                     visit(property);
                 }
@@ -1481,8 +1481,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
             visit(textureAssociation.getTarget());
 
         if (textureAssociation.getTextureParameterization() != null
-                && textureAssociation.getTextureParameterization().getObject() instanceof TexCoordList) {
-            TexCoordList texCoordList = (TexCoordList) textureAssociation.getTextureParameterization().getObject();
+                && textureAssociation.getTextureParameterization().getObject() instanceof TexCoordList texCoordList) {
             if (texCoordList.isSetTextureCoordinates()) {
                 for (TextureCoordinates textureCoordinates : texCoordList.getTextureCoordinates()) {
                     if (textureCoordinates.getRing() != null)
@@ -1757,41 +1756,41 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
     @Override
     protected void visitObject(Object object) {
-        if (object instanceof ADEObject)
-            visit((ADEObject) object);
-        else if (object instanceof VisitableObject)
-            ((VisitableObject) object).accept(this);
-        else if (object instanceof org.xmlobjects.gml.visitor.VisitableObject)
-            ((org.xmlobjects.gml.visitor.VisitableObject) object).accept(this);
-        else if (object instanceof VisitableGeometry)
-            ((VisitableGeometry) object).accept(this);
-        else if (object instanceof AbstractAssociation<?>)
-            visitProperty((AbstractAssociation<?>) object);
+        if (object instanceof ADEObject ade)
+            visit(ade);
+        else if (object instanceof VisitableObject visitable)
+            visitable.accept(this);
+        else if (object instanceof org.xmlobjects.gml.visitor.VisitableObject visitable)
+            visitable.accept(this);
+        else if (object instanceof VisitableGeometry visitable)
+            visitable.accept(this);
+        else if (object instanceof AbstractAssociation<?> association)
+            visitProperty(association);
     }
 
-    private void visitProperty(AbstractAssociation<?> property) {
-        if (property instanceof FeatureProperty<?>)
-            visit((FeatureProperty<?>) property);
-        else if (property instanceof GeometryProperty<?>)
-            visit((GeometryProperty<?>) property);
-        else if (property instanceof AbstractFeatureMember<?>)
-            visit((AbstractFeatureMember<?>) property);
-        else if (property instanceof AbstractReference<?>)
-            visit((AbstractReference<?>) property);
-        else if (property instanceof GeometryArrayProperty<?>)
-            visit((GeometryArrayProperty<?>) property);
-        else if (property instanceof SurfacePatchArrayProperty<?>)
-            visit((SurfacePatchArrayProperty<?>) property);
-        else if (property instanceof AbstractInlineGeometryProperty<?>)
-            visit((AbstractInlineGeometryProperty<?>) property);
-        else if (property instanceof AbstractInlineProperty<?>)
-            visit((AbstractInlineProperty<?>) property);
-        else if (property instanceof AbstractProperty<?>)
-            visit((AbstractProperty<?>) property);
-        else if (property instanceof AbstractInlineOrByReferenceProperty<?>)
-            visit((AbstractInlineOrByReferenceProperty<?>) property);
-        else if (property instanceof AbstractArrayProperty<?>)
-            visit((AbstractArrayProperty<?>) property);
+    private void visitProperty(AbstractAssociation<?> association) {
+        if (association instanceof FeatureProperty<?> property)
+            visit(property);
+        else if (association instanceof GeometryProperty<?> property)
+            visit(property);
+        else if (association instanceof AbstractFeatureMember<?> member)
+            visit(member);
+        else if (association instanceof AbstractReference<?> reference)
+            visit(reference);
+        else if (association instanceof GeometryArrayProperty<?> property)
+            visit(property);
+        else if (association instanceof SurfacePatchArrayProperty<?> property)
+            visit(property);
+        else if (association instanceof AbstractInlineGeometryProperty<?> property)
+            visit(property);
+        else if (association instanceof AbstractInlineProperty<?> property)
+            visit(property);
+        else if (association instanceof AbstractProperty<?> property)
+            visit(property);
+        else if (association instanceof AbstractInlineOrByReferenceProperty<?> property)
+            visit(property);
+        else if (association instanceof AbstractArrayProperty<?> property)
+            visit(property);
     }
 
     private void visit(Value value) {
@@ -1806,10 +1805,10 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     }
 
     private void visit(AbstractValue value) {
-        if (value instanceof ADEObject)
-            visit((ADEObject) value);
-        else if (value instanceof CompositeValue)
-            ((CompositeValue) value).accept(this);
+        if (value instanceof ADEObject ade)
+            visit(ade);
+        else if (value instanceof CompositeValue compositeValue)
+            compositeValue.accept(this);
     }
 
     private void visit(TimeInstantProperty property) {

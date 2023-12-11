@@ -58,16 +58,16 @@ public class ADEGeometryInfoBuilder {
     }
 
     static void updateGeometryInfo(Object object, LevelOfDetail lod, String name, GeometryInfo geometryInfo) {
-        if (object instanceof GeometryProperty<?>)
-            geometryInfo.addGeometry(getLodFromProperty(lod, name), (GeometryProperty<?>) object);
-        else if (object instanceof ImplicitGeometryProperty)
-            geometryInfo.addImplicitGeometry(getLodFromProperty(lod, name), (ImplicitGeometryProperty) object);
-        else if (object instanceof Collection<?>)
-            ((Collection<?>) object).forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
-        else if (object instanceof Object[])
-            Arrays.stream(((Object[]) object)).forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
-        else if (object instanceof Map<?, ?>)
-            ((Map<?, ?>) object).values().forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
+        if (object instanceof GeometryProperty<?> property)
+            geometryInfo.addGeometry(getLodFromProperty(lod, name), property);
+        else if (object instanceof ImplicitGeometryProperty property)
+            geometryInfo.addImplicitGeometry(getLodFromProperty(lod, name), property);
+        else if (object instanceof Collection<?> collection)
+            collection.forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
+        else if (object instanceof Object[] array)
+            Arrays.stream(array).forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
+        else if (object instanceof Map<?, ?> map)
+            map.values().forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
     }
 
     static int getLodFromProperty(LevelOfDetail property, String fieldName) {

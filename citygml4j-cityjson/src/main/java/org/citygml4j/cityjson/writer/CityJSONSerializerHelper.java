@@ -301,8 +301,8 @@ public class CityJSONSerializerHelper {
         }
 
         for (ADEOfAbstractSpace adeContainer : space.getADEProperties(ADEOfAbstractSpace.class)) {
-            if (adeContainer instanceof ExtendedSpaceGeometry) {
-                addGeometry(((ExtendedSpaceGeometry) adeContainer).getLod1MultiSurface(), 1, object, allowedTypes);
+            if (adeContainer instanceof ExtendedSpaceGeometry geometry) {
+                addGeometry(geometry.getLod1MultiSurface(), 1, object, allowedTypes);
                 break;
             }
         }
@@ -501,12 +501,10 @@ public class CityJSONSerializerHelper {
         node.set(Fields.GEOMETRY, createArray());
 
         SpaceGeometryBuilder builder = null;
-        if (object instanceof AbstractSpace) {
-            AbstractSpace space = (AbstractSpace) object;
+        if (object instanceof AbstractSpace space) {
             builder = SpaceGeometryBuilder.newInstance();
 
-            if (serializer instanceof AbstractSpaceAdapter) {
-                AbstractSpaceAdapter spaceAdapter = (AbstractSpaceAdapter) serializer;
+            if (serializer instanceof AbstractSpaceAdapter spaceAdapter) {
                 builder.withMultiSurfaceProviders(spaceAdapter.getMultiSurfaceProviders(space))
                         .withMultiCurveProviders(spaceAdapter.getMultiCurveProviders(space));
             }
@@ -561,8 +559,7 @@ public class CityJSONSerializerHelper {
     String getReferenceSystem(AbstractFeature feature) {
         Child parent = feature;
         do {
-            if (parent instanceof AbstractFeature) {
-                AbstractFeature tmp = (AbstractFeature) parent;
+            if (parent instanceof AbstractFeature tmp) {
                 if (tmp.getBoundedBy() != null
                         && tmp.getBoundedBy().getEnvelope() != null
                         && tmp.getBoundedBy().getEnvelope().getSrsName() != null) {

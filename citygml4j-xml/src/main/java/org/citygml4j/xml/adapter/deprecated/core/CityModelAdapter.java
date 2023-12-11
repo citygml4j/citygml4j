@@ -79,8 +79,8 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
                     FeatureArrayProperty<?> featureMembers = reader.getObjectUsingBuilder(FeatureArrayPropertyAdapter.class);
                     if (featureMembers.isSetObjects()) {
                         for (org.xmlobjects.gml.model.feature.AbstractFeature feature : featureMembers.getObjects()) {
-                            if (feature instanceof AbstractFeature)
-                                object.getFeatureMembers().add(new AbstractFeatureProperty((AbstractFeature) feature));
+                            if (feature instanceof AbstractFeature member)
+                                object.getFeatureMembers().add(new AbstractFeatureProperty(member));
                         }
                     }
 

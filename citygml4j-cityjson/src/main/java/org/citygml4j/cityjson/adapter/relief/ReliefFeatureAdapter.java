@@ -82,8 +82,8 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
     public void writeObject(ReliefFeature object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetReliefComponents()) {
             for (AbstractReliefComponentProperty property : object.getReliefComponents()) {
-                if (property.getObject() instanceof TINRelief) {
-                    helper.writeCityObjectUsingSerializer((TINRelief) property.getObject(), helper.getOrCreateSerializer(TINReliefAdapter.class));
+                if (property.getObject() instanceof TINRelief tinRelief) {
+                    helper.writeCityObjectUsingSerializer(tinRelief, helper.getOrCreateSerializer(TINReliefAdapter.class));
                 }
             }
         }

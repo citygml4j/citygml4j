@@ -69,8 +69,7 @@ public class TextureBuilder {
             List<TextureCoordinates> coordinates = new ArrayList<>();
             for (TextureAssociation association : referees.get(TextureAssociation.class)) {
                 if (association.getTextureParameterization() != null
-                        && association.getTextureParameterization().getObject() instanceof TexCoordList) {
-                    TexCoordList texCoordList = (TexCoordList) association.getTextureParameterization().getObject();
+                        && association.getTextureParameterization().getObject() instanceof TexCoordList texCoordList) {
                     if (texCoordList.isSetTextureCoordinates()) {
                         coordinates.addAll(texCoordList.getTextureCoordinates());
                     }
