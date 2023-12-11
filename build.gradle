@@ -43,6 +43,7 @@ subprojects {
             header = title
             overview = title
             bottom = file("$rootDir/resources/javadoc/bottom.html").text.replaceAll("@date@", "${date.format('yyyy')}")
+            addStringOption('Xdoclint:none', '-quiet')
         }
     }
 
