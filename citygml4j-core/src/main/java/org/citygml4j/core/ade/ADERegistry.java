@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class ADERegistry {
     private static ADERegistry instance;
@@ -68,7 +67,7 @@ public class ADERegistry {
         return ades.values().stream()
                 .filter(type::isInstance)
                 .map(type::cast)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void loadADE(ADE ade) throws ADEException {

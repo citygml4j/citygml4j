@@ -38,7 +38,6 @@ import org.xmlobjects.gml.model.geometry.Envelope;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ChunkWriter {
 
@@ -61,7 +60,7 @@ public class ChunkWriter {
                     .map(AbstractCityObjectProperty::getObject)
                     .filter(Tunnel.class::isInstance)
                     .map(Tunnel.class::cast)
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         CityGMLVersion version = CityGMLVersion.v3_0;

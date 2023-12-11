@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SemanticsBuilder {
     private final CityJSONBuilderHelper helper;
@@ -131,7 +130,7 @@ public class SemanticsBuilder {
     private void cleanupBoundaries(ArrayNode surfaces, BoundaryFilter filter, Map<Integer, AbstractThematicSurface> boundaries) {
         List<Map.Entry<Integer, AbstractThematicSurface>> entries = boundaries.entrySet().stream()
                 .filter(e -> !filter.isValidBoundary(e.getValue()))
-                .collect(Collectors.toList());
+                .toList();
 
         if (!entries.isEmpty()) {
             if (helper.isMapUnsupportedTypesToGenerics()

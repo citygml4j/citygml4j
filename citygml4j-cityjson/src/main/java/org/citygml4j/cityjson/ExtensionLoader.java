@@ -26,7 +26,6 @@ import org.citygml4j.core.ade.ADELoader;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class ExtensionLoader extends ADELoader<Extension> {
     private final Map<String, Extension> extensions = new ConcurrentHashMap<>();
@@ -43,7 +42,7 @@ public class ExtensionLoader extends ADELoader<Extension> {
     public List<Extension> getExtensions(CityJSONVersion version) {
         return extensions.values().stream()
                 .filter(v -> v.getCityJSONVersion() == version)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Extension getExtension(String name) {

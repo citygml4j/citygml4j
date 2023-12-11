@@ -34,7 +34,6 @@ import org.xmlobjects.model.ChildList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.AbstractFeature implements CityGMLObject, VisitableObject {
     private DeprecatedPropertiesOfAbstractFeature deprecatedProperties;
@@ -78,7 +77,7 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
 
     public <T extends ADEProperty> List<T> getADEProperties(Class<T> type) {
         return hasADEProperties() ?
-                adeProperties.stream().filter(type::isInstance).map(type::cast).collect(Collectors.toList()) :
+                adeProperties.stream().filter(type::isInstance).map(type::cast).toList() :
                 Collections.emptyList();
     }
 
