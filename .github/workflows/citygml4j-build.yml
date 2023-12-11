@@ -20,6 +20,8 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+        with:
+          cache-disabled: true
       - name: Grant execute permission to Gradle
         run: chmod +x ./gradlew
       - name: Execute Gradle build
