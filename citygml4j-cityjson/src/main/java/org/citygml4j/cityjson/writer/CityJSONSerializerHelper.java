@@ -588,8 +588,12 @@ public class CityJSONSerializerHelper {
     }
 
     void reset() {
+        reset(false);
+    }
+
+    void reset(boolean keepTemplates) {
         serializerCache.clear();
-        geometrySerializer.reset();
+        geometrySerializer.reset(keepTemplates);
         appearanceSerializer.reset();
     }
 }

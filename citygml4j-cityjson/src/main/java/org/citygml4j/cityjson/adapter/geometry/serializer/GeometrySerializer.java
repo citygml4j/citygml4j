@@ -109,12 +109,6 @@ public class GeometrySerializer {
         }
     }
 
-    public void addTemplateInfo(String templateId, TemplateInfo templateInfo) {
-        if (templateId != null) {
-            templates.put(templateId, templateInfo != null ? templateInfo : TemplateInfo.NULL_TEMPLATE);
-        }
-    }
-
     public boolean hasTemplates() {
         return !templates.isEmpty();
     }
@@ -206,9 +200,11 @@ public class GeometrySerializer {
         buildGeometry(relativeGeometry, lod, helper.getOrPutArray(Fields.GEOMETRY, object), allowedTypes, builder);
     }
 
-    public void reset() {
+    public void reset(boolean keepTemplates) {
         verticesBuilder.reset();
-        templatesVerticesBuilder.reset();
-        templates.clear();
+        if (!keepTemplates) {
+            templatesVerticesBuilder.reset();
+            templates.clear();
+        }
     }
 }

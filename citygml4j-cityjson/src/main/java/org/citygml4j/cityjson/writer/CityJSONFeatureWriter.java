@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
-import org.citygml4j.cityjson.adapter.geometry.serializer.TemplateInfo;
 import org.citygml4j.cityjson.adapter.geometry.serializer.VerticesBuilder;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.geometry.Transform;
@@ -35,11 +34,13 @@ import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
+import java.util.Objects;
 
 public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatureWriter> {
     private final Deque<ObjectNode> topLevelObjects = new ArrayDeque<>();
-    private final Map<String, TemplateInfo> templates = new HashMap<>();
 
     CityJSONFeatureWriter(JsonGenerator writer) {
         super(writer);
@@ -98,7 +99,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             state = State.DOCUMENT_STARTED;
-            helper.reset();
+            helper.reset(true);
         }
     }
 
@@ -110,7 +111,6 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
                 writeStartDocument(feature);
         }
 
-        templates.forEach(helper.getGeometrySerializer()::addTemplateInfo);
         super.writeCityObject(feature);
     }
 
@@ -138,7 +138,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
              } catch (IOException e) {
                  throw new CityJSONWriteException("Caused by:", e);
              } finally {
-                 helper.reset();
+                 helper.reset(true);
              }
          }
     }
@@ -186,10 +186,9 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
     private void processGlobalTemplates() {
         referenceResolver.resolveReferences(resolveScopes);
         for (Visitable visitable : resolveScopes) {
-            if (visitable instanceof AbstractGeometry) {
-                AbstractGeometry geometry = (AbstractGeometry) visitable;
-                templates.put(geometry.getId(), helper.getGeometrySerializer()
-                        .addTemplateGeometry(geometry, templateLods.getOrDefault(geometry.getId(), 0)));
+            if (visitable instanceof AbstractGeometry geometry) {
+                helper.getGeometrySerializer()
+                        .addTemplateGeometry(geometry, templateLods.getOrDefault(geometry.getId(), 0));
             }
         }
     }
