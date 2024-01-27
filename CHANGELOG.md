@@ -1,9 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- **Breaking:** Java 17 is now the minimum required version for using citygml4j.
+- Improved performance when resolving global references in CityJSON writers.
+
 ### Fixed
 - Unknown XML content was mapped to DOM elements even if `createGenericADEContent` was set to false on the
   `CityGMLInputFactory`.
+- When writing as CityJSON, surface data sharing identical properties was merged regardless of their appearance theme.
 
 ## [3.1.0] - 2023-11-03
 ### Added
