@@ -118,7 +118,8 @@ public class AppearanceSerializer {
     }
 
     private int computeKey(X3DMaterial material) {
-        return Objects.hash(material.getAmbientIntensity(),
+        return Objects.hash(getTheme(material),
+                material.getAmbientIntensity(),
                 material.getDiffuseColor().toList(),
                 material.getEmissiveColor().toList(),
                 material.getSpecularColor().toList(),
@@ -128,7 +129,8 @@ public class AppearanceSerializer {
     }
 
     private int computeKey(ParameterizedTexture texture) {
-        return Objects.hash(texture.getImageURI(),
+        return Objects.hash(getTheme(texture),
+                texture.getImageURI(),
                 texture.getMimeType() != null ? texture.getMimeType().getValue() : null,
                 texture.getTextureType(),
                 texture.getWrapMode(),
