@@ -196,4 +196,9 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
 
         return transform;
     }
+
+    @Override
+    CityJSONFeatureWriter self() {
+        return this;
+    }
 }

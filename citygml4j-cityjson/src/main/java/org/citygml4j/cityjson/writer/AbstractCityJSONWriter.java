@@ -72,30 +72,27 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
     abstract void writeCityObject(String id, ObjectNode node) throws CityJSONWriteException;
     abstract void writeChildObject(String id, ObjectNode node) throws CityJSONWriteException;
+    abstract T self();
 
     public Metadata getMetadata() {
         return helper.getMetadata();
     }
 
-    @SuppressWarnings("unchecked")
     public T withMetadata(Metadata metadata) {
         helper.setMetadata(metadata);
-        return (T) this;
+        return self();
     }
 
-    @SuppressWarnings("unchecked")
     public T withGlobalCityObjectGroup(CityObjectGroup group) {
         referenceResolver.add(Objects.requireNonNull(group, "The city object group must not be null."));
-        return (T) this;
+        return self();
     }
 
-    @SuppressWarnings("unchecked")
     public T withGlobalAppearance(Appearance appearance) {
         referenceResolver.add(Objects.requireNonNull(appearance, "The appearance must not be null."));
-        return (T) this;
+        return self();
     }
 
-    @SuppressWarnings("unchecked")
     public T withGlobalTemplateGeometry(AbstractGeometry geometry, Number lod) {
         Objects.requireNonNull(geometry, "The template geometry must not be null.");
         if (geometry.getId() != null) {
@@ -105,37 +102,34 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
             }
         }
 
-        return (T) this;
+        return self();
     }
 
     public T withGlobalTemplateGeometry(AbstractGeometry geometry) {
         return withGlobalTemplateGeometry(geometry, null);
     }
 
-    @SuppressWarnings("unchecked")
     public T withExtraRootProperty(ADEOfCityModel property) throws CityJSONWriteException {
         try {
             helper.addExtraRootProperty(property);
-            return (T) this;
+            return self();
         } catch (CityJSONSerializeException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
 
-    @SuppressWarnings("unchecked")
     public T withExtraRootProperty(String propertyName, JsonNode value) {
         helper.addExtraRootProperty(propertyName, value);
-        return (T) this;
+        return self();
     }
 
     public boolean isHtmlSafe() {
         return writer.getCharacterEscapes() instanceof HtmlEscapes;
     }
 
-    @SuppressWarnings("unchecked")
     public T setHtmlSafe(boolean htmlSafe) {
         writer.setCharacterEscapes(htmlSafe ? new HtmlEscapes() : null);
-        return (T) this;
+        return self();
     }
 
     void beginTopLevelObject() {

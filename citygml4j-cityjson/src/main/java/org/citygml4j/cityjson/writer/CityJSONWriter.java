@@ -124,4 +124,9 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
             state = State.CLOSED;
         }
     }
+
+    @Override
+    CityJSONWriter self() {
+        return this;
+    }
 }
