@@ -44,18 +44,17 @@ import org.citygml4j.core.model.appearance.Appearance;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.ADEOfCityModel;
 import org.citygml4j.core.model.core.AbstractFeature;
-import org.citygml4j.core.util.reference.DefaultReferenceResolver;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
-import org.xmlobjects.gml.util.reference.ReferenceResolver;
-import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
 
 public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>> implements AutoCloseable {
     final JsonGenerator writer;
-    final ReferenceResolver referenceResolver;
-    final Deque<Visitable> resolveScopes = new ArrayDeque<>();
+    final ReferenceResolver referenceResolver = new ReferenceResolver();
     final Map<String, Number> templateLods = new HashMap<>();
 
     CityJSONSerializerHelper helper;
@@ -69,8 +68,6 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
     AbstractCityJSONWriter(JsonGenerator writer) {
         this.writer = writer;
-        referenceResolver = DefaultReferenceResolver.newInstance()
-                .storeRefereesWithReferencedObject(true);
     }
 
     abstract void writeCityObject(String id, ObjectNode node) throws CityJSONWriteException;
@@ -88,13 +85,13 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
     @SuppressWarnings("unchecked")
     public T withGlobalCityObjectGroup(CityObjectGroup group) {
-        resolveScopes.push(Objects.requireNonNull(group, "The city object group must not be null."));
+        referenceResolver.add(Objects.requireNonNull(group, "The city object group must not be null."));
         return (T) this;
     }
 
     @SuppressWarnings("unchecked")
     public T withGlobalAppearance(Appearance appearance) {
-        resolveScopes.push(Objects.requireNonNull(appearance, "The appearance must not be null."));
+        referenceResolver.add(Objects.requireNonNull(appearance, "The appearance must not be null."));
         return (T) this;
     }
 
@@ -102,7 +99,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     public T withGlobalTemplateGeometry(AbstractGeometry geometry, Number lod) {
         Objects.requireNonNull(geometry, "The template geometry must not be null.");
         if (geometry.getId() != null) {
-            resolveScopes.push(geometry);
+            referenceResolver.add(geometry);
             if (lod != null) {
                 templateLods.put(geometry.getId(), lod);
             }
@@ -144,16 +141,26 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     void beginTopLevelObject() {
     }
 
+    void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
+        if (state != State.INITIAL) {
+            throw new CityJSONWriteException("The document has already been started.");
+        }
+
+        referenceResolver.initialize();
+    }
+
     public void writeCityObject(AbstractFeature feature) throws CityJSONWriteException {
+        switch (state) {
+            case CLOSED:
+                throw new CityJSONWriteException("Illegal to write city objects after writer has been closed.");
+            case INITIAL:
+                writeStartDocument(feature);
+        }
+
         if (feature != null) {
             try {
-                resolveScopes.push(feature);
-                referenceResolver.resolveReferences(resolveScopes);
-
+                referenceResolver.resolveReferences(feature);
                 helper.writeCityObject(feature);
-
-                referenceResolver.removeResolvedReferences(resolveScopes);
-                resolveScopes.pop();
             } catch (CityJSONSerializeException e) {
                 throw new CityJSONWriteException("Caused by:", e);
             }
@@ -176,7 +183,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             helper.reset();
-            resolveScopes.clear();
+            referenceResolver.clear();
         }
     }
 

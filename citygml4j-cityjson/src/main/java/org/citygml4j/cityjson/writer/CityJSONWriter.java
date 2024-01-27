@@ -28,7 +28,6 @@ import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
-import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
 
@@ -58,11 +57,9 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
         return this;
     }
 
-    private void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
-        if (state != State.INITIAL) {
-            throw new CityJSONWriteException("The document has already been started.");
-        }
-
+    @Override
+    void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
+        super.writeStartDocument(feature);
         try {
             writer.writeStartObject();
             writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
@@ -75,18 +72,6 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
         } finally {
             state = State.DOCUMENT_STARTED;
         }
-    }
-
-    @Override
-    public void writeCityObject(AbstractFeature feature) throws CityJSONWriteException {
-        switch (state) {
-            case CLOSED:
-                throw new CityJSONWriteException("Illegal to write city objects after writer has been closed.");
-            case INITIAL:
-                writeStartDocument(feature);
-        }
-
-        super.writeCityObject(feature);
     }
 
     @Override
@@ -108,10 +93,8 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
             writeStartDocument(null);
         }
 
-        for (Visitable visitable : resolveScopes) {
-            if (visitable instanceof CityObjectGroup group) {
-                writeCityObject(group);
-            }
+        for (CityObjectGroup group : referenceResolver.getCityObjectGroups()) {
+            writeCityObject(group);
         }
 
         try {

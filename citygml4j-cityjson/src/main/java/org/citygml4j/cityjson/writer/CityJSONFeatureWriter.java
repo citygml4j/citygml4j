@@ -31,7 +31,6 @@ import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.Envelope;
-import org.xmlobjects.gml.visitor.Visitable;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
@@ -65,11 +64,9 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
         return this;
     }
 
-    private void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
-        if (state != State.INITIAL) {
-            throw new CityJSONWriteException("The document has already been started.");
-        }
-
+    @Override
+    void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
+        super.writeStartDocument(feature);
         try {
             writer.writeStartObject();
             writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
@@ -101,17 +98,6 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             state = State.DOCUMENT_STARTED;
             helper.reset(true);
         }
-    }
-
-    public void writeCityObject(AbstractFeature feature) throws CityJSONWriteException {
-        switch (state) {
-            case CLOSED:
-                throw new CityJSONWriteException("Illegal to write city objects after writer has been closed.");
-            case INITIAL:
-                writeStartDocument(feature);
-        }
-
-        super.writeCityObject(feature);
     }
 
     @Override
@@ -157,14 +143,12 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
         }
 
         if (state == State.DOCUMENT_STARTED) {
-            for (Visitable visitable : resolveScopes) {
-                if (visitable instanceof CityObjectGroup group) {
-                    if (state == State.INITIAL) {
-                        writeStartDocument(group);
-                    }
-
-                    writeCityObject(group);
+            for (CityObjectGroup group : referenceResolver.getCityObjectGroups()) {
+                if (state == State.INITIAL) {
+                    writeStartDocument(group);
                 }
+
+                writeCityObject(group);
             }
         }
     }
@@ -184,12 +168,9 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
     }
 
     private void processGlobalTemplates() {
-        referenceResolver.resolveReferences(resolveScopes);
-        for (Visitable visitable : resolveScopes) {
-            if (visitable instanceof AbstractGeometry geometry) {
-                helper.getGeometrySerializer()
-                        .addTemplateGeometry(geometry, templateLods.getOrDefault(geometry.getId(), 0));
-            }
+        for (AbstractGeometry template : referenceResolver.getTemplateGeometries()) {
+            helper.getGeometrySerializer()
+                    .addTemplateGeometry(template, templateLods.getOrDefault(template.getId(), 0));
         }
     }
 
