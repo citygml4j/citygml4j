@@ -24,7 +24,7 @@ citygml4j is licensed under the [Apache License, Version 2.0](http://www.apache.
 See the `LICENSE` file for more details.
 
 ## Latest release
-The latest release of citygml4j is 3.1.0.
+The latest release of citygml4j is 3.2.0.
 
 Download the latest citygml4j release binaries [here](https://github.com/citygml4j/citygml4j/releases/latest).
 Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
@@ -35,7 +35,7 @@ Previous releases are available from the [releases section](https://github.com/c
 * To propose a new feature create a GitHub issue and open a discussion.
 
 ## Building
-citygml4j requires Java 11 or higher. The project uses [Gradle](https://gradle.org/) as build system. To build the
+citygml4j requires Java 17 or higher. The project uses [Gradle](https://gradle.org/) as build system. To build the
 library from source, clone the repository to your local machine and run the following command from the root of the
 repository.
 
@@ -65,7 +65,7 @@ have to adapt the citygml4j version number.
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j-xml</artifactId>
-  <version>3.1.0</version>
+  <version>3.2.0</version>
 </dependency>
 ```
 
@@ -78,8 +78,8 @@ repositories {
 }
 
 dependencies {
-  implementation 'org.citygml4j:citygml4j-xml:3.1.0'
-  implementation 'org.citygml4j:citygml4j-cityjson:3.1.0'
+  implementation 'org.citygml4j:citygml4j-xml:3.2.0'
+  implementation 'org.citygml4j:citygml4j-cityjson:3.2.0'
 }
 ```
 
