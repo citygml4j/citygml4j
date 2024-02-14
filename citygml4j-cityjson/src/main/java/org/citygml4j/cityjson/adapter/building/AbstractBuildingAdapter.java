@@ -136,6 +136,12 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 case "BuildingFurniture":
                     object.getBuildingFurniture().add(new BuildingFurnitureProperty(helper.getCityObject(child, BuildingFurniture.class)));
                     break;
+                case "BuildingStorey":
+                    object.getBuildingSubdivisions().add(new AbstractBuildingSubdivisionProperty(helper.getCityObject(child, Storey.class)));
+                    break;
+                case "BuildingUnit":
+                    object.getBuildingSubdivisions().add(new AbstractBuildingSubdivisionProperty(helper.getCityObject(child, BuildingUnit.class)));
+                    break;
                 default:
                     continue;
             }
@@ -226,6 +232,14 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
 
             if (object.isSetBuildingFurniture()) {
                 for (BuildingFurnitureProperty property : object.getBuildingFurniture()) {
+                    if (property.isSetInlineObject()) {
+                        helper.writeChildObject(property.getObject(), object, node);
+                    }
+                }
+            }
+
+            if (object.isSetBuildingSubdivisions()) {
+                for (AbstractBuildingSubdivisionProperty property : object.getBuildingSubdivisions()) {
                     if (property.isSetInlineObject()) {
                         helper.writeChildObject(property.getObject(), object, node);
                     }
