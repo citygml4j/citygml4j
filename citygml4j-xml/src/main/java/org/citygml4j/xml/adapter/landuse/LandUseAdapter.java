@@ -125,7 +125,7 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
             if (object.getLod3MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod3MultiSurface"), object.getLod3MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-            if (object.hasADEProperties() && object.getDeprecatedProperties().getLod4MultiSurface() != null)
+            if (object.hasDeprecatedProperties() && object.getDeprecatedProperties().getLod4MultiSurface() != null)
                 writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
