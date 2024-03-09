@@ -22,17 +22,17 @@ package org.citygml4j.core.model.dynamizer;
 import org.citygml4j.core.model.CityGMLObject;
 import org.xmlobjects.gml.model.base.AbstractInlineProperty;
 
-public class TimeseriesComponentProperty extends AbstractInlineProperty<SensorConnection> implements CityGMLObject {
+public class TimeseriesComponentProperty extends AbstractInlineProperty<TimeseriesComponent> implements CityGMLObject {
 
     public TimeseriesComponentProperty() {
     }
 
-    public TimeseriesComponentProperty(SensorConnection object) {
+    public TimeseriesComponentProperty(TimeseriesComponent object) {
         super(object);
     }
 
     @Override
-    public Class<SensorConnection> getTargetType() {
-        return SensorConnection.class;
+    public Class<TimeseriesComponent> getTargetType() {
+        return TimeseriesComponent.class;
     }
 }
