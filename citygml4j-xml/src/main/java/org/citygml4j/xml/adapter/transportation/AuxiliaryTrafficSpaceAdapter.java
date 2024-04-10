@@ -80,7 +80,9 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, namespaces, writer);
 
-        writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "granularity").addTextContent(object.getGranularity().toValue()));
+        if (object.getGranularity() != null) {
+            writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "granularity").addTextContent(object.getGranularity().toValue()));
+        }
 
         for (ADEOfAuxiliaryTrafficSpace property : object.getADEProperties(ADEOfAuxiliaryTrafficSpace.class))
             ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAuxiliaryTrafficSpace"), property, namespaces, writer);
