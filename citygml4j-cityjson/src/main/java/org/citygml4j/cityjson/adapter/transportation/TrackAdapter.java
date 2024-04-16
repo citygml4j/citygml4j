@@ -92,25 +92,5 @@ public class TrackAdapter extends AbstractTransportationSpaceAdapter<Track> {
 
         object.setClassifier(new Code("Track"));
         helper.writeStandardObjectClassifier(object, attributes);
-
-        if (object.isSetSections()) {
-            for (SectionProperty property : object.getSections()) {
-                if (property.getObject() != null) {
-                    Track section = shallowCopy(property.getObject(), new Track());
-                    section.setClassifier(new Code("Section"));
-                    helper.writeChildObject(section, object, node);
-                }
-            }
-        }
-
-        if (object.isSetIntersections()) {
-            for (IntersectionProperty property : object.getIntersections()) {
-                if (property.getObject() != null) {
-                    Track section = shallowCopy(property.getObject(), new Track());
-                    section.setClassifier(new Code("Intersection"));
-                    helper.writeChildObject(section, object, node);
-                }
-            }
-        }
     }
 }

@@ -35,7 +35,6 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.transportation.*;
-import org.xmlobjects.gml.model.basictypes.Code;
 
 import java.util.Iterator;
 
@@ -95,25 +94,5 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> implem
         ObjectNode attributes = helper.getOrPutObject(Fields.ATTRIBUTES, node);
 
         helper.writeStandardObjectClassifier(object, attributes);
-
-        if (object.isSetSections()) {
-            for (SectionProperty property : object.getSections()) {
-                if (property.getObject() != null) {
-                    Road section = shallowCopy(property.getObject(), new Road());
-                    section.setClassifier(new Code("Section"));
-                    helper.writeChildObject(section, object, node);
-                }
-            }
-        }
-
-        if (object.isSetIntersections()) {
-            for (IntersectionProperty property : object.getIntersections()) {
-                if (property.getObject() != null) {
-                    Road section = shallowCopy(property.getObject(), new Road());
-                    section.setClassifier(new Code("Intersection"));
-                    helper.writeChildObject(section, object, node);
-                }
-            }
-        }
     }
 }
