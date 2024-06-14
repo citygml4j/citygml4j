@@ -31,8 +31,16 @@ import org.citygml4j.cityjson.util.BoundaryFilter;
 import org.citygml4j.cityjson.util.lod.DefaultLodMapper;
 import org.citygml4j.cityjson.util.lod.LodMapper;
 import org.citygml4j.core.model.appearance.Appearance;
+import org.citygml4j.core.model.core.AbstractAppearanceProperty;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.citygml4j.core.model.core.AbstractSpace;
+import org.citygml4j.core.model.core.AbstractThematicSurface;
+import org.xmlobjects.gml.model.geometry.AbstractGeometry;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiCurve;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiCurveProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
+import org.xmlobjects.gml.model.geometry.complexes.CompositeSurface;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
 
 import java.util.*;
@@ -203,6 +211,31 @@ public class GeometryBuilder {
             }
         } finally {
             providers.remove(space);
+        }
+    }
+
+    public void addGeometries(AbstractThematicSurface boundary, JsonNode geometries) {
+        Map<Integer, List<GeometryObject>> geometryObjects = getGeometries(boundary, geometries, null);
+        for (int lod = 0 ; lod < 4; lod++) {
+            for (GeometryObject geometryObject : geometryObjects.getOrDefault(lod, Collections.emptyList())) {
+                if (lod == 0 && geometryObject.getGeometry() instanceof MultiCurve multiCurve) {
+                        boundary.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
+                } else {
+                    AbstractGeometry geometry = geometryObject.getGeometry();
+                    if (geometry instanceof CompositeSurface compositeSurface) {
+                        geometry = new MultiSurface(compositeSurface.getSurfaceMembers());
+                    }
+
+                    if (geometry instanceof MultiSurface multiSurface) {
+                        boundary.setMultiSurface(lod, new MultiSurfaceProperty(multiSurface));
+                        if (geometryObject.hasAppearances()) {
+                            for (Appearance appearance : geometryObject.getAppearances()) {
+                                boundary.getAppearances().add(new AbstractAppearanceProperty(appearance));
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

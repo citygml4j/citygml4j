@@ -382,6 +382,10 @@ public class CityJSONBuilderHelper {
         geometryBuilder.addGeometries(object, geometries, filter);
     }
 
+    public void addGeometries(AbstractThematicSurface boundary, JsonNode geometries) {
+        geometryBuilder.addGeometries(boundary, geometries);
+    }
+
     public void buildStandardObjectClassifier(StandardObjectClassifier object, Attributes attributes) {
         JsonNode classifier = attributes.consume("class");
         if (classifier.isTextual()) {

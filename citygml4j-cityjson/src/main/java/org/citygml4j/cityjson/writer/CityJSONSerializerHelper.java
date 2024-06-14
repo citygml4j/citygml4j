@@ -328,6 +328,21 @@ public class CityJSONSerializerHelper {
         }
     }
 
+    public void addGeometries(AbstractThematicSurface boundary, ObjectNode object, EnumSet<GeometryType> allowedTypes) {
+        GeometryInfo geometryInfo = boundary.getGeometryInfo();
+        for (int lod = 0; lod < 4; lod++) {
+            for (GeometryProperty<?> property : geometryInfo.getGeometries(lod)) {
+                addGeometry(property, lod, object, allowedTypes);
+            }
+        }
+
+        if (!geometryInfo.hasGeometries(3)) {
+            for (GeometryProperty<?> property : geometryInfo.getGeometries(4)) {
+                addGeometry(property, 3, object, allowedTypes);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public <T extends ADEProperty> void addADEProperty(T property, ObjectNode node) throws CityJSONSerializeException, CityJSONWriteException {
         if (property != null) {

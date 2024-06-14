@@ -33,6 +33,7 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.ade.ADEProperty;
+import org.citygml4j.core.model.common.TopLevelFeature;
 import org.citygml4j.core.model.core.AbstractGenericAttribute;
 import org.citygml4j.core.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.core.model.core.AbstractSpaceBoundary;
@@ -69,22 +70,26 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
     @SuppressWarnings("unchecked")
     @Override
     public void writeObject(T object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
+        ObjectNode attributes = object instanceof TopLevelFeature ?
+                helper.getOrPutObject(Fields.ATTRIBUTES, node) :
+                node;
+
         if (object.getId() != null) {
-            node.put("id", object.getId());
+            attributes.put("id", object.getId());
         }
 
         if (object.getIdentifier() != null && object.getIdentifier().getValue() != null) {
-            node.put("identifier", object.getIdentifier().getValue());
+            attributes.put("identifier", object.getIdentifier().getValue());
         }
 
         if (object.getDescription() != null && object.getDescription().getValue() != null) {
-            node.put("description", object.getDescription().getValue());
+            attributes.put("description", object.getDescription().getValue());
         }
 
         if (object.isSetNames()) {
             for (Code name : object.getNames()) {
                 if (name.getValue() != null) {
-                    node.put("name", name.getValue());
+                    attributes.put("name", name.getValue());
                     break;
                 }
             }
@@ -96,7 +101,7 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
                 if (property.getObject() != null && !Fields.TYPE.equals(property.getObject().getName())) {
                     JsonObjectSerializer<?> serializer = helper.getContext().getSerializer(property.getObject().getClass(), helper.getVersion());
                     if (serializer != null) {
-                        ((JsonObjectSerializer<AbstractGenericAttribute<?>>) serializer).writeObject(property.getObject(), node, helper);
+                        ((JsonObjectSerializer<AbstractGenericAttribute<?>>) serializer).writeObject(property.getObject(), attributes, helper);
                     }
                 }
             }
@@ -104,7 +109,7 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
 
         if (object.hasADEProperties()) {
             for (ADEProperty property : object.getADEProperties()) {
-                helper.addADEProperty(property, node);
+                helper.addADEProperty(property, attributes);
             }
         }
     }
