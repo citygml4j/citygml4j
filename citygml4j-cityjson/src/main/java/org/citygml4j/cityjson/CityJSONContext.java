@@ -222,7 +222,7 @@ public class CityJSONContext {
         if (current != null && current.serializer != serializer && failOnDuplicates)
             throw new CityJSONContextException("Two serializers are registered for the object type " +
                     objectType.getName() + ": " +
-                    serializer.getClass().getName() + " and " + current.getClass().getName() + ".");
+                    serializer.getClass().getName() + " and " + current.serializer.getClass().getName() + ".");
     }
 
     private Class<?> findObjectType(JsonObjectBuilder<?> builder) throws CityJSONContextException {
