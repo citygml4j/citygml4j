@@ -1,6 +1,17 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- CityGML `Section` and `Intersection` objects are no longer automatically converted to CityJSON due to missing support
+  in CityJSON.
+
+### Fixed
+- `LandUse` objects are not correctly converted to CityJSON.
+- Fixed mapping of closure surfaces to CityJSON.
+- Fixed reading and writing of CityJSON storeys and building units.
+- Fixed NPE when writing traffic spaces lacking a granularity attribute.
+- Fixed writing of LoD4 multi-surfaces of `LandUse`.
+- Fixed `TimeseriesComponentProperty` to contain a `TimeseriesComponent`.
 
 ## [3.2.0] - 2024-01-29
 ### Changed
