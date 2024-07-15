@@ -1,6 +1,6 @@
 plugins {
     id 'distribution'
-    id 'io.github.gradle-nexus.publish-plugin' version '1.3.0'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 allprojects {
@@ -9,9 +9,9 @@ allprojects {
     description 'The Open Source Java API for CityGML'
 
     ext {
-        gmlObjectsVersion = '1.1.0'
-        xalObjectsVersion = '1.1.0'
-        xmlObjectsVersion = '1.1.0'
+        gmlObjectsVersion = '1.1.1'
+        xalObjectsVersion = '1.1.1'
+        xmlObjectsVersion = '1.1.1'
         date = new Date()
     }
 }
