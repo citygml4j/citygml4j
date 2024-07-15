@@ -1,16 +1,18 @@
 # Changelog
 
 ## [Unreleased]
+
+## [3.2.1] - 2024-07-15
 ### Changed
-- CityGML `Section` and `Intersection` objects are no longer automatically converted to CityJSON due to missing support
+- CityGML `Section` and `Intersection` features are no longer converted to CityJSON due to missing support
   in CityJSON.
 
 ### Fixed
-- `LandUse` objects are not correctly converted to CityJSON.
+- `LandUse` features were not converted to CityJSON.
 - Fixed mapping of closure surfaces to CityJSON.
 - Fixed reading and writing of CityJSON storeys and building units.
-- Fixed NPE when writing traffic spaces lacking a granularity attribute.
-- Fixed writing of LoD4 multi-surfaces of `LandUse`.
+- Fixed NPE when writing traffic spaces lacking a `granularity` attribute.
+- Fixed writing of LoD4 multi-surfaces of `LandUse` features.
 - Fixed `TimeseriesComponentProperty` to contain a `TimeseriesComponent`.
 
 ## [3.2.0] - 2024-01-29
@@ -93,7 +95,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.0..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.1..HEAD
+[3.2.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.1
 [3.2.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.0
 [3.1.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.1.0
 [3.0.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.0.0
