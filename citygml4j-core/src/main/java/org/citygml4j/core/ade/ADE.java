@@ -25,6 +25,7 @@ import org.citygml4j.core.visitor.ADEWalker;
 @IndexSubclasses
 public interface ADE {
     String getName();
+
     String getVersion();
 
     default ADEWalker getADEWalker() {

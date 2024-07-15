@@ -89,7 +89,7 @@ public class CityJSONBuilderHelper {
     static CityJSONBuilderHelper buildFor(CityJSONReader reader, ObjectNode content, ObjectNode globalScope, ObjectMapper objectMapper, CityJSONContext context) throws CityJSONBuildException {
         CityJSONType type = CityJSONType.fromValue(content.path(Fields.TYPE).asText());
         if (type == null) {
-            throw new CityJSONBuildException("Expected \""+ Fields.TYPE + "\" property with one of the values: " +
+            throw new CityJSONBuildException("Expected \"" + Fields.TYPE + "\" property with one of the values: " +
                     Arrays.stream(CityJSONType.values())
                             .map(CityJSONType::toTypeName)
                             .collect(Collectors.joining(", ")));
@@ -340,7 +340,7 @@ public class CityJSONBuilderHelper {
                 } else {
                     type = GenericAttributeType.GENERIC_ATTRIBUTE_SET;
                 }
-            } else  {
+            } else {
                 type = GenericAttributeType.STRING_ATTRIBUTE;
             }
         }

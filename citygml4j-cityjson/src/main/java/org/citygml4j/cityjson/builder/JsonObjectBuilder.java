@@ -28,5 +28,6 @@ import org.citygml4j.cityjson.reader.CityJSONReadException;
 @IndexSubclasses
 public interface JsonObjectBuilder<T> {
     T createObject(JsonNode node, Object parent) throws CityJSONBuildException;
+
     void buildObject(T object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException;
 }

@@ -35,7 +35,7 @@ import org.xmlobjects.xal.model.Locality;
 import org.xmlobjects.xal.model.types.LocalityName;
 import org.xmlobjects.xal.model.types.LocalityNameType;
 
-public class LocalityAdapter implements JsonObjectBuilder<Locality>, JsonObjectSerializer<Locality>  {
+public class LocalityAdapter implements JsonObjectBuilder<Locality>, JsonObjectSerializer<Locality> {
 
     @Override
     public Locality createObject(JsonNode node, Object parent) throws CityJSONBuildException {

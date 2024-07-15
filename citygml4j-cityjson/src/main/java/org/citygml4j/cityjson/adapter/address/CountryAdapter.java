@@ -35,7 +35,7 @@ import org.xmlobjects.xal.model.Country;
 import org.xmlobjects.xal.model.types.CountryName;
 import org.xmlobjects.xal.model.types.CountryNameType;
 
-public class CountryAdapter implements JsonObjectBuilder<Country>, JsonObjectSerializer<Country>  {
+public class CountryAdapter implements JsonObjectBuilder<Country>, JsonObjectSerializer<Country> {
 
     @Override
     public Country createObject(JsonNode node, Object parent) throws CityJSONBuildException {

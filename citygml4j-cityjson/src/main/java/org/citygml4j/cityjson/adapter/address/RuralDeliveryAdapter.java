@@ -35,7 +35,7 @@ import org.xmlobjects.xal.model.RuralDelivery;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.IdentifierElementType;
 
-public class RuralDeliveryAdapter implements JsonObjectBuilder<RuralDelivery>, JsonObjectSerializer<RuralDelivery>  {
+public class RuralDeliveryAdapter implements JsonObjectBuilder<RuralDelivery>, JsonObjectSerializer<RuralDelivery> {
 
     @Override
     public RuralDelivery createObject(JsonNode node, Object parent) throws CityJSONBuildException {

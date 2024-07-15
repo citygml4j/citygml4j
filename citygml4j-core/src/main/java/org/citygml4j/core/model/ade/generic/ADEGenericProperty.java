@@ -23,5 +23,6 @@ import org.w3c.dom.Element;
 
 public interface ADEGenericProperty {
     Element getValue();
+
     void setValue(Element value);
 }

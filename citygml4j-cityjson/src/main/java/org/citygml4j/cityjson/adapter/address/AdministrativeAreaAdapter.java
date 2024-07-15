@@ -35,7 +35,7 @@ import org.xmlobjects.xal.model.AdministrativeArea;
 import org.xmlobjects.xal.model.types.AdministrativeAreaName;
 import org.xmlobjects.xal.model.types.AdministrativeAreaNameType;
 
-public class AdministrativeAreaAdapter implements JsonObjectBuilder<AdministrativeArea>, JsonObjectSerializer<AdministrativeArea>  {
+public class AdministrativeAreaAdapter implements JsonObjectBuilder<AdministrativeArea>, JsonObjectSerializer<AdministrativeArea> {
 
     @Override
     public AdministrativeArea createObject(JsonNode node, Object parent) throws CityJSONBuildException {

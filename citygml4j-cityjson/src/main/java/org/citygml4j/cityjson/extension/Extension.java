@@ -27,6 +27,7 @@ import java.net.URL;
 
 public interface Extension extends ADE {
     String getSchemaLocation();
+
     CityJSONVersion getCityJSONVersion();
 
     default URL getSchemaResource() {

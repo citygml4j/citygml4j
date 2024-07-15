@@ -35,7 +35,7 @@ import org.xmlobjects.xal.model.PostalDeliveryPoint;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.IdentifierElementType;
 
-public class PostalDeliveryPointAdapter implements JsonObjectBuilder<PostalDeliveryPoint>, JsonObjectSerializer<PostalDeliveryPoint>  {
+public class PostalDeliveryPointAdapter implements JsonObjectBuilder<PostalDeliveryPoint>, JsonObjectSerializer<PostalDeliveryPoint> {
 
     @Override
     public PostalDeliveryPoint createObject(JsonNode node, Object parent) throws CityJSONBuildException {

@@ -84,7 +84,7 @@ public class CityGMLOutputFactory {
         factory.withProperty(GMLConstants.SIMPLE_POLYGON_CONVERTER, new DefaultSimplePolygonConverter());
         factory.withProperty(GMLConstants.SIMPLE_RECTANGLE_CONVERTER, new DefaultSimpleRectangleConverter());
         factory.withProperty(GMLConstants.SIMPLE_TRIANGLE_CONVERTER, new DefaultSimpleTriangleConverter());
-        factory.withProperty(GMLConstants.SIMPLE_MULTI_POINT_CONVERTER,new DefaultSimpleMultiPointConverter());
+        factory.withProperty(GMLConstants.SIMPLE_MULTI_POINT_CONVERTER, new DefaultSimpleMultiPointConverter());
         return this;
     }
 

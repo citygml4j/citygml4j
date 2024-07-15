@@ -33,7 +33,7 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.Thoroughfare;
 import org.xmlobjects.xal.model.types.*;
 
-public class ThoroughfareAdapter implements JsonObjectBuilder<Thoroughfare>, JsonObjectSerializer<Thoroughfare>  {
+public class ThoroughfareAdapter implements JsonObjectBuilder<Thoroughfare>, JsonObjectSerializer<Thoroughfare> {
 
     @Override
     public Thoroughfare createObject(JsonNode node, Object parent) throws CityJSONBuildException {
@@ -69,7 +69,7 @@ public class ThoroughfareAdapter implements JsonObjectBuilder<Thoroughfare>, Jso
     public void writeObject(Thoroughfare object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetNameElementOrNumber()) {
             for (ThoroughfareNameOrNumber nameOrNumber : object.getNameElementOrNumber()) {
-                 if (nameOrNumber.isSetNameElement()) {
+                if (nameOrNumber.isSetNameElement()) {
                     ThoroughfareName name = nameOrNumber.getNameElement();
                     if (name.getContent() != null) {
                         if (name.getNameType() == null || name.getNameType() == ThoroughfareNameType.NAME_ONLY) {
@@ -79,14 +79,14 @@ public class ThoroughfareAdapter implements JsonObjectBuilder<Thoroughfare>, Jso
                         }
                     }
                 } else if (nameOrNumber.isSetNumber()) {
-                     Identifier identifier = nameOrNumber.getNumber();
-                     if (identifier.getContent() != null) {
-                         if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
-                             node.put("ThoroughfareNumber", nameOrNumber.getNumber().getContent());
-                         } else {
-                             node.put("ThoroughfareNumber" + identifier.getType().toValue(), nameOrNumber.getNumber().getContent());
-                         }
-                     }
+                    Identifier identifier = nameOrNumber.getNumber();
+                    if (identifier.getContent() != null) {
+                        if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
+                            node.put("ThoroughfareNumber", nameOrNumber.getNumber().getContent());
+                        } else {
+                            node.put("ThoroughfareNumber" + identifier.getType().toValue(), nameOrNumber.getNumber().getContent());
+                        }
+                    }
                 }
             }
         }

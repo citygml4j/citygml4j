@@ -71,6 +71,7 @@ public abstract class CityJSONReader implements AutoCloseable {
     }
 
     public abstract boolean hasNext() throws CityJSONReadException;
+
     public abstract AbstractFeature next() throws CityJSONReadException;
 
     public Metadata getMetadata() throws CityJSONReadException {

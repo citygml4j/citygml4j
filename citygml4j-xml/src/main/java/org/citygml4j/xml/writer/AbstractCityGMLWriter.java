@@ -62,7 +62,7 @@ public abstract class AbstractCityGMLWriter<T extends AbstractCityGMLWriter<?>> 
 
     @SuppressWarnings("unchecked")
     public T withPrefix(String prefix, String namespaceURI) {
-        writer.withPrefix(prefix,namespaceURI);
+        writer.withPrefix(prefix, namespaceURI);
         return (T) this;
     }
 

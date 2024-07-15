@@ -23,5 +23,6 @@ import java.util.Set;
 
 public interface LodMapper {
     void buildMapping(Set<Double> lods);
+
     double getMappingFor(int lod);
 }

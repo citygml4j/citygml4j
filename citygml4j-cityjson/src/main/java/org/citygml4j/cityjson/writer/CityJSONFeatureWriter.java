@@ -107,26 +107,26 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
 
     @Override
     void writeCityObject(String id, ObjectNode node) throws CityJSONWriteException {
-         ObjectNode topLevelObject = topLevelObjects.pop();
-         if (topLevelObject != null) {
-             try {
-                 topLevelObject.set(id, node);
+        ObjectNode topLevelObject = topLevelObjects.pop();
+        if (topLevelObject != null) {
+            try {
+                topLevelObject.set(id, node);
 
-                 writer.writeStartObject();
-                 writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON_FEATURE.toTypeName());
-                 writer.writeStringField(Fields.ID, id);
-                 writer.writeObjectField(Fields.CITY_OBJECTS, topLevelObject);
+                writer.writeStartObject();
+                writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON_FEATURE.toTypeName());
+                writer.writeStringField(Fields.ID, id);
+                writer.writeObjectField(Fields.CITY_OBJECTS, topLevelObject);
 
-                 writeVertices(false);
-                 writeAppearance();
+                writeVertices(false);
+                writeAppearance();
 
-                 writer.writeEndObject();
-             } catch (IOException e) {
-                 throw new CityJSONWriteException("Caused by:", e);
-             } finally {
-                 helper.reset(true);
-             }
-         }
+                writer.writeEndObject();
+            } catch (IOException e) {
+                throw new CityJSONWriteException("Caused by:", e);
+            } finally {
+                helper.reset(true);
+            }
+        }
     }
 
     @Override

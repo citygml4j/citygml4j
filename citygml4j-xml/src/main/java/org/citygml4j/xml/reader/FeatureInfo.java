@@ -71,7 +71,7 @@ public class FeatureInfo {
     }
 
     public List<MetaDataProperty<?>> getMetaDataProperties() {
-       return feature.getMetaDataProperties();
+        return feature.getMetaDataProperties();
     }
 
     public boolean isSetMetaDataProperties() {

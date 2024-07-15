@@ -38,7 +38,7 @@ import org.xmlobjects.xal.model.types.IdentifierElementType;
 
 import java.util.Arrays;
 
-public class PostCodeAdapter implements JsonObjectBuilder<PostCode>, JsonObjectSerializer<PostCode>  {
+public class PostCodeAdapter implements JsonObjectBuilder<PostCode>, JsonObjectSerializer<PostCode> {
 
     @Override
     public PostCode createObject(JsonNode node, Object parent) throws CityJSONBuildException {

@@ -31,7 +31,7 @@ import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 
-public class ExtensionInfoAdapter implements JsonObjectBuilder<ExtensionInfo>, JsonObjectSerializer<ExtensionInfo>  {
+public class ExtensionInfoAdapter implements JsonObjectBuilder<ExtensionInfo>, JsonObjectSerializer<ExtensionInfo> {
 
     @Override
     public ExtensionInfo createObject(JsonNode node, Object parent) throws CityJSONBuildException {

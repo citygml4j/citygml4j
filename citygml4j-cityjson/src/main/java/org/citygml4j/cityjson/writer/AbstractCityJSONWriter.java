@@ -71,7 +71,9 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     }
 
     abstract void writeCityObject(String id, ObjectNode node) throws CityJSONWriteException;
+
     abstract void writeChildObject(String id, ObjectNode node) throws CityJSONWriteException;
+
     abstract T self();
 
     public Metadata getMetadata() {

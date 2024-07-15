@@ -35,7 +35,7 @@ import org.xmlobjects.xal.model.PostOffice;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.IdentifierElementType;
 
-public class PostOfficeAdapter implements JsonObjectBuilder<PostOffice>, JsonObjectSerializer<PostOffice>  {
+public class PostOfficeAdapter implements JsonObjectBuilder<PostOffice>, JsonObjectSerializer<PostOffice> {
 
     @Override
     public PostOffice createObject(JsonNode node, Object parent) throws CityJSONBuildException {

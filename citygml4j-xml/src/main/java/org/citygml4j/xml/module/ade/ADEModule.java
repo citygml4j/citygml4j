@@ -39,7 +39,7 @@ public abstract class ADEModule extends Module {
     public final CityGMLVersion getCityGMLVersion() {
         return version;
     }
-    
+
     public URL getSchemaResource() {
         return null;
     }

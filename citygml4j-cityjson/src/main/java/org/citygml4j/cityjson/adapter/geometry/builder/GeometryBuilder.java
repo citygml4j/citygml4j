@@ -216,10 +216,10 @@ public class GeometryBuilder {
 
     public void addGeometries(AbstractThematicSurface boundary, JsonNode geometries) {
         Map<Integer, List<GeometryObject>> geometryObjects = getGeometries(boundary, geometries, null);
-        for (int lod = 0 ; lod < 4; lod++) {
+        for (int lod = 0; lod < 4; lod++) {
             for (GeometryObject geometryObject : geometryObjects.getOrDefault(lod, Collections.emptyList())) {
                 if (lod == 0 && geometryObject.getGeometry() instanceof MultiCurve multiCurve) {
-                        boundary.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
+                    boundary.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
                 } else {
                     AbstractGeometry geometry = geometryObject.getGeometry();
                     if (geometry instanceof CompositeSurface compositeSurface) {

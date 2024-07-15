@@ -37,7 +37,7 @@ import org.xmlobjects.xal.model.types.AddressLine;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FreeTextAddressAdapter implements JsonObjectBuilder<FreeTextAddress>, JsonObjectSerializer<FreeTextAddress>  {
+public class FreeTextAddressAdapter implements JsonObjectBuilder<FreeTextAddress>, JsonObjectSerializer<FreeTextAddress> {
 
     @Override
     public FreeTextAddress createObject(JsonNode node, Object parent) throws CityJSONBuildException {

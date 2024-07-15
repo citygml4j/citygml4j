@@ -41,7 +41,9 @@ public abstract class CityGMLReader implements AutoCloseable {
     }
 
     public abstract boolean hasNext() throws CityGMLReadException;
+
     public abstract AbstractFeature next() throws CityGMLReadException;
+
     public abstract CityGMLChunk nextChunk() throws CityGMLReadException;
 
     public URI getBaseURI() {

@@ -28,6 +28,8 @@ import java.lang.annotation.*;
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface CityJSONElement {
     String name();
+
     String schema();
+
     CityJSONVersion version();
 }

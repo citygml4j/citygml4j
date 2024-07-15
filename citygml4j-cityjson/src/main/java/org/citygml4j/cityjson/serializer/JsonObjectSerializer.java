@@ -27,6 +27,9 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 
 @IndexSubclasses
 public interface JsonObjectSerializer<T> {
-    default String createType(T object, CityJSONVersion version) throws CityJSONSerializeException { return null; }
+    default String createType(T object, CityJSONVersion version) throws CityJSONSerializeException {
+        return null;
+    }
+
     void writeObject(T object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException;
 }

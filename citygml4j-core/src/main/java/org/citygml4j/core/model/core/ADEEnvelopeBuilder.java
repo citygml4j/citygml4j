@@ -79,7 +79,7 @@ public class ADEEnvelopeBuilder {
             collection.forEach(v -> updateEnvelope(v, envelope, options, visited));
         } else if (object instanceof Object[] array) {
             Arrays.stream(array).forEach(v -> updateEnvelope(v, envelope, options, visited));
-        } else if (object instanceof Map<?,?> map) {
+        } else if (object instanceof Map<?, ?> map) {
             map.values().forEach(v -> updateEnvelope(v, envelope, options, visited));
         }
     }

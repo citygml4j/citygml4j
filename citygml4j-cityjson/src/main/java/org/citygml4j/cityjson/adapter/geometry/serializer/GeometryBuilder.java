@@ -41,6 +41,7 @@ public abstract class GeometryBuilder extends GeometryWalker {
     }
 
     abstract JsonNode build(AbstractGeometry geometry, Number lod);
+
     abstract int size();
 
     void setLod(Number lod, ObjectNode node) {

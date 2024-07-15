@@ -33,7 +33,7 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.Premises;
 import org.xmlobjects.xal.model.types.*;
 
-public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectSerializer<Premises>  {
+public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectSerializer<Premises> {
 
     @Override
     public Premises createObject(JsonNode node, Object parent) throws CityJSONBuildException {
@@ -69,7 +69,7 @@ public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectS
     public void writeObject(Premises object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetNameElementOrNumber()) {
             for (PremisesNameOrNumber nameOrNumber : object.getNameElementOrNumber()) {
-                 if (nameOrNumber.isSetNameElement()) {
+                if (nameOrNumber.isSetNameElement()) {
                     PremisesName name = nameOrNumber.getNameElement();
                     if (name.getContent() != null) {
                         if (name.getNameType() == null || name.getNameType() == PremisesNameType.NAME) {
@@ -79,14 +79,14 @@ public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectS
                         }
                     }
                 } else if (nameOrNumber.isSetNumber()) {
-                     Identifier identifier = nameOrNumber.getNumber();
-                     if (identifier.getContent() != null) {
-                         if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
-                             node.put("PremisesNumber", nameOrNumber.getNumber().getContent());
-                         } else {
-                             node.put("PremisesNumber" + identifier.getType().toValue(), nameOrNumber.getNumber().getContent());
-                         }
-                     }
+                    Identifier identifier = nameOrNumber.getNumber();
+                    if (identifier.getContent() != null) {
+                        if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
+                            node.put("PremisesNumber", nameOrNumber.getNumber().getContent());
+                        } else {
+                            node.put("PremisesNumber" + identifier.getType().toValue(), nameOrNumber.getNumber().getContent());
+                        }
+                    }
                 }
             }
         }

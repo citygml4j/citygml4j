@@ -41,17 +41,17 @@ public class Referees {
     public <T extends Child> List<T> get(Class<T> type) {
         List<T> referees = null;
 
-       for (Child referee : this.referees.keySet()) {
-           if (type.isAssignableFrom(referee.getClass())) {
-               if (referees == null) {
-                   referees = new ArrayList<>();
-               }
+        for (Child referee : this.referees.keySet()) {
+            if (type.isAssignableFrom(referee.getClass())) {
+                if (referees == null) {
+                    referees = new ArrayList<>();
+                }
 
-               referees.add(type.cast(referee));
-           }
-       }
+                referees.add(type.cast(referee));
+            }
+        }
 
-       return referees != null ? referees : Collections.emptyList();
+        return referees != null ? referees : Collections.emptyList();
     }
 
     public void add(Child referee) {

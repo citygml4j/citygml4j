@@ -25,11 +25,18 @@ import java.util.List;
 
 public interface StandardObjectClassifier {
     Code getClassifier();
+
     void setClassifier(Code classifier);
+
     List<Code> getFunctions();
+
     boolean isSetFunctions();
+
     void setFunctions(List<Code> functions);
+
     List<Code> getUsages();
+
     boolean isSetUsages();
+
     void setUsages(List<Code> usages);
 }
