@@ -134,6 +134,9 @@ public class CityGMLMarshaller {
 			semantics = tun.marshalSemantics(cityObject);
 		else if (cityObject instanceof WaterBodyModuleComponent)
 			semantics = wtr.marshalSemantics(cityObject);
+
+		if (semantics != null)
+			core.marshalSemanticSurfaceAttributes(cityObject, semantics);
 		
 		return semantics;
 	}

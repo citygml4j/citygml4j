@@ -18,30 +18,13 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.relief;
 
-import net.opengis.citygml.relief._2.AbstractReliefComponentType;
-import net.opengis.citygml.relief._2.BreaklineReliefType;
-import net.opengis.citygml.relief._2.GridPropertyType;
-import net.opengis.citygml.relief._2.MassPointReliefType;
-import net.opengis.citygml.relief._2.ObjectFactory;
-import net.opengis.citygml.relief._2.RasterReliefType;
-import net.opengis.citygml.relief._2.ReliefComponentPropertyType;
-import net.opengis.citygml.relief._2.ReliefFeatureType;
-import net.opengis.citygml.relief._2.TINReliefType;
-import net.opengis.citygml.relief._2.TinPropertyType;
+import net.opengis.citygml.relief._2.*;
 import net.opengis.gml.RectifiedGridCoverageType;
 import net.opengis.gml.TriangulatedSurfaceType;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
-import org.citygml4j.model.citygml.relief.BreaklineRelief;
-import org.citygml4j.model.citygml.relief.GridProperty;
-import org.citygml4j.model.citygml.relief.MassPointRelief;
-import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.ReliefComponentProperty;
-import org.citygml4j.model.citygml.relief.ReliefFeature;
-import org.citygml4j.model.citygml.relief.TINRelief;
-import org.citygml4j.model.citygml.relief.TinProperty;
+import org.citygml4j.model.citygml.relief.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;

@@ -18,12 +18,7 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import org.citygml4j.model.citygml.relief.AbstractReliefComponent;
-import org.citygml4j.model.citygml.relief.BreaklineRelief;
-import org.citygml4j.model.citygml.relief.MassPointRelief;
-import org.citygml4j.model.citygml.relief.RasterRelief;
-import org.citygml4j.model.citygml.relief.ReliefFeature;
-import org.citygml4j.model.citygml.relief.TINRelief;
+import org.citygml4j.model.citygml.relief.*;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 

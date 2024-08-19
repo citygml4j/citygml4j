@@ -18,14 +18,7 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
-import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
-import org.citygml4j.model.citygml.transportation.Railway;
-import org.citygml4j.model.citygml.transportation.Road;
-import org.citygml4j.model.citygml.transportation.Square;
-import org.citygml4j.model.citygml.transportation.Track;
-import org.citygml4j.model.citygml.transportation.TrafficArea;
-import org.citygml4j.model.citygml.transportation.TransportationComplex;
+import org.citygml4j.model.citygml.transportation.*;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 

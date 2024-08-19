@@ -18,26 +18,7 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
-import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.AbstractOpening;
-import org.citygml4j.model.citygml.building.Building;
-import org.citygml4j.model.citygml.building.BuildingFurniture;
-import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.CeilingSurface;
-import org.citygml4j.model.citygml.building.ClosureSurface;
-import org.citygml4j.model.citygml.building.Door;
-import org.citygml4j.model.citygml.building.FloorSurface;
-import org.citygml4j.model.citygml.building.GroundSurface;
-import org.citygml4j.model.citygml.building.IntBuildingInstallation;
-import org.citygml4j.model.citygml.building.InteriorWallSurface;
-import org.citygml4j.model.citygml.building.OuterCeilingSurface;
-import org.citygml4j.model.citygml.building.OuterFloorSurface;
-import org.citygml4j.model.citygml.building.RoofSurface;
-import org.citygml4j.model.citygml.building.Room;
-import org.citygml4j.model.citygml.building.WallSurface;
-import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.citygml.building.*;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 

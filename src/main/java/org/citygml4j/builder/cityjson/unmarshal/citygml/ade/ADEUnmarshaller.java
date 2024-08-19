@@ -20,13 +20,7 @@
 package org.citygml4j.builder.cityjson.unmarshal.citygml.ade;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.cityjson.extension.CityJSONExtension;
-import org.citygml4j.builder.cityjson.extension.CityJSONExtensionContext;
-import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
-import org.citygml4j.builder.cityjson.extension.CityJSONExtensionUnmarshaller;
-import org.citygml4j.builder.cityjson.extension.CityObjectContext;
-import org.citygml4j.builder.cityjson.extension.ExtensionPropertyContext;
-import org.citygml4j.builder.cityjson.extension.SemanticSurfaceContext;
+import org.citygml4j.builder.cityjson.extension.*;
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.extension.ExtensibleType;

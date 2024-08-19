@@ -22,12 +22,7 @@ import org.citygml4j.builder.jaxb.xml.io.reader.XMLElementChecker.ElementInfo;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.module.gml.GMLCoreModule;
 import org.citygml4j.model.module.gml.XLinkModule;
-import org.citygml4j.xml.io.reader.CityGMLReadException;
-import org.citygml4j.xml.io.reader.CityGMLReader;
-import org.citygml4j.xml.io.reader.MissingADESchemaException;
-import org.citygml4j.xml.io.reader.ParentInfo;
-import org.citygml4j.xml.io.reader.UnmarshalException;
-import org.citygml4j.xml.io.reader.XMLChunk;
+import org.citygml4j.xml.io.reader.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.stream.XMLStreamConstants;

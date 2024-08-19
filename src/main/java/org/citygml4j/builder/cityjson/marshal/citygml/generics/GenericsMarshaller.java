@@ -29,26 +29,14 @@ import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
-import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
-import org.citygml4j.model.citygml.generics.DateAttribute;
-import org.citygml4j.model.citygml.generics.DoubleAttribute;
-import org.citygml4j.model.citygml.generics.GenericAttributeSet;
-import org.citygml4j.model.citygml.generics.GenericCityObject;
-import org.citygml4j.model.citygml.generics.IntAttribute;
-import org.citygml4j.model.citygml.generics.MeasureAttribute;
-import org.citygml4j.model.citygml.generics.StringAttribute;
-import org.citygml4j.model.citygml.generics.UriAttribute;
+import org.citygml4j.model.citygml.generics.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GenericsMarshaller {
     private final CityJSONMarshaller json;

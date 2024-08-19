@@ -23,11 +23,7 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.copy.Copyable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.IdentityHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DeepCopyBuilder extends CopyBuilder {
 	private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();

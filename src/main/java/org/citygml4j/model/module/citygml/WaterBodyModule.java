@@ -18,12 +18,7 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
-import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
-import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
-import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.citygml.waterbody.*;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 

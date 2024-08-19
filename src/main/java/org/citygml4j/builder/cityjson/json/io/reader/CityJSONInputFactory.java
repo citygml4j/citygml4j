@@ -21,14 +21,7 @@ package org.citygml4j.builder.cityjson.json.io.reader;
 import org.citygml4j.cityjson.feature.CityObjectTypeFilter;
 import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 
 public class CityJSONInputFactory {
 	boolean processUnknownExtensions;

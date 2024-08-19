@@ -18,24 +18,11 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.waterbody;
 
-import net.opengis.citygml.waterbody._1.AbstractWaterBoundarySurfaceType;
-import net.opengis.citygml.waterbody._1.AbstractWaterObjectType;
-import net.opengis.citygml.waterbody._1.BoundedByWaterSurfacePropertyType;
-import net.opengis.citygml.waterbody._1.ObjectFactory;
-import net.opengis.citygml.waterbody._1.WaterBodyType;
-import net.opengis.citygml.waterbody._1.WaterClosureSurfaceType;
-import net.opengis.citygml.waterbody._1.WaterGroundSurfaceType;
-import net.opengis.citygml.waterbody._1.WaterSurfaceType;
+import net.opengis.citygml.waterbody._1.*;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.waterbody.AbstractWaterBoundarySurface;
-import org.citygml4j.model.citygml.waterbody.AbstractWaterObject;
-import org.citygml4j.model.citygml.waterbody.BoundedByWaterSurfaceProperty;
-import org.citygml4j.model.citygml.waterbody.WaterBody;
-import org.citygml4j.model.citygml.waterbody.WaterClosureSurface;
-import org.citygml4j.model.citygml.waterbody.WaterGroundSurface;
-import org.citygml4j.model.citygml.waterbody.WaterSurface;
+import org.citygml4j.model.citygml.waterbody.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.util.mapper.TypeMapper;

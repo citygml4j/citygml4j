@@ -18,26 +18,7 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import org.citygml4j.model.citygml.tunnel.AbstractBoundarySurface;
-import org.citygml4j.model.citygml.tunnel.AbstractOpening;
-import org.citygml4j.model.citygml.tunnel.AbstractTunnel;
-import org.citygml4j.model.citygml.tunnel.CeilingSurface;
-import org.citygml4j.model.citygml.tunnel.ClosureSurface;
-import org.citygml4j.model.citygml.tunnel.Door;
-import org.citygml4j.model.citygml.tunnel.FloorSurface;
-import org.citygml4j.model.citygml.tunnel.GroundSurface;
-import org.citygml4j.model.citygml.tunnel.HollowSpace;
-import org.citygml4j.model.citygml.tunnel.IntTunnelInstallation;
-import org.citygml4j.model.citygml.tunnel.InteriorWallSurface;
-import org.citygml4j.model.citygml.tunnel.OuterCeilingSurface;
-import org.citygml4j.model.citygml.tunnel.OuterFloorSurface;
-import org.citygml4j.model.citygml.tunnel.RoofSurface;
-import org.citygml4j.model.citygml.tunnel.Tunnel;
-import org.citygml4j.model.citygml.tunnel.TunnelFurniture;
-import org.citygml4j.model.citygml.tunnel.TunnelInstallation;
-import org.citygml4j.model.citygml.tunnel.TunnelPart;
-import org.citygml4j.model.citygml.tunnel.WallSurface;
-import org.citygml4j.model.citygml.tunnel.Window;
+import org.citygml4j.model.citygml.tunnel.*;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 

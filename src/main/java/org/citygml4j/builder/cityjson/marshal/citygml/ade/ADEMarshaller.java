@@ -20,11 +20,7 @@
 package org.citygml4j.builder.cityjson.marshal.citygml.ade;
 
 import org.citygml4j.CityGMLContext;
-import org.citygml4j.builder.cityjson.extension.ADEPropertyContext;
-import org.citygml4j.builder.cityjson.extension.CityJSONExtensionContext;
-import org.citygml4j.builder.cityjson.extension.CityJSONExtensionMarshaller;
-import org.citygml4j.builder.cityjson.extension.ExtensionAttribute;
-import org.citygml4j.builder.cityjson.extension.ExtensionProperty;
+import org.citygml4j.builder.cityjson.extension.*;
 import org.citygml4j.builder.cityjson.marshal.CityJSONMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.DuplicateGeometryRemover;
 import org.citygml4j.cityjson.CityJSON;

@@ -23,35 +23,11 @@ import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.DuplicateGeometryRemover;
 import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.cityjson.CityJSON;
-import org.citygml4j.cityjson.feature.AbstractBridgeType;
-import org.citygml4j.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.cityjson.feature.Attributes;
-import org.citygml4j.cityjson.feature.BridgeAttributes;
-import org.citygml4j.cityjson.feature.BridgeConstructionElementType;
-import org.citygml4j.cityjson.feature.BridgeInstallationType;
-import org.citygml4j.cityjson.feature.BridgePartType;
-import org.citygml4j.cityjson.feature.BridgeType;
+import org.citygml4j.cityjson.feature.*;
 import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.cityjson.geometry.SemanticsType;
-import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
-import org.citygml4j.model.citygml.bridge.AbstractBridge;
-import org.citygml4j.model.citygml.bridge.BoundarySurfaceProperty;
-import org.citygml4j.model.citygml.bridge.Bridge;
-import org.citygml4j.model.citygml.bridge.BridgeConstructionElement;
-import org.citygml4j.model.citygml.bridge.BridgeConstructionElementProperty;
-import org.citygml4j.model.citygml.bridge.BridgeInstallation;
-import org.citygml4j.model.citygml.bridge.BridgeInstallationProperty;
-import org.citygml4j.model.citygml.bridge.BridgePart;
-import org.citygml4j.model.citygml.bridge.BridgePartProperty;
-import org.citygml4j.model.citygml.bridge.ClosureSurface;
-import org.citygml4j.model.citygml.bridge.Door;
-import org.citygml4j.model.citygml.bridge.GroundSurface;
-import org.citygml4j.model.citygml.bridge.OuterCeilingSurface;
-import org.citygml4j.model.citygml.bridge.OuterFloorSurface;
-import org.citygml4j.model.citygml.bridge.RoofSurface;
-import org.citygml4j.model.citygml.bridge.WallSurface;
-import org.citygml4j.model.citygml.bridge.Window;
+import org.citygml4j.model.citygml.bridge.*;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
@@ -114,9 +90,6 @@ public class BridgeMarshaller {
 			semantics = new SemanticsType("Window");
 		else if (cityObject instanceof Door)
 			semantics = new SemanticsType("Door");
-
-		if (semantics != null)
-			citygml.getGenericsMarshaller().marshalGenericAttributes(cityObject, semantics);
 
 		return semantics;
 	}

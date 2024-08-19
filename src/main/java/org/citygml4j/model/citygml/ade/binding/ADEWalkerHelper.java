@@ -24,11 +24,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class ADEWalkerHelper<T extends Walker> {
 	private Deque<ADEWalker<T>> walkers;

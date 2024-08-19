@@ -18,13 +18,7 @@
  */
 package org.citygml4j.builder.jaxb.xml.io.reader;
 
-import org.citygml4j.model.module.citygml.AppearanceModule;
-import org.citygml4j.model.module.citygml.CityGMLModule;
-import org.citygml4j.model.module.citygml.CityGMLModuleType;
-import org.citygml4j.model.module.citygml.CityGMLVersion;
-import org.citygml4j.model.module.citygml.CoreModule;
-import org.citygml4j.model.module.citygml.GenericsModule;
-import org.citygml4j.model.module.citygml.TexturedSurfaceModule;
+import org.citygml4j.model.module.citygml.*;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;

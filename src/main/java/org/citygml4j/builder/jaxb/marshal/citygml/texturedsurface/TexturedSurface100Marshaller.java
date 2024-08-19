@@ -18,22 +18,10 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.texturedsurface;
 
-import net.opengis.citygml.texturedsurface._1.AbstractAppearanceType;
-import net.opengis.citygml.texturedsurface._1.AppearancePropertyType;
-import net.opengis.citygml.texturedsurface._1.MaterialType;
-import net.opengis.citygml.texturedsurface._1.ObjectFactory;
-import net.opengis.citygml.texturedsurface._1.SimpleTextureType;
-import net.opengis.citygml.texturedsurface._1.TextureTypeType;
-import net.opengis.citygml.texturedsurface._1.TexturedSurfaceType;
+import net.opengis.citygml.texturedsurface._1.*;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
-import org.citygml4j.model.citygml.texturedsurface._AbstractAppearance;
-import org.citygml4j.model.citygml.texturedsurface._AppearanceProperty;
-import org.citygml4j.model.citygml.texturedsurface._Color;
-import org.citygml4j.model.citygml.texturedsurface._Material;
-import org.citygml4j.model.citygml.texturedsurface._SimpleTexture;
-import org.citygml4j.model.citygml.texturedsurface._TextureType;
-import org.citygml4j.model.citygml.texturedsurface._TexturedSurface;
+import org.citygml4j.model.citygml.texturedsurface.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;

@@ -23,32 +23,11 @@ import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.builder.cityjson.marshal.util.DuplicateGeometryRemover;
 import org.citygml4j.builder.cityjson.marshal.util.SemanticSurfaceCollector;
 import org.citygml4j.cityjson.CityJSON;
-import org.citygml4j.cityjson.feature.AbstractBuildingType;
-import org.citygml4j.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.cityjson.feature.Attributes;
-import org.citygml4j.cityjson.feature.BuildingAttributes;
-import org.citygml4j.cityjson.feature.BuildingInstallationType;
-import org.citygml4j.cityjson.feature.BuildingPartType;
-import org.citygml4j.cityjson.feature.BuildingType;
+import org.citygml4j.cityjson.feature.*;
 import org.citygml4j.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.cityjson.geometry.GeometryInstanceType;
 import org.citygml4j.cityjson.geometry.SemanticsType;
-import org.citygml4j.model.citygml.building.AbstractBoundarySurface;
-import org.citygml4j.model.citygml.building.AbstractBuilding;
-import org.citygml4j.model.citygml.building.BoundarySurfaceProperty;
-import org.citygml4j.model.citygml.building.Building;
-import org.citygml4j.model.citygml.building.BuildingInstallation;
-import org.citygml4j.model.citygml.building.BuildingInstallationProperty;
-import org.citygml4j.model.citygml.building.BuildingPart;
-import org.citygml4j.model.citygml.building.BuildingPartProperty;
-import org.citygml4j.model.citygml.building.ClosureSurface;
-import org.citygml4j.model.citygml.building.Door;
-import org.citygml4j.model.citygml.building.GroundSurface;
-import org.citygml4j.model.citygml.building.OuterCeilingSurface;
-import org.citygml4j.model.citygml.building.OuterFloorSurface;
-import org.citygml4j.model.citygml.building.RoofSurface;
-import org.citygml4j.model.citygml.building.WallSurface;
-import org.citygml4j.model.citygml.building.Window;
+import org.citygml4j.model.citygml.building.*;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.AddressProperty;
 import org.citygml4j.model.common.base.ModelObject;
@@ -112,9 +91,6 @@ public class BuildingMarshaller {
 			semantics = new SemanticsType("Window");
 		else if (cityObject instanceof Door)
 			semantics = new SemanticsType("Door");
-
-		if (semantics != null)
-			citygml.getCoreMarshaller().marshalSemanticSurfaceAttributes(cityObject, semantics);
 
 		return semantics;
 	}

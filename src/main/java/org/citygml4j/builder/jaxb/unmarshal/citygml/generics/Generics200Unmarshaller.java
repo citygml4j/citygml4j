@@ -18,28 +18,12 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.generics;
 
-import net.opengis.citygml.generics._2.AbstractGenericAttributeType;
-import net.opengis.citygml.generics._2.DateAttributeType;
-import net.opengis.citygml.generics._2.DoubleAttributeType;
-import net.opengis.citygml.generics._2.GenericAttributeSetType;
-import net.opengis.citygml.generics._2.GenericCityObjectType;
-import net.opengis.citygml.generics._2.IntAttributeType;
-import net.opengis.citygml.generics._2.MeasureAttributeType;
-import net.opengis.citygml.generics._2.StringAttributeType;
-import net.opengis.citygml.generics._2.UriAttributeType;
+import net.opengis.citygml.generics._2.*;
 import net.opengis.gml.CodeType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
-import org.citygml4j.model.citygml.generics.AbstractGenericAttribute;
-import org.citygml4j.model.citygml.generics.DateAttribute;
-import org.citygml4j.model.citygml.generics.DoubleAttribute;
-import org.citygml4j.model.citygml.generics.GenericAttributeSet;
-import org.citygml4j.model.citygml.generics.GenericCityObject;
-import org.citygml4j.model.citygml.generics.IntAttribute;
-import org.citygml4j.model.citygml.generics.MeasureAttribute;
-import org.citygml4j.model.citygml.generics.StringAttribute;
-import org.citygml4j.model.citygml.generics.UriAttribute;
+import org.citygml4j.model.citygml.generics.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.module.citygml.GenericsModule;
 import org.citygml4j.util.mapper.CheckedTypeMapper;

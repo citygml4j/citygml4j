@@ -20,18 +20,9 @@
 package org.citygml4j.builder.cityjson.marshal.util;
 
 import org.citygml4j.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.cityjson.geometry.AbstractGeometryType;
-import org.citygml4j.cityjson.geometry.AbstractSolidCollectionType;
-import org.citygml4j.cityjson.geometry.AbstractSurfaceCollectionType;
-import org.citygml4j.cityjson.geometry.MultiLineStringType;
-import org.citygml4j.cityjson.geometry.MultiPointType;
-import org.citygml4j.cityjson.geometry.SolidType;
+import org.citygml4j.cityjson.geometry.*;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DuplicateGeometryRemover {

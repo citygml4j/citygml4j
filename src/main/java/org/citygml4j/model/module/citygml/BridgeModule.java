@@ -18,27 +18,7 @@
  */
 package org.citygml4j.model.module.citygml;
 
-import org.citygml4j.model.citygml.bridge.AbstractBoundarySurface;
-import org.citygml4j.model.citygml.bridge.AbstractBridge;
-import org.citygml4j.model.citygml.bridge.AbstractOpening;
-import org.citygml4j.model.citygml.bridge.Bridge;
-import org.citygml4j.model.citygml.bridge.BridgeConstructionElement;
-import org.citygml4j.model.citygml.bridge.BridgeFurniture;
-import org.citygml4j.model.citygml.bridge.BridgeInstallation;
-import org.citygml4j.model.citygml.bridge.BridgePart;
-import org.citygml4j.model.citygml.bridge.BridgeRoom;
-import org.citygml4j.model.citygml.bridge.CeilingSurface;
-import org.citygml4j.model.citygml.bridge.ClosureSurface;
-import org.citygml4j.model.citygml.bridge.Door;
-import org.citygml4j.model.citygml.bridge.FloorSurface;
-import org.citygml4j.model.citygml.bridge.GroundSurface;
-import org.citygml4j.model.citygml.bridge.IntBridgeInstallation;
-import org.citygml4j.model.citygml.bridge.InteriorWallSurface;
-import org.citygml4j.model.citygml.bridge.OuterCeilingSurface;
-import org.citygml4j.model.citygml.bridge.OuterFloorSurface;
-import org.citygml4j.model.citygml.bridge.RoofSurface;
-import org.citygml4j.model.citygml.bridge.WallSurface;
-import org.citygml4j.model.citygml.bridge.Window;
+import org.citygml4j.model.citygml.bridge.*;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 

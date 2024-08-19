@@ -26,19 +26,10 @@ import org.xml.sax.helpers.XMLFilterImpl;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamResult;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class SAXWriter extends XMLFilterImpl implements AutoCloseable {

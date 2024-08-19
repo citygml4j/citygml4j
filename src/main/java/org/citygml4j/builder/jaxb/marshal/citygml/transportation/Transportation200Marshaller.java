@@ -18,30 +18,11 @@
  */
 package org.citygml4j.builder.jaxb.marshal.citygml.transportation;
 
-import net.opengis.citygml.transportation._2.AbstractTransportationObjectType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.AuxiliaryTrafficAreaType;
-import net.opengis.citygml.transportation._2.ObjectFactory;
-import net.opengis.citygml.transportation._2.RailwayType;
-import net.opengis.citygml.transportation._2.RoadType;
-import net.opengis.citygml.transportation._2.SquareType;
-import net.opengis.citygml.transportation._2.TrackType;
-import net.opengis.citygml.transportation._2.TrafficAreaPropertyType;
-import net.opengis.citygml.transportation._2.TrafficAreaType;
-import net.opengis.citygml.transportation._2.TransportationComplexType;
+import net.opengis.citygml.transportation._2.*;
 import org.citygml4j.builder.jaxb.marshal.JAXBMarshaller;
 import org.citygml4j.builder.jaxb.marshal.citygml.CityGMLMarshaller;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
-import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
-import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
-import org.citygml4j.model.citygml.transportation.Railway;
-import org.citygml4j.model.citygml.transportation.Road;
-import org.citygml4j.model.citygml.transportation.Square;
-import org.citygml4j.model.citygml.transportation.Track;
-import org.citygml4j.model.citygml.transportation.TrafficArea;
-import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
-import org.citygml4j.model.citygml.transportation.TransportationComplex;
+import org.citygml4j.model.citygml.transportation.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.geometry.complexes.GeometricComplexProperty;

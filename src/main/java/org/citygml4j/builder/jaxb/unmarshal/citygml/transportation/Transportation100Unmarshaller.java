@@ -18,32 +18,14 @@
  */
 package org.citygml4j.builder.jaxb.unmarshal.citygml.transportation;
 
-import net.opengis.citygml.transportation._1.AbstractTransportationObjectType;
-import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaPropertyType;
-import net.opengis.citygml.transportation._1.AuxiliaryTrafficAreaType;
-import net.opengis.citygml.transportation._1.RailwayType;
-import net.opengis.citygml.transportation._1.RoadType;
-import net.opengis.citygml.transportation._1.SquareType;
-import net.opengis.citygml.transportation._1.TrackType;
-import net.opengis.citygml.transportation._1.TrafficAreaPropertyType;
-import net.opengis.citygml.transportation._1.TrafficAreaType;
-import net.opengis.citygml.transportation._1.TransportationComplexType;
+import net.opengis.citygml.transportation._1.*;
 import net.opengis.gml.GeometricComplexPropertyType;
 import org.citygml4j.builder.jaxb.unmarshal.JAXBUnmarshaller;
 import org.citygml4j.builder.jaxb.unmarshal.citygml.CityGMLUnmarshaller;
 import org.citygml4j.model.citygml.CityGML;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.generic.ADEGenericElement;
-import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
-import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficArea;
-import org.citygml4j.model.citygml.transportation.AuxiliaryTrafficAreaProperty;
-import org.citygml4j.model.citygml.transportation.Railway;
-import org.citygml4j.model.citygml.transportation.Road;
-import org.citygml4j.model.citygml.transportation.Square;
-import org.citygml4j.model.citygml.transportation.Track;
-import org.citygml4j.model.citygml.transportation.TrafficArea;
-import org.citygml4j.model.citygml.transportation.TrafficAreaProperty;
-import org.citygml4j.model.citygml.transportation.TransportationComplex;
+import org.citygml4j.model.citygml.transportation.*;
 import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.base.AbstractGML;
 import org.citygml4j.model.gml.basicTypes.Code;
