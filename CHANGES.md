@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+### 2.13.0 - tba
+
+##### Additions
+* CityGML ADE hook properties defined for boundary surfaces can now be processed with the CityJSON Extension API
+  to map them to CityJSON content. Note that this addition introduces a **breaking change** to the CityJSON Extension
+  API and existing implementations of CityJSON Extensions will need to be adapted.
+
+##### Changes
+* Updated to citygson version 1.1.6.
+
 ### 2.12.4 - 2023-07-16
 
 ##### Fixes
