@@ -104,7 +104,7 @@ public class VegetationMarshaller {
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfPlantCover(), dest, cityJSON);
 		
 		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -112,7 +112,7 @@ public class VegetationMarshaller {
 		}
 
 		if (src.isSetLod2MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -120,7 +120,7 @@ public class VegetationMarshaller {
 		}
 
 		if (src.isSetLod3MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
@@ -128,7 +128,7 @@ public class VegetationMarshaller {
 		}
 		
 		if (src.isSetLod1MultiSolid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSolid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSolid(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -136,7 +136,7 @@ public class VegetationMarshaller {
 		}
 		
 		if (src.isSetLod2MultiSolid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSolid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSolid(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -144,7 +144,7 @@ public class VegetationMarshaller {
 		}
 		
 		if (src.isSetLod3MultiSolid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSolid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSolid(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
@@ -197,7 +197,7 @@ public class VegetationMarshaller {
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSolitaryVegetationObject(), dest, cityJSON);
 
 		if (src.isSetLod1Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -205,7 +205,7 @@ public class VegetationMarshaller {
 		}
 
 		if (src.isSetLod2Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -213,7 +213,7 @@ public class VegetationMarshaller {
 		}
 
 		if (src.isSetLod3Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
@@ -221,19 +221,19 @@ public class VegetationMarshaller {
 		}
 
 		if (src.isSetLod1ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation(), 1);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation(), 1, cityJSON);
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}
 
 		if (src.isSetLod2ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}
 
 		if (src.isSetLod3ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}

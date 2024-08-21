@@ -20,12 +20,7 @@
 package org.citygml4j.geometry;
 
 import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.util.internal.jama.CholeskyDecomposition;
-import org.citygml4j.util.internal.jama.EigenvalueDecomposition;
-import org.citygml4j.util.internal.jama.LUDecomposition;
-import org.citygml4j.util.internal.jama.Maths;
-import org.citygml4j.util.internal.jama.QRDecomposition;
-import org.citygml4j.util.internal.jama.SingularValueDecomposition;
+import org.citygml4j.util.internal.jama.*;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;

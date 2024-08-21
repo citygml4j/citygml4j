@@ -84,15 +84,21 @@ public class ADEMarshaller {
                         parent.addChild(cityObject);
                     }
 
-                    else if (extension instanceof ExtensionAttribute && parent instanceof AbstractCityObjectType) {
+                    else if (extension instanceof ExtensionAttribute) {
                         ExtensionAttribute attribute = (ExtensionAttribute) extension;
-                        ((AbstractCityObjectType) parent).getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
+                        if (parent instanceof AbstractCityObjectType)
+                            ((AbstractCityObjectType) parent).getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
+                        else if (parent instanceof SemanticsType) {
+                            ((SemanticsType) parent).addAttribute(attribute.getName(), attribute.getValue());
+                        }
                     }
 
                     else if (extension instanceof ExtensionProperty) {
                         ExtensionProperty property = (ExtensionProperty) extension;
                         if (parent instanceof AbstractCityObjectType)
                             ((AbstractCityObjectType) parent).addExtensionProperty(property.getName(), property.getValue());
+                        else if (parent instanceof SemanticsType)
+                            ((SemanticsType) parent).addAttribute(property.getName(), property.getValue());
                         else if (parent instanceof CityJSON)
                             ((CityJSON) parent).addExtensionProperty(property.getName(), property.getValue());
                     }
@@ -111,11 +117,11 @@ public class ADEMarshaller {
         return null;
     }
 
-    public SemanticsType marshalSemanticSurface(ADEModelObject src) {
+    public SemanticsType marshalSemanticSurface(ADEModelObject src, CityJSON cityJSON) {
         if (marshallers != null) {
             CityJSONExtensionMarshaller marshaller = marshallers.get(src.getClass().getPackage().getName());
             if (marshaller != null)
-                return marshaller.marshalSemanticSurface(src);
+                return marshaller.marshalSemanticSurface(src, cityJSON);
         }
 
         return null;

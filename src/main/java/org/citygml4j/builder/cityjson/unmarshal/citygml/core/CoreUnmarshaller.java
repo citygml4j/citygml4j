@@ -277,7 +277,7 @@ public class CoreUnmarshaller {
 		feature.setLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE, true);
 	}
 
-	public void unmarshalGeometryInstance(GeometryInstanceType src, ImplicitGeometry dest) {
+	public void unmarshalGeometryInstance(GeometryInstanceType src, ImplicitGeometry dest, CityJSON cityJSON) {
 		// get relative geometry
 		SimpleEntry<String, Integer> templateInfo = templateInfos.get(src.getTemplate());
 		GeometryProperty<AbstractGeometry> property = new GeometryProperty<>();
@@ -285,7 +285,7 @@ public class CoreUnmarshaller {
 		if (templateInfo == null) {
 			if (templates != null && templates.size() > src.getTemplate()) {
 				AbstractGeometryObjectType template = templates.get(src.getTemplate());
-				AbstractGeometry geometry = implicit.unmarshal(template, appearanceContainer);
+				AbstractGeometry geometry = implicit.unmarshal(template, appearanceContainer, cityJSON);
 				if (geometry != null) {
 					geometry.setId(gmlIdManager.generateUUID());
 					property.setGeometry(geometry);
@@ -311,25 +311,25 @@ public class CoreUnmarshaller {
 		// get reference point
 		MultiPointType referencePoint = new MultiPointType();
 		referencePoint.addPoint(src.getReferencePoint());
-		MultiPoint multiPoint = json.getGMLUnmarshaller().unmarshalMultiPoint(referencePoint);
+		MultiPoint multiPoint = json.getGMLUnmarshaller().unmarshalMultiPoint(referencePoint, cityJSON);
 		if (multiPoint != null)
 			dest.setReferencePoint(multiPoint.getPointMember().get(0));
 	}
 
-	public ImplicitGeometry unmarshalGeometryInstance(GeometryInstanceType src) {
+	public ImplicitGeometry unmarshalGeometryInstance(GeometryInstanceType src, CityJSON cityJSON) {
 		ImplicitGeometry dest = new ImplicitGeometry();
-		unmarshalGeometryInstance(src, dest);
+		unmarshalGeometryInstance(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public AbstractGeometry unmarshalAndTransformGeometryInstance(GeometryInstanceType src, AbstractCityObject parent) {
+	public AbstractGeometry unmarshalAndTransformGeometryInstance(GeometryInstanceType src, AbstractCityObject parent, CityJSON cityJSON) {
 		if (templates == null || templates.size() <= src.getTemplate())
 			return null;
 
 		// get template geometry
 		AbstractGeometryObjectType template = templates.get(src.getTemplate());
-		AbstractGeometry geometry = implicit.unmarshal(template, parent);
+		AbstractGeometry geometry = implicit.unmarshal(template, parent, cityJSON);
 		if (geometry == null)
 			return null;
 
@@ -337,7 +337,7 @@ public class CoreUnmarshaller {
 		List<Double> transformationMatrix = src.getTransformationMatrix();
 		MultiPointType referencePoint = new MultiPointType();
 		referencePoint.addPoint(src.getReferencePoint());
-		MultiPoint multiPoint = json.getGMLUnmarshaller().unmarshalMultiPoint(referencePoint);
+		MultiPoint multiPoint = json.getGMLUnmarshaller().unmarshalMultiPoint(referencePoint, cityJSON);
 		if (transformationMatrix == null || transformationMatrix.size() < 16 || multiPoint == null)
 			return null;
 
@@ -396,7 +396,7 @@ public class CoreUnmarshaller {
 		return geometry;
 	}
 
-	public void unmarshalAddress(AddressType src, Address dest) {		
+	public void unmarshalAddress(AddressType src, Address dest, CityJSON cityJSON) {
 		AddressDetails addressDetails = new AddressDetails();		
 		Country country = new Country();
 		
@@ -437,19 +437,19 @@ public class CoreUnmarshaller {
 			addressDetails.setCountry(country);
 		
 		if (src.isSetLocation())
-			dest.setMultiPoint(new MultiPointProperty(json.getGMLUnmarshaller().unmarshalMultiPoint(src.getLocation())));
+			dest.setMultiPoint(new MultiPointProperty(json.getGMLUnmarshaller().unmarshalMultiPoint(src.getLocation(), cityJSON)));
 
 		dest.setXalAddress(new XalAddressProperty(addressDetails));
 	}
 	
-	public Address unmarshalAddress(AddressType src) {
+	public Address unmarshalAddress(AddressType src, CityJSON cityJSON) {
 		Address dest = new Address();
-		unmarshalAddress(src, dest);
+		unmarshalAddress(src, dest, cityJSON);
 		
 		return dest;
 	}
 
-	public void unmarshalSemanticsAttributes(SemanticsType src, AbstractCityObject dest) {
+	public void marshalSemanticSurface(SemanticsType src, AbstractCityObject dest, CityJSON cityJSON) {
 		dest.setId(src.isSetId() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
 
 		if (src.isSetDescription())
@@ -464,8 +464,14 @@ public class CoreUnmarshaller {
 		if (src.isSetTerminationDate())
 			dest.setTerminationDate(src.getTerminationDate());
 
-		if (src.isSetAttributes())
-			citygml.getGenericsUnmarshaller().unmarshalGenericAttributes(src.getAttributes(), dest);
+		if (src.isSetAttributes()) {
+			for (Map.Entry<String, Object> entry : src.getAttributes().entrySet()) {
+				if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
+					json.getADEUnmarshaller().unmarshalExtensionProperty(entry.getKey(), entry.getValue(), src, cityJSON, dest);
+				else
+					citygml.getGenericsUnmarshaller().unmarshalGenericAttribute(entry.getKey(), entry.getValue(), dest);
+			}
+		}
 	}
 
 	public boolean hasGlobalAppearances() {

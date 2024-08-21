@@ -60,17 +60,17 @@ public class WaterBodyUnmarshaller {
 		return null;
 	}
 
-	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+	public AbstractCityObject unmarshalSemanticSurface(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent, CityJSON cityJSON) {
 		AbstractWaterBoundarySurface boundarySurface = null;
 		switch (semanticsType.getType()) {
 			case "WaterSurface":
-				boundarySurface = unmarshalWaterSurface(semanticsType, surfaces, lod);
+				boundarySurface = unmarshalWaterSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "WaterGroundSurface":
-				boundarySurface = unmarshalWaterGroundSurface(semanticsType, surfaces, lod);
+				boundarySurface = unmarshalWaterGroundSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "WaterClosureSurface":
-				boundarySurface = unmarshalWaterClosureSurface(semanticsType, surfaces, lod);
+				boundarySurface = unmarshalWaterClosureSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			default:
 				return null;
@@ -106,7 +106,7 @@ public class WaterBodyUnmarshaller {
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 
 				if (geometry != null) {
 					int lod = geometryObject.getLod().intValue();
@@ -165,8 +165,8 @@ public class WaterBodyUnmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalAbstractWaterBoundarySurface(SemanticsType src, AbstractWaterBoundarySurface dest, List<AbstractSurface> surfaces, Number lod) {
-		citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
+	public void unmarshalAbstractWaterBoundarySurface(SemanticsType src, AbstractWaterBoundarySurface dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
 		
 		CompositeSurface compositeSurface = new CompositeSurface();
 		for (AbstractSurface surface : surfaces)
@@ -182,9 +182,10 @@ public class WaterBodyUnmarshaller {
 		}
 	}
 	
-	public WaterSurface unmarshalWaterSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public WaterSurface unmarshalWaterSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		WaterSurface dest = new WaterSurface();
-		
+		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
 		if (src.isSetAttributes()) {
 			Object attribute = src.getAttributes().get("waterLevel");
 			if (attribute instanceof String) {
@@ -192,22 +193,20 @@ public class WaterBodyUnmarshaller {
 				src.getAttributes().remove("waterLevel");
 			}
 		}
-		
-		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod);
 
 		return dest;
 	}
 	
-	public WaterGroundSurface unmarshalWaterGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public WaterGroundSurface unmarshalWaterGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		WaterGroundSurface dest = new WaterGroundSurface();
-		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 	
-	public WaterClosureSurface unmarshalWaterClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public WaterClosureSurface unmarshalWaterClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		WaterClosureSurface dest = new WaterClosureSurface();
-		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}

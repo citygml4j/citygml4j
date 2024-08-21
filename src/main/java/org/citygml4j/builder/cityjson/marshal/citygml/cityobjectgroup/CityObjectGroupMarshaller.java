@@ -91,7 +91,7 @@ public class CityObjectGroupMarshaller {
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObjectGroup(), dest, cityJSON);
 
 		if (src.isSetGeometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getGeometry());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getGeometry(), cityJSON);
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}

@@ -74,7 +74,7 @@ public class LandUseMarshaller {
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfLandUse(), dest, cityJSON);
 		
 		if (src.isSetLod0MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(0);
 				dest.addGeometry(geometry);
@@ -82,7 +82,7 @@ public class LandUseMarshaller {
 		}
 		
 		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -90,7 +90,7 @@ public class LandUseMarshaller {
 		}
 
 		if (src.isSetLod2MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -98,7 +98,7 @@ public class LandUseMarshaller {
 		}
 
 		if (src.isSetLod3MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);

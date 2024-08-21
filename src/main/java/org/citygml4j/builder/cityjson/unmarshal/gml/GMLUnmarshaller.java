@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.unmarshal.gml;
 
 import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
+import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.appearance.AbstractMaterialObject;
 import org.citygml4j.cityjson.appearance.AbstractTextureObject;
 import org.citygml4j.cityjson.geometry.*;
@@ -34,7 +35,7 @@ import org.citygml4j.model.gml.geometry.complexes.CompositeSurface;
 import org.citygml4j.model.gml.geometry.primitives.*;
 import org.citygml4j.util.child.ChildInfo;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
-import org.citygml4j.util.mapper.BiFunctionTypeMapper;
+import org.citygml4j.util.mapper.TriFunctionTypeMapper;
 
 import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -43,7 +44,7 @@ public class GMLUnmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
 	private final CityJSONUnmarshaller json;
 	private final ChildInfo info;
-	private BiFunctionTypeMapper<AbstractCityObject, AbstractGeometry> typeMapper;
+	private TriFunctionTypeMapper<AbstractCityObject, CityJSON, AbstractGeometry> typeMapper;
 
 	private int numVertices;
 	private List<List<Double>> vertices;
@@ -53,12 +54,12 @@ public class GMLUnmarshaller {
 		info = new ChildInfo();
 	}
 
-	private BiFunctionTypeMapper<AbstractCityObject, AbstractGeometry> getTypeMapper() {
+	private TriFunctionTypeMapper<AbstractCityObject, CityJSON, AbstractGeometry> getTypeMapper() {
 		if (typeMapper == null) {
 			lock.lock();
 			try {
 				if (typeMapper == null) {
-					typeMapper = BiFunctionTypeMapper.<AbstractCityObject, AbstractGeometry>create()
+					typeMapper = TriFunctionTypeMapper.<AbstractCityObject, CityJSON, AbstractGeometry>create()
 							.with(MultiPointType.class, this::unmarshalMultiPoint)
 							.with(MultiLineStringType.class, this::unmarshalMultiLineString)
 							.with(MultiSurfaceType.class, this::unmarshalMultiSurface)
@@ -75,12 +76,12 @@ public class GMLUnmarshaller {
 		return typeMapper;
 	}
 
-	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry, AbstractCityObject cityObject) {
-		return getTypeMapper().apply(geometry, cityObject);
+	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry, AbstractCityObject cityObject, CityJSON cityJSON) {
+		return getTypeMapper().apply(geometry, cityObject, cityJSON);
 	}
 
-	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry) {
-		return getTypeMapper().apply(geometry, null);
+	public AbstractGeometry unmarshal(AbstractGeometryObjectType geometry, CityJSON cityJSON) {
+		return getTypeMapper().apply(geometry, null, cityJSON);
 	}
 
 	public void setVertices(List<List<Double>> vertices) {
@@ -97,7 +98,7 @@ public class GMLUnmarshaller {
 		}
 	}
 
-	public void unmarshalMultiPoint(MultiPointType src, MultiPoint dest) {
+	public void unmarshalMultiPoint(MultiPointType src, MultiPoint dest, CityJSON cityJSON) {
 		List<Double> points = getVertices(src.getPoints());
 		for (int i = 0; i < points.size(); i += 3) {
 			Point point = new Point();
@@ -110,18 +111,18 @@ public class GMLUnmarshaller {
 		}
 	}
 
-	public MultiPoint unmarshalMultiPoint(MultiPointType src) {
+	public MultiPoint unmarshalMultiPoint(MultiPointType src, CityJSON cityJSON) {
 		MultiPoint dest = new MultiPoint();
-		unmarshalMultiPoint(src, dest);
+		unmarshalMultiPoint(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public MultiPoint unmarshalMultiPoint(MultiPointType src, AbstractCityObject cityObject) {
-		return unmarshalMultiPoint(src);
+	public MultiPoint unmarshalMultiPoint(MultiPointType src, AbstractCityObject cityObject, CityJSON cityJSON) {
+		return unmarshalMultiPoint(src, cityJSON);
 	}
 
-	public void unmarshalMultiLineString(MultiLineStringType src, MultiCurve dest) {
+	public void unmarshalMultiLineString(MultiLineStringType src, MultiCurve dest, CityJSON cityJSON) {
 		for (List<Integer> lineString : src.getLineStrings()) {
 			List<Double> value = getVertices(lineString);
 			if (value.isEmpty())
@@ -137,20 +138,20 @@ public class GMLUnmarshaller {
 		}
 	}
 
-	public MultiCurve unmarshalMultiLineString(MultiLineStringType src) {
+	public MultiCurve unmarshalMultiLineString(MultiLineStringType src, CityJSON cityJSON) {
 		MultiCurve dest = new MultiCurve();
-		unmarshalMultiLineString(src, dest);
+		unmarshalMultiLineString(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public MultiCurve unmarshalMultiLineString(MultiLineStringType src, AbstractCityObject cityObject) {
-		return unmarshalMultiLineString(src);
+	public MultiCurve unmarshalMultiLineString(MultiLineStringType src, AbstractCityObject cityObject, CityJSON cityJSON) {
+		return unmarshalMultiLineString(src, cityJSON);
 	}
 
-	public AbstractCurve unmarshalCurve(MultiLineStringType src) {
+	public AbstractCurve unmarshalCurve(MultiLineStringType src, CityJSON cityJSON) {
 		MultiCurve multiCurve = new MultiCurve();
-		unmarshalMultiLineString(src, multiCurve);
+		unmarshalMultiLineString(src, multiCurve, cityJSON);
 
 		AbstractCurve dest = null;
 		if (multiCurve.isSetCurveMember()) {
@@ -165,7 +166,7 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public List<SurfaceProperty> unmarshalSurfaceCollection(AbstractSurfaceCollectionType src, AbstractCityObject cityObject, boolean useXLinks) {
+	public List<SurfaceProperty> unmarshalSurfaceCollection(AbstractSurfaceCollectionType src, AbstractCityObject cityObject, CityJSON cityJSON, boolean useXLinks) {
 		List<SurfaceProperty> dest = new ArrayList<>();
 
 		List<AbstractSurface> surfaces = new ArrayList<>();
@@ -176,7 +177,7 @@ public class GMLUnmarshaller {
 		}
 
 		if (src.isSetSemantics())
-			unmarshalSemantics(src.getSemantics(), surfaces, src.getLod(), cityObject);
+			unmarshalSemantics(src.getSemantics(), surfaces, src.getLod(), cityObject, cityJSON);
 
 		for (AbstractSurface surface : surfaces) {
 			if (!surface.isSetId())
@@ -194,17 +195,17 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public MultiSurface unmarshalMultiSurface(AbstractSurfaceCollectionType src, AbstractCityObject cityObject) {
+	public MultiSurface unmarshalMultiSurface(AbstractSurfaceCollectionType src, AbstractCityObject cityObject, CityJSON cityJSON) {
 		MultiSurface dest = new MultiSurface();
-		for (SurfaceProperty property : unmarshalSurfaceCollection(src, cityObject, false))
+		for (SurfaceProperty property : unmarshalSurfaceCollection(src, cityObject, cityJSON, false))
 			dest.addSurfaceMember(property);
 
 		return dest.isSetSurfaceMember() ? dest : null;
 	}
 
-	public CompositeSurface unmarshalCompositeSurface(CompositeSurfaceType src, AbstractCityObject cityObject) {
+	public CompositeSurface unmarshalCompositeSurface(CompositeSurfaceType src, AbstractCityObject cityObject, CityJSON cityJSON) {
 		CompositeSurface dest = new CompositeSurface();
-		for (SurfaceProperty property : unmarshalSurfaceCollection(src, cityObject, true))
+		for (SurfaceProperty property : unmarshalSurfaceCollection(src, cityObject, cityJSON, true))
 			dest.addSurfaceMember(property);
 
 		return dest;
@@ -236,7 +237,7 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public void unmarshalSolid(SolidType src, Solid dest, AbstractCityObject cityObject) {
+	public void unmarshalSolid(SolidType src, Solid dest, AbstractCityObject cityObject, CityJSON cityJSON) {
 		List<Integer> shells = new ArrayList<>();
 		List<AbstractSurface> surfaces = new ArrayList<>();
 
@@ -255,7 +256,7 @@ public class GMLUnmarshaller {
 		shells.add(index);
 
 		if (src.isSetSemantics())
-			unmarshalSemantics(src.getSemantics(), surfaces, src.getLod(), cityObject);
+			unmarshalSemantics(src.getSemantics(), surfaces, src.getLod(), cityObject, cityJSON);
 
 		for (int i = 0; i < shells.size() - 1; i++) {
 			CompositeSurface shell = new CompositeSurface();
@@ -280,14 +281,14 @@ public class GMLUnmarshaller {
 			unmarshalTexture(src.getTexture(), surfaces, cityObject);
 	}
 
-	public Solid unmarshalSolid(SolidType src, AbstractCityObject cityObject) {
+	public Solid unmarshalSolid(SolidType src, AbstractCityObject cityObject, CityJSON cityJSON) {
 		Solid dest = new Solid();
-		unmarshalSolid(src, dest, cityObject);
+		unmarshalSolid(src, dest, cityObject, cityJSON);
 
 		return dest;
 	}
 
-	public List<Solid> unmarshalSolidCollection(AbstractSolidCollectionType src, AbstractCityObject cityObject) {
+	public List<Solid> unmarshalSolidCollection(AbstractSolidCollectionType src, AbstractCityObject cityObject, CityJSON cityJSON) {
 		List<Solid> dest = new ArrayList<>();
 
 		List<List<Integer>> solids = new ArrayList<>();
@@ -312,7 +313,7 @@ public class GMLUnmarshaller {
 		}
 
 		if (src.isSetSemantics())
-			unmarshalSemantics(src.getSemantics(), surfaces, src.getLod(), cityObject);
+			unmarshalSemantics(src.getSemantics(), surfaces, src.getLod(), cityObject, cityJSON);
 
 		for (List<Integer> shells : solids) {
 			Solid solid = new Solid();
@@ -345,17 +346,17 @@ public class GMLUnmarshaller {
 		return dest;
 	}
 
-	public CompositeSolid unmarshalCompositeSolid(CompositeSolidType src, AbstractCityObject cityObject) {
+	public CompositeSolid unmarshalCompositeSolid(CompositeSolidType src, AbstractCityObject cityObject, CityJSON cityJSON) {
 		CompositeSolid dest = new CompositeSolid();		
-		for (Solid solid : unmarshalSolidCollection(src, cityObject))
+		for (Solid solid : unmarshalSolidCollection(src, cityObject, cityJSON))
 			dest.addSolidMember(new SolidProperty(solid));
 
 		return dest;
 	}
 
-	public MultiSolid unmarshalMultiSolid(MultiSolidType src, AbstractCityObject cityObject) {
+	public MultiSolid unmarshalMultiSolid(MultiSolidType src, AbstractCityObject cityObject, CityJSON cityJSON) {
 		MultiSolid dest = new MultiSolid();		
-		for (Solid solid : unmarshalSolidCollection(src, cityObject))
+		for (Solid solid : unmarshalSolidCollection(src, cityObject, cityJSON))
 			dest.addSolidMember(new SolidProperty(solid));
 
 		return dest;
@@ -426,7 +427,7 @@ public class GMLUnmarshaller {
 		return dest.isSetExterior() ? dest : null;
 	}
 
-	private void unmarshalSemantics(AbstractSemanticsObject semanticsObject, List<AbstractSurface> surfaces, Number lod, AbstractCityObject cityObject) {
+	private void unmarshalSemantics(AbstractSemanticsObject semanticsObject, List<AbstractSurface> surfaces, Number lod, AbstractCityObject cityObject, CityJSON cityJSON) {
 		if (lod.intValue() < 2) {
 			return;
 		}
@@ -451,7 +452,7 @@ public class GMLUnmarshaller {
 		}
 
 		// create semantic city objects
-		json.getCityGMLUnmarshaller().unmarshalSemantics(semanticsObject, semantics, lod, cityObject);
+		json.getCityGMLUnmarshaller().unmarshalSemanticSurface(semanticsObject, semantics, lod, cityObject, cityJSON);
 
 		// add gml:ids to surfaces that have a parent city object
 		for (AbstractSurface surface : surfaces) {

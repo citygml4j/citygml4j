@@ -104,11 +104,11 @@ public class VegetationUnmarshaller {
 
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 				lod = geometryObject.getLod().intValue();
 			} else if (geometryType instanceof GeometryInstanceType) {
 				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
+				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest, cityJSON);
 				lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
 			}
 
@@ -179,7 +179,7 @@ public class VegetationUnmarshaller {
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 
 				if (geometry != null) {
 					int lod = geometryObject.getLod().intValue();
@@ -197,7 +197,7 @@ public class VegetationUnmarshaller {
 				}
 			} else if (geometryType instanceof GeometryInstanceType) {
 				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance);
+				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance, cityJSON);
 
 				if (geometry != null) {
 					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {

@@ -5,12 +5,12 @@ plugins {
     id 'distribution'
     id 'maven-publish'
     id 'signing'
-    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
 }
 
 allprojects {
     group 'org.citygml4j'
-    version '2.12.4'
+    version '2.13.0-SNAPSHOT'
     description 'The Open Source Java API for CityGML'
 
     repositories {
@@ -46,7 +46,7 @@ configurations {
 }
 
 dependencies {
-    api 'org.citygml4j:citygson:1.1.5'
+    api 'org.citygml4j:citygson:1.1.6-SNAPSHOT'
     api 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     api 'org.glassfish.jaxb:xsom:2.3.2'
 

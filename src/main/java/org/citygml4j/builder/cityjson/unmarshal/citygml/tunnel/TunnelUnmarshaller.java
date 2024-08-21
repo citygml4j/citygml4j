@@ -79,32 +79,32 @@ public class TunnelUnmarshaller {
 		return getTypeMapper().apply(src, cityJSON);
 	}
 
-	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+	public AbstractCityObject unmarshalSemanticSurface(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent, CityJSON cityJSON) {
 		AbstractCityObject cityObject = null;
 		switch (semanticsType.getType()) {
 			case "RoofSurface":
-				cityObject = unmarshalRoofSurface(semanticsType, surfaces, lod);
+				cityObject = unmarshalRoofSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "GroundSurface":
-				cityObject = unmarshalGroundSurface(semanticsType, surfaces, lod);
+				cityObject = unmarshalGroundSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "WallSurface":
-				cityObject = unmarshalWallSurface(semanticsType, surfaces, lod);
+				cityObject = unmarshalWallSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "ClosureSurface":
-				cityObject = unmarshalClosureSurface(semanticsType, surfaces, lod);
+				cityObject = unmarshalClosureSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "OuterCeilingSurface":
-				cityObject = unmarshalOuterCeilingSurface(semanticsType, surfaces, lod);
+				cityObject = unmarshalOuterCeilingSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "OuterFloorSurface":
-				cityObject = unmarshalOuterFloorSurface(semanticsType, surfaces, lod);
+				cityObject = unmarshalOuterFloorSurface(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "Window":
-				cityObject = unmarshalWindow(semanticsType, surfaces, lod);
+				cityObject = unmarshalWindow(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "Door":
-				cityObject = unmarshalDoor(semanticsType, surfaces, lod);
+				cityObject = unmarshalDoor(semanticsType, surfaces, lod, cityJSON);
 				break;
 			default:
 				return null;
@@ -176,11 +176,11 @@ public class TunnelUnmarshaller {
 
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 				lod = geometryObject.getLod().intValue();
 			} else if (geometryType instanceof GeometryInstanceType) {
 				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
+				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest, cityJSON);
 				lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
 			}
 
@@ -272,7 +272,7 @@ public class TunnelUnmarshaller {
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 
 				if (geometry != null) {
 					int lod = geometryObject.getLod().intValue();
@@ -287,7 +287,7 @@ public class TunnelUnmarshaller {
 				}
 			} else if (geometryType instanceof GeometryInstanceType) {
 				GeometryInstanceType geometryInstance = (GeometryInstanceType)geometryType;
-				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance);
+				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance, cityJSON);
 
 				if (geometry != null) {
 					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
@@ -310,8 +310,8 @@ public class TunnelUnmarshaller {
 		return dest;
 	}
 
-	public void unmarshalAbstractBoundarySurface(SemanticsType src, AbstractBoundarySurface dest, List<AbstractSurface> surfaces, Number lod) {
-		citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
+	public void unmarshalAbstractBoundarySurface(SemanticsType src, AbstractBoundarySurface dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
 
 		MultiSurface multiSurface = new MultiSurface();
 		for (AbstractSurface surface : surfaces)
@@ -327,50 +327,50 @@ public class TunnelUnmarshaller {
 		}
 	}
 
-	public RoofSurface unmarshalRoofSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public RoofSurface unmarshalRoofSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		RoofSurface dest = new RoofSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public GroundSurface unmarshalGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public GroundSurface unmarshalGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		GroundSurface dest = new GroundSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public WallSurface unmarshalWallSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public WallSurface unmarshalWallSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		WallSurface dest = new WallSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public ClosureSurface unmarshalClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public ClosureSurface unmarshalClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		ClosureSurface dest = new ClosureSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public OuterCeilingSurface unmarshalOuterCeilingSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public OuterCeilingSurface unmarshalOuterCeilingSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		OuterCeilingSurface dest = new OuterCeilingSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public OuterFloorSurface unmarshalOuterFloorSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public OuterFloorSurface unmarshalOuterFloorSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		OuterFloorSurface dest = new OuterFloorSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod);
+		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public void unmarshalAbstractOpening(SemanticsType src, AbstractOpening dest, List<AbstractSurface> surfaces, Number lod) {
-		citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
+	public void unmarshalAbstractOpening(SemanticsType src, AbstractOpening dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
 
 		if (lod.intValue() == 3) {
 			MultiSurface multiSurface = new MultiSurface();
@@ -381,16 +381,16 @@ public class TunnelUnmarshaller {
 		}
 	}
 
-	public Door unmarshalDoor(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public Door unmarshalDoor(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		Door dest = new Door();
-		unmarshalAbstractOpening(src, dest, surfaces, lod);
+		unmarshalAbstractOpening(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public Window unmarshalWindow(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public Window unmarshalWindow(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		Window dest = new Window();
-		unmarshalAbstractOpening(src, dest, surfaces, lod);
+		unmarshalAbstractOpening(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}

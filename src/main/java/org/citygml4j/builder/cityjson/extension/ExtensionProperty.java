@@ -29,7 +29,7 @@ public class ExtensionProperty implements Extension {
 
     public ExtensionProperty(String name, Object value) {
         this.name = Objects.requireNonNull(name, "name must not be null.");
-        this.value = Objects.requireNonNull(value, "value must not be null.");
+        this.value = value;
     }
 
     public String getName() {

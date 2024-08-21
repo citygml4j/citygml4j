@@ -44,6 +44,7 @@ public class BuildingMarshaller {
 	private final CityJSONMarshaller json;
 	private final CityGMLMarshaller citygml;
 	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, SemanticsType> semanticsMapper;
 
 	public BuildingMarshaller(CityGMLMarshaller citygml) {
 		this.citygml = citygml;
@@ -68,31 +69,35 @@ public class BuildingMarshaller {
 		return typeMapper;
 	}
 
+	private BiFunctionTypeMapper<CityJSON, SemanticsType> getSemanticsMapper() {
+		if (semanticsMapper == null) {
+			lock.lock();
+			try {
+				if (semanticsMapper == null) {
+					semanticsMapper = BiFunctionTypeMapper.<CityJSON, SemanticsType>create()
+							.with(RoofSurface.class, this::marshalRoofSurface)
+							.with(GroundSurface.class, this::marshalGroundSurface)
+							.with(WallSurface.class, this::marshalWallSurface)
+							.with(ClosureSurface.class, this::marshalClosureSurface)
+							.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
+							.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
+							.with(Window.class, this::marshalWindow)
+							.with(Door.class, this::marshalDoor);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return semanticsMapper;
+	}
+
 	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
 		return getTypeMapper().apply(src, cityJSON);
 	}
 
-	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
-		SemanticsType semantics = null;
-
-		if (cityObject instanceof RoofSurface)
-			semantics = new SemanticsType("RoofSurface");
-		else if (cityObject instanceof GroundSurface)
-			semantics = new SemanticsType("GroundSurface");
-		else if (cityObject instanceof WallSurface)
-			semantics = new SemanticsType("WallSurface");
-		else if (cityObject instanceof ClosureSurface)
-			semantics = new SemanticsType("ClosureSurface");
-		else if (cityObject instanceof OuterCeilingSurface)
-			semantics = new SemanticsType("OuterCeilingSurface");
-		else if (cityObject instanceof OuterFloorSurface)
-			semantics = new SemanticsType("OuterFloorSurface");
-		else if (cityObject instanceof Window)
-			semantics = new SemanticsType("Window");
-		else if (cityObject instanceof Door)
-			semantics = new SemanticsType("Door");
-
-		return semantics;
+	public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
+		return getSemanticsMapper().apply(src, cityJSON);
 	}
 
 	public void marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest, CityJSON cityJSON) {
@@ -161,7 +166,7 @@ public class BuildingMarshaller {
 
 		MultiSurfaceProperty lod0Representation = src.isSetLod0FootPrint() ? src.getLod0FootPrint() : src.getLod0RoofEdge();
 		if (lod0Representation != null) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(lod0Representation);
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(lod0Representation, cityJSON);
 			if (geometry != null) {
 				geometry.setLod(0);
 				dest.addGeometry(geometry);
@@ -169,7 +174,7 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -177,7 +182,7 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetLod2MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -185,7 +190,7 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetLod3MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
@@ -193,7 +198,7 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetLod1Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(1);
 				dest.addGeometry(geometry);
@@ -201,7 +206,7 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetLod2Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -209,7 +214,7 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetLod3Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
@@ -255,7 +260,7 @@ public class BuildingMarshaller {
 		if (src.isSetAddress()) {
 			for (AddressProperty property : src.getAddress()) {
 				if (property.isSetAddress()) {
-					dest.setAddress(citygml.getCoreMarshaller().marshalAddress(property.getAddress()));
+					dest.setAddress(citygml.getCoreMarshaller().marshalAddress(property.getAddress(), cityJSON));
 					break;
 				}
 			}
@@ -326,7 +331,7 @@ public class BuildingMarshaller {
 			collector = preprocessGeometry(src);
 
 		if (src.isSetLod2Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(2);
 				dest.addGeometry(geometry);
@@ -334,7 +339,7 @@ public class BuildingMarshaller {
 		}
 
 		if (src.isSetLod3Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(3);
 				dest.addGeometry(geometry);
@@ -342,13 +347,13 @@ public class BuildingMarshaller {
 		}
 		
 		if (src.isSetLod2ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}
 		
 		if (src.isSetLod3ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3);
+			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
 			if (geometry != null)
 				dest.addGeometry(geometry);
 		}
@@ -360,6 +365,100 @@ public class BuildingMarshaller {
 	public BuildingInstallationType marshalBuildingInstallation(BuildingInstallation src, CityJSON cityJSON) {
 		BuildingInstallationType dest = new BuildingInstallationType();
 		marshalBuildingInstallation(src, dest, cityJSON);
+
+		return dest;
+	}
+
+	public void marshalAbstractBoundarySurface(AbstractBoundarySurface src, SemanticsType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfBoundarySurface())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBoundarySurface(), dest, cityJSON);
+	}
+
+	public void marshalAbstractOpening(AbstractOpening src, SemanticsType dest, CityJSON cityJSON) {
+		citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfOpening())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOpening(), dest, cityJSON);
+	}
+
+	public SemanticsType marshalRoofSurface(RoofSurface src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("RoofSurface");
+		marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfRoofSurface())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfRoofSurface(), dest, cityJSON);
+
+		return dest;
+	}
+
+	public SemanticsType marshalGroundSurface(GroundSurface src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("GroundSurface");
+		marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfGroundSurface())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfGroundSurface(), dest, cityJSON);
+
+		return dest;
+	}
+
+	public SemanticsType marshalWallSurface(WallSurface src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("WallSurface");
+		marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfWallSurface())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWallSurface(), dest, cityJSON);
+
+		return dest;
+	}
+
+	public SemanticsType marshalClosureSurface(ClosureSurface src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("ClosureSurface");
+		marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfClosureSurface())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfClosureSurface(), dest, cityJSON);
+
+		return dest;
+	}
+
+	public SemanticsType marshalOuterCeilingSurface(OuterCeilingSurface src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("OuterCeilingSurface");
+		marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfOuterCeilingSurface())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOuterCeilingSurface(), dest, cityJSON);
+
+		return dest;
+	}
+
+	public SemanticsType marshalOuterFloorSurface(OuterFloorSurface src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("OuterFloorSurface");
+		marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfOuterFloorSurface())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOuterFloorSurface(), dest, cityJSON);
+
+		return dest;
+	}
+
+	public SemanticsType marshalWindow(Window src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("Window");
+		marshalAbstractOpening(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfWindow())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWindow(), dest, cityJSON);
+
+		return dest;
+	}
+
+	public SemanticsType marshalDoor(Door src, CityJSON cityJSON) {
+		SemanticsType dest = new SemanticsType("Door");
+		marshalAbstractOpening(src, dest, cityJSON);
+
+		if (src.isSetGenericApplicationPropertyOfDoor())
+			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfDoor(), dest, cityJSON);
 
 		return dest;
 	}

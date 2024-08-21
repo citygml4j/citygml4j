@@ -115,7 +115,7 @@ public class CityGMLUnmarshaller {
 		return dest;
 	}
 	
-	public void unmarshalSemantics(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject root) {
+	public void unmarshalSemanticSurface(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject root, CityJSON cityJSON) {
 		Map<Integer, AbstractCityObject> parents = new HashMap<>();
 		List<Integer> indexes = orderByParents(src);
 
@@ -146,15 +146,15 @@ public class CityGMLUnmarshaller {
 				cityObject = json.getADEUnmarshaller().unmarshalSemanticSurface(semanticsType, tmp, lod, parent);
 			} else {
 				if (parent instanceof BridgeModuleComponent)
-					cityObject = brid.unmarshalSemantics(semanticsType, tmp, lod, parent);
+					cityObject = brid.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
 				else if (parent instanceof BuildingModuleComponent)
-					cityObject = bldg.unmarshalSemantics(semanticsType, tmp, lod, parent);
+					cityObject = bldg.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
 				else if (parent instanceof TransportationModuleComponent)
-					cityObject = tran.unmarshalSemantics(semanticsType, tmp, lod, parent);
+					cityObject = tran.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
 				else if (parent instanceof TunnelModuleComponent)
-					cityObject = tun.unmarshalSemantics(semanticsType, tmp, lod, parent);
+					cityObject = tun.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
 				else if (parent instanceof WaterBodyModuleComponent)
-					cityObject = wtr.unmarshalSemantics(semanticsType, tmp, lod, parent);
+					cityObject = wtr.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
 			}
 
 			if (cityObject != null)

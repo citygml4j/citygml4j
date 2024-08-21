@@ -82,7 +82,7 @@ public class ReliefMarshaller {
 			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTinRelief(), dest, cityJSON);
 		
 		if (src.isSetTin()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getTin());
+			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getTin(), cityJSON);
 			if (geometry != null) {
 				geometry.setLod(src.getLod());
 				dest.addGeometry(geometry);

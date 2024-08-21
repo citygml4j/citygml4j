@@ -66,7 +66,7 @@ public class LandUseUnmarshaller {
 		for (AbstractGeometryType geometryType : src.getGeometry()) {
 			if (geometryType instanceof AbstractSurfaceCollectionType) {
 				AbstractSurfaceCollectionType surfaceType = (AbstractSurfaceCollectionType)geometryType;
-				MultiSurface multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest);
+				MultiSurface multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest, cityJSON);
 				
 				if (multiSurface != null) {
 					int lod = surfaceType.getLod().intValue();

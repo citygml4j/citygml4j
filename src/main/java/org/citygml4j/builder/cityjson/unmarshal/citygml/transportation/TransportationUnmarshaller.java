@@ -78,14 +78,14 @@ public class TransportationUnmarshaller {
 		return getTypeMapper().apply(src, cityJSON);
 	}
 
-	public AbstractCityObject unmarshalSemantics(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+	public AbstractCityObject unmarshalSemanticSurface(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent, CityJSON cityJSON) {
 		AbstractTransportationObject trafficArea = null;
 		switch (semanticsType.getType()) {
 			case "TrafficArea":
-				trafficArea = unmarshalTrafficArea(semanticsType, surfaces, lod);
+				trafficArea = unmarshalTrafficArea(semanticsType, surfaces, lod, cityJSON);
 				break;
 			case "AuxiliaryTrafficArea":
-				trafficArea = unmarshalAuxiliaryTrafficArea(semanticsType, surfaces, lod);
+				trafficArea = unmarshalAuxiliaryTrafficArea(semanticsType, surfaces, lod, cityJSON);
 				break;
 			default:
 				return null;
@@ -137,11 +137,11 @@ public class TransportationUnmarshaller {
 
 			if (geometryType instanceof AbstractGeometryObjectType) {
 				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 				lod = geometryObject.getLod().intValue();
 			} else if (geometryType instanceof GeometryInstanceType) {
 				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest);
+				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest, cityJSON);
 				lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
 			}
 
@@ -203,7 +203,7 @@ public class TransportationUnmarshaller {
 		return dest;
 	}
 
-	public void unmarshalTrafficArea(SemanticsType src, TrafficArea dest, List<AbstractSurface> surfaces, Number lod) {
+	public void unmarshalTrafficArea(SemanticsType src, TrafficArea dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		if (src.isSetAttributes()) {
 			Object attribute = src.getAttributes().get("surfaceMaterial");
 			if (attribute instanceof String) {
@@ -229,7 +229,7 @@ public class TransportationUnmarshaller {
 				src.getAttributes().remove("usage");
 			}
 
-			citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
+			citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
 		}
 		
 		MultiSurface multiSurface = new MultiSurface();
@@ -246,14 +246,16 @@ public class TransportationUnmarshaller {
 		}
 	}
 
-	public TrafficArea unmarshalTrafficArea(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public TrafficArea unmarshalTrafficArea(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		TrafficArea dest = new TrafficArea();
-		unmarshalTrafficArea(src, dest, surfaces, lod);
+		unmarshalTrafficArea(src, dest, surfaces, lod, cityJSON);
 
 		return dest;
 	}
 
-	public void unmarshalAuxiliaryTrafficArea(SemanticsType src, AuxiliaryTrafficArea dest, List<AbstractSurface> surfaces, Number lod) {
+	public void unmarshalAuxiliaryTrafficArea(SemanticsType src, AuxiliaryTrafficArea dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+		citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
 		if (src.isSetAttributes()) {
 			Object attribute = src.getAttributes().get("surfaceMaterial");
 			if (attribute instanceof String) {
@@ -278,8 +280,6 @@ public class TransportationUnmarshaller {
 				dest.addFunction(new Code((String)attribute));
 				src.getAttributes().remove("usage");
 			}
-
-			citygml.getCoreUnmarshaller().unmarshalSemanticsAttributes(src, dest);
 		}
 		
 		MultiSurface multiSurface = new MultiSurface();
@@ -296,9 +296,9 @@ public class TransportationUnmarshaller {
 		}
 	}
 
-	public AuxiliaryTrafficArea unmarshalAuxiliaryTrafficArea(SemanticsType src, List<AbstractSurface> surfaces, Number lod) {
+	public AuxiliaryTrafficArea unmarshalAuxiliaryTrafficArea(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
 		AuxiliaryTrafficArea dest = new AuxiliaryTrafficArea();
-		unmarshalAuxiliaryTrafficArea(src, dest, surfaces, lod);
+		unmarshalAuxiliaryTrafficArea(src, dest, surfaces, lod, cityJSON);
 		
 		return dest;
 	}

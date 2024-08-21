@@ -119,24 +119,21 @@ public class CityGMLMarshaller {
 		return dest;
 	}
 	
-	public SemanticsType marshalSemantics(AbstractCityObject cityObject) {
+	public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
 		SemanticsType semantics = null;
 
-		if (cityObject instanceof ADEModelObject)
-			semantics = json.getADEMarshaller().marshalSemanticSurface((ADEModelObject) cityObject);
-		else if (cityObject instanceof BridgeModuleComponent)
-			semantics = brid.marshalSemantics(cityObject);
-		else if (cityObject instanceof BuildingModuleComponent)
-			semantics = bldg.marshalSemantics(cityObject);
-		else if (cityObject instanceof TransportationModuleComponent)
-			semantics = tran.marshalSemantics(cityObject);
-		else if (cityObject instanceof TunnelModuleComponent)
-			semantics = tun.marshalSemantics(cityObject);
-		else if (cityObject instanceof WaterBodyModuleComponent)
-			semantics = wtr.marshalSemantics(cityObject);
-
-		if (semantics != null)
-			core.marshalSemanticSurfaceAttributes(cityObject, semantics);
+		if (src instanceof ADEModelObject)
+			semantics = json.getADEMarshaller().marshalSemanticSurface((ADEModelObject) src, cityJSON);
+		else if (src instanceof BridgeModuleComponent)
+			semantics = brid.marshalSemanticSurface(src, cityJSON);
+		else if (src instanceof BuildingModuleComponent)
+			semantics = bldg.marshalSemanticSurface(src, cityJSON);
+		else if (src instanceof TransportationModuleComponent)
+			semantics = tran.marshalSemanticSurface(src, cityJSON);
+		else if (src instanceof TunnelModuleComponent)
+			semantics = tun.marshalSemanticSurface(src, cityJSON);
+		else if (src instanceof WaterBodyModuleComponent)
+			semantics = wtr.marshalSemanticSurface(src, cityJSON);
 		
 		return semantics;
 	}

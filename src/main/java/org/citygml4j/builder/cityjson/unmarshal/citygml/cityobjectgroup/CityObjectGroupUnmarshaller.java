@@ -72,7 +72,7 @@ public class CityObjectGroupUnmarshaller {
         for (AbstractGeometryType geometryType : src.getGeometry()) {
             if (geometryType instanceof AbstractGeometryObjectType) {
                 AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-                AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+                AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 
                 if (geometry != null) {
                     dest.setGeometry(new GeometryProperty<>(geometry));

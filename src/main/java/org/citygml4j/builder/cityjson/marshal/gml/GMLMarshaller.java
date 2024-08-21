@@ -37,7 +37,7 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.complexes.*;
 import org.citygml4j.model.gml.geometry.primitives.*;
 import org.citygml4j.util.child.ChildInfo;
-import org.citygml4j.util.mapper.TypeMapper;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 import org.citygml4j.util.walker.GeometryWalker;
 
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class GMLMarshaller {
 	private final CityJSONMarshaller json;
 	private final Supplier<VerticesBuilder> verticesBuilder;
 	private final ChildInfo childInfo;
-	private TypeMapper<AbstractGeometryObjectType> typeMapper;
+	private BiFunctionTypeMapper<CityJSON, AbstractGeometryObjectType> typeMapper;
 
 	public GMLMarshaller(CityJSONMarshaller json, Supplier<VerticesBuilder> verticesBuilder) {
 		this.json = json;
@@ -61,12 +61,12 @@ public class GMLMarshaller {
 		childInfo = new ChildInfo();
 	}
 
-	private TypeMapper<AbstractGeometryObjectType> getTypeMapper() {
+	private BiFunctionTypeMapper<CityJSON, AbstractGeometryObjectType> getTypeMapper() {
 		if (typeMapper == null) {
 			lock.lock();
 			try {
 				if (typeMapper == null) {
-					typeMapper = TypeMapper.<AbstractGeometryObjectType>create()
+					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractGeometryObjectType>create()
 							.with(Point.class, this::marshalPoint)
 							.with(MultiPoint.class, this::marshalMultiPoint)
 							.with(Curve.class, this::marshalMultiLineString)
@@ -90,28 +90,28 @@ public class GMLMarshaller {
 		return typeMapper;
 	}
 
-	public AbstractGeometryObjectType marshal(AbstractGeometry src) {
-		return getTypeMapper().apply(src);
+	public AbstractGeometryObjectType marshal(AbstractGeometry src, CityJSON cityJSON) {
+		return getTypeMapper().apply(src, cityJSON);
 	}
 
 	public AbstractCityObjectType marshalFeatureProperty(FeatureProperty<? extends AbstractFeature> featureProperty, CityJSON cityJSON) {
 		return featureProperty.isSetFeature() ? json.getCityGMLMarshaller().marshal(featureProperty.getFeature(), cityJSON) : null;
 	}
 
-	public void marshalPoint(Point src, MultiPointType dest) {
+	public void marshalPoint(Point src, MultiPointType dest, CityJSON cityJSON) {
 		List<Double> vertex = src.toList3d();
 		if (!vertex.isEmpty())
 			dest.addPoints(verticesBuilder.get().addVertices(vertex));
 	}
 
-	public MultiPointType marshalPoint(Point src) {
+	public MultiPointType marshalPoint(Point src, CityJSON cityJSON) {
 		MultiPointType dest = new MultiPointType();
-		marshalPoint(src, dest);
+		marshalPoint(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public void marshalMultiPoint(MultiPoint src, MultiPointType dest) {
+	public void marshalMultiPoint(MultiPoint src, MultiPointType dest, CityJSON cityJSON) {
 		if (src.isSetPointMember()) {
 			for (PointProperty pointProperty : src.getPointMember())
 				if (pointProperty.isSetPoint()) {
@@ -130,50 +130,50 @@ public class GMLMarshaller {
 		}
 	}
 
-	public MultiPointType marshalMultiPoint(MultiPoint src) {
+	public MultiPointType marshalMultiPoint(MultiPoint src, CityJSON cityJSON) {
 		MultiPointType dest = new MultiPointType();
-		marshalMultiPoint(src, dest);
+		marshalMultiPoint(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public void marshalMultiLineString(AbstractCurve src, MultiLineStringType dest) {
+	public void marshalMultiLineString(AbstractCurve src, MultiLineStringType dest, CityJSON cityJSON) {
 		MultiLineStringBuilder builder = new MultiLineStringBuilder();
 		builder.process(src, dest);
 	}
 
-	public MultiLineStringType marshalMultiLineString(Curve src) {
+	public MultiLineStringType marshalMultiLineString(Curve src, CityJSON cityJSON) {
 		MultiLineStringType dest = new MultiLineStringType();
-		marshalMultiLineString(src, dest);
+		marshalMultiLineString(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public MultiLineStringType marshalMultiLineString(CompositeCurve src) {
+	public MultiLineStringType marshalMultiLineString(CompositeCurve src, CityJSON cityJSON) {
 		MultiLineStringType dest = new MultiLineStringType();
-		marshalMultiLineString(src, dest);
+		marshalMultiLineString(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public MultiLineStringType marshalMultiLineString(LineString src) {
+	public MultiLineStringType marshalMultiLineString(LineString src, CityJSON cityJSON) {
 		MultiLineStringType dest = new MultiLineStringType();
-		marshalMultiLineString(src, dest);
+		marshalMultiLineString(src, dest, cityJSON);
 
 		return dest;
 	}
-	public MultiLineStringType marshalMultiLineString(List<GeometricComplexProperty> src) {
+	public MultiLineStringType marshalMultiLineString(List<GeometricComplexProperty> src, CityJSON cityJSON) {
 		MultiLineStringType dest = new MultiLineStringType();
 		for (GeometricComplexProperty property : src) {
 			if (property.isSetCompositeCurve())
-				marshalMultiLineString(property.getCompositeCurve(), dest);
+				marshalMultiLineString(property.getCompositeCurve(), dest, cityJSON);
 			else if (property.isSetGeometricComplex()) {
 				GeometricComplex complex = property.getGeometricComplex();
 				if (complex.isSetElement()) {
 					for (GeometricPrimitiveProperty element : complex.getElement()) {
 						if (element.getGeometricPrimitive() instanceof AbstractCurve) {
 							AbstractCurve curve = (AbstractCurve) element.getGeometricPrimitive();
-							marshalMultiLineString(curve, dest);
+							marshalMultiLineString(curve, dest, cityJSON);
 						}
 					}
 				}
@@ -183,61 +183,61 @@ public class GMLMarshaller {
 		return !dest.getLineStrings().isEmpty() ? dest : null;
 	}
 
-	public void marshalMultiLineString(MultiCurve src, MultiLineStringType dest) {
+	public void marshalMultiLineString(MultiCurve src, MultiLineStringType dest, CityJSON cityJSON) {
 		MultiLineStringBuilder builder = new MultiLineStringBuilder();
 		builder.process(src, dest);
 	}
 
-	public MultiLineStringType marshalMultiLineString(MultiCurve src) {
+	public MultiLineStringType marshalMultiLineString(MultiCurve src, CityJSON cityJSON) {
 		MultiLineStringType dest = new MultiLineStringType();
-		marshalMultiLineString(src, dest);
+		marshalMultiLineString(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public void marshalSurface(Surface src, CompositeSurfaceType dest) {
+	public void marshalSurface(Surface src, CompositeSurfaceType dest, CityJSON cityJSON) {
 		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller(), cityJSON);
 		surfaceBuilder.process(src, dest, semanticsBuilder, true);
 
 		if (dest.isSetSemantics())
 			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
 	}
 
-	public CompositeSurfaceType marshalSurface(Surface src) {
+	public CompositeSurfaceType marshalSurface(Surface src, CityJSON cityJSON) {
 		CompositeSurfaceType dest = new CompositeSurfaceType();
-		marshalSurface(src, dest);
+		marshalSurface(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public CompositeSurfaceType marshalTriangulatedSurface(TriangulatedSurface src) {
-		return marshalSurface(src);
+	public CompositeSurfaceType marshalTriangulatedSurface(TriangulatedSurface src, CityJSON cityJSON) {
+		return marshalSurface(src, cityJSON);
 	}
 
-	public CompositeSurfaceType marshalTin(Tin src) {
-		return marshalTriangulatedSurface(src);
+	public CompositeSurfaceType marshalTin(Tin src, CityJSON cityJSON) {
+		return marshalTriangulatedSurface(src, cityJSON);
 	}
 
-	public void marshalSurfaceCollection(AbstractGeometry src, AbstractSurfaceCollectionType dest) {
+	public void marshalSurfaceCollection(AbstractGeometry src, AbstractSurfaceCollectionType dest, CityJSON cityJSON) {
 		SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller(), cityJSON);
 		surfaceBuilder.process(src, dest, semanticsBuilder, true);
 		
 		if (dest.isSetSemantics())
 			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
 	}
 
-	public MultiSurfaceType marshalMultiSurface(MultiSurface src) {
+	public MultiSurfaceType marshalMultiSurface(MultiSurface src, CityJSON cityJSON) {
 		MultiSurfaceType dest = new MultiSurfaceType();
-		marshalSurfaceCollection(src, dest);
+		marshalSurfaceCollection(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public CompositeSurfaceType marshalCompositeSurface(CompositeSurface src) {
+	public CompositeSurfaceType marshalCompositeSurface(CompositeSurface src, CityJSON cityJSON) {
 		CompositeSurfaceType dest = new CompositeSurfaceType();
-		marshalSurfaceCollection(src, dest);
+		marshalSurfaceCollection(src, dest, cityJSON);
 		
 		return dest;
 	}
@@ -313,9 +313,9 @@ public class GMLMarshaller {
 		}
 	}
 
-	public SolidType marshalSolid(Solid src) {
+	public SolidType marshalSolid(Solid src, CityJSON cityJSON) {
 		SolidType dest = new SolidType();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller(), cityJSON);
 		marshalSolid(src, dest, semanticsBuilder, true);
 		
 		if (dest.isSetSemantics())
@@ -324,35 +324,35 @@ public class GMLMarshaller {
 		return dest;
 	}
 
-	public void marshalSolidCollection(AbstractGeometry src, AbstractSolidCollectionType dest) {
+	public void marshalSolidCollection(AbstractGeometry src, AbstractSolidCollectionType dest, CityJSON cityJSON) {
 		SolidCollectionBuilder builder = new SolidCollectionBuilder();
-		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller());
+		SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller(), cityJSON);
 		builder.process(src, dest, semanticsBuilder);
 		
 		if (dest.isSetSemantics())
 			dest.getSemantics().setSurfaces(semanticsBuilder.getSurfaces());
 	}
 
-	public CompositeSolidType marshalCompositeSolid(CompositeSolid src) {
+	public CompositeSolidType marshalCompositeSolid(CompositeSolid src, CityJSON cityJSON) {
 		CompositeSolidType dest = new CompositeSolidType();
-		marshalSolidCollection(src, dest);		
+		marshalSolidCollection(src, dest, cityJSON);
 
 		return dest;
 	}
 
-	public MultiSolidType marshalMultiSolid(MultiSolid src) {
+	public MultiSolidType marshalMultiSolid(MultiSolid src, CityJSON cityJSON) {
 		MultiSolidType dest = new MultiSolidType();
-		marshalSolidCollection(src, dest);
+		marshalSolidCollection(src, dest, cityJSON);
 		
 		return dest;
 	}
 
-	public AbstractGeometryObjectType marshalGeometryProperty(GeometryProperty<?> src) {
+	public AbstractGeometryObjectType marshalGeometryProperty(GeometryProperty<?> src, CityJSON cityJSON) {
 		AbstractGeometryObjectType dest = null;
 		if (src.isSetGeometry())
-			dest = marshal(src.getGeometry());
+			dest = marshal(src.getGeometry(), cityJSON);
 		else if (src.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK))
-			dest = marshal((AbstractGeometry)src.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK));
+			dest = marshal((AbstractGeometry)src.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK), cityJSON);
 
 		return dest;
 	}

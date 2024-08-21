@@ -21,30 +21,29 @@ package org.citygml4j.util.mapper;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 
-public class BiFunctionTypeMapper<U, R> {
-	private final Map<Class<?>, BiFunction<Object, U, R>> functionMap = new HashMap<>();
+public class TriFunctionTypeMapper<U, V, R> {
+	private final Map<Class<?>, TriFunction<Object, U, V, R>> functionMap = new HashMap<>();
 
-	private BiFunctionTypeMapper() {
+	private TriFunctionTypeMapper() {
 		// just to thwart instantiation
 	}
 
-	public static <U, R> BiFunctionTypeMapper<U, R> create() {
-		return new BiFunctionTypeMapper<>();
+	public static <U, V, R> TriFunctionTypeMapper<U, V, R> create() {
+		return new TriFunctionTypeMapper<>();
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> BiFunctionTypeMapper<U, R> with(final Class<T> target, final BiFunction<T, U, R> function) {
-		functionMap.put(target, (BiFunction<Object, U, R>)function);		
+	public <T> TriFunctionTypeMapper<U, V, R> with(final Class<T> target, final TriFunction<T, U, V, R> function) {
+		functionMap.put(target, (TriFunction<Object, U, V, R>)function);
 		return this;
 	}
 
-	public R apply(final Object src, U arg) {
-		if (src != null) {		
-			BiFunction<Object, U, R> function = functionMap.get(src.getClass());		
+	public R apply(final Object src, U arg1, V arg2) {
+		if (src != null) {
+			TriFunction<Object, U, V, R> function = functionMap.get(src.getClass());
 			if (function != null)
-				return function.apply(src, arg);
+				return function.apply(src, arg1, arg2);
 		}
 
 		return null;		

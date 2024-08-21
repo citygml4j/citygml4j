@@ -83,7 +83,7 @@ public class GenericsUnmarshaller {
         for (AbstractGeometryType geometryType : src.getGeometry()) {
             if (geometryType instanceof AbstractGeometryObjectType) {
                 AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-                AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest);
+                AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 
                 if (geometry != null) {
                     int lod = geometryObject.getLod().intValue();
@@ -104,7 +104,7 @@ public class GenericsUnmarshaller {
                 }
             } else if (geometryType instanceof GeometryInstanceType) {
                 GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-                ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance);
+                ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance, cityJSON);
 
                 if (geometry != null) {
                     switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {

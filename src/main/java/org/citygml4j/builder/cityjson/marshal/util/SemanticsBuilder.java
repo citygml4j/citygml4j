@@ -19,6 +19,7 @@
 package org.citygml4j.builder.cityjson.marshal.util;
 
 import org.citygml4j.builder.cityjson.marshal.citygml.CityGMLMarshaller;
+import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.cityjson.geometry.SemanticsType;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.common.child.Child;
@@ -31,14 +32,16 @@ import java.util.Map;
 
 public class SemanticsBuilder {
 	private final AbstractCityObject parent;
-	private final CityGMLMarshaller citygml;
+	private final CityGMLMarshaller cityGML;
+	private final CityJSON cityJSON;
 	private final List<SemanticsType> surfaces = new ArrayList<>();
 	private final Map<AbstractCityObject, Integer> cityObjects = new IdentityHashMap<>();
 	private final ChildInfo childInfo = new ChildInfo();
 	
-	public SemanticsBuilder(AbstractCityObject parent, CityGMLMarshaller citygml) {
+	public SemanticsBuilder(AbstractCityObject parent, CityGMLMarshaller cityGML, CityJSON cityJSON) {
 		this.parent = parent;
-		this.citygml = citygml;
+		this.cityGML = cityGML;
+		this.cityJSON = cityJSON;
 	}
 	
 	public Integer addSemanticSurface(AbstractCityObject cityObject) {
@@ -47,7 +50,7 @@ public class SemanticsBuilder {
 		
 		Integer index = null;
 		if (!cityObjects.containsKey(cityObject)) {
-			SemanticsType semantics = citygml.marshalSemantics(cityObject);
+			SemanticsType semantics = cityGML.marshalSemanticSurface(cityObject, cityJSON);
 			if (semantics != null) {
 				index = surfaces.size();
 				surfaces.add(semantics);
