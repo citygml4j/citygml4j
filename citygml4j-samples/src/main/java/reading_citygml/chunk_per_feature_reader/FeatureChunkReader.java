@@ -33,40 +33,40 @@ import java.util.Date;
 
 public class FeatureChunkReader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v200.gml feature by feature");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
-		in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new QName[]{new QName("Door"), new QName("Address")});
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		// see difference when setting to true
-		in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
-		
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Building_v200.gml"));
-		
-		System.out.println(df.format(new Date()) + "printing feature currently read and its (transitive) parents");
-		while (reader.hasNext()) {
-			CityGML chunk = reader.nextFeature();	
-			System.out.println("found: " + chunk.getCityGMLClass());
-			
-			if (reader.isSetParentInfo()) {
-				ParentInfo parentInfo = reader.getParentInfo();
-				System.out.println(" --parent: " + parentInfo.getCityGMLClass());
-				
-				while ((parentInfo = parentInfo.getParentInfo()) != null)
-					System.out.println(" --transitive parent: " + parentInfo.getCityGMLClass());
-			}
-			
-		}
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Building_v200.gml feature by feature");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
+        in.setProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING, new QName[]{new QName("Door"), new QName("Address")});
 
-		reader.close();
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
-	
+        // see difference when setting to true
+        in.setProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE, false);
+
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Building_v200.gml"));
+
+        System.out.println(df.format(new Date()) + "printing feature currently read and its (transitive) parents");
+        while (reader.hasNext()) {
+            CityGML chunk = reader.nextFeature();
+            System.out.println("found: " + chunk.getCityGMLClass());
+
+            if (reader.isSetParentInfo()) {
+                ParentInfo parentInfo = reader.getParentInfo();
+                System.out.println(" --parent: " + parentInfo.getCityGMLClass());
+
+                while ((parentInfo = parentInfo.getParentInfo()) != null)
+                    System.out.println(" --transitive parent: " + parentInfo.getCityGMLClass());
+            }
+
+        }
+
+        reader.close();
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
+
 }

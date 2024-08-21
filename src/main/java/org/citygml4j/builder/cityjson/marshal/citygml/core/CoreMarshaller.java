@@ -51,290 +51,290 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class CoreMarshaller {
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	private final GMLMarshaller implicit;
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
+    private final GMLMarshaller implicit;
 
-	private final AtomicInteger templatesIndex = new AtomicInteger(0);
-	private final ConcurrentHashMap<String, Integer> templateIds = new ConcurrentHashMap<>();
-	private final ConcurrentHashMap<Integer, AbstractGeometryObjectType> templates = new ConcurrentHashMap<>();
-	private final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
+    private final AtomicInteger templatesIndex = new AtomicInteger(0);
+    private final ConcurrentHashMap<String, Integer> templateIds = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, AbstractGeometryObjectType> templates = new ConcurrentHashMap<>();
+    private final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
 
-	public CoreMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-		implicit = new GMLMarshaller(json, json::getTemplatesVerticesBuilder);
-	}
+    public CoreMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+        implicit = new GMLMarshaller(json, json::getTemplatesVerticesBuilder);
+    }
 
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		if (src instanceof CityModel)
-			return marshalCityModel((CityModel) src, cityJSON);
-		
-		return null;
-	}
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        if (src instanceof CityModel)
+            return marshalCityModel((CityModel) src, cityJSON);
 
-	public void marshallAbstractFeature(AbstractFeature src, AbstractCityObjectType dest, CityJSON cityJSON) {
-		dest.setGmlId(src.isSetId() && !src.getId().isEmpty() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
+        return null;
+    }
 
-		if (src.isSetBoundedBy() && src.getBoundedBy().isSetEnvelope())
-			dest.setGeographicalExtent(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
+    public void marshallAbstractFeature(AbstractFeature src, AbstractCityObjectType dest, CityJSON cityJSON) {
+        dest.setGmlId(src.isSetId() && !src.getId().isEmpty() ? src.getId() : DefaultGMLIdManager.getInstance().generateUUID());
 
-		Attributes attributes = dest.getAttributes();
-		if (src.isSetDescription() && src.getDescription().isSetValue())
-			attributes.setDescription(src.getDescription().getValue());
+        if (src.isSetBoundedBy() && src.getBoundedBy().isSetEnvelope())
+            dest.setGeographicalExtent(src.getBoundedBy().getEnvelope().toBoundingBox().toList());
 
-		if (src.isSetName()) {
-			for (Code name : src.getName()) {
-				if (name.isSetValue()) {
-					attributes.setName(name.getValue());
-					break;
-				}
-			}
-		}
-	}
+        Attributes attributes = dest.getAttributes();
+        if (src.isSetDescription() && src.getDescription().isSetValue())
+            attributes.setDescription(src.getDescription().getValue());
 
-	public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
-		marshallAbstractFeature(src, dest, cityJSON);
+        if (src.isSetName()) {
+            for (Code name : src.getName()) {
+                if (name.isSetValue()) {
+                    attributes.setName(name.getValue());
+                    break;
+                }
+            }
+        }
+    }
 
-		Attributes attributes = dest.getAttributes();
-		if (src.isSetCreationDate())
-			attributes.setCreationDate(src.getCreationDate());
+    public void marshalAbstractCityObject(AbstractCityObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
+        marshallAbstractFeature(src, dest, cityJSON);
 
-		if (src.isSetTerminationDate())
-			attributes.setTerminationDate(src.getTerminationDate());
+        Attributes attributes = dest.getAttributes();
+        if (src.isSetCreationDate())
+            attributes.setCreationDate(src.getCreationDate());
 
-		if (src.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalGenericAttributes(src, attributes);
+        if (src.isSetTerminationDate())
+            attributes.setTerminationDate(src.getTerminationDate());
 
-		if (src.isSetGenericApplicationPropertyOfCityObject())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObject(), dest, cityJSON);
-	}
+        if (src.isSetGenericAttribute())
+            citygml.getGenericsMarshaller().marshalGenericAttributes(src, attributes);
 
-	public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest, CityJSON cityJSON) {
-		marshalAbstractCityObject(src, dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfCityObject())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObject(), dest, cityJSON);
+    }
 
-		if (src.isSetGenericApplicationPropertyOfSite())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSite(), dest, cityJSON);
-	}
+    public void marshalAbstractSite(AbstractSite src, AbstractCityObjectType dest, CityJSON cityJSON) {
+        marshalAbstractCityObject(src, dest, cityJSON);
 
-	private AbstractCityObjectType marshalCityModel(CityModel src, CityJSON cityJSON) {
-		if (src.isSetCityObjectMember()) {
-			for (CityObjectMember property : src.getCityObjectMember()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
-				if (cityObject != null)
-					cityJSON.addCityObject(cityObject);
-			}
-		}
+        if (src.isSetGenericApplicationPropertyOfSite())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSite(), dest, cityJSON);
+    }
 
-		if (src.isSetFeatureMember()) {
-			for (FeatureProperty<?> property : src.getFeatureMember()) {
-				if (property.getFeature() instanceof CityModel)
-					marshalCityModel((CityModel) property.getFeature(), cityJSON);
-				else {
-					AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
-					if (cityObject != null)
-						cityJSON.addCityObject(cityObject);
-				}
-			}
-		}
+    private AbstractCityObjectType marshalCityModel(CityModel src, CityJSON cityJSON) {
+        if (src.isSetCityObjectMember()) {
+            for (CityObjectMember property : src.getCityObjectMember()) {
+                AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
+                if (cityObject != null)
+                    cityJSON.addCityObject(cityObject);
+            }
+        }
 
-		if (src.isSetFeatureMembers()) {
-			FeatureArrayProperty property = src.getFeatureMembers();
-			for (AbstractFeature feature : property.getFeature()) {
-				if (feature instanceof CityModel)
-					marshalCityModel((CityModel) feature, cityJSON);
-				else {
-					AbstractCityObjectType cityObject = citygml.marshal(feature, cityJSON);
-					if (cityObject != null)
-						cityJSON.addCityObject(cityObject);
-				}
-			}
-		}
+        if (src.isSetFeatureMember()) {
+            for (FeatureProperty<?> property : src.getFeatureMember()) {
+                if (property.getFeature() instanceof CityModel)
+                    marshalCityModel((CityModel) property.getFeature(), cityJSON);
+                else {
+                    AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
+                    if (cityObject != null)
+                        cityJSON.addCityObject(cityObject);
+                }
+            }
+        }
 
-		if (src.isSetGenericApplicationPropertyOfCityModel())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityModel(), cityJSON, cityJSON);
+        if (src.isSetFeatureMembers()) {
+            FeatureArrayProperty property = src.getFeatureMembers();
+            for (AbstractFeature feature : property.getFeature()) {
+                if (feature instanceof CityModel)
+                    marshalCityModel((CityModel) feature, cityJSON);
+                else {
+                    AbstractCityObjectType cityObject = citygml.marshal(feature, cityJSON);
+                    if (cityObject != null)
+                        cityJSON.addCityObject(cityObject);
+                }
+            }
+        }
 
-		// postprocess group members
-		if (cityJSON.getCityObjects().stream().anyMatch(CityObjectGroupType.class::isInstance))
-			citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(src, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfCityModel())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityModel(), cityJSON, cityJSON);
 
-		return null;
-	}
+        // postprocess group members
+        if (cityJSON.getCityObjects().stream().anyMatch(CityObjectGroupType.class::isInstance))
+            citygml.getCityObjectGroupMarshaller().postprocessGroupMembers(src, cityJSON);
 
-	public GeometryInstanceType marshalImplicitGeometry(ImplicitGeometry src, int lod, CityJSON cityJSON) {
-		String templateId = null;
-		AbstractGeometry relativeGeometry = null;
+        return null;
+    }
 
-		GeometryProperty<?> property = src.getRelativeGMLGeometry();
-		if (property != null) {
-			if (property.isSetGeometry()) {
-				relativeGeometry = property.getGeometry();
-			} else if (property.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK)) {
-				relativeGeometry = (AbstractGeometry) property.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK);
-			} else if (property.getHref() != null) {
-				templateId = property.getHref().replaceAll("^.*?#+?", "");
-			}
-		}
+    public GeometryInstanceType marshalImplicitGeometry(ImplicitGeometry src, int lod, CityJSON cityJSON) {
+        String templateId = null;
+        AbstractGeometry relativeGeometry = null;
 
-		if (relativeGeometry != null) {
-			templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : gmlIdManager.generateUUID();
-		} else if (templateId == null) {
-			return null;
-		}
+        GeometryProperty<?> property = src.getRelativeGMLGeometry();
+        if (property != null) {
+            if (property.isSetGeometry()) {
+                relativeGeometry = property.getGeometry();
+            } else if (property.hasLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK)) {
+                relativeGeometry = (AbstractGeometry) property.getLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK);
+            } else if (property.getHref() != null) {
+                templateId = property.getHref().replaceAll("^.*?#+?", "");
+            }
+        }
 
-		Integer sequenceNumber = templateIds.computeIfAbsent(templateId, v -> templatesIndex.getAndIncrement());
-		if (relativeGeometry != null) {
-			synchronized (this) {
-				if (!templates.containsKey(sequenceNumber)) {
-					// marshal template geometry
-					AbstractGeometryObjectType template = implicit.marshalGeometryProperty(property, cityJSON);
-					template.setLod(lod);
-					templates.put(sequenceNumber, template);
-				}
-			}
-		}
+        if (relativeGeometry != null) {
+            templateId = relativeGeometry.isSetId() ? relativeGeometry.getId() : gmlIdManager.generateUUID();
+        } else if (templateId == null) {
+            return null;
+        }
 
-		// get transformation matrix and reference point
-		Matrix matrix = src.isSetTransformationMatrix() ? src.getTransformationMatrix().getMatrix().copy() : null;
-		Point referencePoint = src.isSetReferencePoint() && src.getReferencePoint().isSetPoint() ?
-				src.getReferencePoint().getPoint() : null;
+        Integer sequenceNumber = templateIds.computeIfAbsent(templateId, v -> templatesIndex.getAndIncrement());
+        if (relativeGeometry != null) {
+            synchronized (this) {
+                if (!templates.containsKey(sequenceNumber)) {
+                    // marshal template geometry
+                    AbstractGeometryObjectType template = implicit.marshalGeometryProperty(property, cityJSON);
+                    template.setLod(lod);
+                    templates.put(sequenceNumber, template);
+                }
+            }
+        }
 
-		if (matrix == null || referencePoint == null)
-			return null;
+        // get transformation matrix and reference point
+        Matrix matrix = src.isSetTransformationMatrix() ? src.getTransformationMatrix().getMatrix().copy() : null;
+        Point referencePoint = src.isSetReferencePoint() && src.getReferencePoint().isSetPoint() ?
+                src.getReferencePoint().getPoint() : null;
 
-		// move translation part of transformation matrix to reference point
-		List<Double> vertex = referencePoint.toList3d();
-		vertex.set(0, vertex.get(0) + matrix.get(0, 3));
-		vertex.set(1, vertex.get(1) + matrix.get(1, 3));
-		vertex.set(2, vertex.get(2) + matrix.get(2, 3));
-		matrix.set(0, 3, 0);
-		matrix.set(1, 3, 0);
-		matrix.set(2, 3, 0);
+        if (matrix == null || referencePoint == null)
+            return null;
 
-		// create new reference point
-		referencePoint = new Point();
-		DirectPosition pos = new DirectPosition();
-		pos.setValue(vertex);
-		referencePoint.setPos(pos);
+        // move translation part of transformation matrix to reference point
+        List<Double> vertex = referencePoint.toList3d();
+        vertex.set(0, vertex.get(0) + matrix.get(0, 3));
+        vertex.set(1, vertex.get(1) + matrix.get(1, 3));
+        vertex.set(2, vertex.get(2) + matrix.get(2, 3));
+        matrix.set(0, 3, 0);
+        matrix.set(1, 3, 0);
+        matrix.set(2, 3, 0);
 
-		MultiPointType boundary = json.getGMLMarshaller().marshalPoint(referencePoint, cityJSON);
-		if (boundary == null)
-			return null;
+        // create new reference point
+        referencePoint = new Point();
+        DirectPosition pos = new DirectPosition();
+        pos.setValue(vertex);
+        referencePoint.setPos(pos);
 
-		GeometryInstanceType dest = new GeometryInstanceType();
-		dest.setTemplate(sequenceNumber);
-		dest.setTransformationMatrix(matrix.toRowPackedList());
-		dest.setReferencePoint(boundary.getPoints().get(0));
+        MultiPointType boundary = json.getGMLMarshaller().marshalPoint(referencePoint, cityJSON);
+        if (boundary == null)
+            return null;
 
-		return dest;
-	}
+        GeometryInstanceType dest = new GeometryInstanceType();
+        dest.setTemplate(sequenceNumber);
+        dest.setTransformationMatrix(matrix.toRowPackedList());
+        dest.setReferencePoint(boundary.getPoints().get(0));
 
-	public GeometryInstanceType marshalImplicitRepresentationProperty(ImplicitRepresentationProperty src, int lod, CityJSON cityJSON) {
-		return src.isSetImplicitGeometry() ? marshalImplicitGeometry(src.getImplicitGeometry(), lod, cityJSON) : null;
-	}
-	
-	public void marshalAddress(Address src, AddressType dest, CityJSON cityJSON) {
-		if (src.isSetXalAddress() && src.getXalAddress().isSetAddressDetails()) {
-			src.getXalAddress().getAddressDetails().accept(new XALWalker() {
-				
-				@Override
-				public void visit(CountryName countryName) {
-					if (!dest.isSetCountryName())
-						dest.setCountryName(countryName.getContent());
+        return dest;
+    }
 
-					super.visit(countryName);
-				}
+    public GeometryInstanceType marshalImplicitRepresentationProperty(ImplicitRepresentationProperty src, int lod, CityJSON cityJSON) {
+        return src.isSetImplicitGeometry() ? marshalImplicitGeometry(src.getImplicitGeometry(), lod, cityJSON) : null;
+    }
 
-				@Override
-				public void visit(LocalityName localityName) {
-					if (!dest.isSetLocalityName())
-						dest.setLocalityName(localityName.getContent());
+    public void marshalAddress(Address src, AddressType dest, CityJSON cityJSON) {
+        if (src.isSetXalAddress() && src.getXalAddress().isSetAddressDetails()) {
+            src.getXalAddress().getAddressDetails().accept(new XALWalker() {
 
-					super.visit(localityName);
-				}
+                @Override
+                public void visit(CountryName countryName) {
+                    if (!dest.isSetCountryName())
+                        dest.setCountryName(countryName.getContent());
 
-				@Override
-				public void visit(PostalCodeNumber postalCodeNumber) {
-					if (!dest.isSetPostalCode())
-						dest.setPostalCode(postalCodeNumber.getContent());
+                    super.visit(countryName);
+                }
 
-					super.visit(postalCodeNumber);
-				}
+                @Override
+                public void visit(LocalityName localityName) {
+                    if (!dest.isSetLocalityName())
+                        dest.setLocalityName(localityName.getContent());
 
-				@Override
-				public void visit(ThoroughfareName thoroughfareName) {
-					if (!dest.isSetThoroughfareName())
-						dest.setThoroughfareName(thoroughfareName.getContent());
+                    super.visit(localityName);
+                }
 
-					super.visit(thoroughfareName);
-				}
+                @Override
+                public void visit(PostalCodeNumber postalCodeNumber) {
+                    if (!dest.isSetPostalCode())
+                        dest.setPostalCode(postalCodeNumber.getContent());
 
-				@Override
-				public void visit(ThoroughfareNumber thoroughfareNumber) {
-					if (!dest.isSetThoroughfareNumber())
-						dest.setThoroughfareNumber(thoroughfareNumber.getContent());
+                    super.visit(postalCodeNumber);
+                }
 
-					super.visit(thoroughfareNumber);
-				}
-			});
-		}
-		
-		if (src.isSetMultiPoint()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getMultiPoint(), cityJSON);
-			if (geometry != null && geometry.getType() == GeometryTypeName.MULTI_POINT)
-				dest.setLocation((MultiPointType)geometry);
-		}
-	}
-	
-	public AddressType marshalAddress(Address src, CityJSON cityJSON) {
-		AddressType dest = new AddressType();
-		marshalAddress(src, dest, cityJSON);
-		
-		return dest;
-	}
+                @Override
+                public void visit(ThoroughfareName thoroughfareName) {
+                    if (!dest.isSetThoroughfareName())
+                        dest.setThoroughfareName(thoroughfareName.getContent());
 
-	public void marshalSemanticSurface(AbstractCityObject src, SemanticsType dest, CityJSON cityJSON) {
-		if (src.isSetId())
-			dest.setId(src.getId());
+                    super.visit(thoroughfareName);
+                }
 
-		if (src.isSetDescription() && src.getDescription().isSetValue())
-			dest.setDescription(src.getDescription().getValue());
+                @Override
+                public void visit(ThoroughfareNumber thoroughfareNumber) {
+                    if (!dest.isSetThoroughfareNumber())
+                        dest.setThoroughfareNumber(thoroughfareNumber.getContent());
 
-		if (src.isSetName()) {
-			for (Code name : src.getName()) {
-				if (name.isSetValue()) {
-					dest.setName(name.getValue());
-					break;
-				}
-			}
-		}
+                    super.visit(thoroughfareNumber);
+                }
+            });
+        }
 
-		if (src.isSetCreationDate())
-			dest.setCreationDate(src.getCreationDate());
+        if (src.isSetMultiPoint()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getMultiPoint(), cityJSON);
+            if (geometry != null && geometry.getType() == GeometryTypeName.MULTI_POINT)
+                dest.setLocation((MultiPointType) geometry);
+        }
+    }
 
-		if (src.isSetTerminationDate())
-			dest.setTerminationDate(src.getTerminationDate());
+    public AddressType marshalAddress(Address src, CityJSON cityJSON) {
+        AddressType dest = new AddressType();
+        marshalAddress(src, dest, cityJSON);
 
-		if (src.isSetGenericAttribute())
-			citygml.getGenericsMarshaller().marshalGenericAttributes(src, dest);
+        return dest;
+    }
 
-		if (src.isSetGenericApplicationPropertyOfCityObject())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObject(), dest, cityJSON);
-	}
+    public void marshalSemanticSurface(AbstractCityObject src, SemanticsType dest, CityJSON cityJSON) {
+        if (src.isSetId())
+            dest.setId(src.getId());
 
-	public boolean hasGeometryTemplates() {
-		return !templates.isEmpty();
-	}
+        if (src.isSetDescription() && src.getDescription().isSetValue())
+            dest.setDescription(src.getDescription().getValue());
 
-	public List<AbstractGeometryObjectType> getGeometryTemplates() {
-		List<AbstractGeometryObjectType> result = templates.entrySet().stream()
-				.sorted(Map.Entry.comparingByKey())
-				.map(Map.Entry::getValue).collect(Collectors.toList());
+        if (src.isSetName()) {
+            for (Code name : src.getName()) {
+                if (name.isSetValue()) {
+                    dest.setName(name.getValue());
+                    break;
+                }
+            }
+        }
 
-		templates.clear();
-		templateIds.clear();
-		templatesIndex.set(0);
-		return result;
-	}
+        if (src.isSetCreationDate())
+            dest.setCreationDate(src.getCreationDate());
+
+        if (src.isSetTerminationDate())
+            dest.setTerminationDate(src.getTerminationDate());
+
+        if (src.isSetGenericAttribute())
+            citygml.getGenericsMarshaller().marshalGenericAttributes(src, dest);
+
+        if (src.isSetGenericApplicationPropertyOfCityObject())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObject(), dest, cityJSON);
+    }
+
+    public boolean hasGeometryTemplates() {
+        return !templates.isEmpty();
+    }
+
+    public List<AbstractGeometryObjectType> getGeometryTemplates() {
+        List<AbstractGeometryObjectType> result = templates.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue).collect(Collectors.toList());
+
+        templates.clear();
+        templateIds.clear();
+        templatesIndex.set(0);
+        return result;
+    }
 
 }

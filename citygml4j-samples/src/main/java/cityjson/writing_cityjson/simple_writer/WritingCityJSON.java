@@ -57,142 +57,142 @@ import java.util.Date;
 
 public class WritingCityJSON {
 
-	public static void main(String[] args) throws Exception {
-		final SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        final SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityJSONBuilder builder = ctx.createCityJSONBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityJSONBuilder builder = ctx.createCityJSONBuilder();
 
-		/*
-		 * let's create some dummy and simple city objects using
-		 * the citygml4j model classes
-		 */
+        /*
+         * let's create some dummy and simple city objects using
+         * the citygml4j model classes
+         */
 
-		// create a city model
-		System.out.println(df.format(new Date()) + "creating a sample LOD2 city model as citygml4j in-memory object tree");
-		CityModel cityModel = new CityModel();
-		GMLGeometryFactory geom = new GMLGeometryFactory();
+        // create a city model
+        System.out.println(df.format(new Date()) + "creating a sample LOD2 city model as citygml4j in-memory object tree");
+        CityModel cityModel = new CityModel();
+        GMLGeometryFactory geom = new GMLGeometryFactory();
 
-		// create a building
-		System.out.println(df.format(new Date()) + "adding a building to the city model");
-		Building building = new Building();
+        // create a building
+        System.out.println(df.format(new Date()) + "adding a building to the city model");
+        Building building = new Building();
 
-		// add a LoD2 solid geometry to the building
-		Solid buildingSolid = geom.createSolid(
-				geom.createLinearPolygon(new double[] {0,0,0, 0,12,0, 6,12,0, 6,0,0}, 3),
-				geom.createLinearPolygon(new double[] {6,0,0, 6,12,0, 6,12,6, 6,0,6}, 3),
-				geom.createLinearPolygon(new double[] {0,0,0, 0,0,6, 0,12,6, 0,12,0}, 3),
-				geom.createLinearPolygon(new double[] {0,0,0, 6,0,0, 6,0,6, 3,0,9, 0,0,6}, 3),
-				geom.createLinearPolygon(new double[] {6,12,0, 0,12,0, 0,12,6, 3,12,9, 6,12,6}, 3),
-				geom.createLinearPolygon(new double[] {6,0,6, 6,12,6, 3,12,9, 3,0,9}, 3),
-				geom.createLinearPolygon(new double[] {0,0,6, 3,0,9, 3,12,9, 0,12,6}, 3));
-		building.setLod2Solid(new SolidProperty(buildingSolid));
-		buildingSolid.getExterior().getSurface().setId(DefaultGMLIdManager.getInstance().generateUUID());
-		
-		// let's paint the solid geometry in grey
-		X3DMaterial material = new X3DMaterial();
-		material.setDiffuseColor(new Color(0.8, 0.8, 0.8));
-		material.addTarget("#" + buildingSolid.getExterior().getSurface().getId());
+        // add a LoD2 solid geometry to the building
+        Solid buildingSolid = geom.createSolid(
+                geom.createLinearPolygon(new double[]{0, 0, 0, 0, 12, 0, 6, 12, 0, 6, 0, 0}, 3),
+                geom.createLinearPolygon(new double[]{6, 0, 0, 6, 12, 0, 6, 12, 6, 6, 0, 6}, 3),
+                geom.createLinearPolygon(new double[]{0, 0, 0, 0, 0, 6, 0, 12, 6, 0, 12, 0}, 3),
+                geom.createLinearPolygon(new double[]{0, 0, 0, 6, 0, 0, 6, 0, 6, 3, 0, 9, 0, 0, 6}, 3),
+                geom.createLinearPolygon(new double[]{6, 12, 0, 0, 12, 0, 0, 12, 6, 3, 12, 9, 6, 12, 6}, 3),
+                geom.createLinearPolygon(new double[]{6, 0, 6, 6, 12, 6, 3, 12, 9, 3, 0, 9}, 3),
+                geom.createLinearPolygon(new double[]{0, 0, 6, 3, 0, 9, 3, 12, 9, 0, 12, 6}, 3));
+        building.setLod2Solid(new SolidProperty(buildingSolid));
+        buildingSolid.getExterior().getSurface().setId(DefaultGMLIdManager.getInstance().generateUUID());
 
-		Appearance appearance = new Appearance();
-		appearance.setTheme("default");
-		appearance.addSurfaceDataMember(new SurfaceDataProperty(material));
-		building.addAppearance(new AppearanceProperty(appearance));
+        // let's paint the solid geometry in grey
+        X3DMaterial material = new X3DMaterial();
+        material.setDiffuseColor(new Color(0.8, 0.8, 0.8));
+        material.addTarget("#" + buildingSolid.getExterior().getSurface().getId());
 
-		// add some attributes to the building
-		building.setMeasuredHeight(new Length(12.0));
-		building.setYearOfConstruction(2017);
-		building.setClazz(new Code("residential building"));
+        Appearance appearance = new Appearance();
+        appearance.setTheme("default");
+        appearance.addSurfaceDataMember(new SurfaceDataProperty(material));
+        building.addAppearance(new AppearanceProperty(appearance));
 
-		// add the building to the city model
-		cityModel.addCityObjectMember(new CityObjectMember(building));
+        // add some attributes to the building
+        building.setMeasuredHeight(new Length(12.0));
+        building.setYearOfConstruction(2017);
+        building.setClazz(new Code("residential building"));
 
-		// create a road
-		System.out.println(df.format(new Date()) + "adding a road to the city model");
-		Road road = new Road();
+        // add the building to the city model
+        cityModel.addCityObjectMember(new CityObjectMember(building));
 
-		// create traffic area and add some geometry
-		TrafficArea trafficArea = new TrafficArea();
-		MultiSurface trafficAreaSurface = geom.createMultiSurface(geom.createLinearPolygon(new double[] {0,0,0, 0,-4,0, 18,-4,0, 18,0,0}, 3));
-		trafficArea.setLod2MultiSurface(new MultiSurfaceProperty(trafficAreaSurface));
+        // create a road
+        System.out.println(df.format(new Date()) + "adding a road to the city model");
+        Road road = new Road();
 
-		// add some attributes to the traffic area
-		trafficArea.setSurfaceMaterial(new Code("asphalt"));
+        // create traffic area and add some geometry
+        TrafficArea trafficArea = new TrafficArea();
+        MultiSurface trafficAreaSurface = geom.createMultiSurface(geom.createLinearPolygon(new double[]{0, 0, 0, 0, -4, 0, 18, -4, 0, 18, 0, 0}, 3));
+        trafficArea.setLod2MultiSurface(new MultiSurfaceProperty(trafficAreaSurface));
 
-		// add the traffic to the road and the road to the city model
-		road.addTrafficArea(new TrafficAreaProperty(trafficArea));
-		cityModel.addCityObjectMember(new CityObjectMember(road));
+        // add some attributes to the traffic area
+        trafficArea.setSurfaceMaterial(new Code("asphalt"));
 
-		// create a land use object and add some geometry
-		System.out.println(df.format(new Date()) + "adding a land use object to the city model");
-		LandUse landUse = new LandUse();
+        // add the traffic to the road and the road to the city model
+        road.addTrafficArea(new TrafficAreaProperty(trafficArea));
+        cityModel.addCityObjectMember(new CityObjectMember(road));
 
-		MultiSurface landUseSurface = geom.createMultiSurface(geom.createLinearPolygon(new double[] {6,0,0, 18,0,0, 18,12,0, 6,12,0}, 3));
-		landUse.setLod2MultiSurface(new MultiSurfaceProperty(landUseSurface));
+        // create a land use object and add some geometry
+        System.out.println(df.format(new Date()) + "adding a land use object to the city model");
+        LandUse landUse = new LandUse();
 
-		// add some attributes
-		landUse.setClazz(new Code("park"));
+        MultiSurface landUseSurface = geom.createMultiSurface(geom.createLinearPolygon(new double[]{6, 0, 0, 18, 0, 0, 18, 12, 0, 6, 12, 0}, 3));
+        landUse.setLod2MultiSurface(new MultiSurfaceProperty(landUseSurface));
 
-		// add the land use object to the city model
-		cityModel.addCityObjectMember(new CityObjectMember(landUse));
+        // add some attributes
+        landUse.setClazz(new Code("park"));
 
-		// create metadata information for the CityJSON file
-		// note: this metadata information is specific to CityJSON 
-		// we therefore have to use CityJSON binding classes 
-		MetadataType metadata = new MetadataType();
+        // add the land use object to the city model
+        cityModel.addCityObjectMember(new CityObjectMember(landUse));
 
-		// add a CRS
-		metadata.setReferenceSystem(3068);
+        // create metadata information for the CityJSON file
+        // note: this metadata information is specific to CityJSON
+        // we therefore have to use CityJSON binding classes
+        MetadataType metadata = new MetadataType();
 
-		// add some further metadata tags
-		metadata.setDatasetTitle("CityJSON sample file created with citygml4j");
-		metadata.setDatasetLanguage("en");
-		metadata.setDatasetReferenceDate(ZonedDateTime.now());
+        // add a CRS
+        metadata.setReferenceSystem(3068);
 
-		/*
-		 * Now we are ready to write the citygml4j object tree as CityJSON.
-		 * Similar to writing a CityGML file, you simply have to create a
-		 * CityJSON output factory and use it to create a CityJSON writer.
-		 */
+        // add some further metadata tags
+        metadata.setDatasetTitle("CityJSON sample file created with citygml4j");
+        metadata.setDatasetLanguage("en");
+        metadata.setDatasetReferenceDate(ZonedDateTime.now());
 
-		// create a CityJSON writer and write the city model to a file
-		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityJSON file");
-		CityJSONOutputFactory out = builder.createCityJSONOutputFactory();
-		try (CityJSONWriter writer = out.createCityJSONWriter(new File("output/SimpleCityJSON.json"))) {
-			// set writer options and metadata
-			writer.setIndent(" ");
-			writer.setHtmlSafe(true);
-			writer.setMetadata(metadata);
+        /*
+         * Now we are ready to write the citygml4j object tree as CityJSON.
+         * Similar to writing a CityGML file, you simply have to create a
+         * CityJSON output factory and use it to create a CityJSON writer.
+         */
 
-			// finally, write city model
-			writer.write(cityModel);
-		}
+        // create a CityJSON writer and write the city model to a file
+        System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityJSON file");
+        CityJSONOutputFactory out = builder.createCityJSONOutputFactory();
+        try (CityJSONWriter writer = out.createCityJSONWriter(new File("output/SimpleCityJSON.json"))) {
+            // set writer options and metadata
+            writer.setIndent(" ");
+            writer.setHtmlSafe(true);
+            writer.setMetadata(metadata);
 
-		System.out.println(df.format(new Date()) + "CityJSON file SimpleCityJSON.json written");
+            // finally, write city model
+            writer.write(cityModel);
+        }
 
-		/*
-		 * And we easily can write the same citygml4j object tree as CityGML... 
-		 */
+        System.out.println(df.format(new Date()) + "CityJSON file SimpleCityJSON.json written");
 
-		// let's first set a bounding box on the city model
-		BoundingShape boundedBy = cityModel.calcBoundedBy(BoundingBoxOptions.defaults());
-		boundedBy.getEnvelope().setSrsName("EPSG:3068");
-		cityModel.setBoundedBy(boundedBy);
+        /*
+         * And we easily can write the same citygml4j object tree as CityGML...
+         */
 
-		// ok, write the content as CityGML file
-		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0.0 file");
-		CityGMLBuilder cityGMLBuilder = ctx.createCityGMLBuilder();
-		CityGMLOutputFactory cityGMLOut = cityGMLBuilder.createCityGMLOutputFactory(CityGMLVersion.v2_0_0);
+        // let's first set a bounding box on the city model
+        BoundingShape boundedBy = cityModel.calcBoundedBy(BoundingBoxOptions.defaults());
+        boundedBy.getEnvelope().setSrsName("EPSG:3068");
+        cityModel.setBoundedBy(boundedBy);
 
-		try (CityGMLWriter writer = cityGMLOut.createCityGMLWriter(new File("output/SimpleCityGML.gml"))) {
-			writer.setPrefixes(CityGMLVersion.v2_0_0);
-			writer.setIndentString(" ");
-			writer.write(cityModel);
-		}
+        // ok, write the content as CityGML file
+        System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0.0 file");
+        CityGMLBuilder cityGMLBuilder = ctx.createCityGMLBuilder();
+        CityGMLOutputFactory cityGMLOut = cityGMLBuilder.createCityGMLOutputFactory(CityGMLVersion.v2_0_0);
 
-		System.out.println(df.format(new Date()) + "CityGML file SimpleCityGML.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        try (CityGMLWriter writer = cityGMLOut.createCityGMLWriter(new File("output/SimpleCityGML.gml"))) {
+            writer.setPrefixes(CityGMLVersion.v2_0_0);
+            writer.setIndentString(" ");
+            writer.write(cityModel);
+        }
+
+        System.out.println(df.format(new Date()) + "CityGML file SimpleCityGML.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

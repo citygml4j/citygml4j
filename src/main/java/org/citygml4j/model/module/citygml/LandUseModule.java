@@ -27,62 +27,62 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LandUseModule extends AbstractCityGMLModule {
-	private static final List<LandUseModule> instances = new ArrayList<LandUseModule>();
+    private static final List<LandUseModule> instances = new ArrayList<LandUseModule>();
 
-	public static final LandUseModule v2_0_0;
-	public static final LandUseModule v1_0_0;
+    public static final LandUseModule v2_0_0;
+    public static final LandUseModule v1_0_0;
 
-	private LandUseModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);		
-		instances.add(this);
-	}
+    private LandUseModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0_0 = new LandUseModule (
-				CityGMLModuleType.LAND_USE,
-				CityGMLModuleVersion.v2_0_0,
-				"http://www.opengis.net/citygml/landuse/2.0",
-				"luse",
-				"http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd",			
-				CoreModule.v2_0_0);
-		
-		v1_0_0 = new LandUseModule (
-				CityGMLModuleType.LAND_USE,
-				CityGMLModuleVersion.v1_0_0,
-				"http://www.opengis.net/citygml/landuse/1.0",
-				"luse",
-				"http://schemas.opengis.net/citygml/landuse/1.0/landUse.xsd",			
-				CoreModule.v1_0_0);
+    static {
+        v2_0_0 = new LandUseModule(
+                CityGMLModuleType.LAND_USE,
+                CityGMLModuleVersion.v2_0_0,
+                "http://www.opengis.net/citygml/landuse/2.0",
+                "luse",
+                "http://schemas.opengis.net/citygml/landuse/2.0/landUse.xsd",
+                CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
-		v2_0_0.features.put("LandUse", LandUse.class);
-		v1_0_0.features = v2_0_0.features;
-	}
+        v1_0_0 = new LandUseModule(
+                CityGMLModuleType.LAND_USE,
+                CityGMLModuleVersion.v1_0_0,
+                "http://www.opengis.net/citygml/landuse/1.0",
+                "luse",
+                "http://schemas.opengis.net/citygml/landuse/1.0/landUse.xsd",
+                CoreModule.v1_0_0);
 
-	public static List<LandUseModule> getInstances() {
-		return instances;
-	}
-	
-	public static LandUseModule getInstance(CityGMLModuleVersion version) {
-		switch (version) {
-		case v2_0_0:
-			return v2_0_0;
-		case v1_0_0:
-			return v1_0_0;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return "LandUse".equals(name);
-	}
+        v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
+        v2_0_0.features.put("LandUse", LandUse.class);
+        v1_0_0.features = v2_0_0.features;
+    }
+
+    public static List<LandUseModule> getInstances() {
+        return instances;
+    }
+
+    public static LandUseModule getInstance(CityGMLModuleVersion version) {
+        switch (version) {
+            case v2_0_0:
+                return v2_0_0;
+            case v1_0_0:
+                return v1_0_0;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return "LandUse".equals(name);
+    }
 
 }

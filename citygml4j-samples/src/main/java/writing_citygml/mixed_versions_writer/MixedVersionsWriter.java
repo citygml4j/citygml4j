@@ -42,58 +42,58 @@ import java.util.Date;
 
 public class MixedVersionsWriter {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Railway_v200.gml");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Railway_v200.gml"));
-		CityModel cityModel = (CityModel)reader.nextFeature();
-		reader.close();
-		
-		ModuleContext moduleContext100 = new ModuleContext(CityGMLVersion.v1_0_0);
-		ModuleContext moduleContext200 = new ModuleContext(CityGMLVersion.v2_0_0);
-		
-		System.out.println(df.format(new Date()) + "creating CityGML mixed version model writer"); 
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
-		out.setModuleContext(moduleContext100);
-		
-		CityModelWriter writer = out.createCityModelWriter(new File("output/LOD3_Railway_mixed_v100_and_v200.gml"));
-		writer.setPrefixes(moduleContext100);
-		writer.setPrefix(BridgeModule.getInstance(CityGMLModuleVersion.v2_0_0));
-		writer.setPrefix(TunnelModule.getInstance(CityGMLModuleVersion.v2_0_0));
-		writer.setPrefix("core2", CoreModule.getInstance(CityGMLModuleVersion.v2_0_0).getNamespaceURI());
-		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
-		writer.setIndentString("  ");
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Railway_v200.gml");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Railway_v200.gml"));
+        CityModel cityModel = (CityModel) reader.nextFeature();
+        reader.close();
 
-		writer.setCityModelInfo(new CityModelInfo(cityModel));
-		writer.writeStartDocument();
-		
-		for (CityObjectMember member : cityModel.getCityObjectMember()) {
-			if (member.isSetCityObject()) {
-				AbstractCityObject cityObject = member.getCityObject();
-				
-				if (cityObject.getModule().getType() == CityGMLModuleType.BRIDGE
-						|| cityObject.getModule().getType() == CityGMLModuleType.TUNNEL)
-					writer.setModuleContext(moduleContext200);
-				else
-					writer.setModuleContext(moduleContext100);
-				
-				writer.writeFeatureMember(cityObject);
-			}			
-		}
-		
-		writer.writeEndDocument();		
-		writer.close();
+        ModuleContext moduleContext100 = new ModuleContext(CityGMLVersion.v1_0_0);
+        ModuleContext moduleContext200 = new ModuleContext(CityGMLVersion.v2_0_0);
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD3_Railway_mixed_v100_and_v200.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "creating CityGML mixed version model writer");
+        CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
+        out.setModuleContext(moduleContext100);
+
+        CityModelWriter writer = out.createCityModelWriter(new File("output/LOD3_Railway_mixed_v100_and_v200.gml"));
+        writer.setPrefixes(moduleContext100);
+        writer.setPrefix(BridgeModule.getInstance(CityGMLModuleVersion.v2_0_0));
+        writer.setPrefix(TunnelModule.getInstance(CityGMLModuleVersion.v2_0_0));
+        writer.setPrefix("core2", CoreModule.getInstance(CityGMLModuleVersion.v2_0_0).getNamespaceURI());
+        writer.setDefaultNamespace(CoreModule.v1_0_0);
+        writer.setSchemaLocations(CityGMLVersion.v1_0_0);
+        writer.setSchemaLocations(CityGMLVersion.v2_0_0);
+        writer.setIndentString("  ");
+
+        writer.setCityModelInfo(new CityModelInfo(cityModel));
+        writer.writeStartDocument();
+
+        for (CityObjectMember member : cityModel.getCityObjectMember()) {
+            if (member.isSetCityObject()) {
+                AbstractCityObject cityObject = member.getCityObject();
+
+                if (cityObject.getModule().getType() == CityGMLModuleType.BRIDGE
+                        || cityObject.getModule().getType() == CityGMLModuleType.TUNNEL)
+                    writer.setModuleContext(moduleContext200);
+                else
+                    writer.setModuleContext(moduleContext100);
+
+                writer.writeFeatureMember(cityObject);
+            }
+        }
+
+        writer.writeEndDocument();
+        writer.close();
+
+        System.out.println(df.format(new Date()) + "CityGML file LOD3_Railway_mixed_v100_and_v200.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

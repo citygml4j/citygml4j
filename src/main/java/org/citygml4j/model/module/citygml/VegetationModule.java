@@ -29,65 +29,65 @@ import java.util.HashMap;
 import java.util.List;
 
 public class VegetationModule extends AbstractCityGMLModule {
-	private static final List<VegetationModule> instances = new ArrayList<VegetationModule>();
+    private static final List<VegetationModule> instances = new ArrayList<VegetationModule>();
 
-	public static final VegetationModule v2_0_0;
-	public static final VegetationModule v1_0_0;
+    public static final VegetationModule v2_0_0;
+    public static final VegetationModule v1_0_0;
 
-	private VegetationModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);		
-		instances.add(this);
-	}
+    private VegetationModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0_0 = new VegetationModule (
-				CityGMLModuleType.VEGETATION,
-				CityGMLModuleVersion.v2_0_0,
-				"http://www.opengis.net/citygml/vegetation/2.0",
-				"veg",
-				"http://schemas.opengis.net/citygml/vegetation/2.0/vegetation.xsd",			
-				CoreModule.v2_0_0);
-		
-		v1_0_0 = new VegetationModule (
-				CityGMLModuleType.VEGETATION,
-				CityGMLModuleVersion.v1_0_0,
-				"http://www.opengis.net/citygml/vegetation/1.0",
-				"veg",
-				"http://schemas.opengis.net/citygml/vegetation/1.0/vegetation.xsd",			
-				CoreModule.v1_0_0);
+    static {
+        v2_0_0 = new VegetationModule(
+                CityGMLModuleType.VEGETATION,
+                CityGMLModuleVersion.v2_0_0,
+                "http://www.opengis.net/citygml/vegetation/2.0",
+                "veg",
+                "http://schemas.opengis.net/citygml/vegetation/2.0/vegetation.xsd",
+                CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
-		v2_0_0.features.put("SolitaryVegetationObject", SolitaryVegetationObject.class);
-		v2_0_0.features.put("PlantCover", PlantCover.class);
-		v2_0_0.features.put("_VegetationObject", AbstractVegetationObject.class);
-		v1_0_0.features = v2_0_0.features;
-	}
+        v1_0_0 = new VegetationModule(
+                CityGMLModuleType.VEGETATION,
+                CityGMLModuleVersion.v1_0_0,
+                "http://www.opengis.net/citygml/vegetation/1.0",
+                "veg",
+                "http://schemas.opengis.net/citygml/vegetation/1.0/vegetation.xsd",
+                CoreModule.v1_0_0);
 
-	public static List<VegetationModule> getInstances() {
-		return instances;
-	}
-	
-	public static VegetationModule getInstance(CityGMLModuleVersion version) {
-		switch (version) {
-		case v2_0_0:
-			return v2_0_0;
-		case v1_0_0:
-			return v1_0_0;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return "SolitaryVegetationObject".equals(name)
-				|| "PlantCover".equals(name);
-	}
+        v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
+        v2_0_0.features.put("SolitaryVegetationObject", SolitaryVegetationObject.class);
+        v2_0_0.features.put("PlantCover", PlantCover.class);
+        v2_0_0.features.put("_VegetationObject", AbstractVegetationObject.class);
+        v1_0_0.features = v2_0_0.features;
+    }
+
+    public static List<VegetationModule> getInstances() {
+        return instances;
+    }
+
+    public static VegetationModule getInstance(CityGMLModuleVersion version) {
+        switch (version) {
+            case v2_0_0:
+                return v2_0_0;
+            case v1_0_0:
+                return v1_0_0;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return "SolitaryVegetationObject".equals(name)
+                || "PlantCover".equals(name);
+    }
 
 }

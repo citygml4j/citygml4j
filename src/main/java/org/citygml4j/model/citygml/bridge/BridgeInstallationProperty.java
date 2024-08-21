@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class BridgeInstallationProperty extends FeatureProperty<BridgeInstallation> implements BridgeModuleComponent {
 
-	public BridgeInstallationProperty() {
-		
-	}
-	
-	public BridgeInstallationProperty(BridgeInstallation bridgeInstallation) {
-		super(bridgeInstallation);
-	}
-	
-	public BridgeInstallationProperty(String href) {
-		super(href);
-	}
-	
-	public BridgeInstallation getBridgeInstallation() {
-		return super.getObject();
-	}
+    public BridgeInstallationProperty() {
 
-	public boolean isSetBridgeInstallation() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setBridgeInstallation(BridgeInstallation bridgeInstallation) {
-		super.setObject(bridgeInstallation);
-	}
+    public BridgeInstallationProperty(BridgeInstallation bridgeInstallation) {
+        super(bridgeInstallation);
+    }
 
-	public void unsetBridgeInstallation() {
-		super.unsetObject();
-	}
+    public BridgeInstallationProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BRIDGE_INSTALLATION_PROPERTY;
-	}
+    public BridgeInstallation getBridgeInstallation() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<BridgeInstallation> getAssociableClass() {
-		return BridgeInstallation.class;
-	}
+    public boolean isSetBridgeInstallation() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BridgeInstallationProperty(), copyBuilder);
-	}
+    public void setBridgeInstallation(BridgeInstallation bridgeInstallation) {
+        super.setObject(bridgeInstallation);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BridgeInstallationProperty copy = (target == null) ? new BridgeInstallationProperty() : (BridgeInstallationProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetBridgeInstallation() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BRIDGE_INSTALLATION_PROPERTY;
+    }
+
+    @Override
+    public Class<BridgeInstallation> getAssociableClass() {
+        return BridgeInstallation.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BridgeInstallationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BridgeInstallationProperty copy = (target == null) ? new BridgeInstallationProperty() : (BridgeInstallationProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

@@ -30,76 +30,76 @@ import org.citygml4j.model.gml.GMLClass;
 import java.util.List;
 
 public class IntegerOrNullList implements GML, Child, Copyable {
-	private List<IntegerOrNull> integerOrNull;
-	private ModelObject parent;
+    private List<IntegerOrNull> integerOrNull;
+    private ModelObject parent;
 
-	public void addIntegerOrNull(IntegerOrNull integerOrNull) {
-		getIntegerOrNull().add(integerOrNull);
-	}
+    public void addIntegerOrNull(IntegerOrNull integerOrNull) {
+        getIntegerOrNull().add(integerOrNull);
+    }
 
-	public List<IntegerOrNull> getIntegerOrNull() {
-		if (integerOrNull == null)
-			integerOrNull = new ChildList<>(this);
-		
-		return integerOrNull;
-	}
+    public List<IntegerOrNull> getIntegerOrNull() {
+        if (integerOrNull == null)
+            integerOrNull = new ChildList<>(this);
 
-	public boolean isSetIntegerOrNull() {
-		return integerOrNull != null && !integerOrNull.isEmpty();
-	}
+        return integerOrNull;
+    }
 
-	public void setIntegerOrNull(List<IntegerOrNull> integerOrNull) {
-		this.integerOrNull = new ChildList<>(this, integerOrNull);
-	}
+    public boolean isSetIntegerOrNull() {
+        return integerOrNull != null && !integerOrNull.isEmpty();
+    }
 
-	public void unsetIntegerOrNull() {
-		integerOrNull = ModelObjects.setNull(integerOrNull);
-	}
+    public void setIntegerOrNull(List<IntegerOrNull> integerOrNull) {
+        this.integerOrNull = new ChildList<>(this, integerOrNull);
+    }
 
-	public boolean unsetIntegerOrNull(IntegerOrNull integerOrNull) {
-		return isSetIntegerOrNull() && this.integerOrNull.remove(integerOrNull);
-	}
+    public void unsetIntegerOrNull() {
+        integerOrNull = ModelObjects.setNull(integerOrNull);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.INTEGER_OR_NULL_LIST;
-	}
+    public boolean unsetIntegerOrNull(IntegerOrNull integerOrNull) {
+        return isSetIntegerOrNull() && this.integerOrNull.remove(integerOrNull);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.INTEGER_OR_NULL_LIST;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new IntegerOrNullList(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		IntegerOrNullList copy = (target == null) ? new IntegerOrNullList() : (IntegerOrNullList)target;
-		
-		if (isSetIntegerOrNull()) {
-			for (IntegerOrNull part : integerOrNull) {
-				IntegerOrNull copyPart = (IntegerOrNull)copyBuilder.copy(part);
-				copy.addIntegerOrNull(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new IntegerOrNullList(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        IntegerOrNullList copy = (target == null) ? new IntegerOrNullList() : (IntegerOrNullList) target;
+
+        if (isSetIntegerOrNull()) {
+            for (IntegerOrNull part : integerOrNull) {
+                IntegerOrNull copyPart = (IntegerOrNull) copyBuilder.copy(part);
+                copy.addIntegerOrNull(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

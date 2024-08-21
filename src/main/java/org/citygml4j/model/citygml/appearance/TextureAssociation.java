@@ -23,72 +23,72 @@ import org.citygml4j.model.citygml.CityGMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class TextureAssociation extends AssociationByRepOrRef<AbstractTextureParameterization> implements AppearanceModuleComponent {
-	private String uri;
+    private String uri;
 
-	public TextureAssociation() {
-		
-	}
-	
-	public TextureAssociation(AbstractTextureParameterization abstractTextureParameterization) {
-		super(abstractTextureParameterization);
-	}
-	
-	public TextureAssociation(String href) {
-		super(href);
-	}
-	
-	public AbstractTextureParameterization getTextureParameterization() {
-		return super.getObject();
-	}
+    public TextureAssociation() {
 
-	public String getUri() {
-		return uri;
-	}
+    }
 
-	public boolean isSetTextureParameterization() {
-		return super.isSetObject();
-	}
+    public TextureAssociation(AbstractTextureParameterization abstractTextureParameterization) {
+        super(abstractTextureParameterization);
+    }
 
-	public boolean isSetUri() {
-		return uri != null;
-	}
+    public TextureAssociation(String href) {
+        super(href);
+    }
 
-	public void setTextureParameterization(AbstractTextureParameterization textureParameterization) {
-		super.setObject(textureParameterization);
-	}
+    public AbstractTextureParameterization getTextureParameterization() {
+        return super.getObject();
+    }
 
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
+    public String getUri() {
+        return uri;
+    }
 
-	public void unsetTextureParameterization() {
-		super.unsetObject();
-	}
+    public boolean isSetTextureParameterization() {
+        return super.isSetObject();
+    }
 
-	public void unsetUri() {
-		uri = null;
-	}
+    public boolean isSetUri() {
+        return uri != null;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEXTURE_ASSOCIATION;
-	}
+    public void setTextureParameterization(AbstractTextureParameterization textureParameterization) {
+        super.setObject(textureParameterization);
+    }
 
-	public Class<AbstractTextureParameterization> getAssociableClass() {
-		return AbstractTextureParameterization.class;
-	}
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TextureAssociation(), copyBuilder);
-	}
+    public void unsetTextureParameterization() {
+        super.unsetObject();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TextureAssociation copy = (target == null) ? new TextureAssociation() : (TextureAssociation)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetUri())
-			copy.setUri(copyBuilder.copy(uri));
-		
-		return copy;
-	}
+    public void unsetUri() {
+        uri = null;
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TEXTURE_ASSOCIATION;
+    }
+
+    public Class<AbstractTextureParameterization> getAssociableClass() {
+        return AbstractTextureParameterization.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TextureAssociation(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TextureAssociation copy = (target == null) ? new TextureAssociation() : (TextureAssociation) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetUri())
+            copy.setUri(copyBuilder.copy(uri));
+
+        return copy;
+    }
 
 }

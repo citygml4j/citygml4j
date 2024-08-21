@@ -23,55 +23,55 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
 public class PriorityLocationProperty extends LocationProperty {
-	private String priority;
-	
-	public PriorityLocationProperty() {
+    private String priority;
 
-	}
+    public PriorityLocationProperty() {
 
-	public PriorityLocationProperty(AbstractGeometry abstractGeometry) {
-		super(abstractGeometry);
-	}
+    }
 
-	public PriorityLocationProperty(String href) {
-		super(href);
-	}
-	
-	public String getPriority() {
-		return priority;
-	}
+    public PriorityLocationProperty(AbstractGeometry abstractGeometry) {
+        super(abstractGeometry);
+    }
 
-	public boolean isSetPriority() {
-		return priority != null;
-	}
+    public PriorityLocationProperty(String href) {
+        super(href);
+    }
 
-	public void setPriority(String priority) {
-		this.priority = priority;
-	}
+    public String getPriority() {
+        return priority;
+    }
 
-	public void unsetPriority() {
-		priority = null;
-	}
+    public boolean isSetPriority() {
+        return priority != null;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PriorityLocationProperty(), copyBuilder);
-	}
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PriorityLocationProperty copy = (target == null) ? new PriorityLocationProperty() : (PriorityLocationProperty)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetPriority())
-			copy.setPriority(copyBuilder.copy(priority));
-		
-		return copy;
-	}
+    public void unsetPriority() {
+        priority = null;
+    }
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.PRIORITY_LOCATION_PROPERTY;
-	}
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PriorityLocationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PriorityLocationProperty copy = (target == null) ? new PriorityLocationProperty() : (PriorityLocationProperty) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetPriority())
+            copy.setPriority(copyBuilder.copy(priority));
+
+        return copy;
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.PRIORITY_LOCATION_PROPERTY;
+    }
 
 }

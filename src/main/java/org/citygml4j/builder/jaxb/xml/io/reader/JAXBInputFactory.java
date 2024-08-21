@@ -52,355 +52,347 @@ import java.util.List;
 import java.util.Objects;
 
 public class JAXBInputFactory implements CityGMLInputFactory {
-	final CityGMLBuilder builder;
-	private final List<QName> excludes;
-	private final List<QName> splitAtFeatureProperties;
+    final CityGMLBuilder builder;
+    private final List<QName> excludes;
+    private final List<QName> splitAtFeatureProperties;
 
-	private SchemaHandler schemaHandler;
-	private XMLInputFactory xmlInputFactory;
-	private GMLIdManager gmlIdManager;
-	private ValidationEventHandler validationEventHandler;
-	private TransformerChainFactory transformerChainFactory;
+    private SchemaHandler schemaHandler;
+    private XMLInputFactory xmlInputFactory;
+    private GMLIdManager gmlIdManager;
+    private ValidationEventHandler validationEventHandler;
+    private TransformerChainFactory transformerChainFactory;
 
-	private FeatureReadMode featureReadMode;
-	private boolean keepInlineAppearance;
-	private boolean parseSchema;
-	private boolean useValidation;
-	private boolean failOnMissingADESchema;
-	private boolean skipGenericADEContent;
-	private boolean supportCityGML040;
+    private FeatureReadMode featureReadMode;
+    private boolean keepInlineAppearance;
+    private boolean parseSchema;
+    private boolean useValidation;
+    private boolean failOnMissingADESchema;
+    private boolean skipGenericADEContent;
+    private boolean supportCityGML040;
 
-	public JAXBInputFactory(CityGMLBuilder builder, SchemaHandler schemaHandler) {
-		this.builder = builder;
-		this.schemaHandler = schemaHandler;
+    public JAXBInputFactory(CityGMLBuilder builder, SchemaHandler schemaHandler) {
+        this.builder = builder;
+        this.schemaHandler = schemaHandler;
 
-		xmlInputFactory = XMLInputFactory.newInstance();
-		xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
-		xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
-		xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+        xmlInputFactory = XMLInputFactory.newInstance();
+        xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
+        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+        xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
 
-		gmlIdManager = DefaultGMLIdManager.getInstance();
-		validationEventHandler = null;
-		featureReadMode = FeatureReadMode.NO_SPLIT;
-		excludes = new ArrayList<>();
-		splitAtFeatureProperties = new ArrayList<>();
-		keepInlineAppearance = true;
-		parseSchema = true;
-		failOnMissingADESchema = true;
-	}
-	
-	public JAXBInputFactory(CityGMLBuilder builder) throws CityGMLBuilderException {
-		this(builder, builder.getDefaultSchemaHandler());
-	}
+        gmlIdManager = DefaultGMLIdManager.getInstance();
+        validationEventHandler = null;
+        featureReadMode = FeatureReadMode.NO_SPLIT;
+        excludes = new ArrayList<>();
+        splitAtFeatureProperties = new ArrayList<>();
+        keepInlineAppearance = true;
+        parseSchema = true;
+        failOnMissingADESchema = true;
+    }
 
-	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException {
-		try {
-			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(systemId, in);
-			URI baseURI = toURI(systemId != null ? SystemIDResolver.getAbsoluteURI(systemId) : null);
+    public JAXBInputFactory(CityGMLBuilder builder) throws CityGMLBuilderException {
+        this(builder, builder.getDefaultSchemaHandler());
+    }
 
-			switch (featureReadMode) {
-			case SPLIT_PER_COLLECTION_MEMBER:
-			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, in, this, baseURI);
-			default:
-				return new JAXBSimpleReader(streamReader, in, this, baseURI);
-			}			
-		} catch (XMLStreamException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
-	}
+    public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException {
+        try {
+            XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(systemId, in);
+            URI baseURI = toURI(systemId != null ? SystemIDResolver.getAbsoluteURI(systemId) : null);
 
-	public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException {
-		try {
-			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
-			URI baseURI = toURI(systemId != null ? SystemIDResolver.getAbsoluteURI(systemId) : null);
+            switch (featureReadMode) {
+                case SPLIT_PER_COLLECTION_MEMBER:
+                case SPLIT_PER_FEATURE:
+                    return new JAXBChunkReader(streamReader, in, this, baseURI);
+                default:
+                    return new JAXBSimpleReader(streamReader, in, this, baseURI);
+            }
+        } catch (XMLStreamException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        }
+    }
 
-			switch (featureReadMode) {
-			case SPLIT_PER_COLLECTION_MEMBER:
-			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, in, this, baseURI);
-			default:
-				return new JAXBSimpleReader(streamReader, in, this, baseURI);
-			}			
-		} catch (XMLStreamException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
-	}
+    public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException {
+        try {
+            XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
+            URI baseURI = toURI(systemId != null ? SystemIDResolver.getAbsoluteURI(systemId) : null);
 
-	public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException {
-		try {
-			FileInputStream in = new FileInputStream(file);
-			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
+            switch (featureReadMode) {
+                case SPLIT_PER_COLLECTION_MEMBER:
+                case SPLIT_PER_FEATURE:
+                    return new JAXBChunkReader(streamReader, in, this, baseURI);
+                default:
+                    return new JAXBSimpleReader(streamReader, in, this, baseURI);
+            }
+        } catch (XMLStreamException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        }
+    }
 
-			switch (featureReadMode) {
-			case SPLIT_PER_COLLECTION_MEMBER:
-			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, in, this, file.toURI().normalize());
-			default:
-				return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
-			}			
-		} catch (XMLStreamException | FileNotFoundException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
-	}
+    public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException {
+        try {
+            FileInputStream in = new FileInputStream(file);
+            XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
 
-	public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException {
-		try {
-			FileInputStream in = new FileInputStream(file);
-			XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in);
+            switch (featureReadMode) {
+                case SPLIT_PER_COLLECTION_MEMBER:
+                case SPLIT_PER_FEATURE:
+                    return new JAXBChunkReader(streamReader, in, this, file.toURI().normalize());
+                default:
+                    return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
+            }
+        } catch (XMLStreamException | FileNotFoundException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        }
+    }
 
-			switch (featureReadMode) {
-			case SPLIT_PER_COLLECTION_MEMBER:
-			case SPLIT_PER_FEATURE:
-				return new JAXBChunkReader(streamReader, in, this, file.toURI().normalize());
-			default:
-				return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
-			}			
-		} catch (XMLStreamException | FileNotFoundException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
-	}
+    public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException {
+        try {
+            FileInputStream in = new FileInputStream(file);
+            XMLStreamReader streamReader = xmlInputFactory.createXMLStreamReader(in);
 
-	public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter) {
-		if (reader instanceof AbstractJAXBReader)
-			((AbstractJAXBReader)reader).filter = filter;
-		else
-			throw new IllegalArgumentException("CityGML reader must be a JAXB based reader.");
+            switch (featureReadMode) {
+                case SPLIT_PER_COLLECTION_MEMBER:
+                case SPLIT_PER_FEATURE:
+                    return new JAXBChunkReader(streamReader, in, this, file.toURI().normalize());
+                default:
+                    return new JAXBSimpleReader(streamReader, in, this, file.toURI().normalize());
+            }
+        } catch (XMLStreamException | FileNotFoundException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        }
+    }
 
-		return reader;
-	}
-	
-	public XMLInputFactory getXMLInputFactory() {
-		return xmlInputFactory;
-	}
+    public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter) {
+        if (reader instanceof AbstractJAXBReader)
+            ((AbstractJAXBReader) reader).filter = filter;
+        else
+            throw new IllegalArgumentException("CityGML reader must be a JAXB based reader.");
 
-	public void setXMLInputFactory(XMLInputFactory xmlInputFactory) {
-		if (xmlInputFactory == null)
-			throw new IllegalArgumentException("xml input factory may not be null.");
+        return reader;
+    }
 
-		this.xmlInputFactory = xmlInputFactory;
-	}
+    public XMLInputFactory getXMLInputFactory() {
+        return xmlInputFactory;
+    }
 
-	public GMLIdManager getGMLIdManager() {
-		return gmlIdManager;
-	}
+    public void setXMLInputFactory(XMLInputFactory xmlInputFactory) {
+        if (xmlInputFactory == null)
+            throw new IllegalArgumentException("xml input factory may not be null.");
 
-	public void setGMLIdManager(GMLIdManager gmlIdManager) {
-		if (gmlIdManager == null)
-			throw new IllegalArgumentException("gml:id manager may not be null.");
+        this.xmlInputFactory = xmlInputFactory;
+    }
 
-		this.gmlIdManager = gmlIdManager;
-	}
+    public GMLIdManager getGMLIdManager() {
+        return gmlIdManager;
+    }
 
-	public SchemaHandler getSchemaHandler() {
-		return schemaHandler;
-	}
+    public void setGMLIdManager(GMLIdManager gmlIdManager) {
+        if (gmlIdManager == null)
+            throw new IllegalArgumentException("gml:id manager may not be null.");
 
-	public void setSchemaHandler(SchemaHandler schemaHandler) {
-		if (schemaHandler == null)
-			throw new IllegalArgumentException("schema handler may not be null.");
+        this.gmlIdManager = gmlIdManager;
+    }
 
-		this.schemaHandler = schemaHandler;
-	}
+    public SchemaHandler getSchemaHandler() {
+        return schemaHandler;
+    }
 
-	public ValidationEventHandler getValidationEventHandler() {
-		return validationEventHandler;
-	}
+    public void setSchemaHandler(SchemaHandler schemaHandler) {
+        if (schemaHandler == null)
+            throw new IllegalArgumentException("schema handler may not be null.");
 
-	public void setValidationEventHandler(ValidationEventHandler validationEventHandler) {
-		if (validationEventHandler == null)
-			throw new IllegalArgumentException("validation event handler may not be null.");
+        this.schemaHandler = schemaHandler;
+    }
 
-		this.validationEventHandler = validationEventHandler;
-	}
-	
-	public void setTransformationTemplates(Templates... transformationTemplates) throws CityGMLWriteException {
-		if (transformationTemplates == null)
-			throw new IllegalArgumentException("transformation templates may not be null.");
+    public ValidationEventHandler getValidationEventHandler() {
+        return validationEventHandler;
+    }
 
-		try {
-			if (transformerChainFactory == null)
-				transformerChainFactory = new TransformerChainFactory(transformationTemplates);
-			else
-				transformerChainFactory.updateTemplates(transformationTemplates);
-		} catch (TransformerConfigurationException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public void setValidationEventHandler(ValidationEventHandler validationEventHandler) {
+        if (validationEventHandler == null)
+            throw new IllegalArgumentException("validation event handler may not be null.");
 
-	public Templates[] getTransformationTemplates() {
-		return transformerChainFactory == null ? null : transformerChainFactory.getTemplates();
-	}
+        this.validationEventHandler = validationEventHandler;
+    }
 
-	public TransformerChainFactory getTransformerChainFactory() {
-		return transformerChainFactory;
-	}
+    public void setTransformationTemplates(Templates... transformationTemplates) throws CityGMLWriteException {
+        if (transformationTemplates == null)
+            throw new IllegalArgumentException("transformation templates may not be null.");
 
-	public Object getProperty(String name) {
-		Objects.requireNonNull(name, "property name may not be null.");
+        try {
+            if (transformerChainFactory == null)
+                transformerChainFactory = new TransformerChainFactory(transformationTemplates);
+            else
+                transformerChainFactory.updateTemplates(transformationTemplates);
+        } catch (TransformerConfigurationException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-		if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE))
-			return featureReadMode;
-		if (name.equals(CityGMLInputFactory.KEEP_INLINE_APPEARANCE))
-			return keepInlineAppearance;
-		if (name.equals(CityGMLInputFactory.PARSE_SCHEMA))
-			return parseSchema;
-		if (name.equals(CityGMLInputFactory.USE_VALIDATION))
-			return useValidation;
-		if (name.equals(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING))
-			return excludes;
-		if (name.equals(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY))
-			return splitAtFeatureProperties;
-		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA))
-			return failOnMissingADESchema;
-		if (name.equals(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT))
-			return skipGenericADEContent;
-		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
-			return supportCityGML040;
+    public Templates[] getTransformationTemplates() {
+        return transformerChainFactory == null ? null : transformerChainFactory.getTemplates();
+    }
 
-		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
-	}
+    public TransformerChainFactory getTransformerChainFactory() {
+        return transformerChainFactory;
+    }
 
-	public void setProperty(String name, Object value) {
-		Objects.requireNonNull(name, "property name may not be null.");
+    public Object getProperty(String name) {
+        Objects.requireNonNull(name, "property name may not be null.");
 
-		if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE)) {
-			FeatureReadMode mode = FeatureReadMode.fromValue(value.toString());
-			if (mode != null)
-				featureReadMode = mode;
+        if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE))
+            return featureReadMode;
+        if (name.equals(CityGMLInputFactory.KEEP_INLINE_APPEARANCE))
+            return keepInlineAppearance;
+        if (name.equals(CityGMLInputFactory.PARSE_SCHEMA))
+            return parseSchema;
+        if (name.equals(CityGMLInputFactory.USE_VALIDATION))
+            return useValidation;
+        if (name.equals(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING))
+            return excludes;
+        if (name.equals(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY))
+            return splitAtFeatureProperties;
+        if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA))
+            return failOnMissingADESchema;
+        if (name.equals(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT))
+            return skipGenericADEContent;
+        if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
+            return supportCityGML040;
 
-			return;
-		}
+        throw new IllegalArgumentException("the property '" + name + "' is not supported.");
+    }
 
-		if (name.equals(CityGMLInputFactory.KEEP_INLINE_APPEARANCE)) {
-			if (value instanceof Boolean)
-				keepInlineAppearance = (Boolean) value;
+    public void setProperty(String name, Object value) {
+        Objects.requireNonNull(name, "property name may not be null.");
 
-			return;		
-		}
+        if (name.equals(CityGMLInputFactory.FEATURE_READ_MODE)) {
+            FeatureReadMode mode = FeatureReadMode.fromValue(value.toString());
+            if (mode != null)
+                featureReadMode = mode;
 
-		if (name.equals(CityGMLInputFactory.PARSE_SCHEMA)) {
-			if (value instanceof Boolean)
-				parseSchema = (Boolean) value;
+            return;
+        }
 
-			return;		
-		}
-		
-		if (name.equals(CityGMLInputFactory.USE_VALIDATION)) {
-			if (value instanceof Boolean)
-				useValidation = (Boolean) value;
+        if (name.equals(CityGMLInputFactory.KEEP_INLINE_APPEARANCE)) {
+            if (value instanceof Boolean)
+                keepInlineAppearance = (Boolean) value;
 
-			return;		
-		}
+            return;
+        }
 
-		if (name.equals(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING)) {
-			if (value instanceof QName){
-				excludes.add((QName)value);
-				return;
-			} 
+        if (name.equals(CityGMLInputFactory.PARSE_SCHEMA)) {
+            if (value instanceof Boolean)
+                parseSchema = (Boolean) value;
 
-			else if (value instanceof Collection<?>) {
-				for (Object o : (Collection<?>)value) {
-					if (o instanceof QName)
-						excludes.add((QName)o);
-					else
-						throw new IllegalArgumentException("exclude must be of type java.xml.namespace.QName.");
-				}
-				
-				return;
-			}
+            return;
+        }
 
-			else if (value instanceof Object[]) {
-				for (Object o : (Object[])value) {
-					if (o instanceof QName)
-						excludes.add((QName)o);
-					else
-						throw new IllegalArgumentException("exclude must be of type java.xml.namespace.QName.");
-				}
-				
-				return;
-			}
-		}
-		
-		if (name.equals(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY)) {
-			if (value instanceof QName) {
-				splitAtFeatureProperties.add((QName)value);
-				return;
-			}
-			
-			else if (value instanceof Collection<?>) {
-				for (Object o : (Collection<?>)value) {
-					if (o instanceof QName)
-						splitAtFeatureProperties.add((QName)o);
-					else
-						throw new IllegalArgumentException("feature property must be specified using java.xml.namespace.QName.");
-				}
-				
-				return;
-			}
+        if (name.equals(CityGMLInputFactory.USE_VALIDATION)) {
+            if (value instanceof Boolean)
+                useValidation = (Boolean) value;
 
-			else if (value instanceof Object[]) {
-				for (Object o : (Object[])value) {
-					if (o instanceof QName)
-						splitAtFeatureProperties.add((QName)o);
-					else
-						throw new IllegalArgumentException("feature property must be specified using java.xml.namespace.QName.");
-				}
-				
-				return;
-			}
-		}
-		
-		if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA)) {
-			if (value instanceof Boolean)
-				failOnMissingADESchema = (Boolean) value;
+            return;
+        }
 
-			return;		
-		}
+        if (name.equals(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING)) {
+            if (value instanceof QName) {
+                excludes.add((QName) value);
+                return;
+            } else if (value instanceof Collection<?>) {
+                for (Object o : (Collection<?>) value) {
+                    if (o instanceof QName)
+                        excludes.add((QName) o);
+                    else
+                        throw new IllegalArgumentException("exclude must be of type java.xml.namespace.QName.");
+                }
 
-		if (name.equals(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT)) {
-			if (value instanceof Boolean)
-				skipGenericADEContent = (Boolean) value;
+                return;
+            } else if (value instanceof Object[]) {
+                for (Object o : (Object[]) value) {
+                    if (o instanceof QName)
+                        excludes.add((QName) o);
+                    else
+                        throw new IllegalArgumentException("exclude must be of type java.xml.namespace.QName.");
+                }
 
-			return;
-		}
-		
-		if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0)) {
-			if (value instanceof Boolean)
-				supportCityGML040 = (Boolean) value;
+                return;
+            }
+        }
 
-			return;		
-		}
+        if (name.equals(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY)) {
+            if (value instanceof QName) {
+                splitAtFeatureProperties.add((QName) value);
+                return;
+            } else if (value instanceof Collection<?>) {
+                for (Object o : (Collection<?>) value) {
+                    if (o instanceof QName)
+                        splitAtFeatureProperties.add((QName) o);
+                    else
+                        throw new IllegalArgumentException("feature property must be specified using java.xml.namespace.QName.");
+                }
 
-		throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
-	}
+                return;
+            } else if (value instanceof Object[]) {
+                for (Object o : (Object[]) value) {
+                    if (o instanceof QName)
+                        splitAtFeatureProperties.add((QName) o);
+                    else
+                        throw new IllegalArgumentException("feature property must be specified using java.xml.namespace.QName.");
+                }
 
-	public boolean registerSchemaLocation(String namespaceURI, File schemaLocation) {
-		return schemaHandler.registerSchemaLocation(namespaceURI, schemaLocation);
-	}
+                return;
+            }
+        }
 
-	public void parseSchema(File schemaLocation) throws SAXException {
-		schemaHandler.parseSchema(schemaLocation);
-	}
+        if (name.equals(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA)) {
+            if (value instanceof Boolean)
+                failOnMissingADESchema = (Boolean) value;
 
-	public void parseSchema(String namespaceURI, String schemaLocation) throws SAXException {
-		schemaHandler.parseSchema(namespaceURI, schemaLocation);	
-	}
+            return;
+        }
 
-	public void parseSchema(Element element) throws SAXException {
-		schemaHandler.parseSchema(element);
-	}
+        if (name.equals(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT)) {
+            if (value instanceof Boolean)
+                skipGenericADEContent = (Boolean) value;
 
-	private URI toURI(String baseURI) {
-		URI uri;
+            return;
+        }
 
-		try {
-			uri = new URI(baseURI).normalize();
-		} catch (Exception e) {
-			uri = URI.create("");
-		}
+        if (name.equals(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0)) {
+            if (value instanceof Boolean)
+                supportCityGML040 = (Boolean) value;
 
-		return uri;
-	}
-	
+            return;
+        }
+
+        throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
+    }
+
+    public boolean registerSchemaLocation(String namespaceURI, File schemaLocation) {
+        return schemaHandler.registerSchemaLocation(namespaceURI, schemaLocation);
+    }
+
+    public void parseSchema(File schemaLocation) throws SAXException {
+        schemaHandler.parseSchema(schemaLocation);
+    }
+
+    public void parseSchema(String namespaceURI, String schemaLocation) throws SAXException {
+        schemaHandler.parseSchema(namespaceURI, schemaLocation);
+    }
+
+    public void parseSchema(Element element) throws SAXException {
+        schemaHandler.parseSchema(element);
+    }
+
+    private URI toURI(String baseURI) {
+        URI uri;
+
+        try {
+            uri = new URI(baseURI).normalize();
+        } catch (Exception e) {
+            uri = URI.create("");
+        }
+
+        return uri;
+    }
+
 }

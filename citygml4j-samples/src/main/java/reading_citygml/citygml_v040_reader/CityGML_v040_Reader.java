@@ -37,52 +37,52 @@ import java.util.Date;
 
 public class CityGML_v040_Reader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML 0.4.0 file LOD3_Building_v040.gml completely into main memory");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        System.out.println(df.format(new Date()) + "reading CityGML 0.4.0 file LOD3_Building_v040.gml completely into main memory");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
 
-		System.out.println(df.format(new Date()) + "content is internally mapped onto CityGML 1.0.0 while reading");
-		in.setProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0, true);
+        System.out.println(df.format(new Date()) + "content is internally mapped onto CityGML 1.0.0 while reading");
+        in.setProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0, true);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Building_v040.gml"));
-		CityModel cityModel = (CityModel)reader.nextFeature();
-		reader.close();
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Building_v040.gml"));
+        CityModel cityModel = (CityModel) reader.nextFeature();
+        reader.close();
 
-		FeatureWalker walker = new FeatureWalker() {
+        FeatureWalker walker = new FeatureWalker() {
 
-			@Override
-			public void visit(AbstractFeature feature) {
-				if (feature instanceof CityGML) {
-					System.out.println("Found " + ((CityGML) feature).getCityGMLClass() + " version "+
-							feature.getModule().getVersion());
-				}
-				
-				super.visit(feature);
-			}
+            @Override
+            public void visit(AbstractFeature feature) {
+                if (feature instanceof CityGML) {
+                    System.out.println("Found " + ((CityGML) feature).getCityGMLClass() + " version " +
+                            feature.getModule().getVersion());
+                }
 
-		};
+                super.visit(feature);
+            }
 
-		cityModel.accept(walker);
+        };
 
-		System.out.println(df.format(new Date()) + "writing content as CityGML 1.0.0 file LOD3_Building_v100.gml");
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
-		CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Building_v100.gml"));
-		writer.setPrefixes(CityGMLVersion.v1_0_0);
-		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v1_0_0);
-		writer.setIndentString("  ");
+        cityModel.accept(walker);
 
-		writer.write(cityModel);
-		writer.close();
+        System.out.println(df.format(new Date()) + "writing content as CityGML 1.0.0 file LOD3_Building_v100.gml");
+        CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
+        CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Building_v100.gml"));
+        writer.setPrefixes(CityGMLVersion.v1_0_0);
+        writer.setDefaultNamespace(CoreModule.v1_0_0);
+        writer.setSchemaLocations(CityGMLVersion.v1_0_0);
+        writer.setIndentString("  ");
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD3_Building_v100.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        writer.write(cityModel);
+        writer.close();
+
+        System.out.println(df.format(new Date()) + "CityGML file LOD3_Building_v100.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

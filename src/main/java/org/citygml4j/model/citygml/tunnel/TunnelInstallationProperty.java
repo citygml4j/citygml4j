@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class TunnelInstallationProperty extends FeatureProperty<TunnelInstallation> implements TunnelModuleComponent {
 
-	public TunnelInstallationProperty() {
-		
-	}
-	
-	public TunnelInstallationProperty(TunnelInstallation tunnelInstallation) {
-		super(tunnelInstallation);
-	}
-	
-	public TunnelInstallationProperty(String href) {
-		super(href);
-	}
-	
-	public TunnelInstallation getTunnelInstallation() {
-		return super.getObject();
-	}
+    public TunnelInstallationProperty() {
 
-	public boolean isSetTunnelInstallation() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setTunnelInstallation(TunnelInstallation tunnelInstallation) {
-		super.setObject(tunnelInstallation);
-	}
+    public TunnelInstallationProperty(TunnelInstallation tunnelInstallation) {
+        super(tunnelInstallation);
+    }
 
-	public void unsetTunnelInstallation() {
-		super.unsetObject();
-	}
+    public TunnelInstallationProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TUNNEL_INSTALLATION_PROPERTY;
-	}
+    public TunnelInstallation getTunnelInstallation() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<TunnelInstallation> getAssociableClass() {
-		return TunnelInstallation.class;
-	}
+    public boolean isSetTunnelInstallation() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TunnelInstallationProperty(), copyBuilder);
-	}
+    public void setTunnelInstallation(TunnelInstallation tunnelInstallation) {
+        super.setObject(tunnelInstallation);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TunnelInstallationProperty copy = (target == null) ? new TunnelInstallationProperty() : (TunnelInstallationProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetTunnelInstallation() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TUNNEL_INSTALLATION_PROPERTY;
+    }
+
+    @Override
+    public Class<TunnelInstallation> getAssociableClass() {
+        return TunnelInstallation.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TunnelInstallationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TunnelInstallationProperty copy = (target == null) ? new TunnelInstallationProperty() : (TunnelInstallationProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

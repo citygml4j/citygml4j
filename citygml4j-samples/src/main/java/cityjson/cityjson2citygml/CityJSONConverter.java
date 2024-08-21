@@ -38,57 +38,57 @@ import java.util.Date;
 
 public class CityJSONConverter {
 
-	public static void main(String[] args) throws Exception {
-		final SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        final SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityJSONBuilder builder = ctx.createCityJSONBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityJSONBuilder builder = ctx.createCityJSONBuilder();
 
-		// reading CityJSON dataset
-		System.out.println(df.format(new Date()) + "reading LOD3_Railway.json into main memory");
-		CityJSONInputFactory in = builder.createCityJSONInputFactory();
+        // reading CityJSON dataset
+        System.out.println(df.format(new Date()) + "reading LOD3_Railway.json into main memory");
+        CityJSONInputFactory in = builder.createCityJSONInputFactory();
 
-		// create CityJSON reader
-		CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
+        // create CityJSON reader
+        CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
 
-		/*
-		 * When converting an existing CityJSON dataset, it is recommended that you register 
-		 * your own texture file handler with the CityJSON reader.
-		 * A texture file handler is invoked for every texture image found in the CityJSON
-		 * dataset. Its task is to generate a value for the <imageURI> property of a CityGML
-		 * parameterized texture object and to possibly copy the image file to the target
-		 * appearance folder. If you do not provide your own texture file handler, a default
-		 * one will be used that simply takes the "image" value from the CityJSON input file
-		 * as value for the <imageURI> property. Note that you should create the target CityGML
-		 * file in the same folder as the input CityJSON file when using the default handler.
-		 * Otherwise <imageURI> property values being relative paths cannot be correctly resolved.
-		 */
+        /*
+         * When converting an existing CityJSON dataset, it is recommended that you register
+         * your own texture file handler with the CityJSON reader.
+         * A texture file handler is invoked for every texture image found in the CityJSON
+         * dataset. Its task is to generate a value for the <imageURI> property of a CityGML
+         * parameterized texture object and to possibly copy the image file to the target
+         * appearance folder. If you do not provide your own texture file handler, a default
+         * one will be used that simply takes the "image" value from the CityJSON input file
+         * as value for the <imageURI> property. Note that you should create the target CityGML
+         * file in the same folder as the input CityJSON file when using the default handler.
+         * Otherwise <imageURI> property values being relative paths cannot be correctly resolved.
+         */
 
-		reader.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
+        reader.setTextureFileHandler(new SimpleTextureFileHandler(Paths.get("datasets"), Paths.get("output")));
 
-		CityModel cityModel = reader.read();
-		reader.close();
+        CityModel cityModel = reader.read();
+        reader.close();
 
-		// create a CityGML builder 
-		System.out.println(df.format(new Date()) + "creating CityJSON builder");
-		CityGMLBuilder cityGMLBuilder = ctx.createCityGMLBuilder();
+        // create a CityGML builder
+        System.out.println(df.format(new Date()) + "creating CityJSON builder");
+        CityGMLBuilder cityGMLBuilder = ctx.createCityGMLBuilder();
 
-		// create a CityGML output factory
-		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0 file");
-		CityGMLOutputFactory out = cityGMLBuilder.createCityGMLOutputFactory();
+        // create a CityGML output factory
+        System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0 file");
+        CityGMLOutputFactory out = cityGMLBuilder.createCityGMLOutputFactory();
 
-		CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Railway_v200.gml"), StandardCharsets.UTF_8.displayName());
-		writer.setIndentString("  ");
-		writer.setPrefixes(CityGMLVersion.v2_0_0);
-		writer.setDefaultNamespace(CoreModule.v2_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
+        CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Railway_v200.gml"), StandardCharsets.UTF_8.displayName());
+        writer.setIndentString("  ");
+        writer.setPrefixes(CityGMLVersion.v2_0_0);
+        writer.setDefaultNamespace(CoreModule.v2_0_0);
+        writer.setSchemaLocations(CityGMLVersion.v2_0_0);
 
-		writer.write(cityModel);
-		writer.close();
+        writer.write(cityModel);
+        writer.close();
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD3_Railway_v200.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "CityGML file LOD3_Railway_v200.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

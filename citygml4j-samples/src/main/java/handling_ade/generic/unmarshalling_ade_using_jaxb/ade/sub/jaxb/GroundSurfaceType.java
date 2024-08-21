@@ -36,9 +36,9 @@ import java.util.List;
 
 /**
  * <p>Java-Klasse für GroundSurfaceType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="GroundSurfaceType">
  *   &lt;complexContent>
@@ -50,40 +50,35 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GroundSurfaceType", propOrder = {
-    "_GenericApplicationPropertyOfGroundSurface"
+        "_GenericApplicationPropertyOfGroundSurface"
 })
 public class GroundSurfaceType
-    extends AbstractBoundarySurfaceType
-{
+        extends AbstractBoundarySurfaceType {
 
     protected List<Object> _GenericApplicationPropertyOfGroundSurface;
 
     /**
      * Gets the value of the genericApplicationPropertyOfGroundSurface property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfGroundSurface property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfGroundSurface().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfGroundSurface() {
         if (_GenericApplicationPropertyOfGroundSurface == null) {
@@ -93,7 +88,7 @@ public class GroundSurfaceType
     }
 
     public boolean isSet_GenericApplicationPropertyOfGroundSurface() {
-        return ((this._GenericApplicationPropertyOfGroundSurface!= null)&&(!this._GenericApplicationPropertyOfGroundSurface.isEmpty()));
+        return ((this._GenericApplicationPropertyOfGroundSurface != null) && (!this._GenericApplicationPropertyOfGroundSurface.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfGroundSurface() {

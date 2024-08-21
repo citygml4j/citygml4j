@@ -25,12 +25,17 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import java.util.List;
 
 public interface CityModelWriter extends AbstractCityGMLWriter {
-	public void writeStartDocument() throws CityGMLWriteException;
-	public void writeEndDocument() throws CityGMLWriteException;
-	public void writeFeatureMember(AbstractFeature feature) throws CityGMLWriteException;
-	public void writeFeatureMember(ADEComponent adeComponent) throws CityGMLWriteException;
-	public void writeFeatureMembers(List<ModelObject> features) throws CityGMLWriteException;
-	
-	public CityModelInfo getCityModelInfo();	
-	public void setCityModelInfo(CityModelInfo cityModelInfo);
+    public void writeStartDocument() throws CityGMLWriteException;
+
+    public void writeEndDocument() throws CityGMLWriteException;
+
+    public void writeFeatureMember(AbstractFeature feature) throws CityGMLWriteException;
+
+    public void writeFeatureMember(ADEComponent adeComponent) throws CityGMLWriteException;
+
+    public void writeFeatureMembers(List<ModelObject> features) throws CityGMLWriteException;
+
+    public CityModelInfo getCityModelInfo();
+
+    public void setCityModelInfo(CityModelInfo cityModelInfo);
 }

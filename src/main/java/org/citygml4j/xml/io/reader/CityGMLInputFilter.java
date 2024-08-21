@@ -21,5 +21,5 @@ package org.citygml4j.xml.io.reader;
 import javax.xml.namespace.QName;
 
 public interface CityGMLInputFilter {
-	public boolean accept(QName name);
+    public boolean accept(QName name);
 }

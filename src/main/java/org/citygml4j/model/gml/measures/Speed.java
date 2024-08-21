@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Speed extends Measure {
-	
-	public Speed() {
-	}
-	
-	public Speed(double value) {
-		super(value);
-	}
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.SPEED;
-	}
+    public Speed() {
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Speed(), copyBuilder);
-	}
+    public Speed(double value) {
+        super(value);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Speed copy = (target == null) ? new Speed() : (Speed)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.SPEED;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Speed(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Speed copy = (target == null) ? new Speed() : (Speed) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

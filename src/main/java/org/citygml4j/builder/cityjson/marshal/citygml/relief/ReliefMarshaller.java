@@ -33,68 +33,68 @@ import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ReliefMarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
-	
-	public ReliefMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-							.with(ReliefFeature.class, this::marshalReliefFeature)
-							.with(TINRelief.class, this::marshalTINRelief);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    public ReliefMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
 
-		return typeMapper;
-	}
-	
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return getTypeMapper().apply(src, cityJSON);
-	}
-		
-	public AbstractCityObjectType marshalReliefFeature(ReliefFeature src, CityJSON cityJSON) {
-		if (src.isSetReliefComponent()) {
-			for (ReliefComponentProperty property : src.getReliefComponent()) {
-				if (property.isSetReliefComponent() && property.getReliefComponent() instanceof TINRelief)
-					cityJSON.addCityObject(marshalTINRelief((TINRelief) property.getReliefComponent(), cityJSON));
-			}
-		}
-		
-		return null;
-	}
-	
-	public void marshalTINRelief(TINRelief src, TINReliefType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+                            .with(ReliefFeature.class, this::marshalReliefFeature)
+                            .with(TINRelief.class, this::marshalTINRelief);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		if (src.isSetGenericApplicationPropertyOfTinRelief())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTinRelief(), dest, cityJSON);
-		
-		if (src.isSetTin()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getTin(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(src.getLod());
-				dest.addGeometry(geometry);
-			}
-		}
-	}
-	
-	public TINReliefType marshalTINRelief(TINRelief src, CityJSON cityJSON) {
-		TINReliefType dest = new TINReliefType();
-		marshalTINRelief(src, dest, cityJSON);
-		
-		return dest;
-	}
-	
+        return typeMapper;
+    }
+
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        return getTypeMapper().apply(src, cityJSON);
+    }
+
+    public AbstractCityObjectType marshalReliefFeature(ReliefFeature src, CityJSON cityJSON) {
+        if (src.isSetReliefComponent()) {
+            for (ReliefComponentProperty property : src.getReliefComponent()) {
+                if (property.isSetReliefComponent() && property.getReliefComponent() instanceof TINRelief)
+                    cityJSON.addCityObject(marshalTINRelief((TINRelief) property.getReliefComponent(), cityJSON));
+            }
+        }
+
+        return null;
+    }
+
+    public void marshalTINRelief(TINRelief src, TINReliefType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfTinRelief())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTinRelief(), dest, cityJSON);
+
+        if (src.isSetTin()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getTin(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(src.getLod());
+                dest.addGeometry(geometry);
+            }
+        }
+    }
+
+    public TINReliefType marshalTINRelief(TINRelief src, CityJSON cityJSON) {
+        TINReliefType dest = new TINReliefType();
+        marshalTINRelief(src, dest, cityJSON);
+
+        return dest;
+    }
+
 }

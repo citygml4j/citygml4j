@@ -39,13 +39,13 @@ import java.util.List;
 
 
 /**
- *  Type for openings (doors, windows) in walls. Used in LOD3 and LOD4 only. As subclass of _CityObject, an _Opening inherits all attributes and
- * 				relations, in particular an id, names, external references, and generalization relations. 
- * 
+ * Type for openings (doors, windows) in walls. Used in LOD3 and LOD4 only. As subclass of _CityObject, an _Opening inherits all attributes and
+ * relations, in particular an id, names, external references, and generalization relations.
+ *
  * <p>Java-Klasse für AbstractOpeningType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="AbstractOpeningType">
  *   &lt;complexContent>
@@ -59,22 +59,19 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AbstractOpeningType", propOrder = {
-    "lod3MultiSurface",
-    "lod4MultiSurface",
-    "_GenericApplicationPropertyOfOpening"
+        "lod3MultiSurface",
+        "lod4MultiSurface",
+        "_GenericApplicationPropertyOfOpening"
 })
 @XmlSeeAlso({
-    WindowType.class,
-    DoorType.class
+        WindowType.class,
+        DoorType.class
 })
 public abstract class AbstractOpeningType
-    extends AbstractCityObjectType
-{
+        extends AbstractCityObjectType {
 
     protected MultiSurfacePropertyType lod3MultiSurface;
     protected MultiSurfacePropertyType lod4MultiSurface;
@@ -82,11 +79,9 @@ public abstract class AbstractOpeningType
 
     /**
      * Ruft den Wert der lod3MultiSurface-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link MultiSurfacePropertyType }
      */
     public MultiSurfacePropertyType getLod3MultiSurface() {
         return lod3MultiSurface;
@@ -94,27 +89,23 @@ public abstract class AbstractOpeningType
 
     /**
      * Legt den Wert der lod3MultiSurface-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link MultiSurfacePropertyType }
      */
     public void setLod3MultiSurface(MultiSurfacePropertyType value) {
         this.lod3MultiSurface = value;
     }
 
     public boolean isSetLod3MultiSurface() {
-        return (this.lod3MultiSurface!= null);
+        return (this.lod3MultiSurface != null);
     }
 
     /**
      * Ruft den Wert der lod4MultiSurface-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link MultiSurfacePropertyType }
      */
     public MultiSurfacePropertyType getLod4MultiSurface() {
         return lod4MultiSurface;
@@ -122,41 +113,37 @@ public abstract class AbstractOpeningType
 
     /**
      * Legt den Wert der lod4MultiSurface-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link MultiSurfacePropertyType }
      */
     public void setLod4MultiSurface(MultiSurfacePropertyType value) {
         this.lod4MultiSurface = value;
     }
 
     public boolean isSetLod4MultiSurface() {
-        return (this.lod4MultiSurface!= null);
+        return (this.lod4MultiSurface != null);
     }
 
     /**
      * Gets the value of the genericApplicationPropertyOfOpening property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfOpening property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfOpening().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfOpening() {
         if (_GenericApplicationPropertyOfOpening == null) {
@@ -166,7 +153,7 @@ public abstract class AbstractOpeningType
     }
 
     public boolean isSet_GenericApplicationPropertyOfOpening() {
-        return ((this._GenericApplicationPropertyOfOpening!= null)&&(!this._GenericApplicationPropertyOfOpening.isEmpty()));
+        return ((this._GenericApplicationPropertyOfOpening != null) && (!this._GenericApplicationPropertyOfOpening.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfOpening() {

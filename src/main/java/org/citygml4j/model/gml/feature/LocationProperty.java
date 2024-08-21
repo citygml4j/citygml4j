@@ -28,101 +28,101 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class LocationProperty extends GeometryProperty<AbstractGeometry> {
-	private Code locationKeyWord;
-	private StringOrRef locationString;
-	private Null _null;
-	
-	public LocationProperty() {
+    private Code locationKeyWord;
+    private StringOrRef locationString;
+    private Null _null;
 
-	}
+    public LocationProperty() {
 
-	public LocationProperty(AbstractGeometry abstractGeometry) {
-		super(abstractGeometry);
-	}
+    }
 
-	public LocationProperty(String href) {
-		super(href);
-	}
-	
-	public Code getLocationKeyWord() {
-		return locationKeyWord;
-	}
+    public LocationProperty(AbstractGeometry abstractGeometry) {
+        super(abstractGeometry);
+    }
 
-	public StringOrRef getLocationString() {
-		return locationString;
-	}
+    public LocationProperty(String href) {
+        super(href);
+    }
 
-	public Null getNull() {
-		return _null;
-	}
+    public Code getLocationKeyWord() {
+        return locationKeyWord;
+    }
 
-	public boolean isSetLocationKeyWord() {
-		return locationKeyWord != null;
-	}
+    public StringOrRef getLocationString() {
+        return locationString;
+    }
 
-	public boolean isSetLocationString() {
-		return locationString != null;
-	}
+    public Null getNull() {
+        return _null;
+    }
 
-	public boolean isSetNull() {
-		return _null != null;
-	}
+    public boolean isSetLocationKeyWord() {
+        return locationKeyWord != null;
+    }
 
-	public void setLocationKeyWord(Code locationKeyWord) {
-		this.locationKeyWord = ModelObjects.setParent(locationKeyWord, this);
-	}
+    public boolean isSetLocationString() {
+        return locationString != null;
+    }
 
-	public void setLocationString(StringOrRef locationString) {
-		this.locationString = ModelObjects.setParent(locationString, this);
-	}
+    public boolean isSetNull() {
+        return _null != null;
+    }
 
-	public void setNull(Null _null) {
-		this._null = ModelObjects.setParent(_null, this);
-	}
+    public void setLocationKeyWord(Code locationKeyWord) {
+        this.locationKeyWord = ModelObjects.setParent(locationKeyWord, this);
+    }
 
-	public void unsetLocationKeyWord() {
-		locationKeyWord = ModelObjects.setNull(locationKeyWord);
-	}
+    public void setLocationString(StringOrRef locationString) {
+        this.locationString = ModelObjects.setParent(locationString, this);
+    }
 
-	public void unsetLocationString() {
-		locationString = ModelObjects.setNull(locationString);
-	}
+    public void setNull(Null _null) {
+        this._null = ModelObjects.setParent(_null, this);
+    }
 
-	public void unsetNull() {
-		_null = ModelObjects.setNull(_null);
-	}
+    public void unsetLocationKeyWord() {
+        locationKeyWord = ModelObjects.setNull(locationKeyWord);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.LOCATION_PROPERTY;
-	}
+    public void unsetLocationString() {
+        locationString = ModelObjects.setNull(locationString);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new LocationProperty(), copyBuilder);
-	}
+    public void unsetNull() {
+        _null = ModelObjects.setNull(_null);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		LocationProperty copy = (target == null) ? new LocationProperty() : (LocationProperty)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetLocationKeyWord()) {
-			copy.setLocationKeyWord((Code)copyBuilder.copy(locationKeyWord));
-			if (copy.getLocationKeyWord() == locationKeyWord)
-				locationKeyWord.setParent(this);
-		}
-		
-		if (isSetLocationString()) {
-			copy.setLocationString((StringOrRef)copyBuilder.copy(locationString));
-			if (copy.getLocationString() == locationString)
-				locationString.setParent(this);
-		}
-		
-		if (isSetNull()) {
-			copy.setNull((Null)copyBuilder.copy(_null));
-			if (copy.getNull() == _null)
-				_null.setParent(this);
-		}
-		
-		return copy;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.LOCATION_PROPERTY;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new LocationProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        LocationProperty copy = (target == null) ? new LocationProperty() : (LocationProperty) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetLocationKeyWord()) {
+            copy.setLocationKeyWord((Code) copyBuilder.copy(locationKeyWord));
+            if (copy.getLocationKeyWord() == locationKeyWord)
+                locationKeyWord.setParent(this);
+        }
+
+        if (isSetLocationString()) {
+            copy.setLocationString((StringOrRef) copyBuilder.copy(locationString));
+            if (copy.getLocationString() == locationString)
+                locationString.setParent(this);
+        }
+
+        if (isSetNull()) {
+            copy.setNull((Null) copyBuilder.copy(_null));
+            if (copy.getNull() == _null)
+                _null.setParent(this);
+        }
+
+        return copy;
+    }
 
 }

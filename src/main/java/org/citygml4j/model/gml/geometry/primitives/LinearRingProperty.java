@@ -23,46 +23,46 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.InlineGeometryProperty;
 
 public class LinearRingProperty extends InlineGeometryProperty<LinearRing> {
-	
-	public LinearRingProperty() {
 
-	}
+    public LinearRingProperty() {
 
-	public LinearRingProperty(LinearRing linearRing) {
-		super(linearRing);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.LINEAR_RING_PROPERTY;
-	}
+    }
 
-	public LinearRing getLinearRing() {
-		return super.getGeometry();
-	}
+    public LinearRingProperty(LinearRing linearRing) {
+        super(linearRing);
+    }
 
-	public boolean isSetLinearRing() {
-		return super.isSetGeometry();
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.LINEAR_RING_PROPERTY;
+    }
 
-	public void setLinearRing(LinearRing linearRing) {
-		super.setGeometry(linearRing);
-	}
+    public LinearRing getLinearRing() {
+        return super.getGeometry();
+    }
 
-	public void unsetLinearRing() {
-		super.unsetGeometry();
-	}
+    public boolean isSetLinearRing() {
+        return super.isSetGeometry();
+    }
 
-	public Class<LinearRing> getAssociableClass() {
-		return LinearRing.class;
-	}
+    public void setLinearRing(LinearRing linearRing) {
+        super.setGeometry(linearRing);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		LinearRingProperty copy = (target == null) ? new LinearRingProperty() : (LinearRingProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetLinearRing() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new LinearRingProperty(), copyBuilder);
-	}
-	
+    public Class<LinearRing> getAssociableClass() {
+        return LinearRing.class;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        LinearRingProperty copy = (target == null) ? new LinearRingProperty() : (LinearRingProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new LinearRingProperty(), copyBuilder);
+    }
+
 }

@@ -20,22 +20,22 @@
 package org.citygml4j.xml.io.reader;
 
 public class UnmarshalException extends Exception {
-	private static final long serialVersionUID = -3716015045363231263L;
-	
-	public UnmarshalException() {
-		super();
-	}
-	
-	public UnmarshalException(String message) {
-		super(message);
-	}
-	
-	public UnmarshalException(Throwable cause) {
-		super(cause);
-	}
-	
-	public UnmarshalException(String message, Throwable cause) {
-		super(message, cause);
-	}
-	
+    private static final long serialVersionUID = -3716015045363231263L;
+
+    public UnmarshalException() {
+        super();
+    }
+
+    public UnmarshalException(String message) {
+        super(message);
+    }
+
+    public UnmarshalException(Throwable cause) {
+        super(cause);
+    }
+
+    public UnmarshalException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

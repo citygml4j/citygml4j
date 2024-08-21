@@ -24,74 +24,74 @@ import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class CityObjectGroupMember extends FeatureProperty<AbstractCityObject> implements CityObjectGroupModuleComponent {
-	private String groupRole;
+    private String groupRole;
 
-	public CityObjectGroupMember() {
-		
-	}
-	
-	public CityObjectGroupMember(AbstractCityObject abstractCityObject) {
-		super(abstractCityObject);
-	}
-	
-	public CityObjectGroupMember(String href) {
-		super(href);
-	}
-	
-	public AbstractCityObject getCityObject() {
-		return super.getObject();
-	}
+    public CityObjectGroupMember() {
 
-	public boolean isSetCityObject() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setCityObject(AbstractCityObject cityObject) {
-		super.setObject(cityObject);
-	}
+    public CityObjectGroupMember(AbstractCityObject abstractCityObject) {
+        super(abstractCityObject);
+    }
 
-	public void unsetCityObject() {
-		super.unsetObject();
-	}
+    public CityObjectGroupMember(String href) {
+        super(href);
+    }
 
-	public String getGroupRole() {
-		return groupRole;
-	}
+    public AbstractCityObject getCityObject() {
+        return super.getObject();
+    }
 
-	public boolean isSetGroupRole() {
-		return groupRole != null;
-	}
+    public boolean isSetCityObject() {
+        return super.isSetObject();
+    }
 
-	public void setGroupRole(String groupRole) {
-		this.groupRole = groupRole;
-	}
+    public void setCityObject(AbstractCityObject cityObject) {
+        super.setObject(cityObject);
+    }
 
-	public void unsetGroupRole() {
-		groupRole = null;
-	}
+    public void unsetCityObject() {
+        super.unsetObject();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITY_OBJECT_GROUP_MEMBER;
-	}
+    public String getGroupRole() {
+        return groupRole;
+    }
 
-	@Override
-	public Class<AbstractCityObject> getAssociableClass() {
-		return AbstractCityObject.class;
-	}
+    public boolean isSetGroupRole() {
+        return groupRole != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CityObjectGroupMember(), copyBuilder);
-	}
+    public void setGroupRole(String groupRole) {
+        this.groupRole = groupRole;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CityObjectGroupMember copy = (target == null) ? new CityObjectGroupMember() : (CityObjectGroupMember)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGroupRole())
-			copy.setGroupRole(copyBuilder.copy(groupRole));
-		
-		return copy;
-	}
+    public void unsetGroupRole() {
+        groupRole = null;
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.CITY_OBJECT_GROUP_MEMBER;
+    }
+
+    @Override
+    public Class<AbstractCityObject> getAssociableClass() {
+        return AbstractCityObject.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CityObjectGroupMember(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CityObjectGroupMember copy = (target == null) ? new CityObjectGroupMember() : (CityObjectGroupMember) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGroupRole())
+            copy.setGroupRole(copyBuilder.copy(groupRole));
+
+        return copy;
+    }
 
 }

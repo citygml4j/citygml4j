@@ -21,6 +21,7 @@ package org.citygml4j.model.module.gml;
 import org.citygml4j.model.module.Module;
 
 public interface GMLModule extends Module {
-	GMLModuleType getType();
-	GMLModuleVersion getVersion();
+    GMLModuleType getType();
+
+    GMLModuleVersion getVersion();
 }

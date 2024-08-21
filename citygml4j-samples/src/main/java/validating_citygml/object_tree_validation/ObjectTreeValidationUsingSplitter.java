@@ -38,68 +38,68 @@ import java.util.Date;
 
 public class ObjectTreeValidationUsingSplitter {
 
-	public static void main(String[] args) throws Exception {
-		/*
-		 * PLEASE NOTE, that you receive less errors if the in-memory objects
-		 * derived from the input document are validated than if the input document
-		 * itself is validated.
-		 * reason: citygml4j tries to reconstruct a valid object tree from the
-		 * input document. Generally, this means
-		 * 1) Invalid order of XML elements will be corrected automatically (see ADDRESS element)
-		 * 2) Invalid text values of XML elements cannot be automatically corrected
-		 *    and thus will be reported (see, e.g., gml:id of BUILDING element)
-		 * 3) Invalid XML child elements will be omitted in the object tree (see CLOSURESURFACE element)
-		 * 
-		 * Due to 3) you should always make sure to generate object trees from 
-		 * valid CityGML documents!
-		 */
-		
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        /*
+         * PLEASE NOTE, that you receive less errors if the in-memory objects
+         * derived from the input document are validated than if the input document
+         * itself is validated.
+         * reason: citygml4j tries to reconstruct a valid object tree from the
+         * input document. Generally, this means
+         * 1) Invalid order of XML elements will be corrected automatically (see ADDRESS element)
+         * 2) Invalid text values of XML elements cannot be automatically corrected
+         *    and thus will be reported (see, e.g., gml:id of BUILDING element)
+         * 3) Invalid XML child elements will be omitted in the object tree (see CLOSURESURFACE element)
+         *
+         * Due to 3) you should always make sure to generate object trees from
+         * valid CityGML documents!
+         */
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		
-		System.out.println(df.format(new Date()) + "parsing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");
-		SchemaHandler schemaHandler = SchemaHandler.newInstance();
-		schemaHandler.parseSchema(new File("datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
-		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.NO_SPLIT);
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
-		CityGML citygml = reader.nextFeature();		
-		reader.close();
-		
-		System.out.println(df.format(new Date()) + "creating citygml4j Validator");
-		Validator validator = builder.createValidator(schemaHandler);		
-		validator.setValidationEventHandler(event -> {
+        System.out.println(df.format(new Date()) + "parsing ADE schema file CityGML-SubsurfaceADE-0_9_0.xsd");
+        SchemaHandler schemaHandler = SchemaHandler.newInstance();
+        schemaHandler.parseSchema(new File("datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
+
+        System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
+        in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.NO_SPLIT);
+
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
+        CityGML citygml = reader.nextFeature();
+        reader.close();
+
+        System.out.println(df.format(new Date()) + "creating citygml4j Validator");
+        Validator validator = builder.createValidator(schemaHandler);
+        validator.setValidationEventHandler(event -> {
             System.out.println("\t" + event.getMessage());
             return true;
         });
-		
-		System.out.println(df.format(new Date()) + "creating citygml4j FeatureSplitter and splitting document into single features");
-		FeatureSplitter splitter = new FeatureSplitter()
-				.setSchemaHandler(schemaHandler)
-				.setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE)
-				.splitCopy(true);
-		
-		System.out.println(df.format(new Date()) + "iterating over splitting result and validating features against CityGML 1.0.0");
-		for (CityGML feature : splitter.split(citygml)) {
-			
-			String type;
-			if (feature instanceof ADEGenericElement){
-				Element element = ((ADEGenericElement)feature).getContent();
-				type = element.getPrefix() + ':' + element.getLocalName();
-			} else
-				type = feature.getCityGMLClass().toString();
-			
-			System.out.println("Validating " + type);
-			validator.validate(feature, CityGMLVersion.v1_0_0);
-		}
-		
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
-	
+
+        System.out.println(df.format(new Date()) + "creating citygml4j FeatureSplitter and splitting document into single features");
+        FeatureSplitter splitter = new FeatureSplitter()
+                .setSchemaHandler(schemaHandler)
+                .setSplitMode(FeatureSplitMode.SPLIT_PER_FEATURE)
+                .splitCopy(true);
+
+        System.out.println(df.format(new Date()) + "iterating over splitting result and validating features against CityGML 1.0.0");
+        for (CityGML feature : splitter.split(citygml)) {
+
+            String type;
+            if (feature instanceof ADEGenericElement) {
+                Element element = ((ADEGenericElement) feature).getContent();
+                type = element.getPrefix() + ':' + element.getLocalName();
+            } else
+                type = feature.getCityGMLClass().toString();
+
+            System.out.println("Validating " + type);
+            validator.validate(feature, CityGMLVersion.v1_0_0);
+        }
+
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
+
 }

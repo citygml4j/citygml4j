@@ -35,39 +35,39 @@ import java.util.Date;
 
 public class ObjectTreeValidation {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		
-		// creating example (and simple) CityGML object tree
-		System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
-		Building building = new Building();
-		
-		// set invalid gml:id
-		building.setId("1st-Building");
-		
-		// set empty and thus invalid generic attribute set
-		building.addGenericAttribute(new GenericAttributeSet());
-		
-		CityModel cityModel = new CityModel();
-		cityModel.addCityObjectMember(new CityObjectMember(building));
-		
-		System.out.println(df.format(new Date()) + "creating citygml4j Validator and validating city model against CityGML 2.0.0");
-		SchemaHandler schemaHandler = SchemaHandler.newInstance();
-		Validator validator = builder.createValidator(schemaHandler);
-		
-		validator.setValidationEventHandler(new ValidationEventHandler() {			
-			public boolean handleEvent(ValidationEvent event) {
-				System.out.println(event.getMessage());
-				return true;
-			}
-		});		
-		
-		validator.validate(cityModel, CityGMLVersion.v2_0_0);
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
+
+        // creating example (and simple) CityGML object tree
+        System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
+        Building building = new Building();
+
+        // set invalid gml:id
+        building.setId("1st-Building");
+
+        // set empty and thus invalid generic attribute set
+        building.addGenericAttribute(new GenericAttributeSet());
+
+        CityModel cityModel = new CityModel();
+        cityModel.addCityObjectMember(new CityObjectMember(building));
+
+        System.out.println(df.format(new Date()) + "creating citygml4j Validator and validating city model against CityGML 2.0.0");
+        SchemaHandler schemaHandler = SchemaHandler.newInstance();
+        Validator validator = builder.createValidator(schemaHandler);
+
+        validator.setValidationEventHandler(new ValidationEventHandler() {
+            public boolean handleEvent(ValidationEvent event) {
+                System.out.println(event.getMessage());
+                return true;
+            }
+        });
+
+        validator.validate(cityModel, CityGMLVersion.v2_0_0);
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

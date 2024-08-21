@@ -44,83 +44,83 @@ import java.util.Date;
 
 public class UnmarshallingADE {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and JAXB builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.gml");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();		
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
-		CityModel cityModel = (CityModel)reader.nextFeature();
-		reader.close();
+        System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_v100.gml");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_SubsurfaceStructureADE_v100.gml"));
+        CityModel cityModel = (CityModel) reader.nextFeature();
+        reader.close();
 
-		System.out.println(df.format(new Date()) + "unmarshalling geometries of ADE features to citygml4j objects");
-		SchemaHandler schemaHandler = in.getSchemaHandler();
-		final JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller(schemaHandler);
-		final JAXBMarshaller marshaller = builder.createJAXBMarshaller();
+        System.out.println(df.format(new Date()) + "unmarshalling geometries of ADE features to citygml4j objects");
+        SchemaHandler schemaHandler = in.getSchemaHandler();
+        final JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller(schemaHandler);
+        final JAXBMarshaller marshaller = builder.createJAXBMarshaller();
 
-		GMLWalker walker = new GMLWalker() {
+        GMLWalker walker = new GMLWalker() {
 
-			@Override
-			public void visit(Element element, ElementDecl decl) {
+            @Override
+            public void visit(Element element, ElementDecl decl) {
 
-				if (decl.isGeometry()) {
-					System.out.print("  Processing geometry: ");
+                if (decl.isGeometry()) {
+                    System.out.print("  Processing geometry: ");
 
-					try {
-						AbstractGeometry geometry = (AbstractGeometry)unmarshaller.unmarshal(element);
-						if (geometry != null) {
-							System.out.println(geometry.getGMLClass());
+                    try {
+                        AbstractGeometry geometry = (AbstractGeometry) unmarshaller.unmarshal(element);
+                        if (geometry != null) {
+                            System.out.println(geometry.getGMLClass());
 
-							StringOrRef description = new StringOrRef();
-							description.setValue("processed by citygml4j");
-							geometry.setDescription(description);
+                            StringOrRef description = new StringOrRef();
+                            description.setValue("processed by citygml4j");
+                            geometry.setDescription(description);
 
-							Element processed = marshaller.marshalDOMElement(geometry, element.getOwnerDocument()); 
-							element.getParentNode().replaceChild(processed, element);
-						}
-					} catch (MissingADESchemaException e) {
-						//
-					}
+                            Element processed = marshaller.marshalDOMElement(geometry, element.getOwnerDocument());
+                            element.getParentNode().replaceChild(processed, element);
+                        }
+                    } catch (MissingADESchemaException e) {
+                        //
+                    }
 
-				} else {
-					if (decl.isFeature())
-						System.out.println("ADE feature: " + element.getLocalName());
+                } else {
+                    if (decl.isFeature())
+                        System.out.println("ADE feature: " + element.getLocalName());
 
-					super.visit(element, decl);
-				}
-			}
+                    super.visit(element, decl);
+                }
+            }
 
-		};
-		
-		walker.setSchemaHandler(schemaHandler);
-		cityModel.accept(walker);
+        };
 
-		System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
-		out.setSchemaHandler(schemaHandler);
+        walker.setSchemaHandler(schemaHandler);
+        cityModel.accept(walker);
 
-		CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_SubsurfaceStructureADE_processed_v100.gml"));
-		writer.setPrefixes(CityGMLVersion.v1_0_0);
-		writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
-		writer.setDefaultNamespace(CoreModule.v1_0_0);
-		writer.setSchemaLocation("http://citygml.org/ade/sub/0.9.0", "../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
-		writer.setIndentString("  ");
+        System.out.println(df.format(new Date()) + "writing processed citygml4j object tree");
+        CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v1_0_0);
+        out.setSchemaHandler(schemaHandler);
 
-		writer.writeStartDocument();
+        CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_SubsurfaceStructureADE_processed_v100.gml"));
+        writer.setPrefixes(CityGMLVersion.v1_0_0);
+        writer.setPrefix("sub", "http://www.citygml.org/ade/sub/0.9.0");
+        writer.setDefaultNamespace(CoreModule.v1_0_0);
+        writer.setSchemaLocation("http://citygml.org/ade/sub/0.9.0", "../datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd");
+        writer.setIndentString("  ");
 
-		for (CityObjectMember member : cityModel.getCityObjectMember())
-			if (member.isSetGenericADEElement())
-				writer.writeFeatureMember(member.getGenericADEElement());
+        writer.writeStartDocument();
 
-		writer.writeEndDocument();		
-		writer.close();
+        for (CityObjectMember member : cityModel.getCityObjectMember())
+            if (member.isSetGenericADEElement())
+                writer.writeFeatureMember(member.getGenericADEElement());
 
-		System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_processed_v100.xml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        writer.writeEndDocument();
+        writer.close();
+
+        System.out.println(df.format(new Date()) + "ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_processed_v100.xml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

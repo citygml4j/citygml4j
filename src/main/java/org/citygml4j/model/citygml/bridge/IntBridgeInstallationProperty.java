@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class IntBridgeInstallationProperty extends FeatureProperty<IntBridgeInstallation> implements BridgeModuleComponent {
 
-	public IntBridgeInstallationProperty() {
-		
-	}
-	
-	public IntBridgeInstallationProperty(IntBridgeInstallation intBridgeInstallation) {
-		super(intBridgeInstallation);
-	}
-	
-	public IntBridgeInstallationProperty(String href) {
-		super(href);
-	}
-	
-	public IntBridgeInstallation getIntBridgeInstallation() {
-		return super.getObject();
-	}
+    public IntBridgeInstallationProperty() {
 
-	public boolean isSetIntBridgeInstallation() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setIntBridgeInstallation(IntBridgeInstallation intBridgeInstallation) {
-		super.setObject(intBridgeInstallation);
-	}
+    public IntBridgeInstallationProperty(IntBridgeInstallation intBridgeInstallation) {
+        super(intBridgeInstallation);
+    }
 
-	public void unsetIntBridgeInstallation() {
-		super.unsetObject();
-	}
+    public IntBridgeInstallationProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INT_BRIDGE_INSTALLATION_PROPERTY;
-	}
+    public IntBridgeInstallation getIntBridgeInstallation() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<IntBridgeInstallation> getAssociableClass() {
-		return IntBridgeInstallation.class;
-	}
+    public boolean isSetIntBridgeInstallation() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new IntBridgeInstallationProperty(), copyBuilder);
-	}
+    public void setIntBridgeInstallation(IntBridgeInstallation intBridgeInstallation) {
+        super.setObject(intBridgeInstallation);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		IntBridgeInstallationProperty copy = (target == null) ? new IntBridgeInstallationProperty() : (IntBridgeInstallationProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetIntBridgeInstallation() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INT_BRIDGE_INSTALLATION_PROPERTY;
+    }
+
+    @Override
+    public Class<IntBridgeInstallation> getAssociableClass() {
+        return IntBridgeInstallation.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new IntBridgeInstallationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        IntBridgeInstallationProperty copy = (target == null) ? new IntBridgeInstallationProperty() : (IntBridgeInstallationProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

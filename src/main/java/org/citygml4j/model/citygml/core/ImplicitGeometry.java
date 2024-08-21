@@ -36,177 +36,177 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class ImplicitGeometry extends AbstractGML implements CoreModuleComponent {
-	private Code mimeType;
-	private TransformationMatrix4x4 transformationMatrix;
-	private String libraryObject;
-	private GeometryProperty<? extends AbstractGeometry> relativeGeometry;
-	private PointProperty referencePoint;
+    private Code mimeType;
+    private TransformationMatrix4x4 transformationMatrix;
+    private String libraryObject;
+    private GeometryProperty<? extends AbstractGeometry> relativeGeometry;
+    private PointProperty referencePoint;
 
-	public String getLibraryObject() {
-		return libraryObject;
-	}
+    public String getLibraryObject() {
+        return libraryObject;
+    }
 
-	public Code getMimeType() {
-		return mimeType;
-	}
+    public Code getMimeType() {
+        return mimeType;
+    }
 
-	public PointProperty getReferencePoint() {
-		return referencePoint;
-	}
+    public PointProperty getReferencePoint() {
+        return referencePoint;
+    }
 
-	public GeometryProperty<? extends AbstractGeometry> getRelativeGMLGeometry() {
-		return relativeGeometry;
-	}
+    public GeometryProperty<? extends AbstractGeometry> getRelativeGMLGeometry() {
+        return relativeGeometry;
+    }
 
-	public TransformationMatrix4x4 getTransformationMatrix() {
-		return transformationMatrix;
-	}
+    public TransformationMatrix4x4 getTransformationMatrix() {
+        return transformationMatrix;
+    }
 
-	public boolean isSetLibraryObject() {
-		return libraryObject != null;
-	}
+    public boolean isSetLibraryObject() {
+        return libraryObject != null;
+    }
 
-	public boolean isSetMimeType() {
-		return mimeType != null;
-	}
+    public boolean isSetMimeType() {
+        return mimeType != null;
+    }
 
-	public boolean isSetReferencePoint() {
-		return referencePoint != null;
-	}
+    public boolean isSetReferencePoint() {
+        return referencePoint != null;
+    }
 
-	public boolean isSetRelativeGMLGeometry() {
-		return relativeGeometry != null;
-	}
+    public boolean isSetRelativeGMLGeometry() {
+        return relativeGeometry != null;
+    }
 
-	public boolean isSetTransformationMatrix() {
-		return transformationMatrix != null;
-	}
+    public boolean isSetTransformationMatrix() {
+        return transformationMatrix != null;
+    }
 
-	public void setLibraryObject(String libraryObject) {
-		this.libraryObject = libraryObject;
-	}
+    public void setLibraryObject(String libraryObject) {
+        this.libraryObject = libraryObject;
+    }
 
-	public void setMimeType(Code mimeType) {
-		this.mimeType = ModelObjects.setParent(mimeType, this);
-	}
+    public void setMimeType(Code mimeType) {
+        this.mimeType = ModelObjects.setParent(mimeType, this);
+    }
 
-	public void setReferencePoint(PointProperty referencePoint) {
-		this.referencePoint = ModelObjects.setParent(referencePoint, this);
-	}
+    public void setReferencePoint(PointProperty referencePoint) {
+        this.referencePoint = ModelObjects.setParent(referencePoint, this);
+    }
 
-	public void setRelativeGeometry(GeometryProperty<? extends AbstractGeometry> relativeGeometry) {
-		this.relativeGeometry = ModelObjects.setParent(relativeGeometry, this);
-	}
+    public void setRelativeGeometry(GeometryProperty<? extends AbstractGeometry> relativeGeometry) {
+        this.relativeGeometry = ModelObjects.setParent(relativeGeometry, this);
+    }
 
-	public void setTransformationMatrix(TransformationMatrix4x4 transformationMatrix) {
-		this.transformationMatrix = ModelObjects.setParent(transformationMatrix, this);
-	}
+    public void setTransformationMatrix(TransformationMatrix4x4 transformationMatrix) {
+        this.transformationMatrix = ModelObjects.setParent(transformationMatrix, this);
+    }
 
-	public void unsetLibraryObject() {
-		libraryObject = null;
-	}
+    public void unsetLibraryObject() {
+        libraryObject = null;
+    }
 
-	public void unsetMimeType() {
-		mimeType = ModelObjects.setNull(mimeType);
-	}
+    public void unsetMimeType() {
+        mimeType = ModelObjects.setNull(mimeType);
+    }
 
-	public void unsetReferencePoint() {
-		referencePoint = ModelObjects.setNull(referencePoint);
-	}
+    public void unsetReferencePoint() {
+        referencePoint = ModelObjects.setNull(referencePoint);
+    }
 
-	public void unsetRelativeGMLGeometry() {
-		relativeGeometry = ModelObjects.setNull(relativeGeometry);
-	}
+    public void unsetRelativeGMLGeometry() {
+        relativeGeometry = ModelObjects.setNull(relativeGeometry);
+    }
 
-	public void unsetTransformationMatrix() {
-		transformationMatrix = ModelObjects.setNull(transformationMatrix);
-	}
+    public void unsetTransformationMatrix() {
+        transformationMatrix = ModelObjects.setNull(transformationMatrix);
+    }
 
-	public BoundingBox calcBoundingBox(BoundingBoxOptions options) {
-		if (relativeGeometry == null
-				|| !relativeGeometry.isSetGeometry()
-				|| options.isUseReferencePointForImplicitGeometries()) {
-			if (referencePoint != null && referencePoint.isSetPoint()) {
-				List<Double> coord = referencePoint.getPoint().toList3d();
+    public BoundingBox calcBoundingBox(BoundingBoxOptions options) {
+        if (relativeGeometry == null
+                || !relativeGeometry.isSetGeometry()
+                || options.isUseReferencePointForImplicitGeometries()) {
+            if (referencePoint != null && referencePoint.isSetPoint()) {
+                List<Double> coord = referencePoint.getPoint().toList3d();
 
-				if (transformationMatrix != null) {
-					Matrix m = transformationMatrix.getMatrix();
-					coord.set(0, coord.get(0) + m.get(0, 3));
-					coord.set(1, coord.get(1) + m.get(1, 3));
-					coord.set(2, coord.get(2) + m.get(2, 3));
-				}
+                if (transformationMatrix != null) {
+                    Matrix m = transformationMatrix.getMatrix();
+                    coord.set(0, coord.get(0) + m.get(0, 3));
+                    coord.set(1, coord.get(1) + m.get(1, 3));
+                    coord.set(2, coord.get(2) + m.get(2, 3));
+                }
 
-				return new BoundingBox(
-						new Point(coord.get(0), coord.get(1), coord.get(2)),
-						new Point(coord.get(0), coord.get(1), coord.get(2)));
-			}
-		} else {
-			BoundingBox bbox = relativeGeometry.getGeometry().calcBoundingBox();
-			if (bbox != null) {
-				if (transformationMatrix != null && 
-						referencePoint != null &&
-						referencePoint.isSetPoint()) {
-					Matrix m = transformationMatrix.getMatrix().copy();
-					List<Double> point = referencePoint.getPoint().toList3d();								
-					m.set(0, 3, m.get(0, 3) + point.get(0));
-					m.set(1, 3, m.get(1, 3) + point.get(1));
-					m.set(2, 3, m.get(2, 3) + point.get(2));
-					bbox.transform3d(m);
-				}
+                return new BoundingBox(
+                        new Point(coord.get(0), coord.get(1), coord.get(2)),
+                        new Point(coord.get(0), coord.get(1), coord.get(2)));
+            }
+        } else {
+            BoundingBox bbox = relativeGeometry.getGeometry().calcBoundingBox();
+            if (bbox != null) {
+                if (transformationMatrix != null &&
+                        referencePoint != null &&
+                        referencePoint.isSetPoint()) {
+                    Matrix m = transformationMatrix.getMatrix().copy();
+                    List<Double> point = referencePoint.getPoint().toList3d();
+                    m.set(0, 3, m.get(0, 3) + point.get(0));
+                    m.set(1, 3, m.get(1, 3) + point.get(1));
+                    m.set(2, 3, m.get(2, 3) + point.get(2));
+                    bbox.transform3d(m);
+                }
 
-				return bbox;
-			}
-		}
+                return bbox;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.IMPLICIT_GEOMETRY;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.IMPLICIT_GEOMETRY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ImplicitGeometry(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ImplicitGeometry(), copyBuilder);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ImplicitGeometry copy = (target == null) ? new ImplicitGeometry() : (ImplicitGeometry)target;
-		super.copyTo(copy, copyBuilder);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ImplicitGeometry copy = (target == null) ? new ImplicitGeometry() : (ImplicitGeometry) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetLibraryObject())
-			copy.setLibraryObject(copyBuilder.copy(libraryObject));
+        if (isSetLibraryObject())
+            copy.setLibraryObject(copyBuilder.copy(libraryObject));
 
-		if (isSetMimeType())
-			copy.setMimeType((Code)copyBuilder.copy(mimeType));
+        if (isSetMimeType())
+            copy.setMimeType((Code) copyBuilder.copy(mimeType));
 
-		if (isSetReferencePoint()) {
-			copy.setReferencePoint((PointProperty)copyBuilder.copy(referencePoint));
-			if (copy.getReferencePoint() == referencePoint)
-				referencePoint.setParent(this);
-		}
+        if (isSetReferencePoint()) {
+            copy.setReferencePoint((PointProperty) copyBuilder.copy(referencePoint));
+            if (copy.getReferencePoint() == referencePoint)
+                referencePoint.setParent(this);
+        }
 
-		if (isSetRelativeGMLGeometry()) {
-			copy.setRelativeGeometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(relativeGeometry));
-			if (copy.getRelativeGMLGeometry() == relativeGeometry)
-				relativeGeometry.setParent(this);
-		}
+        if (isSetRelativeGMLGeometry()) {
+            copy.setRelativeGeometry((GeometryProperty<? extends AbstractGeometry>) copyBuilder.copy(relativeGeometry));
+            if (copy.getRelativeGMLGeometry() == relativeGeometry)
+                relativeGeometry.setParent(this);
+        }
 
-		if (isSetTransformationMatrix()) {
-			copy.setTransformationMatrix((TransformationMatrix4x4)copyBuilder.copy(transformationMatrix));
-			if (copy.getTransformationMatrix() == transformationMatrix)
-				transformationMatrix.setParent(this);
-		}
+        if (isSetTransformationMatrix()) {
+            copy.setTransformationMatrix((TransformationMatrix4x4) copyBuilder.copy(transformationMatrix));
+            if (copy.getTransformationMatrix() == transformationMatrix)
+                transformationMatrix.setParent(this);
+        }
 
-		return copy;
-	}
+        return copy;
+    }
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

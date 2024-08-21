@@ -26,11 +26,17 @@ import org.xml.sax.SAXException;
 import javax.xml.namespace.QName;
 
 public interface XMLChunk {
-	public CityGML unmarshal() throws UnmarshalException, MissingADESchemaException;
-	public QName getTypeName();
-	public CityGMLClass getCityGMLClass();
-	public boolean isSetParentInfo();
-	public ParentInfo getParentInfo();
-	public boolean hasPassedXMLValidation();
-	public void send(ContentHandler handler, boolean release) throws SAXException;
+    public CityGML unmarshal() throws UnmarshalException, MissingADESchemaException;
+
+    public QName getTypeName();
+
+    public CityGMLClass getCityGMLClass();
+
+    public boolean isSetParentInfo();
+
+    public ParentInfo getParentInfo();
+
+    public boolean hasPassedXMLValidation();
+
+    public void send(ContentHandler handler, boolean release) throws SAXException;
 }

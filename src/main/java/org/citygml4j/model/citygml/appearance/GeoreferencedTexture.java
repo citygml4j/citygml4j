@@ -35,181 +35,181 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeoreferencedTexture extends AbstractTexture {
-	private Boolean preferWorldFile;
-	private PointProperty referencePoint;
-	private TransformationMatrix2x2 orientation;
-	private List<String> target;
-	private List<ADEComponent> ade;
+    private Boolean preferWorldFile;
+    private PointProperty referencePoint;
+    private TransformationMatrix2x2 orientation;
+    private List<String> target;
+    private List<ADEComponent> ade;
 
-	public GeoreferencedTexture() {
-		
-	}
-	
-	public GeoreferencedTexture(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade) {
-		getGenericApplicationPropertyOfGeoreferencedTexture().add(ade);
-	}
+    public GeoreferencedTexture() {
 
-	public void addTarget(String target) {
-		getTarget().add(target);
-	}
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfGeoreferencedTexture() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public GeoreferencedTexture(Module module) {
+        super(module);
+    }
 
-		return ade;
-	}
+    public void addGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade) {
+        getGenericApplicationPropertyOfGeoreferencedTexture().add(ade);
+    }
 
-	public TransformationMatrix2x2 getOrientation() {
-		return orientation;
-	}
+    public void addTarget(String target) {
+        getTarget().add(target);
+    }
 
-	public Boolean getPreferWorldFile() {
-		return !isSetPreferWorldFile() ? true : preferWorldFile;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfGeoreferencedTexture() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public PointProperty getReferencePoint() {
-		return referencePoint;
-	}
+        return ade;
+    }
 
-	public List<String> getTarget() {
-		if (target == null)
-			target = new ArrayList<>();
+    public TransformationMatrix2x2 getOrientation() {
+        return orientation;
+    }
 
-		return target;
-	}
+    public Boolean getPreferWorldFile() {
+        return !isSetPreferWorldFile() ? true : preferWorldFile;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfGeoreferencedTexture() {
-		return ade != null && !ade.isEmpty();
-	}
+    public PointProperty getReferencePoint() {
+        return referencePoint;
+    }
 
-	public boolean isSetOrientation() {
-		return orientation != null;
-	}
+    public List<String> getTarget() {
+        if (target == null)
+            target = new ArrayList<>();
 
-	public boolean isSetPreferWorldFile() {
-		return preferWorldFile != null;
-	}
+        return target;
+    }
 
-	public boolean isSetReferencePoint() {
-		return referencePoint != null;
-	}
+    public boolean isSetGenericApplicationPropertyOfGeoreferencedTexture() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean isSetTarget() {
-		return target != null && !target.isEmpty();
-	}
+    public boolean isSetOrientation() {
+        return orientation != null;
+    }
 
-	public void setGenericApplicationPropertyOfGeoreferencedTexture(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetPreferWorldFile() {
+        return preferWorldFile != null;
+    }
 
-	public void setOrientation(TransformationMatrix2x2 orientation) {
-		this.orientation = ModelObjects.setParent(orientation, this);
-	}
+    public boolean isSetReferencePoint() {
+        return referencePoint != null;
+    }
 
-	public void setPreferWorldFile(Boolean preferWorldFile) {
-		this.preferWorldFile = preferWorldFile;
-	}
+    public boolean isSetTarget() {
+        return target != null && !target.isEmpty();
+    }
 
-	public void setReferencePoint(PointProperty referencePoint) {
-		this.referencePoint = ModelObjects.setParent(referencePoint, this);
-	}
+    public void setGenericApplicationPropertyOfGeoreferencedTexture(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void setTarget(List<String> target) {
-		this.target = target;
-	}
+    public void setOrientation(TransformationMatrix2x2 orientation) {
+        this.orientation = ModelObjects.setParent(orientation, this);
+    }
 
-	public void unsetGenericApplicationPropertyOfGeoreferencedTexture() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setPreferWorldFile(Boolean preferWorldFile) {
+        this.preferWorldFile = preferWorldFile;
+    }
 
-	public boolean unsetGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfGeoreferencedTexture() && this.ade.remove(ade);
-	}
+    public void setReferencePoint(PointProperty referencePoint) {
+        this.referencePoint = ModelObjects.setParent(referencePoint, this);
+    }
 
-	public void unsetOrientation() {
-		orientation = ModelObjects.setNull(orientation);
-	}
+    public void setTarget(List<String> target) {
+        this.target = target;
+    }
 
-	public void unsetPreferWorldFile() {
-		preferWorldFile = null;
-	}
+    public void unsetGenericApplicationPropertyOfGeoreferencedTexture() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public void unsetReferencePoint() {
-		referencePoint = ModelObjects.setNull(referencePoint);
-	}
+    public boolean unsetGenericApplicationPropertyOfGeoreferencedTexture(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfGeoreferencedTexture() && this.ade.remove(ade);
+    }
 
-	public void unsetTarget() {
-		target = null;
-	}
+    public void unsetOrientation() {
+        orientation = ModelObjects.setNull(orientation);
+    }
 
-	public boolean unsetTarget(String target) {
-		return isSetTarget() && this.target.remove(target);
-	}
+    public void unsetPreferWorldFile() {
+        preferWorldFile = null;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GEOREFERENCED_TEXTURE;
-	}
+    public void unsetReferencePoint() {
+        referencePoint = ModelObjects.setNull(referencePoint);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GeoreferencedTexture(), copyBuilder);
-	}
+    public void unsetTarget() {
+        target = null;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GeoreferencedTexture copy = (target == null) ? new GeoreferencedTexture() : (GeoreferencedTexture)target;
-		super.copyTo(copy, copyBuilder);
+    public boolean unsetTarget(String target) {
+        return isSetTarget() && this.target.remove(target);
+    }
 
-		if (isSetPreferWorldFile())
-			copy.setPreferWorldFile(copyBuilder.copy(preferWorldFile));
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.GEOREFERENCED_TEXTURE;
+    }
 
-		if (isSetReferencePoint()) {
-			copy.setReferencePoint((PointProperty)copyBuilder.copy(referencePoint));
-			if (copy.getReferencePoint() == referencePoint)
-				referencePoint.setParent(this);
-		}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GeoreferencedTexture(), copyBuilder);
+    }
 
-		if (isSetOrientation()) {
-			copy.setOrientation((TransformationMatrix2x2)copyBuilder.copy(orientation));
-			if (copy.getOrientation() == orientation)
-				orientation.setParent(this);
-		}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GeoreferencedTexture copy = (target == null) ? new GeoreferencedTexture() : (GeoreferencedTexture) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetTarget())
-			copy.setTarget((List<String>)copyBuilder.copy(this.target));
+        if (isSetPreferWorldFile())
+            copy.setPreferWorldFile(copyBuilder.copy(preferWorldFile));
 
-		if (isSetGenericApplicationPropertyOfGeoreferencedTexture()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfGeoreferencedTexture(copyPart);
+        if (isSetReferencePoint()) {
+            copy.setReferencePoint((PointProperty) copyBuilder.copy(referencePoint));
+            if (copy.getReferencePoint() == referencePoint)
+                referencePoint.setParent(this);
+        }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (isSetOrientation()) {
+            copy.setOrientation((TransformationMatrix2x2) copyBuilder.copy(orientation));
+            if (copy.getOrientation() == orientation)
+                orientation.setParent(this);
+        }
 
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetTarget())
+            copy.setTarget((List<String>) copyBuilder.copy(this.target));
+
+        if (isSetGenericApplicationPropertyOfGeoreferencedTexture()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfGeoreferencedTexture(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

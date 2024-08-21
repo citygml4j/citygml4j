@@ -41,157 +41,157 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class JAXBMarshaller {
-	private final CityGMLMarshaller citygml;
-	private final GMLMarshaller gml;
-	private final XALMarshaller xal;
-	private final ADEMarshaller ade;
-	private final CityGMLBuilder builder;
-	private final DatatypeFactory dataTypeFactory;
+    private final CityGMLMarshaller citygml;
+    private final GMLMarshaller gml;
+    private final XALMarshaller xal;
+    private final ADEMarshaller ade;
+    private final CityGMLBuilder builder;
+    private final DatatypeFactory dataTypeFactory;
 
-	private ModuleContext moduleContext;	
-	private Document document;
+    private ModuleContext moduleContext;
+    private Document document;
 
-	public JAXBMarshaller(CityGMLBuilder builder, ModuleContext moduleContext) {
-		this.builder = builder;
-		this.moduleContext = moduleContext;
+    public JAXBMarshaller(CityGMLBuilder builder, ModuleContext moduleContext) {
+        this.builder = builder;
+        this.moduleContext = moduleContext;
 
-		citygml = new CityGMLMarshaller(this);
-		gml = new GMLMarshaller(this);
-		xal = new XALMarshaller();
-		ade = new ADEMarshaller(this);
-		
-		try {
-			dataTypeFactory = DatatypeFactory.newInstance();
-		} catch (DatatypeConfigurationException e) {
-			throw new RuntimeException("Failed to create DatatypeFactory.", e);
-		}
-	}
+        citygml = new CityGMLMarshaller(this);
+        gml = new GMLMarshaller(this);
+        xal = new XALMarshaller();
+        ade = new ADEMarshaller(this);
 
-	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		JAXBElement<?> dest = null;
-		if (src instanceof ADEModelObject)
-			dest = ade.marshalJAXBElement((ADEModelObject)src);
-		else {
-			dest = citygml.marshalJAXBElement(src);		
-			if (dest == null)
-				dest = gml.marshalJAXBElement(src);
-			if (dest == null)
-				dest = xal.marshalJAXBElement(src);
-		}
+        try {
+            dataTypeFactory = DatatypeFactory.newInstance();
+        } catch (DatatypeConfigurationException e) {
+            throw new RuntimeException("Failed to create DatatypeFactory.", e);
+        }
+    }
 
-		return dest;
-	}
+    public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+        JAXBElement<?> dest = null;
+        if (src instanceof ADEModelObject)
+            dest = ade.marshalJAXBElement((ADEModelObject) src);
+        else {
+            dest = citygml.marshalJAXBElement(src);
+            if (dest == null)
+                dest = gml.marshalJAXBElement(src);
+            if (dest == null)
+                dest = xal.marshalJAXBElement(src);
+        }
 
-	public Element marshalDOMElement(ModelObject src) {
-		Element dest = null;
+        return dest;
+    }
 
-		try {
-			if (document == null) {			
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder docBuilder = factory.newDocumentBuilder();
-				document = docBuilder.newDocument();
-			}
-			
-			dest = marshalDOMElement(src, document);
-		} catch (ParserConfigurationException e) {
-			// 
-		}
+    public Element marshalDOMElement(ModelObject src) {
+        Element dest = null;
 
-		return dest;		
-	}
-	
-	public Element marshalDOMElement(ModelObject src, Document document) {
-		Element dest = null;
+        try {
+            if (document == null) {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = factory.newDocumentBuilder();
+                document = docBuilder.newDocument();
+            }
 
-		try {
-			Marshaller marshaller = builder.getJAXBContext().createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+            dest = marshalDOMElement(src, document);
+        } catch (ParserConfigurationException e) {
+            //
+        }
 
-			Element foo = document.createElement("foo");
-			JAXBElement<?> jaxbElement = (src instanceof JAXBElement<?>) ? (JAXBElement<?>)src : marshalJAXBElement(src);
-			if (jaxbElement != null)
-				marshaller.marshal(jaxbElement, foo);
+        return dest;
+    }
 
-			Node child = foo.getFirstChild();
-			if (child instanceof Element)
-				dest = (Element)child;			
-		} catch (JAXBException e) {
-			//
-		}
+    public Element marshalDOMElement(ModelObject src, Document document) {
+        Element dest = null;
 
-		return dest;
-	}
-	
-	public Element marshalDOMElement(JAXBElement<?> src, JAXBContext ctx) {
-		Element dest = null;
+        try {
+            Marshaller marshaller = builder.getJAXBContext().createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
-		try {
-			if (document == null) {			
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder docBuilder = factory.newDocumentBuilder();
-				document = docBuilder.newDocument();
-			}
-			
-			Marshaller marshaller = ctx.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+            Element foo = document.createElement("foo");
+            JAXBElement<?> jaxbElement = (src instanceof JAXBElement<?>) ? (JAXBElement<?>) src : marshalJAXBElement(src);
+            if (jaxbElement != null)
+                marshaller.marshal(jaxbElement, foo);
 
-			Element foo = document.createElement("foo");
-			marshaller.marshal(src, foo);
+            Node child = foo.getFirstChild();
+            if (child instanceof Element)
+                dest = (Element) child;
+        } catch (JAXBException e) {
+            //
+        }
 
-			Node child = foo.getFirstChild();
-			if (child instanceof Element)
-				dest = (Element)child;			
-		} catch (JAXBException | ParserConfigurationException e) {
-			//
-		}
+        return dest;
+    }
 
-		return dest;
-	}
-	
-	public Object marshal(ModelObject src) {
-		Object dest = null;
-		if (src instanceof ADEModelObject)
-			dest = ade.marshal((ADEModelObject)src);
-		else {
-			dest = citygml.marshal(src);		
-			if (dest == null)
-				dest = gml.marshal(src);
-			if (dest == null)
-				dest = xal.marshal(src);			
-		}
-		
-		return dest;
-	}
+    public Element marshalDOMElement(JAXBElement<?> src, JAXBContext ctx) {
+        Element dest = null;
 
-	public ModuleContext getModuleContext() {
-		return moduleContext;
-	}
+        try {
+            if (document == null) {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder docBuilder = factory.newDocumentBuilder();
+                document = docBuilder.newDocument();
+            }
 
-	public void setModuleContext(ModuleContext moduleContext) {
-		if (moduleContext == null)
-			throw new IllegalArgumentException("module context may not be null.");
+            Marshaller marshaller = ctx.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 
-		this.moduleContext = moduleContext;
-	}
+            Element foo = document.createElement("foo");
+            marshaller.marshal(src, foo);
 
-	public DatatypeFactory getDataTypeFactory() {
-		return dataTypeFactory;
-	}
+            Node child = foo.getFirstChild();
+            if (child instanceof Element)
+                dest = (Element) child;
+        } catch (JAXBException | ParserConfigurationException e) {
+            //
+        }
 
-	public CityGMLMarshaller getCityGMLMarshaller() {
-		return citygml;
-	}
+        return dest;
+    }
 
-	public GMLMarshaller getGMLMarshaller() {
-		return gml;
-	}
+    public Object marshal(ModelObject src) {
+        Object dest = null;
+        if (src instanceof ADEModelObject)
+            dest = ade.marshal((ADEModelObject) src);
+        else {
+            dest = citygml.marshal(src);
+            if (dest == null)
+                dest = gml.marshal(src);
+            if (dest == null)
+                dest = xal.marshal(src);
+        }
 
-	public XALMarshaller getXALMarshaller() {
-		return xal;
-	}
+        return dest;
+    }
 
-	public ADEMarshaller getADEMarshaller() {
-		return ade;
-	}
+    public ModuleContext getModuleContext() {
+        return moduleContext;
+    }
+
+    public void setModuleContext(ModuleContext moduleContext) {
+        if (moduleContext == null)
+            throw new IllegalArgumentException("module context may not be null.");
+
+        this.moduleContext = moduleContext;
+    }
+
+    public DatatypeFactory getDataTypeFactory() {
+        return dataTypeFactory;
+    }
+
+    public CityGMLMarshaller getCityGMLMarshaller() {
+        return citygml;
+    }
+
+    public GMLMarshaller getGMLMarshaller() {
+        return gml;
+    }
+
+    public XALMarshaller getXALMarshaller() {
+        return xal;
+    }
+
+    public ADEMarshaller getADEMarshaller() {
+        return ade;
+    }
 
 }

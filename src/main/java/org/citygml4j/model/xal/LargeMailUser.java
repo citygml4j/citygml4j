@@ -30,295 +30,295 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class LargeMailUser implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private List<LargeMailUserName> largeMailUserName;
-	private List<BuildingName> buildingName;
-	private LargeMailUserIdentifier largeMailUserIdentifier;
-	private Department department;
-	private PostBox postBox;
-	private Thoroughfare thoroughfare;
-	private PostalCode postalCode;
-	private String type;
-	private ModelObject parent;	
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private List<LargeMailUserName> largeMailUserName;
+    private List<BuildingName> buildingName;
+    private LargeMailUserIdentifier largeMailUserIdentifier;
+    private Department department;
+    private PostBox postBox;
+    private Thoroughfare thoroughfare;
+    private PostalCode postalCode;
+    private String type;
+    private ModelObject parent;
 
-	public void addBuildingName(BuildingName buildingName) {
-		getBuildingName().add(buildingName);
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-	public void addLargeMailUserName(LargeMailUserName largeMailUserName) {
-		getLargeMailUserName().add(largeMailUserName);
-	}
+    public void addBuildingName(BuildingName buildingName) {
+        getBuildingName().add(buildingName);
+    }
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addLargeMailUserName(LargeMailUserName largeMailUserName) {
+        getLargeMailUserName().add(largeMailUserName);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public List<BuildingName> getBuildingName() {
-		if (buildingName == null)
-			buildingName = new ChildList<>(this);
+        return addressLine;
+    }
 
-		return buildingName;
-	}
+    public List<BuildingName> getBuildingName() {
+        if (buildingName == null)
+            buildingName = new ChildList<>(this);
 
-	public Department getDepartment() {
-		return department;
-	}
+        return buildingName;
+    }
 
-	public LargeMailUserIdentifier getLargeMailUserIdentifier() {
-		return largeMailUserIdentifier;
-	}
+    public Department getDepartment() {
+        return department;
+    }
 
-	public List<LargeMailUserName> getLargeMailUserName() {
-		if (largeMailUserName == null)
-			largeMailUserName = new ChildList<>(this);
+    public LargeMailUserIdentifier getLargeMailUserIdentifier() {
+        return largeMailUserIdentifier;
+    }
 
-		return largeMailUserName;
-	}
+    public List<LargeMailUserName> getLargeMailUserName() {
+        if (largeMailUserName == null)
+            largeMailUserName = new ChildList<>(this);
 
-	public PostBox getPostBox() {
-		return postBox;
-	}
+        return largeMailUserName;
+    }
 
-	public PostalCode getPostalCode() {
-		return postalCode;
-	}
+    public PostBox getPostBox() {
+        return postBox;
+    }
 
-	public Thoroughfare getThoroughfare() {
-		return thoroughfare;
-	}
+    public PostalCode getPostalCode() {
+        return postalCode;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public Thoroughfare getThoroughfare() {
+        return thoroughfare;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetBuildingName() {
-		return buildingName != null && !buildingName.isEmpty();
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetDepartment() {
-		return department != null;
-	}
+    public boolean isSetBuildingName() {
+        return buildingName != null && !buildingName.isEmpty();
+    }
 
-	public boolean isSetLargeMailUserIdentifier() {
-		return largeMailUserIdentifier != null;
-	}
+    public boolean isSetDepartment() {
+        return department != null;
+    }
 
-	public boolean isSetLargeMailUserName() {
-		return largeMailUserName != null && !largeMailUserName.isEmpty();
-	}
+    public boolean isSetLargeMailUserIdentifier() {
+        return largeMailUserIdentifier != null;
+    }
 
-	public boolean isSetPostBox() {
-		return postBox != null;
-	}
+    public boolean isSetLargeMailUserName() {
+        return largeMailUserName != null && !largeMailUserName.isEmpty();
+    }
 
-	public boolean isSetPostalCode() {
-		return postalCode != null;
-	}
+    public boolean isSetPostBox() {
+        return postBox != null;
+    }
 
-	public boolean isSetThoroughfare() {
-		return thoroughfare != null;
-	}
+    public boolean isSetPostalCode() {
+        return postalCode != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetThoroughfare() {
+        return thoroughfare != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setBuildingName(List<BuildingName> buildingName) {
-		this.buildingName = new ChildList<>(this, buildingName);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setDepartment(Department department) {
-		this.department = ModelObjects.setParent(department, this);
-	}
+    public void setBuildingName(List<BuildingName> buildingName) {
+        this.buildingName = new ChildList<>(this, buildingName);
+    }
 
-	public void setLargeMailUserIdentifier(LargeMailUserIdentifier largeMailUserIdentifier) {
-		this.largeMailUserIdentifier = ModelObjects.setParent(largeMailUserIdentifier, this);
-	}
+    public void setDepartment(Department department) {
+        this.department = ModelObjects.setParent(department, this);
+    }
 
-	public void setLargeMailUserName(List<LargeMailUserName> largeMailUserName) {
-		this.largeMailUserName = new ChildList<>(this, largeMailUserName);
-	}
+    public void setLargeMailUserIdentifier(LargeMailUserIdentifier largeMailUserIdentifier) {
+        this.largeMailUserIdentifier = ModelObjects.setParent(largeMailUserIdentifier, this);
+    }
 
-	public void setPostBox(PostBox postBox) {
-		this.postBox = ModelObjects.setParent(postBox, this);
-	}
+    public void setLargeMailUserName(List<LargeMailUserName> largeMailUserName) {
+        this.largeMailUserName = new ChildList<>(this, largeMailUserName);
+    }
 
-	public void setPostalCode(PostalCode postalCode) {
-		this.postalCode = ModelObjects.setParent(postalCode, this);
-	}
+    public void setPostBox(PostBox postBox) {
+        this.postBox = ModelObjects.setParent(postBox, this);
+    }
 
-	public void setThoroughfare(Thoroughfare thoroughfare) {
-		this.thoroughfare = ModelObjects.setParent(thoroughfare, this);
-	}
+    public void setPostalCode(PostalCode postalCode) {
+        this.postalCode = ModelObjects.setParent(postalCode, this);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setThoroughfare(Thoroughfare thoroughfare) {
+        this.thoroughfare = ModelObjects.setParent(thoroughfare, this);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetBuildingName() {
-		buildingName = ModelObjects.setNull(buildingName);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public boolean unsetBuildingName(BuildingName buildingName) {
-		return isSetBuildingName() && this.buildingName.remove(buildingName);
-	}
+    public void unsetBuildingName() {
+        buildingName = ModelObjects.setNull(buildingName);
+    }
 
-	public void unsetDepartment() {
-		department = ModelObjects.setNull(department);
-	}
+    public boolean unsetBuildingName(BuildingName buildingName) {
+        return isSetBuildingName() && this.buildingName.remove(buildingName);
+    }
 
-	public void unsetLargeMailUserIdentifier() {
-		largeMailUserIdentifier = ModelObjects.setNull(largeMailUserIdentifier);
-	}
+    public void unsetDepartment() {
+        department = ModelObjects.setNull(department);
+    }
 
-	public void unsetLargeMailUserName() {
-		largeMailUserName = ModelObjects.setNull(largeMailUserName);
-	}
+    public void unsetLargeMailUserIdentifier() {
+        largeMailUserIdentifier = ModelObjects.setNull(largeMailUserIdentifier);
+    }
 
-	public boolean unsetLargeMailUserName(LargeMailUserName largeMailUserName) {
-		return isSetLargeMailUserName() && this.largeMailUserName.remove(largeMailUserName);
-	}
+    public void unsetLargeMailUserName() {
+        largeMailUserName = ModelObjects.setNull(largeMailUserName);
+    }
 
-	public void unsetPostBox() {
-		postBox = ModelObjects.setNull(postBox);
-	}
+    public boolean unsetLargeMailUserName(LargeMailUserName largeMailUserName) {
+        return isSetLargeMailUserName() && this.largeMailUserName.remove(largeMailUserName);
+    }
 
-	public void unsetPostalCode() {
-		postalCode = ModelObjects.setNull(postalCode);
-	}
+    public void unsetPostBox() {
+        postBox = ModelObjects.setNull(postBox);
+    }
 
-	public void unsetThoroughfare() {
-		thoroughfare = ModelObjects.setNull(thoroughfare);
-	}
+    public void unsetPostalCode() {
+        postalCode = ModelObjects.setNull(postalCode);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetThoroughfare() {
+        thoroughfare = ModelObjects.setNull(thoroughfare);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.LARGE_MAIL_USER;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.LARGE_MAIL_USER;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new LargeMailUser(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		LargeMailUser copy = (target == null) ? new LargeMailUser() : (LargeMailUser)target;
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new LargeMailUser(), copyBuilder);
+    }
 
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        LargeMailUser copy = (target == null) ? new LargeMailUser() : (LargeMailUser) target;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetBuildingName()) {
-			for (BuildingName part : buildingName) {
-				BuildingName copyPart = (BuildingName)copyBuilder.copy(part);
-				copy.addBuildingName(copyPart);
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetLargeMailUserName()) {
-			for (LargeMailUserName part : largeMailUserName) {
-				LargeMailUserName copyPart = (LargeMailUserName)copyBuilder.copy(part);
-				copy.addLargeMailUserName(copyPart);
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetLargeMailUserIdentifier()) {
-			copy.setLargeMailUserIdentifier((LargeMailUserIdentifier)copyBuilder.copy(largeMailUserIdentifier));
-			if (copy.getLargeMailUserIdentifier() == largeMailUserIdentifier)
-				largeMailUserIdentifier.setParent(this);
-		}
-		
-		if (isSetDepartment()) {
-			copy.setDepartment((Department)copyBuilder.copy(department));
-			if (copy.getDepartment() == department)
-				department.setParent(this);
-		}
-		
-		if (isSetPostBox()) {
-			copy.setPostBox((PostBox)copyBuilder.copy(postBox));
-			if (copy.getPostBox() == postBox)
-				postBox.setParent(this);
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		if (isSetThoroughfare()) {
-			copy.setThoroughfare((Thoroughfare)copyBuilder.copy(thoroughfare));
-			if (copy.getThoroughfare() == thoroughfare)
-				thoroughfare.setParent(this);
-		}
+        if (isSetBuildingName()) {
+            for (BuildingName part : buildingName) {
+                BuildingName copyPart = (BuildingName) copyBuilder.copy(part);
+                copy.addBuildingName(copyPart);
 
-		if (isSetPostalCode()) {
-			copy.setPostalCode((PostalCode)copyBuilder.copy(postalCode));
-			if (copy.getPostalCode() == postalCode)
-				postalCode.setParent(this);
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		copy.unsetParent();
+        if (isSetLargeMailUserName()) {
+            for (LargeMailUserName part : largeMailUserName) {
+                LargeMailUserName copyPart = (LargeMailUserName) copyBuilder.copy(part);
+                copy.addLargeMailUserName(copyPart);
 
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetLargeMailUserIdentifier()) {
+            copy.setLargeMailUserIdentifier((LargeMailUserIdentifier) copyBuilder.copy(largeMailUserIdentifier));
+            if (copy.getLargeMailUserIdentifier() == largeMailUserIdentifier)
+                largeMailUserIdentifier.setParent(this);
+        }
+
+        if (isSetDepartment()) {
+            copy.setDepartment((Department) copyBuilder.copy(department));
+            if (copy.getDepartment() == department)
+                department.setParent(this);
+        }
+
+        if (isSetPostBox()) {
+            copy.setPostBox((PostBox) copyBuilder.copy(postBox));
+            if (copy.getPostBox() == postBox)
+                postBox.setParent(this);
+        }
+
+        if (isSetThoroughfare()) {
+            copy.setThoroughfare((Thoroughfare) copyBuilder.copy(thoroughfare));
+            if (copy.getThoroughfare() == thoroughfare)
+                thoroughfare.setParent(this);
+        }
+
+        if (isSetPostalCode()) {
+            copy.setPostalCode((PostalCode) copyBuilder.copy(postalCode));
+            if (copy.getPostalCode() == postalCode)
+                postalCode.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

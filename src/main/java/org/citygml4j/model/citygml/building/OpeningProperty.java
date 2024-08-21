@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class OpeningProperty extends FeatureProperty<AbstractOpening> implements BuildingModuleComponent {
 
-	public OpeningProperty() {
-		
-	}
-	
-	public OpeningProperty(AbstractOpening abstractOpening) {
-		super(abstractOpening);
-	}
-	
-	public OpeningProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractOpening getOpening() {
-		return (AbstractOpening)super.getObject();
-	}
+    public OpeningProperty() {
 
-	public boolean isSetOpening() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setOpening(AbstractOpening opening) {
-		super.setObject(opening);
-	}
+    public OpeningProperty(AbstractOpening abstractOpening) {
+        super(abstractOpening);
+    }
 
-	public void unsetOpening() {
-		super.unsetObject();
-	}
+    public OpeningProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDING_OPENING_PROPERTY;
-	}
+    public AbstractOpening getOpening() {
+        return (AbstractOpening) super.getObject();
+    }
 
-	@Override
-	public Class<AbstractOpening> getAssociableClass() {
-		return AbstractOpening.class;
-	}
+    public boolean isSetOpening() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new OpeningProperty(), copyBuilder);
-	}
+    public void setOpening(AbstractOpening opening) {
+        super.setObject(opening);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		OpeningProperty copy = (target == null) ? new OpeningProperty() : (OpeningProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetOpening() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BUILDING_OPENING_PROPERTY;
+    }
+
+    @Override
+    public Class<AbstractOpening> getAssociableClass() {
+        return AbstractOpening.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new OpeningProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        OpeningProperty copy = (target == null) ? new OpeningProperty() : (OpeningProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

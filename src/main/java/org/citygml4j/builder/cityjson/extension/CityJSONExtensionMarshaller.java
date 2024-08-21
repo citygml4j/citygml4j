@@ -28,7 +28,10 @@ import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 
 public interface CityJSONExtensionMarshaller {
     void setADEMarshallerHelper(ADEMarshallerHelper helper);
+
     AbstractCityObjectType marshalCityObject(ADEModelObject src, CityJSON cityJSON);
+
     SemanticsType marshalSemanticSurface(ADEModelObject src, CityJSON cityJSON);
+
     Extension marshalGenericApplicationProperty(ADEModelObject src, ADEPropertyContext context);
 }

@@ -36,12 +36,12 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Denotes the relation of an _BondarySurface to its openings (doors, windows). The OpeningPropertyType element must either carry a reference to an
- * 				_Opening object or contain an _Opening object inline, but neither both nor none. 
- * 
+ * _Opening object or contain an _Opening object inline, but neither both nor none.
+ *
  * <p>Java-Klasse für OpeningPropertyType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="OpeningPropertyType">
  *   &lt;complexContent>
@@ -53,14 +53,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OpeningPropertyType")
 public class OpeningPropertyType
-    extends AssociationType
-{
+        extends AssociationType {
 
 
 }

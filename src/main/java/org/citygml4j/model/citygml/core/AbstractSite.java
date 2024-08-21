@@ -32,82 +32,82 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public abstract class AbstractSite extends AbstractCityObject {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public AbstractSite() {
+    public AbstractSite() {
 
-	}
+    }
 
-	public AbstractSite(Module module) {
-		super(module);
-	}
+    public AbstractSite(Module module) {
+        super(module);
+    }
 
-	public void addGenericApplicationPropertyOfSite(ADEComponent ade) {
-		getGenericApplicationPropertyOfSite().add(ade);
-	}
+    public void addGenericApplicationPropertyOfSite(ADEComponent ade) {
+        getGenericApplicationPropertyOfSite().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfSite() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfSite() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return ade;
-	}
+        return ade;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfSite() {
-		return ade != null && !ade.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfSite() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setGenericApplicationPropertyOfSite(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void setGenericApplicationPropertyOfSite(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void unsetGenericApplicationPropertyOfSite() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void unsetGenericApplicationPropertyOfSite() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfSite(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfSite() && this.ade.remove(ade);
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfSite()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfSite()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public boolean unsetGenericApplicationPropertyOfSite(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfSite() && this.ade.remove(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		AbstractSite copy = (AbstractSite)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfSite()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfSite(copyPart);
+        if (isSetGenericApplicationPropertyOfSite()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfSite()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractSite copy = (AbstractSite) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfSite()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfSite(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 
 
 }

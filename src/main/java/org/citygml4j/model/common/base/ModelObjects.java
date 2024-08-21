@@ -54,7 +54,7 @@ public class ModelObjects {
 
         return null;
     }
-    
+
     public static boolean unsetProperty(ModelObject object, Object value) {
         if (object == null || value == null)
             return false;
@@ -73,21 +73,15 @@ public class ModelObjects {
                     if (candidate == value) {
                         field.set(object, null);
                         removed = true;
-                    }
-
-                    else if (candidate instanceof Collection) {
+                    } else if (candidate instanceof Collection) {
                         removed = ((Collection<?>) candidate).removeIf(o -> o == value);
                         if (removed && ((Collection<?>) candidate).isEmpty())
                             field.set(object, null);
-                    }
-
-                    else if (candidate instanceof Map) {
+                    } else if (candidate instanceof Map) {
                         removed = ((Map<?, ?>) candidate).entrySet().removeIf(e -> e.getValue() == value);
                         if (removed && ((Map<?, ?>) candidate).isEmpty())
                             field.set(object, null);
-                    }
-
-                    else if (candidate.getClass().isArray()) {
+                    } else if (candidate.getClass().isArray()) {
                         for (int i = 0; i < Array.getLength(candidate); i++) {
                             if (Array.get(candidate, i) == value) {
                                 Array.set(candidate, i, null);

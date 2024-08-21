@@ -42,179 +42,177 @@ import java.net.URI;
 import java.util.NoSuchElementException;
 
 public class JAXBSimpleReader extends AbstractJAXBReader implements CityGMLReader {
-	private boolean iterator;
-	private ElementInfo elementInfo;
+    private boolean iterator;
+    private ElementInfo elementInfo;
 
-	public JAXBSimpleReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
-		super(reader, in, factory, baseURI);
-		jaxbUnmarshaller.setParseSchema(parseSchema);
-	}
+    public JAXBSimpleReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+        super(reader, in, factory, baseURI);
+        jaxbUnmarshaller.setParseSchema(parseSchema);
+    }
 
-	public void close() throws CityGMLReadException {
-		super.close();
-		elementInfo = null;
-	}
+    public void close() throws CityGMLReadException {
+        super.close();
+        elementInfo = null;
+    }
 
-	public boolean hasNext() throws CityGMLReadException {
-		iterator = false;
-		elementInfo = null;
+    public boolean hasNext() throws CityGMLReadException {
+        iterator = false;
+        elementInfo = null;
 
-		try {
-			while (reader.hasNext()) {
-				if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
+        try {
+            while (reader.hasNext()) {
+                if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
 
-					// keep track of schema documents
-					if (parseSchema) {
-						for (int i = 0; i < reader.getAttributeCount(); i++) {
-							if (reader.getAttributeLocalName(i).equals("schemaLocation"))
-								parseSchema(reader.getAttributeValue(i));
-							else if (reader.getAttributeLocalName(i).equals("noNamespaceSchemaLocation"))
-								schemaHandler.parseSchema("", reader.getAttributeValue(i));
-						}
-					}
+                    // keep track of schema documents
+                    if (parseSchema) {
+                        for (int i = 0; i < reader.getAttributeCount(); i++) {
+                            if (reader.getAttributeLocalName(i).equals("schemaLocation"))
+                                parseSchema(reader.getAttributeValue(i));
+                            else if (reader.getAttributeLocalName(i).equals("noNamespaceSchemaLocation"))
+                                schemaHandler.parseSchema("", reader.getAttributeValue(i));
+                        }
+                    }
 
-					elementInfo = elementChecker.getElementInfo(reader.getName());
-					if (elementInfo != null && elementInfo.isFeature()) {
+                    elementInfo = elementChecker.getElementInfo(reader.getName());
+                    if (elementInfo != null && elementInfo.isFeature()) {
 
-						if (!isFilteredReader() || filter.accept(reader.getName())) {
-							iterator = true;
-							break;
-						}
+                        if (!isFilteredReader() || filter.accept(reader.getName())) {
+                            iterator = true;
+                            break;
+                        } else {
+                            // consume events until corresponding end element
+                            for (int depth = 1; depth > 0; ) {
+                                reader.next();
 
-						else {
-							// consume events until corresponding end element								
-							for (int depth = 1; depth > 0; ) {
-								reader.next();
+                                if (reader.getEventType() == XMLStreamConstants.START_ELEMENT)
+                                    depth++;
+                                else if (reader.getEventType() == XMLStreamConstants.END_ELEMENT)
+                                    depth--;
+                            }
+                        }
+                    }
+                }
 
-								if (reader.getEventType() == XMLStreamConstants.START_ELEMENT)
-									depth++;
-								else if (reader.getEventType() == XMLStreamConstants.END_ELEMENT)
-									depth--;
-							}
-						}
-					}
-				}
+                reader.next();
+            }
+        } catch (XMLStreamException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        } catch (SAXException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        } catch (MissingADESchemaException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        }
 
-				reader.next();
-			}
-		} catch (XMLStreamException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		} catch (SAXException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		} catch (MissingADESchemaException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
+        return iterator;
+    }
 
-		return iterator;
-	}
+    public CityGML nextFeature() throws CityGMLReadException {
+        CityGML next = null;
 
-	public CityGML nextFeature() throws CityGMLReadException {
-		CityGML next = null;
+        if (iterator || hasNext()) {
+            try {
+                Unmarshaller unmarshaller = factory.builder.getJAXBContext().createUnmarshaller();
 
-		if (iterator || hasNext()) {
-			try {
-				Unmarshaller unmarshaller = factory.builder.getJAXBContext().createUnmarshaller();
+                // validate input
+                if (useValidation) {
+                    unmarshaller.setSchema(validationSchemaHandler.getSchema());
+                    if (validationEventHandler != null)
+                        unmarshaller.setEventHandler(validationEventHandler);
+                }
 
-				// validate input
-				if (useValidation) {
-					unmarshaller.setSchema(validationSchemaHandler.getSchema());
-					if (validationEventHandler != null)
-						unmarshaller.setEventHandler(validationEventHandler);
-				}							
+                // unmarshal input
+                Object result;
 
-				// unmarshal input
-				Object result;
-				
-				if (transformerChainFactory == null)
-					result = unmarshaller.unmarshal(reader);
-				else {
-					// create a unmarshaller handler and make it the target of the transformer chain
-					UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
-					TransformerChain chain = transformerChainFactory.buildChain();
-					chain.tail().setResult(new SAXResult(handler));
-					
-					// the entire document has to be copied to a sax buffer
-					SAXEventBuffer buffer = new SAXEventBuffer();
-					StAXStream2SAX mapper = new StAXStream2SAX(buffer);
-					
-					// map all stax events to the sax buffer
-					mapper.bridgeEvent(reader);
-					for (int depth = 1; depth > 0; ) {
-						reader.next();
-						mapper.bridgeEvent(reader);
+                if (transformerChainFactory == null)
+                    result = unmarshaller.unmarshal(reader);
+                else {
+                    // create a unmarshaller handler and make it the target of the transformer chain
+                    UnmarshallerHandler handler = unmarshaller.getUnmarshallerHandler();
+                    TransformerChain chain = transformerChainFactory.buildChain();
+                    chain.tail().setResult(new SAXResult(handler));
 
-						if (reader.getEventType() == XMLStreamConstants.START_ELEMENT)
-							depth++;
-						else if (reader.getEventType() == XMLStreamConstants.END_ELEMENT)
-							depth--;
-					}
+                    // the entire document has to be copied to a sax buffer
+                    SAXEventBuffer buffer = new SAXEventBuffer();
+                    StAXStream2SAX mapper = new StAXStream2SAX(buffer);
 
-					// send the sax buffer to the first template in the chain
-					chain.head().startDocument();
-					buffer.send(chain.head(), true);
-					chain.head().endDocument();
-					
-					result = handler.getResult();
-				}
+                    // map all stax events to the sax buffer
+                    mapper.bridgeEvent(reader);
+                    for (int depth = 1; depth > 0; ) {
+                        reader.next();
+                        mapper.bridgeEvent(reader);
 
-				if (result instanceof JAXBElement<?>) {
-					ModelObject citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>)result);
-					if (citygml instanceof AbstractFeature)
-						next = (CityGML)citygml;
-				}
-			} catch (JAXBException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			} catch (SAXException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			} catch (MissingADESchemaException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			} catch (TransformerConfigurationException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			} catch (XMLStreamException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			}
-		}
+                        if (reader.getEventType() == XMLStreamConstants.START_ELEMENT)
+                            depth++;
+                        else if (reader.getEventType() == XMLStreamConstants.END_ELEMENT)
+                            depth--;
+                    }
 
-		if (next == null)
-			throw new NoSuchElementException();
-		else {
-			iterator = false;
-			return next;
-		}	
-	}
+                    // send the sax buffer to the first template in the chain
+                    chain.head().startDocument();
+                    buffer.send(chain.head(), true);
+                    chain.head().endDocument();
 
-	public XMLChunk nextChunk() throws CityGMLReadException {
-		XMLChunkImpl next = null;
+                    result = handler.getResult();
+                }
 
-		if (iterator || hasNext()) {
-			try {
-				next = new XMLChunkImpl(this, null);
-				while (reader.hasNext()) {
-					next.addEvent(reader);
-					if (next.isComplete())
-						break;
-					
-					reader.next();
-				}
-			} catch (XMLStreamException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			}
-		}
+                if (result instanceof JAXBElement<?>) {
+                    ModelObject citygml = jaxbUnmarshaller.unmarshal((JAXBElement<?>) result);
+                    if (citygml instanceof AbstractFeature)
+                        next = (CityGML) citygml;
+                }
+            } catch (JAXBException e) {
+                throw new CityGMLReadException("Caused by: ", e);
+            } catch (SAXException e) {
+                throw new CityGMLReadException("Caused by: ", e);
+            } catch (MissingADESchemaException e) {
+                throw new CityGMLReadException("Caused by: ", e);
+            } catch (TransformerConfigurationException e) {
+                throw new CityGMLReadException("Caused by: ", e);
+            } catch (XMLStreamException e) {
+                throw new CityGMLReadException("Caused by: ", e);
+            }
+        }
 
-		if (next == null)
-			throw new NoSuchElementException();
-		else {
-			iterator = false;
-			return next;
-		}
-	}
+        if (next == null)
+            throw new NoSuchElementException();
+        else {
+            iterator = false;
+            return next;
+        }
+    }
 
-	public boolean isSetParentInfo() {
-		return false;
-	}
+    public XMLChunk nextChunk() throws CityGMLReadException {
+        XMLChunkImpl next = null;
 
-	public ParentInfo getParentInfo() {
-		return null;
-	}
+        if (iterator || hasNext()) {
+            try {
+                next = new XMLChunkImpl(this, null);
+                while (reader.hasNext()) {
+                    next.addEvent(reader);
+                    if (next.isComplete())
+                        break;
+
+                    reader.next();
+                }
+            } catch (XMLStreamException e) {
+                throw new CityGMLReadException("Caused by: ", e);
+            }
+        }
+
+        if (next == null)
+            throw new NoSuchElementException();
+        else {
+            iterator = false;
+            return next;
+        }
+    }
+
+    public boolean isSetParentInfo() {
+        return false;
+    }
+
+    public ParentInfo getParentInfo() {
+        return null;
+    }
 
 }

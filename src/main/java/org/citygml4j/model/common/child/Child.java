@@ -21,8 +21,11 @@ package org.citygml4j.model.common.child;
 import org.citygml4j.model.common.base.ModelObject;
 
 public interface Child extends ModelObject {
-	ModelObject getParent();
-	void setParent(ModelObject parent);
-	boolean isSetParent();
-	void unsetParent();
+    ModelObject getParent();
+
+    void setParent(ModelObject parent);
+
+    boolean isSetParent();
+
+    void unsetParent();
 }

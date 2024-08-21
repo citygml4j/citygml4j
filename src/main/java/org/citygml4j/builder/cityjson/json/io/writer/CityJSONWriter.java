@@ -23,57 +23,57 @@ import org.citygml4j.cityjson.CityJSON;
 import org.citygml4j.model.citygml.core.CityModel;
 
 public class CityJSONWriter extends AbstractCityJSONWriter {
-	private DocumentState documentState = DocumentState.INITIAL;
+    private DocumentState documentState = DocumentState.INITIAL;
 
-	private enum DocumentState {
-		INITIAL,
-		END_DOCUMENT,
-	}
+    private enum DocumentState {
+        INITIAL,
+        END_DOCUMENT,
+    }
 
-	public CityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
-		super(writer, factory);
-	}
+    public CityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
+        super(writer, factory);
+    }
 
-	public void write(CityModel cityModel) throws CityJSONWriteException {
-		if (documentState == DocumentState.END_DOCUMENT)
-			throw new IllegalStateException("CityJSON document is already complete.");
+    public void write(CityModel cityModel) throws CityJSONWriteException {
+        if (documentState == DocumentState.END_DOCUMENT)
+            throw new IllegalStateException("CityJSON document is already complete.");
 
-		CityJSON cityJSON = marshaller.marshal(cityModel);
-		if (cityJSON != null) {
-			if (calcBoundingBox
-					&& (metadata == null || !metadata.isSetGeographicalExtent())
-					&& !cityJSON.getVertices().isEmpty()) {
-				getOrCreateMetadata().setGeographicalExtent(cityJSON.calcBoundingBox());
-			}
+        CityJSON cityJSON = marshaller.marshal(cityModel);
+        if (cityJSON != null) {
+            if (calcBoundingBox
+                    && (metadata == null || !metadata.isSetGeographicalExtent())
+                    && !cityJSON.getVertices().isEmpty()) {
+                getOrCreateMetadata().setGeographicalExtent(cityJSON.calcBoundingBox());
+            }
 
-			if (calcPresentLods
-					&& (metadata == null || !metadata.isSetPresentLoDs())
-					&& cityJSON.hasCityObjects()) {
-				getOrCreateMetadata().setPresentLoDs(cityJSON.calcPresentLoDs());
-			}
+            if (calcPresentLods
+                    && (metadata == null || !metadata.isSetPresentLoDs())
+                    && cityJSON.hasCityObjects()) {
+                getOrCreateMetadata().setPresentLoDs(cityJSON.calcPresentLoDs());
+            }
 
-			// add metadata
-			if (metadata != null) {
-				cityJSON.setMetadata(metadata);
-			}
+            // add metadata
+            if (metadata != null) {
+                cityJSON.setMetadata(metadata);
+            }
 
-			// add extensions
-			if (extensions != null) {
-				cityJSON.setExtensions(extensions);
-			}
+            // add extensions
+            if (extensions != null) {
+                cityJSON.setExtensions(extensions);
+            }
 
-			gson.toJson(cityJSON, CityJSON.class, writer);
-		}
+            gson.toJson(cityJSON, CityJSON.class, writer);
+        }
 
-		documentState = DocumentState.END_DOCUMENT;
-	}
+        documentState = DocumentState.END_DOCUMENT;
+    }
 
-	@Override
-	public void close() throws CityJSONWriteException {
-		if (documentState == DocumentState.INITIAL) {
-			gson.toJson(new CityJSON(), CityJSON.class, writer);
-		}
+    @Override
+    public void close() throws CityJSONWriteException {
+        if (documentState == DocumentState.INITIAL) {
+            gson.toJson(new CityJSON(), CityJSON.class, writer);
+        }
 
-		super.close();
-	}
+        super.close();
+    }
 }

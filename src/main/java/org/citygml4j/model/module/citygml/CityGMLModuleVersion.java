@@ -21,23 +21,23 @@ package org.citygml4j.model.module.citygml;
 import org.citygml4j.model.module.ModuleVersion;
 
 public enum CityGMLModuleVersion implements ModuleVersion {
-	v2_0_0("2.0.0"),
-	v1_0_0("1.0.0");
-	
-	private final String value;
-	
-	CityGMLModuleVersion(String value) {
-		this.value = value;
-	}
+    v2_0_0("2.0.0"),
+    v1_0_0("1.0.0");
 
-	@Override
-	public String getVersionString() {
-		return value;
-	}
+    private final String value;
 
-	@Override
-	public String toString() {
-		return value;
-	}
+    CityGMLModuleVersion(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String getVersionString() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 
 }

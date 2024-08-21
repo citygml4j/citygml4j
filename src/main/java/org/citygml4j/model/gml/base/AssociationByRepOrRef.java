@@ -27,194 +27,194 @@ import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 
 public abstract class AssociationByRepOrRef<T extends Associable & Child> extends AssociationByRep<T> implements AssociationAttributeGroup {
-	private XLinkActuate actuate;
-	private String arcrole;
-	private String href;
-	private String remoteSchema;
-	private String role;
-	private XLinkShow show;
-	private String title;
-	private XLinkType type;
-	
-	public AssociationByRepOrRef() {
+    private XLinkActuate actuate;
+    private String arcrole;
+    private String href;
+    private String remoteSchema;
+    private String role;
+    private XLinkShow show;
+    private String title;
+    private XLinkType type;
 
-	}
+    public AssociationByRepOrRef() {
 
-	public AssociationByRepOrRef(T object) {
-		super(object);
-	}
-	
-	public AssociationByRepOrRef(String href) {
-		this.href = href;
-	}
+    }
 
-	public XLinkActuate getActuate() {
-		return actuate;
-	}
+    public AssociationByRepOrRef(T object) {
+        super(object);
+    }
 
-	public String getArcrole() {
-		return arcrole;
-	}
+    public AssociationByRepOrRef(String href) {
+        this.href = href;
+    }
 
-	public String getHref() {
-		return href;
-	}
+    public XLinkActuate getActuate() {
+        return actuate;
+    }
 
-	public String getRemoteSchema() {
-		return remoteSchema;
-	}
+    public String getArcrole() {
+        return arcrole;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public String getHref() {
+        return href;
+    }
 
-	public XLinkShow getShow() {
-		return show;
-	}
+    public String getRemoteSchema() {
+        return remoteSchema;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public XLinkType getType() {
-		return type == null ? XLinkType.SIMPLE : type;
-	}
+    public XLinkShow getShow() {
+        return show;
+    }
 
-	public boolean isSetActuate() {
-		return actuate != null;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public boolean isSetArcrole() {
-		return arcrole != null;
-	}
+    public XLinkType getType() {
+        return type == null ? XLinkType.SIMPLE : type;
+    }
 
-	public boolean isSetHref() {
-		return href != null;
-	}
+    public boolean isSetActuate() {
+        return actuate != null;
+    }
 
-	public boolean isSetRemoteSchema() {
-		return remoteSchema != null;
-	}
+    public boolean isSetArcrole() {
+        return arcrole != null;
+    }
 
-	public boolean isSetRole() {
-		return role != null;
-	}
+    public boolean isSetHref() {
+        return href != null;
+    }
 
-	public boolean isSetShow() {
-		return show != null;
-	}
+    public boolean isSetRemoteSchema() {
+        return remoteSchema != null;
+    }
 
-	public boolean isSetTitle() {
-		return title != null;
-	}
+    public boolean isSetRole() {
+        return role != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetShow() {
+        return show != null;
+    }
 
-	public void setActuate(XLinkActuate actuate) {
-		this.actuate = actuate;
-	}
+    public boolean isSetTitle() {
+        return title != null;
+    }
 
-	public void setArcrole(String arcrole) {
-		this.arcrole = arcrole;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setHref(String href) {
-		this.href = href;
-	}
+    public void setActuate(XLinkActuate actuate) {
+        this.actuate = actuate;
+    }
 
-	public void setRemoteSchema(String remoteSchema) {
-		this.remoteSchema = remoteSchema;
-	}
+    public void setArcrole(String arcrole) {
+        this.arcrole = arcrole;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setHref(String href) {
+        this.href = href;
+    }
 
-	public void setShow(XLinkShow show) {
-		this.show = show;
-	}
+    public void setRemoteSchema(String remoteSchema) {
+        this.remoteSchema = remoteSchema;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setType(XLinkType type) {
-		this.type = XLinkType.SIMPLE;
-	}
+    public void setShow(XLinkShow show) {
+        this.show = show;
+    }
 
-	public void unsetActuate() {
-		actuate = null;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void unsetArcrole() {
-		arcrole = null;
-	}
+    public void setType(XLinkType type) {
+        this.type = XLinkType.SIMPLE;
+    }
 
-	public void unsetHref() {
-		href = null;
-	}
+    public void unsetActuate() {
+        actuate = null;
+    }
 
-	public void unsetRemoteSchema() {
-		remoteSchema = null;
-	}
+    public void unsetArcrole() {
+        arcrole = null;
+    }
 
-	public void unsetRole() {
-		role = null;
-	}
+    public void unsetHref() {
+        href = null;
+    }
 
-	public void unsetShow() {
-		show = null;
-	}
+    public void unsetRemoteSchema() {
+        remoteSchema = null;
+    }
 
-	public void unsetTitle() {
-		title = null;
-	}
+    public void unsetRole() {
+        role = null;
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetShow() {
+        show = null;
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ASSOCIATION_BY_REP_OR_REF;
-	}
+    public void unsetTitle() {
+        title = null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
+    public void unsetType() {
+        type = null;
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.ASSOCIATION_BY_REP_OR_REF;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
             throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-		AssociationByRepOrRef<T> copy = (AssociationByRepOrRef<T>)target;
-		super.copyTo(copy, copyBuilder);
-			
-		if (isSetActuate())
-			copy.setActuate((XLinkActuate)copyBuilder.copy(actuate));
+        AssociationByRepOrRef<T> copy = (AssociationByRepOrRef<T>) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetArcrole())
-			copy.setArcrole(copyBuilder.copy(arcrole));
-		
-		if (isSetHref())
-			copy.setHref(copyBuilder.copy(href));
-		
-		if (isSetRemoteSchema())
-			copy.setRemoteSchema(copyBuilder.copy(remoteSchema));
-		
-		if (isSetRole())
-			copy.setRole(copyBuilder.copy(role));
-		
-		if (isSetShow())
-			copy.setShow((XLinkShow)copyBuilder.copy(show));
+        if (isSetActuate())
+            copy.setActuate((XLinkActuate) copyBuilder.copy(actuate));
 
-		if (isSetTitle())
-			copy.setTitle(copyBuilder.copy(title));
-		
-		if (isSetType())
-			copy.setType((XLinkType)copyBuilder.copy(type));
-		
-		copy.unsetParent();
-		
+        if (isSetArcrole())
+            copy.setArcrole(copyBuilder.copy(arcrole));
+
+        if (isSetHref())
+            copy.setHref(copyBuilder.copy(href));
+
+        if (isSetRemoteSchema())
+            copy.setRemoteSchema(copyBuilder.copy(remoteSchema));
+
+        if (isSetRole())
+            copy.setRole(copyBuilder.copy(role));
+
+        if (isSetShow())
+            copy.setShow((XLinkShow) copyBuilder.copy(show));
+
+        if (isSetTitle())
+            copy.setTitle(copyBuilder.copy(title));
+
+        if (isSetType())
+            copy.setType((XLinkType) copyBuilder.copy(type));
+
+        copy.unsetParent();
+
         return copy;
-	}
+    }
 
 }

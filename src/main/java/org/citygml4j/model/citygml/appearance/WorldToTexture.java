@@ -29,143 +29,143 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorldToTexture extends TransformationMatrix3x4 implements AppearanceModuleComponent, SRSReferenceGroup {
-	private Integer srsDimension;
-	private String srsName;
-	private List<String> axisLabels;
-	private List<String> uomLabels;
+    private Integer srsDimension;
+    private String srsName;
+    private List<String> axisLabels;
+    private List<String> uomLabels;
 
-	public WorldToTexture() {
+    public WorldToTexture() {
 
-	}
+    }
 
-	public WorldToTexture(Matrix matrix) {
-		super(matrix);
-	}
-	
-	public WorldToTexture(List<Double> vals) {
-		super(vals);
-	}
+    public WorldToTexture(Matrix matrix) {
+        super(matrix);
+    }
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WORLD_TO_TEXTURE;
-	}
+    public WorldToTexture(List<Double> vals) {
+        super(vals);
+    }
 
-	public Integer getSrsDimension() {
-		return srsDimension;
-	}
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.WORLD_TO_TEXTURE;
+    }
 
-	public String getSrsName() {
-		return srsName;
-	}
+    public Integer getSrsDimension() {
+        return srsDimension;
+    }
 
-	public boolean isSetSrsDimension() {
-		return srsDimension != null;
-	}
+    public String getSrsName() {
+        return srsName;
+    }
 
-	public boolean isSetSrsName() {
-		return srsName != null;
-	}
+    public boolean isSetSrsDimension() {
+        return srsDimension != null;
+    }
 
-	public void setSrsDimension(Integer srsDimension) {
-		if (srsDimension > 0)
-			this.srsDimension = srsDimension;
-	}
+    public boolean isSetSrsName() {
+        return srsName != null;
+    }
 
-	public void setSrsName(String srsName) {
-		this.srsName = srsName;
-	}
+    public void setSrsDimension(Integer srsDimension) {
+        if (srsDimension > 0)
+            this.srsDimension = srsDimension;
+    }
 
-	public void unsetSrsDimension() {
-		srsDimension = null;
-	}
+    public void setSrsName(String srsName) {
+        this.srsName = srsName;
+    }
 
-	public void unsetSrsName() {
-		srsName = null;
-	}
+    public void unsetSrsDimension() {
+        srsDimension = null;
+    }
 
-	public void addAxisLabel(String axisLabel) {
-		getAxisLabels().add(axisLabel);
-	}
+    public void unsetSrsName() {
+        srsName = null;
+    }
 
-	public void addUomLabel(String uomLabel) {
-		getUomLabels().add(uomLabel);
-	}
+    public void addAxisLabel(String axisLabel) {
+        getAxisLabels().add(axisLabel);
+    }
 
-	public List<String> getAxisLabels() {
-		if (axisLabels == null)
-			axisLabels = new ArrayList<>();
+    public void addUomLabel(String uomLabel) {
+        getUomLabels().add(uomLabel);
+    }
 
-		return axisLabels;
-	}
+    public List<String> getAxisLabels() {
+        if (axisLabels == null)
+            axisLabels = new ArrayList<>();
 
-	public List<String> getUomLabels() {
-		if (uomLabels == null)
-			uomLabels = new ArrayList<>();
+        return axisLabels;
+    }
 
-		return uomLabels;
-	}
+    public List<String> getUomLabels() {
+        if (uomLabels == null)
+            uomLabels = new ArrayList<>();
 
-	public boolean isSetAxisLabels() {
-		return axisLabels != null && !axisLabels.isEmpty();
-	}
+        return uomLabels;
+    }
 
-	public boolean isSetUomLabels() {
-		return uomLabels != null && !uomLabels.isEmpty();
-	}
+    public boolean isSetAxisLabels() {
+        return axisLabels != null && !axisLabels.isEmpty();
+    }
 
-	public void setAxisLabels(List<String> axisLabels) {
-		this.axisLabels = axisLabels;
-	}
+    public boolean isSetUomLabels() {
+        return uomLabels != null && !uomLabels.isEmpty();
+    }
 
-	public void setUomLabels(List<String> uomLabels) {
-		this.uomLabels = uomLabels;
-	}
+    public void setAxisLabels(List<String> axisLabels) {
+        this.axisLabels = axisLabels;
+    }
 
-	public void unsetAxisLabels() {
-		axisLabels = null;
-	}
+    public void setUomLabels(List<String> uomLabels) {
+        this.uomLabels = uomLabels;
+    }
 
-	public boolean unsetAxisLabels(String axisLabel) {
-		return isSetAxisLabels() && axisLabels.remove(axisLabel);
-	}
+    public void unsetAxisLabels() {
+        axisLabels = null;
+    }
 
-	public void unsetUomLabels() {
-		uomLabels = null;
-	}
+    public boolean unsetAxisLabels(String axisLabel) {
+        return isSetAxisLabels() && axisLabels.remove(axisLabel);
+    }
 
-	public boolean unsetUomLabels(String uomLabel) {
-		return isSetUomLabels() && uomLabels.remove(uomLabel);
-	}
+    public void unsetUomLabels() {
+        uomLabels = null;
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.SRS_REFERENCE_GROUP;
-	}
+    public boolean unsetUomLabels(String uomLabel) {
+        return isSetUomLabels() && uomLabels.remove(uomLabel);
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new WorldToTexture(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SRS_REFERENCE_GROUP;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		WorldToTexture copy = (target == null) ? new WorldToTexture() : (WorldToTexture)target;
-		super.copyTo(copy, copyBuilder);
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new WorldToTexture(), copyBuilder);
+    }
 
-		if (isSetSrsDimension())
-        	copy.setSrsDimension((Integer)copyBuilder.copy(srsDimension));
-        
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        WorldToTexture copy = (target == null) ? new WorldToTexture() : (WorldToTexture) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetSrsDimension())
+            copy.setSrsDimension((Integer) copyBuilder.copy(srsDimension));
+
         if (isSetSrsName())
-        	copy.setSrsName(copyBuilder.copy(srsName));
-        
+            copy.setSrsName(copyBuilder.copy(srsName));
+
         if (isSetAxisLabels())
-        	copy.setAxisLabels((List<String>)copyBuilder.copy(axisLabels));
-        
+            copy.setAxisLabels((List<String>) copyBuilder.copy(axisLabels));
+
         if (isSetUomLabels())
-        	copy.setUomLabels((List<String>)copyBuilder.copy(uomLabels));
-		
-		return copy;
-	}
+            copy.setUomLabels((List<String>) copyBuilder.copy(uomLabels));
+
+        return copy;
+    }
 
 }

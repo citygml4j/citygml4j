@@ -36,12 +36,12 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Denotes the relation of a Tunnel to its external installations. The gml:AssociationType attribute group for enabling the use of refs is not repeated
- * 				in the restriction and thus omitted. The BuildingFurniture has to be given inline within this property, not by reference. 
- * 
+ * in the restriction and thus omitted. The BuildingFurniture has to be given inline within this property, not by reference.
+ *
  * <p>Java-Klasse für outerTunnelInstallationPropertyType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="outerTunnelInstallationPropertyType">
  *   &lt;complexContent>
@@ -53,14 +53,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "outerTunnelInstallationPropertyType")
 public class OuterTunnelInstallationPropertyType
-    extends AssociationType
-{
+        extends AssociationType {
 
 
 }

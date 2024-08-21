@@ -22,31 +22,31 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Interior extends AbstractRingProperty {
-	
-	public Interior() {
 
-	}
+    public Interior() {
 
-	public Interior(AbstractRing abstractRing) {
-		super(abstractRing);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.INTERIOR;
-	}
+    }
 
-	public Class<AbstractRing> getAssociableClass() {
-		return AbstractRing.class;
-	}
+    public Interior(AbstractRing abstractRing) {
+        super(abstractRing);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Interior copy = (target == null) ? new Interior() : (Interior)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.INTERIOR;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Interior(), copyBuilder);
-	}
+    public Class<AbstractRing> getAssociableClass() {
+        return AbstractRing.class;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Interior copy = (target == null) ? new Interior() : (Interior) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Interior(), copyBuilder);
+    }
 
 }

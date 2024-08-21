@@ -33,141 +33,141 @@ import org.citygml4j.model.module.Module;
 import java.util.List;
 
 public class Appearance extends AbstractFeature implements AppearanceModuleComponent {
-	private String theme;
-	private List<SurfaceDataProperty> surfaceDataMember;
-	private List<ADEComponent> ade;
+    private String theme;
+    private List<SurfaceDataProperty> surfaceDataMember;
+    private List<ADEComponent> ade;
 
-	public Appearance() {
-		
-	}
-	
-	public Appearance(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfAppearance(ADEComponent ade) {
-		getGenericApplicationPropertyOfAppearance().add(ade);
-	}
+    public Appearance() {
 
-	public void addSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
-		getSurfaceDataMember().add(surfaceDataMember);
-	}
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfAppearance() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public Appearance(Module module) {
+        super(module);
+    }
 
-		return ade;
-	}
+    public void addGenericApplicationPropertyOfAppearance(ADEComponent ade) {
+        getGenericApplicationPropertyOfAppearance().add(ade);
+    }
 
-	public List<SurfaceDataProperty> getSurfaceDataMember() {
-		if (surfaceDataMember == null)
-			surfaceDataMember = new ChildList<>(this);
+    public void addSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
+        getSurfaceDataMember().add(surfaceDataMember);
+    }
 
-		return surfaceDataMember;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfAppearance() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public String getTheme() {
-		return theme;
-	}
+        return ade;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfAppearance() {
-		return ade != null && !ade.isEmpty();
-	}
+    public List<SurfaceDataProperty> getSurfaceDataMember() {
+        if (surfaceDataMember == null)
+            surfaceDataMember = new ChildList<>(this);
 
-	public boolean isSetSurfaceDataMember() {
-		return surfaceDataMember != null && !surfaceDataMember.isEmpty();
-	}
+        return surfaceDataMember;
+    }
 
-	public boolean isSetTheme() {
-		return theme != null;
-	}
+    public String getTheme() {
+        return theme;
+    }
 
-	public void setGenericApplicationPropertyOfAppearance(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfAppearance() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setSurfaceDataMember(List<SurfaceDataProperty> surfaceDataMember) {
-		this.surfaceDataMember = new ChildList<>(this, surfaceDataMember);
-	}
+    public boolean isSetSurfaceDataMember() {
+        return surfaceDataMember != null && !surfaceDataMember.isEmpty();
+    }
 
-	public void setTheme(String theme) {
-		this.theme = theme;
-	}
+    public boolean isSetTheme() {
+        return theme != null;
+    }
 
-	public void unsetGenericApplicationPropertyOfAppearance() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setGenericApplicationPropertyOfAppearance(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfAppearance(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfAppearance() && this.ade.remove(ade);
-	}
+    public void setSurfaceDataMember(List<SurfaceDataProperty> surfaceDataMember) {
+        this.surfaceDataMember = new ChildList<>(this, surfaceDataMember);
+    }
 
-	public void unsetSurfaceDataMember() {
-		surfaceDataMember = ModelObjects.setNull(surfaceDataMember);
-	}
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
 
-	public boolean unsetSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
-		return isSetSurfaceDataMember() && this.surfaceDataMember.remove(surfaceDataMember);
-	}
+    public void unsetGenericApplicationPropertyOfAppearance() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public void unsetTheme() {
-		theme = null;
-	}
+    public boolean unsetGenericApplicationPropertyOfAppearance(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfAppearance() && this.ade.remove(ade);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.APPEARANCE;
-	}
+    public void unsetSurfaceDataMember() {
+        surfaceDataMember = ModelObjects.setNull(surfaceDataMember);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Appearance(), copyBuilder);
-	}
+    public boolean unsetSurfaceDataMember(SurfaceDataProperty surfaceDataMember) {
+        return isSetSurfaceDataMember() && this.surfaceDataMember.remove(surfaceDataMember);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Appearance copy = (target == null) ? new Appearance() : (Appearance)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetTheme())
-			copy.setTheme(copyBuilder.copy(theme));
-		
-		if (isSetSurfaceDataMember()) {
-			for (SurfaceDataProperty part : this.surfaceDataMember) {
-				SurfaceDataProperty copyPart = (SurfaceDataProperty)copyBuilder.copy(part);
-				copy.addSurfaceDataMember(copyPart);
+    public void unsetTheme() {
+        theme = null;
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfAppearance()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfAppearance(copyPart);
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.APPEARANCE;
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Appearance(), copyBuilder);
+    }
 
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Appearance copy = (target == null) ? new Appearance() : (Appearance) target;
+        super.copyTo(copy, copyBuilder);
 
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetTheme())
+            copy.setTheme(copyBuilder.copy(theme));
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}	
+        if (isSetSurfaceDataMember()) {
+            for (SurfaceDataProperty part : this.surfaceDataMember) {
+                SurfaceDataProperty copyPart = (SurfaceDataProperty) copyBuilder.copy(part);
+                copy.addSurfaceDataMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfAppearance()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfAppearance(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

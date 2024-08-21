@@ -25,74 +25,74 @@ import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Triangle extends AbstractSurfacePatch {
-	private AbstractRingProperty exterior;
-	private ModelObject parent;
+    private AbstractRingProperty exterior;
+    private ModelObject parent;
 
-	public AbstractRingProperty getExterior() {
-		return exterior;
-	}
+    public AbstractRingProperty getExterior() {
+        return exterior;
+    }
 
-	public SurfaceInterpolation getInterpolation() {
-		return SurfaceInterpolation.PLANAR;
-	}
+    public SurfaceInterpolation getInterpolation() {
+        return SurfaceInterpolation.PLANAR;
+    }
 
-	public boolean isSetExterior() {
-		return exterior != null;
-	}
+    public boolean isSetExterior() {
+        return exterior != null;
+    }
 
-	public void setExterior(AbstractRingProperty exterior) {
-		this.exterior = ModelObjects.setParent(exterior, this);
-	}
+    public void setExterior(AbstractRingProperty exterior) {
+        this.exterior = ModelObjects.setParent(exterior, this);
+    }
 
-	public void unsetExterior() {
-		exterior = ModelObjects.setNull(exterior);
-	}
+    public void unsetExterior() {
+        exterior = ModelObjects.setNull(exterior);
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetExterior() && exterior.isSetRing()) 
-			bbox.update(exterior.getRing().calcBoundingBox());
-		
-		return bbox;
-	}
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
 
-	public GMLClass getGMLClass() {
-		return GMLClass.TRIANGLE;
-	}
+        if (isSetExterior() && exterior.isSetRing())
+            bbox.update(exterior.getRing().calcBoundingBox());
 
-	public ModelObject getParent() {
-		return parent;
-	}
+        return bbox;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.TRIANGLE;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Triangle(), copyBuilder);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Triangle copy = (target == null) ? new Triangle() : (Triangle)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetExterior()) {
-			copy.setExterior((AbstractRingProperty)copyBuilder.copy(exterior));
-			if (copy.getExterior() == exterior)
-				exterior.setParent(this);
-		}
+    public void unsetParent() {
+        parent = null;
+    }
 
-		return copy;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Triangle(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Triangle copy = (target == null) ? new Triangle() : (Triangle) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetExterior()) {
+            copy.setExterior((AbstractRingProperty) copyBuilder.copy(exterior));
+            if (copy.getExterior() == exterior)
+                exterior.setParent(this);
+        }
+
+        return copy;
+    }
 
 }

@@ -23,32 +23,32 @@ import org.citygml4j.model.citygml.CityGMLClass;
 
 public class AppearanceMember extends AppearanceProperty {
 
-	public AppearanceMember() {
-		
-	}
-	
-	public AppearanceMember(Appearance appearance) {
-		super(appearance);
-	}
-	
-	public AppearanceMember(String href) {
-		super(href);
-	}
-	
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.APPEARANCE_MEMBER;
-	}
+    public AppearanceMember() {
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new AppearanceMember(), copyBuilder);
-	}
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		AppearanceMember copy = (target == null) ? new AppearanceMember() : (AppearanceMember)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public AppearanceMember(Appearance appearance) {
+        super(appearance);
+    }
+
+    public AppearanceMember(String href) {
+        super(href);
+    }
+
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.APPEARANCE_MEMBER;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new AppearanceMember(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        AppearanceMember copy = (target == null) ? new AppearanceMember() : (AppearanceMember) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

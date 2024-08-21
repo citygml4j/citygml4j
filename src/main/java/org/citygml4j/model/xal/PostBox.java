@@ -30,262 +30,262 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class PostBox implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private PostBoxNumber postBoxNumber;
-	private PostBoxNumberPrefix postBoxNumberPrefix;
-	private PostBoxNumberSuffix postBoxNumberSuffix;
-	private PostBoxNumberExtension postBoxNumberExtension;
-	private Firm firm;
-	private PostalCode postalCode;
-	private String indicator;
-	private String type;
-	private ModelObject parent;
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private PostBoxNumber postBoxNumber;
+    private PostBoxNumberPrefix postBoxNumberPrefix;
+    private PostBoxNumberSuffix postBoxNumberSuffix;
+    private PostBoxNumberExtension postBoxNumberExtension;
+    private Firm firm;
+    private PostalCode postalCode;
+    private String indicator;
+    private String type;
+    private ModelObject parent;
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public Firm getFirm() {
-		return firm;
-	}
+        return addressLine;
+    }
 
-	public String getIndicator() {
-		return indicator;
-	}
+    public Firm getFirm() {
+        return firm;
+    }
 
-	public PostBoxNumber getPostBoxNumber() {
-		return postBoxNumber;
-	}
+    public String getIndicator() {
+        return indicator;
+    }
 
-	public PostBoxNumberExtension getPostBoxNumberExtension() {
-		return postBoxNumberExtension;
-	}
+    public PostBoxNumber getPostBoxNumber() {
+        return postBoxNumber;
+    }
 
-	public PostBoxNumberPrefix getPostBoxNumberPrefix() {
-		return postBoxNumberPrefix;
-	}
+    public PostBoxNumberExtension getPostBoxNumberExtension() {
+        return postBoxNumberExtension;
+    }
 
-	public PostBoxNumberSuffix getPostBoxNumberSuffix() {
-		return postBoxNumberSuffix;
-	}
+    public PostBoxNumberPrefix getPostBoxNumberPrefix() {
+        return postBoxNumberPrefix;
+    }
 
-	public PostalCode getPostalCode() {
-		return postalCode;
-	}
+    public PostBoxNumberSuffix getPostBoxNumberSuffix() {
+        return postBoxNumberSuffix;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public PostalCode getPostalCode() {
+        return postalCode;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetFirm() {
-		return firm != null;
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetIndicator() {
-		return indicator != null;
-	}
+    public boolean isSetFirm() {
+        return firm != null;
+    }
 
-	public boolean isSetPostBoxNumber() {
-		return postBoxNumber != null;
-	}
+    public boolean isSetIndicator() {
+        return indicator != null;
+    }
 
-	public boolean isSetPostBoxNumberExtension() {
-		return postBoxNumberExtension != null;
-	}
+    public boolean isSetPostBoxNumber() {
+        return postBoxNumber != null;
+    }
 
-	public boolean isSetPostBoxNumberPrefix() {
-		return postBoxNumberPrefix != null;
-	}
+    public boolean isSetPostBoxNumberExtension() {
+        return postBoxNumberExtension != null;
+    }
 
-	public boolean isSetPostBoxNumberSuffix() {
-		return postBoxNumberSuffix != null;
-	}
+    public boolean isSetPostBoxNumberPrefix() {
+        return postBoxNumberPrefix != null;
+    }
 
-	public boolean isSetPostalCode() {
-		return postalCode != null;
-	}
+    public boolean isSetPostBoxNumberSuffix() {
+        return postBoxNumberSuffix != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetPostalCode() {
+        return postalCode != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setFirm(Firm firm) {
-		this.firm = ModelObjects.setParent(firm, this);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setIndicator(String indicator) {
-		this.indicator = indicator;
-	}
+    public void setFirm(Firm firm) {
+        this.firm = ModelObjects.setParent(firm, this);
+    }
 
-	public void setPostBoxNumber(PostBoxNumber postBoxNumber) {
-		this.postBoxNumber = ModelObjects.setParent(postBoxNumber, this);
-	}
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
 
-	public void setPostBoxNumberExtension(PostBoxNumberExtension postBoxNumberExtension) {
-		this.postBoxNumberExtension = ModelObjects.setParent(postBoxNumberExtension, this);
-	}
+    public void setPostBoxNumber(PostBoxNumber postBoxNumber) {
+        this.postBoxNumber = ModelObjects.setParent(postBoxNumber, this);
+    }
 
-	public void setPostBoxNumberPrefix(PostBoxNumberPrefix postBoxNumberPrefix) {
-		this.postBoxNumberPrefix = ModelObjects.setParent(postBoxNumberPrefix, this);
-	}
+    public void setPostBoxNumberExtension(PostBoxNumberExtension postBoxNumberExtension) {
+        this.postBoxNumberExtension = ModelObjects.setParent(postBoxNumberExtension, this);
+    }
 
-	public void setPostBoxNumberSuffix(PostBoxNumberSuffix postBoxNumberSuffix) {
-		this.postBoxNumberSuffix = ModelObjects.setParent(postBoxNumberSuffix, this);
-	}
+    public void setPostBoxNumberPrefix(PostBoxNumberPrefix postBoxNumberPrefix) {
+        this.postBoxNumberPrefix = ModelObjects.setParent(postBoxNumberPrefix, this);
+    }
 
-	public void setPostalCode(PostalCode postalCode) {
-		this.postalCode = ModelObjects.setParent(postalCode, this);
-	}
+    public void setPostBoxNumberSuffix(PostBoxNumberSuffix postBoxNumberSuffix) {
+        this.postBoxNumberSuffix = ModelObjects.setParent(postBoxNumberSuffix, this);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setPostalCode(PostalCode postalCode) {
+        this.postalCode = ModelObjects.setParent(postalCode, this);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetFirm() {
-		firm = ModelObjects.setNull(firm);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public void unsetIndicator() {
-		indicator = null;
-	}
+    public void unsetFirm() {
+        firm = ModelObjects.setNull(firm);
+    }
 
-	public void unsetPostBoxNumber() {
-		postBoxNumber = ModelObjects.setNull(postBoxNumber);
-	}
+    public void unsetIndicator() {
+        indicator = null;
+    }
 
-	public void unsetPostBoxNumberExtension() {
-		postBoxNumberExtension = ModelObjects.setNull(postBoxNumberExtension);
-	}
+    public void unsetPostBoxNumber() {
+        postBoxNumber = ModelObjects.setNull(postBoxNumber);
+    }
 
-	public void unsetPostBoxNumberPrefix() {
-		postBoxNumberPrefix = ModelObjects.setNull(postBoxNumberPrefix);
-	}
+    public void unsetPostBoxNumberExtension() {
+        postBoxNumberExtension = ModelObjects.setNull(postBoxNumberExtension);
+    }
 
-	public void unsetPostBoxNumberSuffix() {
-		postBoxNumberSuffix = ModelObjects.setNull(postBoxNumberSuffix);
-	}
+    public void unsetPostBoxNumberPrefix() {
+        postBoxNumberPrefix = ModelObjects.setNull(postBoxNumberPrefix);
+    }
 
-	public void unsetPostalCode() {
-		postalCode = ModelObjects.setNull(postalCode);
-	}
+    public void unsetPostBoxNumberSuffix() {
+        postBoxNumberSuffix = ModelObjects.setNull(postBoxNumberSuffix);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetPostalCode() {
+        postalCode = ModelObjects.setNull(postalCode);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POST_BOX;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POST_BOX;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostBox(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostBox copy = (target == null) ? new PostBox() : (PostBox)target;
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostBox(), copyBuilder);
+    }
 
-		if (isSetIndicator())
-			copy.setIndicator(copyBuilder.copy(indicator));
-		
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostBox copy = (target == null) ? new PostBox() : (PostBox) target;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetFirm()) {
-			copy.setFirm((Firm)copyBuilder.copy(firm));
-			if (copy.getFirm() == firm)
-				firm.setParent(this);
-		}
-		
-		if (isSetPostBoxNumber()) {
-			copy.setPostBoxNumber((PostBoxNumber)copyBuilder.copy(postBoxNumber));
-			if (copy.getPostBoxNumber() == postBoxNumber)
-				postBoxNumber.setParent(this);
-		}
-		
-		if (isSetPostBoxNumberExtension()) {
-			copy.setPostBoxNumberExtension((PostBoxNumberExtension)copyBuilder.copy(postBoxNumberExtension));
-			if (copy.getPostBoxNumberExtension() == postBoxNumberExtension)
-				postBoxNumberExtension.setParent(this);
-		}
-		
-		if (isSetPostBoxNumberPrefix()) {
-			copy.setPostBoxNumberPrefix((PostBoxNumberPrefix)copyBuilder.copy(postBoxNumberPrefix));
-			if (copy.getPostBoxNumberPrefix() == postBoxNumberPrefix)
-				postBoxNumberPrefix.setParent(this);
-		}
-		
-		if (isSetPostBoxNumberSuffix()) {
-			copy.setPostBoxNumberSuffix((PostBoxNumberSuffix)copyBuilder.copy(postBoxNumberSuffix));
-			if (copy.getPostBoxNumberSuffix() == postBoxNumberSuffix)
-				postBoxNumberSuffix.setParent(this);
-		}
-		
-		if (isSetPostalCode()) {
-			copy.setPostalCode((PostalCode)copyBuilder.copy(postalCode));
-			if (copy.getPostalCode() == postalCode)
-				postalCode.setParent(this);
-		}
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
 
-		copy.unsetParent();
+        if (isSetIndicator())
+            copy.setIndicator(copyBuilder.copy(indicator));
 
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetFirm()) {
+            copy.setFirm((Firm) copyBuilder.copy(firm));
+            if (copy.getFirm() == firm)
+                firm.setParent(this);
+        }
+
+        if (isSetPostBoxNumber()) {
+            copy.setPostBoxNumber((PostBoxNumber) copyBuilder.copy(postBoxNumber));
+            if (copy.getPostBoxNumber() == postBoxNumber)
+                postBoxNumber.setParent(this);
+        }
+
+        if (isSetPostBoxNumberExtension()) {
+            copy.setPostBoxNumberExtension((PostBoxNumberExtension) copyBuilder.copy(postBoxNumberExtension));
+            if (copy.getPostBoxNumberExtension() == postBoxNumberExtension)
+                postBoxNumberExtension.setParent(this);
+        }
+
+        if (isSetPostBoxNumberPrefix()) {
+            copy.setPostBoxNumberPrefix((PostBoxNumberPrefix) copyBuilder.copy(postBoxNumberPrefix));
+            if (copy.getPostBoxNumberPrefix() == postBoxNumberPrefix)
+                postBoxNumberPrefix.setParent(this);
+        }
+
+        if (isSetPostBoxNumberSuffix()) {
+            copy.setPostBoxNumberSuffix((PostBoxNumberSuffix) copyBuilder.copy(postBoxNumberSuffix));
+            if (copy.getPostBoxNumberSuffix() == postBoxNumberSuffix)
+                postBoxNumberSuffix.setParent(this);
+        }
+
+        if (isSetPostalCode()) {
+            copy.setPostalCode((PostalCode) copyBuilder.copy(postalCode));
+            if (copy.getPostalCode() == postalCode)
+                postalCode.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -27,141 +27,141 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class File implements GML, Child, Copyable {
-	private RangeParameters rangeParameters;
-	private String fileName;
-	private FileValueModel fileStructure;
-	private String mimeType;
-	private String compression;
-	private ModelObject parent;
+    private RangeParameters rangeParameters;
+    private String fileName;
+    private FileValueModel fileStructure;
+    private String mimeType;
+    private String compression;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.FILE;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.FILE;
+    }
 
-	public RangeParameters getRangeParameters() {
-		return rangeParameters;
-	}
+    public RangeParameters getRangeParameters() {
+        return rangeParameters;
+    }
 
-	public String getFileName() {
-		return fileName;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	public FileValueModel getFileStructure() {
-		return fileStructure;
-	}
+    public FileValueModel getFileStructure() {
+        return fileStructure;
+    }
 
-	public String getMimeType() {
-		return mimeType;
-	}
+    public String getMimeType() {
+        return mimeType;
+    }
 
-	public String getCompression() {
-		return compression;
-	}
+    public String getCompression() {
+        return compression;
+    }
 
-	public boolean isSetRangeParameters() {
-		return rangeParameters != null;
-	}
+    public boolean isSetRangeParameters() {
+        return rangeParameters != null;
+    }
 
-	public boolean isSetFileName() {
-		return fileName != null;
-	}
+    public boolean isSetFileName() {
+        return fileName != null;
+    }
 
-	public boolean isSetFileStructure() {
-		return fileStructure != null;
-	}
+    public boolean isSetFileStructure() {
+        return fileStructure != null;
+    }
 
-	public boolean isSetMimeType() {
-		return mimeType != null;
-	}
+    public boolean isSetMimeType() {
+        return mimeType != null;
+    }
 
-	public boolean isSetCompression() {
-		return compression != null;
-	}
+    public boolean isSetCompression() {
+        return compression != null;
+    }
 
-	public void setRangeParameters(RangeParameters rangeParameters) {
-		this.rangeParameters = ModelObjects.setParent(rangeParameters, this);
-	}
+    public void setRangeParameters(RangeParameters rangeParameters) {
+        this.rangeParameters = ModelObjects.setParent(rangeParameters, this);
+    }
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
-	public void setFileStructure(FileValueModel fileStructure) {
-		this.fileStructure = fileStructure;
-	}
+    public void setFileStructure(FileValueModel fileStructure) {
+        this.fileStructure = fileStructure;
+    }
 
-	public void setMimeType(String mimeType) {
-		this.mimeType = mimeType;
-	}
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
 
-	public void setCompression(String compression) {
-		this.compression = compression;
-	}
+    public void setCompression(String compression) {
+        this.compression = compression;
+    }
 
-	public void unsetRangeParameters() {
-		rangeParameters = ModelObjects.setNull(rangeParameters);
-	}
+    public void unsetRangeParameters() {
+        rangeParameters = ModelObjects.setNull(rangeParameters);
+    }
 
-	public void unsetFileName() {
-		fileName = null;
-	}
+    public void unsetFileName() {
+        fileName = null;
+    }
 
-	public void unsetFileStructure() {
-		fileStructure = null;
-	}
+    public void unsetFileStructure() {
+        fileStructure = null;
+    }
 
-	public void unsetMimeType() {
-		mimeType = null;
-	}
+    public void unsetMimeType() {
+        mimeType = null;
+    }
 
-	public void unsetCompression() {
-		compression = null;
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCompression() {
+        compression = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		File copy = (target == null) ? new File() : (File)target;
-		
-		if (isSetRangeParameters()) {
-			copy.setRangeParameters((RangeParameters)copyBuilder.copy(rangeParameters));
-			if (copy.getRangeParameters() == rangeParameters)
-				rangeParameters.setParent(this);
-		}
-		
-		if (isSetFileName())
-			copy.setFileName(copyBuilder.copy(fileName));
-		
-		if (isSetFileStructure())
-			copy.setFileStructure((FileValueModel)copyBuilder.copy(fileStructure));
-		
-		if (isSetMimeType())
-			copy.setMimeType(copyBuilder.copy(mimeType));
-		
-		if (isSetCompression())
-			copy.setCompression(copyBuilder.copy(compression));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new File(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        File copy = (target == null) ? new File() : (File) target;
+
+        if (isSetRangeParameters()) {
+            copy.setRangeParameters((RangeParameters) copyBuilder.copy(rangeParameters));
+            if (copy.getRangeParameters() == rangeParameters)
+                rangeParameters.setParent(this);
+        }
+
+        if (isSetFileName())
+            copy.setFileName(copyBuilder.copy(fileName));
+
+        if (isSetFileStructure())
+            copy.setFileStructure((FileValueModel) copyBuilder.copy(fileStructure));
+
+        if (isSetMimeType())
+            copy.setMimeType(copyBuilder.copy(mimeType));
+
+        if (isSetCompression())
+            copy.setCompression(copyBuilder.copy(compression));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new File(), copyBuilder);
+    }
 
 }

@@ -27,105 +27,105 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class _SimpleTexture extends _AbstractAppearance {
-	private String textureMap;
-	private List<Double> textureCoordinates;
-	private _TextureType _textureType;
-	private Boolean repeat;
-	
-	public Boolean getRepeat() {
-		return repeat;
-	}
+    private String textureMap;
+    private List<Double> textureCoordinates;
+    private _TextureType _textureType;
+    private Boolean repeat;
 
-	public List<Double> getTextureCoordinates() {
-		if (textureCoordinates == null)
-			textureCoordinates = new ArrayList<>();
-		
-		return textureCoordinates;
-	}
+    public Boolean getRepeat() {
+        return repeat;
+    }
 
-	public String getTextureMap() {
-		return textureMap;
-	}
+    public List<Double> getTextureCoordinates() {
+        if (textureCoordinates == null)
+            textureCoordinates = new ArrayList<>();
 
-	public _TextureType getTextureType() {
-		return _textureType;
-	}
+        return textureCoordinates;
+    }
 
-	public boolean isSetRepeat() {
-		return repeat != null;
-	}
+    public String getTextureMap() {
+        return textureMap;
+    }
 
-	public boolean isSetTextureCoordinates() {
-		return textureCoordinates != null && !textureCoordinates.isEmpty();
-	}
+    public _TextureType getTextureType() {
+        return _textureType;
+    }
 
-	public boolean isSetTextureMap() {
-		return textureMap != null;
-	}
+    public boolean isSetRepeat() {
+        return repeat != null;
+    }
 
-	public boolean isSetTextureType() {
-		return _textureType != null;
-	}
+    public boolean isSetTextureCoordinates() {
+        return textureCoordinates != null && !textureCoordinates.isEmpty();
+    }
 
-	public void setRepeat(Boolean repeat) {
-		this.repeat = repeat;
-	}
+    public boolean isSetTextureMap() {
+        return textureMap != null;
+    }
 
-	public void setTextureCoordinates(List<Double> textureCoordinates) {
-		this.textureCoordinates = textureCoordinates;
-	}
+    public boolean isSetTextureType() {
+        return _textureType != null;
+    }
 
-	public void setTextureMap(String textureMap) {
-		this.textureMap = textureMap;
-	}
+    public void setRepeat(Boolean repeat) {
+        this.repeat = repeat;
+    }
 
-	public void setTextureType(_TextureType _textureType) {
-		this._textureType = _textureType;
-	}
+    public void setTextureCoordinates(List<Double> textureCoordinates) {
+        this.textureCoordinates = textureCoordinates;
+    }
 
-	public void unsetRepeat() {
-		repeat = null;
-	}
+    public void setTextureMap(String textureMap) {
+        this.textureMap = textureMap;
+    }
 
-	public void unsetTextureType() {
-		_textureType = null;
-	}
+    public void setTextureType(_TextureType _textureType) {
+        this._textureType = _textureType;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._SIMPLE_TEXTURE;
-	}
+    public void unsetRepeat() {
+        repeat = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new _SimpleTexture(), copyBuilder);
-	}
+    public void unsetTextureType() {
+        _textureType = null;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		_SimpleTexture copy = (target == null) ? new _SimpleTexture() : (_SimpleTexture)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetTextureMap())
-			copy.setTextureMap(copyBuilder.copy(textureMap));
-		
-		if (isSetTextureCoordinates())
-			copy.setTextureCoordinates((List<Double>)copyBuilder.copy(textureCoordinates));
-		
-		if (isSetTextureType())
-			copy.setTextureType((_TextureType)copyBuilder.copy(_textureType));
-		
-		if (isSetRepeat())
-			copy.setRepeat(copyBuilder.copy(repeat));
-		
-		return copy;
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass._SIMPLE_TEXTURE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new _SimpleTexture(), copyBuilder);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        _SimpleTexture copy = (target == null) ? new _SimpleTexture() : (_SimpleTexture) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetTextureMap())
+            copy.setTextureMap(copyBuilder.copy(textureMap));
+
+        if (isSetTextureCoordinates())
+            copy.setTextureCoordinates((List<Double>) copyBuilder.copy(textureCoordinates));
+
+        if (isSetTextureType())
+            copy.setTextureType((_TextureType) copyBuilder.copy(_textureType));
+
+        if (isSetRepeat())
+            copy.setRepeat(copyBuilder.copy(repeat));
+
+        return copy;
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

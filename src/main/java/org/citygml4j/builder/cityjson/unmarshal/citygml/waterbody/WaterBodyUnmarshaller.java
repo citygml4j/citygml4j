@@ -45,170 +45,170 @@ import org.citygml4j.model.gml.geometry.primitives.SurfaceProperty;
 import java.util.List;
 
 public class WaterBodyUnmarshaller {
-	private final CityJSONUnmarshaller json;
-	private final CityGMLUnmarshaller citygml;
+    private final CityJSONUnmarshaller json;
+    private final CityGMLUnmarshaller citygml;
 
-	public WaterBodyUnmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONUnmarshaller();
-	}
-	
-	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		if (src instanceof WaterBodyType)
-			return unmarshalWaterBody((WaterBodyType) src, cityJSON);
+    public WaterBodyUnmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONUnmarshaller();
+    }
 
-		return null;
-	}
+    public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
+        if (src instanceof WaterBodyType)
+            return unmarshalWaterBody((WaterBodyType) src, cityJSON);
 
-	public AbstractCityObject unmarshalSemanticSurface(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent, CityJSON cityJSON) {
-		AbstractWaterBoundarySurface boundarySurface = null;
-		switch (semanticsType.getType()) {
-			case "WaterSurface":
-				boundarySurface = unmarshalWaterSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "WaterGroundSurface":
-				boundarySurface = unmarshalWaterGroundSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "WaterClosureSurface":
-				boundarySurface = unmarshalWaterClosureSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			default:
-				return null;
-		}
+        return null;
+    }
 
-		if (parent instanceof ADEModelObject) {
-			boolean success = json.getADEUnmarshaller().assignSemanticSurface(boundarySurface, lod, parent);
-			if (success)
-				return boundarySurface;
-		}
+    public AbstractCityObject unmarshalSemanticSurface(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent, CityJSON cityJSON) {
+        AbstractWaterBoundarySurface boundarySurface = null;
+        switch (semanticsType.getType()) {
+            case "WaterSurface":
+                boundarySurface = unmarshalWaterSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "WaterGroundSurface":
+                boundarySurface = unmarshalWaterGroundSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "WaterClosureSurface":
+                boundarySurface = unmarshalWaterClosureSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            default:
+                return null;
+        }
 
-		if (boundarySurface != null && parent instanceof WaterBody)
-			((WaterBody) parent).addBoundedBySurface(new BoundedByWaterSurfaceProperty(boundarySurface));
+        if (parent instanceof ADEModelObject) {
+            boolean success = json.getADEUnmarshaller().assignSemanticSurface(boundarySurface, lod, parent);
+            if (success)
+                return boundarySurface;
+        }
 
-		return boundarySurface;
-	}
-	
-	public void unmarshalWaterBody(WaterBodyType src, WaterBody dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
-		
-		if (src.isSetAttributes()) {
-			Attributes attributes = src.getAttributes();
-			if (attributes.isSetClazz())
-				dest.setClazz(new Code(attributes.getClazz()));
+        if (boundarySurface != null && parent instanceof WaterBody)
+            ((WaterBody) parent).addBoundedBySurface(new BoundedByWaterSurfaceProperty(boundarySurface));
 
-			if (attributes.isSetFunction())
-				dest.addFunction(new Code(attributes.getFunction()));
+        return boundarySurface;
+    }
 
-			if (attributes.isSetUsage())
-				dest.addUsage(new Code(attributes.getUsage()));
-		}
-		
-		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			if (geometryType instanceof AbstractGeometryObjectType) {
-				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
+    public void unmarshalWaterBody(WaterBodyType src, WaterBody dest, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
-				if (geometry != null) {
-					int lod = geometryObject.getLod().intValue();
+        if (src.isSetAttributes()) {
+            Attributes attributes = src.getAttributes();
+            if (attributes.isSetClazz())
+                dest.setClazz(new Code(attributes.getClazz()));
 
-					if (geometry instanceof MultiCurve) {
-						MultiCurve multiCurve = (MultiCurve) geometry;
-						switch (lod) {
-							case 0:
-								dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
-								break;
-							case 1:
-								dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
-								break;
-						}
-					} else if (geometry instanceof MultiSurface || geometry instanceof CompositeSurface) {
-						MultiSurface multiSurface = null;
+            if (attributes.isSetFunction())
+                dest.addFunction(new Code(attributes.getFunction()));
 
-						if (geometry instanceof MultiSurface)
-							multiSurface = (MultiSurface) geometry;
-						else {
-							multiSurface = new MultiSurface();
-							multiSurface.setSurfaceMember(((CompositeSurface) geometry).getSurfaceMember());
-						}
+            if (attributes.isSetUsage())
+                dest.addUsage(new Code(attributes.getUsage()));
+        }
 
-						switch (lod) {
-							case 0:
-								dest.setLod0MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-							case 1:
-								dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-								break;
-						}
-					} else if (geometry instanceof AbstractSolid) {
-						AbstractSolid solid = (AbstractSolid) geometry;
-						switch (lod) {
-							case 1:
-								dest.setLod1Solid(new SolidProperty(solid));
-								break;
-							case 2:
-								dest.setLod2Solid(new SolidProperty(solid));
-								break;
-							case 3:
-								dest.setLod3Solid(new SolidProperty(solid));
-								break;
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	public WaterBody unmarshalWaterBody(WaterBodyType src, CityJSON cityJSON) {
-		WaterBody dest = new WaterBody();
-		unmarshalWaterBody(src, dest, cityJSON);
-		
-		return dest;
-	}
-	
-	public void unmarshalAbstractWaterBoundarySurface(SemanticsType src, AbstractWaterBoundarySurface dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
-		
-		CompositeSurface compositeSurface = new CompositeSurface();
-		for (AbstractSurface surface : surfaces)
-			compositeSurface.addSurfaceMember(new SurfaceProperty(surface));
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType instanceof AbstractGeometryObjectType) {
+                AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+                AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
 
-		switch (lod.intValue()) {
-		case 2:
-			dest.setLod2Surface(new SurfaceProperty(compositeSurface));
-			break;
-		case 3:
-			dest.setLod3Surface(new SurfaceProperty(compositeSurface));
-			break;
-		}
-	}
-	
-	public WaterSurface unmarshalWaterSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		WaterSurface dest = new WaterSurface();
-		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
+                if (geometry != null) {
+                    int lod = geometryObject.getLod().intValue();
 
-		if (src.isSetAttributes()) {
-			Object attribute = src.getAttributes().get("waterLevel");
-			if (attribute instanceof String) {
-				dest.setWaterLevel(new Code((String)attribute));
-				src.getAttributes().remove("waterLevel");
-			}
-		}
+                    if (geometry instanceof MultiCurve) {
+                        MultiCurve multiCurve = (MultiCurve) geometry;
+                        switch (lod) {
+                            case 0:
+                                dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
+                                break;
+                            case 1:
+                                dest.setLod0MultiCurve(new MultiCurveProperty(multiCurve));
+                                break;
+                        }
+                    } else if (geometry instanceof MultiSurface || geometry instanceof CompositeSurface) {
+                        MultiSurface multiSurface = null;
 
-		return dest;
-	}
-	
-	public WaterGroundSurface unmarshalWaterGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		WaterGroundSurface dest = new WaterGroundSurface();
-		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
+                        if (geometry instanceof MultiSurface)
+                            multiSurface = (MultiSurface) geometry;
+                        else {
+                            multiSurface = new MultiSurface();
+                            multiSurface.setSurfaceMember(((CompositeSurface) geometry).getSurfaceMember());
+                        }
 
-		return dest;
-	}
-	
-	public WaterClosureSurface unmarshalWaterClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		WaterClosureSurface dest = new WaterClosureSurface();
-		unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
+                        switch (lod) {
+                            case 0:
+                                dest.setLod0MultiSurface(new MultiSurfaceProperty(multiSurface));
+                                break;
+                            case 1:
+                                dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+                                break;
+                        }
+                    } else if (geometry instanceof AbstractSolid) {
+                        AbstractSolid solid = (AbstractSolid) geometry;
+                        switch (lod) {
+                            case 1:
+                                dest.setLod1Solid(new SolidProperty(solid));
+                                break;
+                            case 2:
+                                dest.setLod2Solid(new SolidProperty(solid));
+                                break;
+                            case 3:
+                                dest.setLod3Solid(new SolidProperty(solid));
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-		return dest;
-	}
-	
+    public WaterBody unmarshalWaterBody(WaterBodyType src, CityJSON cityJSON) {
+        WaterBody dest = new WaterBody();
+        unmarshalWaterBody(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public void unmarshalAbstractWaterBoundarySurface(SemanticsType src, AbstractWaterBoundarySurface dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
+        CompositeSurface compositeSurface = new CompositeSurface();
+        for (AbstractSurface surface : surfaces)
+            compositeSurface.addSurfaceMember(new SurfaceProperty(surface));
+
+        switch (lod.intValue()) {
+            case 2:
+                dest.setLod2Surface(new SurfaceProperty(compositeSurface));
+                break;
+            case 3:
+                dest.setLod3Surface(new SurfaceProperty(compositeSurface));
+                break;
+        }
+    }
+
+    public WaterSurface unmarshalWaterSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        WaterSurface dest = new WaterSurface();
+        unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        if (src.isSetAttributes()) {
+            Object attribute = src.getAttributes().get("waterLevel");
+            if (attribute instanceof String) {
+                dest.setWaterLevel(new Code((String) attribute));
+                src.getAttributes().remove("waterLevel");
+            }
+        }
+
+        return dest;
+    }
+
+    public WaterGroundSurface unmarshalWaterGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        WaterGroundSurface dest = new WaterGroundSurface();
+        unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public WaterClosureSurface unmarshalWaterClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        WaterClosureSurface dest = new WaterClosureSurface();
+        unmarshalAbstractWaterBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
 }

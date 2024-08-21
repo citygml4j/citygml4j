@@ -26,127 +26,127 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class PremiseName implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String type;
-	private String typeOccurrence;
-	private String code;
-	private ModelObject parent;
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String type;
+    private String typeOccurrence;
+    private String code;
+    private ModelObject parent;
 
-	public String getType() {
-		return type;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getTypeOccurrence() {
-		return typeOccurrence;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getTypeOccurrence() {
+        return typeOccurrence;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public boolean isSetTypeOccurrence() {
-		return typeOccurrence != null;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetTypeOccurrence() {
+        return typeOccurrence != null;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setTypeOccurrence(String typeOccurrence) {
-		if (typeOccurrence.equals("Before") || typeOccurrence.equals("After"))
-			this.typeOccurrence = typeOccurrence;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setTypeOccurrence(String typeOccurrence) {
+        if (typeOccurrence.equals("Before") || typeOccurrence.equals("After"))
+            this.typeOccurrence = typeOccurrence;
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public void unsetTypeOccurrence() {
-		typeOccurrence = null;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.PREMISE_NAME;
-	}
+    public void unsetTypeOccurrence() {
+        typeOccurrence = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.PREMISE_NAME;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PremiseName(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PremiseName copy = (target == null) ? new PremiseName() : (PremiseName)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		if (isSetTypeOccurrence())
-			copy.setTypeOccurrence(copyBuilder.copy(typeOccurrence));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PremiseName(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PremiseName copy = (target == null) ? new PremiseName() : (PremiseName) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        if (isSetTypeOccurrence())
+            copy.setTypeOccurrence(copyBuilder.copy(typeOccurrence));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

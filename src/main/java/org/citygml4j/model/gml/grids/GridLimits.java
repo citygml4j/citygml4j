@@ -27,61 +27,61 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class GridLimits implements GML, Child, Copyable {
-	private GridEnvelope gridEnvelope;
-	private ModelObject parent;
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.GRID_LIMITS;
-	}
+    private GridEnvelope gridEnvelope;
+    private ModelObject parent;
 
-	public GridEnvelope getGridEnvelope() {
-		return gridEnvelope;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.GRID_LIMITS;
+    }
 
-	public boolean isSetGridEnvelope() {
-		return gridEnvelope != null;
-	}
+    public GridEnvelope getGridEnvelope() {
+        return gridEnvelope;
+    }
 
-	public void setGridEnvelope(GridEnvelope gridEnvelope) {
-		this.gridEnvelope = ModelObjects.setParent(gridEnvelope, this);
-	}
+    public boolean isSetGridEnvelope() {
+        return gridEnvelope != null;
+    }
 
-	public void unsetGridEnvelope() {
-		gridEnvelope = ModelObjects.setNull(gridEnvelope);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setGridEnvelope(GridEnvelope gridEnvelope) {
+        this.gridEnvelope = ModelObjects.setParent(gridEnvelope, this);
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void unsetGridEnvelope() {
+        gridEnvelope = ModelObjects.setNull(gridEnvelope);
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GridLimits copy = (target == null) ? new GridLimits() : (GridLimits)target;
-		
-		if (isSetGridEnvelope()) {
-			copy.setGridEnvelope((GridEnvelope)copyBuilder.copy(gridEnvelope));
-			if (copy.getGridEnvelope() == gridEnvelope)
-				gridEnvelope.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GridLimits(), copyBuilder);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GridLimits copy = (target == null) ? new GridLimits() : (GridLimits) target;
+
+        if (isSetGridEnvelope()) {
+            copy.setGridEnvelope((GridEnvelope) copyBuilder.copy(gridEnvelope));
+            if (copy.getGridEnvelope() == gridEnvelope)
+                gridEnvelope.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GridLimits(), copyBuilder);
+    }
 
 }

@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class ReliefComponentProperty extends FeatureProperty<AbstractReliefComponent> implements ReliefModuleComponent {
 
-	public ReliefComponentProperty() {
-		
-	}
-	
-	public ReliefComponentProperty(AbstractReliefComponent abstractReliefComponent) {
-		super(abstractReliefComponent);
-	}
-	
-	public ReliefComponentProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractReliefComponent getReliefComponent() {
-		return super.getObject();
-	}
+    public ReliefComponentProperty() {
 
-	public boolean isSetReliefComponent() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setReliefComponent(AbstractReliefComponent reliefComponent) {
-		super.setObject(reliefComponent);
-	}
+    public ReliefComponentProperty(AbstractReliefComponent abstractReliefComponent) {
+        super(abstractReliefComponent);
+    }
 
-	public void unsetReliefComponent() {
-		super.unsetObject();
-	}
+    public ReliefComponentProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RELIEF_COMPONENT_PROPERTY;
-	}
+    public AbstractReliefComponent getReliefComponent() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<AbstractReliefComponent> getAssociableClass() {
-		return AbstractReliefComponent.class;
-	}
+    public boolean isSetReliefComponent() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ReliefComponentProperty(), copyBuilder);
-	}
+    public void setReliefComponent(AbstractReliefComponent reliefComponent) {
+        super.setObject(reliefComponent);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ReliefComponentProperty copy = (target == null) ? new ReliefComponentProperty() : (ReliefComponentProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetReliefComponent() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.RELIEF_COMPONENT_PROPERTY;
+    }
+
+    @Override
+    public Class<AbstractReliefComponent> getAssociableClass() {
+        return AbstractReliefComponent.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ReliefComponentProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ReliefComponentProperty copy = (target == null) ? new ReliefComponentProperty() : (ReliefComponentProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

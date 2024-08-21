@@ -30,101 +30,101 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrientableCurve extends AbstractCurve {
-	private CurveProperty baseCurve;
-	private Sign orientation;
+    private CurveProperty baseCurve;
+    private Sign orientation;
 
-	public OrientableCurve() {
-		
-	}
-	
-	public OrientableCurve(AbstractCurve base, Sign orientation) {
-		setBaseCurve(new CurveProperty(base));
-		setOrientation(orientation);
-	}
-	
-	public OrientableCurve(String xlink, Sign orientation) {
-		setBaseCurve(new CurveProperty(xlink));
-		setOrientation(orientation);
-	}
-	
-	public CurveProperty getBaseCurve() {
-		return baseCurve;
-	}
+    public OrientableCurve() {
 
-	public Sign getOrientation() {
-		return orientation == null ? Sign.PLUS : orientation;
-	}
+    }
 
-	public boolean isSetBaseCurve() {
-		return baseCurve != null;
-	}
+    public OrientableCurve(AbstractCurve base, Sign orientation) {
+        setBaseCurve(new CurveProperty(base));
+        setOrientation(orientation);
+    }
 
-	public boolean isSetOrientation() {
-		return orientation != null;
-	}
+    public OrientableCurve(String xlink, Sign orientation) {
+        setBaseCurve(new CurveProperty(xlink));
+        setOrientation(orientation);
+    }
 
-	public void setBaseCurve(CurveProperty baseCurve) {
-		this.baseCurve = ModelObjects.setParent(baseCurve, this);
-	}
+    public CurveProperty getBaseCurve() {
+        return baseCurve;
+    }
 
-	public void setOrientation(Sign orientation) {
-		this.orientation = orientation;
-	}
+    public Sign getOrientation() {
+        return orientation == null ? Sign.PLUS : orientation;
+    }
 
-	public void unsetBaseCurve() {
-		baseCurve = ModelObjects.setNull(baseCurve);
-	}
+    public boolean isSetBaseCurve() {
+        return baseCurve != null;
+    }
 
-	public void unsetOrientation() {
-		orientation = null;
-	}
+    public boolean isSetOrientation() {
+        return orientation != null;
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ORIENTABLE_CURVE;
-	}
+    public void setBaseCurve(CurveProperty baseCurve) {
+        this.baseCurve = ModelObjects.setParent(baseCurve, this);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new OrientableCurve(), copyBuilder);
-	}
+    public void setOrientation(Sign orientation) {
+        this.orientation = orientation;
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		return isSetBaseCurve() && baseCurve.isSetCurve() ?
-				baseCurve.getCurve().toList3d(getOrientation() == Sign.MINUS) :
-				new ArrayList<>();
-	}
+    public void unsetBaseCurve() {
+        baseCurve = ModelObjects.setNull(baseCurve);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		OrientableCurve copy = (target == null) ? new OrientableCurve() : (OrientableCurve)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetBaseCurve()) {
-			copy.setBaseCurve((CurveProperty)copyBuilder.copy(baseCurve));
-			if (copy.getBaseCurve() == baseCurve)
-				baseCurve.setParent(this);
-		}
-		
-		if (isSetOrientation())
-			copy.setOrientation((Sign)copyBuilder.copy(orientation));
-		
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void unsetOrientation() {
+        orientation = null;
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.ORIENTABLE_CURVE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new OrientableCurve(), copyBuilder);
+    }
+
+    @Override
+    public List<Double> toList3d() {
+        return isSetBaseCurve() && baseCurve.isSetCurve() ?
+                baseCurve.getCurve().toList3d(getOrientation() == Sign.MINUS) :
+                new ArrayList<>();
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        OrientableCurve copy = (target == null) ? new OrientableCurve() : (OrientableCurve) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetBaseCurve()) {
+            copy.setBaseCurve((CurveProperty) copyBuilder.copy(baseCurve));
+            if (copy.getBaseCurve() == baseCurve)
+                baseCurve.setParent(this);
+        }
+
+        if (isSetOrientation())
+            copy.setOrientation((Sign) copyBuilder.copy(orientation));
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

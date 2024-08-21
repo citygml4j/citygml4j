@@ -31,107 +31,107 @@ import org.citygml4j.model.gml.GMLClass;
 import java.util.List;
 
 public class Polygon extends AbstractSurface {
-	private AbstractRingProperty exterior;
-	private List<AbstractRingProperty> interior;
+    private AbstractRingProperty exterior;
+    private List<AbstractRingProperty> interior;
 
-	public void addInterior(AbstractRingProperty abstractRingProperty) {
-		getInterior().add(abstractRingProperty);
-	}
+    public void addInterior(AbstractRingProperty abstractRingProperty) {
+        getInterior().add(abstractRingProperty);
+    }
 
-	public AbstractRingProperty getExterior() {
-		return exterior;
-	}
+    public AbstractRingProperty getExterior() {
+        return exterior;
+    }
 
-	public List<AbstractRingProperty> getInterior() {
-		if (interior == null)
-			interior = new ChildList<>(this);
+    public List<AbstractRingProperty> getInterior() {
+        if (interior == null)
+            interior = new ChildList<>(this);
 
-		return interior;
-	}
+        return interior;
+    }
 
-	public boolean isSetExterior() {
-		return exterior != null;
-	}
+    public boolean isSetExterior() {
+        return exterior != null;
+    }
 
-	public boolean isSetInterior() {
-		return interior != null && !interior.isEmpty();
-	}
+    public boolean isSetInterior() {
+        return interior != null && !interior.isEmpty();
+    }
 
-	public void setExterior(AbstractRingProperty abstractRingProperty) {
-		exterior = ModelObjects.setParent(abstractRingProperty, this);
-	}
+    public void setExterior(AbstractRingProperty abstractRingProperty) {
+        exterior = ModelObjects.setParent(abstractRingProperty, this);
+    }
 
-	public void setInterior(List<AbstractRingProperty> abstractRingProperty) {
-		interior = new ChildList<>(this, abstractRingProperty);
-	}
+    public void setInterior(List<AbstractRingProperty> abstractRingProperty) {
+        interior = new ChildList<>(this, abstractRingProperty);
+    }
 
-	public void unsetExterior() {
-		exterior = ModelObjects.setNull(exterior);
-	}
+    public void unsetExterior() {
+        exterior = ModelObjects.setNull(exterior);
+    }
 
-	public void unsetInterior() {
-		interior = ModelObjects.setNull(interior);
-	}
+    public void unsetInterior() {
+        interior = ModelObjects.setNull(interior);
+    }
 
-	public boolean unsetInterior(AbstractRingProperty abstractRingProperty) {
-		return isSetInterior() && interior.remove(abstractRingProperty);
-	}
+    public boolean unsetInterior(AbstractRingProperty abstractRingProperty) {
+        return isSetInterior() && interior.remove(abstractRingProperty);
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetExterior() && exterior.isSetRing())
-			bbox.update(exterior.getRing().calcBoundingBox());
-		
-		return bbox;
-	}
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
 
-	public GMLClass getGMLClass() {
-		return GMLClass.POLYGON;
-	}
+        if (isSetExterior() && exterior.isSetRing())
+            bbox.update(exterior.getRing().calcBoundingBox());
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Polygon(), copyBuilder);
-	}
+        return bbox;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Polygon copy = (target == null) ? new Polygon() : (Polygon)target;
-		super.copyTo(copy, copyBuilder);
+    public GMLClass getGMLClass() {
+        return GMLClass.POLYGON;
+    }
 
-		if (isSetExterior()) {
-			copy.setExterior((AbstractRingProperty)copyBuilder.copy(exterior));
-			if (copy.getExterior() == exterior)
-				exterior.setParent(this);
-		}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Polygon(), copyBuilder);
+    }
 
-		if (isSetInterior()) {
-			for (AbstractRingProperty part : interior) {
-				AbstractRingProperty copyPart = (AbstractRingProperty)copyBuilder.copy(part);
-				copy.addInterior(copyPart);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Polygon copy = (target == null) ? new Polygon() : (Polygon) target;
+        super.copyTo(copy, copyBuilder);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (isSetExterior()) {
+            copy.setExterior((AbstractRingProperty) copyBuilder.copy(exterior));
+            if (copy.getExterior() == exterior)
+                exterior.setParent(this);
+        }
 
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+        if (isSetInterior()) {
+            for (AbstractRingProperty part : interior) {
+                AbstractRingProperty copyPart = (AbstractRingProperty) copyBuilder.copy(part);
+                copy.addInterior(copyPart);
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

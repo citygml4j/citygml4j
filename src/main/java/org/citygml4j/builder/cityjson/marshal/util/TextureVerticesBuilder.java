@@ -21,7 +21,9 @@ package org.citygml4j.builder.cityjson.marshal.util;
 import java.util.List;
 
 public interface TextureVerticesBuilder {
-	List<Integer> addTextureVertices(List<Double> vertices);
-	List<List<Double>> build();
-	void reset();
+    List<Integer> addTextureVertices(List<Double> vertices);
+
+    List<List<Double>> build();
+
+    void reset();
 }

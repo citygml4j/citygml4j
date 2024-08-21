@@ -40,159 +40,159 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class Address extends AbstractFeature implements CoreModuleComponent {
-	private XalAddressProperty xalAddress;
-	private MultiPointProperty multiPoint;
-	private List<ADEComponent> ade;
+    private XalAddressProperty xalAddress;
+    private MultiPointProperty multiPoint;
+    private List<ADEComponent> ade;
 
-	public Address() {
-		
-	}
-	
-	public Address(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfAddress(ADEComponent ade) {
-		getGenericApplicationPropertyOfAddress().add(ade);
-	}
+    public Address() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfAddress() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public Address(Module module) {
+        super(module);
+    }
 
-	public MultiPointProperty getMultiPoint() {
-		return multiPoint;
-	}
+    public void addGenericApplicationPropertyOfAddress(ADEComponent ade) {
+        getGenericApplicationPropertyOfAddress().add(ade);
+    }
 
-	public XalAddressProperty getXalAddress() {
-		return xalAddress;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfAddress() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetGenericApplicationPropertyOfAddress() {
-		return ade != null && !ade.isEmpty();
-	}
+        return ade;
+    }
 
-	public boolean isSetMultiPoint() {
-		return multiPoint != null;
-	}
+    public MultiPointProperty getMultiPoint() {
+        return multiPoint;
+    }
 
-	public boolean isSetXalAddress() {
-		return xalAddress != null;
-	}
+    public XalAddressProperty getXalAddress() {
+        return xalAddress;
+    }
 
-	public void setGenericApplicationPropertyOfAddress(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfAddress() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setMultiPoint(MultiPointProperty multiPoint) {
-		this.multiPoint = ModelObjects.setParent(multiPoint, this);
-	}
+    public boolean isSetMultiPoint() {
+        return multiPoint != null;
+    }
 
-	public void setXalAddress(XalAddressProperty xalAddress) {
-		this.xalAddress = ModelObjects.setParent(xalAddress, this);
-	}
+    public boolean isSetXalAddress() {
+        return xalAddress != null;
+    }
 
-	public void unsetGenericApplicationPropertyOfAddress() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setGenericApplicationPropertyOfAddress(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfAddress(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfAddress() && this.ade.remove(ade);
-	}
+    public void setMultiPoint(MultiPointProperty multiPoint) {
+        this.multiPoint = ModelObjects.setParent(multiPoint, this);
+    }
 
-	public void unsetMultiPoint() {
-		multiPoint = ModelObjects.setNull(multiPoint);
-	}
+    public void setXalAddress(XalAddressProperty xalAddress) {
+        this.xalAddress = ModelObjects.setParent(xalAddress, this);
+    }
 
-	public void unsetXalAddress() {
-		xalAddress = ModelObjects.setNull(xalAddress);
-	}
+    public void unsetGenericApplicationPropertyOfAddress() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ADDRESS;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (multiPoint != null && multiPoint.isSetMultiPoint())
-			boundedBy.updateEnvelope(getMultiPoint().getGeometry().calcBoundingBox());
-		
-		if (isSetGenericApplicationPropertyOfAddress()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfAddress()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public boolean unsetGenericApplicationPropertyOfAddress(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfAddress() && this.ade.remove(ade);
+    }
 
-	@Override
-	public SpatialRepresentation getSpatialRepresentation() {
-		SpatialRepresentation representation = new SpatialRepresentation();
-		representation.addRepresentation(multiPoint);
+    public void unsetMultiPoint() {
+        multiPoint = ModelObjects.setNull(multiPoint);
+    }
 
-		return representation;
-	}
+    public void unsetXalAddress() {
+        xalAddress = ModelObjects.setNull(xalAddress);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Address(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.ADDRESS;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Address copy = (target == null) ? new Address() : (Address)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetXalAddress()) {
-			copy.setXalAddress((XalAddressProperty)copyBuilder.copy(xalAddress));
-			if (copy.getXalAddress() == xalAddress)
-				xalAddress.setParent(this);
-		}
-		
-		if (isSetMultiPoint()) {
-			copy.setMultiPoint((MultiPointProperty)copyBuilder.copy(multiPoint));
-			if (copy.getMultiPoint() == multiPoint)
-				multiPoint.setParent(this);
-		}
-		
-		if (isSetGenericApplicationPropertyOfAddress()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfAddress(copyPart);
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (multiPoint != null && multiPoint.isSetMultiPoint())
+            boundedBy.updateEnvelope(getMultiPoint().getGeometry().calcBoundingBox());
+
+        if (isSetGenericApplicationPropertyOfAddress()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfAddress()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public SpatialRepresentation getSpatialRepresentation() {
+        SpatialRepresentation representation = new SpatialRepresentation();
+        representation.addRepresentation(multiPoint);
+
+        return representation;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Address(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Address copy = (target == null) ? new Address() : (Address) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetXalAddress()) {
+            copy.setXalAddress((XalAddressProperty) copyBuilder.copy(xalAddress));
+            if (copy.getXalAddress() == xalAddress)
+                xalAddress.setParent(this);
+        }
+
+        if (isSetMultiPoint()) {
+            copy.setMultiPoint((MultiPointProperty) copyBuilder.copy(multiPoint));
+            if (copy.getMultiPoint() == multiPoint)
+                multiPoint.setParent(this);
+        }
+
+        if (isSetGenericApplicationPropertyOfAddress()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfAddress(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

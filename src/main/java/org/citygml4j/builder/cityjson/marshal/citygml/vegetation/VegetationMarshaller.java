@@ -34,215 +34,215 @@ import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class VegetationMarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
 
-	public VegetationMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
+    public VegetationMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
 
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-							.with(PlantCover.class, this::marshalPlantCover)
-							.with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+                            .with(PlantCover.class, this::marshalPlantCover)
+                            .with(SolitaryVegetationObject.class, this::marshalSolitaryVegetationObject);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return typeMapper;
-	}
+        return typeMapper;
+    }
 
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return getTypeMapper().apply(src, cityJSON);
-	}
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        return getTypeMapper().apply(src, cityJSON);
+    }
 
-	public void marshalAbstractVegetationObject(AbstractVegetationObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+    public void marshalAbstractVegetationObject(AbstractVegetationObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfVegetationObject())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfVegetationObject(), dest, cityJSON);
-	}
+        if (src.isSetGenericApplicationPropertyOfVegetationObject())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfVegetationObject(), dest, cityJSON);
+    }
 
-	public void marshalPlantCover(PlantCover src, PlantCoverType dest, CityJSON cityJSON) {
-		marshalAbstractVegetationObject(src, dest, cityJSON);
+    public void marshalPlantCover(PlantCover src, PlantCoverType dest, CityJSON cityJSON) {
+        marshalAbstractVegetationObject(src, dest, cityJSON);
 
-		PlantCoverAttributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
+        PlantCoverAttributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetAverageHeight())
-			attributes.setAverageHeight(src.getAverageHeight().getValue());
+        if (src.isSetAverageHeight())
+            attributes.setAverageHeight(src.getAverageHeight().getValue());
 
-		if (src.isSetGenericApplicationPropertyOfPlantCover())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfPlantCover(), dest, cityJSON);
-		
-		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetGenericApplicationPropertyOfPlantCover())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfPlantCover(), dest, cityJSON);
 
-		if (src.isSetLod2MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetLod1MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetLod3MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod1MultiSolid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSolid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod2MultiSolid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSolid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod3MultiSolid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSolid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-	}
-	
-	public PlantCoverType marshalPlantCover(PlantCover src, CityJSON cityJSON) {
-		PlantCoverType dest = new PlantCoverType();
-		marshalPlantCover(src, dest, cityJSON);
+        if (src.isSetLod2MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		return dest;
-	}
+        if (src.isSetLod3MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
 
-	public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest, CityJSON cityJSON) {
-		marshalAbstractVegetationObject(src, dest, cityJSON);
+        if (src.isSetLod1MultiSolid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSolid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		SolitaryVegetationObjectAttributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
+        if (src.isSetLod2MultiSolid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSolid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetLod3MultiSolid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSolid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+    }
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
+    public PlantCoverType marshalPlantCover(PlantCover src, CityJSON cityJSON) {
+        PlantCoverType dest = new PlantCoverType();
+        marshalPlantCover(src, dest, cityJSON);
 
-		if (src.isSetSpecies())
-			attributes.setSpecies(src.getSpecies().getValue());
+        return dest;
+    }
 
-		if (src.isSetTrunkDiameter())
-			attributes.setTrunkDiameter(src.getTrunkDiameter().getValue());
+    public void marshalSolitaryVegetationObject(SolitaryVegetationObject src, SolitaryVegetationObjectType dest, CityJSON cityJSON) {
+        marshalAbstractVegetationObject(src, dest, cityJSON);
 
-		if (src.isSetCrownDiameter())
-			attributes.setCrownDiameter(src.getCrownDiameter().getValue());
+        SolitaryVegetationObjectAttributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
 
-		if (src.isSetGenericApplicationPropertyOfSolitaryVegetationObject())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSolitaryVegetationObject(), dest, cityJSON);
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetLod1Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetLod2Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetSpecies())
+            attributes.setSpecies(src.getSpecies().getValue());
 
-		if (src.isSetLod3Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetTrunkDiameter())
+            attributes.setTrunkDiameter(src.getTrunkDiameter().getValue());
 
-		if (src.isSetLod1ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation(), 1, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
+        if (src.isSetCrownDiameter())
+            attributes.setCrownDiameter(src.getCrownDiameter().getValue());
 
-		if (src.isSetLod2ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
+        if (src.isSetGenericApplicationPropertyOfSolitaryVegetationObject())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSolitaryVegetationObject(), dest, cityJSON);
 
-		if (src.isSetLod3ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
-	}
+        if (src.isSetLod1Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
 
-	public SolitaryVegetationObjectType marshalSolitaryVegetationObject(SolitaryVegetationObject src, CityJSON cityJSON) {
-		SolitaryVegetationObjectType dest = new SolitaryVegetationObjectType();
-		marshalSolitaryVegetationObject(src, dest, cityJSON);
+        if (src.isSetLod2Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		return dest;
-	}
+        if (src.isSetLod3Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod1ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation(), 1, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+
+        if (src.isSetLod2ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+
+        if (src.isSetLod3ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+    }
+
+    public SolitaryVegetationObjectType marshalSolitaryVegetationObject(SolitaryVegetationObject src, CityJSON cityJSON) {
+        SolitaryVegetationObjectType dest = new SolitaryVegetationObjectType();
+        marshalSolitaryVegetationObject(src, dest, cityJSON);
+
+        return dest;
+    }
 }

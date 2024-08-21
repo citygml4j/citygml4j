@@ -21,7 +21,9 @@ package org.citygml4j.builder.cityjson.marshal.util;
 import java.util.List;
 
 public interface VerticesBuilder {
-	List<Integer> addVertices(List<Double> vertices);
-	List<List<Double>> build();
-	void reset();
+    List<Integer> addVertices(List<Double> vertices);
+
+    List<List<Double>> build();
+
+    void reset();
 }

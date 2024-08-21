@@ -39,141 +39,141 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class MassPointRelief extends AbstractReliefComponent {
-	private MultiPointProperty reliefPoints;
-	private List<ADEComponent> ade;
+    private MultiPointProperty reliefPoints;
+    private List<ADEComponent> ade;
 
-	public MassPointRelief() {
+    public MassPointRelief() {
 
-	}
+    }
 
-	public MassPointRelief(Module module) {
-		super(module);
-	}
+    public MassPointRelief(Module module) {
+        super(module);
+    }
 
-	public void addGenericApplicationPropertyOfMassPointRelief(ADEComponent ade) {
-		getGenericApplicationPropertyOfMassPointRelief().add(ade);
-	}
+    public void addGenericApplicationPropertyOfMassPointRelief(ADEComponent ade) {
+        getGenericApplicationPropertyOfMassPointRelief().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfMassPointRelief() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfMassPointRelief() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return ade;
-	}
+        return ade;
+    }
 
-	public MultiPointProperty getReliefPoints() {
-		return reliefPoints;
-	}
+    public MultiPointProperty getReliefPoints() {
+        return reliefPoints;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfMassPointRelief() {
-		return ade != null && !ade.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfMassPointRelief() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean isSetReliefPoints() {
-		return reliefPoints != null;
-	}
+    public boolean isSetReliefPoints() {
+        return reliefPoints != null;
+    }
 
-	public void setGenericApplicationPropertyOfMassPointRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void setGenericApplicationPropertyOfMassPointRelief(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void setReliefPoints(MultiPointProperty reliefPoints) {
-		this.reliefPoints = ModelObjects.setParent(reliefPoints, this);
-	}
+    public void setReliefPoints(MultiPointProperty reliefPoints) {
+        this.reliefPoints = ModelObjects.setParent(reliefPoints, this);
+    }
 
-	public void unsetGenericApplicationPropertyOfMassPointRelief() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void unsetGenericApplicationPropertyOfMassPointRelief() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfMassPointRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfMassPointRelief() && this.ade.remove(ade);
-	}
+    public boolean unsetGenericApplicationPropertyOfMassPointRelief(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfMassPointRelief() && this.ade.remove(ade);
+    }
 
-	public void unsetReliefPoints() {
-		reliefPoints = ModelObjects.setNull(reliefPoints);
-	}
+    public void unsetReliefPoints() {
+        reliefPoints = ModelObjects.setNull(reliefPoints);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.MASSPOINT_RELIEF;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.MASSPOINT_RELIEF;
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetReliefPoints()) {
-			if (reliefPoints.isSetMultiPoint()) {
-				boundedBy.updateEnvelope(reliefPoints.getMultiPoint().calcBoundingBox());
-			} else {
-				// xlink
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfMassPointRelief()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfMassPointRelief()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+        if (isSetReliefPoints()) {
+            if (reliefPoints.isSetMultiPoint()) {
+                boundedBy.updateEnvelope(reliefPoints.getMultiPoint().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MassPointRelief(), copyBuilder);
-	}
+        if (isSetGenericApplicationPropertyOfMassPointRelief()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfMassPointRelief()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		lodRepresentation.addRepresentation(getLod(), reliefPoints);
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-		return lodRepresentation;
-	}
+        return boundedBy;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MassPointRelief copy = (target == null) ? new MassPointRelief() : (MassPointRelief)target;
-		super.copyTo(copy, copyBuilder);
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MassPointRelief(), copyBuilder);
+    }
 
-		if (isSetReliefPoints()) {
-			copy.setReliefPoints((MultiPointProperty)copyBuilder.copy(reliefPoints));
-			if (copy.getReliefPoints() == reliefPoints)
-				reliefPoints.setParent(this);
-		}
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+        lodRepresentation.addRepresentation(getLod(), reliefPoints);
 
-		if (isSetGenericApplicationPropertyOfMassPointRelief()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfMassPointRelief(copyPart);
+        return lodRepresentation;
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MassPointRelief copy = (target == null) ? new MassPointRelief() : (MassPointRelief) target;
+        super.copyTo(copy, copyBuilder);
 
-		return copy;
-	}
+        if (isSetReliefPoints()) {
+            copy.setReliefPoints((MultiPointProperty) copyBuilder.copy(reliefPoints));
+            if (copy.getReliefPoints() == reliefPoints)
+                reliefPoints.setParent(this);
+        }
 
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+        if (isSetGenericApplicationPropertyOfMassPointRelief()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfMassPointRelief(copyPart);
 
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+        return copy;
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

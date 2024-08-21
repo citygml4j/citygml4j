@@ -40,210 +40,210 @@ import java.util.Map.Entry;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class WaterBodyMarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	private BiFunctionTypeMapper<CityJSON, SemanticsType> semanticsMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
+    private BiFunctionTypeMapper<CityJSON, SemanticsType> semanticsMapper;
 
-	public WaterBodyMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
+    public WaterBodyMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
 
-	private BiFunctionTypeMapper<CityJSON, SemanticsType> getSemanticsMapper() {
-		if (semanticsMapper == null) {
-			lock.lock();
-			try {
-				if (semanticsMapper == null) {
-					semanticsMapper = BiFunctionTypeMapper.<CityJSON, SemanticsType>create()
-							.with(WaterSurface.class, this::marshalWaterSurface)
-							.with(WaterGroundSurface.class, this::marshalWaterGroundSurface)
-							.with(WaterClosureSurface.class, this::marshalWaterClosureSurface);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private BiFunctionTypeMapper<CityJSON, SemanticsType> getSemanticsMapper() {
+        if (semanticsMapper == null) {
+            lock.lock();
+            try {
+                if (semanticsMapper == null) {
+                    semanticsMapper = BiFunctionTypeMapper.<CityJSON, SemanticsType>create()
+                            .with(WaterSurface.class, this::marshalWaterSurface)
+                            .with(WaterGroundSurface.class, this::marshalWaterGroundSurface)
+                            .with(WaterClosureSurface.class, this::marshalWaterClosureSurface);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return semanticsMapper;
-	}
+        return semanticsMapper;
+    }
 
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		if (src instanceof WaterBody)
-			return marshalWaterBody((WaterBody) src, cityJSON);
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        if (src instanceof WaterBody)
+            return marshalWaterBody((WaterBody) src, cityJSON);
 
-		return null;
-	}
+        return null;
+    }
 
-	public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
-		return getSemanticsMapper().apply(src, cityJSON);
-	}
+    public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
+        return getSemanticsMapper().apply(src, cityJSON);
+    }
 
-	public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+    public void marshalAbstractWaterObject(AbstractWaterObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfWaterObject())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterObject(), dest, cityJSON);
-	}
+        if (src.isSetGenericApplicationPropertyOfWaterObject())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterObject(), dest, cityJSON);
+    }
 
-	public void marshalWaterBody(WaterBody src, WaterBodyType dest, CityJSON cityJSON) {
-		marshalAbstractWaterObject(src, dest, cityJSON);
+    public void marshalWaterBody(WaterBody src, WaterBodyType dest, CityJSON cityJSON) {
+        marshalAbstractWaterObject(src, dest, cityJSON);
 
-		Attributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
+        Attributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetGenericApplicationPropertyOfWaterBody())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterBody(), dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfWaterBody())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterBody(), dest, cityJSON);
 
-		Map<Integer, MultiSurface> multiSurfaces = null;
-		if (src.isSetBoundedBySurface())
-			multiSurfaces = preprocessGeometry(src);
+        Map<Integer, MultiSurface> multiSurfaces = null;
+        if (src.isSetBoundedBySurface())
+            multiSurfaces = preprocessGeometry(src);
 
-		if (multiSurfaces != null) {
-			for (Entry<Integer, MultiSurface> entry : multiSurfaces.entrySet()) {
-				AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshal(entry.getValue(), cityJSON);
-				if (geometry != null) {
-					geometry.setLod(entry.getKey());
-					dest.addGeometry(geometry);
-				}
-			}
-		}
+        if (multiSurfaces != null) {
+            for (Entry<Integer, MultiSurface> entry : multiSurfaces.entrySet()) {
+                AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshal(entry.getValue(), cityJSON);
+                if (geometry != null) {
+                    geometry.setLod(entry.getKey());
+                    dest.addGeometry(geometry);
+                }
+            }
+        }
 
-		if (src.isSetLod0MultiCurve()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiCurve(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(0);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetLod0MultiCurve()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiCurve(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(0);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetLod1MultiCurve()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiCurve(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetLod1MultiCurve()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiCurve(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetLod0MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(0);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetLod0MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(0);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetLod1MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetLod1Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetLod1Solid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetLod2Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetLod2Solid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetLod3Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-	}
+        if (src.isSetLod3Solid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+    }
 
-	public WaterBodyType marshalWaterBody(WaterBody src, CityJSON cityJSON) {
-		WaterBodyType dest = new WaterBodyType();
-		marshalWaterBody(src, dest, cityJSON);
+    public WaterBodyType marshalWaterBody(WaterBody src, CityJSON cityJSON) {
+        WaterBodyType dest = new WaterBodyType();
+        marshalWaterBody(src, dest, cityJSON);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public void marshalSemanticSurface(AbstractWaterBoundarySurface src, SemanticsType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
+    public void marshalSemanticSurface(AbstractWaterBoundarySurface src, SemanticsType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfWaterBoundarySurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterBoundarySurface(), dest, cityJSON);
-	}
+        if (src.isSetGenericApplicationPropertyOfWaterBoundarySurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterBoundarySurface(), dest, cityJSON);
+    }
 
-	public SemanticsType marshalWaterSurface(WaterSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("WaterSurface");
-		marshalSemanticSurface(src, dest, cityJSON);
+    public SemanticsType marshalWaterSurface(WaterSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("WaterSurface");
+        marshalSemanticSurface(src, dest, cityJSON);
 
-		if (src.isSetWaterLevel())
-			dest.addAttribute("waterLevel", src.getWaterLevel().getValue());
+        if (src.isSetWaterLevel())
+            dest.addAttribute("waterLevel", src.getWaterLevel().getValue());
 
-		if (src.isSetGenericApplicationPropertyOfWaterSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterSurface(), dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfWaterSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterSurface(), dest, cityJSON);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public SemanticsType marshalWaterGroundSurface(WaterGroundSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("WaterGroundSurface");
-		marshalSemanticSurface(src, dest, cityJSON);
+    public SemanticsType marshalWaterGroundSurface(WaterGroundSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("WaterGroundSurface");
+        marshalSemanticSurface(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfWaterGroundSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterGroundSurface(), dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfWaterGroundSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterGroundSurface(), dest, cityJSON);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public SemanticsType marshalWaterClosureSurface(WaterClosureSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("WaterClosureSurface");
-		marshalSemanticSurface(src, dest, cityJSON);
+    public SemanticsType marshalWaterClosureSurface(WaterClosureSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("WaterClosureSurface");
+        marshalSemanticSurface(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfWaterClosureSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterClosureSurface(), dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfWaterClosureSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWaterClosureSurface(), dest, cityJSON);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public Map<Integer, MultiSurface> preprocessGeometry(WaterBody src) {
-		Map<Integer, MultiSurface> multiSurfaces = new HashMap<>();
+    public Map<Integer, MultiSurface> preprocessGeometry(WaterBody src) {
+        Map<Integer, MultiSurface> multiSurfaces = new HashMap<>();
 
-		SemanticSurfaceCollector collector = new SemanticSurfaceCollector(src);
-		collector.collectSurfaces(src.getBoundedBySurface(), 2, 3);
+        SemanticSurfaceCollector collector = new SemanticSurfaceCollector(src);
+        collector.collectSurfaces(src.getBoundedBySurface(), 2, 3);
 
-		for (int lod = 2; lod < 4; lod++) {
-			if (collector.hasSurfaces(lod))
-				multiSurfaces.put(lod, collector.getSurfaces(lod));
-		}
+        for (int lod = 2; lod < 4; lod++) {
+            if (collector.hasSurfaces(lod))
+                multiSurfaces.put(lod, collector.getSurfaces(lod));
+        }
 
-		return multiSurfaces;
-	}
+        return multiSurfaces;
+    }
 
 }

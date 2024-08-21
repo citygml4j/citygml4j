@@ -29,102 +29,102 @@ import org.citygml4j.model.common.visitor.FeatureVisitor;
 import org.w3c.dom.Element;
 
 public class ADEGenericElement implements ADEComponent {
-	private Element content;
-	private ModelObject parent;	
-	
-	public ADEGenericElement() {
-		
-	}
-	
-	public ADEGenericElement(Element content) {
-		this.content = content;
-	}
-	
-	public Element getContent() {
-		return content;
-	}
-	
-	public boolean isSetContent() {
-		return content != null;
-	}
-	
-	public void setContent(Element content) {
-		this.content = content;
-	}
-	
-	public void unsetContent() {
-		content = null;
-	}
+    private Element content;
+    private ModelObject parent;
 
-	public String getLocalName() {
-		return isSetContent() ? content.getLocalName() : null;
-	}
-	
-	public String getPrefix() {
-		return isSetContent() ? content.getPrefix() : null;
-	}
-	
-	public String getNamespaceURI() {
-		return isSetContent() ? content.getNamespaceURI() : null;
-	}
+    public ADEGenericElement() {
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ADE_COMPONENT;
-	}
+    }
 
-	@Override
-	public ADEClass getADEClass() {
-		return ADEClass.GENERIC_ELEMENT;
-	}
+    public ADEGenericElement(Element content) {
+        this.content = content;
+    }
 
-	@Override
-	public ModelObject getParent() {
-		return parent;
-	}
+    public Element getContent() {
+        return content;
+    }
 
-	@Override
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	@Override
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setContent(Element content) {
+        this.content = content;
+    }
 
-	@Override
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ADEGenericElement(), copyBuilder);
-	}
+    public String getLocalName() {
+        return isSetContent() ? content.getLocalName() : null;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ADEGenericElement copy = (target == null) ? new ADEGenericElement() : (ADEGenericElement)target;
-		
-		if (isSetContent()) {
-			if (copyBuilder instanceof DeepCopyBuilder)
-				copy.setContent((Element)content.cloneNode(true));
-			else
-				copy.setContent((Element)copyBuilder.copy(content));
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public String getPrefix() {
+        return isSetContent() ? content.getPrefix() : null;
+    }
 
-	public void visit(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T apply(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+    public String getNamespaceURI() {
+        return isSetContent() ? content.getNamespaceURI() : null;
+    }
+
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.ADE_COMPONENT;
+    }
+
+    @Override
+    public ADEClass getADEClass() {
+        return ADEClass.GENERIC_ELEMENT;
+    }
+
+    @Override
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    @Override
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    @Override
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    @Override
+    public void unsetParent() {
+        parent = null;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ADEGenericElement(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ADEGenericElement copy = (target == null) ? new ADEGenericElement() : (ADEGenericElement) target;
+
+        if (isSetContent()) {
+            if (copyBuilder instanceof DeepCopyBuilder)
+                copy.setContent((Element) content.cloneNode(true));
+            else
+                copy.setContent((Element) copyBuilder.copy(content));
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void visit(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T apply(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

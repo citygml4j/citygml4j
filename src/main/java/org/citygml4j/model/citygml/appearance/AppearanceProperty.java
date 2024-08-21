@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class AppearanceProperty extends FeatureProperty<Appearance> implements AppearanceModuleComponent {
 
-	public AppearanceProperty() {
+    public AppearanceProperty() {
 
-	}
-	
-	public AppearanceProperty(Appearance appearance) {
-		super(appearance);
-	}
-	
-	public AppearanceProperty(String href) {
-		super(href);
-	}
-	
-	public Appearance getAppearance() {
-		return super.getFeature();
-	}
+    }
 
-	public boolean isSetAppearance() {
-		return super.isSetFeature();
-	}
+    public AppearanceProperty(Appearance appearance) {
+        super(appearance);
+    }
 
-	public void setAppearance(Appearance appearance) {
-		super.setFeature(appearance);
-	}
+    public AppearanceProperty(String href) {
+        super(href);
+    }
 
-	public void unsetAppearance() {
-		super.unsetFeature();
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.APPEARANCE_PROPERTY;
-	}
+    public Appearance getAppearance() {
+        return super.getFeature();
+    }
 
-	@Override
-	public Class<Appearance> getAssociableClass() {
-		return Appearance.class;
-	}
+    public boolean isSetAppearance() {
+        return super.isSetFeature();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new AppearanceProperty(), copyBuilder);
-	}
+    public void setAppearance(Appearance appearance) {
+        super.setFeature(appearance);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		AppearanceProperty copy = (target == null) ? new AppearanceProperty() : (AppearanceProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetAppearance() {
+        super.unsetFeature();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.APPEARANCE_PROPERTY;
+    }
+
+    @Override
+    public Class<Appearance> getAssociableClass() {
+        return Appearance.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new AppearanceProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        AppearanceProperty copy = (target == null) ? new AppearanceProperty() : (AppearanceProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

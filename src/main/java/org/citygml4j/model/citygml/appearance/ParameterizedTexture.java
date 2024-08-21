@@ -32,121 +32,121 @@ import org.citygml4j.model.module.Module;
 import java.util.List;
 
 public class ParameterizedTexture extends AbstractTexture {
-	private List<TextureAssociation> target;
-	private List<ADEComponent> ade;
-	
-	public ParameterizedTexture() {
-		
-	}
-	
-	public ParameterizedTexture(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade) {
-		getGenericApplicationPropertyOfParameterizedTexture().add(ade);
-	}
+    private List<TextureAssociation> target;
+    private List<ADEComponent> ade;
 
-	public void addTarget(TextureAssociation target) {
-		getTarget().add(target);
-	}
+    public ParameterizedTexture() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfParameterizedTexture() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public ParameterizedTexture(Module module) {
+        super(module);
+    }
 
-	public List<TextureAssociation> getTarget() {
-		if (target == null)
-			target = new ChildList<>(this);
+    public void addGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade) {
+        getGenericApplicationPropertyOfParameterizedTexture().add(ade);
+    }
 
-		return target;
-	}
+    public void addTarget(TextureAssociation target) {
+        getTarget().add(target);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfParameterizedTexture() {
-		return ade != null && !ade.isEmpty();
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfParameterizedTexture() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetTarget() {
-		return target != null && !target.isEmpty();
-	}
+        return ade;
+    }
 
-	public void setGenericApplicationPropertyOfParameterizedTexture(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public List<TextureAssociation> getTarget() {
+        if (target == null)
+            target = new ChildList<>(this);
 
-	public void setTarget(List<TextureAssociation> target) {
-		this.target = new ChildList<>(this, target);
-	}
+        return target;
+    }
 
-	public void unsetGenericApplicationPropertyOfParameterizedTexture() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfParameterizedTexture() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean unsetGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfParameterizedTexture() && this.ade.remove(ade);
-	}
+    public boolean isSetTarget() {
+        return target != null && !target.isEmpty();
+    }
 
-	public void unsetTarget() {
-		target = ModelObjects.setNull(target);
-	}
+    public void setGenericApplicationPropertyOfParameterizedTexture(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetTarget(TextureAssociation target) {
-		return isSetTarget() && this.target.remove(target);
-	}
+    public void setTarget(List<TextureAssociation> target) {
+        this.target = new ChildList<>(this, target);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.PARAMETERIZED_TEXTURE;
-	}
+    public void unsetGenericApplicationPropertyOfParameterizedTexture() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ParameterizedTexture(), copyBuilder);
-	}
+    public boolean unsetGenericApplicationPropertyOfParameterizedTexture(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfParameterizedTexture() && this.ade.remove(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ParameterizedTexture copy = (target == null) ? new ParameterizedTexture() : (ParameterizedTexture)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetTarget()) {
-			for (TextureAssociation part : this.target) {
-				TextureAssociation copyPart = (TextureAssociation)copyBuilder.copy(part);
-				copy.addTarget(copyPart);
+    public void unsetTarget() {
+        target = ModelObjects.setNull(target);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfParameterizedTexture()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfParameterizedTexture(copyPart);
+    public boolean unsetTarget(TextureAssociation target) {
+        return isSetTarget() && this.target.remove(target);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.PARAMETERIZED_TEXTURE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ParameterizedTexture(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ParameterizedTexture copy = (target == null) ? new ParameterizedTexture() : (ParameterizedTexture) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetTarget()) {
+            for (TextureAssociation part : this.target) {
+                TextureAssociation copyPart = (TextureAssociation) copyBuilder.copy(part);
+                copy.addTarget(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfParameterizedTexture()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfParameterizedTexture(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

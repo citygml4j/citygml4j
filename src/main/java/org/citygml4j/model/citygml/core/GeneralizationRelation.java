@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class GeneralizationRelation extends FeatureProperty<AbstractCityObject> implements CoreModuleComponent {
 
-	public GeneralizationRelation() {
-		
-	}
-	
-	public GeneralizationRelation(AbstractCityObject abstractCityObject) {
-		super(abstractCityObject);
-	}
-	
-	public GeneralizationRelation(String href) {
-		super(href);
-	}
-	
-	public AbstractCityObject getCityObject() {
-		return super.getObject();
-	}
+    public GeneralizationRelation() {
 
-	public boolean isSetCityObject() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setCityObject(AbstractCityObject cityObject) {
-		super.setObject(cityObject);
-	}
+    public GeneralizationRelation(AbstractCityObject abstractCityObject) {
+        super(abstractCityObject);
+    }
 
-	public void unsetCityObject() {
-		super.unsetObject();
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GENERALIZATION_RELATION;
-	}
+    public GeneralizationRelation(String href) {
+        super(href);
+    }
 
-	@Override
-	public Class<AbstractCityObject> getAssociableClass() {
-		return AbstractCityObject.class;
-	}
+    public AbstractCityObject getCityObject() {
+        return super.getObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GeneralizationRelation(), copyBuilder);
-	}
+    public boolean isSetCityObject() {
+        return super.isSetObject();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GeneralizationRelation copy = (target == null) ? new GeneralizationRelation() : (GeneralizationRelation)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void setCityObject(AbstractCityObject cityObject) {
+        super.setObject(cityObject);
+    }
+
+    public void unsetCityObject() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.GENERALIZATION_RELATION;
+    }
+
+    @Override
+    public Class<AbstractCityObject> getAssociableClass() {
+        return AbstractCityObject.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GeneralizationRelation(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GeneralizationRelation copy = (target == null) ? new GeneralizationRelation() : (GeneralizationRelation) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

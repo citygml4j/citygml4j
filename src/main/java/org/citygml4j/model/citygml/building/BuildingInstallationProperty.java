@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class BuildingInstallationProperty extends FeatureProperty<BuildingInstallation> implements BuildingModuleComponent {
 
-	public BuildingInstallationProperty() {
-		
-	}
-	
-	public BuildingInstallationProperty(BuildingInstallation buildingInstallation) {
-		super(buildingInstallation);
-	}
-	
-	public BuildingInstallationProperty(String href) {
-		super(href);
-	}
-	
-	public BuildingInstallation getBuildingInstallation() {
-		return super.getObject();
-	}
+    public BuildingInstallationProperty() {
 
-	public boolean isSetBuildingInstallation() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setBuildingInstallation(BuildingInstallation buildingInstallation) {
-		super.setObject(buildingInstallation);
-	}
+    public BuildingInstallationProperty(BuildingInstallation buildingInstallation) {
+        super(buildingInstallation);
+    }
 
-	public void unsetBuildingInstallation() {
-		super.unsetObject();
-	}
+    public BuildingInstallationProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDING_INSTALLATION_PROPERTY;
-	}
+    public BuildingInstallation getBuildingInstallation() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<BuildingInstallation> getAssociableClass() {
-		return BuildingInstallation.class;
-	}
+    public boolean isSetBuildingInstallation() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingInstallationProperty(), copyBuilder);
-	}
+    public void setBuildingInstallation(BuildingInstallation buildingInstallation) {
+        super.setObject(buildingInstallation);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BuildingInstallationProperty copy = (target == null) ? new BuildingInstallationProperty() : (BuildingInstallationProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetBuildingInstallation() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BUILDING_INSTALLATION_PROPERTY;
+    }
+
+    @Override
+    public Class<BuildingInstallation> getAssociableClass() {
+        return BuildingInstallation.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingInstallationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BuildingInstallationProperty copy = (target == null) ? new BuildingInstallationProperty() : (BuildingInstallationProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

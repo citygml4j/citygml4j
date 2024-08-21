@@ -25,62 +25,62 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 import java.util.List;
 
 public class ValueArrayProperty extends ArrayAssociation<Value> {
-	
-	public ValueArrayProperty() {
 
-	}
+    public ValueArrayProperty() {
 
-	public ValueArrayProperty(Value value) {
-		super(value);
-	}
+    }
 
-	public ValueArrayProperty(List<Value> value) {
-		super(value);
-	}
-	
-	public ValueArrayProperty(Value... value) {
-		super(value);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.VALUE_ARRAY_PROPERTY;
-	}
+    public ValueArrayProperty(Value value) {
+        super(value);
+    }
 
-	public List<Value> getValue() {
-		return super.getObject();
-	}
+    public ValueArrayProperty(List<Value> value) {
+        super(value);
+    }
 
-	public boolean isSetValue() {
-		return super.isSetObject();
-	}
+    public ValueArrayProperty(Value... value) {
+        super(value);
+    }
 
-	public void setValue(List<Value> value) {
-		super.setObject(value);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.VALUE_ARRAY_PROPERTY;
+    }
 
-	public void addValue(Value value) {
-		super.addObject(value);
-	}
+    public List<Value> getValue() {
+        return super.getObject();
+    }
 
-	public void unsetValue() {
-		super.unsetObject();
-	}
+    public boolean isSetValue() {
+        return super.isSetObject();
+    }
 
-	public boolean unsetValue(Value value) {
-		return super.unsetObject(value);
-	}
-	
-	public Class<Value> getAssociableClass() {
-		return Value.class;
-	}
+    public void setValue(List<Value> value) {
+        super.setObject(value);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ValueArrayProperty copy = (target == null) ? new ValueArrayProperty() : (ValueArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void addValue(Value value) {
+        super.addObject(value);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ValueArrayProperty(), copyBuilder);
-	}
+    public void unsetValue() {
+        super.unsetObject();
+    }
+
+    public boolean unsetValue(Value value) {
+        return super.unsetObject(value);
+    }
+
+    public Class<Value> getAssociableClass() {
+        return Value.class;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ValueArrayProperty copy = (target == null) ? new ValueArrayProperty() : (ValueArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ValueArrayProperty(), copyBuilder);
+    }
 
 }

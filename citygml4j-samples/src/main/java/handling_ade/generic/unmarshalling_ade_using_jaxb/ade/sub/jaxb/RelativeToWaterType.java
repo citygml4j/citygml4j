@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java-Klasse für RelativeToWaterType.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
@@ -49,7 +49,6 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
  */
 @XmlType(name = "RelativeToWaterType")
 @XmlEnum
@@ -78,7 +77,7 @@ public enum RelativeToWaterType {
     }
 
     public static RelativeToWaterType fromValue(String v) {
-        for (RelativeToWaterType c: RelativeToWaterType.values()) {
+        for (RelativeToWaterType c : RelativeToWaterType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

@@ -34,100 +34,100 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CompositeSurface extends AbstractSurface {
-	private List<SurfaceProperty> surfaceMember;
+    private List<SurfaceProperty> surfaceMember;
 
-	public CompositeSurface() {
+    public CompositeSurface() {
 
-	}
+    }
 
-	public CompositeSurface(List<? extends AbstractSurface> abstractSurfaces) {
-		for (AbstractSurface abstractSurface : abstractSurfaces)
-			addSurfaceMember(new SurfaceProperty(abstractSurface));
-	}
+    public CompositeSurface(List<? extends AbstractSurface> abstractSurfaces) {
+        for (AbstractSurface abstractSurface : abstractSurfaces)
+            addSurfaceMember(new SurfaceProperty(abstractSurface));
+    }
 
-	public CompositeSurface(AbstractSurface... abstractSurfaces) {
-		this(Arrays.asList(abstractSurfaces));
-	}
+    public CompositeSurface(AbstractSurface... abstractSurfaces) {
+        this(Arrays.asList(abstractSurfaces));
+    }
 
-	public void addSurfaceMember(SurfaceProperty surfaceMember) {
-		getSurfaceMember().add(surfaceMember);
-	}
+    public void addSurfaceMember(SurfaceProperty surfaceMember) {
+        getSurfaceMember().add(surfaceMember);
+    }
 
-	public List<SurfaceProperty> getSurfaceMember() {
-		if (surfaceMember == null)
-			surfaceMember = new ChildList<>(this);
+    public List<SurfaceProperty> getSurfaceMember() {
+        if (surfaceMember == null)
+            surfaceMember = new ChildList<>(this);
 
-		return surfaceMember;
-	}
+        return surfaceMember;
+    }
 
-	public boolean isSetSurfaceMember() {
-		return surfaceMember != null && !surfaceMember.isEmpty();
-	}
+    public boolean isSetSurfaceMember() {
+        return surfaceMember != null && !surfaceMember.isEmpty();
+    }
 
-	public void setSurfaceMember(List<SurfaceProperty> surfaceMember) {
-		this.surfaceMember = new ChildList<>(this, surfaceMember);
-	}
+    public void setSurfaceMember(List<SurfaceProperty> surfaceMember) {
+        this.surfaceMember = new ChildList<>(this, surfaceMember);
+    }
 
-	public void unsetSurfaceMember() {
-		surfaceMember = ModelObjects.setNull(surfaceMember);
-	}
+    public void unsetSurfaceMember() {
+        surfaceMember = ModelObjects.setNull(surfaceMember);
+    }
 
-	public boolean unsetSurfaceMember(SurfaceProperty surfaceMember) {
-		return isSetSurfaceMember() && this.surfaceMember.remove(surfaceMember);
-	}
+    public boolean unsetSurfaceMember(SurfaceProperty surfaceMember) {
+        return isSetSurfaceMember() && this.surfaceMember.remove(surfaceMember);
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
 
-		if (isSetSurfaceMember()) {
-			for (SurfaceProperty surfaceProperty : getSurfaceMember())
-				if (surfaceProperty.isSetSurface())
-					bbox.update(surfaceProperty.getSurface().calcBoundingBox());
-		}
+        if (isSetSurfaceMember()) {
+            for (SurfaceProperty surfaceProperty : getSurfaceMember())
+                if (surfaceProperty.isSetSurface())
+                    bbox.update(surfaceProperty.getSurface().calcBoundingBox());
+        }
 
-		return bbox;
-	}
+        return bbox;
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.COMPOSITE_SURFACE;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.COMPOSITE_SURFACE;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CompositeSurface(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CompositeSurface(), copyBuilder);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CompositeSurface copy = (target == null) ? new CompositeSurface() : (CompositeSurface)target;
-		super.copyTo(copy, copyBuilder);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CompositeSurface copy = (target == null) ? new CompositeSurface() : (CompositeSurface) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetSurfaceMember()) {
-			for (SurfaceProperty part : surfaceMember) {
-				SurfaceProperty copyPart = (SurfaceProperty)copyBuilder.copy(part);
-				copy.addSurfaceMember(copyPart);
+        if (isSetSurfaceMember()) {
+            for (SurfaceProperty part : surfaceMember) {
+                SurfaceProperty copyPart = (SurfaceProperty) copyBuilder.copy(part);
+                copy.addSurfaceMember(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		return copy;
-	}
+        return copy;
+    }
 
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

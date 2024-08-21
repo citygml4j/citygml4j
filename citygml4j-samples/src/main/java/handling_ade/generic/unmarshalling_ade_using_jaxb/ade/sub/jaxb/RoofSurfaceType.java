@@ -36,9 +36,9 @@ import java.util.List;
 
 /**
  * <p>Java-Klasse für RoofSurfaceType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="RoofSurfaceType">
  *   &lt;complexContent>
@@ -50,40 +50,35 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "RoofSurfaceType", propOrder = {
-    "_GenericApplicationPropertyOfRoofSurface"
+        "_GenericApplicationPropertyOfRoofSurface"
 })
 public class RoofSurfaceType
-    extends AbstractBoundarySurfaceType
-{
+        extends AbstractBoundarySurfaceType {
 
     protected List<Object> _GenericApplicationPropertyOfRoofSurface;
 
     /**
      * Gets the value of the genericApplicationPropertyOfRoofSurface property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfRoofSurface property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfRoofSurface().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfRoofSurface() {
         if (_GenericApplicationPropertyOfRoofSurface == null) {
@@ -93,7 +88,7 @@ public class RoofSurfaceType
     }
 
     public boolean isSet_GenericApplicationPropertyOfRoofSurface() {
-        return ((this._GenericApplicationPropertyOfRoofSurface!= null)&&(!this._GenericApplicationPropertyOfRoofSurface.isEmpty()));
+        return ((this._GenericApplicationPropertyOfRoofSurface != null) && (!this._GenericApplicationPropertyOfRoofSurface.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfRoofSurface() {

@@ -31,178 +31,178 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PosOrPointPropertyOrPointRepOrCoord implements GML, Child, Copyable, CoordinateListProvider {
-	private DirectPosition pos;
-	private PointProperty pointProperty;
-	private PointRep pointRep;
-	private Coord coord;
-	private ModelObject parent;
-	
-	public PosOrPointPropertyOrPointRepOrCoord() {
-		
-	}
-	
-	public PosOrPointPropertyOrPointRepOrCoord(DirectPosition pos) {
-		setPos(pos);
-	}
-	
-	public PosOrPointPropertyOrPointRepOrCoord(PointProperty pointProperty) {
-		setPointProperty(pointProperty);
-	}
-	
-	public PosOrPointPropertyOrPointRepOrCoord(PointRep pointRep) {
-		setPointRep(pointRep);
-	}
-	
-	public PosOrPointPropertyOrPointRepOrCoord(Coord coord) {
-		setCoord(coord);
-	}
-	
-	public PointProperty getPointProperty() {
-		return pointProperty;
-	}
+    private DirectPosition pos;
+    private PointProperty pointProperty;
+    private PointRep pointRep;
+    private Coord coord;
+    private ModelObject parent;
 
-	public PointRep getPointRep() {
-		return pointRep;
-	}
+    public PosOrPointPropertyOrPointRepOrCoord() {
 
-	public DirectPosition getPos() {
-		return pos;
-	}
+    }
 
-	public Coord getCoord() {
-		return coord;
-	}
+    public PosOrPointPropertyOrPointRepOrCoord(DirectPosition pos) {
+        setPos(pos);
+    }
 
-	public boolean isSetPointProperty() {
-		return pointProperty != null;
-	}
+    public PosOrPointPropertyOrPointRepOrCoord(PointProperty pointProperty) {
+        setPointProperty(pointProperty);
+    }
 
-	public boolean isSetPointRep() {
-		return pointRep != null;
-	}
+    public PosOrPointPropertyOrPointRepOrCoord(PointRep pointRep) {
+        setPointRep(pointRep);
+    }
 
-	public boolean isSetPos() {
-		return pos != null;
-	}
+    public PosOrPointPropertyOrPointRepOrCoord(Coord coord) {
+        setCoord(coord);
+    }
 
-	public boolean isSetCoord() {
-		return coord != null;
-	}
+    public PointProperty getPointProperty() {
+        return pointProperty;
+    }
 
-	public void setPos(DirectPosition pos) {
-		this.pos = ModelObjects.setParent(pos, this);
-		unsetPointProperty();
-		unsetPointRep();
-		unsetCoord();
-	}
+    public PointRep getPointRep() {
+        return pointRep;
+    }
 
-	public void setPointProperty(PointProperty pointProperty) {
-		this.pointProperty = ModelObjects.setParent(pointProperty, this);
-		unsetPointRep();
-		unsetPos();
-		unsetCoord();
-	}
+    public DirectPosition getPos() {
+        return pos;
+    }
 
-	public void setPointRep(PointRep pointRep) {
-		this.pointRep = ModelObjects.setParent(pointRep, this);
-		unsetPointProperty();
-		unsetPos();
-		unsetCoord();
-	}
+    public Coord getCoord() {
+        return coord;
+    }
 
-	public void setCoord(Coord coord) {
-		this.coord = ModelObjects.setParent(coord, this);
-		unsetPointProperty();
-		unsetPointRep();
-		unsetPos();
-	}
+    public boolean isSetPointProperty() {
+        return pointProperty != null;
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<>();
+    public boolean isSetPointRep() {
+        return pointRep != null;
+    }
 
-		if (isSetPos())
-			tmp.addAll(pos.toList3d());
-		else if (isSetPointProperty() && pointProperty.isSetPoint())
-			tmp.addAll(pointProperty.getPoint().toList3d());
-		else if (isSetPointRep() && pointRep.isSetPoint())
-			tmp.addAll(pointRep.getPoint().toList3d());
-		else if (isSetCoord())
-			tmp.addAll(coord.toList3d());
+    public boolean isSetPos() {
+        return pos != null;
+    }
 
-		return tmp;
-	}
+    public boolean isSetCoord() {
+        return coord != null;
+    }
 
-	public void unsetPointProperty() {
-		pointProperty = ModelObjects.setNull(pointProperty);
-	}
+    public void setPos(DirectPosition pos) {
+        this.pos = ModelObjects.setParent(pos, this);
+        unsetPointProperty();
+        unsetPointRep();
+        unsetCoord();
+    }
 
-	public void unsetPointRep() {
-		pointRep = ModelObjects.setNull(pointRep);
-	}
+    public void setPointProperty(PointProperty pointProperty) {
+        this.pointProperty = ModelObjects.setParent(pointProperty, this);
+        unsetPointRep();
+        unsetPos();
+        unsetCoord();
+    }
 
-	public void unsetPos() {
-		pos = ModelObjects.setNull(pos);
-	}
-	
-	public void unsetCoord() {
-		coord = ModelObjects.setNull(coord);
-	}
+    public void setPointRep(PointRep pointRep) {
+        this.pointRep = ModelObjects.setParent(pointRep, this);
+        unsetPointProperty();
+        unsetPos();
+        unsetCoord();
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setCoord(Coord coord) {
+        this.coord = ModelObjects.setParent(coord, this);
+        unsetPointProperty();
+        unsetPointRep();
+        unsetPos();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    @Override
+    public List<Double> toList3d() {
+        List<Double> tmp = new ArrayList<>();
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+        if (isSetPos())
+            tmp.addAll(pos.toList3d());
+        else if (isSetPointProperty() && pointProperty.isSetPoint())
+            tmp.addAll(pointProperty.getPoint().toList3d());
+        else if (isSetPointRep() && pointRep.isSetPoint())
+            tmp.addAll(pointRep.getPoint().toList3d());
+        else if (isSetCoord())
+            tmp.addAll(coord.toList3d());
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.POS_OR_POINT_PROPERTY_OR_POINT_REP_OR_COORD;
-	}
+        return tmp;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PosOrPointPropertyOrPointRepOrCoord(), copyBuilder);
-	}
+    public void unsetPointProperty() {
+        pointProperty = ModelObjects.setNull(pointProperty);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PosOrPointPropertyOrPointRepOrCoord copy = (target == null) ? new PosOrPointPropertyOrPointRepOrCoord() : (PosOrPointPropertyOrPointRepOrCoord)target;
-		
-		if (isSetPointProperty()) {
-			copy.setPointProperty((PointProperty)copyBuilder.copy(pointProperty));
-			if (copy.getPointProperty() == pointProperty)
-				pointProperty.setParent(this);
-		}
-		
-		if (isSetPointRep()) {
-			copy.setPointRep((PointRep)copyBuilder.copy(pointRep));
-			if (copy.getPointRep() == pointRep)
-				pointRep.setParent(this);
-		}
-		
-		if (isSetPos()) {
-			copy.setPos((DirectPosition)copyBuilder.copy(pos));
-			if (copy.getPos() == pos)
-				pos.setParent(this);
-		}
-		
-		if (isSetCoord()) {
-			copy.setCoord((Coord)copyBuilder.copy(coord));
-			if (copy.getCoord() == coord)
-				coord.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetPointRep() {
+        pointRep = ModelObjects.setNull(pointRep);
+    }
+
+    public void unsetPos() {
+        pos = ModelObjects.setNull(pos);
+    }
+
+    public void unsetCoord() {
+        coord = ModelObjects.setNull(coord);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.POS_OR_POINT_PROPERTY_OR_POINT_REP_OR_COORD;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PosOrPointPropertyOrPointRepOrCoord(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PosOrPointPropertyOrPointRepOrCoord copy = (target == null) ? new PosOrPointPropertyOrPointRepOrCoord() : (PosOrPointPropertyOrPointRepOrCoord) target;
+
+        if (isSetPointProperty()) {
+            copy.setPointProperty((PointProperty) copyBuilder.copy(pointProperty));
+            if (copy.getPointProperty() == pointProperty)
+                pointProperty.setParent(this);
+        }
+
+        if (isSetPointRep()) {
+            copy.setPointRep((PointRep) copyBuilder.copy(pointRep));
+            if (copy.getPointRep() == pointRep)
+                pointRep.setParent(this);
+        }
+
+        if (isSetPos()) {
+            copy.setPos((DirectPosition) copyBuilder.copy(pos));
+            if (copy.getPos() == pos)
+                pos.setParent(this);
+        }
+
+        if (isSetCoord()) {
+            copy.setCoord((Coord) copyBuilder.copy(coord));
+            if (copy.getCoord() == coord)
+                coord.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

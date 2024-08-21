@@ -33,152 +33,152 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XLinkResolver {
-	private SchemaHandler schemaHandler;
+    private SchemaHandler schemaHandler;
 
-	public XLinkResolver setSchemaHandler(SchemaHandler schemaHandler) {
-		this.schemaHandler = schemaHandler;
-		return this;
-	}
+    public XLinkResolver setSchemaHandler(SchemaHandler schemaHandler) {
+        this.schemaHandler = schemaHandler;
+        return this;
+    }
 
-	private ModelObject resolveXlink(String target, AbstractGML root, GMLIdWalker walker) {
-		if (target == null || target.length() == 0)
-			return null;
-		
-		if (root == null)
-			return null;
-		
-		return root.accept(walker);
-	}
-	
-	public ModelObject getObject(String target, AbstractGML root) {
-		return resolveXlink(target, root, new GMLWalker(clipGMLId(target), schemaHandler));
-	}	
-	
-	public AbstractGeometry getGeometry(String target, AbstractGML root) {
-		ModelObject object = resolveXlink(target, root, new GeometryWalker(clipGMLId(target), schemaHandler));
-		return object instanceof AbstractGeometry ? (AbstractGeometry)object : null;
-	}
-	
-	public AbstractFeature getFeature(String target, AbstractGML root) {
-		ModelObject object = resolveXlink(target, root, new FeatureWalker(clipGMLId(target), schemaHandler));
-		return object instanceof AbstractFeature ? (AbstractFeature)object : null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public <T extends AbstractGML> T getAbstractGML(String target, AbstractGML root, Class<T> type) {
-		if (type == null)
-			return null;
-		
-		ModelObject object = getObject(target, root);
-		return (type.isInstance(object)) ? (T)object : null;
-	}
-	
-	private String clipGMLId(String target) {
-		return target.replaceAll("^.*?#+?", "");
-	}
-	
-	private static final class GMLWalker extends GMLIdWalker {
-		
-		GMLWalker(String gmlId, SchemaHandler schemaHandler) {
-			super(gmlId, schemaHandler);
-		}
+    private ModelObject resolveXlink(String target, AbstractGML root, GMLIdWalker walker) {
+        if (target == null || target.length() == 0)
+            return null;
 
-		@Override
-		public ModelObject apply(AbstractGML abstractGML) {
-			return (abstractGML.isSetId() && super.gmlId.equals(abstractGML.getId())) ? abstractGML : null;
-		}		
-	}
-	
-	private static final class FeatureWalker extends GMLIdWalker {
-		
-		FeatureWalker(String gmlId, SchemaHandler schemaHandler) {
-			super(gmlId, schemaHandler);
-		}
+        if (root == null)
+            return null;
 
-		@Override
-		public ModelObject apply(AbstractFeature abstractFeature) {
-			return (abstractFeature.isSetId() && super.gmlId.equals(abstractFeature.getId())) ? abstractFeature : null;
-		}
-	}
-	
-	private static final class GeometryWalker extends GMLIdWalker {
-		
-		GeometryWalker(String gmlId, SchemaHandler schemaHandler) {
-			super(gmlId, schemaHandler);
-		}
-		
-		@Override
-		public ModelObject apply(AbstractGeometry abstractGeometry) {
-			return (abstractGeometry.isSetId() && super.gmlId.equals(abstractGeometry.getId())) ? abstractGeometry : null;
-		}
+        return root.accept(walker);
+    }
 
-		@Override
-		public <E extends AbstractFeature> ModelObject apply(FeatureProperty<E> featureProperty) {
-			if (featureProperty.isSetObject() && featureProperty.getObject() instanceof AppearanceModuleComponent)
-				return null;
-			
-			return super.apply(featureProperty);
-		}
+    public ModelObject getObject(String target, AbstractGML root) {
+        return resolveXlink(target, root, new GMLWalker(clipGMLId(target), schemaHandler));
+    }
 
-		@Override
-		public ModelObject apply(AbstractFeature abstractFeature) {
-			if (abstractFeature instanceof AppearanceModuleComponent)
-				return null;
-			
-			return super.apply(abstractFeature);
-		}
-		
-	}
-	
-	private static abstract class GMLIdWalker extends GMLFunctionWalker<ModelObject> {
-		private final String gmlId;
-		
-		GMLIdWalker(String gmlId, SchemaHandler schemaHandler) {
-			this.gmlId = gmlId;
-			setSchemaHandler(schemaHandler);
-		}
-		
-		@Override
-		public ModelObject apply(ADEGenericElement adeGenericElement) {
-			if (adeGenericElement.isSetContent()) {
-				ADEGenericElement result = adeGenericElement(adeGenericElement.getContent(), (Element)null);
-				if (result != null)
-					return (result.getContent() == adeGenericElement.getContent()) ? adeGenericElement : result;
-			}
+    public AbstractGeometry getGeometry(String target, AbstractGML root) {
+        ModelObject object = resolveXlink(target, root, new GeometryWalker(clipGMLId(target), schemaHandler));
+        return object instanceof AbstractGeometry ? (AbstractGeometry) object : null;
+    }
 
-			return null;
-		}
+    public AbstractFeature getFeature(String target, AbstractGML root) {
+        ModelObject object = resolveXlink(target, root, new FeatureWalker(clipGMLId(target), schemaHandler));
+        return object instanceof AbstractFeature ? (AbstractFeature) object : null;
+    }
 
-		protected ADEGenericElement adeGenericElement(Element element, Element parent) {	
-			String elementId = element.getAttribute("id");
-			if (elementId.length() == 0) {
-				for (GMLCoreModule gml : GMLCoreModule.getInstances()) {
-					switch (gml.getVersion()) {
-					case v3_1_1:
-						elementId = element.getAttributeNS(gml.getNamespaceURI(), "id");
-						break;
-					}
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractGML> T getAbstractGML(String target, AbstractGML root, Class<T> type) {
+        if (type == null)
+            return null;
 
-					if (elementId.length() > 0)
-						break;
-				}
-			}
+        ModelObject object = getObject(target, root);
+        return (type.isInstance(object)) ? (T) object : null;
+    }
 
-			if (elementId.length() > 0 && gmlId.equals(elementId))
-				return new ADEGenericElement(element);
+    private String clipGMLId(String target) {
+        return target.replaceAll("^.*?#+?", "");
+    }
 
-			NodeList childs = element.getChildNodes();
-			for (int i = 0; i < childs.getLength(); ++i) {
-				Node node = childs.item(i);
-				if (node.getNodeType() == Node.ELEMENT_NODE) {
-					ADEGenericElement ade = adeGenericElement((Element)node, element);
-					if (ade != null)
-						return ade;
-				}
-			}
+    private static final class GMLWalker extends GMLIdWalker {
 
-			return null;
-		}
-	}
-	
+        GMLWalker(String gmlId, SchemaHandler schemaHandler) {
+            super(gmlId, schemaHandler);
+        }
+
+        @Override
+        public ModelObject apply(AbstractGML abstractGML) {
+            return (abstractGML.isSetId() && super.gmlId.equals(abstractGML.getId())) ? abstractGML : null;
+        }
+    }
+
+    private static final class FeatureWalker extends GMLIdWalker {
+
+        FeatureWalker(String gmlId, SchemaHandler schemaHandler) {
+            super(gmlId, schemaHandler);
+        }
+
+        @Override
+        public ModelObject apply(AbstractFeature abstractFeature) {
+            return (abstractFeature.isSetId() && super.gmlId.equals(abstractFeature.getId())) ? abstractFeature : null;
+        }
+    }
+
+    private static final class GeometryWalker extends GMLIdWalker {
+
+        GeometryWalker(String gmlId, SchemaHandler schemaHandler) {
+            super(gmlId, schemaHandler);
+        }
+
+        @Override
+        public ModelObject apply(AbstractGeometry abstractGeometry) {
+            return (abstractGeometry.isSetId() && super.gmlId.equals(abstractGeometry.getId())) ? abstractGeometry : null;
+        }
+
+        @Override
+        public <E extends AbstractFeature> ModelObject apply(FeatureProperty<E> featureProperty) {
+            if (featureProperty.isSetObject() && featureProperty.getObject() instanceof AppearanceModuleComponent)
+                return null;
+
+            return super.apply(featureProperty);
+        }
+
+        @Override
+        public ModelObject apply(AbstractFeature abstractFeature) {
+            if (abstractFeature instanceof AppearanceModuleComponent)
+                return null;
+
+            return super.apply(abstractFeature);
+        }
+
+    }
+
+    private static abstract class GMLIdWalker extends GMLFunctionWalker<ModelObject> {
+        private final String gmlId;
+
+        GMLIdWalker(String gmlId, SchemaHandler schemaHandler) {
+            this.gmlId = gmlId;
+            setSchemaHandler(schemaHandler);
+        }
+
+        @Override
+        public ModelObject apply(ADEGenericElement adeGenericElement) {
+            if (adeGenericElement.isSetContent()) {
+                ADEGenericElement result = adeGenericElement(adeGenericElement.getContent(), (Element) null);
+                if (result != null)
+                    return (result.getContent() == adeGenericElement.getContent()) ? adeGenericElement : result;
+            }
+
+            return null;
+        }
+
+        protected ADEGenericElement adeGenericElement(Element element, Element parent) {
+            String elementId = element.getAttribute("id");
+            if (elementId.length() == 0) {
+                for (GMLCoreModule gml : GMLCoreModule.getInstances()) {
+                    switch (gml.getVersion()) {
+                        case v3_1_1:
+                            elementId = element.getAttributeNS(gml.getNamespaceURI(), "id");
+                            break;
+                    }
+
+                    if (elementId.length() > 0)
+                        break;
+                }
+            }
+
+            if (elementId.length() > 0 && gmlId.equals(elementId))
+                return new ADEGenericElement(element);
+
+            NodeList childs = element.getChildNodes();
+            for (int i = 0; i < childs.getLength(); ++i) {
+                Node node = childs.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    ADEGenericElement ade = adeGenericElement((Element) node, element);
+                    if (ade != null)
+                        return ade;
+                }
+            }
+
+            return null;
+        }
+    }
+
 }

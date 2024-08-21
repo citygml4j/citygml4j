@@ -41,13 +41,13 @@ import java.util.List;
 
 /**
  * A BoundarySurface (German translation is 'Begrenzungsfläche') is a thematic object which classifies surfaces bounding a building or a room. The
- * 				geometry of a BoundarySurface is given by MultiSurfaces. As it is a subclass of _CityObject, it inherits all atributes and relations, in particular the external
- * 				references, the generic attributes, and the generalization relations. 
- * 
+ * geometry of a BoundarySurface is given by MultiSurfaces. As it is a subclass of _CityObject, it inherits all atributes and relations, in particular the external
+ * references, the generic attributes, and the generalization relations.
+ *
  * <p>Java-Klasse für HollowSpaceType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="HollowSpaceType">
  *   &lt;complexContent>
@@ -63,20 +63,17 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "HollowSpaceType", propOrder = {
-    "lod4Solid",
-    "lod4MultiSurface",
-    "_GenericApplicationPropertyOfHollowSpace",
-    "boundedBySurface",
-    "interiorFurniture"
+        "lod4Solid",
+        "lod4MultiSurface",
+        "_GenericApplicationPropertyOfHollowSpace",
+        "boundedBySurface",
+        "interiorFurniture"
 })
 public class HollowSpaceType
-    extends AbstractCityObjectType
-{
+        extends AbstractCityObjectType {
 
     protected SolidPropertyType lod4Solid;
     protected MultiSurfacePropertyType lod4MultiSurface;
@@ -88,11 +85,9 @@ public class HollowSpaceType
 
     /**
      * Ruft den Wert der lod4Solid-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SolidPropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link SolidPropertyType }
      */
     public SolidPropertyType getLod4Solid() {
         return lod4Solid;
@@ -100,27 +95,23 @@ public class HollowSpaceType
 
     /**
      * Legt den Wert der lod4Solid-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SolidPropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link SolidPropertyType }
      */
     public void setLod4Solid(SolidPropertyType value) {
         this.lod4Solid = value;
     }
 
     public boolean isSetLod4Solid() {
-        return (this.lod4Solid!= null);
+        return (this.lod4Solid != null);
     }
 
     /**
      * Ruft den Wert der lod4MultiSurface-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link MultiSurfacePropertyType }
      */
     public MultiSurfacePropertyType getLod4MultiSurface() {
         return lod4MultiSurface;
@@ -128,41 +119,37 @@ public class HollowSpaceType
 
     /**
      * Legt den Wert der lod4MultiSurface-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link MultiSurfacePropertyType }
      */
     public void setLod4MultiSurface(MultiSurfacePropertyType value) {
         this.lod4MultiSurface = value;
     }
 
     public boolean isSetLod4MultiSurface() {
-        return (this.lod4MultiSurface!= null);
+        return (this.lod4MultiSurface != null);
     }
 
     /**
      * Gets the value of the genericApplicationPropertyOfHollowSpace property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfHollowSpace property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfHollowSpace().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfHollowSpace() {
         if (_GenericApplicationPropertyOfHollowSpace == null) {
@@ -172,7 +159,7 @@ public class HollowSpaceType
     }
 
     public boolean isSet_GenericApplicationPropertyOfHollowSpace() {
-        return ((this._GenericApplicationPropertyOfHollowSpace!= null)&&(!this._GenericApplicationPropertyOfHollowSpace.isEmpty()));
+        return ((this._GenericApplicationPropertyOfHollowSpace != null) && (!this._GenericApplicationPropertyOfHollowSpace.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfHollowSpace() {
@@ -181,25 +168,23 @@ public class HollowSpaceType
 
     /**
      * Gets the value of the boundedBySurface property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the boundedBySurface property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getBoundedBySurface().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link BoundarySurfacePropertyType }
-     * 
-     * 
      */
     public List<BoundarySurfacePropertyType> getBoundedBySurface() {
         if (boundedBySurface == null) {
@@ -209,7 +194,7 @@ public class HollowSpaceType
     }
 
     public boolean isSetBoundedBySurface() {
-        return ((this.boundedBySurface!= null)&&(!this.boundedBySurface.isEmpty()));
+        return ((this.boundedBySurface != null) && (!this.boundedBySurface.isEmpty()));
     }
 
     public void unsetBoundedBySurface() {
@@ -218,25 +203,23 @@ public class HollowSpaceType
 
     /**
      * Gets the value of the interiorFurniture property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the interiorFurniture property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getInteriorFurniture().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link InteriorFurniturePropertyType }
-     * 
-     * 
      */
     public List<InteriorFurniturePropertyType> getInteriorFurniture() {
         if (interiorFurniture == null) {
@@ -246,7 +229,7 @@ public class HollowSpaceType
     }
 
     public boolean isSetInteriorFurniture() {
-        return ((this.interiorFurniture!= null)&&(!this.interiorFurniture.isEmpty()));
+        return ((this.interiorFurniture != null) && (!this.interiorFurniture.isEmpty()));
     }
 
     public void unsetInteriorFurniture() {

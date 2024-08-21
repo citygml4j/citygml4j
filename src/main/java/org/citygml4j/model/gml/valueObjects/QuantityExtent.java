@@ -27,32 +27,32 @@ import java.util.List;
 
 public class QuantityExtent extends MeasureOrNullList {
 
-	@Override
-	public void addDoubleOrNull(DoubleOrNull doubleOrNull) {
-		if (getDoubleOrNull().size() < 2)
-			super.addDoubleOrNull(doubleOrNull);
-	}
+    @Override
+    public void addDoubleOrNull(DoubleOrNull doubleOrNull) {
+        if (getDoubleOrNull().size() < 2)
+            super.addDoubleOrNull(doubleOrNull);
+    }
 
-	@Override
-	public void setDoubleOrNull(List<DoubleOrNull> doubleOrNull) {
-		if (doubleOrNull != null && doubleOrNull.size() >= 2)
-			super.setDoubleOrNull(doubleOrNull.subList(0, 2));
-	}
+    @Override
+    public void setDoubleOrNull(List<DoubleOrNull> doubleOrNull) {
+        if (doubleOrNull != null && doubleOrNull.size() >= 2)
+            super.setDoubleOrNull(doubleOrNull.subList(0, 2));
+    }
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.QUANTITY_EXTENT;
-	}
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.QUANTITY_EXTENT;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new QuantityExtent(), copyBuilder);
-	}
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new QuantityExtent(), copyBuilder);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		QuantityExtent copy = (target == null) ? new QuantityExtent() : (QuantityExtent)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        QuantityExtent copy = (target == null) ? new QuantityExtent() : (QuantityExtent) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

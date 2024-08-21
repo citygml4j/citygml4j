@@ -37,104 +37,104 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class BuildingPart extends AbstractBuilding {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public BuildingPart() {
+    public BuildingPart() {
 
-	}
+    }
 
-	public BuildingPart(Module module) {
-		super(module);
-	}
+    public BuildingPart(Module module) {
+        super(module);
+    }
 
-	public void addGenericApplicationPropertyOfBuildingPart(ADEComponent ade) {
-		getGenericApplicationPropertyOfBuildingPart().add(ade);
-	}
+    public void addGenericApplicationPropertyOfBuildingPart(ADEComponent ade) {
+        getGenericApplicationPropertyOfBuildingPart().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfBuildingPart() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfBuildingPart() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return ade;
-	}
+        return ade;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfBuildingPart() {
-		return ade != null && !ade.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfBuildingPart() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setGenericApplicationPropertyOfBuildingPart(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void setGenericApplicationPropertyOfBuildingPart(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void unsetGenericApplicationPropertyOfBuildingPart() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void unsetGenericApplicationPropertyOfBuildingPart() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfBuildingPart(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBuildingPart() && this.ade.remove(ade);
-	}
+    public boolean unsetGenericApplicationPropertyOfBuildingPart(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfBuildingPart() && this.ade.remove(ade);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDING_PART;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfBuildingPart()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfBuildingPart()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BUILDING_PART;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingPart(), copyBuilder);
-	}
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		AbstractBuilding copy = (target == null) ? new BuildingPart() : (AbstractBuilding)target;
-		super.copyTo(copy, copyBuilder);
+        if (isSetGenericApplicationPropertyOfBuildingPart()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfBuildingPart()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-		if (copy.getCityGMLClass() == CityGMLClass.BUILDING_PART) {
-			if (isSetGenericApplicationPropertyOfBuildingPart()) {
-				for (ADEComponent part : ade) {
-					ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-					((BuildingPart)copy).addGenericApplicationPropertyOfBuildingPart(copyPart);
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-					if (part != null && copyPart == part)
-						part.setParent(this);
-				}
-			}
-		}
+        return boundedBy;
+    }
 
-		return copy;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingPart(), copyBuilder);
+    }
 
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        AbstractBuilding copy = (target == null) ? new BuildingPart() : (AbstractBuilding) target;
+        super.copyTo(copy, copyBuilder);
 
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (copy.getCityGMLClass() == CityGMLClass.BUILDING_PART) {
+            if (isSetGenericApplicationPropertyOfBuildingPart()) {
+                for (ADEComponent part : ade) {
+                    ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                    ((BuildingPart) copy).addGenericApplicationPropertyOfBuildingPart(copyPart);
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+                    if (part != null && copyPart == part)
+                        part.setParent(this);
+                }
+            }
+        }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

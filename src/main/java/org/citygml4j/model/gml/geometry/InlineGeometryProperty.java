@@ -22,33 +22,33 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRep;
 
 public abstract class InlineGeometryProperty<T extends AbstractGeometry> extends AssociationByRep<T> {
-	
-	public InlineGeometryProperty() {
-		
-	}
-	
-	public InlineGeometryProperty(T abstractGeometry) {
-		super(abstractGeometry);
-	}
-	
-	public T getGeometry() {
-		return super.getObject();
-	}
 
-	public boolean isSetGeometry() {
-		return super.isSetObject();
-	}
+    public InlineGeometryProperty() {
 
-	public void setGeometry(T geometry) {
-		super.setObject(geometry);
-	}
+    }
 
-	public void unsetGeometry() {
-		super.unsetObject();
-	}
+    public InlineGeometryProperty(T abstractGeometry) {
+        super(abstractGeometry);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.INLINE_GEOMETRY_PROPERTY;
-	}
-	
+    public T getGeometry() {
+        return super.getObject();
+    }
+
+    public boolean isSetGeometry() {
+        return super.isSetObject();
+    }
+
+    public void setGeometry(T geometry) {
+        super.setObject(geometry);
+    }
+
+    public void unsetGeometry() {
+        super.unsetObject();
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.INLINE_GEOMETRY_PROPERTY;
+    }
+
 }

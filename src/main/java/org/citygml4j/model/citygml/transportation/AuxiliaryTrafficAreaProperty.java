@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class AuxiliaryTrafficAreaProperty extends FeatureProperty<AuxiliaryTrafficArea> implements TransportationModuleComponent {
 
-	public AuxiliaryTrafficAreaProperty() {
-		
-	}
-	
-	public AuxiliaryTrafficAreaProperty(AuxiliaryTrafficArea auxiliaryTrafficArea) {
-		super(auxiliaryTrafficArea);
-	}
-	
-	public AuxiliaryTrafficAreaProperty(String href) {
-		super(href);
-	}
-	
-	public AuxiliaryTrafficArea getAuxiliaryTrafficArea() {
-		return super.getObject();
-	}
+    public AuxiliaryTrafficAreaProperty() {
 
-	public boolean isSetAuxiliaryTrafficArea() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setAuxiliaryTrafficArea(AuxiliaryTrafficArea auxiliaryTrafficArea) {
-		super.setObject(auxiliaryTrafficArea);
-	}
+    public AuxiliaryTrafficAreaProperty(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+        super(auxiliaryTrafficArea);
+    }
 
-	public void unsetAuxiliaryTrafficArea() {
-		super.unsetObject();
-	}
+    public AuxiliaryTrafficAreaProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.AUXILIARY_TRAFFIC_AREA_PROPERTY;
-	}
+    public AuxiliaryTrafficArea getAuxiliaryTrafficArea() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<AuxiliaryTrafficArea> getAssociableClass() {
-		return AuxiliaryTrafficArea.class;
-	}
+    public boolean isSetAuxiliaryTrafficArea() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new AuxiliaryTrafficAreaProperty(), copyBuilder);
-	}
+    public void setAuxiliaryTrafficArea(AuxiliaryTrafficArea auxiliaryTrafficArea) {
+        super.setObject(auxiliaryTrafficArea);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		AuxiliaryTrafficAreaProperty copy = (target == null) ? new AuxiliaryTrafficAreaProperty() : (AuxiliaryTrafficAreaProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetAuxiliaryTrafficArea() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.AUXILIARY_TRAFFIC_AREA_PROPERTY;
+    }
+
+    @Override
+    public Class<AuxiliaryTrafficArea> getAssociableClass() {
+        return AuxiliaryTrafficArea.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new AuxiliaryTrafficAreaProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        AuxiliaryTrafficAreaProperty copy = (target == null) ? new AuxiliaryTrafficAreaProperty() : (AuxiliaryTrafficAreaProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

@@ -23,30 +23,30 @@ import org.citygml4j.model.gml.GMLClass;
 
 public class InnerBoundaryIs extends AbstractRingProperty {
 
-	public InnerBoundaryIs() {
+    public InnerBoundaryIs() {
 
-	}
+    }
 
-	public InnerBoundaryIs(AbstractRing abstractRing) {
-		super(abstractRing);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.INNER_BOUNDARY_IS;
-	}
+    public InnerBoundaryIs(AbstractRing abstractRing) {
+        super(abstractRing);
+    }
 
-	public Class<AbstractRing> getAssociableClass() {
-		return AbstractRing.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.INNER_BOUNDARY_IS;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		InnerBoundaryIs copy = (target == null) ? new InnerBoundaryIs() : (InnerBoundaryIs)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Class<AbstractRing> getAssociableClass() {
+        return AbstractRing.class;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new InnerBoundaryIs(), copyBuilder);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        InnerBoundaryIs copy = (target == null) ? new InnerBoundaryIs() : (InnerBoundaryIs) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new InnerBoundaryIs(), copyBuilder);
+    }
 
 }

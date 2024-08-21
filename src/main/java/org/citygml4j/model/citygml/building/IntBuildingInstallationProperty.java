@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class IntBuildingInstallationProperty extends FeatureProperty<IntBuildingInstallation> implements BuildingModuleComponent {
 
-	public IntBuildingInstallationProperty() {
-		
-	}
-	
-	public IntBuildingInstallationProperty(IntBuildingInstallation intBuildingInstallation) {
-		super(intBuildingInstallation);
-	}
-	
-	public IntBuildingInstallationProperty(String href) {
-		super(href);
-	}
-	
-	public IntBuildingInstallation getIntBuildingInstallation() {
-		return super.getObject();
-	}
+    public IntBuildingInstallationProperty() {
 
-	public boolean isSetIntBuildingInstallation() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setIntBuildingInstallation(IntBuildingInstallation intBuildingInstallation) {
-		super.setObject(intBuildingInstallation);
-	}
+    public IntBuildingInstallationProperty(IntBuildingInstallation intBuildingInstallation) {
+        super(intBuildingInstallation);
+    }
 
-	public void unsetIntBuildingInstallation() {
-		super.unsetObject();
-	}
+    public IntBuildingInstallationProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INT_BUILDING_INSTALLATION_PROPERTY;
-	}
+    public IntBuildingInstallation getIntBuildingInstallation() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<IntBuildingInstallation> getAssociableClass() {
-		return IntBuildingInstallation.class;
-	}
+    public boolean isSetIntBuildingInstallation() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new IntBuildingInstallationProperty(), copyBuilder);
-	}
+    public void setIntBuildingInstallation(IntBuildingInstallation intBuildingInstallation) {
+        super.setObject(intBuildingInstallation);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		IntBuildingInstallationProperty copy = (target == null) ? new IntBuildingInstallationProperty() : (IntBuildingInstallationProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetIntBuildingInstallation() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INT_BUILDING_INSTALLATION_PROPERTY;
+    }
+
+    @Override
+    public Class<IntBuildingInstallation> getAssociableClass() {
+        return IntBuildingInstallation.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new IntBuildingInstallationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        IntBuildingInstallationProperty copy = (target == null) ? new IntBuildingInstallationProperty() : (IntBuildingInstallationProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

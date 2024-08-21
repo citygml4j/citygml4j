@@ -35,131 +35,131 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MultiGeometry extends AbstractGeometricAggregate {
-	private List<GeometryProperty<? extends AbstractGeometry>> geometryMember;
-	private GeometryArrayProperty<? extends AbstractGeometry> geometryMembers;
+    private List<GeometryProperty<? extends AbstractGeometry>> geometryMember;
+    private GeometryArrayProperty<? extends AbstractGeometry> geometryMembers;
 
-	public MultiGeometry() {
-		
-	}
-	
-	public MultiGeometry(List<? extends AbstractGeometry> abstractGeometries) {
-		for (AbstractGeometry abstractGeometry : abstractGeometries)
-			addGeometryMember(new GeometryProperty<>(abstractGeometry));
-	}
-	
-	public MultiGeometry(AbstractGeometry... abstractGeometries) {
-		this(Arrays.asList(abstractGeometries));
-	}
-	
-	public void addGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember) {
-		getGeometryMember().add(geometryMember);
-	}
+    public MultiGeometry() {
 
-	public List<GeometryProperty<? extends AbstractGeometry>> getGeometryMember() {
-		if (geometryMember == null)
-			geometryMember = new ChildList<>(this);
+    }
 
-		return geometryMember;
-	}
+    public MultiGeometry(List<? extends AbstractGeometry> abstractGeometries) {
+        for (AbstractGeometry abstractGeometry : abstractGeometries)
+            addGeometryMember(new GeometryProperty<>(abstractGeometry));
+    }
 
-	public GeometryArrayProperty<? extends AbstractGeometry> getGeometryMembers() {
-		return geometryMembers;
-	}
+    public MultiGeometry(AbstractGeometry... abstractGeometries) {
+        this(Arrays.asList(abstractGeometries));
+    }
 
-	public boolean isSetGeometryMember() {
-		return geometryMember != null && !geometryMember.isEmpty();
-	}
+    public void addGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember) {
+        getGeometryMember().add(geometryMember);
+    }
 
-	public boolean isSetGeometryMembers() {
-		return geometryMembers != null;
-	}
+    public List<GeometryProperty<? extends AbstractGeometry>> getGeometryMember() {
+        if (geometryMember == null)
+            geometryMember = new ChildList<>(this);
 
-	public void setGeometryMember(List<GeometryProperty<? extends AbstractGeometry>> geometryMember) {
-		this.geometryMember = new ChildList<>(this, geometryMember);
-	}
+        return geometryMember;
+    }
 
-	public void setGeometryMembers(GeometryArrayProperty<? extends AbstractGeometry> geometryMembers) {
-		this.geometryMembers = ModelObjects.setParent(geometryMembers, this);
-	}
+    public GeometryArrayProperty<? extends AbstractGeometry> getGeometryMembers() {
+        return geometryMembers;
+    }
 
-	public void unsetGeometryMember() {
-		geometryMember = ModelObjects.setNull(geometryMember);
-	}
+    public boolean isSetGeometryMember() {
+        return geometryMember != null && !geometryMember.isEmpty();
+    }
 
-	public boolean unsetGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember) {
-		return isSetGeometryMember() && this.geometryMember.remove(geometryMember);
-	}
+    public boolean isSetGeometryMembers() {
+        return geometryMembers != null;
+    }
 
-	public void unsetGeometryMembers() {
-		geometryMembers = ModelObjects.setNull(geometryMembers);
-	}
+    public void setGeometryMember(List<GeometryProperty<? extends AbstractGeometry>> geometryMember) {
+        this.geometryMember = new ChildList<>(this, geometryMember);
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetGeometryMember()) {
-			for (GeometryProperty<? extends AbstractGeometry> geometryProperty : getGeometryMember())
-				if (geometryProperty.isSetGeometry())
-					bbox.update(geometryProperty.getGeometry().calcBoundingBox());
-		}
+    public void setGeometryMembers(GeometryArrayProperty<? extends AbstractGeometry> geometryMembers) {
+        this.geometryMembers = ModelObjects.setParent(geometryMembers, this);
+    }
 
-		if (isSetGeometryMembers()) {
-			GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty = getGeometryMembers();
+    public void unsetGeometryMember() {
+        geometryMember = ModelObjects.setNull(geometryMember);
+    }
 
-			if (geometryArrayProperty.isSetGeometry())
-				for (AbstractGeometry abstractGeometry : geometryArrayProperty.getGeometry())
-					bbox.update(abstractGeometry.calcBoundingBox());
-		}
-		
-		return bbox;
-	}
+    public boolean unsetGeometryMember(GeometryProperty<? extends AbstractGeometry> geometryMember) {
+        return isSetGeometryMember() && this.geometryMember.remove(geometryMember);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_GEOMETRY;
-	}
+    public void unsetGeometryMembers() {
+        geometryMembers = ModelObjects.setNull(geometryMembers);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiGeometry(), copyBuilder);
-	}
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiGeometry copy = (target == null) ? new MultiGeometry() : (MultiGeometry)target;
-		super.copyTo(copy, copyBuilder);
+        if (isSetGeometryMember()) {
+            for (GeometryProperty<? extends AbstractGeometry> geometryProperty : getGeometryMember())
+                if (geometryProperty.isSetGeometry())
+                    bbox.update(geometryProperty.getGeometry().calcBoundingBox());
+        }
 
-		if (isSetGeometryMember()) {
-			for (GeometryProperty<? extends AbstractGeometry> part : geometryMember) {
-				GeometryProperty<? extends AbstractGeometry> copyPart = (GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(part);
-				copy.addGeometryMember(copyPart);
+        if (isSetGeometryMembers()) {
+            GeometryArrayProperty<? extends AbstractGeometry> geometryArrayProperty = getGeometryMembers();
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+            if (geometryArrayProperty.isSetGeometry())
+                for (AbstractGeometry abstractGeometry : geometryArrayProperty.getGeometry())
+                    bbox.update(abstractGeometry.calcBoundingBox());
+        }
 
-		if (isSetGeometryMembers()) {
-			copy.setGeometryMembers((GeometryArrayProperty<? extends AbstractGeometry>)copyBuilder.copy(geometryMembers));
-			if (copy.getGeometryMembers() == geometryMembers)
-				geometryMembers.setParent(this);
-		}
+        return bbox;
+    }
 
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_GEOMETRY;
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiGeometry(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiGeometry copy = (target == null) ? new MultiGeometry() : (MultiGeometry) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGeometryMember()) {
+            for (GeometryProperty<? extends AbstractGeometry> part : geometryMember) {
+                GeometryProperty<? extends AbstractGeometry> copyPart = (GeometryProperty<? extends AbstractGeometry>) copyBuilder.copy(part);
+                copy.addGeometryMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetGeometryMembers()) {
+            copy.setGeometryMembers((GeometryArrayProperty<? extends AbstractGeometry>) copyBuilder.copy(geometryMembers));
+            if (copy.getGeometryMembers() == geometryMembers)
+                geometryMembers.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

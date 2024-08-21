@@ -30,110 +30,110 @@ import org.citygml4j.model.gml.base.CoordinateListProvider;
 import java.util.List;
 
 public abstract class AbstractCurveSegment implements GML, Associable, Child, Copyable, CoordinateListProvider {
-	private Integer numDerivativesAtStart;
-	private Integer numDerivativesAtEnd;
-	private Integer numDerivativeInterior;	
-	private ModelObject parent;
+    private Integer numDerivativesAtStart;
+    private Integer numDerivativesAtEnd;
+    private Integer numDerivativeInterior;
+    private ModelObject parent;
 
-	public Integer getNumDerivativeInterior() {
-		if (!isSetNumDerivativeInterior())
-			return 0;
-		else
-			return numDerivativeInterior;
-	}
+    public Integer getNumDerivativeInterior() {
+        if (!isSetNumDerivativeInterior())
+            return 0;
+        else
+            return numDerivativeInterior;
+    }
 
-	public Integer getNumDerivativesAtEnd() {
-		if (!isSetNumDerivativesAtEnd())
-			return 0;
-		else
-			return numDerivativesAtEnd;
-	}
+    public Integer getNumDerivativesAtEnd() {
+        if (!isSetNumDerivativesAtEnd())
+            return 0;
+        else
+            return numDerivativesAtEnd;
+    }
 
-	public Integer getNumDerivativesAtStart() {
-		if (!isSetNumDerivativesAtStart())
-			return 0;
-		else
-			return numDerivativesAtStart;
-	}
+    public Integer getNumDerivativesAtStart() {
+        if (!isSetNumDerivativesAtStart())
+            return 0;
+        else
+            return numDerivativesAtStart;
+    }
 
-	public boolean isSetNumDerivativeInterior() {
-		return numDerivativeInterior != null;
-	}
+    public boolean isSetNumDerivativeInterior() {
+        return numDerivativeInterior != null;
+    }
 
-	public boolean isSetNumDerivativesAtEnd() {
-		return numDerivativesAtEnd != null;
-	}
+    public boolean isSetNumDerivativesAtEnd() {
+        return numDerivativesAtEnd != null;
+    }
 
-	public boolean isSetNumDerivativesAtStart() {
-		return numDerivativesAtStart != null;
-	}
+    public boolean isSetNumDerivativesAtStart() {
+        return numDerivativesAtStart != null;
+    }
 
-	public void setNumDerivativeInterior(Integer numDerivativeInterior) {
-		this.numDerivativeInterior = numDerivativeInterior;
-	}
+    public void setNumDerivativeInterior(Integer numDerivativeInterior) {
+        this.numDerivativeInterior = numDerivativeInterior;
+    }
 
-	public void setNumDerivativesAtEnd(Integer numDerivativesAtEnd) {
-		this.numDerivativesAtEnd = numDerivativesAtEnd;
-	}
+    public void setNumDerivativesAtEnd(Integer numDerivativesAtEnd) {
+        this.numDerivativesAtEnd = numDerivativesAtEnd;
+    }
 
-	public void setNumDerivativesAtStart(Integer numDerivativesAtStart) {
-		this.numDerivativesAtStart = numDerivativesAtStart;
-	}
+    public void setNumDerivativesAtStart(Integer numDerivativesAtStart) {
+        this.numDerivativesAtStart = numDerivativesAtStart;
+    }
 
-	public void unsetNumDerivativeInterior() {
-		numDerivativeInterior = null;
-	}
+    public void unsetNumDerivativeInterior() {
+        numDerivativeInterior = null;
+    }
 
-	public void unsetNumDerivativesAtEnd() {
-		numDerivativesAtEnd = null;
-	}
+    public void unsetNumDerivativesAtEnd() {
+        numDerivativesAtEnd = null;
+    }
 
-	public void unsetNumDerivativesAtStart() {
-		numDerivativesAtStart = null;
-	}
+    public void unsetNumDerivativesAtStart() {
+        numDerivativesAtStart = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-		AbstractCurveSegment copy = (AbstractCurveSegment)target;
+        AbstractCurveSegment copy = (AbstractCurveSegment) target;
 
-		if (isSetNumDerivativeInterior())
-			copy.setNumDerivativeInterior((Integer)copyBuilder.copy(numDerivativeInterior));
+        if (isSetNumDerivativeInterior())
+            copy.setNumDerivativeInterior((Integer) copyBuilder.copy(numDerivativeInterior));
 
-		if (isSetNumDerivativesAtEnd())
-			copy.setNumDerivativesAtEnd((Integer)copyBuilder.copy(numDerivativesAtEnd));
+        if (isSetNumDerivativesAtEnd())
+            copy.setNumDerivativesAtEnd((Integer) copyBuilder.copy(numDerivativesAtEnd));
 
-		if (isSetNumDerivativesAtStart())
-			copy.setNumDerivativesAtStart((Integer)copyBuilder.copy(numDerivativesAtStart));
+        if (isSetNumDerivativesAtStart())
+            copy.setNumDerivativesAtStart((Integer) copyBuilder.copy(numDerivativesAtStart));
 
-		copy.unsetParent();
+        copy.unsetParent();
 
-		return copy;
-	}
+        return copy;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		List<Double> coordinates = toList3d();
-		for (int i = 0; i < coordinates.size(); i += 3)
-			bbox.update(coordinates.get(i), coordinates.get(i + 1), coordinates.get(i + 2));
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
+        List<Double> coordinates = toList3d();
+        for (int i = 0; i < coordinates.size(); i += 3)
+            bbox.update(coordinates.get(i), coordinates.get(i + 1), coordinates.get(i + 2));
 
-		return bbox;
-	}
+        return bbox;
+    }
 }

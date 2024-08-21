@@ -30,87 +30,87 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
 public class LandUseMarshaller {
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	
-	public LandUseMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
-	
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		if (src instanceof LandUse)
-			return marshalLandUse((LandUse) src, cityJSON);
-		
-		return null;
-	}
-	
-	public void marshalLandUse(LandUse src, LandUseType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
 
-		Attributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
+    public LandUseMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        if (src instanceof LandUse)
+            return marshalLandUse((LandUse) src, cityJSON);
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
+        return null;
+    }
 
-		if (src.isSetGenericApplicationPropertyOfLandUse())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfLandUse(), dest, cityJSON);
-		
-		if (src.isSetLod0MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(0);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
+    public void marshalLandUse(LandUse src, LandUseType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
-		if (src.isSetLod2MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
+        Attributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
 
-		if (src.isSetLod3MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-	}
-	
-	public LandUseType marshalLandUse(LandUse src, CityJSON cityJSON) {
-		LandUseType dest = new LandUseType();
-		marshalLandUse(src, dest, cityJSON);
-		
-		return dest;
-	}
-	
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetGenericApplicationPropertyOfLandUse())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfLandUse(), dest, cityJSON);
+
+        if (src.isSetLod0MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod0MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(0);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod1MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod2MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod3MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+    }
+
+    public LandUseType marshalLandUse(LandUse src, CityJSON cityJSON) {
+        LandUseType dest = new LandUseType();
+        marshalLandUse(src, dest, cityJSON);
+
+        return dest;
+    }
+
 }

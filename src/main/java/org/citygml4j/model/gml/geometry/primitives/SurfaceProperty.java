@@ -16,58 +16,58 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-	package org.citygml4j.model.gml.geometry.primitives;
+package org.citygml4j.model.gml.geometry.primitives;
 
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class SurfaceProperty extends GeometryProperty<AbstractSurface> {
-	
-	public SurfaceProperty() {
 
-	}
+    public SurfaceProperty() {
 
-	public SurfaceProperty(AbstractSurface abstractSurface) {
-		super(abstractSurface);
-	}
+    }
 
-	public SurfaceProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractSurface getSurface() {
-		return super.getGeometry();
-	}
+    public SurfaceProperty(AbstractSurface abstractSurface) {
+        super(abstractSurface);
+    }
 
-	public boolean isSetSurface() {
-		return super.isSetGeometry();
-	}
+    public SurfaceProperty(String href) {
+        super(href);
+    }
 
-	public void setSurface(AbstractSurface abstractSurface) {
-		super.setGeometry(abstractSurface);
-	}
+    public AbstractSurface getSurface() {
+        return super.getGeometry();
+    }
 
-	public void unsetSurface() {
-		super.unsetGeometry();
-	}
+    public boolean isSetSurface() {
+        return super.isSetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.SURFACE_PROPERTY;
-	}
+    public void setSurface(AbstractSurface abstractSurface) {
+        super.setGeometry(abstractSurface);
+    }
 
-	@Override
-	public Class<AbstractSurface> getAssociableClass() {
-		return AbstractSurface.class;
-	}
+    public void unsetSurface() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SurfaceProperty(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SURFACE_PROPERTY;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SurfaceProperty copy = (target == null) ? new SurfaceProperty() : (SurfaceProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<AbstractSurface> getAssociableClass() {
+        return AbstractSurface.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SurfaceProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SurfaceProperty copy = (target == null) ? new SurfaceProperty() : (SurfaceProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

@@ -41,205 +41,205 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class CityModel extends AbstractFeatureCollection implements CoreModuleComponent {
-	private List<CityObjectMember> cityObjectMember;
-	private List<AppearanceMember> appearanceMember;
-	private List<ADEComponent> ade;
+    private List<CityObjectMember> cityObjectMember;
+    private List<AppearanceMember> appearanceMember;
+    private List<ADEComponent> ade;
 
-	public CityModel() {
-		
-	}
-	
-	public CityModel(Module module) {
-		super(module);
-	}
-	
-	public void addAppearanceMember(AppearanceMember appearanceMember) {
-		getAppearanceMember().add(appearanceMember);
-	}
+    public CityModel() {
 
-	public void addCityObjectMember(CityObjectMember cityObjectMember) {
-		getCityObjectMember().add(cityObjectMember);
-	}
+    }
 
-	public void addGenericApplicationPropertyOfCityModel(ADEComponent ade) {
-		getGenericApplicationPropertyOfCityModel().add(ade);
-	}
+    public CityModel(Module module) {
+        super(module);
+    }
 
-	public List<AppearanceMember> getAppearanceMember() {
-		if (appearanceMember == null)
-			appearanceMember = new ChildList<>(this);
+    public void addAppearanceMember(AppearanceMember appearanceMember) {
+        getAppearanceMember().add(appearanceMember);
+    }
 
-		return appearanceMember;
-	}
+    public void addCityObjectMember(CityObjectMember cityObjectMember) {
+        getCityObjectMember().add(cityObjectMember);
+    }
 
-	public List<CityObjectMember> getCityObjectMember() {
-		if (cityObjectMember == null)
-			cityObjectMember = new ChildList<>(this);
+    public void addGenericApplicationPropertyOfCityModel(ADEComponent ade) {
+        getGenericApplicationPropertyOfCityModel().add(ade);
+    }
 
-		return cityObjectMember;
-	}
+    public List<AppearanceMember> getAppearanceMember() {
+        if (appearanceMember == null)
+            appearanceMember = new ChildList<>(this);
 
-	public List<ADEComponent> getGenericApplicationPropertyOfCityModel() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+        return appearanceMember;
+    }
 
-		return ade;
-	}
+    public List<CityObjectMember> getCityObjectMember() {
+        if (cityObjectMember == null)
+            cityObjectMember = new ChildList<>(this);
 
-	public boolean isSetAppearanceMember() {
-		return appearanceMember != null && !appearanceMember.isEmpty();
-	}
+        return cityObjectMember;
+    }
 
-	public boolean isSetCityObjectMember() {
-		return cityObjectMember != null && !cityObjectMember.isEmpty();
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfCityModel() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetGenericApplicationPropertyOfCityModel() {
-		return ade != null && !ade.isEmpty();
-	}
+        return ade;
+    }
 
-	public void setAppearanceMember(List<AppearanceMember> appearanceMember) {
-		this.appearanceMember = new ChildList<>(this, appearanceMember);
-	}
+    public boolean isSetAppearanceMember() {
+        return appearanceMember != null && !appearanceMember.isEmpty();
+    }
 
-	public void setCityObjectMember(List<CityObjectMember> cityObjectMember) {
-		this.cityObjectMember = new ChildList<>(this, cityObjectMember);
-	}
+    public boolean isSetCityObjectMember() {
+        return cityObjectMember != null && !cityObjectMember.isEmpty();
+    }
 
-	public void setGenericApplicationPropertyOfCityModel(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfCityModel() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void unsetAppearanceMember() {
-		appearanceMember = ModelObjects.setNull(appearanceMember);
-	}
+    public void setAppearanceMember(List<AppearanceMember> appearanceMember) {
+        this.appearanceMember = new ChildList<>(this, appearanceMember);
+    }
 
-	public boolean unsetAppearanceMember(AppearanceMember appearanceMember) {
-		return isSetAppearanceMember() && this.appearanceMember.remove(appearanceMember);
-	}
+    public void setCityObjectMember(List<CityObjectMember> cityObjectMember) {
+        this.cityObjectMember = new ChildList<>(this, cityObjectMember);
+    }
 
-	public void unsetCityObjectMember() {
-		cityObjectMember = ModelObjects.setNull(cityObjectMember);
-	}
+    public void setGenericApplicationPropertyOfCityModel(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetCityObjectMember(CityObjectMember cityObjectMember) {
-		return isSetCityObjectMember() && this.cityObjectMember.remove(cityObjectMember);
-	}
+    public void unsetAppearanceMember() {
+        appearanceMember = ModelObjects.setNull(appearanceMember);
+    }
 
-	public void unsetGenericApplicationPropertyOfCityModel() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public boolean unsetAppearanceMember(AppearanceMember appearanceMember) {
+        return isSetAppearanceMember() && this.appearanceMember.remove(appearanceMember);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfCityModel(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfCityModel() && this.ade.remove(ade);
-	}
+    public void unsetCityObjectMember() {
+        cityObjectMember = ModelObjects.setNull(cityObjectMember);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITY_MODEL;
-	}
+    public boolean unsetCityObjectMember(CityObjectMember cityObjectMember) {
+        return isSetCityObjectMember() && this.cityObjectMember.remove(cityObjectMember);
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetCityObjectMember()) {
-			for (CityObjectMember member : cityObjectMember) {
-				if (member.isSetFeature()) {
-					boundedBy.updateEnvelope(member.getFeature().calcBoundedBy(options).getEnvelope());
-				} else {
-					// xlink
-				}
-			}
-		}
-		
-		if (isSetFeatureMember()) {
-			for (FeatureMember featureMember : getFeatureMember()) {
-				if (featureMember.isSetFeature()) {
-					boundedBy.updateEnvelope(featureMember.getFeature().calcBoundedBy(options).getEnvelope());
-				} else {
-					// xlink
-				}
-			}
-		}
-		
-		if (isSetFeatureMembers()) {
-			for (AbstractFeature abstractFeature : getFeatureMembers().getFeature()) {
-				if (abstractFeature != null)
-					boundedBy.updateEnvelope(abstractFeature.calcBoundedBy(options).getEnvelope());
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfCityModel()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfCityModel()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public void unsetGenericApplicationPropertyOfCityModel() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CityModel(), copyBuilder);
-	}
+    public boolean unsetGenericApplicationPropertyOfCityModel(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfCityModel() && this.ade.remove(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CityModel copy = (target == null) ? new CityModel() : (CityModel)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetCityObjectMember()) {
-			for (CityObjectMember part : cityObjectMember) {
-				CityObjectMember copyPart = (CityObjectMember)copyBuilder.copy(part);
-				copy.addCityObjectMember(copyPart);
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.CITY_MODEL;
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetAppearanceMember()) {
-			for (AppearanceMember part : appearanceMember) {
-				AppearanceMember copyPart = (AppearanceMember)copyBuilder.copy(part);
-				copy.addAppearanceMember(copyPart);
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfCityModel()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfCityModel(copyPart);
+        if (isSetCityObjectMember()) {
+            for (CityObjectMember member : cityObjectMember) {
+                if (member.isSetFeature()) {
+                    boundedBy.updateEnvelope(member.getFeature().calcBoundedBy(options).getEnvelope());
+                } else {
+                    // xlink
+                }
+            }
+        }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetFeatureMember()) {
+            for (FeatureMember featureMember : getFeatureMember()) {
+                if (featureMember.isSetFeature()) {
+                    boundedBy.updateEnvelope(featureMember.getFeature().calcBoundedBy(options).getEnvelope());
+                } else {
+                    // xlink
+                }
+            }
+        }
+
+        if (isSetFeatureMembers()) {
+            for (AbstractFeature abstractFeature : getFeatureMembers().getFeature()) {
+                if (abstractFeature != null)
+                    boundedBy.updateEnvelope(abstractFeature.calcBoundedBy(options).getEnvelope());
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfCityModel()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfCityModel()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CityModel(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CityModel copy = (target == null) ? new CityModel() : (CityModel) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetCityObjectMember()) {
+            for (CityObjectMember part : cityObjectMember) {
+                CityObjectMember copyPart = (CityObjectMember) copyBuilder.copy(part);
+                copy.addCityObjectMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetAppearanceMember()) {
+            for (AppearanceMember part : appearanceMember) {
+                AppearanceMember copyPart = (AppearanceMember) copyBuilder.copy(part);
+                copy.addAppearanceMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfCityModel()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfCityModel(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

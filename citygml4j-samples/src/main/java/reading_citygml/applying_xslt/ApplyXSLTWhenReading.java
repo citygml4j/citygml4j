@@ -35,50 +35,50 @@ import java.util.Date;
 
 public class ApplyXSLTWhenReading {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityModel cityModel = null;
-		Building building = null;
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        CityModel cityModel = null;
+        Building building = null;
 
-		// first step: we read the dataset as is without applying an XSLT stylesheet
-		System.out.println(df.format(new Date()) + "1st step: read the CityGML file LOD2_Buildings_v100.gml 'as is'");
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
+        // first step: we read the dataset as is without applying an XSLT stylesheet
+        System.out.println(df.format(new Date()) + "1st step: read the CityGML file LOD2_Buildings_v100.gml 'as is'");
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
 
-		cityModel = (CityModel)reader.nextFeature();
-		building = (Building)cityModel.getCityObjectMember().get(0).getCityObject();
-		System.out.println(df.format(new Date()) + "Building has address information: " + building.isSetAddress());
-		reader.close();
+        cityModel = (CityModel) reader.nextFeature();
+        building = (Building) cityModel.getCityObjectMember().get(0).getCityObject();
+        System.out.println(df.format(new Date()) + "Building has address information: " + building.isSetAddress());
+        reader.close();
 
-		// second step: we read the dataset again but this time we apply an XSLT stlyesheet
-		// you can pass one or more XSLT stylesheets to a CityGMLInputFactory. The stylesheets
-		// are applied before reading the data. If you provide more than one stylesheet,
-		// the stylesheets are automatically chained, i.e., the output of the first one is taken as input
-		// for the second one, and so on. The order in which you pass the stylesheets to the CityGMLInputFactory
-		// is therefore important.
+        // second step: we read the dataset again but this time we apply an XSLT stlyesheet
+        // you can pass one or more XSLT stylesheets to a CityGMLInputFactory. The stylesheets
+        // are applied before reading the data. If you provide more than one stylesheet,
+        // the stylesheets are automatically chained, i.e., the output of the first one is taken as input
+        // for the second one, and so on. The order in which you pass the stylesheets to the CityGMLInputFactory
+        // is therefore important.
 
-		// Note: If you parse the document chunk-wise, make sure that your XSLT 
-		// transformations use a local scope that matches the chunks. 
+        // Note: If you parse the document chunk-wise, make sure that your XSLT
+        // transformations use a local scope that matches the chunks.
 
-		// In this example, the stylesheet simply removes the xAL address data from the building
-		System.out.println(df.format(new Date()) + "2nd step: let's read the dataset again and apply the XSLT stylesheet RemoveAddress.xsl");
-		SAXTransformerFactory factory = (SAXTransformerFactory)TransformerFactory.newInstance();
-		Templates stylesheet = factory.newTemplates(new StreamSource(new File("datasets/stylesheets/RemoveAddress.xsl")));
-		in.setTransformationTemplates(stylesheet);
+        // In this example, the stylesheet simply removes the xAL address data from the building
+        System.out.println(df.format(new Date()) + "2nd step: let's read the dataset again and apply the XSLT stylesheet RemoveAddress.xsl");
+        SAXTransformerFactory factory = (SAXTransformerFactory) TransformerFactory.newInstance();
+        Templates stylesheet = factory.newTemplates(new StreamSource(new File("datasets/stylesheets/RemoveAddress.xsl")));
+        in.setTransformationTemplates(stylesheet);
 
-		reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
+        reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
 
-		cityModel = (CityModel)reader.nextFeature();
-		building = (Building)cityModel.getCityObjectMember().get(0).getCityObject();
-		System.out.println(df.format(new Date()) + "Building has address information: " + building.isSetAddress());
-		reader.close();
+        cityModel = (CityModel) reader.nextFeature();
+        building = (Building) cityModel.getCityObjectMember().get(0).getCityObject();
+        System.out.println(df.format(new Date()) + "Building has address information: " + building.isSetAddress());
+        reader.close();
 
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

@@ -30,251 +30,251 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class SubAdministrativeArea implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private List<SubAdministrativeAreaName> subAdministrativeAreaName;
-	private Locality locality;
-	private PostOffice postOffice;
-	private PostalCode postalCode;
-	private String type;
-	private String usageType;
-	private String indicator;
-	private ModelObject parent;	
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private List<SubAdministrativeAreaName> subAdministrativeAreaName;
+    private Locality locality;
+    private PostOffice postOffice;
+    private PostalCode postalCode;
+    private String type;
+    private String usageType;
+    private String indicator;
+    private ModelObject parent;
 
-	public void addSubAdministrativeAreaName(SubAdministrativeAreaName subAdministrativeAreaName) {
-		getSubAdministrativeAreaName().add(subAdministrativeAreaName);
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addSubAdministrativeAreaName(SubAdministrativeAreaName subAdministrativeAreaName) {
+        getSubAdministrativeAreaName().add(subAdministrativeAreaName);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public String getIndicator() {
-		return indicator;
-	}
+        return addressLine;
+    }
 
-	public Locality getLocality() {
-		return locality;
-	}
+    public String getIndicator() {
+        return indicator;
+    }
 
-	public PostOffice getPostOffice() {
-		return postOffice;
-	}
+    public Locality getLocality() {
+        return locality;
+    }
 
-	public PostalCode getPostalCode() {
-		return postalCode;
-	}
+    public PostOffice getPostOffice() {
+        return postOffice;
+    }
 
-	public List<SubAdministrativeAreaName> getSubAdministrativeAreaName() {
-		if (subAdministrativeAreaName == null)
-			subAdministrativeAreaName = new ChildList<>(this);
+    public PostalCode getPostalCode() {
+        return postalCode;
+    }
 
-		return subAdministrativeAreaName;
-	}
+    public List<SubAdministrativeAreaName> getSubAdministrativeAreaName() {
+        if (subAdministrativeAreaName == null)
+            subAdministrativeAreaName = new ChildList<>(this);
 
-	public String getType() {
-		return type;
-	}
+        return subAdministrativeAreaName;
+    }
 
-	public String getUsageType() {
-		return usageType;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getUsageType() {
+        return usageType;
+    }
 
-	public boolean isSetIndicator() {
-		return indicator != null;
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetLocality() {
-		return locality != null;
-	}
+    public boolean isSetIndicator() {
+        return indicator != null;
+    }
 
-	public boolean isSetPostOffice() {
-		return postOffice != null;
-	}
+    public boolean isSetLocality() {
+        return locality != null;
+    }
 
-	public boolean isSetPostalCode() {
-		return postalCode != null;
-	}
+    public boolean isSetPostOffice() {
+        return postOffice != null;
+    }
 
-	public boolean isSetSubAdministrativeAreaName() {
-		return subAdministrativeAreaName != null && !subAdministrativeAreaName.isEmpty();
-	}
+    public boolean isSetPostalCode() {
+        return postalCode != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetSubAdministrativeAreaName() {
+        return subAdministrativeAreaName != null && !subAdministrativeAreaName.isEmpty();
+    }
 
-	public boolean isSetUsageType() {
-		return usageType != null;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetUsageType() {
+        return usageType != null;
+    }
 
-	public void setIndicator(String indicator) {
-		this.indicator = indicator;
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setLocality(Locality locality) {
-		this.locality = ModelObjects.setParent(locality, this);
-	}
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
 
-	public void setPostOffice(PostOffice postOffice) {
-		this.postOffice = ModelObjects.setParent(postOffice, this);
-	}
+    public void setLocality(Locality locality) {
+        this.locality = ModelObjects.setParent(locality, this);
+    }
 
-	public void setPostalCode(PostalCode postalCode) {
-		this.postalCode = ModelObjects.setParent(postalCode, this);
-	}
+    public void setPostOffice(PostOffice postOffice) {
+        this.postOffice = ModelObjects.setParent(postOffice, this);
+    }
 
-	public void setSubAdministrativeAreaName(List<SubAdministrativeAreaName> subAdministrativeAreaName) {
-		this.subAdministrativeAreaName = new ChildList<>(this, subAdministrativeAreaName);
-	}
+    public void setPostalCode(PostalCode postalCode) {
+        this.postalCode = ModelObjects.setParent(postalCode, this);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setSubAdministrativeAreaName(List<SubAdministrativeAreaName> subAdministrativeAreaName) {
+        this.subAdministrativeAreaName = new ChildList<>(this, subAdministrativeAreaName);
+    }
 
-	public void setUsageType(String usageType) {
-		this.usageType = usageType;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setUsageType(String usageType) {
+        this.usageType = usageType;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetIndicator() {
-		indicator = null;
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public void unsetLocality() {
-		locality = ModelObjects.setNull(locality);
-	}
+    public void unsetIndicator() {
+        indicator = null;
+    }
 
-	public void unsetPostOffice() {
-		postOffice = ModelObjects.setNull(postOffice);
-	}
+    public void unsetLocality() {
+        locality = ModelObjects.setNull(locality);
+    }
 
-	public void unsetPostalCode() {
-		postalCode = ModelObjects.setNull(postalCode);
-	}
+    public void unsetPostOffice() {
+        postOffice = ModelObjects.setNull(postOffice);
+    }
 
-	public void unsetSubAdministrativeAreaName() {
-		subAdministrativeAreaName = ModelObjects.setNull(subAdministrativeAreaName);
-	}
+    public void unsetPostalCode() {
+        postalCode = ModelObjects.setNull(postalCode);
+    }
 
-	public boolean unsetSubAdministrativeAreaName(SubAdministrativeAreaName subAdministrativeAreaName) {
-		return isSetSubAdministrativeAreaName() && this.subAdministrativeAreaName.remove(subAdministrativeAreaName);
-	}
+    public void unsetSubAdministrativeAreaName() {
+        subAdministrativeAreaName = ModelObjects.setNull(subAdministrativeAreaName);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public boolean unsetSubAdministrativeAreaName(SubAdministrativeAreaName subAdministrativeAreaName) {
+        return isSetSubAdministrativeAreaName() && this.subAdministrativeAreaName.remove(subAdministrativeAreaName);
+    }
 
-	public void unsetUsageType() {
-		usageType = null;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.SUB_ADMINISTRATIVE_AREA;
-	}
+    public void unsetUsageType() {
+        usageType = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.SUB_ADMINISTRATIVE_AREA;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SubAdministrativeArea(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SubAdministrativeArea copy = (target == null) ? new SubAdministrativeArea() : (SubAdministrativeArea)target;
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SubAdministrativeArea(), copyBuilder);
+    }
 
-		if (isSetUsageType())
-			copy.setUsageType(copyBuilder.copy(usageType));
-		
-		if (isSetIndicator())
-			copy.setIndicator(copyBuilder.copy(indicator));
-		
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SubAdministrativeArea copy = (target == null) ? new SubAdministrativeArea() : (SubAdministrativeArea) target;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetSubAdministrativeAreaName()) {
-			for (SubAdministrativeAreaName part : subAdministrativeAreaName) {
-				SubAdministrativeAreaName copyPart = (SubAdministrativeAreaName)copyBuilder.copy(part);
-				copy.addSubAdministrativeAreaName(copyPart);
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetLocality()) {
-			copy.setLocality((Locality)copyBuilder.copy(locality));
-			if (copy.getLocality() == locality)
-				locality.setParent(this);
-		}
-		
-		if (isSetPostOffice()) {
-			copy.setPostOffice((PostOffice)copyBuilder.copy(postOffice));
-			if (copy.getPostOffice() == postOffice)
-				postOffice.setParent(this);
-		}
-		
-		if (isSetPostalCode()) {
-			copy.setPostalCode((PostalCode)copyBuilder.copy(postalCode));
-			if (copy.getPostalCode() == postalCode)
-				postalCode.setParent(this);
-		}
-		
-		copy.unsetParent();
+        if (isSetUsageType())
+            copy.setUsageType(copyBuilder.copy(usageType));
 
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetIndicator())
+            copy.setIndicator(copyBuilder.copy(indicator));
+
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetSubAdministrativeAreaName()) {
+            for (SubAdministrativeAreaName part : subAdministrativeAreaName) {
+                SubAdministrativeAreaName copyPart = (SubAdministrativeAreaName) copyBuilder.copy(part);
+                copy.addSubAdministrativeAreaName(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetLocality()) {
+            copy.setLocality((Locality) copyBuilder.copy(locality));
+            if (copy.getLocality() == locality)
+                locality.setParent(this);
+        }
+
+        if (isSetPostOffice()) {
+            copy.setPostOffice((PostOffice) copyBuilder.copy(postOffice));
+            if (copy.getPostOffice() == postOffice)
+                postOffice.setParent(this);
+        }
+
+        if (isSetPostalCode()) {
+            copy.setPostalCode((PostalCode) copyBuilder.copy(postalCode));
+            if (copy.getPostalCode() == postalCode)
+                postalCode.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

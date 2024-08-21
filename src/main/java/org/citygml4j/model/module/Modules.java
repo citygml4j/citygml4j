@@ -35,120 +35,120 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Modules {
-	private static Map<String, Module> modules = new ConcurrentHashMap<>();
+    private static Map<String, Module> modules = new ConcurrentHashMap<>();
 
-	static {
-		for (Module module : CoreModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : AppearanceModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : BridgeModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : BuildingModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : CityFurnitureModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : CityObjectGroupModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : GenericsModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : LandUseModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : ReliefModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : TransportationModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : TunnelModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : VegetationModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : WaterBodyModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : TexturedSurfaceModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : GMLCoreModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : XLinkModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-		for (Module module : XALCoreModule.getInstances()) modules.put(module.getNamespaceURI(), module);
-	}
+    static {
+        for (Module module : CoreModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : AppearanceModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : BridgeModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : BuildingModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : CityFurnitureModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : CityObjectGroupModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : GenericsModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : LandUseModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : ReliefModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : TransportationModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : TunnelModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : VegetationModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : WaterBodyModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : TexturedSurfaceModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : GMLCoreModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : XLinkModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+        for (Module module : XALCoreModule.getInstances()) modules.put(module.getNamespaceURI(), module);
+    }
 
-	private Modules() {
-		// just to thwart instantiation
-	}
+    private Modules() {
+        // just to thwart instantiation
+    }
 
-	public static Module getModule(String namespaceURI) {
-		return modules.get(namespaceURI);
-	}
+    public static Module getModule(String namespaceURI) {
+        return modules.get(namespaceURI);
+    }
 
-	public static List<Module> getModules() {
-		return new ArrayList<>(modules.values());
-	}
+    public static List<Module> getModules() {
+        return new ArrayList<>(modules.values());
+    }
 
-	public static List<CityGMLModule> getCityGMLModules() {
-		return getModules(CityGMLModule.class);
-	}
+    public static List<CityGMLModule> getCityGMLModules() {
+        return getModules(CityGMLModule.class);
+    }
 
-	public static CityGMLModule getCityGMLModule(String namespaceURI) {
-		return getModule(CityGMLModule.class, namespaceURI);
-	}
+    public static CityGMLModule getCityGMLModule(String namespaceURI) {
+        return getModule(CityGMLModule.class, namespaceURI);
+    }
 
-	public static List<CityGMLModule> getCityGMLModules(CityGMLModuleType type) {
-		return getModules(CityGMLModule.class, type);
-	}
+    public static List<CityGMLModule> getCityGMLModules(CityGMLModuleType type) {
+        return getModules(CityGMLModule.class, type);
+    }
 
-	public static List<GMLModule> getGMLModules() {
-		return getModules(GMLModule.class);
-	}
+    public static List<GMLModule> getGMLModules() {
+        return getModules(GMLModule.class);
+    }
 
-	public static List<GMLModule> getGMLModules(GMLModuleType type) {
-		return getModules(GMLModule.class, type);
-	}
+    public static List<GMLModule> getGMLModules(GMLModuleType type) {
+        return getModules(GMLModule.class, type);
+    }
 
-	public static List<XALModule> getXALModules() {
-		return getModules(XALModule.class);
-	}
+    public static List<XALModule> getXALModules() {
+        return getModules(XALModule.class);
+    }
 
-	public static List<XALModule> getXALModules(XALModuleType type) {
-		return getModules(XALModule.class, type);
-	}
+    public static List<XALModule> getXALModules(XALModuleType type) {
+        return getModules(XALModule.class, type);
+    }
 
-	public static void registerADEModule(ADEModule module) {
-		modules.put(module.getNamespaceURI(), module);
-	}
+    public static void registerADEModule(ADEModule module) {
+        modules.put(module.getNamespaceURI(), module);
+    }
 
-	public static void unregisterADEModule(ADEModule module) {
-		modules.remove(module.getNamespaceURI());
-	}
+    public static void unregisterADEModule(ADEModule module) {
+        modules.remove(module.getNamespaceURI());
+    }
 
-	public static List<ADEModule> getADEModules() {
-		return getModules(ADEModule.class);
-	}
+    public static List<ADEModule> getADEModules() {
+        return getModules(ADEModule.class);
+    }
 
-	public static List<ADEModule> getADEModules(ADEModuleType type) {
-		return getModules(ADEModule.class, type);
-	}
+    public static List<ADEModule> getADEModules(ADEModuleType type) {
+        return getModules(ADEModule.class, type);
+    }
 
-	public static ADEModule getADEModule(String namespaceURI) {
-		return getModule(ADEModule.class, namespaceURI);
-	}
+    public static ADEModule getADEModule(String namespaceURI) {
+        return getModule(ADEModule.class, namespaceURI);
+    }
 
-	public static boolean isCityGMLModuleNamespace(String namespaceURI) {
-		return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/citygml");
-	}
+    public static boolean isCityGMLModuleNamespace(String namespaceURI) {
+        return namespaceURI != null && namespaceURI.startsWith("http://www.opengis.net/citygml");
+    }
 
-	public static boolean isModuleNamespace(String namespaceURI, ModuleType type) {
-		Module module = modules.get(namespaceURI);
-		return module != null && module.getType().equals(type);
-	}
-	
-	private static <T extends Module> T getModule(Class<T> moduleClass, String namespaceURI) {
-		Module module = modules.get(namespaceURI);
-		return moduleClass.isInstance(module) ? moduleClass.cast(module) : null;
-	}
-	
-	private static <T extends Module> List<T> getModules(Class<T> moduleClass) {
-		List<T> result = new ArrayList<>();
-		for (Module module : modules.values()) {
-			if (moduleClass.isInstance(module))
-				result.add(moduleClass.cast(module));
-		}
-		
-		return result;
-	}
-	
-	private static <T extends Module> List<T> getModules(Class<T> moduleClass, ModuleType type) {
-		List<T> result = new ArrayList<>();
-		for (Module module : modules.values()) {
-			if (module.getType().equals(type) && moduleClass.isInstance(module))
-				result.add(moduleClass.cast(module));
-		}
-		
-		return result;
-	}
+    public static boolean isModuleNamespace(String namespaceURI, ModuleType type) {
+        Module module = modules.get(namespaceURI);
+        return module != null && module.getType().equals(type);
+    }
+
+    private static <T extends Module> T getModule(Class<T> moduleClass, String namespaceURI) {
+        Module module = modules.get(namespaceURI);
+        return moduleClass.isInstance(module) ? moduleClass.cast(module) : null;
+    }
+
+    private static <T extends Module> List<T> getModules(Class<T> moduleClass) {
+        List<T> result = new ArrayList<>();
+        for (Module module : modules.values()) {
+            if (moduleClass.isInstance(module))
+                result.add(moduleClass.cast(module));
+        }
+
+        return result;
+    }
+
+    private static <T extends Module> List<T> getModules(Class<T> moduleClass, ModuleType type) {
+        List<T> result = new ArrayList<>();
+        for (Module module : modules.values()) {
+            if (module.getType().equals(type) && moduleClass.isInstance(module))
+                result.add(moduleClass.cast(module));
+        }
+
+        return result;
+    }
 
 }

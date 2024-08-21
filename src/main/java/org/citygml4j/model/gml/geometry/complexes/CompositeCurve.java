@@ -34,116 +34,116 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CompositeCurve extends AbstractCurve {
-	private List<CurveProperty> curveMember;
-	
-	public CompositeCurve() {
-		
-	}
-	
-	public CompositeCurve(List<? extends AbstractCurve> abstractCurves) {
-		for (AbstractCurve abstractCurve : abstractCurves)
-			addCurveMember(new CurveProperty(abstractCurve));
-	}
-	
-	public CompositeCurve(AbstractCurve... abstractCurves) {
-		this(Arrays.asList(abstractCurves));
-	}
-	
-	public void addCurveMember(CurveProperty curveMember) {
-		getCurveMember().add(curveMember);
-	}
+    private List<CurveProperty> curveMember;
 
-	public List<CurveProperty> getCurveMember() {
-		if (curveMember == null)
-			curveMember = new ChildList<>(this);
-		
-		return curveMember;
-	}
+    public CompositeCurve() {
 
-	public boolean isSetCurveMember() {
-		return curveMember != null && !curveMember.isEmpty();
-	}
+    }
 
-	public void setCurveMember(List<CurveProperty> curveMember) {
-		this.curveMember = new ChildList<>(this, curveMember);
-	}
+    public CompositeCurve(List<? extends AbstractCurve> abstractCurves) {
+        for (AbstractCurve abstractCurve : abstractCurves)
+            addCurveMember(new CurveProperty(abstractCurve));
+    }
 
-	public void unsetCurveMember() {
-		curveMember = ModelObjects.setNull(curveMember);
-	}
+    public CompositeCurve(AbstractCurve... abstractCurves) {
+        this(Arrays.asList(abstractCurves));
+    }
 
-	public boolean unsetCurveMember(CurveProperty curveMember) {
-		return isSetCurveMember() && this.curveMember.remove(curveMember);
-	}
+    public void addCurveMember(CurveProperty curveMember) {
+        getCurveMember().add(curveMember);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.COMPOSITE_CURVE;
-	}
+    public List<CurveProperty> getCurveMember() {
+        if (curveMember == null)
+            curveMember = new ChildList<>(this);
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CompositeCurve(), copyBuilder);
-	}
+        return curveMember;
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		if (isSetCurveMember()) {
-			List<Double> coordinates = new ArrayList<>();
-			for (CurveProperty property : curveMember) {
-				if (property != null && property.isSetCurve()) {
-					List<Double> candidates = property.getCurve().toList3d();
-					if (!candidates.isEmpty()) {
-						int size = coordinates.size();
-						if (size == 0)
-							coordinates.addAll(candidates);
-						else {
-							if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
-									&& candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
-									&& candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
-								coordinates.addAll(candidates.subList(3, candidates.size()));
-							else
-								coordinates.addAll(candidates);
-						}
-					}
-				}
-			}
+    public boolean isSetCurveMember() {
+        return curveMember != null && !curveMember.isEmpty();
+    }
 
-			return coordinates;
-		} else
-			return new ArrayList<>();
-	}
+    public void setCurveMember(List<CurveProperty> curveMember) {
+        this.curveMember = new ChildList<>(this, curveMember);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CompositeCurve copy = (target == null) ? new CompositeCurve() : (CompositeCurve)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetCurveMember()) {
-			for (CurveProperty part : curveMember) {
-				CurveProperty copyPart = (CurveProperty)copyBuilder.copy(part);
-				copy.addCurveMember(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
+    public void unsetCurveMember() {
+        curveMember = ModelObjects.setNull(curveMember);
+    }
 
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public boolean unsetCurveMember(CurveProperty curveMember) {
+        return isSetCurveMember() && this.curveMember.remove(curveMember);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+    public GMLClass getGMLClass() {
+        return GMLClass.COMPOSITE_CURVE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CompositeCurve(), copyBuilder);
+    }
+
+    @Override
+    public List<Double> toList3d() {
+        if (isSetCurveMember()) {
+            List<Double> coordinates = new ArrayList<>();
+            for (CurveProperty property : curveMember) {
+                if (property != null && property.isSetCurve()) {
+                    List<Double> candidates = property.getCurve().toList3d();
+                    if (!candidates.isEmpty()) {
+                        int size = coordinates.size();
+                        if (size == 0)
+                            coordinates.addAll(candidates);
+                        else {
+                            if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
+                                    && candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
+                                    && candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
+                                coordinates.addAll(candidates.subList(3, candidates.size()));
+                            else
+                                coordinates.addAll(candidates);
+                        }
+                    }
+                }
+            }
+
+            return coordinates;
+        } else
+            return new ArrayList<>();
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CompositeCurve copy = (target == null) ? new CompositeCurve() : (CompositeCurve) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetCurveMember()) {
+            for (CurveProperty part : curveMember) {
+                CurveProperty copyPart = (CurveProperty) copyBuilder.copy(part);
+                copy.addCurveMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

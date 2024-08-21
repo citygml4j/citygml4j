@@ -26,126 +26,126 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class SchemaWalker extends Walker implements XSVisitor {
-	private final Set<Object> visited = new HashSet<Object>();
-	
-	public boolean addToVisited(Object object) {
-		return visited.add(object);
-	}
-	
-	public boolean hasVisited(Object object) {
-		return visited.contains(object);
-	}
-	
-	public void visit(Schema schema) {
-		visit(schema.schema);
-	}
-	
-	public void visit(XSSchemaSet schemas) {
-		for (XSSchema schema : schemas.getSchemas())
-			if (shouldWalk && visited.add(schema))
-				schema(schema);
-	}
-	
-	public void visit(XSSchema schema) {
-		if (shouldWalk && visited.add(schema))
-			schema(schema);
-	}
+    private final Set<Object> visited = new HashSet<Object>();
 
-	public void annotation(XSAnnotation ann) {
-	}
+    public boolean addToVisited(Object object) {
+        return visited.add(object);
+    }
 
-	public void attGroupDecl(XSAttGroupDecl decl) {
-		for (XSAttributeUse u : decl.getAttributeUses())
-			if (shouldWalk && visited.add(u))
-				attributeUse(u);
-	}
+    public boolean hasVisited(Object object) {
+        return visited.contains(object);
+    }
 
-	public void attributeDecl(XSAttributeDecl decl) {
-		if (shouldWalk && visited.add(decl.getType()))
-			simpleType(decl.getType());
-	}
+    public void visit(Schema schema) {
+        visit(schema.schema);
+    }
 
-	public void attributeUse(XSAttributeUse use) {
-		if (shouldWalk && visited.add(use.getDecl()))
-			attributeDecl(use.getDecl());
-	}
+    public void visit(XSSchemaSet schemas) {
+        for (XSSchema schema : schemas.getSchemas())
+            if (shouldWalk && visited.add(schema))
+                schema(schema);
+    }
 
-	public void complexType(XSComplexType type) {
-		if (shouldWalk && visited.add(type.getContentType())) {
-			type.getContentType().visit(this);
-			for (XSAttributeUse u : type.getAttributeUses())
-				if (shouldWalk && visited.add(u))
-					attributeUse(u);
-		}
-	}
+    public void visit(XSSchema schema) {
+        if (shouldWalk && visited.add(schema))
+            schema(schema);
+    }
 
-	public void schema(XSSchema schema) {
-		for (XSElementDecl e : schema.getElementDecls().values())
-			if (shouldWalk && visited.add(e))
-				elementDecl(e);
+    public void annotation(XSAnnotation ann) {
+    }
 
-		for (XSAttributeDecl a : schema.getAttributeDecls().values())
-			if (shouldWalk && visited.add(a))
-				attributeDecl(a);
+    public void attGroupDecl(XSAttGroupDecl decl) {
+        for (XSAttributeUse u : decl.getAttributeUses())
+            if (shouldWalk && visited.add(u))
+                attributeUse(u);
+    }
 
-		for (XSAttGroupDecl a : schema.getAttGroupDecls().values())
-			if (shouldWalk && visited.add(a))
-				attGroupDecl(a);
+    public void attributeDecl(XSAttributeDecl decl) {
+        if (shouldWalk && visited.add(decl.getType()))
+            simpleType(decl.getType());
+    }
 
-		for (XSModelGroupDecl m : schema.getModelGroupDecls().values())
-			if (shouldWalk && visited.add(m))
-				modelGroupDecl(m);
+    public void attributeUse(XSAttributeUse use) {
+        if (shouldWalk && visited.add(use.getDecl()))
+            attributeDecl(use.getDecl());
+    }
 
-		for (XSType t : schema.getTypes().values())
-			if (shouldWalk && visited.add(t))
-				t.visit(this);
+    public void complexType(XSComplexType type) {
+        if (shouldWalk && visited.add(type.getContentType())) {
+            type.getContentType().visit(this);
+            for (XSAttributeUse u : type.getAttributeUses())
+                if (shouldWalk && visited.add(u))
+                    attributeUse(u);
+        }
+    }
 
-		for (XSNotation n : schema.getNotations().values())
-			if (shouldWalk && visited.add(n))
-				notation(n);
-	}
+    public void schema(XSSchema schema) {
+        for (XSElementDecl e : schema.getElementDecls().values())
+            if (shouldWalk && visited.add(e))
+                elementDecl(e);
 
-	public void facet(XSFacet facet) {
-	}
+        for (XSAttributeDecl a : schema.getAttributeDecls().values())
+            if (shouldWalk && visited.add(a))
+                attributeDecl(a);
 
-	public void notation(XSNotation notation) {
-	}
+        for (XSAttGroupDecl a : schema.getAttGroupDecls().values())
+            if (shouldWalk && visited.add(a))
+                attGroupDecl(a);
 
-	public void identityConstraint(XSIdentityConstraint decl) {
-	}
+        for (XSModelGroupDecl m : schema.getModelGroupDecls().values())
+            if (shouldWalk && visited.add(m))
+                modelGroupDecl(m);
 
-	public void xpath(XSXPath xp) {
-	}
+        for (XSType t : schema.getTypes().values())
+            if (shouldWalk && visited.add(t))
+                t.visit(this);
 
-	public void wildcard(XSWildcard wc) {
-	}
+        for (XSNotation n : schema.getNotations().values())
+            if (shouldWalk && visited.add(n))
+                notation(n);
+    }
 
-	public void modelGroupDecl(XSModelGroupDecl decl) {
-		if (shouldWalk && visited.add(decl.getModelGroup()))
-			modelGroup(decl.getModelGroup());
-	}
+    public void facet(XSFacet facet) {
+    }
 
-	public void modelGroup(XSModelGroup group) {
-		for (XSParticle p : group.getChildren())
-			if (shouldWalk && visited.add(p))
-				particle(p);
-	}
+    public void notation(XSNotation notation) {
+    }
 
-	public void elementDecl(XSElementDecl decl) {
-		if (shouldWalk && visited.add(decl.getType()))
-			decl.getType().visit(this);
-	}
+    public void identityConstraint(XSIdentityConstraint decl) {
+    }
 
-	public void simpleType(XSSimpleType simpleType) {
-		if (shouldWalk && visited.add(simpleType.getBaseType()))
-			simpleType.getBaseType().visit(this);
-	}
+    public void xpath(XSXPath xp) {
+    }
 
-	public void particle(XSParticle particle) {
-		if (shouldWalk && visited.add(particle.getTerm()))
-			particle.getTerm().visit(this);
-	}
+    public void wildcard(XSWildcard wc) {
+    }
 
-	public void empty(XSContentType empty) {
-	}
+    public void modelGroupDecl(XSModelGroupDecl decl) {
+        if (shouldWalk && visited.add(decl.getModelGroup()))
+            modelGroup(decl.getModelGroup());
+    }
+
+    public void modelGroup(XSModelGroup group) {
+        for (XSParticle p : group.getChildren())
+            if (shouldWalk && visited.add(p))
+                particle(p);
+    }
+
+    public void elementDecl(XSElementDecl decl) {
+        if (shouldWalk && visited.add(decl.getType()))
+            decl.getType().visit(this);
+    }
+
+    public void simpleType(XSSimpleType simpleType) {
+        if (shouldWalk && visited.add(simpleType.getBaseType()))
+            simpleType.getBaseType().visit(this);
+    }
+
+    public void particle(XSParticle particle) {
+        if (shouldWalk && visited.add(particle.getTerm()))
+            particle.getTerm().visit(this);
+    }
+
+    public void empty(XSContentType empty) {
+    }
 }

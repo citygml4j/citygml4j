@@ -30,274 +30,274 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class ThoroughfareNumberRange implements XAL, GrPostal, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private ThoroughfareNumberFrom thoroughfareNumberFrom;
-	private ThoroughfareNumberTo thoroughfareNumberTo;
-	private String rangeType;
-	private String indicator;
-	private String separator;
-	private String indicatorOccurrence;
-	private String numberRangeOccurrence;
-	private String type;
-	private String code;
-	private ModelObject parent;
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private ThoroughfareNumberFrom thoroughfareNumberFrom;
+    private ThoroughfareNumberTo thoroughfareNumberTo;
+    private String rangeType;
+    private String indicator;
+    private String separator;
+    private String indicatorOccurrence;
+    private String numberRangeOccurrence;
+    private String type;
+    private String code;
+    private ModelObject parent;
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public String getIndicator() {
-		return indicator;
-	}
+        return addressLine;
+    }
 
-	public String getIndicatorOccurrence() {
-		return indicatorOccurrence;
-	}
+    public String getIndicator() {
+        return indicator;
+    }
 
-	public String getNumberRangeOccurrence() {
-		return numberRangeOccurrence;
-	}
+    public String getIndicatorOccurrence() {
+        return indicatorOccurrence;
+    }
 
-	public String getRangeType() {
-		return rangeType;
-	}
+    public String getNumberRangeOccurrence() {
+        return numberRangeOccurrence;
+    }
 
-	public String getSeparator() {
-		return separator;
-	}
+    public String getRangeType() {
+        return rangeType;
+    }
 
-	public ThoroughfareNumberFrom getThoroughfareNumberFrom() {
-		return thoroughfareNumberFrom;
-	}
+    public String getSeparator() {
+        return separator;
+    }
 
-	public ThoroughfareNumberTo getThoroughfareNumberTo() {
-		return thoroughfareNumberTo;
-	}
+    public ThoroughfareNumberFrom getThoroughfareNumberFrom() {
+        return thoroughfareNumberFrom;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public ThoroughfareNumberTo getThoroughfareNumberTo() {
+        return thoroughfareNumberTo;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetIndicator() {
-		return indicator != null;
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetIndicatorOccurrence() {
-		return indicatorOccurrence != null;
-	}
+    public boolean isSetIndicator() {
+        return indicator != null;
+    }
 
-	public boolean isSetNumberRangeOccurrence() {
-		return numberRangeOccurrence != null;
-	}
+    public boolean isSetIndicatorOccurrence() {
+        return indicatorOccurrence != null;
+    }
 
-	public boolean isSetRangeType() {
-		return rangeType != null;
-	}
+    public boolean isSetNumberRangeOccurrence() {
+        return numberRangeOccurrence != null;
+    }
 
-	public boolean isSetSeparator() {
-		return separator != null;
-	}
+    public boolean isSetRangeType() {
+        return rangeType != null;
+    }
 
-	public boolean isSetThoroughfareNumberFrom() {
-		return thoroughfareNumberFrom != null;
-	}
+    public boolean isSetSeparator() {
+        return separator != null;
+    }
 
-	public boolean isSetThoroughfareNumberTo() {
-		return thoroughfareNumberTo != null;
-	}
+    public boolean isSetThoroughfareNumberFrom() {
+        return thoroughfareNumberFrom != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetThoroughfareNumberTo() {
+        return thoroughfareNumberTo != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setIndicator(String indicator) {
-		this.indicator = indicator;
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setIndicatorOccurrence(String indicatorOccurrence) {
-		if (indicatorOccurrence.equals("Before") || indicatorOccurrence.equals("After"))
-			this.indicatorOccurrence = indicatorOccurrence;
-	}
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
 
-	public void setNumberRangeOccurrence(String numberRangeOccurrence) {
-		if (numberRangeOccurrence.equals("BeforeName") || numberRangeOccurrence.equals("AfterName") ||
-				numberRangeOccurrence.equals("BeforeType") || numberRangeOccurrence.equals("AfterType"))
-			this.numberRangeOccurrence = numberRangeOccurrence;
-	}
+    public void setIndicatorOccurrence(String indicatorOccurrence) {
+        if (indicatorOccurrence.equals("Before") || indicatorOccurrence.equals("After"))
+            this.indicatorOccurrence = indicatorOccurrence;
+    }
 
-	public void setRangeType(String rangeType) {
-		if (rangeType.equals("Odd") || rangeType.equals("Even"))
-			this.rangeType = rangeType;
-	}
+    public void setNumberRangeOccurrence(String numberRangeOccurrence) {
+        if (numberRangeOccurrence.equals("BeforeName") || numberRangeOccurrence.equals("AfterName") ||
+                numberRangeOccurrence.equals("BeforeType") || numberRangeOccurrence.equals("AfterType"))
+            this.numberRangeOccurrence = numberRangeOccurrence;
+    }
 
-	public void setSeparator(String separator) {
-		this.separator = separator;
-	}
+    public void setRangeType(String rangeType) {
+        if (rangeType.equals("Odd") || rangeType.equals("Even"))
+            this.rangeType = rangeType;
+    }
 
-	public void setThoroughfareNumberFrom(ThoroughfareNumberFrom thoroughfareNumberFrom) {
-		this.thoroughfareNumberFrom = ModelObjects.setParent(thoroughfareNumberFrom, this);
-	}
+    public void setSeparator(String separator) {
+        this.separator = separator;
+    }
 
-	public void setThoroughfareNumberTo(ThoroughfareNumberTo thoroughfareNumberTo) {
-		this.thoroughfareNumberTo = ModelObjects.setParent(thoroughfareNumberTo, this);
-	}
+    public void setThoroughfareNumberFrom(ThoroughfareNumberFrom thoroughfareNumberFrom) {
+        this.thoroughfareNumberFrom = ModelObjects.setParent(thoroughfareNumberFrom, this);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setThoroughfareNumberTo(ThoroughfareNumberTo thoroughfareNumberTo) {
+        this.thoroughfareNumberTo = ModelObjects.setParent(thoroughfareNumberTo, this);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetIndicator() {
-		indicator = null;
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public void unsetIndicatorOccurrence() {
-		indicatorOccurrence = null;
-	}
+    public void unsetIndicator() {
+        indicator = null;
+    }
 
-	public void unsetNumberRangeOccurrence() {
-		numberRangeOccurrence = null;
-	}
+    public void unsetIndicatorOccurrence() {
+        indicatorOccurrence = null;
+    }
 
-	public void unsetRangeType() {
-		rangeType = null;
-	}
+    public void unsetNumberRangeOccurrence() {
+        numberRangeOccurrence = null;
+    }
 
-	public void unsetSeparator() {
-		separator = null;
-	}
+    public void unsetRangeType() {
+        rangeType = null;
+    }
 
-	public void unsetThoroughfareNumberFrom() {
-		thoroughfareNumberFrom = ModelObjects.setNull(thoroughfareNumberFrom);
-	}
+    public void unsetSeparator() {
+        separator = null;
+    }
 
-	public void unsetThoroughfareNumberTo() {
-		thoroughfareNumberTo = ModelObjects.setNull(thoroughfareNumberTo);
-	}
+    public void unsetThoroughfareNumberFrom() {
+        thoroughfareNumberFrom = ModelObjects.setNull(thoroughfareNumberFrom);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetThoroughfareNumberTo() {
+        thoroughfareNumberTo = ModelObjects.setNull(thoroughfareNumberTo);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARE_NUMBER_RANGE;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.THOROUGHFARE_NUMBER_RANGE;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ThoroughfareNumberRange(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ThoroughfareNumberRange copy = (target == null) ? new ThoroughfareNumberRange() : (ThoroughfareNumberRange)target;
-		
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetThoroughfareNumberFrom()) {
-			copy.setThoroughfareNumberFrom((ThoroughfareNumberFrom)copyBuilder.copy(thoroughfareNumberFrom));
-			if (copy.getThoroughfareNumberFrom() == thoroughfareNumberFrom)
-				thoroughfareNumberFrom.setParent(this);
-		}
-		
-		if (isSetThoroughfareNumberTo()) {
-			copy.setThoroughfareNumberTo((ThoroughfareNumberTo)copyBuilder.copy(thoroughfareNumberTo));
-			if (copy.getThoroughfareNumberTo() == thoroughfareNumberTo)
-				thoroughfareNumberTo.setParent(this);
-		}
-		
-		if (isSetRangeType())
-			copy.setRangeType(copyBuilder.copy(rangeType));
-		
-		if (isSetIndicator())
-			copy.setIndicator(copyBuilder.copy(indicator));
-		
-		if (isSetSeparator())
-			copy.setSeparator(copyBuilder.copy(separator));
-		
-		if (isSetIndicatorOccurrence())
-			copy.setIndicatorOccurrence(copyBuilder.copy(indicatorOccurrence));
-		
-		if (isSetNumberRangeOccurrence())
-			copy.setNumberRangeOccurrence(copyBuilder.copy(numberRangeOccurrence));
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));		
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ThoroughfareNumberRange(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ThoroughfareNumberRange copy = (target == null) ? new ThoroughfareNumberRange() : (ThoroughfareNumberRange) target;
+
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetThoroughfareNumberFrom()) {
+            copy.setThoroughfareNumberFrom((ThoroughfareNumberFrom) copyBuilder.copy(thoroughfareNumberFrom));
+            if (copy.getThoroughfareNumberFrom() == thoroughfareNumberFrom)
+                thoroughfareNumberFrom.setParent(this);
+        }
+
+        if (isSetThoroughfareNumberTo()) {
+            copy.setThoroughfareNumberTo((ThoroughfareNumberTo) copyBuilder.copy(thoroughfareNumberTo));
+            if (copy.getThoroughfareNumberTo() == thoroughfareNumberTo)
+                thoroughfareNumberTo.setParent(this);
+        }
+
+        if (isSetRangeType())
+            copy.setRangeType(copyBuilder.copy(rangeType));
+
+        if (isSetIndicator())
+            copy.setIndicator(copyBuilder.copy(indicator));
+
+        if (isSetSeparator())
+            copy.setSeparator(copyBuilder.copy(separator));
+
+        if (isSetIndicatorOccurrence())
+            copy.setIndicatorOccurrence(copyBuilder.copy(indicatorOccurrence));
+
+        if (isSetNumberRangeOccurrence())
+            copy.setNumberRangeOccurrence(copyBuilder.copy(numberRangeOccurrence));
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

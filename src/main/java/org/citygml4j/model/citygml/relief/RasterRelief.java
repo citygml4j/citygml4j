@@ -38,141 +38,141 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class RasterRelief extends AbstractReliefComponent {
-	private GridProperty grid;
-	private List<ADEComponent> ade;
+    private GridProperty grid;
+    private List<ADEComponent> ade;
 
-	public RasterRelief() {
+    public RasterRelief() {
 
-	}
+    }
 
-	public RasterRelief(Module module) {
-		super(module);
-	}
+    public RasterRelief(Module module) {
+        super(module);
+    }
 
-	public void addGenericApplicationPropertyOfRasterRelief(ADEComponent ade) {
-		getGenericApplicationPropertyOfRasterRelief().add(ade);
-	}
+    public void addGenericApplicationPropertyOfRasterRelief(ADEComponent ade) {
+        getGenericApplicationPropertyOfRasterRelief().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfRasterRelief() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfRasterRelief() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return ade;
-	}
+        return ade;
+    }
 
-	public GridProperty getGrid() {
-		return grid;
-	}
+    public GridProperty getGrid() {
+        return grid;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfRasterRelief() {
-		return ade != null && !ade.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfRasterRelief() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean isSetGrid() {
-		return grid != null;
-	}
+    public boolean isSetGrid() {
+        return grid != null;
+    }
 
-	public void setGenericApplicationPropertyOfRasterRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void setGenericApplicationPropertyOfRasterRelief(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void setGrid(GridProperty grid) {
-		this.grid = ModelObjects.setParent(grid, this);
-	}
+    public void setGrid(GridProperty grid) {
+        this.grid = ModelObjects.setParent(grid, this);
+    }
 
-	public void unsetGenericApplicationPropertyOfRasterRelief() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void unsetGenericApplicationPropertyOfRasterRelief() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfRasterRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfRasterRelief() && this.ade.remove(ade);
-	}
+    public boolean unsetGenericApplicationPropertyOfRasterRelief(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfRasterRelief() && this.ade.remove(ade);
+    }
 
-	public void unsetGrid() {
-		grid = ModelObjects.setNull(grid);
-	}
+    public void unsetGrid() {
+        grid = ModelObjects.setNull(grid);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RASTER_RELIEF;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.RASTER_RELIEF;
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGrid()) {
-			if (grid.isSetObject()) {
-				boundedBy.updateEnvelope(grid.getObject().calcBoundedBy(options).getEnvelope());
-			} else {
-				// xlink
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfRasterRelief()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfRasterRelief()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+        if (isSetGrid()) {
+            if (grid.isSetObject()) {
+                boundedBy.updateEnvelope(grid.getObject().calcBoundedBy(options).getEnvelope());
+            } else {
+                // xlink
+            }
+        }
 
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		lodRepresentation.addRepresentation(getLod(), grid.getRectifiedGridCoverage().getRectifiedGridDomain());
+        if (isSetGenericApplicationPropertyOfRasterRelief()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfRasterRelief()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-		return lodRepresentation;
-	}
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new RasterRelief(), copyBuilder);
-	}
+        return boundedBy;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		RasterRelief copy = (target == null) ? new RasterRelief() : (RasterRelief)target;
-		super.copyTo(copy, copyBuilder);
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+        lodRepresentation.addRepresentation(getLod(), grid.getRectifiedGridCoverage().getRectifiedGridDomain());
 
-		if (isSetGrid()) {
-			copy.setGrid((GridProperty)copyBuilder.copy(grid));
-			if (copy.getGrid() == grid)
-				grid.setParent(this);
-		}
+        return lodRepresentation;
+    }
 
-		if (isSetGenericApplicationPropertyOfRasterRelief()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfRasterRelief(copyPart);
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new RasterRelief(), copyBuilder);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        RasterRelief copy = (target == null) ? new RasterRelief() : (RasterRelief) target;
+        super.copyTo(copy, copyBuilder);
 
-		return copy;
-	}
+        if (isSetGrid()) {
+            copy.setGrid((GridProperty) copyBuilder.copy(grid));
+            if (copy.getGrid() == grid)
+                grid.setParent(this);
+        }
 
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+        if (isSetGenericApplicationPropertyOfRasterRelief()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfRasterRelief(copyPart);
 
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+        return copy;
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

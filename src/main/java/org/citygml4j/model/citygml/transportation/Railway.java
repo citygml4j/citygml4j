@@ -37,104 +37,104 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class Railway extends TransportationComplex {
-	private List<ADEComponent> ade;
-	
-	public Railway() {
-		
-	}
-	
-	public Railway(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfRailway(ADEComponent ade) {
-		getGenericApplicationPropertyOfRailway().add(ade);
-	}
+    private List<ADEComponent> ade;
 
-	public List<ADEComponent> getGenericApplicationPropertyOfRailway() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public Railway() {
 
-		return ade;
-	}
+    }
 
-	public boolean isSetGenericApplicationPropertyOfRailway() {
-		return ade != null && !ade.isEmpty();
-	}
+    public Railway(Module module) {
+        super(module);
+    }
 
-	public void setGenericApplicationPropertyOfRailway(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void addGenericApplicationPropertyOfRailway(ADEComponent ade) {
+        getGenericApplicationPropertyOfRailway().add(ade);
+    }
 
-	public void unsetGenericApplicationPropertyOfRailway() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfRailway() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean unsetGenericApplicationPropertyOfRailway(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfRailway() && this.ade.remove(ade);
-	}
+        return ade;
+    }
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RAILWAY;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfRailway()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfRailway()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Railway(), copyBuilder);
-	}
+    public boolean isSetGenericApplicationPropertyOfRailway() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Railway copy = (target == null) ? new Railway() : (Railway)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfRailway()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfRailway(copyPart);
+    public void setGenericApplicationPropertyOfRailway(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void unsetGenericApplicationPropertyOfRailway() {
+        ade = ModelObjects.setNull(ade);
+    }
+
+    public boolean unsetGenericApplicationPropertyOfRailway(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfRailway() && this.ade.remove(ade);
+    }
+
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.RAILWAY;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfRailway()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfRailway()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Railway(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Railway copy = (target == null) ? new Railway() : (Railway) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfRailway()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfRailway(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

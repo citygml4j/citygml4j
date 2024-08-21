@@ -21,27 +21,27 @@ package org.citygml4j.xml.io.writer;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 
 public enum FeatureWriteMode {
-	NO_SPLIT(CityGMLOutputFactory.FEATURE_WRITE_MODE + ".noSplit"),
-	SPLIT_PER_COLLECTION_MEMBER(CityGMLOutputFactory.FEATURE_WRITE_MODE + ".splitPerCollectionMember");
-	
-	private final String value;
+    NO_SPLIT(CityGMLOutputFactory.FEATURE_WRITE_MODE + ".noSplit"),
+    SPLIT_PER_COLLECTION_MEMBER(CityGMLOutputFactory.FEATURE_WRITE_MODE + ".splitPerCollectionMember");
 
-	private FeatureWriteMode(String value) {
-		this.value = value;
-	}
+    private final String value;
 
-	public static FeatureWriteMode fromValue(String value) {
-		for (FeatureWriteMode mode: FeatureWriteMode.values()) {
-			if (mode.value.equals(value)) {
-				return mode;
-			}
-		}
+    private FeatureWriteMode(String value) {
+        this.value = value;
+    }
 
-		return null;
-	}
+    public static FeatureWriteMode fromValue(String value) {
+        for (FeatureWriteMode mode : FeatureWriteMode.values()) {
+            if (mode.value.equals(value)) {
+                return mode;
+            }
+        }
 
-	@Override
-	public String toString() {
-		return value;
-	}
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

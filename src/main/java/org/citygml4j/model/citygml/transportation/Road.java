@@ -37,104 +37,104 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class Road extends TransportationComplex {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public Road() {
+    public Road() {
 
-	}
+    }
 
-	public Road(Module module) {
-		super(module);
-	}
+    public Road(Module module) {
+        super(module);
+    }
 
-	public void addGenericApplicationPropertyOfRoad(ADEComponent ade) {
-		getGenericApplicationPropertyOfRoad().add(ade);
-	}
+    public void addGenericApplicationPropertyOfRoad(ADEComponent ade) {
+        getGenericApplicationPropertyOfRoad().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfRoad() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfRoad() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return ade;
-	}
+        return ade;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfRoad() {
-		return ade != null && !ade.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfRoad() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setGenericApplicationPropertyOfRoad(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void setGenericApplicationPropertyOfRoad(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void unsetGenericApplicationPropertyOfRoad() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void unsetGenericApplicationPropertyOfRoad() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfRoad(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfRoad() && this.ade.remove(ade);
-	}
+    public boolean unsetGenericApplicationPropertyOfRoad(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfRoad() && this.ade.remove(ade);
+    }
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ROAD;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfRoad()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfRoad()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.ROAD;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Road(), copyBuilder);
-	}
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Road copy = (target == null) ? new Road() : (Road)target;
-		super.copyTo(copy, copyBuilder);
+        if (isSetGenericApplicationPropertyOfRoad()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfRoad()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-		if (isSetGenericApplicationPropertyOfRoad()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfRoad(copyPart);
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        return boundedBy;
+    }
 
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Road(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Road copy = (target == null) ? new Road() : (Road) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfRoad()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfRoad(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

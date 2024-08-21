@@ -22,33 +22,33 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 
 public class PointRep extends PointProperty {
-	
-	public PointRep() {
 
-	}
+    public PointRep() {
 
-	public PointRep(Point point) {
-		super(point);
-	}
+    }
 
-	public PointRep(String href) {
-		super(href);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.POINT_REP;
-	}
+    public PointRep(Point point) {
+        super(point);
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PointRep(), copyBuilder);
-	}
+    public PointRep(String href) {
+        super(href);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PointRep copy = (target == null) ? new PointRep() : (PointRep)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.POINT_REP;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PointRep(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PointRep copy = (target == null) ? new PointRep() : (PointRep) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

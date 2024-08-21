@@ -26,107 +26,107 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class DependentLocalityNumber implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String nameNumberOccurrence;
-	private String code;
-	private ModelObject parent;
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String nameNumberOccurrence;
+    private String code;
+    private ModelObject parent;
 
-	public String getNameNumberOccurrence() {
-		return nameNumberOccurrence;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getNameNumberOccurrence() {
+        return nameNumberOccurrence;
+    }
 
-	public boolean isSetNameNumberOccurrence() {
-		return nameNumberOccurrence != null;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetNameNumberOccurrence() {
+        return nameNumberOccurrence != null;
+    }
 
-	public void setNameNumberOccurrence(String nameNumberOccurrence) {
-		if (nameNumberOccurrence.equals("Before") || nameNumberOccurrence.equals("After"))
-			this.nameNumberOccurrence = nameNumberOccurrence;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setNameNumberOccurrence(String nameNumberOccurrence) {
+        if (nameNumberOccurrence.equals("Before") || nameNumberOccurrence.equals("After"))
+            this.nameNumberOccurrence = nameNumberOccurrence;
+    }
 
-	public void unsetNameNumberOccurrence() {
-		nameNumberOccurrence = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.DEPENDENT_LOCALITY_NUMBER;
-	}
+    public void unsetNameNumberOccurrence() {
+        nameNumberOccurrence = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.DEPENDENT_LOCALITY_NUMBER;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DependentLocalityNumber(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DependentLocalityNumber copy = (target == null) ? new DependentLocalityNumber() : (DependentLocalityNumber)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetNameNumberOccurrence())
-			copy.setNameNumberOccurrence(copyBuilder.copy(nameNumberOccurrence));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DependentLocalityNumber(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DependentLocalityNumber copy = (target == null) ? new DependentLocalityNumber() : (DependentLocalityNumber) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetNameNumberOccurrence())
+            copy.setNameNumberOccurrence(copyBuilder.copy(nameNumberOccurrence));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

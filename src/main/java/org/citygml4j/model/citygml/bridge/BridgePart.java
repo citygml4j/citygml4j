@@ -37,102 +37,102 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class BridgePart extends AbstractBridge {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public BridgePart() {
-		
-	}
-	
-	public BridgePart(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfBridgePart(ADEComponent ade) {
-		getGenericApplicationPropertyOfBridgePart().add(ade);
-	}
+    public BridgePart() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfBridgePart() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public BridgePart(Module module) {
+        super(module);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfBridgePart() {
-		return ade != null && !ade.isEmpty();
-	}
+    public void addGenericApplicationPropertyOfBridgePart(ADEComponent ade) {
+        getGenericApplicationPropertyOfBridgePart().add(ade);
+    }
 
-	public void setGenericApplicationPropertyOfBridgePart(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfBridgePart() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public void unsetGenericApplicationPropertyOfBridgePart() {
-		ade = ModelObjects.setNull(ade);
-	}
+        return ade;
+    }
 
-	public boolean unsetGenericApplicationPropertyOfBridgePart(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBridgePart() && this.ade.remove(ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfBridgePart() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BRIDGE_PART;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfBridgePart()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfBridgePart()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public void setGenericApplicationPropertyOfBridgePart(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BridgePart(), copyBuilder);
-	}
+    public void unsetGenericApplicationPropertyOfBridgePart() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BridgePart copy = (target == null) ? new BridgePart() : (BridgePart)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfBridgePart()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfBridgePart(copyPart);
+    public boolean unsetGenericApplicationPropertyOfBridgePart(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfBridgePart() && this.ade.remove(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BRIDGE_PART;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfBridgePart()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfBridgePart()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BridgePart(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BridgePart copy = (target == null) ? new BridgePart() : (BridgePart) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfBridgePart()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfBridgePart(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

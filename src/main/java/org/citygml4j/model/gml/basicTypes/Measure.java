@@ -26,76 +26,76 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Measure implements GML, Child, Copyable {
-	private double value;
-	private String uom;
-	private ModelObject parent;
-	
-	public Measure() {
-	}
-	
-	public Measure(double value) {
-		this.value = value;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.MEASURE;
-	}
+    private double value;
+    private String uom;
+    private ModelObject parent;
 
-	public String getUom() {
-		return uom;
-	}
+    public Measure() {
+    }
 
-	public double getValue() {
-		return value;
-	}
+    public Measure(double value) {
+        this.value = value;
+    }
 
-	public boolean isSetUom() {
-		return uom != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MEASURE;
+    }
 
-	public boolean isSetValue() {
-		return true;
-	}
+    public String getUom() {
+        return uom;
+    }
 
-	public void setUom(String uom) {
-		this.uom = uom;
-	}
+    public double getValue() {
+        return value;
+    }
 
-	public void setValue(double value) {
-		this.value = value;
-	}
+    public boolean isSetUom() {
+        return uom != null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public boolean isSetValue() {
+        return true;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setUom(String uom) {
+        this.uom = uom;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setValue(double value) {
+        this.value = value;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Measure copy = (target == null) ? new Measure() : (Measure)target;
-		
-		if (isSetValue())
-			copy.setValue(copyBuilder.copy(value));
-		
-		if (isSetUom())
-			copy.setUom(copyBuilder.copy(uom));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Measure(), copyBuilder);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Measure copy = (target == null) ? new Measure() : (Measure) target;
+
+        if (isSetValue())
+            copy.setValue(copyBuilder.copy(value));
+
+        if (isSetUom())
+            copy.setUom(copyBuilder.copy(uom));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Measure(), copyBuilder);
+    }
 }

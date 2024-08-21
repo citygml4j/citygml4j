@@ -30,31 +30,57 @@ import org.citygml4j.model.gml.grids.Grid;
 import org.citygml4j.model.gml.grids.RectifiedGrid;
 
 public interface GeometryFunctor<T> extends Functor<T> {
-	T apply(LodRepresentation lodRepresentation);	
-	T apply(CompositeCurve compositeCurve);
-	T apply(CompositeSolid compositeSolid);
-	T apply(CompositeSurface compositeSurface);
-	T apply(Curve curve);
-	T apply(GeometricComplex geometricComplex);
-	T apply(Grid grid);
-	T apply(LinearRing linearRing);
-	T apply(LineString lineString);
-	T apply(MultiCurve multiCurve);
-	T apply(MultiLineString multiLineString);
-	T apply(MultiGeometry multiGeometry);
-	T apply(MultiPoint multiPoint);
-	T apply(MultiPolygon multiPolygon);
-	T apply(MultiSolid multiSolid);
-	T apply(MultiSurface multiSurface);
-	T apply(OrientableCurve orientableCurve);
-	T apply(OrientableSurface orientableSurface);
-	T apply(_TexturedSurface texturedSurface);
-	T apply(Point point);
-	T apply(Polygon polygon);
-	T apply(RectifiedGrid rectifiedGrid);
-	T apply(Ring ring);
-	T apply(Solid solid);
-	T apply(Surface surface);
-	T apply(Tin tin);
-	T apply(TriangulatedSurface triangulatedSurface);
+    T apply(LodRepresentation lodRepresentation);
+
+    T apply(CompositeCurve compositeCurve);
+
+    T apply(CompositeSolid compositeSolid);
+
+    T apply(CompositeSurface compositeSurface);
+
+    T apply(Curve curve);
+
+    T apply(GeometricComplex geometricComplex);
+
+    T apply(Grid grid);
+
+    T apply(LinearRing linearRing);
+
+    T apply(LineString lineString);
+
+    T apply(MultiCurve multiCurve);
+
+    T apply(MultiLineString multiLineString);
+
+    T apply(MultiGeometry multiGeometry);
+
+    T apply(MultiPoint multiPoint);
+
+    T apply(MultiPolygon multiPolygon);
+
+    T apply(MultiSolid multiSolid);
+
+    T apply(MultiSurface multiSurface);
+
+    T apply(OrientableCurve orientableCurve);
+
+    T apply(OrientableSurface orientableSurface);
+
+    T apply(_TexturedSurface texturedSurface);
+
+    T apply(Point point);
+
+    T apply(Polygon polygon);
+
+    T apply(RectifiedGrid rectifiedGrid);
+
+    T apply(Ring ring);
+
+    T apply(Solid solid);
+
+    T apply(Surface surface);
+
+    T apply(Tin tin);
+
+    T apply(TriangulatedSurface triangulatedSurface);
 }

@@ -28,74 +28,74 @@ import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Surface extends AbstractSurface {
-	private SurfacePatchArrayProperty patches;
-	
-	public SurfacePatchArrayProperty getPatches() {
-		return patches;
-	}
+    private SurfacePatchArrayProperty patches;
 
-	public boolean isSetPatches() {
-		return patches != null;
-	}
+    public SurfacePatchArrayProperty getPatches() {
+        return patches;
+    }
 
-	public void setPatches(SurfacePatchArrayProperty patches) {
-		this.patches = ModelObjects.setParent(patches, this);
-	}
+    public boolean isSetPatches() {
+        return patches != null;
+    }
 
-	public void unsetPatches() {
-		patches = ModelObjects.setNull(patches);
-	}
+    public void setPatches(SurfacePatchArrayProperty patches) {
+        this.patches = ModelObjects.setParent(patches, this);
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (getPatches() != null) {
-			SurfacePatchArrayProperty arrayProperty = getPatches();
-			
-			if (arrayProperty.isSetSurfacePatch())
-				for (AbstractSurfacePatch surfacePatch : arrayProperty.getSurfacePatch())
-					bbox.update(surfacePatch.calcBoundingBox());
-		}
-		
-		return bbox;
-	}
+    public void unsetPatches() {
+        patches = ModelObjects.setNull(patches);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.SURFACE;
-	}
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Surface(), copyBuilder);
-	}
+        if (getPatches() != null) {
+            SurfacePatchArrayProperty arrayProperty = getPatches();
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Surface copy = (target == null) ? new Surface() : (Surface)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetPatches()) {
-			copy.setPatches((SurfacePatchArrayProperty)copyBuilder.copy(patches));
-			if (copy.getPatches() == patches)
-				patches.setParent(this);
-		}
-		
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+            if (arrayProperty.isSetSurfacePatch())
+                for (AbstractSurfacePatch surfacePatch : arrayProperty.getSurfacePatch())
+                    bbox.update(surfacePatch.calcBoundingBox());
+        }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        return bbox;
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.SURFACE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Surface(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Surface copy = (target == null) ? new Surface() : (Surface) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetPatches()) {
+            copy.setPatches((SurfacePatchArrayProperty) copyBuilder.copy(patches));
+            if (copy.getPatches() == patches)
+                patches.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

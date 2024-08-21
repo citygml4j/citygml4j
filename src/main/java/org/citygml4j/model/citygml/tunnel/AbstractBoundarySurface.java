@@ -35,222 +35,222 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public abstract class AbstractBoundarySurface extends AbstractCityObject implements TunnelModuleComponent {
-	private MultiSurfaceProperty lod2MultiSurface;
-	private MultiSurfaceProperty lod3MultiSurface;
-	private MultiSurfaceProperty lod4MultiSurface;
-	private List<OpeningProperty> opening;
-	private List<ADEComponent> ade;
+    private MultiSurfaceProperty lod2MultiSurface;
+    private MultiSurfaceProperty lod3MultiSurface;
+    private MultiSurfaceProperty lod4MultiSurface;
+    private List<OpeningProperty> opening;
+    private List<ADEComponent> ade;
 
-	public AbstractBoundarySurface() {
-		
-	}
-	
-	public AbstractBoundarySurface(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfBoundarySurface(ADEComponent ade) {
-		getGenericApplicationPropertyOfBoundarySurface().add(ade);
-	}
+    public AbstractBoundarySurface() {
 
-	public void addOpening(OpeningProperty opening) {
-		getOpening().add(opening);
-	}
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfBoundarySurface() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public AbstractBoundarySurface(Module module) {
+        super(module);
+    }
 
-		return ade;
-	}
+    public void addGenericApplicationPropertyOfBoundarySurface(ADEComponent ade) {
+        getGenericApplicationPropertyOfBoundarySurface().add(ade);
+    }
 
-	public MultiSurfaceProperty getLod2MultiSurface() {
-		return lod2MultiSurface;
-	}
+    public void addOpening(OpeningProperty opening) {
+        getOpening().add(opening);
+    }
 
-	public MultiSurfaceProperty getLod3MultiSurface() {
-		return lod3MultiSurface;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfBoundarySurface() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public MultiSurfaceProperty getLod4MultiSurface() {
-		return lod4MultiSurface;
-	}
+        return ade;
+    }
 
-	public List<OpeningProperty> getOpening() {
-		if (opening == null)
-			opening = new ChildList<>(this);
+    public MultiSurfaceProperty getLod2MultiSurface() {
+        return lod2MultiSurface;
+    }
 
-		return opening;
-	}
+    public MultiSurfaceProperty getLod3MultiSurface() {
+        return lod3MultiSurface;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfBoundarySurface() {
-		return ade != null && !ade.isEmpty();
-	}
+    public MultiSurfaceProperty getLod4MultiSurface() {
+        return lod4MultiSurface;
+    }
 
-	public boolean isSetLod2MultiSurface() {
-		return lod2MultiSurface != null;
-	}
+    public List<OpeningProperty> getOpening() {
+        if (opening == null)
+            opening = new ChildList<>(this);
 
-	public boolean isSetLod3MultiSurface() {
-		return lod3MultiSurface != null;
-	}
+        return opening;
+    }
 
-	public boolean isSetLod4MultiSurface() {
-		return lod4MultiSurface != null;
-	}
+    public boolean isSetGenericApplicationPropertyOfBoundarySurface() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean isSetOpening() {
-		return opening != null && !opening.isEmpty();
-	}
+    public boolean isSetLod2MultiSurface() {
+        return lod2MultiSurface != null;
+    }
 
-	public void setGenericApplicationPropertyOfBoundarySurface(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetLod3MultiSurface() {
+        return lod3MultiSurface != null;
+    }
 
-	public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
-		this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
-	}
+    public boolean isSetLod4MultiSurface() {
+        return lod4MultiSurface != null;
+    }
 
-	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
-	}
+    public boolean isSetOpening() {
+        return opening != null && !opening.isEmpty();
+    }
 
-	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
-	}
+    public void setGenericApplicationPropertyOfBoundarySurface(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void setOpening(List<OpeningProperty> opening) {
-		this.opening = new ChildList<>(this, opening);
-	}
+    public void setLod2MultiSurface(MultiSurfaceProperty lod2MultiSurface) {
+        this.lod2MultiSurface = ModelObjects.setParent(lod2MultiSurface, this);
+    }
 
-	public void unsetGenericApplicationPropertyOfBoundarySurface() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
+        this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfBoundarySurface(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBoundarySurface() && this.ade.remove(ade);
-	}
+    public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
+        this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
+    }
 
-	public void unsetLod2MultiSurface() {
-		lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
-	}
+    public void setOpening(List<OpeningProperty> opening) {
+        this.opening = new ChildList<>(this, opening);
+    }
 
-	public void unsetLod3MultiSurface() {
-		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
-	}
+    public void unsetGenericApplicationPropertyOfBoundarySurface() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public void unsetLod4MultiSurface() {
-		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
-	}
+    public boolean unsetGenericApplicationPropertyOfBoundarySurface(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfBoundarySurface() && this.ade.remove(ade);
+    }
 
-	public void unsetOpening() {
-		opening = ModelObjects.setNull(opening);
-	}
+    public void unsetLod2MultiSurface() {
+        lod2MultiSurface = ModelObjects.setNull(lod2MultiSurface);
+    }
 
-	public boolean unsetOpening(OpeningProperty opening) {
-		return isSetOpening() && this.opening.remove(opening);
-	}
+    public void unsetLod3MultiSurface() {
+        lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		MultiSurfaceProperty multiSurfaceProperty = null;
-		for (int lod = 2; lod < 5; lod++) {
-			switch (lod) {
-			case 2:
-				multiSurfaceProperty = lod2MultiSurface;
-				break;
-			case 3:
-				multiSurfaceProperty = lod3MultiSurface;
-				break;
-			case 4:
-				multiSurfaceProperty = lod4MultiSurface;
-				break;
-			}
+    public void unsetLod4MultiSurface() {
+        lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
+    }
 
-			if (multiSurfaceProperty != null) {
-				if (multiSurfaceProperty.isSetMultiSurface()) {
-					boundedBy.updateEnvelope(multiSurfaceProperty.getMultiSurface().calcBoundingBox());
-				} else {
-					// xlink
-				}
-			}
-		}
+    public void unsetOpening() {
+        opening = ModelObjects.setNull(opening);
+    }
 
-		if (isSetGenericApplicationPropertyOfBoundarySurface()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfBoundarySurface()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public boolean unsetOpening(OpeningProperty opening) {
+        return isSetOpening() && this.opening.remove(opening);
+    }
 
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		lodRepresentation.addRepresentation(2, lod2MultiSurface);
-		lodRepresentation.addRepresentation(3, lod3MultiSurface);
-		lodRepresentation.addRepresentation(4, lod4MultiSurface);
-		
-		return lodRepresentation;
-	}
+        MultiSurfaceProperty multiSurfaceProperty = null;
+        for (int lod = 2; lod < 5; lod++) {
+            switch (lod) {
+                case 2:
+                    multiSurfaceProperty = lod2MultiSurface;
+                    break;
+                case 3:
+                    multiSurfaceProperty = lod3MultiSurface;
+                    break;
+                case 4:
+                    multiSurfaceProperty = lod4MultiSurface;
+                    break;
+            }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+            if (multiSurfaceProperty != null) {
+                if (multiSurfaceProperty.isSetMultiSurface()) {
+                    boundedBy.updateEnvelope(multiSurfaceProperty.getMultiSurface().calcBoundingBox());
+                } else {
+                    // xlink
+                }
+            }
+        }
 
-		AbstractBoundarySurface copy = (AbstractBoundarySurface)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetLod2MultiSurface()) {
-			copy.setLod2MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod2MultiSurface));
-			if (copy.getLod2MultiSurface() == lod2MultiSurface)
-				lod2MultiSurface.setParent(this);
-		}
-		
-		if (isSetLod3MultiSurface()) {
-			copy.setLod3MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod3MultiSurface));
-			if (copy.getLod3MultiSurface() == lod3MultiSurface)
-				lod3MultiSurface.setParent(this);
-		}
+        if (isSetGenericApplicationPropertyOfBoundarySurface()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfBoundarySurface()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-		if (isSetLod4MultiSurface()) {
-			copy.setLod4MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod4MultiSurface));
-			if (copy.getLod4MultiSurface() == lod4MultiSurface)
-				lod4MultiSurface.setParent(this);
-		}
-		
-		if (isSetOpening()) {
-			for (OpeningProperty part : opening) {
-				OpeningProperty copyPart = (OpeningProperty)copyBuilder.copy(part);
-				copy.addOpening(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfBoundarySurface()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfBoundarySurface(copyPart);
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        return boundedBy;
+    }
 
-		return copy;
-	}
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+
+        lodRepresentation.addRepresentation(2, lod2MultiSurface);
+        lodRepresentation.addRepresentation(3, lod3MultiSurface);
+        lodRepresentation.addRepresentation(4, lod4MultiSurface);
+
+        return lodRepresentation;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractBoundarySurface copy = (AbstractBoundarySurface) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetLod2MultiSurface()) {
+            copy.setLod2MultiSurface((MultiSurfaceProperty) copyBuilder.copy(lod2MultiSurface));
+            if (copy.getLod2MultiSurface() == lod2MultiSurface)
+                lod2MultiSurface.setParent(this);
+        }
+
+        if (isSetLod3MultiSurface()) {
+            copy.setLod3MultiSurface((MultiSurfaceProperty) copyBuilder.copy(lod3MultiSurface));
+            if (copy.getLod3MultiSurface() == lod3MultiSurface)
+                lod3MultiSurface.setParent(this);
+        }
+
+        if (isSetLod4MultiSurface()) {
+            copy.setLod4MultiSurface((MultiSurfaceProperty) copyBuilder.copy(lod4MultiSurface));
+            if (copy.getLod4MultiSurface() == lod4MultiSurface)
+                lod4MultiSurface.setParent(this);
+        }
+
+        if (isSetOpening()) {
+            for (OpeningProperty part : opening) {
+                OpeningProperty copyPart = (OpeningProperty) copyBuilder.copy(part);
+                copy.addOpening(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfBoundarySurface()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfBoundarySurface(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 
 }

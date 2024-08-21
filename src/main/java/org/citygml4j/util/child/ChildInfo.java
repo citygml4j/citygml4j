@@ -27,162 +27,162 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
 public class ChildInfo {
 
-	public AbstractFeature getParentFeature(Child child) {
-		if (child == null)
-			return null;
+    public AbstractFeature getParentFeature(Child child) {
+        if (child == null)
+            return null;
 
-		ModelObject parent = null;
+        ModelObject parent = null;
 
-		while ((parent = child.getParent()) != null) {
-			if (parent instanceof AbstractFeature)
-				return (AbstractFeature)parent;
-			else if (parent instanceof Child)
-				child = (Child)parent;
-			else 
-				break;
-		}
+        while ((parent = child.getParent()) != null) {
+            if (parent instanceof AbstractFeature)
+                return (AbstractFeature) parent;
+            else if (parent instanceof Child)
+                child = (Child) parent;
+            else
+                break;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public <T extends AbstractFeature> T getParentFeature(Child child, Class<T> type) {
-		while ((child = getParentFeature(child)) != null)
-			if (type.isInstance(child)) 
-				return (T)child;
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractFeature> T getParentFeature(Child child, Class<T> type) {
+        while ((child = getParentFeature(child)) != null)
+            if (type.isInstance(child))
+                return (T) child;
 
-		return null;
-	}
+        return null;
+    }
 
-	public AbstractFeature getRootFeature(Child child) {
-		AbstractFeature parent = null;
-		AbstractFeature root = null;
+    public AbstractFeature getRootFeature(Child child) {
+        AbstractFeature parent = null;
+        AbstractFeature root = null;
 
-		while ((parent = getParentFeature(child)) != null)
-			child = root = parent;
+        while ((parent = getParentFeature(child)) != null)
+            child = root = parent;
 
-		return root;	
-	}
+        return root;
+    }
 
-	public AbstractCityObject getParentCityObject(Child child) {
-		AbstractFeature parent = null;
+    public AbstractCityObject getParentCityObject(Child child) {
+        AbstractFeature parent = null;
 
-		while ((parent = getParentFeature(child)) != null) {
-			if (parent instanceof AbstractCityObject)
-				return (AbstractCityObject)parent;
-			else if (parent instanceof Child)
-				child = (Child)parent;
-			else 
-				break;
-		}
+        while ((parent = getParentFeature(child)) != null) {
+            if (parent instanceof AbstractCityObject)
+                return (AbstractCityObject) parent;
+            else if (parent instanceof Child)
+                child = (Child) parent;
+            else
+                break;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public <T extends AbstractCityObject> T getParentCityObject(Child child, Class<T> type) {
-		while ((child = getParentCityObject(child)) != null)
-			if (type.isInstance(child)) 
-				return (T)child;
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractCityObject> T getParentCityObject(Child child, Class<T> type) {
+        while ((child = getParentCityObject(child)) != null)
+            if (type.isInstance(child))
+                return (T) child;
 
-		return null;
-	}
+        return null;
+    }
 
-	public AbstractCityObject getRootCityObject(Child child) {
-		AbstractCityObject parent = null;
-		AbstractCityObject root = null;
+    public AbstractCityObject getRootCityObject(Child child) {
+        AbstractCityObject parent = null;
+        AbstractCityObject root = null;
 
-		while ((parent = getParentCityObject(child)) != null)
-			child = root = parent;
+        while ((parent = getParentCityObject(child)) != null)
+            child = root = parent;
 
-		return root;	
-	}
+        return root;
+    }
 
-	public CityGML getParentCityGML(Child child) {
-		if (child == null)
-			return null;
+    public CityGML getParentCityGML(Child child) {
+        if (child == null)
+            return null;
 
-		ModelObject parent = null;
+        ModelObject parent = null;
 
-		while ((parent = child.getParent()) != null) {
-			if (parent instanceof CityGML)
-				return (CityGML)parent;
-			else if (parent instanceof Child)
-				child = (Child)parent;
-			else 
-				break;
-		}
+        while ((parent = child.getParent()) != null) {
+            if (parent instanceof CityGML)
+                return (CityGML) parent;
+            else if (parent instanceof Child)
+                child = (Child) parent;
+            else
+                break;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public <T extends CityGML> T getParentCityGML(Child child, Class<T> type) {
-		CityGML cityGML = getParentCityGML(child);
-		
-		if (type.isInstance(cityGML))
-			return (T)cityGML;
-		else if (cityGML instanceof Child)
-			return getParentCityGML((Child)cityGML, type);
-		else 
-			return null;
-	}
+    @SuppressWarnings("unchecked")
+    public <T extends CityGML> T getParentCityGML(Child child, Class<T> type) {
+        CityGML cityGML = getParentCityGML(child);
 
-	public CityGML getRootCityGML(Child child) {
-		if (child == null)
-			return null;
+        if (type.isInstance(cityGML))
+            return (T) cityGML;
+        else if (cityGML instanceof Child)
+            return getParentCityGML((Child) cityGML, type);
+        else
+            return null;
+    }
 
-		ModelObject parent = null;
-		ModelObject root = null;
+    public CityGML getRootCityGML(Child child) {
+        if (child == null)
+            return null;
 
-		while ((parent = child.getParent()) != null) {
-			if (parent instanceof CityGML)
-				root = (CityGML)parent;
+        ModelObject parent = null;
+        ModelObject root = null;
 
-			if (parent instanceof Child)
-				child = (Child)parent;
-			else 
-				break;
-		}
+        while ((parent = child.getParent()) != null) {
+            if (parent instanceof CityGML)
+                root = (CityGML) parent;
 
-		return (root instanceof CityGML) ? (CityGML)root : null;
-	}
+            if (parent instanceof Child)
+                child = (Child) parent;
+            else
+                break;
+        }
 
-	public AbstractGeometry getParentGeometry(Child child) {
-		if (child == null)
-			return null;
+        return (root instanceof CityGML) ? (CityGML) root : null;
+    }
 
-		ModelObject parent = null;
+    public AbstractGeometry getParentGeometry(Child child) {
+        if (child == null)
+            return null;
 
-		while ((parent = child.getParent()) != null) {
-			if (parent instanceof AbstractGeometry)
-				return (AbstractGeometry)parent;
-			else if (!(parent instanceof AbstractFeature) && (parent instanceof Child))
-				child = (Child)parent;
-			else 
-				break;
-		}
+        ModelObject parent = null;
 
-		return null;
-	}
+        while ((parent = child.getParent()) != null) {
+            if (parent instanceof AbstractGeometry)
+                return (AbstractGeometry) parent;
+            else if (!(parent instanceof AbstractFeature) && (parent instanceof Child))
+                child = (Child) parent;
+            else
+                break;
+        }
 
-	@SuppressWarnings("unchecked")
-	public <T extends AbstractGeometry> T getParentGeometry(Child child, Class<T> type) {
-		while ((child = getParentGeometry(child)) != null)
-			if (type.isInstance(child)) 
-				return (T)child;
+        return null;
+    }
 
-		return null;
-	}
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractGeometry> T getParentGeometry(Child child, Class<T> type) {
+        while ((child = getParentGeometry(child)) != null)
+            if (type.isInstance(child))
+                return (T) child;
 
-	public AbstractGeometry getRootGeometry(Child child) {
-		AbstractGeometry parent = null;
-		AbstractGeometry root = null;
+        return null;
+    }
 
-		while ((parent = getParentGeometry(child)) != null)
-			child = root = parent;
+    public AbstractGeometry getRootGeometry(Child child) {
+        AbstractGeometry parent = null;
+        AbstractGeometry root = null;
 
-		return root;			
-	}
+        while ((parent = getParentGeometry(child)) != null)
+            child = root = parent;
+
+        return root;
+    }
 
 }

@@ -24,68 +24,68 @@ import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.geometry.primitives.Sign;
 
 public class _AppearanceProperty extends AssociationByRepOrRef<_AbstractAppearance> implements TexturedSurfaceModuleComponent {
-	private Sign orientation;
+    private Sign orientation;
 
-	public _AppearanceProperty() {
-		
-	}
-	
-	public _AppearanceProperty(_AbstractAppearance _abstractAppearance) {
-		super(_abstractAppearance);
-	}
-	
-	public _AppearanceProperty(String href) {
-		super(href);
-	}
-	
-	public _AbstractAppearance getAppearance() {
-		return super.getObject();
-	}
+    public _AppearanceProperty() {
 
-	public Sign getOrientation() {
-		return orientation;
-	}
+    }
 
-	public boolean isSetAppearance() {
-		return super.isSetObject();
-	}
+    public _AppearanceProperty(_AbstractAppearance _abstractAppearance) {
+        super(_abstractAppearance);
+    }
 
-	public boolean isSetOrientation() {
-		return orientation != null;
-	}
+    public _AppearanceProperty(String href) {
+        super(href);
+    }
 
-	public void setAppearance(_AbstractAppearance _appearance) {
-		super.setObject(_appearance);
-	}
+    public _AbstractAppearance getAppearance() {
+        return super.getObject();
+    }
 
-	public void setOrientation(Sign orientation) {
-		this.orientation = orientation;
-	}
+    public Sign getOrientation() {
+        return orientation;
+    }
 
-	public void unsetAppearance() {
-		super.unsetObject();
-	}
+    public boolean isSetAppearance() {
+        return super.isSetObject();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._APPEARANCE_PROPERTY;
-	}
+    public boolean isSetOrientation() {
+        return orientation != null;
+    }
 
-	public Class<_AbstractAppearance> getAssociableClass() {
-		return _AbstractAppearance.class;
-	}
+    public void setAppearance(_AbstractAppearance _appearance) {
+        super.setObject(_appearance);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new _AppearanceProperty(), copyBuilder);
-	}
+    public void setOrientation(Sign orientation) {
+        this.orientation = orientation;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		_AppearanceProperty copy = (target == null) ? new _AppearanceProperty() : (_AppearanceProperty)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetOrientation())
-			copy.setOrientation((Sign)copyBuilder.copy(orientation));
-		
+    public void unsetAppearance() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass._APPEARANCE_PROPERTY;
+    }
+
+    public Class<_AbstractAppearance> getAssociableClass() {
+        return _AbstractAppearance.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new _AppearanceProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        _AppearanceProperty copy = (target == null) ? new _AppearanceProperty() : (_AppearanceProperty) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetOrientation())
+            copy.setOrientation((Sign) copyBuilder.copy(orientation));
+
         return copy;
-	}
+    }
 
 }

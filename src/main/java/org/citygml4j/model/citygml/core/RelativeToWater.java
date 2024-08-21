@@ -30,42 +30,42 @@ public enum RelativeToWater implements CoreModuleComponent, Copyable {
     ENTIRELY_BELOW_WATER_SURFACE("entirelyBelowWaterSurface"),
     TEMPORARILY_ABOVE_AND_BELOW_WATER_SURFACE("temporarilyAboveAndBelowWaterSurface");
 
-	private final String value;
+    private final String value;
 
-	RelativeToWater(String value) {
-		this.value = value;
-	}
+    RelativeToWater(String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static RelativeToWater fromValue(String v) {
-		v = v.trim().toLowerCase();
+    public static RelativeToWater fromValue(String v) {
+        v = v.trim().toLowerCase();
 
-		for (RelativeToWater c: RelativeToWater.values()) {
-			if (c.value.equals(v)) {
-				return c;
-			}
-		}
+        for (RelativeToWater c : RelativeToWater.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
 
-		return ENTIRELY_ABOVE_WATER_SURFACE;
-	}
+        return ENTIRELY_ABOVE_WATER_SURFACE;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RELATIVE_TO_WATER;
-	}
-	
-	public String toString() {
-		return value;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? ENTIRELY_ABOVE_WATER_SURFACE : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
-	
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.RELATIVE_TO_WATER;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? ENTIRELY_ABOVE_WATER_SURFACE : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
+
 }

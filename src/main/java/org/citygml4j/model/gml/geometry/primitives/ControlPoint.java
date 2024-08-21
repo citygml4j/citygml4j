@@ -32,115 +32,115 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControlPoint implements GML, Child, Copyable, CoordinateListProvider {
-	private DirectPositionList posList;
-	private List<GeometricPositionGroup> geometricPositionGroup;
-	private ModelObject parent;
-	
-	public void addGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
-		getGeometricPositionGroup().add(geometricPositionGroup);
-		unsetPosList();
-	}
+    private DirectPositionList posList;
+    private List<GeometricPositionGroup> geometricPositionGroup;
+    private ModelObject parent;
 
-	public List<GeometricPositionGroup> getGeometricPositionGroup() {
-		if (geometricPositionGroup == null)
-			geometricPositionGroup = new ChildList<>(this);
-		
-		return geometricPositionGroup;
-	}
+    public void addGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
+        getGeometricPositionGroup().add(geometricPositionGroup);
+        unsetPosList();
+    }
 
-	public DirectPositionList getPosList() {
-		return posList;
-	}
+    public List<GeometricPositionGroup> getGeometricPositionGroup() {
+        if (geometricPositionGroup == null)
+            geometricPositionGroup = new ChildList<>(this);
 
-	public boolean isSetGeometricPositionGroup() {
-		return geometricPositionGroup != null && !geometricPositionGroup.isEmpty();
-	}
+        return geometricPositionGroup;
+    }
 
-	public boolean isSetPosList() {
-		return posList != null;
-	}
+    public DirectPositionList getPosList() {
+        return posList;
+    }
 
-	public void setGeometricPositionGroup(List<GeometricPositionGroup> geometricPositionGroup) {
-		this.geometricPositionGroup = new ChildList<>(this, geometricPositionGroup);
-		unsetPosList();
-	}
+    public boolean isSetGeometricPositionGroup() {
+        return geometricPositionGroup != null && !geometricPositionGroup.isEmpty();
+    }
 
-	public void setPosList(DirectPositionList posList) {
-		this.posList = ModelObjects.setParent(posList, this);
-		unsetGeometricPositionGroup();
-	}
+    public boolean isSetPosList() {
+        return posList != null;
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<>();
-		
-		if (isSetPosList())
-			tmp.addAll(posList.toList3d());
-		else if (isSetGeometricPositionGroup())
-			for (GeometricPositionGroup part : geometricPositionGroup)
-				tmp.addAll(part.toList3d());
-		
-		return tmp;
-	}
+    public void setGeometricPositionGroup(List<GeometricPositionGroup> geometricPositionGroup) {
+        this.geometricPositionGroup = new ChildList<>(this, geometricPositionGroup);
+        unsetPosList();
+    }
 
-	public void unsetGeometricPositionGroup() {
-		geometricPositionGroup = ModelObjects.setNull(geometricPositionGroup);
-	}
+    public void setPosList(DirectPositionList posList) {
+        this.posList = ModelObjects.setParent(posList, this);
+        unsetGeometricPositionGroup();
+    }
 
-	public boolean unsetGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
-		return isSetGeometricPositionGroup() && this.geometricPositionGroup.remove(geometricPositionGroup);
-	}
+    @Override
+    public List<Double> toList3d() {
+        List<Double> tmp = new ArrayList<>();
 
-	public void unsetPosList() {
-		posList = ModelObjects.setNull(posList);
-	}
+        if (isSetPosList())
+            tmp.addAll(posList.toList3d());
+        else if (isSetGeometricPositionGroup())
+            for (GeometricPositionGroup part : geometricPositionGroup)
+                tmp.addAll(part.toList3d());
 
-	public GMLClass getGMLClass() {
-		return GMLClass.CONTROL_POINT;
-	}
+        return tmp;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetGeometricPositionGroup() {
+        geometricPositionGroup = ModelObjects.setNull(geometricPositionGroup);
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean unsetGeometricPositionGroup(GeometricPositionGroup geometricPositionGroup) {
+        return isSetGeometricPositionGroup() && this.geometricPositionGroup.remove(geometricPositionGroup);
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void unsetPosList() {
+        posList = ModelObjects.setNull(posList);
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.CONTROL_POINT;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ControlPoint(), copyBuilder);
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ControlPoint copy = (target == null) ? new ControlPoint() : (ControlPoint)target;
-		
-		if (isSetGeometricPositionGroup()) {
-			for (GeometricPositionGroup part : geometricPositionGroup) {
-				GeometricPositionGroup copyPart = (GeometricPositionGroup)copyBuilder.copy(part);
-				copy.addGeometricPositionGroup(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPosList()) {
-			copy.setPosList((DirectPositionList)copyBuilder.copy(posList));
-			if (copy.getPosList() == posList)
-				posList.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ControlPoint(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ControlPoint copy = (target == null) ? new ControlPoint() : (ControlPoint) target;
+
+        if (isSetGeometricPositionGroup()) {
+            for (GeometricPositionGroup part : geometricPositionGroup) {
+                GeometricPositionGroup copyPart = (GeometricPositionGroup) copyBuilder.copy(part);
+                copy.addGeometricPositionGroup(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPosList()) {
+            copy.setPosList((DirectPositionList) copyBuilder.copy(posList));
+            if (copy.getPosList() == posList)
+                posList.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

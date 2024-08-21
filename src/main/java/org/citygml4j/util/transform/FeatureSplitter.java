@@ -46,329 +46,323 @@ import org.w3c.dom.NodeList;
 import java.util.*;
 
 public class FeatureSplitter {
-	private final Splitter splitter;
-	private final List<CityGML> result;
-	private final ChildInfo childInfo;
-	private final SplitCopyBuilder copyBuilder;
+    private final Splitter splitter;
+    private final List<CityGML> result;
+    private final ChildInfo childInfo;
+    private final SplitCopyBuilder copyBuilder;
 
-	private GMLIdManager gmlIdManager;
-	private FeatureSplitMode splitMode;
-	private Set<Class<? extends CityGML>> excludes;
-	private boolean keepInlineAppearance;
-	private boolean splitCopy;
+    private GMLIdManager gmlIdManager;
+    private FeatureSplitMode splitMode;
+    private Set<Class<? extends CityGML>> excludes;
+    private boolean keepInlineAppearance;
+    private boolean splitCopy;
 
-	public FeatureSplitter() {
-		result = new ArrayList<CityGML>();
-		splitter = new Splitter();
-		childInfo = new ChildInfo();
-		copyBuilder = new SplitCopyBuilder();
+    public FeatureSplitter() {
+        result = new ArrayList<CityGML>();
+        splitter = new Splitter();
+        childInfo = new ChildInfo();
+        copyBuilder = new SplitCopyBuilder();
 
-		gmlIdManager = DefaultGMLIdManager.getInstance();
-		splitMode = FeatureSplitMode.SPLIT_PER_FEATURE;
-		excludes = new HashSet<Class<? extends CityGML>>();
-		keepInlineAppearance = true;
-		splitCopy = false;
-	}
+        gmlIdManager = DefaultGMLIdManager.getInstance();
+        splitMode = FeatureSplitMode.SPLIT_PER_FEATURE;
+        excludes = new HashSet<Class<? extends CityGML>>();
+        keepInlineAppearance = true;
+        splitCopy = false;
+    }
 
-	public void reset() {
-		result.clear();
-		splitter.reset();
+    public void reset() {
+        result.clear();
+        splitter.reset();
 
-		splitMode = FeatureSplitMode.SPLIT_PER_FEATURE;
-		excludes.clear();
-		keepInlineAppearance = true;
-		splitCopy = false;
-	}
+        splitMode = FeatureSplitMode.SPLIT_PER_FEATURE;
+        excludes.clear();
+        keepInlineAppearance = true;
+        splitCopy = false;
+    }
 
-	public FeatureSplitter setSchemaHandler(SchemaHandler schemaHandler) {
-		splitter.setSchemaHandler(schemaHandler);
-		return this;
-	}
+    public FeatureSplitter setSchemaHandler(SchemaHandler schemaHandler) {
+        splitter.setSchemaHandler(schemaHandler);
+        return this;
+    }
 
-	public SchemaHandler getSchemaHandler() {
-		return splitter.getSchemaHandler();
-	}
+    public SchemaHandler getSchemaHandler() {
+        return splitter.getSchemaHandler();
+    }
 
-	public FeatureSplitter setGMLIdManager(GMLIdManager gmlIdManager) {
-		this.gmlIdManager = gmlIdManager;
-		return this;
-	}
+    public FeatureSplitter setGMLIdManager(GMLIdManager gmlIdManager) {
+        this.gmlIdManager = gmlIdManager;
+        return this;
+    }
 
-	public FeatureSplitter setSplitMode(FeatureSplitMode splitMode) {
-		if (splitMode == null)
-			throw new IllegalArgumentException("split mode may not be null.");
+    public FeatureSplitter setSplitMode(FeatureSplitMode splitMode) {
+        if (splitMode == null)
+            throw new IllegalArgumentException("split mode may not be null.");
 
-		this.splitMode = splitMode;
-		return this;
-	}
+        this.splitMode = splitMode;
+        return this;
+    }
 
-	public FeatureSplitMode getSplitMode() {
-		return splitMode;
-	}
+    public FeatureSplitMode getSplitMode() {
+        return splitMode;
+    }
 
-	public FeatureSplitter exclude(Class<? extends CityGML> cityGMLClass) {
-		excludes.add(cityGMLClass);
-		return this;
-	}
+    public FeatureSplitter exclude(Class<? extends CityGML> cityGMLClass) {
+        excludes.add(cityGMLClass);
+        return this;
+    }
 
-	public FeatureSplitter exclude(Set<Class<? extends CityGML>> excludes) {
-		if (excludes == null)
-			throw new IllegalArgumentException("set of excludes may not be null.");
+    public FeatureSplitter exclude(Set<Class<? extends CityGML>> excludes) {
+        if (excludes == null)
+            throw new IllegalArgumentException("set of excludes may not be null.");
 
-		this.excludes = excludes;
-		return this;
-	}
+        this.excludes = excludes;
+        return this;
+    }
 
-	public void clearExcludes() {
-		excludes.clear();
-	}
+    public void clearExcludes() {
+        excludes.clear();
+    }
 
-	public Set<Class<? extends CityGML>> getExcludes() {
-		return excludes;
-	}
+    public Set<Class<? extends CityGML>> getExcludes() {
+        return excludes;
+    }
 
-	public FeatureSplitter keepInlineAppearance(boolean keepInlineAppearance) {
-		this.keepInlineAppearance = keepInlineAppearance;
-		return this;
-	}
+    public FeatureSplitter keepInlineAppearance(boolean keepInlineAppearance) {
+        this.keepInlineAppearance = keepInlineAppearance;
+        return this;
+    }
 
-	public boolean isKeepInlineAppearance() {
-		return keepInlineAppearance;
-	}
+    public boolean isKeepInlineAppearance() {
+        return keepInlineAppearance;
+    }
 
-	public FeatureSplitter splitCopy(boolean splitCopy) {
-		this.splitCopy = splitCopy;
-		return this;
-	}
+    public FeatureSplitter splitCopy(boolean splitCopy) {
+        this.splitCopy = splitCopy;
+        return this;
+    }
 
-	public boolean isSplitCopy() {
-		return splitCopy;
-	}
+    public boolean isSplitCopy() {
+        return splitCopy;
+    }
 
-	public List<CityGML> split(Object object) {
-		result.clear();
+    public List<CityGML> split(Object object) {
+        result.clear();
 
-		if (splitCopy) {
-			object = copyBuilder.copy(object);
-			copyBuilder.visited.clear();
-		}
+        if (splitCopy) {
+            object = copyBuilder.copy(object);
+            copyBuilder.visited.clear();
+        }
 
-		if (object instanceof AbstractFeature)
-			((AbstractFeature)object).accept(splitter);
-		else if (object instanceof ADEGenericElement)
-			splitter.visit((ADEGenericElement)object);
-		else if (object instanceof Element)
-			splitter.visit((Element)object, null);
+        if (object instanceof AbstractFeature)
+            ((AbstractFeature) object).accept(splitter);
+        else if (object instanceof ADEGenericElement)
+            splitter.visit((ADEGenericElement) object);
+        else if (object instanceof Element)
+            splitter.visit((Element) object, null);
 
-		splitter.reset();
-		return result;
-	}
+        splitter.reset();
+        return result;
+    }
 
-	private class SplitCopyBuilder extends CopyBuilder {
-		private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
+    private class SplitCopyBuilder extends CopyBuilder {
+        private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
 
-		@Override
-		public Object copy(Object target) {
-			Object copy = visited.get(target);
-			if (copy != null)
-				return copy;
+        @Override
+        public Object copy(Object target) {
+            Object copy = visited.get(target);
+            if (copy != null)
+                return copy;
 
-			if (target instanceof AbstractFeature ||
-					target instanceof FeatureProperty<?> ||
-					target instanceof FeatureArrayProperty)
-				copy = ((Copyable)target).copy(this);
+            if (target instanceof AbstractFeature ||
+                    target instanceof FeatureProperty<?> ||
+                    target instanceof FeatureArrayProperty)
+                copy = ((Copyable) target).copy(this);
 
-			else if (target instanceof ADEGenericElement) {
-				copy = ((Copyable)target).copy(this);				
-				ADEGenericElement tmp = (ADEGenericElement)copy;
-				tmp.setContent((Element)tmp.getContent().cloneNode(true));
-			}				
+            else if (target instanceof ADEGenericElement) {
+                copy = ((Copyable) target).copy(this);
+                ADEGenericElement tmp = (ADEGenericElement) copy;
+                tmp.setContent((Element) tmp.getContent().cloneNode(true));
+            } else
+                copy = target;
 
-			else 
-				copy = target;
+            if (copy != null)
+                visited.put(target, copy);
 
-			if (copy != null)
-				visited.put(target, copy);
+            return copy;
+        }
+    }
 
-			return copy;
-		}
-	}
+    private class Splitter extends FeatureWalker {
 
-	private class Splitter extends FeatureWalker { 
+        @Override
+        public void visit(Appearance appearance) {
+            if (keepInlineAppearance && childInfo.getParentCityObject(appearance) != null)
+                return;
 
-		@Override
-		public void visit(Appearance appearance) {
-			if (keepInlineAppearance && childInfo.getParentCityObject(appearance) != null)
-				return;
+            super.visit(appearance);
+        }
 
-			super.visit(appearance);
-		}
+        @Override
+        public void visit(AbstractFeature feature) {
+            if (!excludes.isEmpty())
+                for (Class<? extends CityGML> exclude : excludes)
+                    if (exclude.isInstance(feature))
+                        return;
 
-		@Override
-		public void visit(AbstractFeature feature) {
-			if (!excludes.isEmpty())
-				for (Class<? extends CityGML> exclude : excludes)
-					if (exclude.isInstance(feature))
-						return;
+            ModelObject parent = feature.getParent();
+            boolean addToResult = false;
 
-			ModelObject parent = feature.getParent();
-			boolean addToResult = false;
+            if (splitMode == FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER && feature instanceof ADEModelObject) {
+                boolean accept = false;
 
-			if (splitMode == FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER && feature instanceof ADEModelObject) {
-				boolean accept = false;
-				
-				for (ADEModule module : Modules.getADEModules()) {
-					if (module.getFeatureName(feature.getClass()) != null) {
-						accept = true;
-						break;
-					}
-				}
-				
-				if (!accept) {
-					super.visit(feature);
-					return;
-				}
-			}
-						
-			if (parent != null) {
-				if (parent instanceof FeatureProperty<?>) {
-					FeatureProperty<?> property = (FeatureProperty<?>)parent;				
-					property.setHref('#' + getAndSetGmlId(feature));
-					property.unsetFeature();
-					addToResult = true;
-				}
+                for (ADEModule module : Modules.getADEModules()) {
+                    if (module.getFeatureName(feature.getClass()) != null) {
+                        accept = true;
+                        break;
+                    }
+                }
 
-				else if (parent instanceof FeatureArrayProperty) {
-					FeatureArrayProperty featureArray = (FeatureArrayProperty)parent;
-					featureArray.unsetFeature(feature);
-					addToResult = true;
-				}
+                if (!accept) {
+                    super.visit(feature);
+                    return;
+                }
+            }
 
-			} else
-				addToResult = true;
+            if (parent != null) {
+                if (parent instanceof FeatureProperty<?>) {
+                    FeatureProperty<?> property = (FeatureProperty<?>) parent;
+                    property.setHref('#' + getAndSetGmlId(feature));
+                    property.unsetFeature();
+                    addToResult = true;
+                } else if (parent instanceof FeatureArrayProperty) {
+                    FeatureArrayProperty featureArray = (FeatureArrayProperty) parent;
+                    featureArray.unsetFeature(feature);
+                    addToResult = true;
+                }
 
-			if (addToResult && feature instanceof CityGML)
-				result.add((CityGML)feature);	
+            } else
+                addToResult = true;
 
-			super.visit(feature);
-		}
+            if (addToResult && feature instanceof CityGML)
+                result.add((CityGML) feature);
 
-		@Override
-		public void visit(ADEGenericElement adeGenericElement) {
-			if (!excludes.isEmpty())
-				for (Class<? extends CityGML> exclude : excludes)
-					if (exclude.isInstance(adeGenericElement))
-						return;
+            super.visit(feature);
+        }
 
-			if (adeGenericElement.isSetContent() && shouldWalk && schemaHandler != null) {				
-				boolean addToResult = false;
-				ModelObject parent = adeGenericElement.getParent();
+        @Override
+        public void visit(ADEGenericElement adeGenericElement) {
+            if (!excludes.isEmpty())
+                for (Class<? extends CityGML> exclude : excludes)
+                    if (exclude.isInstance(adeGenericElement))
+                        return;
 
-				if (parent != null) {
-					Schema schema = schemaHandler.getSchema(adeGenericElement.getNamespaceURI());
-					if (schema != null) {
-						ElementDecl elementDecl = schema.getElementDecl(adeGenericElement.getLocalName(), null);
-						
-						if (elementDecl != null && splitElement(elementDecl)) {
-							if (parent instanceof FeatureProperty<?>) {
-								FeatureProperty<?> property = (FeatureProperty<?>)parent;				
-								property.setHref('#' + getAndSetGmlId(adeGenericElement.getContent()));
-								property.unsetGenericADEElement();
-								addToResult = true;
-							}
+            if (adeGenericElement.isSetContent() && shouldWalk && schemaHandler != null) {
+                boolean addToResult = false;
+                ModelObject parent = adeGenericElement.getParent();
 
-							else if (parent instanceof FeatureArrayProperty) {
-								FeatureArrayProperty featureArray = (FeatureArrayProperty)parent;
-								featureArray.unsetGenericADEElement(adeGenericElement);
-								addToResult = true;
-							}
-						}
-					}
-				} else
-					addToResult = true;
+                if (parent != null) {
+                    Schema schema = schemaHandler.getSchema(adeGenericElement.getNamespaceURI());
+                    if (schema != null) {
+                        ElementDecl elementDecl = schema.getElementDecl(adeGenericElement.getLocalName(), null);
 
-				if (addToResult)
-					result.add(adeGenericElement);
-				
-				// visit child elements
-				adeGenericElement(adeGenericElement.getContent(), null, null);
-			}
-		}
+                        if (elementDecl != null && splitElement(elementDecl)) {
+                            if (parent instanceof FeatureProperty<?>) {
+                                FeatureProperty<?> property = (FeatureProperty<?>) parent;
+                                property.setHref('#' + getAndSetGmlId(adeGenericElement.getContent()));
+                                property.unsetGenericADEElement();
+                                addToResult = true;
+                            } else if (parent instanceof FeatureArrayProperty) {
+                                FeatureArrayProperty featureArray = (FeatureArrayProperty) parent;
+                                featureArray.unsetGenericADEElement(adeGenericElement);
+                                addToResult = true;
+                            }
+                        }
+                    }
+                } else
+                    addToResult = true;
 
-		protected void adeGenericElement(Element element, Element parent, ElementDecl lastElement) {
-			Schema schema = schemaHandler.getSchema(element.getNamespaceURI());
+                if (addToResult)
+                    result.add(adeGenericElement);
 
-			if (schema != null) {
-				ElementDecl tmp = schema.getElementDecl(element.getLocalName(), lastElement);
-				if (tmp != null && 
-						parent != null && 
-						lastElement != null && 
-						splitElement(tmp, parent) &&
-						lastElement.hasXLinkAttribute()) {
-					parent.setAttributeNS(XLinkModule.v3_1_1.getNamespaceURI(), "href", '#' + getAndSetGmlId(element));
-					parent.removeChild(element);
-					if (parent.getTextContent().trim().length() == 0)
-						parent.setTextContent("");
+                // visit child elements
+                adeGenericElement(adeGenericElement.getContent(), null, null);
+            }
+        }
 
-					result.add(new ADEGenericElement(element));
-				}
+        protected void adeGenericElement(Element element, Element parent, ElementDecl lastElement) {
+            Schema schema = schemaHandler.getSchema(element.getNamespaceURI());
 
-				lastElement = tmp;
-			}
+            if (schema != null) {
+                ElementDecl tmp = schema.getElementDecl(element.getLocalName(), lastElement);
+                if (tmp != null &&
+                        parent != null &&
+                        lastElement != null &&
+                        splitElement(tmp, parent) &&
+                        lastElement.hasXLinkAttribute()) {
+                    parent.setAttributeNS(XLinkModule.v3_1_1.getNamespaceURI(), "href", '#' + getAndSetGmlId(element));
+                    parent.removeChild(element);
+                    if (parent.getTextContent().trim().length() == 0)
+                        parent.setTextContent("");
 
-			NodeList nodeList = element.getChildNodes();
+                    result.add(new ADEGenericElement(element));
+                }
 
-			List<Element> children = new ArrayList<Element>(nodeList.getLength());
-			for (int i = 0; i < nodeList.getLength(); ++i) {
-				Node node = nodeList.item(i);
-				if (node.getNodeType() == Node.ELEMENT_NODE)
-					children.add((Element)node);
-			}			
+                lastElement = tmp;
+            }
 
-			for (Element child : children)
-				adeGenericElement((Element)child, element, lastElement);
-		}
+            NodeList nodeList = element.getChildNodes();
 
-		private boolean splitElement(ElementDecl elementDecl) {
-			boolean split = elementDecl.isFeature();
-			if (splitMode == FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER && split)
-				split = elementDecl.isGlobal() && elementDecl.substitutesFeature();
+            List<Element> children = new ArrayList<Element>(nodeList.getLength());
+            for (int i = 0; i < nodeList.getLength(); ++i) {
+                Node node = nodeList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE)
+                    children.add((Element) node);
+            }
 
-			return split;
-		}
-		
-		private boolean splitElement(ElementDecl elementDecl, Element parent) {
-			boolean split = splitElement(elementDecl);
-			if (split && keepInlineAppearance
-					&& parent.getNamespaceURI().startsWith("http://www.opengis.net/citygml")
-					&& parent.getLocalName().equals("appearance"))
-				split = false;
-			
-			return split;
-		}
+            for (Element child : children)
+                adeGenericElement((Element) child, element, lastElement);
+        }
 
-		private String getAndSetGmlId(AbstractFeature feature) {
-			String gmlId = feature.getId();
-			if (gmlId == null) {
-				gmlId = gmlIdManager.generateUUID();
-				feature.setId(gmlId);
-			}
+        private boolean splitElement(ElementDecl elementDecl) {
+            boolean split = elementDecl.isFeature();
+            if (splitMode == FeatureSplitMode.SPLIT_PER_COLLECTION_MEMBER && split)
+                split = elementDecl.isGlobal() && elementDecl.substitutesFeature();
 
-			return gmlId;
-		}
+            return split;
+        }
 
-		private String getAndSetGmlId(Element element) {
-			String gmlId = element.getAttributeNS(GMLCoreModule.v3_1_1.getNamespaceURI(), "id");
-			if (gmlId.length() == 0)
-				gmlId = element.getAttribute("id");
+        private boolean splitElement(ElementDecl elementDecl, Element parent) {
+            boolean split = splitElement(elementDecl);
+            if (split && keepInlineAppearance
+                    && parent.getNamespaceURI().startsWith("http://www.opengis.net/citygml")
+                    && parent.getLocalName().equals("appearance"))
+                split = false;
 
-			if (gmlId.length() == 0) {
-				gmlId = gmlIdManager.generateUUID();
-				element.setAttributeNS(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", gmlId);
-			}
+            return split;
+        }
 
-			return gmlId;
-		}
-	}
+        private String getAndSetGmlId(AbstractFeature feature) {
+            String gmlId = feature.getId();
+            if (gmlId == null) {
+                gmlId = gmlIdManager.generateUUID();
+                feature.setId(gmlId);
+            }
+
+            return gmlId;
+        }
+
+        private String getAndSetGmlId(Element element) {
+            String gmlId = element.getAttributeNS(GMLCoreModule.v3_1_1.getNamespaceURI(), "id");
+            if (gmlId.length() == 0)
+                gmlId = element.getAttribute("id");
+
+            if (gmlId.length() == 0) {
+                gmlId = gmlIdManager.generateUUID();
+                element.setAttributeNS(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", gmlId);
+            }
+
+            return gmlId;
+        }
+    }
 
 }

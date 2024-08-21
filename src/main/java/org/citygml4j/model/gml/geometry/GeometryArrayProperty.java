@@ -26,64 +26,64 @@ import java.util.List;
 
 public class GeometryArrayProperty<T extends AbstractGeometry> extends ArrayAssociation<T> {
 
-	public GeometryArrayProperty() {
-		
-	}
-	
-	public GeometryArrayProperty(T abstractGeometry) {
-		super(abstractGeometry);
-	}
-	
-	public GeometryArrayProperty(List<T> abstractGeometry) {
-		super(abstractGeometry);
-	}
-	
-	public GeometryArrayProperty(T[] abstractGeometry) {
-		super(abstractGeometry);
-	}
-	
-	public List<T> getGeometry() {
-		return super.getObject();
-	}
+    public GeometryArrayProperty() {
 
-	public boolean isSetGeometry() {
-		return super.isSetObject();
-	}
+    }
 
-	public void addGeometry(T geometry) {
-		super.addObject(geometry);
-	}
+    public GeometryArrayProperty(T abstractGeometry) {
+        super(abstractGeometry);
+    }
 
-	public void setGeometry(List<T> geometry) {
-		super.setObject(geometry);
-	}
+    public GeometryArrayProperty(List<T> abstractGeometry) {
+        super(abstractGeometry);
+    }
 
-	public boolean unsetGeometry(T geometry) {
-		return super.unsetObject(geometry);
-	}
+    public GeometryArrayProperty(T[] abstractGeometry) {
+        super(abstractGeometry);
+    }
 
-	public void unsetGeometry() {
-		super.unsetObject();
-	}
+    public List<T> getGeometry() {
+        return super.getObject();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.GEOMETRY_ARRAY_PROPERTY;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Class<T> getAssociableClass() {
-		return (Class<T>)AbstractGeometry.class;
-	}
+    public boolean isSetGeometry() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GeometryArrayProperty<T>(), copyBuilder);
-	}
+    public void addGeometry(T geometry) {
+        super.addObject(geometry);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GeometryArrayProperty<T> copy = (target == null) ? new GeometryArrayProperty<T>() : (GeometryArrayProperty<T>)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void setGeometry(List<T> geometry) {
+        super.setObject(geometry);
+    }
+
+    public boolean unsetGeometry(T geometry) {
+        return super.unsetObject(geometry);
+    }
+
+    public void unsetGeometry() {
+        super.unsetObject();
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.GEOMETRY_ARRAY_PROPERTY;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Class<T> getAssociableClass() {
+        return (Class<T>) AbstractGeometry.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GeometryArrayProperty<T>(), copyBuilder);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GeometryArrayProperty<T> copy = (target == null) ? new GeometryArrayProperty<T>() : (GeometryArrayProperty<T>) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

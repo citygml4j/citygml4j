@@ -26,85 +26,85 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Code implements GML, Child, Copyable {
-	private String value;
-	private String codeSpace;
-	private ModelObject parent;
-	
-	public Code() {
-	}
-	
-	public Code(String value) {
-		this.value = value;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.CODE;
-	}
+    private String value;
+    private String codeSpace;
+    private ModelObject parent;
 
-	public String getCodeSpace() {
-		return codeSpace;
-	}
+    public Code() {
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public Code(String value) {
+        this.value = value;
+    }
 
-	public boolean isSetCodeSpace() {
-		return codeSpace != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.CODE;
+    }
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public String getCodeSpace() {
+        return codeSpace;
+    }
 
-	public void setCodeSpace(String codeSpace) {
-		this.codeSpace = codeSpace;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public boolean isSetCodeSpace() {
+        return codeSpace != null;
+    }
 
-	public void unsetCodeSpace() {
-		codeSpace = null;
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public void setCodeSpace(String codeSpace) {
+        this.codeSpace = codeSpace;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Code copy = (target == null) ? new Code() : (Code)target;
-		
-		if (isSetValue())
-			copy.setValue(copyBuilder.copy(value));
-		
-		if (isSetCodeSpace())
-			copy.setCodeSpace(copyBuilder.copy(codeSpace));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Code(), copyBuilder);
-	}
+    public void unsetCodeSpace() {
+        codeSpace = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Code copy = (target == null) ? new Code() : (Code) target;
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+        if (isSetValue())
+            copy.setValue(copyBuilder.copy(value));
 
-	public void unsetParent() {
-		parent = null;
-	}
+        if (isSetCodeSpace())
+            copy.setCodeSpace(copyBuilder.copy(codeSpace));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Code(), copyBuilder);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
 
 }

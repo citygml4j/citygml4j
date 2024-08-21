@@ -25,27 +25,27 @@ import org.citygml4j.model.citygml.core.CityModel;
 import java.io.Reader;
 
 public class CityJSONChunkReader extends AbstractCityJSONReader {
-	private CityModel cityModelStub;
+    private CityModel cityModelStub;
 
-	public CityJSONChunkReader(Reader reader, CityJSONInputFactory factory) {
-		super(reader, factory.processUnknownExtensions);
-		cityModelStub = new CityModel();
-	}
+    public CityJSONChunkReader(Reader reader, CityJSONInputFactory factory) {
+        super(reader, factory.processUnknownExtensions);
+        cityModelStub = new CityModel();
+    }
 
-	public CityModel getCityModelStub() {
-		return cityModelStub;
-	}
+    public CityModel getCityModelStub() {
+        return cityModelStub;
+    }
 
-	public void read(CityObjectProcessor processor) throws Exception {
-		CityJSON cityJSON = readCityJSON();
-		if (cityJSON != null)
-			getCityJSONUnmarshaller().unmarshal(cityJSON, cityModelStub, processor);
-	}
-	
-	@Override
-	public void close() throws CityJSONReadException {
-		super.close();
-		cityModelStub = null;
-	}
+    public void read(CityObjectProcessor processor) throws Exception {
+        CityJSON cityJSON = readCityJSON();
+        if (cityJSON != null)
+            getCityJSONUnmarshaller().unmarshal(cityJSON, cityModelStub, processor);
+    }
+
+    @Override
+    public void close() throws CityJSONReadException {
+        super.close();
+        cityModelStub = null;
+    }
 
 }

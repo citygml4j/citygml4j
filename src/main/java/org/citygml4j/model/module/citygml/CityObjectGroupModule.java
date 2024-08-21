@@ -28,67 +28,67 @@ import java.util.HashSet;
 import java.util.List;
 
 public class CityObjectGroupModule extends AbstractCityGMLModule {
-	private static final List<CityObjectGroupModule> instances = new ArrayList<CityObjectGroupModule>();
+    private static final List<CityObjectGroupModule> instances = new ArrayList<CityObjectGroupModule>();
 
-	public static final CityObjectGroupModule v2_0_0;
-	public static final CityObjectGroupModule v1_0_0;
+    public static final CityObjectGroupModule v2_0_0;
+    public static final CityObjectGroupModule v1_0_0;
 
-	private CityObjectGroupModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);		
-		instances.add(this);
-	}
+    private CityObjectGroupModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0_0 = new CityObjectGroupModule (
-				CityGMLModuleType.CITY_OBJECT_GROUP,
-				CityGMLModuleVersion.v2_0_0,
-				"http://www.opengis.net/citygml/cityobjectgroup/2.0",
-				"grp",
-				"http://schemas.opengis.net/citygml/cityobjectgroup/2.0/cityObjectGroup.xsd",			
-				CoreModule.v2_0_0);
-		
-		v1_0_0 = new CityObjectGroupModule (
-				CityGMLModuleType.CITY_OBJECT_GROUP,
-				CityGMLModuleVersion.v1_0_0,
-				"http://www.opengis.net/citygml/cityobjectgroup/1.0",
-				"grp",
-				"http://schemas.opengis.net/citygml/cityobjectgroup/1.0/cityObjectGroup.xsd",			
-				CoreModule.v1_0_0);
+    static {
+        v2_0_0 = new CityObjectGroupModule(
+                CityGMLModuleType.CITY_OBJECT_GROUP,
+                CityGMLModuleVersion.v2_0_0,
+                "http://www.opengis.net/citygml/cityobjectgroup/2.0",
+                "grp",
+                "http://schemas.opengis.net/citygml/cityobjectgroup/2.0/cityObjectGroup.xsd",
+                CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
-		v2_0_0.features.put("CityObjectGroup", CityObjectGroup.class);
-		v1_0_0.features = v2_0_0.features;
-		
-		v2_0_0.featureProperties = new HashSet<String>();
-		v2_0_0.featureProperties.add("groupMember");
-		v2_0_0.featureProperties.add("parent");
-		v1_0_0.featureProperties = v2_0_0.featureProperties;
-	}
+        v1_0_0 = new CityObjectGroupModule(
+                CityGMLModuleType.CITY_OBJECT_GROUP,
+                CityGMLModuleVersion.v1_0_0,
+                "http://www.opengis.net/citygml/cityobjectgroup/1.0",
+                "grp",
+                "http://schemas.opengis.net/citygml/cityobjectgroup/1.0/cityObjectGroup.xsd",
+                CoreModule.v1_0_0);
 
-	public static List<CityObjectGroupModule> getInstances() {
-		return instances;
-	}
-	
-	public static CityObjectGroupModule getInstance(CityGMLModuleVersion version) {
-		switch (version) {
-		case v2_0_0:
-			return v2_0_0;
-		case v1_0_0:
-			return v1_0_0;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return "CityObjectGroup".equals(name);
-	}
+        v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
+        v2_0_0.features.put("CityObjectGroup", CityObjectGroup.class);
+        v1_0_0.features = v2_0_0.features;
+
+        v2_0_0.featureProperties = new HashSet<String>();
+        v2_0_0.featureProperties.add("groupMember");
+        v2_0_0.featureProperties.add("parent");
+        v1_0_0.featureProperties = v2_0_0.featureProperties;
+    }
+
+    public static List<CityObjectGroupModule> getInstances() {
+        return instances;
+    }
+
+    public static CityObjectGroupModule getInstance(CityGMLModuleVersion version) {
+        switch (version) {
+            case v2_0_0:
+                return v2_0_0;
+            case v1_0_0:
+                return v1_0_0;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return "CityObjectGroup".equals(name);
+    }
 
 }

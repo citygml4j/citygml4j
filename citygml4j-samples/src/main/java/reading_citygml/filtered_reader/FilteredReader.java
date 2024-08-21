@@ -35,40 +35,40 @@ import java.util.Date;
 
 public class FilteredReader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading only roads from CityGML file LOD2_CityObjectGroup_v100.gml");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
+        System.out.println(df.format(new Date()) + "reading only roads from CityGML file LOD2_CityObjectGroup_v100.gml");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
 
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_CityObjectGroup_v100.gml"));
-		reader = in.createFilteredCityGMLReader(reader, new CityGMLInputFilter() {
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_CityObjectGroup_v100.gml"));
+        reader = in.createFilteredCityGMLReader(reader, new CityGMLInputFilter() {
 
-			// return true if you want to consume the CityGML feature
-			// of the given qualified XML name, false otherwise
-			public boolean accept(QName name) {
-				return Modules.isModuleNamespace(name.getNamespaceURI(), CityGMLModuleType.TRANSPORTATION)
-						&& name.getLocalPart().equals("Road");
-			}
-			
-		});
+            // return true if you want to consume the CityGML feature
+            // of the given qualified XML name, false otherwise
+            public boolean accept(QName name) {
+                return Modules.isModuleNamespace(name.getNamespaceURI(), CityGMLModuleType.TRANSPORTATION)
+                        && name.getLocalPart().equals("Road");
+            }
 
-		System.out.println(df.format(new Date()) + "printing road features");
-		while (reader.hasNext()) {
-			Road road = (Road)reader.nextFeature();
-			System.out.println(df.format(new Date()) + "found Road with gml:id " + road.getId());	
-			
-			System.out.println(df.format(new Date()) + "\t" + road.getTrafficArea().size() + " traffic area(s)");	
-			System.out.println(df.format(new Date()) + "\t" + road.getAuxiliaryTrafficArea().size() + " auxiliary traffic area(s)");	
-		}
+        });
 
-		reader.close();
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "printing road features");
+        while (reader.hasNext()) {
+            Road road = (Road) reader.nextFeature();
+            System.out.println(df.format(new Date()) + "found Road with gml:id " + road.getId());
+
+            System.out.println(df.format(new Date()) + "\t" + road.getTrafficArea().size() + " traffic area(s)");
+            System.out.println(df.format(new Date()) + "\t" + road.getAuxiliaryTrafficArea().size() + " auxiliary traffic area(s)");
+        }
+
+        reader.close();
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

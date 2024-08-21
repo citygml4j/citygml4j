@@ -28,103 +28,103 @@ import org.citygml4j.model.common.visitor.GeometryVisitor;
 import org.citygml4j.model.gml.GMLClass;
 
 public class OrientableSurface extends AbstractSurface {
-	private SurfaceProperty baseSurface;
-	private Sign orientation;
+    private SurfaceProperty baseSurface;
+    private Sign orientation;
 
-	public OrientableSurface() {
-		
-	}
-	
-	public OrientableSurface(AbstractSurface base, Sign orientation) {
-		setBaseSurface(new SurfaceProperty(base));
-		setOrientation(orientation);
-	}
-	
-	public OrientableSurface(String xlink, Sign orientation) {
-		setBaseSurface(new SurfaceProperty(xlink));
-		setOrientation(orientation);
-	}
-	
-	public SurfaceProperty getBaseSurface() {
-		return baseSurface;
-	}
+    public OrientableSurface() {
 
-	public Sign getOrientation() {
-		return orientation == null ? Sign.PLUS : orientation;
-	}
+    }
 
-	public boolean isSetBaseSurface() {
-		return baseSurface != null;
-	}
+    public OrientableSurface(AbstractSurface base, Sign orientation) {
+        setBaseSurface(new SurfaceProperty(base));
+        setOrientation(orientation);
+    }
 
-	public boolean isSetOrientation() {
-		return orientation != null;
-	}
+    public OrientableSurface(String xlink, Sign orientation) {
+        setBaseSurface(new SurfaceProperty(xlink));
+        setOrientation(orientation);
+    }
 
-	public void setBaseSurface(SurfaceProperty baseSurface) {
-		this.baseSurface = ModelObjects.setParent(baseSurface, this);
-	}
+    public SurfaceProperty getBaseSurface() {
+        return baseSurface;
+    }
 
-	public void setOrientation(Sign orientation) {
-		this.orientation = orientation;
-	}
+    public Sign getOrientation() {
+        return orientation == null ? Sign.PLUS : orientation;
+    }
 
-	public void unsetBaseSurface() {
-		baseSurface = ModelObjects.setNull(baseSurface);
-	}
+    public boolean isSetBaseSurface() {
+        return baseSurface != null;
+    }
 
-	public void unsetOrientation() {
-		orientation = null;
-	}
+    public boolean isSetOrientation() {
+        return orientation != null;
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetBaseSurface() && baseSurface.isSetSurface())
-			bbox.update(baseSurface.getSurface().calcBoundingBox());
-		
-		return bbox;
-	}
+    public void setBaseSurface(SurfaceProperty baseSurface) {
+        this.baseSurface = ModelObjects.setParent(baseSurface, this);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ORIENTABLE_SURFACE;
-	}
+    public void setOrientation(Sign orientation) {
+        this.orientation = orientation;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new OrientableSurface(), copyBuilder);
-	}
+    public void unsetBaseSurface() {
+        baseSurface = ModelObjects.setNull(baseSurface);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		OrientableSurface copy = (target == null) ? new OrientableSurface() : (OrientableSurface)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetBaseSurface()) {
-			copy.setBaseSurface((SurfaceProperty)copyBuilder.copy(baseSurface));
-			if (copy.getBaseSurface() == baseSurface)
-				baseSurface.setParent(this);
-		}
-		
-		if (isSetOrientation())
-			copy.setOrientation((Sign)copyBuilder.copy(orientation));
-		
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void unsetOrientation() {
+        orientation = null;
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
+
+        if (isSetBaseSurface() && baseSurface.isSetSurface())
+            bbox.update(baseSurface.getSurface().calcBoundingBox());
+
+        return bbox;
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.ORIENTABLE_SURFACE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new OrientableSurface(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        OrientableSurface copy = (target == null) ? new OrientableSurface() : (OrientableSurface) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetBaseSurface()) {
+            copy.setBaseSurface((SurfaceProperty) copyBuilder.copy(baseSurface));
+            if (copy.getBaseSurface() == baseSurface)
+                baseSurface.setParent(this);
+        }
+
+        if (isSetOrientation())
+            copy.setOrientation((Sign) copyBuilder.copy(orientation));
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

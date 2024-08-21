@@ -28,73 +28,73 @@ import java.util.StringJoiner;
 
 public class JAXBContextPath {
 
-	public static String getContextPath() {
-		return buildContextPath().toString();
-	}
+    public static String getContextPath() {
+        return buildContextPath().toString();
+    }
 
-	public static String getContextPath(Collection<String> packageNames) {
-		StringJoiner joiner = buildContextPath();
+    public static String getContextPath(Collection<String> packageNames) {
+        StringJoiner joiner = buildContextPath();
 
-		if (packageNames != null) {
-			for (String contextPath : packageNames)
-				joiner.add(contextPath);
-		}
+        if (packageNames != null) {
+            for (String contextPath : packageNames)
+                joiner.add(contextPath);
+        }
 
-		return joiner.toString();
-	}
+        return joiner.toString();
+    }
 
-	public static String getContextPath(String... packageNames) {
-		return getContextPath(Arrays.asList(packageNames));
-	}
+    public static String getContextPath(String... packageNames) {
+        return getContextPath(Arrays.asList(packageNames));
+    }
 
-	private static StringJoiner buildContextPath() {
-		StringJoiner joiner = new StringJoiner(":");
+    private static StringJoiner buildContextPath() {
+        StringJoiner joiner = new StringJoiner(":");
 
-		// CityGML 2.0
-		joiner.add("net.opengis.citygml._2");
-		joiner.add("net.opengis.citygml.appearance._2");
-		joiner.add("net.opengis.citygml.bridge._2");
-		joiner.add("net.opengis.citygml.building._2");
-		joiner.add("net.opengis.citygml.cityfurniture._2");
-		joiner.add("net.opengis.citygml.cityobjectgroup._2");
-		joiner.add("net.opengis.citygml.generics._2");
-		joiner.add("net.opengis.citygml.landuse._2");
-		joiner.add("net.opengis.citygml.relief._2");
-		joiner.add("net.opengis.citygml.texturedsurface._2");
-		joiner.add("net.opengis.citygml.transportation._2");
-		joiner.add("net.opengis.citygml.tunnel._2");
-		joiner.add("net.opengis.citygml.vegetation._2");
-		joiner.add("net.opengis.citygml.waterbody._2");
+        // CityGML 2.0
+        joiner.add("net.opengis.citygml._2");
+        joiner.add("net.opengis.citygml.appearance._2");
+        joiner.add("net.opengis.citygml.bridge._2");
+        joiner.add("net.opengis.citygml.building._2");
+        joiner.add("net.opengis.citygml.cityfurniture._2");
+        joiner.add("net.opengis.citygml.cityobjectgroup._2");
+        joiner.add("net.opengis.citygml.generics._2");
+        joiner.add("net.opengis.citygml.landuse._2");
+        joiner.add("net.opengis.citygml.relief._2");
+        joiner.add("net.opengis.citygml.texturedsurface._2");
+        joiner.add("net.opengis.citygml.transportation._2");
+        joiner.add("net.opengis.citygml.tunnel._2");
+        joiner.add("net.opengis.citygml.vegetation._2");
+        joiner.add("net.opengis.citygml.waterbody._2");
 
-		// CityGML 1.0
-		joiner.add("net.opengis.citygml._1");
-		joiner.add("net.opengis.citygml.appearance._1");
-		joiner.add("net.opengis.citygml.building._1");
-		joiner.add("net.opengis.citygml.cityfurniture._1");
-		joiner.add("net.opengis.citygml.cityobjectgroup._1");
-		joiner.add("net.opengis.citygml.generics._1");
-		joiner.add("net.opengis.citygml.landuse._1");
-		joiner.add("net.opengis.citygml.relief._1");
-		joiner.add("net.opengis.citygml.texturedsurface._1");
-		joiner.add("net.opengis.citygml.transportation._1");
-		joiner.add("net.opengis.citygml.vegetation._1");
-		joiner.add("net.opengis.citygml.waterbody._1");
+        // CityGML 1.0
+        joiner.add("net.opengis.citygml._1");
+        joiner.add("net.opengis.citygml.appearance._1");
+        joiner.add("net.opengis.citygml.building._1");
+        joiner.add("net.opengis.citygml.cityfurniture._1");
+        joiner.add("net.opengis.citygml.cityobjectgroup._1");
+        joiner.add("net.opengis.citygml.generics._1");
+        joiner.add("net.opengis.citygml.landuse._1");
+        joiner.add("net.opengis.citygml.relief._1");
+        joiner.add("net.opengis.citygml.texturedsurface._1");
+        joiner.add("net.opengis.citygml.transportation._1");
+        joiner.add("net.opengis.citygml.vegetation._1");
+        joiner.add("net.opengis.citygml.waterbody._1");
 
-		// GML 3.1.1 and xAL 2.0
-		joiner.add("net.opengis.gml");
-		joiner.add("oasis.names.tc.ciq.xsdschema.xal._2");
+        // GML 3.1.1 and xAL 2.0
+        joiner.add("net.opengis.gml");
+        joiner.add("oasis.names.tc.ciq.xsdschema.xal._2");
 
-		// ADE context paths
-		CityGMLContext context = CityGMLContext.getInstance();
-		if (context.hasADEContexts()) {
-			for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
-				for (ADEModule module : adeContext.getADEModules()) {
-					for (String contextPath : module.getJAXBPackageNames())
-						joiner.add(contextPath);
-				}
-			}
-		}
+        // ADE context paths
+        CityGMLContext context = CityGMLContext.getInstance();
+        if (context.hasADEContexts()) {
+            for (ADEContext adeContext : CityGMLContext.getInstance().getADEContexts()) {
+                for (ADEModule module : adeContext.getADEModules()) {
+                    for (String contextPath : module.getJAXBPackageNames())
+                        joiner.add(contextPath);
+                }
+            }
+        }
 
-		return joiner;
-	}
+        return joiner;
+    }
 }

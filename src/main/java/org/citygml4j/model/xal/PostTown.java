@@ -30,165 +30,165 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class PostTown implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private List<PostTownName> postTownName;
-	private PostTownSuffix postTownSuffix;
-	private String type;
-	private ModelObject parent;
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private List<PostTownName> postTownName;
+    private PostTownSuffix postTownSuffix;
+    private String type;
+    private ModelObject parent;
 
-	public void addPostTownName(PostTownName postTownName) {
-		getPostTownName().add(postTownName);
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addPostTownName(PostTownName postTownName) {
+        getPostTownName().add(postTownName);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public List<PostTownName> getPostTownName() {
-		if (postTownName == null)
-			postTownName = new ChildList<>(this);
+        return addressLine;
+    }
 
-		return postTownName;
-	}
+    public List<PostTownName> getPostTownName() {
+        if (postTownName == null)
+            postTownName = new ChildList<>(this);
 
-	public PostTownSuffix getPostTownSuffix() {
-		return postTownSuffix;
-	}
+        return postTownName;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public PostTownSuffix getPostTownSuffix() {
+        return postTownSuffix;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetPostTownName() {
-		return postTownName != null && !postTownName.isEmpty();
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetPostTownSuffix() {
-		return postTownSuffix != null;
-	}
+    public boolean isSetPostTownName() {
+        return postTownName != null && !postTownName.isEmpty();
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetPostTownSuffix() {
+        return postTownSuffix != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setPostTownName(List<PostTownName> postTownName) {
-		this.postTownName = new ChildList<>(this, postTownName);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setPostTownSuffix(PostTownSuffix postTownSuffix) {
-		this.postTownSuffix = ModelObjects.setParent(postTownSuffix, this);
-	}
+    public void setPostTownName(List<PostTownName> postTownName) {
+        this.postTownName = new ChildList<>(this, postTownName);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setPostTownSuffix(PostTownSuffix postTownSuffix) {
+        this.postTownSuffix = ModelObjects.setParent(postTownSuffix, this);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetPostTownName() {
-		postTownName = ModelObjects.setNull(postTownName);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public boolean unsetPostTownName(PostTownName postTownName) {
-		return isSetPostTownName() && this.postTownName.remove(postTownName);
-	}
+    public void unsetPostTownName() {
+        postTownName = ModelObjects.setNull(postTownName);
+    }
 
-	public void unsetPostTownSuffix() {
-		postTownSuffix = ModelObjects.setNull(postTownSuffix);
-	}
+    public boolean unsetPostTownName(PostTownName postTownName) {
+        return isSetPostTownName() && this.postTownName.remove(postTownName);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetPostTownSuffix() {
+        postTownSuffix = ModelObjects.setNull(postTownSuffix);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POST_TOWN;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POST_TOWN;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostTown(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostTown copy = (target == null) ? new PostTown() : (PostTown)target;
-		
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPostTownName()) {
-			for (PostTownName part : postTownName) {
-				PostTownName copyPart = (PostTownName)copyBuilder.copy(part);
-				copy.addPostTownName(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPostTownSuffix()) {
-			copy.setPostTownSuffix((PostTownSuffix)copyBuilder.copy(postTownSuffix));
-			if (copy.getPostTownSuffix() == postTownSuffix)
-				postTownSuffix.setParent(this);
-		}
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostTown(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostTown copy = (target == null) ? new PostTown() : (PostTown) target;
+
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPostTownName()) {
+            for (PostTownName part : postTownName) {
+                PostTownName copyPart = (PostTownName) copyBuilder.copy(part);
+                copy.addPostTownName(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPostTownSuffix()) {
+            copy.setPostTownSuffix((PostTownSuffix) copyBuilder.copy(postTownSuffix));
+            if (copy.getPostTownSuffix() == postTownSuffix)
+                postTownSuffix.setParent(this);
+        }
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

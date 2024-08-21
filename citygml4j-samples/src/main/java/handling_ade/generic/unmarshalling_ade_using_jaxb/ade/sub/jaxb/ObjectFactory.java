@@ -34,18 +34,17 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the ade.sub.jaxb package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the ade.sub.jaxb package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -89,14 +88,12 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ade.sub.jaxb
-     * 
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link HollowSpaceType }
-     * 
      */
     public HollowSpaceType createHollowSpaceType() {
         return new HollowSpaceType();
@@ -104,7 +101,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TunnelFurnitureType }
-     * 
      */
     public TunnelFurnitureType createTunnelFurnitureType() {
         return new TunnelFurnitureType();
@@ -112,7 +108,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GroundSurfaceType }
-     * 
      */
     public GroundSurfaceType createGroundSurfaceType() {
         return new GroundSurfaceType();
@@ -120,7 +115,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link WallSurfaceType }
-     * 
      */
     public WallSurfaceType createWallSurfaceType() {
         return new WallSurfaceType();
@@ -128,7 +122,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TunnelInstallationType }
-     * 
      */
     public TunnelInstallationType createTunnelInstallationType() {
         return new TunnelInstallationType();
@@ -136,7 +129,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InteriorWallSurfaceType }
-     * 
      */
     public InteriorWallSurfaceType createInteriorWallSurfaceType() {
         return new InteriorWallSurfaceType();
@@ -144,7 +136,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link WindowType }
-     * 
      */
     public WindowType createWindowType() {
         return new WindowType();
@@ -152,7 +143,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TunnelPartType }
-     * 
      */
     public TunnelPartType createTunnelPartType() {
         return new TunnelPartType();
@@ -160,7 +150,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AbstractTunnelType }
-     * 
      */
     public AbstractTunnelType createAbstractTunnelType() {
         return new AbstractTunnelType();
@@ -168,7 +157,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RoofSurfaceType }
-     * 
      */
     public RoofSurfaceType createRoofSurfaceType() {
         return new RoofSurfaceType();
@@ -176,7 +164,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link CeilingSurfaceType }
-     * 
      */
     public CeilingSurfaceType createCeilingSurfaceType() {
         return new CeilingSurfaceType();
@@ -184,7 +171,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ClosureSurfaceType }
-     * 
      */
     public ClosureSurfaceType createClosureSurfaceType() {
         return new ClosureSurfaceType();
@@ -192,7 +178,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DoorType }
-     * 
      */
     public DoorType createDoorType() {
         return new DoorType();
@@ -200,7 +185,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TunnelType }
-     * 
      */
     public TunnelType createTunnelType() {
         return new TunnelType();
@@ -208,7 +192,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FloorSurfaceType }
-     * 
      */
     public FloorSurfaceType createFloorSurfaceType() {
         return new FloorSurfaceType();
@@ -216,7 +199,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link BoundarySurfacePropertyType }
-     * 
      */
     public BoundarySurfacePropertyType createBoundarySurfacePropertyType() {
         return new BoundarySurfacePropertyType();
@@ -224,7 +206,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link TunnelPartPropertyType }
-     * 
      */
     public TunnelPartPropertyType createTunnelPartPropertyType() {
         return new TunnelPartPropertyType();
@@ -232,7 +213,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link OuterTunnelInstallationPropertyType }
-     * 
      */
     public OuterTunnelInstallationPropertyType createOuterTunnelInstallationPropertyType() {
         return new OuterTunnelInstallationPropertyType();
@@ -240,7 +220,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link OpeningPropertyType }
-     * 
      */
     public OpeningPropertyType createOpeningPropertyType() {
         return new OpeningPropertyType();
@@ -248,7 +227,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InteriorFurniturePropertyType }
-     * 
      */
     public InteriorFurniturePropertyType createInteriorFurniturePropertyType() {
         return new InteriorFurniturePropertyType();
@@ -256,7 +234,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InteriorRoomPropertyType }
-     * 
      */
     public InteriorRoomPropertyType createInteriorRoomPropertyType() {
         return new InteriorRoomPropertyType();
@@ -264,7 +241,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfWindow")
     public JAXBElement<Object> create_GenericApplicationPropertyOfWindow(Object value) {
@@ -273,7 +249,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TunnelFurnitureType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "TunnelFurniture", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
     public JAXBElement<TunnelFurnitureType> createTunnelFurniture(TunnelFurnitureType value) {
@@ -282,7 +257,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AbstractOpeningType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_Opening", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
     public JAXBElement<AbstractOpeningType> create_Opening(AbstractOpeningType value) {
@@ -291,7 +265,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TunnelInstallationType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "TunnelInstallation", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
     public JAXBElement<TunnelInstallationType> createTunnelInstallation(TunnelInstallationType value) {
@@ -300,7 +273,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ClosureSurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "ClosureSurface", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_BoundarySurface")
     public JAXBElement<ClosureSurfaceType> createClosureSurface(ClosureSurfaceType value) {
@@ -309,7 +281,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfHollowSpace")
     public JAXBElement<Object> create_GenericApplicationPropertyOfHollowSpace(Object value) {
@@ -318,7 +289,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfRoofSurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfRoofSurface(Object value) {
@@ -327,7 +297,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfFloorSurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfFloorSurface(Object value) {
@@ -336,7 +305,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfBoundarySurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfBoundarySurface(Object value) {
@@ -345,7 +313,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link DoorType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "Door", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_Opening")
     public JAXBElement<DoorType> createDoor(DoorType value) {
@@ -354,7 +321,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RelativeToWaterType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "relativeToWater", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_GenericApplicationPropertyOfCityObject")
     public JAXBElement<RelativeToWaterType> createRelativeToWater(RelativeToWaterType value) {
@@ -363,7 +329,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WallSurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "WallSurface", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_BoundarySurface")
     public JAXBElement<WallSurfaceType> createWallSurface(WallSurfaceType value) {
@@ -372,7 +337,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfOpening")
     public JAXBElement<Object> create_GenericApplicationPropertyOfOpening(Object value) {
@@ -381,7 +345,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfAbstractTunnel")
     public JAXBElement<Object> create_GenericApplicationPropertyOfAbstractTunnel(Object value) {
@@ -390,7 +353,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfClosureSurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfClosureSurface(Object value) {
@@ -399,7 +361,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfInteriorWallSurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfInteriorWallSurface(Object value) {
@@ -408,7 +369,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfTunnelFurniture")
     public JAXBElement<Object> create_GenericApplicationPropertyOfTunnelFurniture(Object value) {
@@ -417,7 +377,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfDoor")
     public JAXBElement<Object> create_GenericApplicationPropertyOfDoor(Object value) {
@@ -426,7 +385,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GroundSurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "GroundSurface", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_BoundarySurface")
     public JAXBElement<GroundSurfaceType> createGroundSurface(GroundSurfaceType value) {
@@ -435,7 +393,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfTunnelPart")
     public JAXBElement<Object> create_GenericApplicationPropertyOfTunnelPart(Object value) {
@@ -444,7 +401,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CeilingSurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "CeilingSurface", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_BoundarySurface")
     public JAXBElement<CeilingSurfaceType> createCeilingSurface(CeilingSurfaceType value) {
@@ -453,7 +409,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TunnelPartType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "TunnelPart", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_AbstractTunnel")
     public JAXBElement<TunnelPartType> createTunnelPart(TunnelPartType value) {
@@ -462,7 +417,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfTunnelInstallation")
     public JAXBElement<Object> create_GenericApplicationPropertyOfTunnelInstallation(Object value) {
@@ -471,7 +425,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InteriorWallSurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "InteriorWallSurface", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_BoundarySurface")
     public JAXBElement<InteriorWallSurfaceType> createInteriorWallSurface(InteriorWallSurfaceType value) {
@@ -480,7 +433,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AbstractBoundarySurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_BoundarySurface", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
     public JAXBElement<AbstractBoundarySurfaceType> create_BoundarySurface(AbstractBoundarySurfaceType value) {
@@ -489,7 +441,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RelativeToTerrainType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "relativeToTerrain", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_GenericApplicationPropertyOfCityObject")
     public JAXBElement<RelativeToTerrainType> createRelativeToTerrain(RelativeToTerrainType value) {
@@ -498,7 +449,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RoofSurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "RoofSurface", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_BoundarySurface")
     public JAXBElement<RoofSurfaceType> createRoofSurface(RoofSurfaceType value) {
@@ -507,7 +457,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link WindowType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "Window", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_Opening")
     public JAXBElement<WindowType> createWindow(WindowType value) {
@@ -516,7 +465,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link HollowSpaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "HollowSpace", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_CityObject")
     public JAXBElement<HollowSpaceType> createHollowSpace(HollowSpaceType value) {
@@ -525,7 +473,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfCeilingSurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfCeilingSurface(Object value) {
@@ -534,7 +481,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TunnelType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "Tunnel", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_AbstractTunnel")
     public JAXBElement<TunnelType> createTunnel(TunnelType value) {
@@ -543,7 +489,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfTunnel")
     public JAXBElement<Object> create_GenericApplicationPropertyOfTunnel(Object value) {
@@ -552,7 +497,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfWallSurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfWallSurface(Object value) {
@@ -561,7 +505,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Object }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_GenericApplicationPropertyOfGroundSurface")
     public JAXBElement<Object> create_GenericApplicationPropertyOfGroundSurface(Object value) {
@@ -570,7 +513,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AbstractTunnelType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "_AbstractTunnel", substitutionHeadNamespace = "http://www.opengis.net/citygml/1.0", substitutionHeadName = "_Site")
     public JAXBElement<AbstractTunnelType> create_AbstractTunnel(AbstractTunnelType value) {
@@ -579,7 +521,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FloorSurfaceType }{@code >}}
-     * 
      */
     @XmlElementDecl(namespace = "http://www.citygml.org/ade/sub/0.9.0", name = "FloorSurface", substitutionHeadNamespace = "http://www.citygml.org/ade/sub/0.9.0", substitutionHeadName = "_BoundarySurface")
     public JAXBElement<FloorSurfaceType> createFloorSurface(FloorSurfaceType value) {

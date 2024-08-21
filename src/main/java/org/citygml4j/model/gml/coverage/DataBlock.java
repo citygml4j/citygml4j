@@ -29,109 +29,109 @@ import org.citygml4j.model.gml.basicTypes.Coordinates;
 import org.citygml4j.model.gml.basicTypes.DoubleOrNullList;
 
 public class DataBlock implements GML, Child, Copyable {
-	private RangeParameters rangeParameters;
-	private Coordinates tupleList;
-	private DoubleOrNullList doubleOrNullTupleList;
-	private ModelObject parent;
+    private RangeParameters rangeParameters;
+    private Coordinates tupleList;
+    private DoubleOrNullList doubleOrNullTupleList;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.DATA_BLOCK;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.DATA_BLOCK;
+    }
 
-	public RangeParameters getRangeParameters() {
-		return rangeParameters;
-	}
+    public RangeParameters getRangeParameters() {
+        return rangeParameters;
+    }
 
-	public Coordinates getTupleList() {
-		return tupleList;
-	}
+    public Coordinates getTupleList() {
+        return tupleList;
+    }
 
-	public DoubleOrNullList getDoubleOrNullTupleList() {
-		return doubleOrNullTupleList;
-	}
+    public DoubleOrNullList getDoubleOrNullTupleList() {
+        return doubleOrNullTupleList;
+    }
 
-	public boolean isSetRangeParameters() {
-		return rangeParameters != null;
-	}
+    public boolean isSetRangeParameters() {
+        return rangeParameters != null;
+    }
 
-	public boolean isSetTupleList() {
-		return tupleList != null;
-	}
+    public boolean isSetTupleList() {
+        return tupleList != null;
+    }
 
-	public boolean isSetDoubleOrNullTupleList() {
-		return doubleOrNullTupleList != null;
-	}
+    public boolean isSetDoubleOrNullTupleList() {
+        return doubleOrNullTupleList != null;
+    }
 
-	public void setRangeParameters(RangeParameters rangeParameters) {
-		this.rangeParameters = ModelObjects.setParent(rangeParameters, this);
-	}
+    public void setRangeParameters(RangeParameters rangeParameters) {
+        this.rangeParameters = ModelObjects.setParent(rangeParameters, this);
+    }
 
-	public void setTupleList(Coordinates tupleList) {
-		this.tupleList = ModelObjects.setParent(tupleList, this);
-		unsetDoubleOrNullTupleList();
-	}
+    public void setTupleList(Coordinates tupleList) {
+        this.tupleList = ModelObjects.setParent(tupleList, this);
+        unsetDoubleOrNullTupleList();
+    }
 
-	public void setDoubleOrNullTupleList(DoubleOrNullList doubleOrNullTupleList) {
-		this.doubleOrNullTupleList = ModelObjects.setParent(doubleOrNullTupleList, this);
-		unsetTupleList();
-	}
+    public void setDoubleOrNullTupleList(DoubleOrNullList doubleOrNullTupleList) {
+        this.doubleOrNullTupleList = ModelObjects.setParent(doubleOrNullTupleList, this);
+        unsetTupleList();
+    }
 
-	public void unsetRangeParameters() {
-		rangeParameters = ModelObjects.setNull(rangeParameters);
-	}
+    public void unsetRangeParameters() {
+        rangeParameters = ModelObjects.setNull(rangeParameters);
+    }
 
-	public void unsetTupleList() {
-		tupleList = ModelObjects.setNull(tupleList);
-	}
+    public void unsetTupleList() {
+        tupleList = ModelObjects.setNull(tupleList);
+    }
 
-	public void unsetDoubleOrNullTupleList() {
-		doubleOrNullTupleList = ModelObjects.setNull(doubleOrNullTupleList);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetDoubleOrNullTupleList() {
+        doubleOrNullTupleList = ModelObjects.setNull(doubleOrNullTupleList);
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DataBlock copy = (target == null) ? new DataBlock() : (DataBlock)target;
-		
-		if (isSetRangeParameters()) {
-			copy.setRangeParameters((RangeParameters)copyBuilder.copy(rangeParameters));
-			if (copy.getRangeParameters() == rangeParameters)
-				rangeParameters.setParent(this);
-		}
-		
-		if (isSetTupleList()) {
-			copy.setTupleList((Coordinates)copyBuilder.copy(tupleList));
-			if (copy.getTupleList() == tupleList)
-				tupleList.setParent(this);
-		}
-		
-		if (isSetDoubleOrNullTupleList()) {
-			copy.setDoubleOrNullTupleList((DoubleOrNullList)copyBuilder.copy(doubleOrNullTupleList));
-			if (copy.getDoubleOrNullTupleList() == doubleOrNullTupleList)
-				doubleOrNullTupleList.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DataBlock(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DataBlock copy = (target == null) ? new DataBlock() : (DataBlock) target;
+
+        if (isSetRangeParameters()) {
+            copy.setRangeParameters((RangeParameters) copyBuilder.copy(rangeParameters));
+            if (copy.getRangeParameters() == rangeParameters)
+                rangeParameters.setParent(this);
+        }
+
+        if (isSetTupleList()) {
+            copy.setTupleList((Coordinates) copyBuilder.copy(tupleList));
+            if (copy.getTupleList() == tupleList)
+                tupleList.setParent(this);
+        }
+
+        if (isSetDoubleOrNullTupleList()) {
+            copy.setDoubleOrNullTupleList((DoubleOrNullList) copyBuilder.copy(doubleOrNullTupleList));
+            if (copy.getDoubleOrNullTupleList() == doubleOrNullTupleList)
+                doubleOrNullTupleList.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DataBlock(), copyBuilder);
+    }
 
 }

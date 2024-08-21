@@ -27,129 +27,129 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class ValueExtent implements GML, Child, Copyable {
-	private CategoryExtent categoryExtent;
-	private QuantityExtent quantityExtent;
-	private CountExtent countExtent;
-	private ModelObject parent;
-	
-	public ValueExtent() {
-		
-	}
-	
-	public ValueExtent(CategoryExtent categoryExtent) {
-		setCategoryExtent(categoryExtent);
-	}
-	
-	public ValueExtent(QuantityExtent quantityExtent) {
-		setQuantityExtent(quantityExtent);
-	}
-	
-	public ValueExtent(CountExtent countExtent) {
-		setCountExtent(countExtent);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.VALUE_EXTENT;
-	}
+    private CategoryExtent categoryExtent;
+    private QuantityExtent quantityExtent;
+    private CountExtent countExtent;
+    private ModelObject parent;
 
-	public CategoryExtent getCategoryExtent() {
-		return categoryExtent;
-	}
+    public ValueExtent() {
 
-	public QuantityExtent getQuantityExtent() {
-		return quantityExtent;
-	}
+    }
 
-	public CountExtent getCountExtent() {
-		return countExtent;
-	}
+    public ValueExtent(CategoryExtent categoryExtent) {
+        setCategoryExtent(categoryExtent);
+    }
 
-	public boolean isSetCategoryExtent() {
-		return categoryExtent != null;
-	}
+    public ValueExtent(QuantityExtent quantityExtent) {
+        setQuantityExtent(quantityExtent);
+    }
 
-	public boolean isSetQuantityExtent() {
-		return quantityExtent != null;
-	}
+    public ValueExtent(CountExtent countExtent) {
+        setCountExtent(countExtent);
+    }
 
-	public boolean isSetCountExtent() {
-		return countExtent != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.VALUE_EXTENT;
+    }
 
-	public void setCategoryExtent(CategoryExtent categoryExtent) {
-		this.categoryExtent = ModelObjects.setParent(categoryExtent, this);
-		unsetCountExtent();
-		unsetQuantityExtent();
-	}
+    public CategoryExtent getCategoryExtent() {
+        return categoryExtent;
+    }
 
-	public void setQuantityExtent(QuantityExtent quantityExtent) {
-		this.quantityExtent = ModelObjects.setParent(quantityExtent, this);
-		unsetCategoryExtent();
-		unsetCountExtent();
-	}
+    public QuantityExtent getQuantityExtent() {
+        return quantityExtent;
+    }
 
-	public void setCountExtent(CountExtent countExtent) {
-		this.countExtent = ModelObjects.setParent(countExtent, this);
-		unsetCategoryExtent();
-		unsetQuantityExtent();
-	}
+    public CountExtent getCountExtent() {
+        return countExtent;
+    }
 
-	public void unsetCategoryExtent() {
-		categoryExtent = ModelObjects.setNull(categoryExtent);
-	}
+    public boolean isSetCategoryExtent() {
+        return categoryExtent != null;
+    }
 
-	public void unsetQuantityExtent() {
-		quantityExtent = ModelObjects.setNull(quantityExtent);
-	}
+    public boolean isSetQuantityExtent() {
+        return quantityExtent != null;
+    }
 
-	public void unsetCountExtent() {
-		countExtent = ModelObjects.setNull(countExtent);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public boolean isSetCountExtent() {
+        return countExtent != null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setCategoryExtent(CategoryExtent categoryExtent) {
+        this.categoryExtent = ModelObjects.setParent(categoryExtent, this);
+        unsetCountExtent();
+        unsetQuantityExtent();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setQuantityExtent(QuantityExtent quantityExtent) {
+        this.quantityExtent = ModelObjects.setParent(quantityExtent, this);
+        unsetCategoryExtent();
+        unsetCountExtent();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ValueExtent copy = (target == null) ? new ValueExtent() : (ValueExtent)target;
-		
-		if (isSetCategoryExtent()) {
-			copy.setCategoryExtent((CategoryExtent)copyBuilder.copy(categoryExtent));
-			if (copy.getCategoryExtent() == categoryExtent)
-				categoryExtent.setParent(this);
-		}
-		
-		if (isSetCountExtent()) {
-			copy.setCountExtent((CountExtent)copyBuilder.copy(countExtent));
-			if (copy.getCountExtent() == countExtent)
-				countExtent.setParent(this);
-		}
-		
-		if (isSetQuantityExtent()) {
-			copy.setQuantityExtent((QuantityExtent)copyBuilder.copy(quantityExtent));
-			if (copy.getQuantityExtent() == quantityExtent)
-				quantityExtent.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setCountExtent(CountExtent countExtent) {
+        this.countExtent = ModelObjects.setParent(countExtent, this);
+        unsetCategoryExtent();
+        unsetQuantityExtent();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ValueExtent(), copyBuilder);
-	}
+    public void unsetCategoryExtent() {
+        categoryExtent = ModelObjects.setNull(categoryExtent);
+    }
+
+    public void unsetQuantityExtent() {
+        quantityExtent = ModelObjects.setNull(quantityExtent);
+    }
+
+    public void unsetCountExtent() {
+        countExtent = ModelObjects.setNull(countExtent);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ValueExtent copy = (target == null) ? new ValueExtent() : (ValueExtent) target;
+
+        if (isSetCategoryExtent()) {
+            copy.setCategoryExtent((CategoryExtent) copyBuilder.copy(categoryExtent));
+            if (copy.getCategoryExtent() == categoryExtent)
+                categoryExtent.setParent(this);
+        }
+
+        if (isSetCountExtent()) {
+            copy.setCountExtent((CountExtent) copyBuilder.copy(countExtent));
+            if (copy.getCountExtent() == countExtent)
+                countExtent.setParent(this);
+        }
+
+        if (isSetQuantityExtent()) {
+            copy.setQuantityExtent((QuantityExtent) copyBuilder.copy(quantityExtent));
+            if (copy.getQuantityExtent() == quantityExtent)
+                quantityExtent.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ValueExtent(), copyBuilder);
+    }
 
 }

@@ -23,41 +23,41 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AbstractModuleConfiguration implements Serializable {
-	protected Module[] modules;
-	
-	public <T extends Module> AbstractModuleConfiguration(T[] modules) {
-		this.modules = modules;
-	}
-	
-	public AbstractModuleConfiguration(List<? extends Module> modules) {
-		this.modules = (Module[])modules.toArray();
-	}
-	
-	public List<? extends Module> getModules() {
-		return Arrays.asList(modules);
-	}
-	
-	public Module getModule(ModuleType type) {
-		for (Module module : modules)
-			if (module.getType().equals(type))
-				return module;
+    protected Module[] modules;
 
-		return null;
-	}
+    public <T extends Module> AbstractModuleConfiguration(T[] modules) {
+        this.modules = modules;
+    }
 
-	public boolean contains(ModuleType type, ModuleVersion version) {
-		for (Module module : modules)
-			if (module.getType().equals(type))
-				return module.getVersion().equals(version);
+    public AbstractModuleConfiguration(List<? extends Module> modules) {
+        this.modules = (Module[]) modules.toArray();
+    }
 
-		return false;
-	}
+    public List<? extends Module> getModules() {
+        return Arrays.asList(modules);
+    }
 
-	public boolean contains(Module module) {
-		for (Module candidate : modules)
-			if (candidate.equals(module))
-				return true;
+    public Module getModule(ModuleType type) {
+        for (Module module : modules)
+            if (module.getType().equals(type))
+                return module;
 
-		return false;
-	}
+        return null;
+    }
+
+    public boolean contains(ModuleType type, ModuleVersion version) {
+        for (Module module : modules)
+            if (module.getType().equals(type))
+                return module.getVersion().equals(version);
+
+        return false;
+    }
+
+    public boolean contains(Module module) {
+        for (Module candidate : modules)
+            if (candidate.equals(module))
+                return true;
+
+        return false;
+    }
 }

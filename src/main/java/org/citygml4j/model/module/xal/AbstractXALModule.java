@@ -23,24 +23,24 @@ import org.citygml4j.model.module.Module;
 
 public abstract class AbstractXALModule extends AbstractModule implements XALModule {
 
-	public AbstractXALModule (
-			XALModuleType type,
-			XALModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
-	}
+    public AbstractXALModule(
+            XALModuleType type,
+            XALModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+    }
 
-	@Override
-	public XALModuleType getType() {
-		return (XALModuleType)super.getType();
-	}
+    @Override
+    public XALModuleType getType() {
+        return (XALModuleType) super.getType();
+    }
 
-	@Override
-	public XALModuleVersion getVersion() {
-		return (XALModuleVersion)super.getVersion();
-	}
-	
+    @Override
+    public XALModuleVersion getVersion() {
+        return (XALModuleVersion) super.getVersion();
+    }
+
 }

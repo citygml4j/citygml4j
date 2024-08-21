@@ -23,53 +23,53 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class GeometryProperty<T extends AbstractGeometry> extends AssociationByRepOrRef<T> {
-	
-	public GeometryProperty() {
-		
-	}
-	
-	public GeometryProperty(T geometry) {
-		super(geometry);
-	}
-	
-	public GeometryProperty(String href) {
-		super(href);
-	}
-	
-	public T getGeometry() {
-		return super.getObject();
-	}
 
-	public boolean isSetGeometry() {
-		return super.isSetObject();
-	}
+    public GeometryProperty() {
 
-	public void setGeometry(T geometry) {
-		super.setObject(geometry);
-	}
+    }
 
-	public void unsetGeometry() {
-		super.unsetObject();
-	}
+    public GeometryProperty(T geometry) {
+        super(geometry);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.GEOMETRY_PROPERTY;
-	}
+    public GeometryProperty(String href) {
+        super(href);
+    }
 
-	@SuppressWarnings("unchecked")
-	public Class<T> getAssociableClass() {
-		return (Class<T>)AbstractGeometry.class;
-	}
+    public T getGeometry() {
+        return super.getObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GeometryProperty<T>(), copyBuilder);
-	}
+    public boolean isSetGeometry() {
+        return super.isSetObject();
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GeometryProperty<T> copy = (target == null) ? new GeometryProperty<T>() : (GeometryProperty<T>)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void setGeometry(T geometry) {
+        super.setObject(geometry);
+    }
+
+    public void unsetGeometry() {
+        super.unsetObject();
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.GEOMETRY_PROPERTY;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Class<T> getAssociableClass() {
+        return (Class<T>) AbstractGeometry.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GeometryProperty<T>(), copyBuilder);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GeometryProperty<T> copy = (target == null) ? new GeometryProperty<T>() : (GeometryProperty<T>) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

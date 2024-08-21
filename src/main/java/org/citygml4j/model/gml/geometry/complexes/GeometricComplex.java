@@ -35,100 +35,100 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GeometricComplex extends AbstractGeometry {
-	private List<GeometricPrimitiveProperty> element;
-	
-	public GeometricComplex() {
-		
-	}
-	
-	public GeometricComplex(List<? extends AbstractGeometricPrimitive> abstractGeometricPrimitives) {
+    private List<GeometricPrimitiveProperty> element;
+
+    public GeometricComplex() {
+
+    }
+
+    public GeometricComplex(List<? extends AbstractGeometricPrimitive> abstractGeometricPrimitives) {
         for (AbstractGeometricPrimitive abstractGeometricPrimitive : abstractGeometricPrimitives)
-        	addElement(new GeometricPrimitiveProperty(abstractGeometricPrimitive));
-	}
-	
-	public GeometricComplex(AbstractGeometricPrimitive... abstractGeometricPrimitives) {
-		this(Arrays.asList(abstractGeometricPrimitives));
-	}
-	
-	public void addElement(GeometricPrimitiveProperty element) {
-		getElement().add(element);
-	}
+            addElement(new GeometricPrimitiveProperty(abstractGeometricPrimitive));
+    }
 
-	public List<GeometricPrimitiveProperty> getElement() {
-		if (element == null)
-			element = new ChildList<>(this);
+    public GeometricComplex(AbstractGeometricPrimitive... abstractGeometricPrimitives) {
+        this(Arrays.asList(abstractGeometricPrimitives));
+    }
 
-		return element;
-	}
+    public void addElement(GeometricPrimitiveProperty element) {
+        getElement().add(element);
+    }
 
-	public boolean isSetElement() {
-		return element != null && !element.isEmpty();
-	}
+    public List<GeometricPrimitiveProperty> getElement() {
+        if (element == null)
+            element = new ChildList<>(this);
 
-	public void setElement(List<GeometricPrimitiveProperty> element) {
-		this.element = new ChildList<>(this, element);
-	}
+        return element;
+    }
 
-	public void unsetElement() {
-		element = ModelObjects.setNull(element);
-	}
+    public boolean isSetElement() {
+        return element != null && !element.isEmpty();
+    }
 
-	public boolean unsetElement(GeometricPrimitiveProperty element) {
-		return isSetElement() && this.element.remove(element);
-	}
+    public void setElement(List<GeometricPrimitiveProperty> element) {
+        this.element = new ChildList<>(this, element);
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetElement()) {
-			for (GeometricPrimitiveProperty part : element)
-				if (part.isSetGeometricPrimitive())
-					bbox.update(part.getGeometricPrimitive().calcBoundingBox());
-		}
-		
-		return bbox;
-	}
+    public void unsetElement() {
+        element = ModelObjects.setNull(element);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.GEOMETRIC_COMPLEX;
-	}
+    public boolean unsetElement(GeometricPrimitiveProperty element) {
+        return isSetElement() && this.element.remove(element);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GeometricComplex(), copyBuilder);
-	}
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GeometricComplex copy = (target == null) ? new GeometricComplex() : (GeometricComplex)target;
-		super.copyTo(copy, copyBuilder);
+        if (isSetElement()) {
+            for (GeometricPrimitiveProperty part : element)
+                if (part.isSetGeometricPrimitive())
+                    bbox.update(part.getGeometricPrimitive().calcBoundingBox());
+        }
 
-		if (isSetElement()) {
-			for (GeometricPrimitiveProperty part : element) {
-				GeometricPrimitiveProperty copyPart = (GeometricPrimitiveProperty)copyBuilder.copy(part);
-				copy.addElement(copyPart);
+        return bbox;
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    public GMLClass getGMLClass() {
+        return GMLClass.GEOMETRIC_COMPLEX;
+    }
 
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GeometricComplex(), copyBuilder);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GeometricComplex copy = (target == null) ? new GeometricComplex() : (GeometricComplex) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetElement()) {
+            for (GeometricPrimitiveProperty part : element) {
+                GeometricPrimitiveProperty copyPart = (GeometricPrimitiveProperty) copyBuilder.copy(part);
+                copy.addElement(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

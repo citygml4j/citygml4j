@@ -30,188 +30,188 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class PostalRoute implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private List<PostalRouteName> postalRouteName;
-	private PostalRouteNumber postalRouteNumber;
-	private PostBox postBox;
-	private String type;
-	private ModelObject parent;
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private List<PostalRouteName> postalRouteName;
+    private PostalRouteNumber postalRouteNumber;
+    private PostBox postBox;
+    private String type;
+    private ModelObject parent;
 
-	public void addPostalRouteName(PostalRouteName postalRouteName) {
-		getPostalRouteName().add(postalRouteName);
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addPostalRouteName(PostalRouteName postalRouteName) {
+        getPostalRouteName().add(postalRouteName);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public PostBox getPostBox() {
-		return postBox;
-	}
+        return addressLine;
+    }
 
-	public List<PostalRouteName> getPostalRouteName() {
-		if (postalRouteName == null)
-			postalRouteName = new ChildList<>(this);
+    public PostBox getPostBox() {
+        return postBox;
+    }
 
-		return postalRouteName;
-	}
+    public List<PostalRouteName> getPostalRouteName() {
+        if (postalRouteName == null)
+            postalRouteName = new ChildList<>(this);
 
-	public PostalRouteNumber getPostalRouteNumber() {
-		return postalRouteNumber;
-	}
+        return postalRouteName;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public PostalRouteNumber getPostalRouteNumber() {
+        return postalRouteNumber;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetPostBox() {
-		return postBox != null;
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetPostalRouteName() {
-		return postalRouteName != null && !postalRouteName.isEmpty();
-	}
+    public boolean isSetPostBox() {
+        return postBox != null;
+    }
 
-	public boolean isSetPostalRouteNumber() {
-		return postalRouteNumber != null;
-	}
+    public boolean isSetPostalRouteName() {
+        return postalRouteName != null && !postalRouteName.isEmpty();
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetPostalRouteNumber() {
+        return postalRouteNumber != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setPostBox(PostBox postBox) {
-		this.postBox = ModelObjects.setParent(postBox, this);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setPostalRouteName(List<PostalRouteName> postalRouteName) {
-		this.postalRouteName = new ChildList<>(this, postalRouteName);
-	}
+    public void setPostBox(PostBox postBox) {
+        this.postBox = ModelObjects.setParent(postBox, this);
+    }
 
-	public void setPostalRouteNumber(PostalRouteNumber postalRouteNumber) {
-		this.postalRouteNumber = ModelObjects.setParent(postalRouteNumber, this);
-	}
+    public void setPostalRouteName(List<PostalRouteName> postalRouteName) {
+        this.postalRouteName = new ChildList<>(this, postalRouteName);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setPostalRouteNumber(PostalRouteNumber postalRouteNumber) {
+        this.postalRouteNumber = ModelObjects.setParent(postalRouteNumber, this);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetPostBox() {
-		postBox = ModelObjects.setNull(postBox);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public void unsetPostalRouteName() {
-		postalRouteName = ModelObjects.setNull(postalRouteName);
-	}
+    public void unsetPostBox() {
+        postBox = ModelObjects.setNull(postBox);
+    }
 
-	public boolean unsetPostalRouteName(PostalRouteName postalRouteName) {
-		return isSetPostalRouteName() && this.postalRouteName.remove(postalRouteName);
-	}
+    public void unsetPostalRouteName() {
+        postalRouteName = ModelObjects.setNull(postalRouteName);
+    }
 
-	public void unsetPostalRouteNumber() {
-		postalRouteNumber = ModelObjects.setNull(postalRouteNumber);
-	}
+    public boolean unsetPostalRouteName(PostalRouteName postalRouteName) {
+        return isSetPostalRouteName() && this.postalRouteName.remove(postalRouteName);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetPostalRouteNumber() {
+        postalRouteNumber = ModelObjects.setNull(postalRouteNumber);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POSTAL_ROUTE;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POSTAL_ROUTE;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostalRoute(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostalRoute copy = (target == null) ? new PostalRoute() : (PostalRoute)target;
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostalRoute(), copyBuilder);
+    }
 
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostalRoute copy = (target == null) ? new PostalRoute() : (PostalRoute) target;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPostalRouteName()) {
-			for (PostalRouteName part : postalRouteName) {
-				PostalRouteName copyPart = (PostalRouteName)copyBuilder.copy(part);
-				copy.addPostalRouteName(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPostalRouteNumber()) {
-			copy.setPostalRouteNumber((PostalRouteNumber)copyBuilder.copy(postalRouteNumber));
-			if (copy.getPostalRouteNumber() == postalRouteNumber)
-				postalRouteNumber.setParent(this);
-		}
-		
-		if (isSetPostBox()) {
-			copy.setPostBox((PostBox)copyBuilder.copy(postBox));
-			if (copy.getPostBox() == postBox)
-				postBox.setParent(this);
-		}
-		
-		copy.unsetParent();
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
 
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPostalRouteName()) {
+            for (PostalRouteName part : postalRouteName) {
+                PostalRouteName copyPart = (PostalRouteName) copyBuilder.copy(part);
+                copy.addPostalRouteName(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPostalRouteNumber()) {
+            copy.setPostalRouteNumber((PostalRouteNumber) copyBuilder.copy(postalRouteNumber));
+            if (copy.getPostalRouteNumber() == postalRouteNumber)
+                postalRouteNumber.setParent(this);
+        }
+
+        if (isSetPostBox()) {
+            copy.setPostBox((PostBox) copyBuilder.copy(postBox));
+            if (copy.getPostBox() == postBox)
+                postBox.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

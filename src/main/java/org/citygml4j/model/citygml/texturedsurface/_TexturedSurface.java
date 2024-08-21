@@ -32,85 +32,85 @@ import org.citygml4j.model.gml.geometry.primitives.OrientableSurface;
 import java.util.List;
 
 public class _TexturedSurface extends OrientableSurface implements TexturedSurfaceModuleComponent {
-	private List<_AppearanceProperty> appearance;
-	
-	public void addAppearance(_AppearanceProperty appearance) {
-		getAppearance().add(appearance);
-	}
+    private List<_AppearanceProperty> appearance;
 
-	public List<_AppearanceProperty> getAppearance() {
-		if (appearance == null)
-			appearance = new ChildList<>(this);
+    public void addAppearance(_AppearanceProperty appearance) {
+        getAppearance().add(appearance);
+    }
 
-		return appearance;
-	}
+    public List<_AppearanceProperty> getAppearance() {
+        if (appearance == null)
+            appearance = new ChildList<>(this);
 
-	public boolean isSetAppearance() {
-		return appearance != null && !appearance.isEmpty();
-	}
+        return appearance;
+    }
 
-	public void setAppearance(List<_AppearanceProperty> appearance) {
-		this.appearance = new ChildList<>(this, appearance);
-	}
+    public boolean isSetAppearance() {
+        return appearance != null && !appearance.isEmpty();
+    }
 
-	public void unsetAppearance() {
-		appearance = ModelObjects.setNull(appearance);
-	}
+    public void setAppearance(List<_AppearanceProperty> appearance) {
+        this.appearance = new ChildList<>(this, appearance);
+    }
 
-	public boolean unsetAppearance(_AppearanceProperty appearance) {
-		return isSetAppearance() && this.appearance.remove(appearance);
-	}
+    public void unsetAppearance() {
+        appearance = ModelObjects.setNull(appearance);
+    }
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass._TEXTURED_SURFACE;
-	}
+    public boolean unsetAppearance(_AppearanceProperty appearance) {
+        return isSetAppearance() && this.appearance.remove(appearance);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._TEXTURED_SURFACE;
-	}
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass._TEXTURED_SURFACE;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new _TexturedSurface(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass._TEXTURED_SURFACE;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		_TexturedSurface copy = (target == null) ? new _TexturedSurface() : (_TexturedSurface)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetAppearance()) {
-			for (_AppearanceProperty part : appearance) {
-				_AppearanceProperty copyPart = (_AppearanceProperty)copyBuilder.copy(part);
-				copy.addAppearance(copyPart);
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new _TexturedSurface(), copyBuilder);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        _TexturedSurface copy = (target == null) ? new _TexturedSurface() : (_TexturedSurface) target;
+        super.copyTo(copy, copyBuilder);
 
-	@Override
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetAppearance()) {
+            for (_AppearanceProperty part : appearance) {
+                _AppearanceProperty copyPart = (_AppearanceProperty) copyBuilder.copy(part);
+                copy.addAppearance(copyPart);
 
-	@Override
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-	@Override
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+        return copy;
+    }
 
-	@Override
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}	
+    @Override
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    @Override
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    @Override
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
 
 }

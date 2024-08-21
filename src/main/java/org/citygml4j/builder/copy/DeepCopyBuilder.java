@@ -26,88 +26,88 @@ import org.citygml4j.model.common.copy.Copyable;
 import java.util.*;
 
 public class DeepCopyBuilder extends CopyBuilder {
-	private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
-	private ModelObject target;
+    private IdentityHashMap<Object, Object> visited = new IdentityHashMap<Object, Object>();
+    private ModelObject target;
 
-	public ModelObject getTarget() {
-		return target;
-	}
-	
-	public void setTarget(ModelObject target) {
-		this.target = target;
-	}
-	
-	public void unsetTarget() {
-		target = null;
-	}
+    public ModelObject getTarget() {
+        return target;
+    }
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public Object copy(final Object target) {
-		if (isNullCopy(target))
-			return null;
+    public void setTarget(ModelObject target) {
+        this.target = target;
+    }
 
-		if (isShallowCopy(target))
-			return target;
+    public void unsetTarget() {
+        target = null;
+    }
 
-		Object copy = visited.get(target);
-		
-		if (copy != null)
-			return copy;
-		else if (target instanceof ChildList)
-			copy = copy((ChildList)target);
-		else if (target instanceof Collection)
-			copy = copy((Collection)target);
-		else if (target instanceof Map)
-			copy = copy((Map)target);
-		else if (target instanceof Copyable)
-			copy = ((Copyable)target).copy(this);
-		else
-			copy = super.copy(target);
-		
-		if (copy != null)
-			visited.put(target, copy);
-		
-		return copy;
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Object copy(ChildList childList) {
-		if (target == null)
-			return copy((Collection)childList);
-		
-		final ChildList copy = new ChildList(target);
-		for (final Object item : childList) {
-			final Object copyItem = copy(item);
-			copy.add((Child)copyItem);
-		}
-		
-		return copy;
-	}
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Object copy(final Object target) {
+        if (isNullCopy(target))
+            return null;
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Object copy(Collection collection) {
-		final Collection copy = new ArrayList(collection.size());
-		
-		for (final Object item : collection) {
-			final Object copyItem = copy(item);
-			copy.add(copyItem);
-		}
-		
-		return copy;
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Object copy(Map map) {
-		final Map copy = new HashMap(map.size());
+        if (isShallowCopy(target))
+            return target;
 
-		for (Object object : map.entrySet()) {
-			Map.Entry entry = (Map.Entry) object;
-			final Object copyKey = copy(entry.getKey());
-			final Object copyValue = copy(entry.getValue());
-			copy.put(copyKey, copyValue);
-		}
-		
-	    return copy;
-	}
+        Object copy = visited.get(target);
+
+        if (copy != null)
+            return copy;
+        else if (target instanceof ChildList)
+            copy = copy((ChildList) target);
+        else if (target instanceof Collection)
+            copy = copy((Collection) target);
+        else if (target instanceof Map)
+            copy = copy((Map) target);
+        else if (target instanceof Copyable)
+            copy = ((Copyable) target).copy(this);
+        else
+            copy = super.copy(target);
+
+        if (copy != null)
+            visited.put(target, copy);
+
+        return copy;
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public Object copy(ChildList childList) {
+        if (target == null)
+            return copy((Collection) childList);
+
+        final ChildList copy = new ChildList(target);
+        for (final Object item : childList) {
+            final Object copyItem = copy(item);
+            copy.add((Child) copyItem);
+        }
+
+        return copy;
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public Object copy(Collection collection) {
+        final Collection copy = new ArrayList(collection.size());
+
+        for (final Object item : collection) {
+            final Object copyItem = copy(item);
+            copy.add(copyItem);
+        }
+
+        return copy;
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public Object copy(Map map) {
+        final Map copy = new HashMap(map.size());
+
+        for (Object object : map.entrySet()) {
+            Map.Entry entry = (Map.Entry) object;
+            final Object copyKey = copy(entry.getKey());
+            final Object copyValue = copy(entry.getValue());
+            copy.put(copyKey, copyValue);
+        }
+
+        return copy;
+    }
 }

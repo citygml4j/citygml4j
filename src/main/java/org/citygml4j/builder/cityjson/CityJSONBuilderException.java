@@ -19,22 +19,22 @@
 package org.citygml4j.builder.cityjson;
 
 public class CityJSONBuilderException extends Exception {
-	private static final long serialVersionUID = -3716015045363231263L;
-	
-	public CityJSONBuilderException() {
-		super();
-	}
-	
-	public CityJSONBuilderException(String message) {
-		super(message);
-	}
-	
-	public CityJSONBuilderException(Throwable cause) {
-		super(cause);
-	}
-	
-	public CityJSONBuilderException(String message, Throwable cause) {
-		super(message, cause);
-	}
-	
+    private static final long serialVersionUID = -3716015045363231263L;
+
+    public CityJSONBuilderException() {
+        super();
+    }
+
+    public CityJSONBuilderException(String message) {
+        super(message);
+    }
+
+    public CityJSONBuilderException(Throwable cause) {
+        super(cause);
+    }
+
+    public CityJSONBuilderException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

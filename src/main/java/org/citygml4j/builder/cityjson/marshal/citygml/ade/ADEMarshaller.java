@@ -82,18 +82,14 @@ public class ADEMarshaller {
                         }
 
                         parent.addChild(cityObject);
-                    }
-
-                    else if (extension instanceof ExtensionAttribute) {
+                    } else if (extension instanceof ExtensionAttribute) {
                         ExtensionAttribute attribute = (ExtensionAttribute) extension;
                         if (parent instanceof AbstractCityObjectType)
                             ((AbstractCityObjectType) parent).getAttributes().addExtensionAttribute(attribute.getName(), attribute.getValue());
                         else if (parent instanceof SemanticsType) {
                             ((SemanticsType) parent).addAttribute(attribute.getName(), attribute.getValue());
                         }
-                    }
-
-                    else if (extension instanceof ExtensionProperty) {
+                    } else if (extension instanceof ExtensionProperty) {
                         ExtensionProperty property = (ExtensionProperty) extension;
                         if (parent instanceof AbstractCityObjectType)
                             ((AbstractCityObjectType) parent).addExtensionProperty(property.getName(), property.getValue());

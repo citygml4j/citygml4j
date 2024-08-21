@@ -36,99 +36,99 @@ import javax.xml.namespace.QName;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LandUse200Unmarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final LandUseModule module = LandUseModule.v2_0_0;
-	private final JAXBUnmarshaller jaxb;
-	private final CityGMLUnmarshaller citygml;
-	private CheckedTypeMapper<CityGML> typeMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final LandUseModule module = LandUseModule.v2_0_0;
+    private final JAXBUnmarshaller jaxb;
+    private final CityGMLUnmarshaller citygml;
+    private CheckedTypeMapper<CityGML> typeMapper;
 
-	public LandUse200Unmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		jaxb = citygml.getJAXBUnmarshaller();
-	}
+    public LandUse200Unmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        jaxb = citygml.getJAXBUnmarshaller();
+    }
 
-	private CheckedTypeMapper<CityGML> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = CheckedTypeMapper.<CityGML>create()
-							.with(LandUseType.class, this::unmarshalLandUse)
-							.with(JAXBElement.class, this::unmarshal);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private CheckedTypeMapper<CityGML> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = CheckedTypeMapper.<CityGML>create()
+                            .with(LandUseType.class, this::unmarshalLandUse)
+                            .with(JAXBElement.class, this::unmarshal);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return typeMapper;
-	}
+        return typeMapper;
+    }
 
-	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		return unmarshal(src.getValue());
-	}
+    public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+        return unmarshal(src.getValue());
+    }
 
-	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return getTypeMapper().apply(src);
-	}
+    public CityGML unmarshal(Object src) throws MissingADESchemaException {
+        return getTypeMapper().apply(src);
+    }
 
-	public void unmarshalLandUse(LandUseType src, LandUse dest) throws MissingADESchemaException {
-		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
+    public void unmarshalLandUse(LandUseType src, LandUse dest) throws MissingADESchemaException {
+        citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
-		if (src.isSetClazz())
-			dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
+        if (src.isSetClazz())
+            dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
 
-		if (src.isSetFunction()) {
-			for (CodeType function : src.getFunction())
-				dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
-		}
+        if (src.isSetFunction()) {
+            for (CodeType function : src.getFunction())
+                dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
+        }
 
-		if (src.isSetUsage()) {
-			for (CodeType usage : src.getUsage())
-				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
-		}
+        if (src.isSetUsage()) {
+            for (CodeType usage : src.getUsage())
+                dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
+        }
 
-		if (src.isSetLod0MultiSurface())
-			dest.setLod0MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod0MultiSurface()));
+        if (src.isSetLod0MultiSurface())
+            dest.setLod0MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod0MultiSurface()));
 
-		if (src.isSetLod1MultiSurface())
-			dest.setLod1MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod1MultiSurface()));
+        if (src.isSetLod1MultiSurface())
+            dest.setLod1MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod1MultiSurface()));
 
-		if (src.isSetLod2MultiSurface())
-			dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
+        if (src.isSetLod2MultiSurface())
+            dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
 
-		if (src.isSetLod3MultiSurface())
-			dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
+        if (src.isSetLod3MultiSurface())
+            dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
 
-		if (src.isSetLod4MultiSurface())
-			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+        if (src.isSetLod4MultiSurface())
+            dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 
-		if (src.isSet_GenericApplicationPropertyOfLandUse()) {
-			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfLandUse()) {
-				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
-				if (ade != null)
-					dest.addGenericApplicationPropertyOfLandUse(ade);
-			}
-		}
-	}
+        if (src.isSet_GenericApplicationPropertyOfLandUse()) {
+            for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfLandUse()) {
+                ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+                if (ade != null)
+                    dest.addGenericApplicationPropertyOfLandUse(ade);
+            }
+        }
+    }
 
-	public LandUse unmarshalLandUse(LandUseType src) throws MissingADESchemaException {
-		LandUse dest = new LandUse(module);
-		unmarshalLandUse(src, dest);
+    public LandUse unmarshalLandUse(LandUseType src) throws MissingADESchemaException {
+        LandUse dest = new LandUse(module);
+        unmarshalLandUse(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
-		String name = substitutionGroup.getLocalPart();
-		boolean success = true;
+    public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
+        String name = substitutionGroup.getLocalPart();
+        boolean success = true;
 
-		if (dest instanceof LandUse && name.equals("_GenericApplicationPropertyOfLandUse"))
-			((LandUse)dest).addGenericApplicationPropertyOfLandUse(genericProperty);
-		else 
-			success = false;
+        if (dest instanceof LandUse && name.equals("_GenericApplicationPropertyOfLandUse"))
+            ((LandUse) dest).addGenericApplicationPropertyOfLandUse(genericProperty);
+        else
+            success = false;
 
-		return success;
-	}
+        return success;
+    }
 
 }

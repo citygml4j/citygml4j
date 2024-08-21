@@ -24,7 +24,7 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public enum CurveInterpolation implements GML, Copyable {
-	LINEAR("linear"),
+    LINEAR("linear"),
     GEODESIC("geodesic"),
     CIRCULAR_ARC_3_POINTS("circularArc3Points"),
     CIRCULAR_ARC_2_POINT_WITH_BULGE("circularArc2PointWithBulge"),
@@ -35,9 +35,9 @@ public enum CurveInterpolation implements GML, Copyable {
     POLYNOMIAL_SPLINE("polynomialSpline"),
     CUBIC_SPLINE("cubicSpline"),
     RATIONAL_SPLINE("rationalSpline");
-	
+
     private final String value;
-    
+
     CurveInterpolation(String v) {
         value = v;
     }
@@ -47,8 +47,8 @@ public enum CurveInterpolation implements GML, Copyable {
     }
 
     public static CurveInterpolation fromValue(String v) {
-    	v = v.trim();
-    	
+        v = v.trim();
+
         for (CurveInterpolation c : CurveInterpolation.values())
             if (c.value.equals(v))
                 return c;
@@ -56,19 +56,19 @@ public enum CurveInterpolation implements GML, Copyable {
         return LINEAR;
     }
 
-	public String toString() {
-		return value;
-	}
+    public String toString() {
+        return value;
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.CURVE_INTERPOLATION;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.CURVE_INTERPOLATION;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? LINEAR : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? LINEAR : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
 }

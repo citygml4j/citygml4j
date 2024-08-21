@@ -35,80 +35,80 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ADEUnmarshaller {
-	private final JAXBUnmarshaller jaxb;
-	private Map<String, org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller> unmarshallers;
+    private final JAXBUnmarshaller jaxb;
+    private Map<String, org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller> unmarshallers;
 
-	public ADEUnmarshaller(JAXBUnmarshaller jaxb) {
-		this.jaxb = jaxb;
+    public ADEUnmarshaller(JAXBUnmarshaller jaxb) {
+        this.jaxb = jaxb;
 
-		CityGMLContext context = CityGMLContext.getInstance();
-		if (context.hasADEContexts()) {
-			this.unmarshallers = new HashMap<>();
-			ADEUnmarshallerHelper helper = new ADEUnmarshallerHelper(jaxb);
+        CityGMLContext context = CityGMLContext.getInstance();
+        if (context.hasADEContexts()) {
+            this.unmarshallers = new HashMap<>();
+            ADEUnmarshallerHelper helper = new ADEUnmarshallerHelper(jaxb);
 
-			for (ADEContext adeContext : context.getADEContexts()) {
-				org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = adeContext.createADEUnmarshaller();
-				if (unmarshaller != null) {
-					unmarshaller.setADEUnmarshallerHelper(helper);
-					for (ADEModule module : adeContext.getADEModules())
-						this.unmarshallers.put(module.getNamespaceURI(), unmarshaller);
-				}
-			}
-		}
-	}
+            for (ADEContext adeContext : context.getADEContexts()) {
+                org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = adeContext.createADEUnmarshaller();
+                if (unmarshaller != null) {
+                    unmarshaller.setADEUnmarshallerHelper(helper);
+                    for (ADEModule module : adeContext.getADEModules())
+                        this.unmarshallers.put(module.getNamespaceURI(), unmarshaller);
+                }
+            }
+        }
+    }
 
-	public ADEGenericElement unmarshal(Element element) throws MissingADESchemaException {
-		if (jaxb.isSkipGenericADEContent())
-			return null;
+    public ADEGenericElement unmarshal(Element element) throws MissingADESchemaException {
+        if (jaxb.isSkipGenericADEContent())
+            return null;
 
-		if (jaxb.isParseSchema()) {
-			try {
-				jaxb.getSchemaHandler().parseSchema(element);
-				jaxb.getSchemaHandler().parseSchema(element.getNamespaceURI(), null);
-			} catch (SAXException e) {
-				// 
-			}
-		}
+        if (jaxb.isParseSchema()) {
+            try {
+                jaxb.getSchemaHandler().parseSchema(element);
+                jaxb.getSchemaHandler().parseSchema(element.getNamespaceURI(), null);
+            } catch (SAXException e) {
+                //
+            }
+        }
 
-		try {
-			jaxb.getSchemaHandler().resolveAndParseSchema(element.getNamespaceURI());
-		} catch (SAXException e) {
-			// 
-		} catch (MissingADESchemaException e) {
-			if (jaxb.isThrowMissingADESchema())
-				throw e;
-		}
+        try {
+            jaxb.getSchemaHandler().resolveAndParseSchema(element.getNamespaceURI());
+        } catch (SAXException e) {
+            //
+        } catch (MissingADESchemaException e) {
+            if (jaxb.isThrowMissingADESchema())
+                throw e;
+        }
 
-		return new ADEGenericElement(element);
-	}
+        return new ADEGenericElement(element);
+    }
 
-	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		if (unmarshallers != null) {
-			org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = unmarshallers.get(src.getName().getNamespaceURI());
-			if (unmarshaller != null) {
-				ADEModelObject ade = unmarshaller.unmarshal(src);
+    public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+        if (unmarshallers != null) {
+            org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller = unmarshallers.get(src.getName().getNamespaceURI());
+            if (unmarshaller != null) {
+                ADEModelObject ade = unmarshaller.unmarshal(src);
 
-				// set ADE module information
-				if (ade instanceof AbstractFeature && !((AbstractFeature) ade).isSetModule())
-					((AbstractFeature) ade).setModule(Modules.getModule(src.getName().getNamespaceURI()));
+                // set ADE module information
+                if (ade instanceof AbstractFeature && !((AbstractFeature) ade).isSetModule())
+                    ((AbstractFeature) ade).setModule(Modules.getModule(src.getName().getNamespaceURI()));
 
-				return ade;
-			}
-		}
+                return ade;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException {
-		if (unmarshallers != null) {
-			for (org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller : unmarshallers.values()) {
-				ADEModelObject ade = unmarshaller.unmarshal(src);
-				if (ade != null)
-					return ade;
-			}
-		}
+    public ADEModelObject unmarshal(Object src) throws MissingADESchemaException {
+        if (unmarshallers != null) {
+            for (org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller unmarshaller : unmarshallers.values()) {
+                ADEModelObject ade = unmarshaller.unmarshal(src);
+                if (ade != null)
+                    return ade;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

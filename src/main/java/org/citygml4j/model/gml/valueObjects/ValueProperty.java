@@ -24,49 +24,49 @@ import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class ValueProperty extends AssociationByRepOrRef<Value> {
 
-	public ValueProperty() {
+    public ValueProperty() {
 
-	}
+    }
 
-	public ValueProperty(Value value) {
-		super(value);
-	}
+    public ValueProperty(Value value) {
+        super(value);
+    }
 
-	public ValueProperty(String href) {
-		super(href);
-	}
+    public ValueProperty(String href) {
+        super(href);
+    }
 
-	public Value getValue() {
-		return super.getObject();
-	}
+    public Value getValue() {
+        return super.getObject();
+    }
 
-	public boolean isSetValue() {
-		return super.isSetObject();
-	}
+    public boolean isSetValue() {
+        return super.isSetObject();
+    }
 
-	public void setValue(Value value) {
-		super.setObject(value);
-	}
+    public void setValue(Value value) {
+        super.setObject(value);
+    }
 
-	public void unsetValue() {
-		super.unsetObject();
-	}
+    public void unsetValue() {
+        super.unsetObject();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.VALUE_PROPERTY;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.VALUE_PROPERTY;
+    }
 
-	public Class<Value> getAssociableClass() {
-		return Value.class;
-	}
+    public Class<Value> getAssociableClass() {
+        return Value.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ValueProperty copy = (target == null) ? new ValueProperty() : (ValueProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ValueProperty copy = (target == null) ? new ValueProperty() : (ValueProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ValueProperty(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ValueProperty(), copyBuilder);
+    }
 
 }

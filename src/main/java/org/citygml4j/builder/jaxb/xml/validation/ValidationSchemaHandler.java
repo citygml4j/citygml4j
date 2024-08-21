@@ -27,34 +27,34 @@ import javax.xml.validation.SchemaFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ValidationSchemaHandler {
-	private final SchemaFactory schemaFactory;
-	private final AtomicInteger size = new AtomicInteger(-1);
+    private final SchemaFactory schemaFactory;
+    private final AtomicInteger size = new AtomicInteger(-1);
 
-	private SchemaHandler schemaHandler;
-	private Schema schema;
+    private SchemaHandler schemaHandler;
+    private Schema schema;
 
-	public ValidationSchemaHandler(SchemaHandler schemaHandler) {
-		this.schemaHandler = schemaHandler;
-		schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-	}
-	
-	public Schema getSchema() throws SAXException {
-		int currentSize = size.get();
-		if (currentSize != schemaHandler.size() && size.compareAndSet(currentSize, schemaHandler.size()))
-			schema = schemaFactory.newSchema(schemaHandler.getSchemaSources());
-		
-		return schema;
-	}
-	
-	public SchemaHandler getSchemaHandler() {
-		return schemaHandler;
-	}
-	
-	public void setSchemaHandler(SchemaHandler schemaHandler) {
-		if (schemaHandler == null)
-			throw new IllegalArgumentException("schema handler may not be null.");
+    public ValidationSchemaHandler(SchemaHandler schemaHandler) {
+        this.schemaHandler = schemaHandler;
+        schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    }
 
-		this.schemaHandler = schemaHandler;
-		size.set(-1);
-	}
+    public Schema getSchema() throws SAXException {
+        int currentSize = size.get();
+        if (currentSize != schemaHandler.size() && size.compareAndSet(currentSize, schemaHandler.size()))
+            schema = schemaFactory.newSchema(schemaHandler.getSchemaSources());
+
+        return schema;
+    }
+
+    public SchemaHandler getSchemaHandler() {
+        return schemaHandler;
+    }
+
+    public void setSchemaHandler(SchemaHandler schemaHandler) {
+        if (schemaHandler == null)
+            throw new IllegalArgumentException("schema handler may not be null.");
+
+        this.schemaHandler = schemaHandler;
+        size.set(-1);
+    }
 }

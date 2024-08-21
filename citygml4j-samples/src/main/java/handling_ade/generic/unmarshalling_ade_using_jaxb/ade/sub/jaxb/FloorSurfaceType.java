@@ -36,9 +36,9 @@ import java.util.List;
 
 /**
  * <p>Java-Klasse für FloorSurfaceType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="FloorSurfaceType">
  *   &lt;complexContent>
@@ -50,40 +50,35 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "FloorSurfaceType", propOrder = {
-    "_GenericApplicationPropertyOfFloorSurface"
+        "_GenericApplicationPropertyOfFloorSurface"
 })
 public class FloorSurfaceType
-    extends AbstractBoundarySurfaceType
-{
+        extends AbstractBoundarySurfaceType {
 
     protected List<Object> _GenericApplicationPropertyOfFloorSurface;
 
     /**
      * Gets the value of the genericApplicationPropertyOfFloorSurface property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfFloorSurface property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfFloorSurface().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfFloorSurface() {
         if (_GenericApplicationPropertyOfFloorSurface == null) {
@@ -93,7 +88,7 @@ public class FloorSurfaceType
     }
 
     public boolean isSet_GenericApplicationPropertyOfFloorSurface() {
-        return ((this._GenericApplicationPropertyOfFloorSurface!= null)&&(!this._GenericApplicationPropertyOfFloorSurface.isEmpty()));
+        return ((this._GenericApplicationPropertyOfFloorSurface != null) && (!this._GenericApplicationPropertyOfFloorSurface.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfFloorSurface() {

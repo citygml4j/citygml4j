@@ -27,62 +27,62 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GenericsModule extends AbstractCityGMLModule {
-	private static final List<GenericsModule> instances = new ArrayList<GenericsModule>();
+    private static final List<GenericsModule> instances = new ArrayList<GenericsModule>();
 
-	public static final GenericsModule v2_0_0;
-	public static final GenericsModule v1_0_0;
+    public static final GenericsModule v2_0_0;
+    public static final GenericsModule v1_0_0;
 
-	private GenericsModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);		
-		instances.add(this);
-	}
+    private GenericsModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0_0 = new GenericsModule (
-				CityGMLModuleType.GENERICS,
-				CityGMLModuleVersion.v2_0_0,
-				"http://www.opengis.net/citygml/generics/2.0",
-				"gen",
-				"http://schemas.opengis.net/citygml/generics/2.0/generics.xsd",			
-				CoreModule.v2_0_0);
-		
-		v1_0_0 = new GenericsModule (
-				CityGMLModuleType.GENERICS,
-				CityGMLModuleVersion.v1_0_0,
-				"http://www.opengis.net/citygml/generics/1.0",
-				"gen",
-				"http://schemas.opengis.net/citygml/generics/1.0/generics.xsd",			
-				CoreModule.v1_0_0);
+    static {
+        v2_0_0 = new GenericsModule(
+                CityGMLModuleType.GENERICS,
+                CityGMLModuleVersion.v2_0_0,
+                "http://www.opengis.net/citygml/generics/2.0",
+                "gen",
+                "http://schemas.opengis.net/citygml/generics/2.0/generics.xsd",
+                CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
-		v2_0_0.features.put("GenericCityObject", GenericCityObject.class);
-		v1_0_0.features = v2_0_0.features;
-	}
+        v1_0_0 = new GenericsModule(
+                CityGMLModuleType.GENERICS,
+                CityGMLModuleVersion.v1_0_0,
+                "http://www.opengis.net/citygml/generics/1.0",
+                "gen",
+                "http://schemas.opengis.net/citygml/generics/1.0/generics.xsd",
+                CoreModule.v1_0_0);
 
-	public static List<GenericsModule> getInstances() {
-		return instances;
-	}
-	
-	public static GenericsModule getInstance(CityGMLModuleVersion version) {
-		switch (version) {
-		case v2_0_0:
-			return v2_0_0;
-		case v1_0_0:
-			return v1_0_0;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return "GenericCityObject".equals(name);
-	}
+        v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
+        v2_0_0.features.put("GenericCityObject", GenericCityObject.class);
+        v1_0_0.features = v2_0_0.features;
+    }
+
+    public static List<GenericsModule> getInstances() {
+        return instances;
+    }
+
+    public static GenericsModule getInstance(CityGMLModuleVersion version) {
+        switch (version) {
+            case v2_0_0:
+                return v2_0_0;
+            case v1_0_0:
+                return v1_0_0;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return "GenericCityObject".equals(name);
+    }
 
 }

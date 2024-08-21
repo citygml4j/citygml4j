@@ -26,126 +26,126 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class AddressIdentifier implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String identifierType;
-	private String type;
-	private String code;
-	private ModelObject parent;
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String identifierType;
+    private String type;
+    private String code;
+    private ModelObject parent;
 
-	public String getIdentifierType() {
-		return identifierType;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getIdentifierType() {
+        return identifierType;
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetIdentifierType() {
-		return identifierType != null;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetIdentifierType() {
+        return identifierType != null;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setIdentifierType(String identifierType) {
-		this.identifierType = identifierType;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setIdentifierType(String identifierType) {
+        this.identifierType = identifierType;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetIdentifierType() {
-		identifierType = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetIdentifierType() {
+        identifierType = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.ADDRESS_IDENTIFIER;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.ADDRESS_IDENTIFIER;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new AddressIdentifier(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		AddressIdentifier copy = (target == null) ? new AddressIdentifier() : (AddressIdentifier)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetIdentifierType())
-			copy.setIdentifierType(copyBuilder.copy(identifierType));
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new AddressIdentifier(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        AddressIdentifier copy = (target == null) ? new AddressIdentifier() : (AddressIdentifier) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetIdentifierType())
+            copy.setIdentifierType(copyBuilder.copy(identifierType));
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

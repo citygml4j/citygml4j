@@ -29,93 +29,93 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GridEnvelope implements GML, Child, Copyable {
-	private List<Integer> low;
-	private List<Integer> high;
-	private ModelObject parent;
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.GRID_ENVELOPE;
-	}
+    private List<Integer> low;
+    private List<Integer> high;
+    private ModelObject parent;
 
-	public List<Integer> getLow() {
-		if (low == null)
-			low = new ArrayList<>();
-		
-		return low;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.GRID_ENVELOPE;
+    }
 
-	public List<Integer> getHigh() {
-		if (high == null)
-			high = new ArrayList<>();
-		
-		return high;
-	}
+    public List<Integer> getLow() {
+        if (low == null)
+            low = new ArrayList<>();
 
-	public boolean isSetLow() {
-		return low != null && !low.isEmpty();
-	}
+        return low;
+    }
 
-	public boolean isSetHigh() {
-		return high != null && !high.isEmpty();
-	}
+    public List<Integer> getHigh() {
+        if (high == null)
+            high = new ArrayList<>();
 
-	public void addLow(Integer low) {
-		getLow().add(low);
-	}
+        return high;
+    }
 
-	public void addHigh(Integer high) {
-		getHigh().add(high);
-	}
+    public boolean isSetLow() {
+        return low != null && !low.isEmpty();
+    }
 
-	public void setLow(List<Integer> low) {
-		this.low = low;
-	}
+    public boolean isSetHigh() {
+        return high != null && !high.isEmpty();
+    }
 
-	public void setHigh(List<Integer> high) {
-		this.high = high;
-	}
+    public void addLow(Integer low) {
+        getLow().add(low);
+    }
 
-	public void unsetLow() {
-		low = null;
-	}
+    public void addHigh(Integer high) {
+        getHigh().add(high);
+    }
 
-	public void unsetHigh() {
-		high = null;
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setLow(List<Integer> low) {
+        this.low = low;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setHigh(List<Integer> high) {
+        this.high = high;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void unsetLow() {
+        low = null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GridEnvelope copy = (target == null) ? new GridEnvelope() : (GridEnvelope)target;
-		
-		if (isSetLow())
-			copy.setLow((List<Integer>)copyBuilder.copy(low));
-		
-		if (isSetHigh())
-			copy.setHigh((List<Integer>)copyBuilder.copy(high));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetHigh() {
+        high = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GridEnvelope(), copyBuilder);
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GridEnvelope copy = (target == null) ? new GridEnvelope() : (GridEnvelope) target;
+
+        if (isSetLow())
+            copy.setLow((List<Integer>) copyBuilder.copy(low));
+
+        if (isSetHigh())
+            copy.setHigh((List<Integer>) copyBuilder.copy(high));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GridEnvelope(), copyBuilder);
+    }
 
 }

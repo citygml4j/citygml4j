@@ -38,52 +38,52 @@ import java.util.TreeMap;
 
 public class SimpleReader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityJSONBuilder builder = ctx.createCityJSONBuilder();
-		
-		System.out.println(df.format(new Date()) + "reading CityJSON file LOD3_Railway.json completely into main memory");
-		CityJSONInputFactory in = builder.createCityJSONInputFactory();
-		CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityJSONBuilder builder = ctx.createCityJSONBuilder();
 
-		CityModel cityModel = reader.read();
-		reader.close();
+        System.out.println(df.format(new Date()) + "reading CityJSON file LOD3_Railway.json completely into main memory");
+        CityJSONInputFactory in = builder.createCityJSONInputFactory();
+        CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
 
-		final Map<CityGMLClass, Integer> features = new TreeMap<>();
-		final Map<GMLClass, Integer> geometries = new TreeMap<>();
+        CityModel cityModel = reader.read();
+        reader.close();
 
-		System.out.println(df.format(new Date()) + "walking through document and counting features/geometries");
-		cityModel.accept(new GMLWalker() {
+        final Map<CityGMLClass, Integer> features = new TreeMap<>();
+        final Map<GMLClass, Integer> geometries = new TreeMap<>();
 
-			@Override
-			public void visit(AbstractFeature abstractFeature) {
-				if (abstractFeature instanceof CityGML) {
-					CityGMLClass key = ((CityGML)abstractFeature).getCityGMLClass();
-					features.merge(key, 1, Integer::sum);
-				}				
-					
-				super.visit(abstractFeature);
-			}
-			
-			@Override
-			public void visit(AbstractGeometry abstractGeometry) {
-				GMLClass key = abstractGeometry.getGMLClass();
-				geometries.merge(key, 1, Integer::sum);
-				super.visit(abstractGeometry);
-			}
-		});
+        System.out.println(df.format(new Date()) + "walking through document and counting features/geometries");
+        cityModel.accept(new GMLWalker() {
 
-		System.out.println(df.format(new Date()) + "The following content was read from LOD3_Railway.json:");
-		System.out.println("Features:");
-		features.forEach((key, value) -> System.out.println(key + ": " + value));
+            @Override
+            public void visit(AbstractFeature abstractFeature) {
+                if (abstractFeature instanceof CityGML) {
+                    CityGMLClass key = ((CityGML) abstractFeature).getCityGMLClass();
+                    features.merge(key, 1, Integer::sum);
+                }
 
-		System.out.println("\nGeometries:");
-		geometries.forEach((key, value) -> System.out.println(key + ": " + value));
+                super.visit(abstractFeature);
+            }
 
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");		
-	}
+            @Override
+            public void visit(AbstractGeometry abstractGeometry) {
+                GMLClass key = abstractGeometry.getGMLClass();
+                geometries.merge(key, 1, Integer::sum);
+                super.visit(abstractGeometry);
+            }
+        });
+
+        System.out.println(df.format(new Date()) + "The following content was read from LOD3_Railway.json:");
+        System.out.println("Features:");
+        features.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        System.out.println("\nGeometries:");
+        geometries.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

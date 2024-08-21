@@ -30,113 +30,113 @@ import org.citygml4j.model.module.Module;
 import java.util.List;
 
 public class TexCoordList extends AbstractTextureParameterization {
-	private List<TextureCoordinates> textureCoordinates;
-	private List<ADEComponent> ade;
+    private List<TextureCoordinates> textureCoordinates;
+    private List<ADEComponent> ade;
 
-	public TexCoordList() {
+    public TexCoordList() {
 
-	}
+    }
 
-	public TexCoordList(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfTexCoordList(ADEComponent ade) {
-		getGenericApplicationPropertyOfTexCoordList().add(ade);
-	}
+    public TexCoordList(Module module) {
+        super(module);
+    }
 
-	public void addTextureCoordinates(TextureCoordinates textureCoordinates) {
-		getTextureCoordinates().add(textureCoordinates);
-	}
+    public void addGenericApplicationPropertyOfTexCoordList(ADEComponent ade) {
+        getGenericApplicationPropertyOfTexCoordList().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordList() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public void addTextureCoordinates(TextureCoordinates textureCoordinates) {
+        getTextureCoordinates().add(textureCoordinates);
+    }
 
-		return ade;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfTexCoordList() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public List<TextureCoordinates> getTextureCoordinates() {
-		if (textureCoordinates == null)
-			textureCoordinates = new ChildList<>(this);
+        return ade;
+    }
 
-		return textureCoordinates;
-	}
+    public List<TextureCoordinates> getTextureCoordinates() {
+        if (textureCoordinates == null)
+            textureCoordinates = new ChildList<>(this);
 
-	public boolean isSetGenericApplicationPropertyOfTexCoordList() {
-		return ade != null && !ade.isEmpty();
-	}
+        return textureCoordinates;
+    }
 
-	public boolean isSetTextureCoordinates() {
-		return textureCoordinates != null && !textureCoordinates.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfTexCoordList() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setGenericApplicationPropertyOfTexCoordList(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetTextureCoordinates() {
+        return textureCoordinates != null && !textureCoordinates.isEmpty();
+    }
 
-	public void setTextureCoordinates(List<TextureCoordinates> textureCoordinates) {
-		this.textureCoordinates = new ChildList<>(this, textureCoordinates);
-	}
+    public void setGenericApplicationPropertyOfTexCoordList(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void unsetGenericApplicationPropertyOfTexCoordList() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setTextureCoordinates(List<TextureCoordinates> textureCoordinates) {
+        this.textureCoordinates = new ChildList<>(this, textureCoordinates);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfTexCoordList(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTexCoordList() && this.ade.remove(ade);
-	}
+    public void unsetGenericApplicationPropertyOfTexCoordList() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public void unsetTextureCoordinates() {
-		textureCoordinates = ModelObjects.setNull(textureCoordinates);
-	}
+    public boolean unsetGenericApplicationPropertyOfTexCoordList(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfTexCoordList() && this.ade.remove(ade);
+    }
 
-	public boolean unsetTextureCoordinates(TextureCoordinates textureCoordinates) {
-		return isSetTextureCoordinates() && this.textureCoordinates.remove(textureCoordinates);
-	}
+    public void unsetTextureCoordinates() {
+        textureCoordinates = ModelObjects.setNull(textureCoordinates);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEX_COORD_LIST;
-	}
+    public boolean unsetTextureCoordinates(TextureCoordinates textureCoordinates) {
+        return isSetTextureCoordinates() && this.textureCoordinates.remove(textureCoordinates);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TexCoordList(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TEX_COORD_LIST;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TexCoordList copy = (target == null) ? new TexCoordList() : (TexCoordList)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetTextureCoordinates()) {
-			for (TextureCoordinates part : textureCoordinates) {
-				TextureCoordinates copyPart = (TextureCoordinates)copyBuilder.copy(part);
-				copy.addTextureCoordinates(copyPart);
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TexCoordList(), copyBuilder);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfTexCoordList()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfTexCoordList(copyPart);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TexCoordList copy = (target == null) ? new TexCoordList() : (TexCoordList) target;
+        super.copyTo(copy, copyBuilder);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetTextureCoordinates()) {
+            for (TextureCoordinates part : textureCoordinates) {
+                TextureCoordinates copyPart = (TextureCoordinates) copyBuilder.copy(part);
+                copy.addTextureCoordinates(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfTexCoordList()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfTexCoordList(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java-Klasse für RelativeToTerrainType.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
  * <p>
  * <pre>
@@ -48,7 +48,6 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
  */
 @XmlType(name = "RelativeToTerrainType")
 @XmlEnum
@@ -75,7 +74,7 @@ public enum RelativeToTerrainType {
     }
 
     public static RelativeToTerrainType fromValue(String v) {
-        for (RelativeToTerrainType c: RelativeToTerrainType.values()) {
+        for (RelativeToTerrainType c : RelativeToTerrainType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

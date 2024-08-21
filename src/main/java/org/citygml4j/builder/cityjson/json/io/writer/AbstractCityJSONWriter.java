@@ -40,163 +40,163 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractCityJSONWriter implements AutoCloseable {
-	protected final JsonWriter writer;
-	protected final CityJSONMarshaller marshaller;
-	protected final Gson gson;
-	private final CityJSONTypeAdapterFactory typeAdapterFactory;
+    protected final JsonWriter writer;
+    protected final CityJSONMarshaller marshaller;
+    protected final Gson gson;
+    private final CityJSONTypeAdapterFactory typeAdapterFactory;
 
-	protected MetadataType metadata;
-	protected Map<String, ExtensionType> extensions;
-	protected boolean calcBoundingBox = true;
-	protected boolean calcPresentLods = true;
+    protected MetadataType metadata;
+    protected Map<String, ExtensionType> extensions;
+    protected boolean calcBoundingBox = true;
+    protected boolean calcPresentLods = true;
 
-	public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
-		this.writer = writer;
+    public AbstractCityJSONWriter(JsonWriter writer, CityJSONOutputFactory factory) {
+        this.writer = writer;
 
-		marshaller = new CityJSONMarshaller();
-		marshaller.setRemoveDuplicateChildGeometries(factory.removeDuplicateChildGeometries);
-		marshaller.setGenerateCityGMLMetadata(factory.generateCityGMLMetadata);
-		marshaller.setUseMaterialDefaults(factory.useMaterialDefaults);
-		marshaller.setFallbackTheme(factory.fallbackTheme);
-		typeAdapterFactory = new CityJSONTypeAdapterFactory();
+        marshaller = new CityJSONMarshaller();
+        marshaller.setRemoveDuplicateChildGeometries(factory.removeDuplicateChildGeometries);
+        marshaller.setGenerateCityGMLMetadata(factory.generateCityGMLMetadata);
+        marshaller.setUseMaterialDefaults(factory.useMaterialDefaults);
+        marshaller.setFallbackTheme(factory.fallbackTheme);
+        typeAdapterFactory = new CityJSONTypeAdapterFactory();
 
-		gson = new GsonBuilder()
-				.registerTypeAdapterFactory(typeAdapterFactory)
-				.create();
-	}
+        gson = new GsonBuilder()
+                .registerTypeAdapterFactory(typeAdapterFactory)
+                .create();
+    }
 
-	public VerticesBuilder getVerticesBuilder() {
-		return marshaller.getVerticesBuilder();
-	}
+    public VerticesBuilder getVerticesBuilder() {
+        return marshaller.getVerticesBuilder();
+    }
 
-	public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
-		marshaller.setVerticesBuilder(verticesBuilder);
-	}
+    public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
+        marshaller.setVerticesBuilder(verticesBuilder);
+    }
 
-	public VerticesTransformer getVerticesTransformer() {
-		return marshaller.getVerticesTransformer();
-	}
+    public VerticesTransformer getVerticesTransformer() {
+        return marshaller.getVerticesTransformer();
+    }
 
-	public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
-		marshaller.setVerticesTransformer(verticesTransformer);
-		typeAdapterFactory.serializeVerticesAsInteger(true);
-	}
+    public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
+        marshaller.setVerticesTransformer(verticesTransformer);
+        typeAdapterFactory.serializeVerticesAsInteger(true);
+    }
 
-	public TextureVerticesBuilder getTextureVerticesBuilder() {
-		return marshaller.getTextureVerticesBuilder();
-	}
+    public TextureVerticesBuilder getTextureVerticesBuilder() {
+        return marshaller.getTextureVerticesBuilder();
+    }
 
-	public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
-		marshaller.setTextureVerticesBuilder(textureVerticesBuilder);
-	}
+    public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
+        marshaller.setTextureVerticesBuilder(textureVerticesBuilder);
+    }
 
-	public VerticesBuilder getTemplatesVerticesBuilder() {
-		return marshaller.getTemplatesVerticesBuilder();
-	}
+    public VerticesBuilder getTemplatesVerticesBuilder() {
+        return marshaller.getTemplatesVerticesBuilder();
+    }
 
-	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
-		marshaller.setTemplatesVerticesBuilder(templatesVerticesBuilder);
-	}
+    public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
+        marshaller.setTemplatesVerticesBuilder(templatesVerticesBuilder);
+    }
 
-	public TextureFileHandler getTextureFileHandler() {
-		return marshaller.getTextureFileHandler();
-	}
+    public TextureFileHandler getTextureFileHandler() {
+        return marshaller.getTextureFileHandler();
+    }
 
-	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
-		marshaller.setTextureFileHandler(textureFileHandler);
-	}
+    public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+        marshaller.setTextureFileHandler(textureFileHandler);
+    }
 
-	public MetadataType getMetadata() {
-		return metadata;
-	}
+    public MetadataType getMetadata() {
+        return metadata;
+    }
 
-	public void setMetadata(MetadataType metadata) {
-		this.metadata = metadata;
-	}
+    public void setMetadata(MetadataType metadata) {
+        this.metadata = metadata;
+    }
 
-	protected MetadataType getOrCreateMetadata() {
-		if (metadata == null) {
-			metadata = new MetadataType();
-		}
+    protected MetadataType getOrCreateMetadata() {
+        if (metadata == null) {
+            metadata = new MetadataType();
+        }
 
-		return metadata;
-	}
+        return metadata;
+    }
 
-	public void setExtension(String name, ExtensionType extension) {
-		if (extensions == null)
-			extensions = new HashMap<>();
+    public void setExtension(String name, ExtensionType extension) {
+        if (extensions == null)
+            extensions = new HashMap<>();
 
-		extensions.put(name, extension);
-	}
+        extensions.put(name, extension);
+    }
 
-	public void setExtensions(List<ADEContext> adeContexts) {
-		for (ADEContext adeContext : adeContexts) {
-			if (adeContext instanceof CityJSONExtensionContext) {
-				for (CityJSONExtensionModule module : ((CityJSONExtensionContext) adeContext).getCityJSONExtension().getExtensionModules()) {
-					if (module != null) {
-						String identifier = module.getIdentifier();
-						String schemaURI = module.getSchemaURI();
-						ExtensionModuleVersion version = module.getVersion();
+    public void setExtensions(List<ADEContext> adeContexts) {
+        for (ADEContext adeContext : adeContexts) {
+            if (adeContext instanceof CityJSONExtensionContext) {
+                for (CityJSONExtensionModule module : ((CityJSONExtensionContext) adeContext).getCityJSONExtension().getExtensionModules()) {
+                    if (module != null) {
+                        String identifier = module.getIdentifier();
+                        String schemaURI = module.getSchemaURI();
+                        ExtensionModuleVersion version = module.getVersion();
 
-						if (identifier != null && schemaURI != null && version != null) {
-							ExtensionType extension = new ExtensionType(schemaURI, version.getMajor(), version.getMinor());
-							setExtension(identifier, extension);
-						}
-					}
-				}
-			}
-		}
-	}
+                        if (identifier != null && schemaURI != null && version != null) {
+                            ExtensionType extension = new ExtensionType(schemaURI, version.getMajor(), version.getMinor());
+                            setExtension(identifier, extension);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	public void setIndent(String indent) {
-		writer.setIndent(indent);
-	}
-	
-	public boolean isHtmlSafe() {
-		return writer.isHtmlSafe();
-	}
-	
-	public void setHtmlSafe(boolean htmlSafe) {
-		writer.setHtmlSafe(htmlSafe);
-	}
-	
-	public CityJSONMarshaller getCityJSONMarshaller() {
-		return marshaller;
-	}
+    public void setIndent(String indent) {
+        writer.setIndent(indent);
+    }
 
-	public boolean isCalcBoundingBox() {
-		return calcBoundingBox;
-	}
+    public boolean isHtmlSafe() {
+        return writer.isHtmlSafe();
+    }
 
-	public void setCalcBoundingBox(boolean calcBoundingBox) {
-		this.calcBoundingBox = calcBoundingBox;
-	}
+    public void setHtmlSafe(boolean htmlSafe) {
+        writer.setHtmlSafe(htmlSafe);
+    }
 
-	public boolean isCalcPresentLods() {
-		return calcPresentLods;
-	}
+    public CityJSONMarshaller getCityJSONMarshaller() {
+        return marshaller;
+    }
 
-	public void setCalcPresentLods(boolean calcPresentLods) {
-		this.calcPresentLods = calcPresentLods;
-	}
+    public boolean isCalcBoundingBox() {
+        return calcBoundingBox;
+    }
 
-	public void flush() throws CityJSONWriteException {
-		try {
-			writer.flush();
-		} catch (IOException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
-	
-	public void close() throws CityJSONWriteException {
-		try {
-			marshaller.reset();
-			if (extensions != null)
-				extensions.clear();
+    public void setCalcBoundingBox(boolean calcBoundingBox) {
+        this.calcBoundingBox = calcBoundingBox;
+    }
 
-			writer.close();
-		} catch (IOException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
+    public boolean isCalcPresentLods() {
+        return calcPresentLods;
+    }
+
+    public void setCalcPresentLods(boolean calcPresentLods) {
+        this.calcPresentLods = calcPresentLods;
+    }
+
+    public void flush() throws CityJSONWriteException {
+        try {
+            writer.flush();
+        } catch (IOException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
+
+    public void close() throws CityJSONWriteException {
+        try {
+            marshaller.reset();
+            if (extensions != null)
+                extensions.clear();
+
+            writer.close();
+        } catch (IOException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
 }

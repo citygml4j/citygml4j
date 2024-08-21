@@ -40,196 +40,196 @@ import javax.xml.namespace.QName;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Vegetation200Unmarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final VegetationModule module = VegetationModule.v2_0_0;
-	private final JAXBUnmarshaller jaxb;
-	private final CityGMLUnmarshaller citygml;
-	private CheckedTypeMapper<CityGML> typeMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final VegetationModule module = VegetationModule.v2_0_0;
+    private final JAXBUnmarshaller jaxb;
+    private final CityGMLUnmarshaller citygml;
+    private CheckedTypeMapper<CityGML> typeMapper;
 
-	public Vegetation200Unmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		jaxb = citygml.getJAXBUnmarshaller();
-	}
+    public Vegetation200Unmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        jaxb = citygml.getJAXBUnmarshaller();
+    }
 
-	private CheckedTypeMapper<CityGML> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = CheckedTypeMapper.<CityGML>create()
-							.with(PlantCoverType.class, this::unmarshalPlantCover)
-							.with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject)
-							.with(JAXBElement.class, this::unmarshal);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private CheckedTypeMapper<CityGML> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = CheckedTypeMapper.<CityGML>create()
+                            .with(PlantCoverType.class, this::unmarshalPlantCover)
+                            .with(SolitaryVegetationObjectType.class, this::unmarshalSolitaryVegetationObject)
+                            .with(JAXBElement.class, this::unmarshal);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return typeMapper;
-	}
+        return typeMapper;
+    }
 
-	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		return unmarshal(src.getValue());
-	}
+    public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+        return unmarshal(src.getValue());
+    }
 
-	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return getTypeMapper().apply(src);
-	}
+    public CityGML unmarshal(Object src) throws MissingADESchemaException {
+        return getTypeMapper().apply(src);
+    }
 
-	public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
-		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
+    public void unmarshalAbstractVegetationObject(AbstractVegetationObjectType src, AbstractVegetationObject dest) throws MissingADESchemaException {
+        citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
-		if (src.isSet_GenericApplicationPropertyOfVegetationObject()) {
-			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfVegetationObject()) {
-				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
-				if (ade != null)
-					dest.addGenericApplicationPropertyOfVegetationObject(ade);
-			}
-		}
-	}
+        if (src.isSet_GenericApplicationPropertyOfVegetationObject()) {
+            for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfVegetationObject()) {
+                ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+                if (ade != null)
+                    dest.addGenericApplicationPropertyOfVegetationObject(ade);
+            }
+        }
+    }
 
-	public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) throws MissingADESchemaException {
-		unmarshalAbstractVegetationObject(src, dest);
+    public void unmarshalPlantCover(PlantCoverType src, PlantCover dest) throws MissingADESchemaException {
+        unmarshalAbstractVegetationObject(src, dest);
 
-		if (src.isSetClazz())
-			dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
+        if (src.isSetClazz())
+            dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
 
-		if (src.isSetFunction()) {
-			for (CodeType function : src.getFunction())
-				dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
-		}
+        if (src.isSetFunction()) {
+            for (CodeType function : src.getFunction())
+                dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
+        }
 
-		if (src.isSetUsage()) {
-			for (CodeType usage : src.getUsage())
-				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
-		}
+        if (src.isSetUsage()) {
+            for (CodeType usage : src.getUsage())
+                dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
+        }
 
-		if (src.isSetAverageHeight())
-			dest.setAverageHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getAverageHeight()));
+        if (src.isSetAverageHeight())
+            dest.setAverageHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getAverageHeight()));
 
-		if (src.isSetLod1MultiSurface())
-			dest.setLod1MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod1MultiSurface()));
+        if (src.isSetLod1MultiSurface())
+            dest.setLod1MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod1MultiSurface()));
 
-		if (src.isSetLod2MultiSurface())
-			dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
+        if (src.isSetLod2MultiSurface())
+            dest.setLod2MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod2MultiSurface()));
 
-		if (src.isSetLod3MultiSurface())
-			dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
+        if (src.isSetLod3MultiSurface())
+            dest.setLod3MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod3MultiSurface()));
 
-		if (src.isSetLod4MultiSurface())
-			dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+        if (src.isSetLod4MultiSurface())
+            dest.setLod4MultiSurface(jaxb.getGMLUnmarshaller().unmarshalMultiSurfaceProperty(src.getLod4MultiSurface()));
 
-		if (src.isSetLod1MultiSolid())
-			dest.setLod1MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod1MultiSolid()));
+        if (src.isSetLod1MultiSolid())
+            dest.setLod1MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod1MultiSolid()));
 
-		if (src.isSetLod2MultiSolid())
-			dest.setLod2MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod2MultiSolid()));
+        if (src.isSetLod2MultiSolid())
+            dest.setLod2MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod2MultiSolid()));
 
-		if (src.isSetLod3MultiSolid())
-			dest.setLod3MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod3MultiSolid()));	
+        if (src.isSetLod3MultiSolid())
+            dest.setLod3MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod3MultiSolid()));
 
-		if (src.isSetLod4MultiSolid())
-			dest.setLod4MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod4MultiSolid()));
+        if (src.isSetLod4MultiSolid())
+            dest.setLod4MultiSolid(jaxb.getGMLUnmarshaller().unmarshalMultiSolidProperty(src.getLod4MultiSolid()));
 
-		if (src.isSet_GenericApplicationPropertyOfPlantCover()) {
-			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfPlantCover()) {
-				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
-				if (ade != null)
-					dest.addGenericApplicationPropertyOfPlantCover(ade);
-			}
-		}
-	}
+        if (src.isSet_GenericApplicationPropertyOfPlantCover()) {
+            for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfPlantCover()) {
+                ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+                if (ade != null)
+                    dest.addGenericApplicationPropertyOfPlantCover(ade);
+            }
+        }
+    }
 
-	public PlantCover unmarshalPlantCover(PlantCoverType src) throws MissingADESchemaException {
-		PlantCover dest = new PlantCover(module);
-		unmarshalPlantCover(src, dest);
+    public PlantCover unmarshalPlantCover(PlantCoverType src) throws MissingADESchemaException {
+        PlantCover dest = new PlantCover(module);
+        unmarshalPlantCover(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest) throws MissingADESchemaException {
-		unmarshalAbstractVegetationObject(src, dest);
+    public void unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src, SolitaryVegetationObject dest) throws MissingADESchemaException {
+        unmarshalAbstractVegetationObject(src, dest);
 
-		if (src.isSetClazz())
-			dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
+        if (src.isSetClazz())
+            dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
 
-		if (src.isSetFunction()) {
-			for (CodeType function : src.getFunction())
-				dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
-		}
+        if (src.isSetFunction()) {
+            for (CodeType function : src.getFunction())
+                dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
+        }
 
-		if (src.isSetUsage()) {
-			for (CodeType usage : src.getUsage())
-				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
-		}
+        if (src.isSetUsage()) {
+            for (CodeType usage : src.getUsage())
+                dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
+        }
 
-		if (src.isSetSpecies())
-			dest.setSpecies(jaxb.getGMLUnmarshaller().unmarshalCode(src.getSpecies()));
+        if (src.isSetSpecies())
+            dest.setSpecies(jaxb.getGMLUnmarshaller().unmarshalCode(src.getSpecies()));
 
-		if (src.isSetHeight())
-			dest.setHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getHeight()));
+        if (src.isSetHeight())
+            dest.setHeight(jaxb.getGMLUnmarshaller().unmarshalLength(src.getHeight()));
 
-		if (src.isSetTrunkDiameter())
-			dest.setTrunkDiameter(jaxb.getGMLUnmarshaller().unmarshalLength(src.getTrunkDiameter()));
+        if (src.isSetTrunkDiameter())
+            dest.setTrunkDiameter(jaxb.getGMLUnmarshaller().unmarshalLength(src.getTrunkDiameter()));
 
-		if (src.isSetCrownDiameter())
-			dest.setCrownDiameter(jaxb.getGMLUnmarshaller().unmarshalLength(src.getCrownDiameter()));
+        if (src.isSetCrownDiameter())
+            dest.setCrownDiameter(jaxb.getGMLUnmarshaller().unmarshalLength(src.getCrownDiameter()));
 
-		if (src.isSetLod1Geometry())
-			dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));
+        if (src.isSetLod1Geometry())
+            dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));
 
-		if (src.isSetLod2Geometry())
-			dest.setLod2Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod2Geometry()));
+        if (src.isSetLod2Geometry())
+            dest.setLod2Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod2Geometry()));
 
-		if (src.isSetLod3Geometry())
-			dest.setLod3Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod3Geometry()));
+        if (src.isSetLod3Geometry())
+            dest.setLod3Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod3Geometry()));
 
-		if (src.isSetLod4Geometry())
-			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
+        if (src.isSetLod4Geometry())
+            dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
 
-		if (src.isSetLod1ImplicitRepresentation())
-			dest.setLod1ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
+        if (src.isSetLod1ImplicitRepresentation())
+            dest.setLod1ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
 
-		if (src.isSetLod2ImplicitRepresentation())
-			dest.setLod2ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
+        if (src.isSetLod2ImplicitRepresentation())
+            dest.setLod2ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
 
-		if (src.isSetLod3ImplicitRepresentation())
-			dest.setLod3ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
+        if (src.isSetLod3ImplicitRepresentation())
+            dest.setLod3ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
 
-		if (src.isSetLod4ImplicitRepresentation())
-			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
+        if (src.isSetLod4ImplicitRepresentation())
+            dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 
-		if (src.isSet_GenericApplicationPropertyOfSolitaryVegetationObject()) {
-			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSolitaryVegetationObject()) {
-				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
-				if (ade != null)
-					dest.addGenericApplicationPropertyOfSolitaryVegetationObject(ade);
-			}
-		}
-	}
+        if (src.isSet_GenericApplicationPropertyOfSolitaryVegetationObject()) {
+            for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfSolitaryVegetationObject()) {
+                ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+                if (ade != null)
+                    dest.addGenericApplicationPropertyOfSolitaryVegetationObject(ade);
+            }
+        }
+    }
 
-	public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src) throws MissingADESchemaException {
-		SolitaryVegetationObject dest = new SolitaryVegetationObject(module);
-		unmarshalSolitaryVegetationObject(src, dest);
+    public SolitaryVegetationObject unmarshalSolitaryVegetationObject(SolitaryVegetationObjectType src) throws MissingADESchemaException {
+        SolitaryVegetationObject dest = new SolitaryVegetationObject(module);
+        unmarshalSolitaryVegetationObject(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
-		String name = substitutionGroup.getLocalPart();
-		boolean success = true;
+    public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
+        String name = substitutionGroup.getLocalPart();
+        boolean success = true;
 
-		if (dest instanceof AbstractVegetationObject && name.equals("_GenericApplicationPropertyOfVegetationObject"))
-			((AbstractVegetationObject)dest).addGenericApplicationPropertyOfVegetationObject(genericProperty);		
-		else if (dest instanceof PlantCover && name.equals("_GenericApplicationPropertyOfPlantCover"))
-			((PlantCover)dest).addGenericApplicationPropertyOfPlantCover(genericProperty);		
-		else if (dest instanceof SolitaryVegetationObject && name.equals("_GenericApplicationPropertyOfSolitaryVegetationObject"))
-			((SolitaryVegetationObject)dest).addGenericApplicationPropertyOfSolitaryVegetationObject(genericProperty);		
-		else
-			success = false;
+        if (dest instanceof AbstractVegetationObject && name.equals("_GenericApplicationPropertyOfVegetationObject"))
+            ((AbstractVegetationObject) dest).addGenericApplicationPropertyOfVegetationObject(genericProperty);
+        else if (dest instanceof PlantCover && name.equals("_GenericApplicationPropertyOfPlantCover"))
+            ((PlantCover) dest).addGenericApplicationPropertyOfPlantCover(genericProperty);
+        else if (dest instanceof SolitaryVegetationObject && name.equals("_GenericApplicationPropertyOfSolitaryVegetationObject"))
+            ((SolitaryVegetationObject) dest).addGenericApplicationPropertyOfSolitaryVegetationObject(genericProperty);
+        else
+            success = false;
 
-		return success;
-	}
+        return success;
+    }
 
 }

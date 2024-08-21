@@ -32,85 +32,85 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Null implements GML, Child, Copyable {
-	public static String INAPPLICABLE = "inapplicable";
-	public static String MISSING = "missing";
-	public static String TEMPLATE = "template";
-	public static String UNKNOWN = "unknown";
-	public static String WITHHELD = "withheld";
-	
-	private String value;
-	private ModelObject parent;
+    public static String INAPPLICABLE = "inapplicable";
+    public static String MISSING = "missing";
+    public static String TEMPLATE = "template";
+    public static String UNKNOWN = "unknown";
+    public static String WITHHELD = "withheld";
 
-	public String getValue() {
-		return value;
-	}
+    private String value;
+    private ModelObject parent;
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public void setValue(String value) {
-		if (value.equals(Null.INAPPLICABLE) ||
-				value.equals(Null.MISSING) ||
-				value.equals(Null.TEMPLATE) ||
-				value.equals(Null.UNKNOWN) ||
-				value.equals(Null.WITHHELD))
-			this.value = value;
-		else if (value != null && value.length() != 0){
-			Pattern p = Pattern.compile("other:\\w{2,}");
-			Matcher m = p.matcher(value);
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-			if (m.matches())
-				this.value = value;
-			else {
-				try {
-					URI uri = new URI(value);
-					if (uri.toURL() != null)
-						this.value = uri.toString();
-				} catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
-					// 
-				}
-			}
-		}
-	}
+    public void setValue(String value) {
+        if (value.equals(Null.INAPPLICABLE) ||
+                value.equals(Null.MISSING) ||
+                value.equals(Null.TEMPLATE) ||
+                value.equals(Null.UNKNOWN) ||
+                value.equals(Null.WITHHELD))
+            this.value = value;
+        else if (value != null && value.length() != 0) {
+            Pattern p = Pattern.compile("other:\\w{2,}");
+            Matcher m = p.matcher(value);
 
-	public void unsetValue() {
-		value = null;
-	}
+            if (m.matches())
+                this.value = value;
+            else {
+                try {
+                    URI uri = new URI(value);
+                    if (uri.toURL() != null)
+                        this.value = uri.toString();
+                } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
+                    //
+                }
+            }
+        }
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.NULL;
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.NULL;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Null(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Null copy = (target == null) ? new Null() : (Null)target;
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Null(), copyBuilder);
+    }
 
-		if (isSetValue())
-			copy.setValue(copyBuilder.copy(value));
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Null copy = (target == null) ? new Null() : (Null) target;
 
-		copy.unsetParent();
+        if (isSetValue())
+            copy.setValue(copyBuilder.copy(value));
 
-		return copy;
-	}
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

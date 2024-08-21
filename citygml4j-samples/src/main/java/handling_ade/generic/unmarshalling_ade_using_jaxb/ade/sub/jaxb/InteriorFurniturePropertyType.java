@@ -35,12 +35,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Denotes the relation of a hollow space to the furnitures it contains. 
- * 
+ * Denotes the relation of a hollow space to the furnitures it contains.
+ *
  * <p>Java-Klasse für InteriorFurniturePropertyType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="InteriorFurniturePropertyType">
  *   &lt;complexContent>
@@ -53,14 +53,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "InteriorFurniturePropertyType")
 public class InteriorFurniturePropertyType
-    extends AssociationType
-{
+        extends AssociationType {
 
 
 }

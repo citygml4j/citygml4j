@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Time extends Measure {
-	
-	public Time() {
-	}
-	
-	public Time(double value) {
-		super(value);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.TIME;
-	}
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Time(), copyBuilder);
-	}
+    public Time() {
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Time copy = (target == null) ? new Time() : (Time)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    public Time(double value) {
+        super(value);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.TIME;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Time(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Time copy = (target == null) ? new Time() : (Time) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

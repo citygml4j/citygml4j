@@ -30,203 +30,203 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class PostalCode implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private List<PostalCodeNumber> postalCodeNumber;
-	private List<PostalCodeNumberExtension> postalCodeNumberExtension;
-	private PostTown postTown;
-	private String type;
-	private ModelObject parent;
+    private List<AddressLine> addressLine;
+    private List<PostalCodeNumber> postalCodeNumber;
+    private List<PostalCodeNumberExtension> postalCodeNumberExtension;
+    private PostTown postTown;
+    private String type;
+    private ModelObject parent;
 
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-	public void addPostalCodeNumber(PostalCodeNumber postalCodeNumber) {
-		getPostalCodeNumber().add(postalCodeNumber);
-	}
+    public void addPostalCodeNumber(PostalCodeNumber postalCodeNumber) {
+        getPostalCodeNumber().add(postalCodeNumber);
+    }
 
-	public void addPostalCodeNumberExtension(PostalCodeNumberExtension postalCodeNumberExtension) {
-		getPostalCodeNumberExtension().add(postalCodeNumberExtension);
-	}
+    public void addPostalCodeNumberExtension(PostalCodeNumberExtension postalCodeNumberExtension) {
+        getPostalCodeNumberExtension().add(postalCodeNumberExtension);
+    }
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-		return addressLine;
-	}
+        return addressLine;
+    }
 
-	public PostTown getPostTown() {
-		return postTown;
-	}
+    public PostTown getPostTown() {
+        return postTown;
+    }
 
-	public List<PostalCodeNumber> getPostalCodeNumber() {
-		if (postalCodeNumber == null)
-			postalCodeNumber = new ChildList<>(this);
+    public List<PostalCodeNumber> getPostalCodeNumber() {
+        if (postalCodeNumber == null)
+            postalCodeNumber = new ChildList<>(this);
 
-		return postalCodeNumber;
-	}
+        return postalCodeNumber;
+    }
 
-	public List<PostalCodeNumberExtension> getPostalCodeNumberExtension() {
-		if (postalCodeNumberExtension == null)
-			postalCodeNumberExtension = new ChildList<>(this);
+    public List<PostalCodeNumberExtension> getPostalCodeNumberExtension() {
+        if (postalCodeNumberExtension == null)
+            postalCodeNumberExtension = new ChildList<>(this);
 
-		return postalCodeNumberExtension;
-	}
+        return postalCodeNumberExtension;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetPostTown() {
-		return postTown != null;
-	}
+    public boolean isSetPostTown() {
+        return postTown != null;
+    }
 
-	public boolean isSetPostalCodeNumber() {
-		return postalCodeNumber != null && !postalCodeNumber.isEmpty();
-	}
+    public boolean isSetPostalCodeNumber() {
+        return postalCodeNumber != null && !postalCodeNumber.isEmpty();
+    }
 
-	public boolean isSetPostalCodeNumberExtension() {
-		return postalCodeNumberExtension != null && !postalCodeNumberExtension.isEmpty();
-	}
+    public boolean isSetPostalCodeNumberExtension() {
+        return postalCodeNumberExtension != null && !postalCodeNumberExtension.isEmpty();
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setPostTown(PostTown postTown) {
-		this.postTown = ModelObjects.setParent(postTown, this);
-	}
+    public void setPostTown(PostTown postTown) {
+        this.postTown = ModelObjects.setParent(postTown, this);
+    }
 
-	public void setPostalCodeNumber(List<PostalCodeNumber> postalCodeNumber) {
-		this.postalCodeNumber = new ChildList<>(this, postalCodeNumber);
-	}
+    public void setPostalCodeNumber(List<PostalCodeNumber> postalCodeNumber) {
+        this.postalCodeNumber = new ChildList<>(this, postalCodeNumber);
+    }
 
-	public void setPostalCodeNumberExtension(List<PostalCodeNumberExtension> postalCodeNumberExtension) {
-		this.postalCodeNumberExtension = new ChildList<>(this, postalCodeNumberExtension);
-	}
+    public void setPostalCodeNumberExtension(List<PostalCodeNumberExtension> postalCodeNumberExtension) {
+        this.postalCodeNumberExtension = new ChildList<>(this, postalCodeNumberExtension);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public void unsetPostTown() {
-		postTown = ModelObjects.setNull(postTown);
-	}
+    public void unsetPostTown() {
+        postTown = ModelObjects.setNull(postTown);
+    }
 
-	public void unsetPostalCodeNumber() {
-		postalCodeNumber = ModelObjects.setNull(postalCodeNumber);
-	}
+    public void unsetPostalCodeNumber() {
+        postalCodeNumber = ModelObjects.setNull(postalCodeNumber);
+    }
 
-	public boolean unsetPostalCodeNumber(PostalCodeNumber postalCodeNumber) {
-		return isSetPostalCodeNumber() && this.postalCodeNumber.remove(postalCodeNumber);
-	}
+    public boolean unsetPostalCodeNumber(PostalCodeNumber postalCodeNumber) {
+        return isSetPostalCodeNumber() && this.postalCodeNumber.remove(postalCodeNumber);
+    }
 
-	public void unsetPostalCodeNumberExtension() {
-		postalCodeNumberExtension = ModelObjects.setNull(postalCodeNumberExtension);
-	}
+    public void unsetPostalCodeNumberExtension() {
+        postalCodeNumberExtension = ModelObjects.setNull(postalCodeNumberExtension);
+    }
 
-	public boolean unsetPostalCodeNumberExtension(PostalCodeNumberExtension postalCodeNumberExtension) {
-		return isSetPostalCodeNumberExtension() && this.postalCodeNumberExtension.remove(postalCodeNumberExtension);
-	}
+    public boolean unsetPostalCodeNumberExtension(PostalCodeNumberExtension postalCodeNumberExtension) {
+        return isSetPostalCodeNumberExtension() && this.postalCodeNumberExtension.remove(postalCodeNumberExtension);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POSTAL_CODE;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POSTAL_CODE;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostalCode(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostalCode(), copyBuilder);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostalCode copy = (target == null) ? new PostalCode() : (PostalCode)target;
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostalCode copy = (target == null) ? new PostalCode() : (PostalCode) target;
 
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
 
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		if (isSetPostalCodeNumber()) {
-			for (PostalCodeNumber part : postalCodeNumber) {
-				PostalCodeNumber copyPart = (PostalCodeNumber)copyBuilder.copy(part);
-				copy.addPostalCodeNumber(copyPart);
+        if (isSetPostalCodeNumber()) {
+            for (PostalCodeNumber part : postalCodeNumber) {
+                PostalCodeNumber copyPart = (PostalCodeNumber) copyBuilder.copy(part);
+                copy.addPostalCodeNumber(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		if (isSetPostalCodeNumberExtension()) {
-			for (PostalCodeNumberExtension part : postalCodeNumberExtension) {
-				PostalCodeNumberExtension copyPart = (PostalCodeNumberExtension)copyBuilder.copy(part);
-				copy.addPostalCodeNumberExtension(copyPart);
+        if (isSetPostalCodeNumberExtension()) {
+            for (PostalCodeNumberExtension part : postalCodeNumberExtension) {
+                PostalCodeNumberExtension copyPart = (PostalCodeNumberExtension) copyBuilder.copy(part);
+                copy.addPostalCodeNumberExtension(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		if (isSetPostTown()) {
-			copy.setPostTown((PostTown)copyBuilder.copy(postTown));
-			if (copy.getPostTown() == postTown)
-				postTown.setParent(this);
-		}
+        if (isSetPostTown()) {
+            copy.setPostTown((PostTown) copyBuilder.copy(postTown));
+            if (copy.getPostTown() == postTown)
+                postTown.setParent(this);
+        }
 
-		copy.unsetParent();
+        copy.unsetParent();
 
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -46,140 +46,138 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CityObjectGroupMarshaller {
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	private final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
+    private final GMLIdManager gmlIdManager = DefaultGMLIdManager.getInstance();
 
-	public CityObjectGroupMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
+    public CityObjectGroupMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
 
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		if (src instanceof CityObjectGroup)
-			return marshalCityObjectGroup((CityObjectGroup) src, cityJSON);
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        if (src instanceof CityObjectGroup)
+            return marshalCityObjectGroup((CityObjectGroup) src, cityJSON);
 
-		return null;
-	}
+        return null;
+    }
 
-	public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+    public void marshalCityObjectGroup(CityObjectGroup src, CityObjectGroupType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
-		Attributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
+        Attributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetGenericApplicationPropertyOfCityObjectGroup())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObjectGroup(), dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfCityObjectGroup())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityObjectGroup(), dest, cityJSON);
 
-		if (src.isSetGeometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getGeometry(), cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
+        if (src.isSetGeometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getGeometry(), cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
 
-		if (src.isSetGroupParent() && src.getGroupParent().isSetCityObject()) {
-			AbstractCityObjectType parent = citygml.marshal(src.getGroupParent().getCityObject(), cityJSON);
-			cityJSON.addCityObject(parent);
-		}
+        if (src.isSetGroupParent() && src.getGroupParent().isSetCityObject()) {
+            AbstractCityObjectType parent = citygml.marshal(src.getGroupParent().getCityObject(), cityJSON);
+            cityJSON.addCityObject(parent);
+        }
 
-		if (src.isSetGroupMember()) {
-			for (CityObjectGroupMember property : src.getGroupMember()) {
-				if (property.isSetCityObject()) {
-					AbstractCityObject cityObject = property.getCityObject();
-					if (!cityObject.isSetId())
-						cityObject.setId(gmlIdManager.generateUUID());
+        if (src.isSetGroupMember()) {
+            for (CityObjectGroupMember property : src.getGroupMember()) {
+                if (property.isSetCityObject()) {
+                    AbstractCityObject cityObject = property.getCityObject();
+                    if (!cityObject.isSetId())
+                        cityObject.setId(gmlIdManager.generateUUID());
 
-					AbstractCityObjectType member = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
-					dest.addMember(member.getGmlId());
-					cityJSON.addCityObject(member);
-				}
+                    AbstractCityObjectType member = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
+                    dest.addMember(member.getGmlId());
+                    cityJSON.addCityObject(member);
+                } else if (property.isSetHref()) {
+                    String member = property.getHref().replaceAll("^.*?#+?", "");
+                    dest.addMember(member);
+                }
+            }
+        }
+    }
 
-				else if (property.isSetHref()) {
-					String member = property.getHref().replaceAll("^.*?#+?", "");
-					dest.addMember(member);
-				}
-			}
-		}
-	}
+    public CityObjectGroupType marshalCityObjectGroup(CityObjectGroup src, CityJSON cityJSON) {
+        CityObjectGroupType dest = new CityObjectGroupType();
+        marshalCityObjectGroup(src, dest, cityJSON);
 
-	public CityObjectGroupType marshalCityObjectGroup(CityObjectGroup src, CityJSON cityJSON) {
-		CityObjectGroupType dest = new CityObjectGroupType();
-		marshalCityObjectGroup(src, dest, cityJSON);
+        return dest;
+    }
 
-		return dest;
-	}
+    public void postprocessGroupMembers(CityModel src, CityJSON cityJSON) {
+        Set<String> gmlIds = cityJSON.getCityObjects().stream().map(AbstractCityObjectType::getGmlId).collect(Collectors.toSet());
+        List<CityObjectGroupType> groups = cityJSON.getCityObjects().stream()
+                .filter(CityObjectGroupType.class::isInstance)
+                .map(CityObjectGroupType.class::cast)
+                .collect(Collectors.toList());
 
-	public void postprocessGroupMembers(CityModel src, CityJSON cityJSON) {
-		Set<String> gmlIds = cityJSON.getCityObjects().stream().map(AbstractCityObjectType::getGmlId).collect(Collectors.toSet());
-		List<CityObjectGroupType> groups = cityJSON.getCityObjects().stream()
-				.filter(CityObjectGroupType.class::isInstance)
-				.map(CityObjectGroupType.class::cast)
-				.collect(Collectors.toList());
+        ChildInfo childInfo = new ChildInfo();
 
-		ChildInfo childInfo = new ChildInfo();
+        for (CityObjectGroupType group : groups) {
+            Set<String> candidates = new HashSet<>();
 
-		for (CityObjectGroupType group : groups) {
-			Set<String> candidates = new HashSet<>();
+            for (Iterator<String> iter = group.getMembers().iterator(); iter.hasNext(); ) {
+                String gmlId = iter.next();
+                if (gmlIds.contains(gmlId))
+                    continue;
 
-			for (Iterator<String> iter = group.getMembers().iterator(); iter.hasNext(); ) {
-				String gmlId = iter.next();
-				if (gmlIds.contains(gmlId))
-					continue;
+                iter.remove();
 
-				iter.remove();
+                AbstractCityObject member = src.accept(new FeatureFunctionWalker<AbstractCityObject>() {
+                    public AbstractCityObject apply(AbstractCityObject cityObject) {
+                        return gmlId.equals(cityObject.getId()) ? cityObject : super.apply(cityObject);
+                    }
+                });
 
-				AbstractCityObject member = src.accept(new FeatureFunctionWalker<AbstractCityObject>() {
-					public AbstractCityObject apply(AbstractCityObject cityObject) {
-						return gmlId.equals(cityObject.getId()) ? cityObject : super.apply(cityObject);
-					}
-				});
+                if (member != null) {
+                    member.accept(new FeatureWalker() {
+                        public void visit(AbstractCityObject cityObject) {
+                            if (cityObject != member && cityObject.isSetId() && gmlIds.contains(cityObject.getId())) {
+                                boolean addCandidate = true;
 
-				if (member != null) {
-					member.accept(new FeatureWalker() {
-						public void visit(AbstractCityObject cityObject) {
-							if (cityObject != member && cityObject.isSetId() && gmlIds.contains(cityObject.getId())) {
-								boolean addCandidate = true;
+                                AbstractFeature parent = cityObject;
+                                while ((parent = childInfo.getParentFeature(parent)) != null) {
+                                    if (parent.isSetId() && candidates.contains(parent.getId())) {
+                                        addCandidate = false;
+                                        break;
+                                    }
+                                }
 
-								AbstractFeature parent = cityObject;
-								while ((parent = childInfo.getParentFeature(parent)) != null) {
-									if (parent.isSetId() && candidates.contains(parent.getId())) {
-										addCandidate = false;
-										break;
-									}
-								}
+                                if (addCandidate)
+                                    candidates.add(cityObject.getId());
+                            }
 
-								if (addCandidate)
-									candidates.add(cityObject.getId());
-							}
+                            super.visit(cityObject);
+                        }
+                    });
+                }
+            }
 
-							super.visit(cityObject);
-						}
-					});
-				}
-			}
-
-			if (!candidates.isEmpty())
-				candidates.forEach(group::addMember);
-		}
-	}
+            if (!candidates.isEmpty())
+                candidates.forEach(group::addMember);
+        }
+    }
 
 }

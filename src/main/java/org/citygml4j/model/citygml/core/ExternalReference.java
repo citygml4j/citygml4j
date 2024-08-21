@@ -26,81 +26,81 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
 public class ExternalReference implements CoreModuleComponent, Child, Copyable {
-	private String informationSystem;
-	private ExternalObject externalObject;
-	private ModelObject parent;
-	
-	public ExternalObject getExternalObject() {
-		return externalObject;
-	}
+    private String informationSystem;
+    private ExternalObject externalObject;
+    private ModelObject parent;
 
-	public String getInformationSystem() {
-		return informationSystem;
-	}
+    public ExternalObject getExternalObject() {
+        return externalObject;
+    }
 
-	public boolean isSetExternalObject() {
-		return externalObject != null;
-	}
+    public String getInformationSystem() {
+        return informationSystem;
+    }
 
-	public boolean isSetInformationSystem() {
-		return informationSystem != null;
-	}
+    public boolean isSetExternalObject() {
+        return externalObject != null;
+    }
 
-	public void setExternalObject(ExternalObject externalObject) {
-		this.externalObject = ModelObjects.setParent(externalObject, this);
-	}
+    public boolean isSetInformationSystem() {
+        return informationSystem != null;
+    }
 
-	public void setInformationSystem(String informationSystem) {
-		this.informationSystem = informationSystem;
-	}
+    public void setExternalObject(ExternalObject externalObject) {
+        this.externalObject = ModelObjects.setParent(externalObject, this);
+    }
 
-	public void unsetExternalObject() {
-		externalObject = ModelObjects.setNull(externalObject);
-	}
+    public void setInformationSystem(String informationSystem) {
+        this.informationSystem = informationSystem;
+    }
 
-	public void unsetInformationSystem() {
-		informationSystem = null;
-	}
+    public void unsetExternalObject() {
+        externalObject = ModelObjects.setNull(externalObject);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.EXTERNAL_REFERENCE;
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetInformationSystem() {
+        informationSystem = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.EXTERNAL_REFERENCE;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ExternalReference(), copyBuilder);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ExternalReference copy = (target == null) ? new ExternalReference() : (ExternalReference)target;
-		
-		if (isSetInformationSystem())
-			copy.setInformationSystem(copyBuilder.copy(informationSystem));
-		
-		if (isSetExternalObject()) {
-			copy.setExternalObject((ExternalObject)copyBuilder.copy(externalObject));
-			if (copy.getExternalObject() == externalObject)
-				externalObject.setParent(this);
-		}
-		
-		copy.unsetParent();
+    public void unsetParent() {
+        parent = null;
+    }
 
-		return copy;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ExternalReference(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ExternalReference copy = (target == null) ? new ExternalReference() : (ExternalReference) target;
+
+        if (isSetInformationSystem())
+            copy.setInformationSystem(copyBuilder.copy(informationSystem));
+
+        if (isSetExternalObject()) {
+            copy.setExternalObject((ExternalObject) copyBuilder.copy(externalObject));
+            if (copy.getExternalObject() == externalObject)
+                externalObject.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class SurfaceDataProperty extends FeatureProperty<AbstractSurfaceData> implements AppearanceModuleComponent {
 
-	public SurfaceDataProperty() {
-		
-	}
-	
-	public SurfaceDataProperty(AbstractSurfaceData abstractSurfaceData) {
-		super(abstractSurfaceData);
-	}
-	
-	public SurfaceDataProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractSurfaceData getSurfaceData() {
-		return super.getObject();
-	}
+    public SurfaceDataProperty() {
 
-	public boolean isSetSurfaceData() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setSurfaceData(AbstractSurfaceData surfaceData) {
-		super.setObject(surfaceData);
-	}
-	
-	public void unsetSurfaceData() {
-		super.unsetObject();
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.SURFACE_DATA_PROPERTY;
-	}
+    public SurfaceDataProperty(AbstractSurfaceData abstractSurfaceData) {
+        super(abstractSurfaceData);
+    }
 
-	@Override
-	public Class<AbstractSurfaceData> getAssociableClass() {
-		return AbstractSurfaceData.class;
-	}
+    public SurfaceDataProperty(String href) {
+        super(href);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SurfaceDataProperty(), copyBuilder);
-	}
+    public AbstractSurfaceData getSurfaceData() {
+        return super.getObject();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SurfaceDataProperty copy = (target == null) ? new SurfaceDataProperty() : (SurfaceDataProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public boolean isSetSurfaceData() {
+        return super.isSetObject();
+    }
+
+    public void setSurfaceData(AbstractSurfaceData surfaceData) {
+        super.setObject(surfaceData);
+    }
+
+    public void unsetSurfaceData() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.SURFACE_DATA_PROPERTY;
+    }
+
+    @Override
+    public Class<AbstractSurfaceData> getAssociableClass() {
+        return AbstractSurfaceData.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SurfaceDataProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SurfaceDataProperty copy = (target == null) ? new SurfaceDataProperty() : (SurfaceDataProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

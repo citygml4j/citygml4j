@@ -28,82 +28,82 @@ import org.citygml4j.model.module.Module;
 import java.util.List;
 
 public abstract class AbstractSurfaceData extends AbstractFeature implements AppearanceModuleComponent {
-	private Boolean isFront;
-	private List<ADEComponent> ade;
+    private Boolean isFront;
+    private List<ADEComponent> ade;
 
-	public AbstractSurfaceData() {
-		
-	}
-	
-	public AbstractSurfaceData(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfSurfaceData(ADEComponent ade) {
-		getGenericApplicationPropertyOfSurfaceData().add(ade);
-	}
+    public AbstractSurfaceData() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfSurfaceData() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public AbstractSurfaceData(Module module) {
+        super(module);
+    }
 
-	public Boolean getIsFront() {
-		return !isSetIsFront() ? true : isFront;
-	}
+    public void addGenericApplicationPropertyOfSurfaceData(ADEComponent ade) {
+        getGenericApplicationPropertyOfSurfaceData().add(ade);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfSurfaceData() {
-		return ade != null && !ade.isEmpty();
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfSurfaceData() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetIsFront() {
-		return isFront != null;
-	}
+        return ade;
+    }
 
-	public void setGenericApplicationPropertyOfSurfaceData(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public Boolean getIsFront() {
+        return !isSetIsFront() ? true : isFront;
+    }
 
-	public void setIsFront(Boolean isFront) {
-		this.isFront = isFront;
-	}
+    public boolean isSetGenericApplicationPropertyOfSurfaceData() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void unsetGenericApplicationPropertyOfSurfaceData() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public boolean isSetIsFront() {
+        return isFront != null;
+    }
 
-	public boolean unsetGenericApplicationPropertyOfSurfaceData(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfSurfaceData() && this.ade.remove(ade);
-	}
+    public void setGenericApplicationPropertyOfSurfaceData(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void unsetIsFront() {
-		isFront = null;
-	}
+    public void setIsFront(Boolean isFront) {
+        this.isFront = isFront;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public void unsetGenericApplicationPropertyOfSurfaceData() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-		AbstractSurfaceData copy = (AbstractSurfaceData)target;		
-		super.copyTo(copy, copyBuilder);
+    public boolean unsetGenericApplicationPropertyOfSurfaceData(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfSurfaceData() && this.ade.remove(ade);
+    }
 
-		if (isSetIsFront())
-			copy.setIsFront(copyBuilder.copy(isFront));
+    public void unsetIsFront() {
+        isFront = null;
+    }
 
-		if (isSetGenericApplicationPropertyOfSurfaceData()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfSurfaceData(copyPart);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        AbstractSurfaceData copy = (AbstractSurfaceData) target;
+        super.copyTo(copy, copyBuilder);
 
-		return copy;
-	}
+        if (isSetIsFront())
+            copy.setIsFront(copyBuilder.copy(isFront));
+
+        if (isSetGenericApplicationPropertyOfSurfaceData()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfSurfaceData(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 
 }

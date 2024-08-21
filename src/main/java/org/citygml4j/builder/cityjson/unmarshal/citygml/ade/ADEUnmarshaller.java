@@ -103,9 +103,7 @@ public class ADEUnmarshaller {
             CityJSONExtensionUnmarshaller unmarshaller = unmarshallersByType.get(src.getType());
             if (unmarshaller != null)
                 return unmarshaller.unmarshalCityObject(src, new CityObjectContext(parent, cityJSON));
-        }
-
-        else if (src.hasLocalProperty(CityObjectTypeAdapter.UNKNOWN_EXTENSION) && src instanceof GenericCityObjectType) {
+        } else if (src.hasLocalProperty(CityObjectTypeAdapter.UNKNOWN_EXTENSION) && src instanceof GenericCityObjectType) {
             // map unknown extension
             GenericCityObject dest = json.getCityGMLUnmarshaller().getGenericsUnmarshaller().unmarshalGenericCityObject((GenericCityObjectType) src, cityJSON);
 

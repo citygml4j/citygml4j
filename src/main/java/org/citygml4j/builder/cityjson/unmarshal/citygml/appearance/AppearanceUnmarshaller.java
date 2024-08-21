@@ -37,266 +37,266 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class AppearanceUnmarshaller {
-	private final CityJSONUnmarshaller json;
-	private List<MaterialType> materials;
-	private List<TextureType> textures;
-	private List<List<Double>> textureVertices;	
-	private int numTextureVertices;
-	private GMLIdManager gmlIdManager;
-	
-	public AppearanceUnmarshaller(CityGMLUnmarshaller citygml) {
-		json = citygml.getCityJSONUnmarshaller();
-	}
-	
-	public void setAppearanceInfo(AppearanceType appearanceType) {
-		materials = appearanceType.getMaterials();
-		textures = appearanceType.getTextures();
-		textureVertices = appearanceType.getTextureVertices();
+    private final CityJSONUnmarshaller json;
+    private List<MaterialType> materials;
+    private List<TextureType> textures;
+    private List<List<Double>> textureVertices;
+    private int numTextureVertices;
+    private GMLIdManager gmlIdManager;
 
-		numTextureVertices = textureVertices != null ? textureVertices.size() : 0;
-		gmlIdManager = DefaultGMLIdManager.getInstance();
-	}
+    public AppearanceUnmarshaller(CityGMLUnmarshaller citygml) {
+        json = citygml.getCityJSONUnmarshaller();
+    }
 
-	public void unmarshalMaterial(AbstractMaterialObject src, Map<Integer, List<AbstractSurface>> surfaces, AbstractCityObject parent) {
-		Appearance appearance = getOrCreateAppearance(src.getTheme(), parent);
+    public void setAppearanceInfo(AppearanceType appearanceType) {
+        materials = appearanceType.getMaterials();
+        textures = appearanceType.getTextures();
+        textureVertices = appearanceType.getTextureVertices();
 
-		for (Entry<Integer, List<AbstractSurface>> entry : surfaces.entrySet()) {
-			MaterialType materialType = materials != null ? materials.get(entry.getKey()) : null;
-			if (materialType == null)
-				continue;
+        numTextureVertices = textureVertices != null ? textureVertices.size() : 0;
+        gmlIdManager = DefaultGMLIdManager.getInstance();
+    }
 
-			X3DMaterial material = getOrCreateX3DMaterial(materialType, entry.getKey(), appearance);
-			for (AbstractSurface surface : entry.getValue()) {
-				if (!surface.isSetId())
-					surface.setId(gmlIdManager.generateUUID());
-				
-				material.addTarget("#" + surface.getId());
-			}
-		}
-	}
+    public void unmarshalMaterial(AbstractMaterialObject src, Map<Integer, List<AbstractSurface>> surfaces, AbstractCityObject parent) {
+        Appearance appearance = getOrCreateAppearance(src.getTheme(), parent);
 
-	@SuppressWarnings("unchecked")
-	public void unmarshalParameterizedTexture(AbstractTextureObject src, Map<Integer, List<AbstractSurface>> surfaces, AbstractCityObject parent) {
-		Appearance appearance = getOrCreateAppearance(src.getTheme(), parent);
+        for (Entry<Integer, List<AbstractSurface>> entry : surfaces.entrySet()) {
+            MaterialType materialType = materials != null ? materials.get(entry.getKey()) : null;
+            if (materialType == null)
+                continue;
 
-		for (Entry<Integer, List<AbstractSurface>> entry : surfaces.entrySet()) {
-			TextureType textureType = textures != null ? textures.get(entry.getKey()) : null;
-			if (textureType == null)
-				continue;
+            X3DMaterial material = getOrCreateX3DMaterial(materialType, entry.getKey(), appearance);
+            for (AbstractSurface surface : entry.getValue()) {
+                if (!surface.isSetId())
+                    surface.setId(gmlIdManager.generateUUID());
 
-			ParameterizedTexture texture = getOrCreateParameterizedTexture(textureType, entry.getKey(), appearance);
-			if (texture == null)
-				continue;
-			
-			for (AbstractSurface surface : entry.getValue()) {
-				TexCoordList texCoordList = new TexCoordList();
-				List<List<Integer>> values = (List<List<Integer>>)surface.getLocalProperty(CityJSONUnmarshaller.TEXTURE_COORDINATES);
-				int[] i = new int[]{-1};
+                material.addTarget("#" + surface.getId());
+            }
+        }
+    }
 
-				surface.accept(new GeometryWalker() {
-					public void visit(LinearRing linearRing) {
-						i[0]++;
+    @SuppressWarnings("unchecked")
+    public void unmarshalParameterizedTexture(AbstractTextureObject src, Map<Integer, List<AbstractSurface>> surfaces, AbstractCityObject parent) {
+        Appearance appearance = getOrCreateAppearance(src.getTheme(), parent);
 
-						if (i[0] < values.size()) {
-							List<Integer> value = values.get(i[0]);
-							if (value == null || value.size() < 2)
-								return;
+        for (Entry<Integer, List<AbstractSurface>> entry : surfaces.entrySet()) {
+            TextureType textureType = textures != null ? textures.get(entry.getKey()) : null;
+            if (textureType == null)
+                continue;
 
-							List<Double> coords = getTextureVertices(value);
-							if (coords.isEmpty())
-								return;
+            ParameterizedTexture texture = getOrCreateParameterizedTexture(textureType, entry.getKey(), appearance);
+            if (texture == null)
+                continue;
 
-							// add first texture coordinate to close ring
-							coords.addAll(coords.subList(0, 2));
+            for (AbstractSurface surface : entry.getValue()) {
+                TexCoordList texCoordList = new TexCoordList();
+                List<List<Integer>> values = (List<List<Integer>>) surface.getLocalProperty(CityJSONUnmarshaller.TEXTURE_COORDINATES);
+                int[] i = new int[]{-1};
 
-							if (!linearRing.isSetId())
-								linearRing.setId(gmlIdManager.generateUUID());
+                surface.accept(new GeometryWalker() {
+                    public void visit(LinearRing linearRing) {
+                        i[0]++;
 
-							TextureCoordinates textureCoordinates = new TextureCoordinates();
-							textureCoordinates.setRing("#" + linearRing.getId());
-							textureCoordinates.setValue(coords);
-							texCoordList.addTextureCoordinates(textureCoordinates);
-						}
-					}
-				});
+                        if (i[0] < values.size()) {
+                            List<Integer> value = values.get(i[0]);
+                            if (value == null || value.size() < 2)
+                                return;
 
-				if (texCoordList.isSetTextureCoordinates()) {
-					if (!surface.isSetId())
-						surface.setId(gmlIdManager.generateUUID()); 
-					
-					TextureAssociation target = new TextureAssociation();
-					target.setUri("#" + surface.getId());
-					target.setTextureParameterization(texCoordList);
-					texture.addTarget(target);
-				}
-			}
-		}
-	}
+                            List<Double> coords = getTextureVertices(value);
+                            if (coords.isEmpty())
+                                return;
 
-	public void unmarshalParameterizedTexture(TextureType src, ParameterizedTexture dest) {
-		if (src.isSetImage()) {
-			String imageURI = json.getTextureFileHandler().getImageURI(src.getImage());
-			if (imageURI == null)
-				return;
-			
-			dest.setImageURI(imageURI);
-		}
+                            // add first texture coordinate to close ring
+                            coords.addAll(coords.subList(0, 2));
 
-		if (src.isSetType())
-			dest.setMimeType(new Code(src.getType().getMimeType()));
+                            if (!linearRing.isSetId())
+                                linearRing.setId(gmlIdManager.generateUUID());
 
-		if (src.isSetWrapMode())
-			dest.setWrapMode(WrapMode.fromValue(src.getWrapMode().getValue()));
+                            TextureCoordinates textureCoordinates = new TextureCoordinates();
+                            textureCoordinates.setRing("#" + linearRing.getId());
+                            textureCoordinates.setValue(coords);
+                            texCoordList.addTextureCoordinates(textureCoordinates);
+                        }
+                    }
+                });
 
-		if (src.isSetTextureType())
-			dest.setTextureType(org.citygml4j.model.citygml.appearance.TextureType.fromValue(src.getTextureType().getValue()));
+                if (texCoordList.isSetTextureCoordinates()) {
+                    if (!surface.isSetId())
+                        surface.setId(gmlIdManager.generateUUID());
 
-		if (src.isSetBorderColor()) {
-			List<Double> color = src.getBorderColor();
-			if (color != null) {
-				if (color.size() == 3)
-					dest.setBorderColor(new ColorPlusOpacity(color.get(0), color.get(1), color.get(2)));
-				else if (color.size() > 3)
-					dest.setBorderColor(new ColorPlusOpacity(color.get(0), color.get(1), color.get(2), color.get(3)));
-			}
-		}
-	}
+                    TextureAssociation target = new TextureAssociation();
+                    target.setUri("#" + surface.getId());
+                    target.setTextureParameterization(texCoordList);
+                    texture.addTarget(target);
+                }
+            }
+        }
+    }
 
-	public ParameterizedTexture unmarshalParameterizedTexture(TextureType src) {
-		ParameterizedTexture dest = new ParameterizedTexture();
-		unmarshalParameterizedTexture(src, dest);
+    public void unmarshalParameterizedTexture(TextureType src, ParameterizedTexture dest) {
+        if (src.isSetImage()) {
+            String imageURI = json.getTextureFileHandler().getImageURI(src.getImage());
+            if (imageURI == null)
+                return;
 
-		return dest;
-	}
+            dest.setImageURI(imageURI);
+        }
 
-	public void unmarshalMaterial(MaterialType src, X3DMaterial dest) {
-		if (src.isSetName())
-			dest.addName(new Code(src.getName()));
+        if (src.isSetType())
+            dest.setMimeType(new Code(src.getType().getMimeType()));
 
-		if (src.isSetAmbientIntensity())
-			dest.setAmbientIntensity(src.getAmbientIntensity());
+        if (src.isSetWrapMode())
+            dest.setWrapMode(WrapMode.fromValue(src.getWrapMode().getValue()));
 
-		if (src.isSetDiffuseColor()) {
-			List<Double> color = src.getDiffuseColor();
-			if (color != null && color.size() > 2)
-				dest.setDiffuseColor(new Color(color.get(0), color.get(1), color.get(2)));
-		}
+        if (src.isSetTextureType())
+            dest.setTextureType(org.citygml4j.model.citygml.appearance.TextureType.fromValue(src.getTextureType().getValue()));
 
-		if (src.isSetEmissiveColor()) {
-			List<Double> color = src.getEmissiveColor();
-			if (color != null && color.size() > 2)
-				dest.setEmissiveColor(new Color(color.get(0), color.get(1), color.get(2)));
-		}
+        if (src.isSetBorderColor()) {
+            List<Double> color = src.getBorderColor();
+            if (color != null) {
+                if (color.size() == 3)
+                    dest.setBorderColor(new ColorPlusOpacity(color.get(0), color.get(1), color.get(2)));
+                else if (color.size() > 3)
+                    dest.setBorderColor(new ColorPlusOpacity(color.get(0), color.get(1), color.get(2), color.get(3)));
+            }
+        }
+    }
 
-		if (src.isSetSpecularColor()) {
-			List<Double> color = src.getSpecularColor();
-			if (color != null && color.size() > 2)
-				dest.setSpecularColor(new Color(color.get(0), color.get(1), color.get(2)));
-		}
+    public ParameterizedTexture unmarshalParameterizedTexture(TextureType src) {
+        ParameterizedTexture dest = new ParameterizedTexture();
+        unmarshalParameterizedTexture(src, dest);
 
-		if (src.isSetShininess())
-			dest.setShininess(src.getShininess());
+        return dest;
+    }
 
-		if (src.isSetTransparency())
-			dest.setTransparency(src.getTransparency());
+    public void unmarshalMaterial(MaterialType src, X3DMaterial dest) {
+        if (src.isSetName())
+            dest.addName(new Code(src.getName()));
 
-		if (src.isSmooth())
-			dest.setIsSmooth(src.isSmooth());
-	}
+        if (src.isSetAmbientIntensity())
+            dest.setAmbientIntensity(src.getAmbientIntensity());
 
-	public X3DMaterial unmarshalMaterial(MaterialType src) {
-		X3DMaterial dest = new X3DMaterial();
-		unmarshalMaterial(src, dest);
+        if (src.isSetDiffuseColor()) {
+            List<Double> color = src.getDiffuseColor();
+            if (color != null && color.size() > 2)
+                dest.setDiffuseColor(new Color(color.get(0), color.get(1), color.get(2)));
+        }
 
-		return dest;
-	}
+        if (src.isSetEmissiveColor()) {
+            List<Double> color = src.getEmissiveColor();
+            if (color != null && color.size() > 2)
+                dest.setEmissiveColor(new Color(color.get(0), color.get(1), color.get(2)));
+        }
 
-	private Appearance getOrCreateAppearance(String theme, AbstractCityObject parent) {
-		Appearance dest = null;
+        if (src.isSetSpecularColor()) {
+            List<Double> color = src.getSpecularColor();
+            if (color != null && color.size() > 2)
+                dest.setSpecularColor(new Color(color.get(0), color.get(1), color.get(2)));
+        }
 
-		for (AppearanceProperty property : parent.getAppearance()) {
-			Appearance appearance = property.getAppearance();
-			if ((!theme.isEmpty() && theme.equals(appearance.getTheme())) 
-					|| (theme.isEmpty() && !appearance.isSetTheme())) {
-				dest = appearance;
-				break;
-			}
-		}
+        if (src.isSetShininess())
+            dest.setShininess(src.getShininess());
 
-		if (dest == null) {
-			dest = new Appearance();
-			if (!theme.isEmpty())
-				dest.setTheme(theme);
-			
-			parent.addAppearance(new AppearanceProperty(dest));
-		}
+        if (src.isSetTransparency())
+            dest.setTransparency(src.getTransparency());
 
-		return dest;
-	}
+        if (src.isSmooth())
+            dest.setIsSmooth(src.isSmooth());
+    }
 
-	private X3DMaterial getOrCreateX3DMaterial(MaterialType src, int surfaceDataId, Appearance appearance) {
-		X3DMaterial dest = null;
+    public X3DMaterial unmarshalMaterial(MaterialType src) {
+        X3DMaterial dest = new X3DMaterial();
+        unmarshalMaterial(src, dest);
 
-		for (SurfaceDataProperty property : appearance.getSurfaceDataMember()) {
-			AbstractSurfaceData surfaceData = property.getSurfaceData();
-			if (!(surfaceData instanceof X3DMaterial))
-				continue;
+        return dest;
+    }
 
-			X3DMaterial material = (X3DMaterial)surfaceData;
-			if ((int)material.getLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID) == surfaceDataId) {
-				dest = material;
-				break;
-			}
-		}
+    private Appearance getOrCreateAppearance(String theme, AbstractCityObject parent) {
+        Appearance dest = null;
 
-		if (dest == null) {
-			dest = unmarshalMaterial(src);			
-			dest.setLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID, surfaceDataId);
-			appearance.addSurfaceDataMember(new SurfaceDataProperty(dest));
-		}
+        for (AppearanceProperty property : parent.getAppearance()) {
+            Appearance appearance = property.getAppearance();
+            if ((!theme.isEmpty() && theme.equals(appearance.getTheme()))
+                    || (theme.isEmpty() && !appearance.isSetTheme())) {
+                dest = appearance;
+                break;
+            }
+        }
 
-		return dest;
-	}
+        if (dest == null) {
+            dest = new Appearance();
+            if (!theme.isEmpty())
+                dest.setTheme(theme);
 
-	private ParameterizedTexture getOrCreateParameterizedTexture(TextureType src, int surfaceDataId, Appearance appearance) {
-		ParameterizedTexture dest = null;
+            parent.addAppearance(new AppearanceProperty(dest));
+        }
 
-		for (SurfaceDataProperty property : appearance.getSurfaceDataMember()) {
-			AbstractSurfaceData surfaceData = property.getSurfaceData();
-			if (!(surfaceData instanceof ParameterizedTexture))
-				continue;
+        return dest;
+    }
 
-			ParameterizedTexture texture = (ParameterizedTexture)surfaceData;
-			if ((int)texture.getLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID) == surfaceDataId) {
-				dest = texture;
-				break;
-			}
-		}
+    private X3DMaterial getOrCreateX3DMaterial(MaterialType src, int surfaceDataId, Appearance appearance) {
+        X3DMaterial dest = null;
 
-		if (dest == null) {
-			dest = unmarshalParameterizedTexture(src);
-			if (!dest.isSetImageURI())
-				return null;
-			
-			dest.setLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID, surfaceDataId);
-			appearance.addSurfaceDataMember(new SurfaceDataProperty(dest));
-		}
+        for (SurfaceDataProperty property : appearance.getSurfaceDataMember()) {
+            AbstractSurfaceData surfaceData = property.getSurfaceData();
+            if (!(surfaceData instanceof X3DMaterial))
+                continue;
 
-		return dest;
-	}
+            X3DMaterial material = (X3DMaterial) surfaceData;
+            if ((int) material.getLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID) == surfaceDataId) {
+                dest = material;
+                break;
+            }
+        }
 
-	private List<Double> getTextureVertices(List<Integer> indexes) {
-		List<Double> vertices = new ArrayList<>();		
-		for (int i = 1; i < indexes.size(); i++) {
-			Integer index = indexes.get(i);
-			if (index != null && index < numTextureVertices) {
-				List<Double> vertex = this.textureVertices.get(index);
-				if (vertex != null && vertex.size() == 2)
-					vertices.addAll(vertex);
-			}
-		}
+        if (dest == null) {
+            dest = unmarshalMaterial(src);
+            dest.setLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID, surfaceDataId);
+            appearance.addSurfaceDataMember(new SurfaceDataProperty(dest));
+        }
 
-		return vertices;
-	}
+        return dest;
+    }
+
+    private ParameterizedTexture getOrCreateParameterizedTexture(TextureType src, int surfaceDataId, Appearance appearance) {
+        ParameterizedTexture dest = null;
+
+        for (SurfaceDataProperty property : appearance.getSurfaceDataMember()) {
+            AbstractSurfaceData surfaceData = property.getSurfaceData();
+            if (!(surfaceData instanceof ParameterizedTexture))
+                continue;
+
+            ParameterizedTexture texture = (ParameterizedTexture) surfaceData;
+            if ((int) texture.getLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID) == surfaceDataId) {
+                dest = texture;
+                break;
+            }
+        }
+
+        if (dest == null) {
+            dest = unmarshalParameterizedTexture(src);
+            if (!dest.isSetImageURI())
+                return null;
+
+            dest.setLocalProperty(CityJSONUnmarshaller.SURFACE_DATA_ID, surfaceDataId);
+            appearance.addSurfaceDataMember(new SurfaceDataProperty(dest));
+        }
+
+        return dest;
+    }
+
+    private List<Double> getTextureVertices(List<Integer> indexes) {
+        List<Double> vertices = new ArrayList<>();
+        for (int i = 1; i < indexes.size(); i++) {
+            Integer index = indexes.get(i);
+            if (index != null && index < numTextureVertices) {
+                List<Double> vertex = this.textureVertices.get(index);
+                if (vertex != null && vertex.size() == 2)
+                    vertices.addAll(vertex);
+            }
+        }
+
+        return vertices;
+    }
 
 }

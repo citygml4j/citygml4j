@@ -24,50 +24,50 @@ import java.util.HashSet;
 import java.util.List;
 
 public class CityGMLBuilderFactory {
-	private ClassLoader classLoader;
-	private HashSet<String> packageNames;
+    private ClassLoader classLoader;
+    private HashSet<String> packageNames;
 
-	private CityGMLBuilderFactory() {
-		classLoader = ClassLoader.getSystemClassLoader();
-		packageNames = new HashSet<>();
-	}
+    private CityGMLBuilderFactory() {
+        classLoader = ClassLoader.getSystemClassLoader();
+        packageNames = new HashSet<>();
+    }
 
-	public static CityGMLBuilderFactory defaults() {
-		return new CityGMLBuilderFactory();
-	}
+    public static CityGMLBuilderFactory defaults() {
+        return new CityGMLBuilderFactory();
+    }
 
-	public CityGMLBuilderFactory withClassLoader(ClassLoader classLoader) {
-		this.classLoader = classLoader;
-		return this;
-	}
-	
-	public CityGMLBuilderFactory withPackageName(String packageName) {
-		if (packageName != null)
-			this.packageNames.add(packageName);
-		
-		return this;
-	}
+    public CityGMLBuilderFactory withClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+        return this;
+    }
 
-	public CityGMLBuilderFactory withPackageNames(List<String> packageNames) {
-		for (String packageName : packageNames)
-			withPackageName(packageName);
-		
-		return this;
-	}
+    public CityGMLBuilderFactory withPackageName(String packageName) {
+        if (packageName != null)
+            this.packageNames.add(packageName);
 
-	public CityGMLBuilderFactory withPackageNames(String... packageNames) {
-		for (String packageName : packageNames)
-			withPackageName(packageName);
-		
-		return this;
-	}
+        return this;
+    }
 
-	public CityGMLBuilder build() throws CityGMLBuilderException {
-		try {
-			return new CityGMLBuilder(JAXBContext.newInstance(JAXBContextPath.getContextPath(packageNames), classLoader));
-		} catch (JAXBException e) {
-			throw new CityGMLBuilderException("Failed to build JAXB context.", e);
-		}
-	}
+    public CityGMLBuilderFactory withPackageNames(List<String> packageNames) {
+        for (String packageName : packageNames)
+            withPackageName(packageName);
+
+        return this;
+    }
+
+    public CityGMLBuilderFactory withPackageNames(String... packageNames) {
+        for (String packageName : packageNames)
+            withPackageName(packageName);
+
+        return this;
+    }
+
+    public CityGMLBuilder build() throws CityGMLBuilderException {
+        try {
+            return new CityGMLBuilder(JAXBContext.newInstance(JAXBContextPath.getContextPath(packageNames), classLoader));
+        } catch (JAXBException e) {
+            throw new CityGMLBuilderException("Failed to build JAXB context.", e);
+        }
+    }
 
 }

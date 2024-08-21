@@ -27,16 +27,16 @@ import org.citygml4j.model.gml.GML;
 
 public abstract class AbstractSurfacePatch implements GML, Associable, Child, Copyable {
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-		AbstractSurfacePatch copy = (AbstractSurfacePatch)target;
+        AbstractSurfacePatch copy = (AbstractSurfacePatch) target;
 
-		copy.unsetParent();
+        copy.unsetParent();
 
-		return copy;
-	}
-	
-	public abstract BoundingBox calcBoundingBox();
+        return copy;
+    }
+
+    public abstract BoundingBox calcBoundingBox();
 }

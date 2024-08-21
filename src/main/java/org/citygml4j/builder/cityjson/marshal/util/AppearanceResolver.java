@@ -40,198 +40,200 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class AppearanceResolver {
-	private final CityJSONMarshaller json;
-	
-	private final AtomicInteger texturesIndex = new AtomicInteger(0);
-	private final AtomicInteger materialsIndex = new AtomicInteger(0);
-	private final ConcurrentHashMap<TextureType, Integer> textures = new ConcurrentHashMap<>();
-	private final ConcurrentHashMap<MaterialType, Integer> materials = new ConcurrentHashMap<>();
-	private final Map<String, List<SurfaceDataInfo>> globalSurfaceDatas = new ConcurrentHashMap<>();
-	
-	private volatile boolean hasGlobalAppearance;
-	
-	private enum ResolverState {
-		GET_SURFACE_DATA,
-		ASSIGN_SURFACE_DATA
-	};
+    private final CityJSONMarshaller json;
 
-	public AppearanceResolver(CityJSONMarshaller json) {
-		this.json = json;
-	}
+    private final AtomicInteger texturesIndex = new AtomicInteger(0);
+    private final AtomicInteger materialsIndex = new AtomicInteger(0);
+    private final ConcurrentHashMap<TextureType, Integer> textures = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<MaterialType, Integer> materials = new ConcurrentHashMap<>();
+    private final Map<String, List<SurfaceDataInfo>> globalSurfaceDatas = new ConcurrentHashMap<>();
 
-	public void resolve(AbstractCityObject cityObject) {
-		resolve((AbstractGML)cityObject);
-	}
-	
-	public void resolve(CityModel cityModel) {
-		resolve((AbstractGML)cityModel);
-	}
-	
-	private void resolve(AbstractGML object) {
-		Walker walker = new Walker();
-		object.accept(walker);
+    private volatile boolean hasGlobalAppearance;
 
-		if (!walker.surfaceDatas.isEmpty()) {
-			walker.state = ResolverState.ASSIGN_SURFACE_DATA;
-			object.accept(walker);
-		}
-	}
-	
-	public void registerGlobalAppearance(Appearance appearance) {
-		Walker walker = new Walker();
-		appearance.accept(walker);
-		
-		if (!walker.surfaceDatas.isEmpty()) {
-			globalSurfaceDatas.putAll(walker.surfaceDatas);
-			hasGlobalAppearance = true;
-		}
-	}
-	
-	public void resolveGlobalAppearance(AbstractGeometry geometry) {
-		if (geometry.isSetId()) {
-			List<SurfaceDataInfo> surfaceData = globalSurfaceDatas.get(geometry.getId());
-			if (surfaceData != null)
-				geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA, surfaceData);
-		}
-	}
-	
-	public boolean hasTextures() {
-		return !textures.isEmpty();
-	}
-	
-	public List<TextureType> getTextures() {
-		List<TextureType> result = textures.entrySet().stream()
-				.sorted(Entry.comparingByValue())
-				.map(Entry::getKey).collect(Collectors.toList());
-		
-		textures.clear();
-		texturesIndex.set(0);
-		return result;
-	}
-	
-	public boolean hasMaterials() {
-		return !materials.isEmpty();
-	}
-	
-	public List<MaterialType> getMaterials() {
-		List<MaterialType> result = materials.entrySet().stream()
-				.sorted(Entry.comparingByValue())
-				.map(Entry::getKey).collect(Collectors.toList());
-		
-		materials.clear();
-		materialsIndex.set(0);
-		return result;
-	}
-	
-	public boolean hasGlobalAppearance() {
-		return hasGlobalAppearance;
-	}
+    private enum ResolverState {
+        GET_SURFACE_DATA,
+        ASSIGN_SURFACE_DATA
+    }
 
-	private class Walker extends GMLWalker {
-		private final AppearanceMarshaller app = json.getCityGMLMarshaller().getAppearanceMarshaller();
-		private final Map<String, List<SurfaceDataInfo>> surfaceDatas = new HashMap<>();
-		private ResolverState state = ResolverState.GET_SURFACE_DATA;
-		private String theme;
+    ;
 
-		@Override
-		public void visit(Appearance appearance) {
-			theme = appearance.isSetTheme() ? appearance.getTheme() : json.getFallbackTheme();
-			super.visit(appearance);
-		}
+    public AppearanceResolver(CityJSONMarshaller json) {
+        this.json = json;
+    }
 
-		@Override
-		public void visit(ParameterizedTexture parameterizedTexture) {
-			if (state == ResolverState.GET_SURFACE_DATA) {
-				TextureType texture = app.marshalParameterizedTexture(parameterizedTexture);
-				if (!texture.isSetImage() || !texture.isSetType())
-					return;
-				
-				int sequenceNumber = addTexture(texture);
-				
-				for (TextureAssociation association : parameterizedTexture.getTarget()) {
-					AbstractTextureParameterization parameterization = association.getTextureParameterization();
-					if (parameterization instanceof TexCoordList) {
-						TexCoordList texCoordList = (TexCoordList)parameterization;
-						if (texCoordList.isSetTextureCoordinates()) {
-							for (TextureCoordinates coordinates : texCoordList.getTextureCoordinates()) {
-								if (coordinates.isSetRing() && coordinates.isSetValue()) {
-									SurfaceDataInfo info = new SurfaceDataInfo(theme, sequenceNumber, parameterizedTexture.getIsFront(), coordinates.getValue());
-									addSurfaceData(clipGMLId(coordinates.getRing()), info);
-								}
-							}
-						}
-					}
-				}
-			}
+    public void resolve(AbstractCityObject cityObject) {
+        resolve((AbstractGML) cityObject);
+    }
 
-			super.visit(parameterizedTexture);
-		}
+    public void resolve(CityModel cityModel) {
+        resolve((AbstractGML) cityModel);
+    }
 
-		@Override
-		public void visit(X3DMaterial x3dMaterial) {
-			if (state == ResolverState.GET_SURFACE_DATA) {
-				MaterialType material = app.marshalX3DMaterial(x3dMaterial);
-				int sequenceNumber = addMaterial(material);
-				
-				for (String target : x3dMaterial.getTarget()) {
-					if (target != null) {
-						SurfaceDataInfo info = new SurfaceDataInfo(theme, sequenceNumber, x3dMaterial.getIsFront());
-						addSurfaceData(clipGMLId(target), info);
-					}
-				}
-			}
+    private void resolve(AbstractGML object) {
+        Walker walker = new Walker();
+        object.accept(walker);
 
-			super.visit(x3dMaterial);
-		}
+        if (!walker.surfaceDatas.isEmpty()) {
+            walker.state = ResolverState.ASSIGN_SURFACE_DATA;
+            object.accept(walker);
+        }
+    }
 
-		@Override
-		public void visit(AbstractGeometry geometry) {
-			if (state == ResolverState.ASSIGN_SURFACE_DATA && geometry.isSetId()) {
-				List<SurfaceDataInfo> surfaceData = surfaceDatas.get(geometry.getId());
-				if (surfaceData != null)
-					geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA, surfaceData);
-			}
+    public void registerGlobalAppearance(Appearance appearance) {
+        Walker walker = new Walker();
+        appearance.accept(walker);
 
-			super.visit(geometry);
-		}
+        if (!walker.surfaceDatas.isEmpty()) {
+            globalSurfaceDatas.putAll(walker.surfaceDatas);
+            hasGlobalAppearance = true;
+        }
+    }
 
-		@Override
-		public void visit(ADEGenericElement ade) {
-			// nothing to do here
-		}
-		
-		private int addTexture(TextureType texture) {
-			Integer sequenceNumber = textures.get(texture);
-			if (sequenceNumber == null) {
-				int tmp = texturesIndex.getAndIncrement();
-				sequenceNumber = textures.putIfAbsent(texture, tmp);
-				if (sequenceNumber == null)
-					sequenceNumber = tmp;
-			}
-			
-			return sequenceNumber;
-		}
-		
-		private int addMaterial(MaterialType material) {
-			Integer sequenceNumber = materials.get(material);
-			if (sequenceNumber == null) {
-				int tmp = materialsIndex.getAndIncrement();
-				sequenceNumber = materials.putIfAbsent(material, tmp);
-				if (sequenceNumber == null)
-					sequenceNumber = tmp;
-			}
-			
-			return sequenceNumber;
-		}
+    public void resolveGlobalAppearance(AbstractGeometry geometry) {
+        if (geometry.isSetId()) {
+            List<SurfaceDataInfo> surfaceData = globalSurfaceDatas.get(geometry.getId());
+            if (surfaceData != null)
+                geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA, surfaceData);
+        }
+    }
 
-		private void addSurfaceData(String key, SurfaceDataInfo info) {
-			List<SurfaceDataInfo> surfaceData = surfaceDatas.computeIfAbsent(key, k -> new ArrayList<>());
-			surfaceData.add(info);
-		}
+    public boolean hasTextures() {
+        return !textures.isEmpty();
+    }
 
-		private String clipGMLId(String target) {
-			return target.replaceAll("^.*?#+?", "");
-		}
-	}
-	
+    public List<TextureType> getTextures() {
+        List<TextureType> result = textures.entrySet().stream()
+                .sorted(Entry.comparingByValue())
+                .map(Entry::getKey).collect(Collectors.toList());
+
+        textures.clear();
+        texturesIndex.set(0);
+        return result;
+    }
+
+    public boolean hasMaterials() {
+        return !materials.isEmpty();
+    }
+
+    public List<MaterialType> getMaterials() {
+        List<MaterialType> result = materials.entrySet().stream()
+                .sorted(Entry.comparingByValue())
+                .map(Entry::getKey).collect(Collectors.toList());
+
+        materials.clear();
+        materialsIndex.set(0);
+        return result;
+    }
+
+    public boolean hasGlobalAppearance() {
+        return hasGlobalAppearance;
+    }
+
+    private class Walker extends GMLWalker {
+        private final AppearanceMarshaller app = json.getCityGMLMarshaller().getAppearanceMarshaller();
+        private final Map<String, List<SurfaceDataInfo>> surfaceDatas = new HashMap<>();
+        private ResolverState state = ResolverState.GET_SURFACE_DATA;
+        private String theme;
+
+        @Override
+        public void visit(Appearance appearance) {
+            theme = appearance.isSetTheme() ? appearance.getTheme() : json.getFallbackTheme();
+            super.visit(appearance);
+        }
+
+        @Override
+        public void visit(ParameterizedTexture parameterizedTexture) {
+            if (state == ResolverState.GET_SURFACE_DATA) {
+                TextureType texture = app.marshalParameterizedTexture(parameterizedTexture);
+                if (!texture.isSetImage() || !texture.isSetType())
+                    return;
+
+                int sequenceNumber = addTexture(texture);
+
+                for (TextureAssociation association : parameterizedTexture.getTarget()) {
+                    AbstractTextureParameterization parameterization = association.getTextureParameterization();
+                    if (parameterization instanceof TexCoordList) {
+                        TexCoordList texCoordList = (TexCoordList) parameterization;
+                        if (texCoordList.isSetTextureCoordinates()) {
+                            for (TextureCoordinates coordinates : texCoordList.getTextureCoordinates()) {
+                                if (coordinates.isSetRing() && coordinates.isSetValue()) {
+                                    SurfaceDataInfo info = new SurfaceDataInfo(theme, sequenceNumber, parameterizedTexture.getIsFront(), coordinates.getValue());
+                                    addSurfaceData(clipGMLId(coordinates.getRing()), info);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            super.visit(parameterizedTexture);
+        }
+
+        @Override
+        public void visit(X3DMaterial x3dMaterial) {
+            if (state == ResolverState.GET_SURFACE_DATA) {
+                MaterialType material = app.marshalX3DMaterial(x3dMaterial);
+                int sequenceNumber = addMaterial(material);
+
+                for (String target : x3dMaterial.getTarget()) {
+                    if (target != null) {
+                        SurfaceDataInfo info = new SurfaceDataInfo(theme, sequenceNumber, x3dMaterial.getIsFront());
+                        addSurfaceData(clipGMLId(target), info);
+                    }
+                }
+            }
+
+            super.visit(x3dMaterial);
+        }
+
+        @Override
+        public void visit(AbstractGeometry geometry) {
+            if (state == ResolverState.ASSIGN_SURFACE_DATA && geometry.isSetId()) {
+                List<SurfaceDataInfo> surfaceData = surfaceDatas.get(geometry.getId());
+                if (surfaceData != null)
+                    geometry.setLocalProperty(CityJSONMarshaller.GEOMETRY_SURFACE_DATA, surfaceData);
+            }
+
+            super.visit(geometry);
+        }
+
+        @Override
+        public void visit(ADEGenericElement ade) {
+            // nothing to do here
+        }
+
+        private int addTexture(TextureType texture) {
+            Integer sequenceNumber = textures.get(texture);
+            if (sequenceNumber == null) {
+                int tmp = texturesIndex.getAndIncrement();
+                sequenceNumber = textures.putIfAbsent(texture, tmp);
+                if (sequenceNumber == null)
+                    sequenceNumber = tmp;
+            }
+
+            return sequenceNumber;
+        }
+
+        private int addMaterial(MaterialType material) {
+            Integer sequenceNumber = materials.get(material);
+            if (sequenceNumber == null) {
+                int tmp = materialsIndex.getAndIncrement();
+                sequenceNumber = materials.putIfAbsent(material, tmp);
+                if (sequenceNumber == null)
+                    sequenceNumber = tmp;
+            }
+
+            return sequenceNumber;
+        }
+
+        private void addSurfaceData(String key, SurfaceDataInfo info) {
+            List<SurfaceDataInfo> surfaceData = surfaceDatas.computeIfAbsent(key, k -> new ArrayList<>());
+            surfaceData.add(info);
+        }
+
+        private String clipGMLId(String target) {
+            return target.replaceAll("^.*?#+?", "");
+        }
+    }
+
 }

@@ -33,66 +33,66 @@ import org.citygml4j.model.gml.geometry.aggregates.MultiSurface;
 import org.citygml4j.model.gml.geometry.aggregates.MultiSurfaceProperty;
 
 public class LandUseUnmarshaller {
-	private final CityJSONUnmarshaller json;
-	private final CityGMLUnmarshaller citygml;
-	
-	public LandUseUnmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONUnmarshaller();
-	}
-	
-	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		if (src instanceof LandUseType)
-			return unmarshalLandUse((LandUseType) src, cityJSON);
+    private final CityJSONUnmarshaller json;
+    private final CityGMLUnmarshaller citygml;
 
-		return null;
-	}
-	
-	public void unmarshalLandUse(LandUseType src, LandUse dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
-		
-		if (src.isSetAttributes()) {
-			Attributes attributes = src.getAttributes();
-			if (attributes.isSetClazz())
-				dest.setClazz(new Code(attributes.getClazz()));
+    public LandUseUnmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONUnmarshaller();
+    }
 
-			if (attributes.isSetFunction())
-				dest.addFunction(new Code(attributes.getFunction()));
+    public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
+        if (src instanceof LandUseType)
+            return unmarshalLandUse((LandUseType) src, cityJSON);
 
-			if (attributes.isSetUsage())
-				dest.addUsage(new Code(attributes.getUsage()));
-		}
-		
-		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			if (geometryType instanceof AbstractSurfaceCollectionType) {
-				AbstractSurfaceCollectionType surfaceType = (AbstractSurfaceCollectionType)geometryType;
-				MultiSurface multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest, cityJSON);
-				
-				if (multiSurface != null) {
-					int lod = surfaceType.getLod().intValue();
-					switch (lod) {
-					case 0:
-						dest.setLod0MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 1:
-						dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 2:
-						dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					case 3:
-						dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-						break;
-					}
-				}
-			}	
-		}
-	}
-	
-	public LandUse unmarshalLandUse(LandUseType src, CityJSON cityJSON) {
-		LandUse dest = new LandUse();
-		unmarshalLandUse(src, dest, cityJSON);
-		
-		return dest;
-	}
+        return null;
+    }
+
+    public void unmarshalLandUse(LandUseType src, LandUse dest, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+
+        if (src.isSetAttributes()) {
+            Attributes attributes = src.getAttributes();
+            if (attributes.isSetClazz())
+                dest.setClazz(new Code(attributes.getClazz()));
+
+            if (attributes.isSetFunction())
+                dest.addFunction(new Code(attributes.getFunction()));
+
+            if (attributes.isSetUsage())
+                dest.addUsage(new Code(attributes.getUsage()));
+        }
+
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType instanceof AbstractSurfaceCollectionType) {
+                AbstractSurfaceCollectionType surfaceType = (AbstractSurfaceCollectionType) geometryType;
+                MultiSurface multiSurface = json.getGMLUnmarshaller().unmarshalMultiSurface(surfaceType, dest, cityJSON);
+
+                if (multiSurface != null) {
+                    int lod = surfaceType.getLod().intValue();
+                    switch (lod) {
+                        case 0:
+                            dest.setLod0MultiSurface(new MultiSurfaceProperty(multiSurface));
+                            break;
+                        case 1:
+                            dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+                            break;
+                        case 2:
+                            dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+                            break;
+                        case 3:
+                            dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    public LandUse unmarshalLandUse(LandUseType src, CityJSON cityJSON) {
+        LandUse dest = new LandUse();
+        unmarshalLandUse(src, dest, cityJSON);
+
+        return dest;
+    }
 }

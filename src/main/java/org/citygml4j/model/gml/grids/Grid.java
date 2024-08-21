@@ -33,133 +33,133 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Grid extends AbstractGeometry {
-	private GridLimits limits;
-	private List<String> axisName;
-	private int dimension;
+    private GridLimits limits;
+    private List<String> axisName;
+    private int dimension;
 
-	public GridLimits getLimits() {
-		return limits;
-	}
+    public GridLimits getLimits() {
+        return limits;
+    }
 
-	public List<String> getAxisName() {
-		if (axisName == null)
-			axisName = new ArrayList<>();
+    public List<String> getAxisName() {
+        if (axisName == null)
+            axisName = new ArrayList<>();
 
-		return axisName;
-	}
+        return axisName;
+    }
 
-	public Integer getDimension() {
-		return dimension;
-	}
+    public Integer getDimension() {
+        return dimension;
+    }
 
-	public boolean isSetLimits() {
-		return limits != null;
-	}
+    public boolean isSetLimits() {
+        return limits != null;
+    }
 
-	public boolean isSetAxisName() {
-		return axisName != null && !axisName.isEmpty();
-	}
+    public boolean isSetAxisName() {
+        return axisName != null && !axisName.isEmpty();
+    }
 
-	public boolean isSetDimension() {
-		return true;
-	}
+    public boolean isSetDimension() {
+        return true;
+    }
 
-	public void setLimits(GridLimits limits) {
-		this.limits = ModelObjects.setParent(limits, this);
-	}
+    public void setLimits(GridLimits limits) {
+        this.limits = ModelObjects.setParent(limits, this);
+    }
 
-	public void addAxisName(String axisName) {
-		getAxisName().add(axisName);
-	}
+    public void addAxisName(String axisName) {
+        getAxisName().add(axisName);
+    }
 
-	public void setAxisName(List<String> axisName) {
-		this.axisName = axisName;
-	}
+    public void setAxisName(List<String> axisName) {
+        this.axisName = axisName;
+    }
 
-	public void setDimension(Integer dimension) {
-		if (dimension > 0)
-			this.dimension = dimension;
-	}
+    public void setDimension(Integer dimension) {
+        if (dimension > 0)
+            this.dimension = dimension;
+    }
 
-	public void unsetLimits() {
-		limits = ModelObjects.setNull(limits);
-	}
+    public void unsetLimits() {
+        limits = ModelObjects.setNull(limits);
+    }
 
-	public void unsetAxisName() {
-		axisName = null;
-	}
+    public void unsetAxisName() {
+        axisName = null;
+    }
 
-	public BoundingBox calcBoundingBox() {
-		if (!isSetLimits())
-			return null;
+    public BoundingBox calcBoundingBox() {
+        if (!isSetLimits())
+            return null;
 
-		GridEnvelope gridEnvelope = limits.getGridEnvelope();
-		if (!(gridEnvelope.isSetHigh() && gridEnvelope.isSetLow() &&
-				gridEnvelope.getHigh().size() >= dimension &&
-				gridEnvelope.getLow().size() >= dimension))
-			return null;
+        GridEnvelope gridEnvelope = limits.getGridEnvelope();
+        if (!(gridEnvelope.isSetHigh() && gridEnvelope.isSetLow() &&
+                gridEnvelope.getHigh().size() >= dimension &&
+                gridEnvelope.getLow().size() >= dimension))
+            return null;
 
-		BoundingBox bbox = new BoundingBox();
+        BoundingBox bbox = new BoundingBox();
 
-		Point low = new Point();
-		low.setX(dimension >= 1 ? gridEnvelope.getLow().get(0) : 0.0);
-		low.setY(dimension >= 2 ? gridEnvelope.getLow().get(1) : 0.0);
-		low.setZ(dimension >= 3 ? gridEnvelope.getLow().get(2) : 0.0);
-		bbox.update(low);
-		
-		Point high = new Point();
-		high.setX(dimension >= 1 ? gridEnvelope.getHigh().get(0) : 0.0);
-		high.setY(dimension >= 2 ? gridEnvelope.getHigh().get(1) : 0.0);
-		high.setZ(dimension >= 3 ? gridEnvelope.getHigh().get(2) : 0.0);
-		bbox.update(high);
-		
-		return bbox;	
-	}	
+        Point low = new Point();
+        low.setX(dimension >= 1 ? gridEnvelope.getLow().get(0) : 0.0);
+        low.setY(dimension >= 2 ? gridEnvelope.getLow().get(1) : 0.0);
+        low.setZ(dimension >= 3 ? gridEnvelope.getLow().get(2) : 0.0);
+        bbox.update(low);
 
-	public GMLClass getGMLClass() {
-		return GMLClass.GRID;
-	}
+        Point high = new Point();
+        high.setX(dimension >= 1 ? gridEnvelope.getHigh().get(0) : 0.0);
+        high.setY(dimension >= 2 ? gridEnvelope.getHigh().get(1) : 0.0);
+        high.setZ(dimension >= 3 ? gridEnvelope.getHigh().get(2) : 0.0);
+        bbox.update(high);
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Grid copy = (target == null) ? new Grid() : (Grid)target;
-		super.copyTo(copy, copyBuilder);
+        return bbox;
+    }
 
-		if (isSetLimits()) {
-			copy.setLimits((GridLimits)copyBuilder.copy(limits));
-			if (copy.getLimits() == limits)
-				limits.setParent(this);
-		}
+    public GMLClass getGMLClass() {
+        return GMLClass.GRID;
+    }
 
-		if (isSetAxisName())
-			copy.setAxisName((List<String>)copyBuilder.copy(axisName));
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Grid copy = (target == null) ? new Grid() : (Grid) target;
+        super.copyTo(copy, copyBuilder);
 
-		copy.setDimension(dimension);
+        if (isSetLimits()) {
+            copy.setLimits((GridLimits) copyBuilder.copy(limits));
+            if (copy.getLimits() == limits)
+                limits.setParent(this);
+        }
 
-		copy.unsetParent();
+        if (isSetAxisName())
+            copy.setAxisName((List<String>) copyBuilder.copy(axisName));
 
-		return copy;
-	}
+        copy.setDimension(dimension);
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Grid(), copyBuilder);
-	}
+        copy.unsetParent();
 
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+        return copy;
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Grid(), copyBuilder);
+    }
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

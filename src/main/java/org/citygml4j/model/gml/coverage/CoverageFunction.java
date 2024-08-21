@@ -28,98 +28,98 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.StringOrRef;
 
 public class CoverageFunction implements GML, Child, Copyable {
-	private StringOrRef mappingRule;
-	private GridFunction gridFunction;
-	private ModelObject parent;
-	
-	public CoverageFunction() {
-		
-	}
-	
-	public CoverageFunction(StringOrRef mappingRule) {
-		setMappingRule(mappingRule);
-	}
-	
-	public CoverageFunction(GridFunction gridFunction) {
-		setGridFunction(gridFunction);
-	}
+    private StringOrRef mappingRule;
+    private GridFunction gridFunction;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.COVERAGE_FUNCTION;
-	}
+    public CoverageFunction() {
 
-	public StringOrRef getMappingRule() {
-		return mappingRule;
-	}
+    }
 
-	public GridFunction getGridFunction() {
-		return gridFunction;
-	}
+    public CoverageFunction(StringOrRef mappingRule) {
+        setMappingRule(mappingRule);
+    }
 
-	public boolean isSetMappingRule() {
-		return mappingRule != null;
-	}
+    public CoverageFunction(GridFunction gridFunction) {
+        setGridFunction(gridFunction);
+    }
 
-	public boolean isSetGridFunction() {
-		return gridFunction != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.COVERAGE_FUNCTION;
+    }
 
-	public void setMappingRule(StringOrRef mappingRule) {
-		this.mappingRule = ModelObjects.setParent(mappingRule, this);
-		unsetGridFunction();
-	}
+    public StringOrRef getMappingRule() {
+        return mappingRule;
+    }
 
-	public void setGridFunction(GridFunction gridFunction) {
-		this.gridFunction = ModelObjects.setParent(gridFunction, this);
-		unsetMappingRule();
-	}
+    public GridFunction getGridFunction() {
+        return gridFunction;
+    }
 
-	public void unsetMappingRule() {
-		mappingRule = ModelObjects.setNull(mappingRule);
-	}
+    public boolean isSetMappingRule() {
+        return mappingRule != null;
+    }
 
-	public void unsetGridFunction() {
-		gridFunction = ModelObjects.setNull(gridFunction);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public boolean isSetGridFunction() {
+        return gridFunction != null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setMappingRule(StringOrRef mappingRule) {
+        this.mappingRule = ModelObjects.setParent(mappingRule, this);
+        unsetGridFunction();
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setGridFunction(GridFunction gridFunction) {
+        this.gridFunction = ModelObjects.setParent(gridFunction, this);
+        unsetMappingRule();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CoverageFunction copy = (target == null) ? new CoverageFunction() : (CoverageFunction)target;
-		
-		if (isSetMappingRule()) {
-			copy.setMappingRule((StringOrRef)copyBuilder.copy(mappingRule));
-			if (copy.getMappingRule() == mappingRule)
-				mappingRule.setParent(this);
-		}
-		
-		if (isSetGridFunction()) {
-			copy.setGridFunction((GridFunction)copyBuilder.copy(gridFunction));
-			if (copy.getGridFunction() == gridFunction)
-				gridFunction.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetMappingRule() {
+        mappingRule = ModelObjects.setNull(mappingRule);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CoverageFunction(), copyBuilder);
-	}
+    public void unsetGridFunction() {
+        gridFunction = ModelObjects.setNull(gridFunction);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CoverageFunction copy = (target == null) ? new CoverageFunction() : (CoverageFunction) target;
+
+        if (isSetMappingRule()) {
+            copy.setMappingRule((StringOrRef) copyBuilder.copy(mappingRule));
+            if (copy.getMappingRule() == mappingRule)
+                mappingRule.setParent(this);
+        }
+
+        if (isSetGridFunction()) {
+            copy.setGridFunction((GridFunction) copyBuilder.copy(gridFunction));
+            if (copy.getGridFunction() == gridFunction)
+                gridFunction.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CoverageFunction(), copyBuilder);
+    }
 
 }

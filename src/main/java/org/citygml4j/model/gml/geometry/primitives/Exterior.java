@@ -22,31 +22,31 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 
 public class Exterior extends AbstractRingProperty {
-	
-	public Exterior() {
 
-	}
+    public Exterior() {
 
-	public Exterior(AbstractRing abstractRing) {
-		super(abstractRing);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.EXTERIOR;
-	}
+    }
 
-	public Class<AbstractRing> getAssociableClass() {
-		return AbstractRing.class;
-	}
+    public Exterior(AbstractRing abstractRing) {
+        super(abstractRing);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Exterior copy = (target == null) ? new Exterior() : (Exterior)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.EXTERIOR;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Exterior(), copyBuilder);
-	}
+    public Class<AbstractRing> getAssociableClass() {
+        return AbstractRing.class;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Exterior copy = (target == null) ? new Exterior() : (Exterior) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Exterior(), copyBuilder);
+    }
 
 }

@@ -34,86 +34,86 @@ import org.xml.sax.SAXException;
 import javax.xml.bind.JAXBContext;
 
 public class CityGMLBuilder {
-	private final JAXBContext context;
-	private SchemaHandler schemaHandler;
+    private final JAXBContext context;
+    private SchemaHandler schemaHandler;
 
-	protected CityGMLBuilder(JAXBContext context) {
-		this.context = context;
-	}
+    protected CityGMLBuilder(JAXBContext context) {
+        this.context = context;
+    }
 
-	public JAXBContext getJAXBContext() {
-		return context;
-	}
-	
-	public JAXBUnmarshaller createJAXBUnmarshaller(SchemaHandler schemaHandler) {
-		return new JAXBUnmarshaller(this, schemaHandler);
-	}
+    public JAXBContext getJAXBContext() {
+        return context;
+    }
 
-	public JAXBUnmarshaller createJAXBUnmarshaller() throws CityGMLBuilderException {
-		return createJAXBUnmarshaller(getDefaultSchemaHandler());
-	}
+    public JAXBUnmarshaller createJAXBUnmarshaller(SchemaHandler schemaHandler) {
+        return new JAXBUnmarshaller(this, schemaHandler);
+    }
 
-	public JAXBMarshaller createJAXBMarshaller(ModuleContext moduleContext) {
-		return new JAXBMarshaller(this, moduleContext);
-	}
+    public JAXBUnmarshaller createJAXBUnmarshaller() throws CityGMLBuilderException {
+        return createJAXBUnmarshaller(getDefaultSchemaHandler());
+    }
 
-	public JAXBMarshaller createJAXBMarshaller(CityGMLVersion version) {
-		return new JAXBMarshaller(this, new ModuleContext(version));
-	}
+    public JAXBMarshaller createJAXBMarshaller(ModuleContext moduleContext) {
+        return new JAXBMarshaller(this, moduleContext);
+    }
 
-	public JAXBMarshaller createJAXBMarshaller() {
-		return createJAXBMarshaller(new ModuleContext(CityGMLVersion.DEFAULT));
-	}
+    public JAXBMarshaller createJAXBMarshaller(CityGMLVersion version) {
+        return new JAXBMarshaller(this, new ModuleContext(version));
+    }
 
-	public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLBuilderException {
-		return new JAXBInputFactory(this);
-	}
+    public JAXBMarshaller createJAXBMarshaller() {
+        return createJAXBMarshaller(new ModuleContext(CityGMLVersion.DEFAULT));
+    }
 
-	public CityGMLInputFactory createCityGMLInputFactory(SchemaHandler schemaHandler) {
-		return new JAXBInputFactory(this, schemaHandler);
-	}
+    public CityGMLInputFactory createCityGMLInputFactory() throws CityGMLBuilderException {
+        return new JAXBInputFactory(this);
+    }
 
-	public CityGMLOutputFactory createCityGMLOutputFactory() {
-		return new JAXBOutputFactory(this);
-	}
+    public CityGMLInputFactory createCityGMLInputFactory(SchemaHandler schemaHandler) {
+        return new JAXBInputFactory(this, schemaHandler);
+    }
 
-	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext) {
-		return new JAXBOutputFactory(this, moduleContext);
-	}
+    public CityGMLOutputFactory createCityGMLOutputFactory() {
+        return new JAXBOutputFactory(this);
+    }
 
-	public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext, SchemaHandler schemaHandler) {
-		return new JAXBOutputFactory(this, moduleContext, schemaHandler);
-	}
+    public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext) {
+        return new JAXBOutputFactory(this, moduleContext);
+    }
 
-	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) {
-		return new JAXBOutputFactory(this, new ModuleContext(version));
-	}
+    public CityGMLOutputFactory createCityGMLOutputFactory(ModuleContext moduleContext, SchemaHandler schemaHandler) {
+        return new JAXBOutputFactory(this, moduleContext, schemaHandler);
+    }
 
-	public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version, SchemaHandler schemaHandler) {
-		return new JAXBOutputFactory(this, new ModuleContext(version), schemaHandler);
-	}
+    public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version) {
+        return new JAXBOutputFactory(this, new ModuleContext(version));
+    }
 
-	public CityGMLOutputFactory createCityGMLOutputFactory(SchemaHandler schemaHandler) {
-		return new JAXBOutputFactory(this, schemaHandler);
-	}
+    public CityGMLOutputFactory createCityGMLOutputFactory(CityGMLVersion version, SchemaHandler schemaHandler) {
+        return new JAXBOutputFactory(this, new ModuleContext(version), schemaHandler);
+    }
 
-	public Validator createValidator() throws CityGMLBuilderException {
-		return new JAXBValidator(this, getDefaultSchemaHandler());
-	}
+    public CityGMLOutputFactory createCityGMLOutputFactory(SchemaHandler schemaHandler) {
+        return new JAXBOutputFactory(this, schemaHandler);
+    }
 
-	public Validator createValidator(SchemaHandler schemaHandler) {
-		return new JAXBValidator(this, schemaHandler);
-	}
+    public Validator createValidator() throws CityGMLBuilderException {
+        return new JAXBValidator(this, getDefaultSchemaHandler());
+    }
 
-	public synchronized SchemaHandler getDefaultSchemaHandler() throws CityGMLBuilderException {
-		if (schemaHandler == null) {
-			try {
-				schemaHandler = SchemaHandler.newInstance();
-			} catch (SAXException e) {
-				throw new CityGMLBuilderException("Failed to build default schema handler.", e);
-			}
-		}
+    public Validator createValidator(SchemaHandler schemaHandler) {
+        return new JAXBValidator(this, schemaHandler);
+    }
 
-		return schemaHandler;
-	}
+    public synchronized SchemaHandler getDefaultSchemaHandler() throws CityGMLBuilderException {
+        if (schemaHandler == null) {
+            try {
+                schemaHandler = SchemaHandler.newInstance();
+            } catch (SAXException e) {
+                throw new CityGMLBuilderException("Failed to build default schema handler.", e);
+            }
+        }
+
+        return schemaHandler;
+    }
 }

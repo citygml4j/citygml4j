@@ -20,9 +20,9 @@ package org.citygml4j.builder.cityjson.util;
 
 public class DefaultTextureFileHandler implements TextureFileHandler {
 
-	@Override
-	public String getImageURI(String imageURI) {
-		return imageURI != null ? imageURI.replace('\\', '/') : null;
-	}
+    @Override
+    public String getImageURI(String imageURI) {
+        return imageURI != null ? imageURI.replace('\\', '/') : null;
+    }
 
 }

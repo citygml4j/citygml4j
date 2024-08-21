@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class AddressProperty extends FeatureProperty<Address> implements CoreModuleComponent {
 
-	public AddressProperty() {
-		
-	}
-	
-	public AddressProperty(Address address) {
-		super(address);
-	}
-	
-	public AddressProperty(String href) {
-		super(href);
-	}
-	
-	public Address getAddress() {
-		return super.getObject();
-	}
+    public AddressProperty() {
 
-	public boolean isSetAddress() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setAddress(Address address) {
-		super.setObject(address);
-	}
+    public AddressProperty(Address address) {
+        super(address);
+    }
 
-	public void unsetAddress() {
-		super.unsetObject();
-	}
+    public AddressProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ADDRESS_PROPERTY;
-	}
+    public Address getAddress() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<Address> getAssociableClass() {
-		return Address.class;
-	}
+    public boolean isSetAddress() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new AddressProperty(), copyBuilder);
-	}
+    public void setAddress(Address address) {
+        super.setObject(address);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		AddressProperty copy = (target == null) ? new AddressProperty() : (AddressProperty)target;
-		return super.copyTo(copy, copyBuilder);		
-	}
+    public void unsetAddress() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.ADDRESS_PROPERTY;
+    }
+
+    @Override
+    public Class<Address> getAssociableClass() {
+        return Address.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new AddressProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        AddressProperty copy = (target == null) ? new AddressProperty() : (AddressProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

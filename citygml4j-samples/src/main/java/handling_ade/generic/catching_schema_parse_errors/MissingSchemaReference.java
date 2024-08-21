@@ -36,36 +36,36 @@ import java.util.Date;
 
 public class MissingSchemaReference {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "setting up schema handler");
-		SchemaHandler schemaHandler = SchemaHandler.newInstance();
-		schemaHandler.setSchemaEntityResolver(new SchemaEntityResolver());
-		schemaHandler.setErrorHandler(new SchemaParseErrorHandler());
+        System.out.println(df.format(new Date()) + "setting up schema handler");
+        SchemaHandler schemaHandler = SchemaHandler.newInstance();
+        schemaHandler.setSchemaEntityResolver(new SchemaEntityResolver());
+        schemaHandler.setErrorHandler(new SchemaParseErrorHandler());
 
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_missing_ADE_reference_v200.gml");
-		System.out.println(df.format(new Date()) + "note: the input document is lacking a reference to the ADE schema document");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
-		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
-		
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD0_Railway_NoiseADE_missing_ADE_reference_v200.gml"));
-		
-		while (reader.hasNext()) {
-			CityGML citygml = reader.nextFeature();
-			
-			if (citygml instanceof AbstractFeature)
-				System.out.println("Found CityGML: " + citygml.getCityGMLClass());
-			else if (citygml instanceof ADEGenericElement)
-				System.out.println("Found ADE: " + ((ADEGenericElement)citygml).getContent().getLocalName());
-		}
-		
-		reader.close();
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD0_Railway_NoiseADE_missing_ADE_reference_v200.gml");
+        System.out.println(df.format(new Date()) + "note: the input document is lacking a reference to the ADE schema document");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory(schemaHandler);
+        in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
+
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD0_Railway_NoiseADE_missing_ADE_reference_v200.gml"));
+
+        while (reader.hasNext()) {
+            CityGML citygml = reader.nextFeature();
+
+            if (citygml instanceof AbstractFeature)
+                System.out.println("Found CityGML: " + citygml.getCityGMLClass());
+            else if (citygml instanceof ADEGenericElement)
+                System.out.println("Found ADE: " + ((ADEGenericElement) citygml).getContent().getLocalName());
+        }
+
+        reader.close();
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

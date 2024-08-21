@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Angle extends Measure {
-	
-	public Angle() {
-	}
-	
-	public Angle(double value) {
-		super(value);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.ANGLE;
-	}
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Angle(), copyBuilder);
-	}
+    public Angle() {
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Angle copy = (target == null) ? new Angle() : (Angle)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    public Angle(double value) {
+        super(value);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.ANGLE;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Angle(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Angle copy = (target == null) ? new Angle() : (Angle) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

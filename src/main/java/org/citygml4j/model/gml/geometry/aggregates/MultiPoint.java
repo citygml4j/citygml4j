@@ -35,131 +35,131 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MultiPoint extends AbstractGeometricAggregate {
-	private List<PointProperty> pointMember;
-	private PointArrayProperty pointMembers;
-	
-	public MultiPoint() {
-		
-	}
-	
-	public MultiPoint(List<Point> points) {
-		for (Point point : points)
-			addPointMember(new PointProperty(point));
-	}
-	
-	public MultiPoint(Point... points) {
-		this(Arrays.asList(points));
-	}
-	
-	public void addPointMember(PointProperty pointMember) {
-		getPointMember().add(pointMember);
-	}
+    private List<PointProperty> pointMember;
+    private PointArrayProperty pointMembers;
 
-	public List<PointProperty> getPointMember() {
-		if (pointMember == null)
-			pointMember = new ChildList<>(this);
-		
-		return pointMember;
-	}
+    public MultiPoint() {
 
-	public PointArrayProperty getPointMembers() {
-		return pointMembers;
-	}
+    }
 
-	public boolean isSetPointMember() {
-		return pointMember != null && !pointMember.isEmpty();
-	}
+    public MultiPoint(List<Point> points) {
+        for (Point point : points)
+            addPointMember(new PointProperty(point));
+    }
 
-	public boolean isSetPointMembers() {
-		return pointMembers != null;
-	}
+    public MultiPoint(Point... points) {
+        this(Arrays.asList(points));
+    }
 
-	public void setPointMember(List<PointProperty> pointMember) {
-		this.pointMember = new ChildList<>(this, pointMember);
-	}
+    public void addPointMember(PointProperty pointMember) {
+        getPointMember().add(pointMember);
+    }
 
-	public void setPointMembers(PointArrayProperty pointMembers) {
-		this.pointMembers = ModelObjects.setParent(pointMembers, this);
-	}
+    public List<PointProperty> getPointMember() {
+        if (pointMember == null)
+            pointMember = new ChildList<>(this);
 
-	public void unsetPointMember() {
-		pointMember = ModelObjects.setNull(pointMember);
-	}
+        return pointMember;
+    }
 
-	public boolean unsetPointMember(PointProperty pointMember) {
-		return isSetPointMember() && this.pointMember.remove(pointMember);
-	}
+    public PointArrayProperty getPointMembers() {
+        return pointMembers;
+    }
 
-	public void unsetPointMembers() {
-		pointMembers = ModelObjects.setNull(pointMembers);
-	}
+    public boolean isSetPointMember() {
+        return pointMember != null && !pointMember.isEmpty();
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetPointMember()) {
-			for (PointProperty pointProperty : getPointMember())
-				if (pointProperty.isSetPoint())
-					bbox.update(pointProperty.getPoint().calcBoundingBox());
-		}
+    public boolean isSetPointMembers() {
+        return pointMembers != null;
+    }
 
-		if (isSetPointMembers()) {
-			PointArrayProperty pointArrayProperty = getPointMembers();
-			
-			if (pointArrayProperty.isSetPoint())
-				for (Point point : pointArrayProperty.getPoint())
-					bbox.update(point.calcBoundingBox());
-		}
-		
-		return bbox;
-	}
+    public void setPointMember(List<PointProperty> pointMember) {
+        this.pointMember = new ChildList<>(this, pointMember);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_POINT;
-	}
+    public void setPointMembers(PointArrayProperty pointMembers) {
+        this.pointMembers = ModelObjects.setParent(pointMembers, this);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiPoint(), copyBuilder);
-	}
+    public void unsetPointMember() {
+        pointMember = ModelObjects.setNull(pointMember);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiPoint copy = (target == null) ? new MultiPoint() : (MultiPoint)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetPointMember()) {
-			for (PointProperty part : pointMember) {
-				PointProperty copyPart = (PointProperty)copyBuilder.copy(part);
-				copy.addPointMember(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPointMembers()) {
-			copy.setPointMembers((PointArrayProperty)copyBuilder.copy(pointMembers));
-			if (copy.getPointMembers() == pointMembers)
-				pointMembers.setParent(this);
-		}
-		
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public boolean unsetPointMember(PointProperty pointMember) {
+        return isSetPointMember() && this.pointMember.remove(pointMember);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void unsetPointMembers() {
+        pointMembers = ModelObjects.setNull(pointMembers);
+    }
+
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
+
+        if (isSetPointMember()) {
+            for (PointProperty pointProperty : getPointMember())
+                if (pointProperty.isSetPoint())
+                    bbox.update(pointProperty.getPoint().calcBoundingBox());
+        }
+
+        if (isSetPointMembers()) {
+            PointArrayProperty pointArrayProperty = getPointMembers();
+
+            if (pointArrayProperty.isSetPoint())
+                for (Point point : pointArrayProperty.getPoint())
+                    bbox.update(point.calcBoundingBox());
+        }
+
+        return bbox;
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_POINT;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiPoint(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiPoint copy = (target == null) ? new MultiPoint() : (MultiPoint) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetPointMember()) {
+            for (PointProperty part : pointMember) {
+                PointProperty copyPart = (PointProperty) copyBuilder.copy(part);
+                copy.addPointMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPointMembers()) {
+            copy.setPointMembers((PointArrayProperty) copyBuilder.copy(pointMembers));
+            if (copy.getPointMembers() == pointMembers)
+                pointMembers.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

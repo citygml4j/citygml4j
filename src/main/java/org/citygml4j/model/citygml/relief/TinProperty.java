@@ -25,51 +25,51 @@ import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 
 public class TinProperty extends GeometryProperty<TriangulatedSurface> implements ReliefModuleComponent {
 
-	public TinProperty() {
-		
-	}
+    public TinProperty() {
 
-	public TinProperty(TriangulatedSurface triangulatedSurface) {
-		super(triangulatedSurface);
-	}
+    }
 
-	public TinProperty(String href) {
-		super(href);
-	}
-	
-	public TriangulatedSurface getTriangulatedSurface() {
-		return super.getObject();
-	}
+    public TinProperty(TriangulatedSurface triangulatedSurface) {
+        super(triangulatedSurface);
+    }
 
-	public boolean isSetTriangulatedSurface() {
-		return super.isSetObject();
-	}
+    public TinProperty(String href) {
+        super(href);
+    }
 
-	public void setTriangulatedSurface(TriangulatedSurface triangulatedSurface) {
-		super.setObject(triangulatedSurface);
-	}
+    public TriangulatedSurface getTriangulatedSurface() {
+        return super.getObject();
+    }
 
-	public void unsetTriangulatedSurface() {
-		super.unsetObject();
-	}
+    public boolean isSetTriangulatedSurface() {
+        return super.isSetObject();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TIN_PROPERTY;
-	}
+    public void setTriangulatedSurface(TriangulatedSurface triangulatedSurface) {
+        super.setObject(triangulatedSurface);
+    }
 
-	@Override
-	public Class<TriangulatedSurface> getAssociableClass() {
-		return TriangulatedSurface.class;
-	}
+    public void unsetTriangulatedSurface() {
+        super.unsetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TinProperty(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TIN_PROPERTY;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TinProperty copy = (target == null) ? new TinProperty() : (TinProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<TriangulatedSurface> getAssociableClass() {
+        return TriangulatedSurface.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TinProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TinProperty copy = (target == null) ? new TinProperty() : (TinProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

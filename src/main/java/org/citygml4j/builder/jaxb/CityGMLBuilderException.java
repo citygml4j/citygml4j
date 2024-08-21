@@ -20,22 +20,22 @@
 package org.citygml4j.builder.jaxb;
 
 public class CityGMLBuilderException extends Exception {
-	private static final long serialVersionUID = -3716015045363231263L;
-	
-	public CityGMLBuilderException() {
-		super();
-	}
-	
-	public CityGMLBuilderException(String message) {
-		super(message);
-	}
-	
-	public CityGMLBuilderException(Throwable cause) {
-		super(cause);
-	}
-	
-	public CityGMLBuilderException(String message, Throwable cause) {
-		super(message, cause);
-	}
-	
+    private static final long serialVersionUID = -3716015045363231263L;
+
+    public CityGMLBuilderException() {
+        super();
+    }
+
+    public CityGMLBuilderException(String message) {
+        super(message);
+    }
+
+    public CityGMLBuilderException(Throwable cause) {
+        super(cause);
+    }
+
+    public CityGMLBuilderException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

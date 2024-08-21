@@ -30,144 +30,144 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class ThoroughfareNumberFrom implements XAL, GrPostal, Child, Copyable {
-	private List<ThoroughfareNumberFromContent> content;
-	private String code;
-	private ModelObject parent;
+    private List<ThoroughfareNumberFromContent> content;
+    private String code;
+    private ModelObject parent;
 
-	public void addAddressLine(AddressLine addressLine) {
-		getContent().add(new ThoroughfareNumberFromContent(addressLine));
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getContent().add(new ThoroughfareNumberFromContent(addressLine));
+    }
 
-	public void addContent(ThoroughfareNumberFromContent content) {
-		getContent().add(content);
-	}
+    public void addContent(ThoroughfareNumberFromContent content) {
+        getContent().add(content);
+    }
 
-	public void addThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumber));
-	}
+    public void addThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
+        getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumber));
+    }
 
-	public void addThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumberPrefix));
-	}
+    public void addThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
+        getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumberPrefix));
+    }
 
-	public void addThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumberSuffix));
-	}
+    public void addThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
+        getContent().add(new ThoroughfareNumberFromContent(thoroughfareNumberSuffix));
+    }
 
-	public void addString(String string) {
-		getContent().add(new ThoroughfareNumberFromContent(string));
-	}
+    public void addString(String string) {
+        getContent().add(new ThoroughfareNumberFromContent(string));
+    }
 
-	public List<ThoroughfareNumberFromContent> getContent() {
-		if (content == null)
-			content = new ChildList<>(this);
+    public List<ThoroughfareNumberFromContent> getContent() {
+        if (content == null)
+            content = new ChildList<>(this);
 
-		return content;
-	}
+        return content;
+    }
 
-	public boolean isSetContent() {
-		return content != null && !content.isEmpty();
-	}
+    public boolean isSetContent() {
+        return content != null && !content.isEmpty();
+    }
 
-	public void setContent(List<ThoroughfareNumberFromContent> content) {
-		this.content = new ChildList<>(this, content);
-	}
+    public void setContent(List<ThoroughfareNumberFromContent> content) {
+        this.content = new ChildList<>(this, content);
+    }
 
-	public void unsetContent() {
-		content = ModelObjects.setNull(content);
-	}
+    public void unsetContent() {
+        content = ModelObjects.setNull(content);
+    }
 
-	public boolean unsetContent(ThoroughfareNumberFromContent content) {
-		return isSetContent() && this.content.remove(content);
-	}
-	
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetContent() && content.removeIf(c -> c.getAddressLine() == addressLine);
-	}
+    public boolean unsetContent(ThoroughfareNumberFromContent content) {
+        return isSetContent() && this.content.remove(content);
+    }
 
-	public boolean unsetThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		return isSetContent() && content.removeIf(c -> c.getThoroughfareNumber() == thoroughfareNumber);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetContent() && content.removeIf(c -> c.getAddressLine() == addressLine);
+    }
 
-	public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		return isSetContent() && content.removeIf(c -> c.getThoroughfareNumberPrefix() == thoroughfareNumberPrefix);
-	}
+    public boolean unsetThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
+        return isSetContent() && content.removeIf(c -> c.getThoroughfareNumber() == thoroughfareNumber);
+    }
 
-	public boolean unsetThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		return isSetContent() && content.removeIf(c -> c.getThoroughfareNumberSuffix() == thoroughfareNumberSuffix);
-	}
+    public boolean unsetThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
+        return isSetContent() && content.removeIf(c -> c.getThoroughfareNumberPrefix() == thoroughfareNumberPrefix);
+    }
 
-	public boolean unsetString(String string) {
-		return isSetContent() && content.removeIf(c -> c.isSetString() && c.getString().equals(string));
-	}
+    public boolean unsetThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
+        return isSetContent() && content.removeIf(c -> c.getThoroughfareNumberSuffix() == thoroughfareNumberSuffix);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARE_NUMBER_FROM;
-	}
+    public boolean unsetString(String string) {
+        return isSetContent() && content.removeIf(c -> c.isSetString() && c.getString().equals(string));
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.THOROUGHFARE_NUMBER_FROM;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ThoroughfareNumberFrom(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ThoroughfareNumberFrom copy = (target == null) ? new ThoroughfareNumberFrom() : (ThoroughfareNumberFrom)target;
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ThoroughfareNumberFrom(), copyBuilder);
+    }
 
-		if (isSetContent()) {
-			for (ThoroughfareNumberFromContent part : content) {
-				ThoroughfareNumberFromContent copyPart = (ThoroughfareNumberFromContent)copyBuilder.copy(part);
-				copy.addContent(copyPart);
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ThoroughfareNumberFrom copy = (target == null) ? new ThoroughfareNumberFrom() : (ThoroughfareNumberFrom) target;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (isSetContent()) {
+            for (ThoroughfareNumberFromContent part : content) {
+                ThoroughfareNumberFromContent copyPart = (ThoroughfareNumberFromContent) copyBuilder.copy(part);
+                copy.addContent(copyPart);
 
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		copy.unsetParent();
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
 
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

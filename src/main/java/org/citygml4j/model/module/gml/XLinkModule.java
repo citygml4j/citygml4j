@@ -24,42 +24,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XLinkModule extends AbstractGMLModule {
-	private static final List<XLinkModule> instances = new ArrayList<XLinkModule>();
+    private static final List<XLinkModule> instances = new ArrayList<XLinkModule>();
 
-	public static final XLinkModule v3_1_1;
+    public static final XLinkModule v3_1_1;
 
-	public XLinkModule (
-			GMLModuleType type,
-			GMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
-		instances.add(this);
-	}
+    public XLinkModule(
+            GMLModuleType type,
+            GMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v3_1_1 = new XLinkModule (
-				GMLModuleType.XLINK,
-				GMLModuleVersion.v3_1_1,
-				"http://www.w3.org/1999/xlink", 
-				"xlink", 
-				"http://schemas.opengis.net/gml/3.1.1/xlink/xlinks.xsd",
-				GMLCoreModule.v3_1_1);
-	}
+    static {
+        v3_1_1 = new XLinkModule(
+                GMLModuleType.XLINK,
+                GMLModuleVersion.v3_1_1,
+                "http://www.w3.org/1999/xlink",
+                "xlink",
+                "http://schemas.opengis.net/gml/3.1.1/xlink/xlinks.xsd",
+                GMLCoreModule.v3_1_1);
+    }
 
-	public static List<XLinkModule> getInstances() {
-		return instances;
-	}
-	
-	public static XLinkModule getInstance(GMLModuleVersion version) {
-		switch (version) {
-		case v3_1_1:
-			return v3_1_1;
-		default:
-			return null;
-		}
-	}
-	
+    public static List<XLinkModule> getInstances() {
+        return instances;
+    }
+
+    public static XLinkModule getInstance(GMLModuleVersion version) {
+        switch (version) {
+            case v3_1_1:
+                return v3_1_1;
+            default:
+                return null;
+        }
+    }
+
 }

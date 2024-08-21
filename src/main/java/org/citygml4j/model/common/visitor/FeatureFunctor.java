@@ -47,89 +47,173 @@ import org.citygml4j.xml.schema.ElementDecl;
 import org.w3c.dom.Element;
 
 public interface FeatureFunctor<T> extends Functor<T> {
-	T apply(Appearance appearance);
-	T apply(GeoreferencedTexture georeferencedTexture);
-	T apply(ParameterizedTexture parameterizedTexture);
-	T apply(X3DMaterial x3dMaterial);
-	T apply(Bridge bridge);
-	T apply(BridgeConstructionElement bridgeConstructionElement);
-	T apply(BridgeFurniture bridgeFurniture);
-	T apply(BridgeInstallation bridgeInstallation);
-	T apply(BridgePart bridgePart);
-	T apply(BridgeRoom bridgeRoom);
-	T apply(IntBridgeInstallation intBridgeInstallation);	
-	T apply(org.citygml4j.model.citygml.bridge.CeilingSurface ceilingSurface);
-	T apply(org.citygml4j.model.citygml.bridge.OuterCeilingSurface outerCeilingSurface);
-	T apply(org.citygml4j.model.citygml.bridge.ClosureSurface closureSurface);
-	T apply(org.citygml4j.model.citygml.bridge.FloorSurface floorSurface);
-	T apply(org.citygml4j.model.citygml.bridge.OuterFloorSurface outerFloorSurface);
-	T apply(org.citygml4j.model.citygml.bridge.GroundSurface groundSurface);
-	T apply(org.citygml4j.model.citygml.bridge.InteriorWallSurface interiorWallSurface);
-	T apply(org.citygml4j.model.citygml.bridge.RoofSurface roofSurface);
-	T apply(org.citygml4j.model.citygml.bridge.WallSurface wallSurface);
-	T apply(org.citygml4j.model.citygml.bridge.Door door);
-	T apply(org.citygml4j.model.citygml.bridge.Window window);
-	T apply(Building building);
-	T apply(BuildingFurniture buildingFurniture);
-	T apply(BuildingInstallation buildingInstallation);
-	T apply(BuildingPart buildingPart);
-	T apply(IntBuildingInstallation intBuildingInstallation);
-	T apply(Room room);
-	T apply(org.citygml4j.model.citygml.building.CeilingSurface ceilingSurface);
-	T apply(org.citygml4j.model.citygml.building.OuterCeilingSurface outerCeilingSurface);
-	T apply(org.citygml4j.model.citygml.building.ClosureSurface closureSurface);
-	T apply(org.citygml4j.model.citygml.building.FloorSurface floorSurface);
-	T apply(org.citygml4j.model.citygml.building.OuterFloorSurface outerFloorSurface);
-	T apply(org.citygml4j.model.citygml.building.GroundSurface groundSurface);
-	T apply(org.citygml4j.model.citygml.building.InteriorWallSurface interiorWallSurface);
-	T apply(org.citygml4j.model.citygml.building.RoofSurface roofSurface);
-	T apply(org.citygml4j.model.citygml.building.WallSurface wallSurface);
-	T apply(org.citygml4j.model.citygml.building.Door door);
-	T apply(org.citygml4j.model.citygml.building.Window window);
-	T apply(HollowSpace hollowSpace);
-	T apply(IntTunnelInstallation intTunnelInstallation);
-	T apply(Tunnel tunnel);
-	T apply(TunnelFurniture tunnelFurniture);
-	T apply(TunnelInstallation tunnelInstallation);
-	T apply(TunnelPart tunnelPart);
-	T apply(org.citygml4j.model.citygml.tunnel.CeilingSurface ceilingSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.OuterCeilingSurface outerCeilingSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.ClosureSurface closureSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.FloorSurface floorSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.OuterFloorSurface outerFloorSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.GroundSurface groundSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.InteriorWallSurface interiorWallSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.RoofSurface roofSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.WallSurface wallSurface);
-	T apply(org.citygml4j.model.citygml.tunnel.Door door);
-	T apply(org.citygml4j.model.citygml.tunnel.Window window);
-	T apply(CityFurniture cityFurniture);
-	T apply(CityObjectGroup cityObjectGroup);
-	T apply(Address address);
-	T apply(CityModel cityModel);
-	T apply(GenericCityObject genericCityObject);
-	T apply(LandUse landUse);
-	T apply(BreaklineRelief breaklineRelief);
-	T apply(MassPointRelief massPointRelief);
-	T apply(RasterRelief rasterRelief);
-	T apply(ReliefFeature reliefFeature);
-	T apply(TINRelief tinRelief);
-	T apply(AuxiliaryTrafficArea auxiliaryTrafficArea);
-	T apply(Railway railway);
-	T apply(RectifiedGridCoverage rectifiedGridCoverage);
-	T apply(Road road);
-	T apply(Square square);
-	T apply(Track track);
-	T apply(TrafficArea trafficArea);
-	T apply(TransportationComplex transportationComplex);
-	T apply(PlantCover plantCover);
-	T apply(SolitaryVegetationObject solitaryVegetationObject);
-	T apply(WaterBody waterBody);
-	T apply(WaterClosureSurface waterClosureSurface);
-	T apply(WaterGroundSurface waterGroundSurface);
-	T apply(WaterSurface waterSurface);
-	T apply(ADEComponent adeComponent);
-	T apply(ADEModelObject adeModelClass);
-	T apply(ADEGenericElement adeGenericElement);
-	T apply(Element element, ElementDecl decl);
+    T apply(Appearance appearance);
+
+    T apply(GeoreferencedTexture georeferencedTexture);
+
+    T apply(ParameterizedTexture parameterizedTexture);
+
+    T apply(X3DMaterial x3dMaterial);
+
+    T apply(Bridge bridge);
+
+    T apply(BridgeConstructionElement bridgeConstructionElement);
+
+    T apply(BridgeFurniture bridgeFurniture);
+
+    T apply(BridgeInstallation bridgeInstallation);
+
+    T apply(BridgePart bridgePart);
+
+    T apply(BridgeRoom bridgeRoom);
+
+    T apply(IntBridgeInstallation intBridgeInstallation);
+
+    T apply(org.citygml4j.model.citygml.bridge.CeilingSurface ceilingSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.OuterCeilingSurface outerCeilingSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.ClosureSurface closureSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.FloorSurface floorSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.OuterFloorSurface outerFloorSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.GroundSurface groundSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.InteriorWallSurface interiorWallSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.RoofSurface roofSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.WallSurface wallSurface);
+
+    T apply(org.citygml4j.model.citygml.bridge.Door door);
+
+    T apply(org.citygml4j.model.citygml.bridge.Window window);
+
+    T apply(Building building);
+
+    T apply(BuildingFurniture buildingFurniture);
+
+    T apply(BuildingInstallation buildingInstallation);
+
+    T apply(BuildingPart buildingPart);
+
+    T apply(IntBuildingInstallation intBuildingInstallation);
+
+    T apply(Room room);
+
+    T apply(org.citygml4j.model.citygml.building.CeilingSurface ceilingSurface);
+
+    T apply(org.citygml4j.model.citygml.building.OuterCeilingSurface outerCeilingSurface);
+
+    T apply(org.citygml4j.model.citygml.building.ClosureSurface closureSurface);
+
+    T apply(org.citygml4j.model.citygml.building.FloorSurface floorSurface);
+
+    T apply(org.citygml4j.model.citygml.building.OuterFloorSurface outerFloorSurface);
+
+    T apply(org.citygml4j.model.citygml.building.GroundSurface groundSurface);
+
+    T apply(org.citygml4j.model.citygml.building.InteriorWallSurface interiorWallSurface);
+
+    T apply(org.citygml4j.model.citygml.building.RoofSurface roofSurface);
+
+    T apply(org.citygml4j.model.citygml.building.WallSurface wallSurface);
+
+    T apply(org.citygml4j.model.citygml.building.Door door);
+
+    T apply(org.citygml4j.model.citygml.building.Window window);
+
+    T apply(HollowSpace hollowSpace);
+
+    T apply(IntTunnelInstallation intTunnelInstallation);
+
+    T apply(Tunnel tunnel);
+
+    T apply(TunnelFurniture tunnelFurniture);
+
+    T apply(TunnelInstallation tunnelInstallation);
+
+    T apply(TunnelPart tunnelPart);
+
+    T apply(org.citygml4j.model.citygml.tunnel.CeilingSurface ceilingSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.OuterCeilingSurface outerCeilingSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.ClosureSurface closureSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.FloorSurface floorSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.OuterFloorSurface outerFloorSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.GroundSurface groundSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.InteriorWallSurface interiorWallSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.RoofSurface roofSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.WallSurface wallSurface);
+
+    T apply(org.citygml4j.model.citygml.tunnel.Door door);
+
+    T apply(org.citygml4j.model.citygml.tunnel.Window window);
+
+    T apply(CityFurniture cityFurniture);
+
+    T apply(CityObjectGroup cityObjectGroup);
+
+    T apply(Address address);
+
+    T apply(CityModel cityModel);
+
+    T apply(GenericCityObject genericCityObject);
+
+    T apply(LandUse landUse);
+
+    T apply(BreaklineRelief breaklineRelief);
+
+    T apply(MassPointRelief massPointRelief);
+
+    T apply(RasterRelief rasterRelief);
+
+    T apply(ReliefFeature reliefFeature);
+
+    T apply(TINRelief tinRelief);
+
+    T apply(AuxiliaryTrafficArea auxiliaryTrafficArea);
+
+    T apply(Railway railway);
+
+    T apply(RectifiedGridCoverage rectifiedGridCoverage);
+
+    T apply(Road road);
+
+    T apply(Square square);
+
+    T apply(Track track);
+
+    T apply(TrafficArea trafficArea);
+
+    T apply(TransportationComplex transportationComplex);
+
+    T apply(PlantCover plantCover);
+
+    T apply(SolitaryVegetationObject solitaryVegetationObject);
+
+    T apply(WaterBody waterBody);
+
+    T apply(WaterClosureSurface waterClosureSurface);
+
+    T apply(WaterGroundSurface waterGroundSurface);
+
+    T apply(WaterSurface waterSurface);
+
+    T apply(ADEComponent adeComponent);
+
+    T apply(ADEModelObject adeModelClass);
+
+    T apply(ADEGenericElement adeGenericElement);
+
+    T apply(Element element, ElementDecl decl);
 }

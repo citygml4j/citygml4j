@@ -24,129 +24,129 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoundingBox implements Geometry {
-	private Point lowerCorner;
-	private Point upperCorner;
+    private Point lowerCorner;
+    private Point upperCorner;
 
-	public BoundingBox() {
-		lowerCorner = new Point(Double.MAX_VALUE);
-		upperCorner = new Point(-Double.MAX_VALUE);
-	}
+    public BoundingBox() {
+        lowerCorner = new Point(Double.MAX_VALUE);
+        upperCorner = new Point(-Double.MAX_VALUE);
+    }
 
-	public BoundingBox(Point lowerCorner, Point upperCorner) {
-		this.lowerCorner = new Point(lowerCorner);
-		this.upperCorner = new Point(upperCorner);
-	}
+    public BoundingBox(Point lowerCorner, Point upperCorner) {
+        this.lowerCorner = new Point(lowerCorner);
+        this.upperCorner = new Point(upperCorner);
+    }
 
-	public BoundingBox(BoundingBox boundingBox) {
-		this.lowerCorner = new Point(boundingBox.getLowerCorner());
-		this.upperCorner = new Point(boundingBox.getUpperCorner());
-	}
-	
-	public boolean isNull() {
-		return lowerCorner.isEqual(Double.MAX_VALUE) && upperCorner.isEqual(-Double.MAX_VALUE);
-	}
+    public BoundingBox(BoundingBox boundingBox) {
+        this.lowerCorner = new Point(boundingBox.getLowerCorner());
+        this.upperCorner = new Point(boundingBox.getUpperCorner());
+    }
 
-	public Point getLowerCorner() {
-		return lowerCorner;
-	}
+    public boolean isNull() {
+        return lowerCorner.isEqual(Double.MAX_VALUE) && upperCorner.isEqual(-Double.MAX_VALUE);
+    }
 
-	public void setLowerCorner(Point lowerCorner) {
-		this.lowerCorner = lowerCorner;
-	}
+    public Point getLowerCorner() {
+        return lowerCorner;
+    }
 
-	public void setLowerCorner(double x, double y, double z) {
-		lowerCorner.setX(x);
-		lowerCorner.setY(y);
-		lowerCorner.setZ(z);
-	}
+    public void setLowerCorner(Point lowerCorner) {
+        this.lowerCorner = lowerCorner;
+    }
 
-	public Point getUpperCorner() {
-		return upperCorner;
-	}
+    public void setLowerCorner(double x, double y, double z) {
+        lowerCorner.setX(x);
+        lowerCorner.setY(y);
+        lowerCorner.setZ(z);
+    }
 
-	public void setUpperCorner(Point upperCorner) {
-		this.upperCorner = upperCorner;
-	}
+    public Point getUpperCorner() {
+        return upperCorner;
+    }
 
-	public void setUpperCorner(double x, double y, double z) {
-		upperCorner.setX(x);
-		upperCorner.setY(y);
-		upperCorner.setZ(z);
-	}
+    public void setUpperCorner(Point upperCorner) {
+        this.upperCorner = upperCorner;
+    }
 
-	public void updateLowerCorner(double x, double y, double z) {
-		if (x < lowerCorner.getX())
-			lowerCorner.setX(x);
+    public void setUpperCorner(double x, double y, double z) {
+        upperCorner.setX(x);
+        upperCorner.setY(y);
+        upperCorner.setZ(z);
+    }
 
-		if (y < lowerCorner.getY())
-			lowerCorner.setY(y);
+    public void updateLowerCorner(double x, double y, double z) {
+        if (x < lowerCorner.getX())
+            lowerCorner.setX(x);
 
-		if (z < lowerCorner.getZ())
-			lowerCorner.setZ(z);
-	}
+        if (y < lowerCorner.getY())
+            lowerCorner.setY(y);
 
-	public void updateLowerCorner(Point lowerCorner) {
-		updateLowerCorner(lowerCorner.getX(), lowerCorner.getY(), lowerCorner.getZ());
-	}
+        if (z < lowerCorner.getZ())
+            lowerCorner.setZ(z);
+    }
 
-	public void updateUpperCorner(double x, double y, double z) {
-		if (x > upperCorner.getX())
-			upperCorner.setX(x);
+    public void updateLowerCorner(Point lowerCorner) {
+        updateLowerCorner(lowerCorner.getX(), lowerCorner.getY(), lowerCorner.getZ());
+    }
 
-		if (y > upperCorner.getY())
-			upperCorner.setY(y);
+    public void updateUpperCorner(double x, double y, double z) {
+        if (x > upperCorner.getX())
+            upperCorner.setX(x);
 
-		if (z > upperCorner.getZ())
-			upperCorner.setZ(z);
-	}
+        if (y > upperCorner.getY())
+            upperCorner.setY(y);
 
-	public void updateUpperCorner(Point upperCorner) {
-		updateUpperCorner(upperCorner.getX(), upperCorner.getY(), upperCorner.getZ());
-	}
+        if (z > upperCorner.getZ())
+            upperCorner.setZ(z);
+    }
 
-	public void update(double x, double y, double z) {
-		updateLowerCorner(x, y, z);
-		updateUpperCorner(x, y, z);
-	}
+    public void updateUpperCorner(Point upperCorner) {
+        updateUpperCorner(upperCorner.getX(), upperCorner.getY(), upperCorner.getZ());
+    }
 
-	public void update(Point point) {
-		update(point.getX(), point.getY(), point.getZ());
-	}
+    public void update(double x, double y, double z) {
+        updateLowerCorner(x, y, z);
+        updateUpperCorner(x, y, z);
+    }
 
-	public void update(BoundingBox boundingBox) {
-		if (boundingBox != null) {
-			updateLowerCorner(boundingBox.getLowerCorner());
-			updateUpperCorner(boundingBox.getUpperCorner());
-		}
-	}
+    public void update(Point point) {
+        update(point.getX(), point.getY(), point.getZ());
+    }
 
-	public void transform3d(Matrix m) {
-		if (!lowerCorner.isEqual(Double.MAX_VALUE))
-			lowerCorner.transform3D(m);
+    public void update(BoundingBox boundingBox) {
+        if (boundingBox != null) {
+            updateLowerCorner(boundingBox.getLowerCorner());
+            updateUpperCorner(boundingBox.getUpperCorner());
+        }
+    }
 
-		if (!upperCorner.isEqual(-Double.MAX_VALUE))
-			upperCorner.transform3D(m);
-	}
+    public void transform3d(Matrix m) {
+        if (!lowerCorner.isEqual(Double.MAX_VALUE))
+            lowerCorner.transform3D(m);
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BoundingBox(), copyBuilder);
-	}
+        if (!upperCorner.isEqual(-Double.MAX_VALUE))
+            upperCorner.transform3D(m);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BoundingBox copy = (target == null) ? new BoundingBox() : (BoundingBox)target;
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BoundingBox(), copyBuilder);
+    }
 
-		copy.setLowerCorner((Point)copyBuilder.copy(lowerCorner));
-		copy.setUpperCorner((Point)copyBuilder.copy(upperCorner));
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BoundingBox copy = (target == null) ? new BoundingBox() : (BoundingBox) target;
 
-		return copy;
-	}
-	
-	public List<Double> toList() {
-		List<Double> values = new ArrayList<>();
-		values.addAll(lowerCorner.toList());
-		values.addAll(upperCorner.toList());
-		
-		return values;
-	}
+        copy.setLowerCorner((Point) copyBuilder.copy(lowerCorner));
+        copy.setUpperCorner((Point) copyBuilder.copy(upperCorner));
+
+        return copy;
+    }
+
+    public List<Double> toList() {
+        List<Double> values = new ArrayList<>();
+        values.addAll(lowerCorner.toList());
+        values.addAll(upperCorner.toList());
+
+        return values;
+    }
 
 }

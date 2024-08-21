@@ -22,47 +22,47 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class DefaultGMLIdManager implements GMLIdManager {
-	private static final DefaultGMLIdManager instance = new DefaultGMLIdManager();
-	private final String defaultPrefix = "UUID_";
-	private final Pattern pattern = Pattern.compile("[_A-Za-z][-._A-Za-z0-9]*", Pattern.UNICODE_CHARACTER_CLASS);
-	private String prefix = defaultPrefix;
+    private static final DefaultGMLIdManager instance = new DefaultGMLIdManager();
+    private final String defaultPrefix = "UUID_";
+    private final Pattern pattern = Pattern.compile("[_A-Za-z][-._A-Za-z0-9]*", Pattern.UNICODE_CHARACTER_CLASS);
+    private String prefix = defaultPrefix;
 
-	private DefaultGMLIdManager() {
-		// just to thwart instantiation
-	}
+    private DefaultGMLIdManager() {
+        // just to thwart instantiation
+    }
 
-	public static DefaultGMLIdManager getInstance() {
-		return instance;
-	}
-	
-	public String getDefaultPrefix() {
-		return defaultPrefix;
-	}
+    public static DefaultGMLIdManager getInstance() {
+        return instance;
+    }
 
-	public String getPrefix() {
-		return prefix;
-	}
+    public String getDefaultPrefix() {
+        return defaultPrefix;
+    }
 
-	public void setPrefix(String prefix) {
-		if (pattern.matcher(prefix).matches()) {
-			this.prefix = prefix;
-		}
-	}
+    public String getPrefix() {
+        return prefix;
+    }
 
-	public boolean isValidPrefix(String prefix) {
-		return pattern.matcher(prefix).matches();
-	}
+    public void setPrefix(String prefix) {
+        if (pattern.matcher(prefix).matches()) {
+            this.prefix = prefix;
+        }
+    }
 
-	public String generateUUID(String prefix) {
-		if (!pattern.matcher(prefix).matches()) {
-			prefix = defaultPrefix;
-		}
+    public boolean isValidPrefix(String prefix) {
+        return pattern.matcher(prefix).matches();
+    }
 
-		return prefix + UUID.randomUUID().toString();
-	}
-	
-	public String generateUUID() {
-		return generateUUID(prefix);
-	}
-	
+    public String generateUUID(String prefix) {
+        if (!pattern.matcher(prefix).matches()) {
+            prefix = defaultPrefix;
+        }
+
+        return prefix + UUID.randomUUID().toString();
+    }
+
+    public String generateUUID() {
+        return generateUUID(prefix);
+    }
+
 }

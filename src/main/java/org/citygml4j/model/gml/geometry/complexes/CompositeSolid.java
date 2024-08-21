@@ -34,100 +34,100 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CompositeSolid extends AbstractSolid {
-	private List<SolidProperty> solidMember;
-	
-	public CompositeSolid() {
-		
-	}
-	
-	public CompositeSolid(List<? extends AbstractSolid> abstractSolids) {
-		for (AbstractSolid abstractSolid : abstractSolids)
-			addSolidMember(new SolidProperty(abstractSolid));
-	}
-	
-	public CompositeSolid(AbstractSolid... abstractSolids) {
-		this(Arrays.asList(abstractSolids));
-	}
+    private List<SolidProperty> solidMember;
 
-	public void addSolidMember(SolidProperty solidMember) {
-		getSolidMember().add(solidMember);
-	}
+    public CompositeSolid() {
 
-	public List<SolidProperty> getSolidMember() {
-		if (solidMember == null) 
-			solidMember = new ChildList<>(this);
+    }
 
-		return solidMember;
-	}
+    public CompositeSolid(List<? extends AbstractSolid> abstractSolids) {
+        for (AbstractSolid abstractSolid : abstractSolids)
+            addSolidMember(new SolidProperty(abstractSolid));
+    }
 
-	public boolean isSetSolidMember() {
-		return solidMember != null && !solidMember.isEmpty();
-	}
+    public CompositeSolid(AbstractSolid... abstractSolids) {
+        this(Arrays.asList(abstractSolids));
+    }
 
-	public void setSolidMember(List<SolidProperty> solidMember) {
-		this.solidMember = new ChildList<>(this, solidMember);
-	}
+    public void addSolidMember(SolidProperty solidMember) {
+        getSolidMember().add(solidMember);
+    }
 
-	public void unsetSolidMember() {
-		solidMember = ModelObjects.setNull(solidMember);
-	}
+    public List<SolidProperty> getSolidMember() {
+        if (solidMember == null)
+            solidMember = new ChildList<>(this);
 
-	public boolean unsetSolidMember(SolidProperty solidMember) {
-		return isSetSolidMember() && this.solidMember.remove(solidMember);
-	}
+        return solidMember;
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetSolidMember()) {
-			for (SolidProperty solidProperty : getSolidMember())
-				if (solidProperty.isSetSolid())
-					bbox.update(solidProperty.getSolid().calcBoundingBox());
-		}
-		
-		return bbox;
-	}
+    public boolean isSetSolidMember() {
+        return solidMember != null && !solidMember.isEmpty();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.COMPOSITE_SOLID;
-	}
+    public void setSolidMember(List<SolidProperty> solidMember) {
+        this.solidMember = new ChildList<>(this, solidMember);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CompositeSolid(), copyBuilder);
-	}
+    public void unsetSolidMember() {
+        solidMember = ModelObjects.setNull(solidMember);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CompositeSolid copy = (target == null) ? new CompositeSolid() : (CompositeSolid)target;
-		super.copyTo(copy, copyBuilder);
+    public boolean unsetSolidMember(SolidProperty solidMember) {
+        return isSetSolidMember() && this.solidMember.remove(solidMember);
+    }
 
-		if (isSetSolidMember()) {
-			for (SolidProperty part : solidMember) {
-				SolidProperty copyPart = (SolidProperty)copyBuilder.copy(part);
-				copy.addSolidMember(copyPart);
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (isSetSolidMember()) {
+            for (SolidProperty solidProperty : getSolidMember())
+                if (solidProperty.isSetSolid())
+                    bbox.update(solidProperty.getSolid().calcBoundingBox());
+        }
 
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+        return bbox;
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.COMPOSITE_SOLID;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CompositeSolid(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CompositeSolid copy = (target == null) ? new CompositeSolid() : (CompositeSolid) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetSolidMember()) {
+            for (SolidProperty part : solidMember) {
+                SolidProperty copyPart = (SolidProperty) copyBuilder.copy(part);
+                copy.addSolidMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

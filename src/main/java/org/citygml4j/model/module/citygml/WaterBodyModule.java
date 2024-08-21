@@ -28,71 +28,71 @@ import java.util.HashSet;
 import java.util.List;
 
 public class WaterBodyModule extends AbstractCityGMLModule {
-	private static final List<WaterBodyModule> instances = new ArrayList<WaterBodyModule>();
+    private static final List<WaterBodyModule> instances = new ArrayList<WaterBodyModule>();
 
-	public static final WaterBodyModule v2_0_0;
-	public static final WaterBodyModule v1_0_0;
+    public static final WaterBodyModule v2_0_0;
+    public static final WaterBodyModule v1_0_0;
 
-	private WaterBodyModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);		
-		instances.add(this);
-	}
+    private WaterBodyModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0_0 = new WaterBodyModule (
-				CityGMLModuleType.WATER_BODY,
-				CityGMLModuleVersion.v2_0_0,
-				"http://www.opengis.net/citygml/waterbody/2.0",
-				"wtr",
-				"http://schemas.opengis.net/citygml/waterbody/2.0/waterBody.xsd",			
-				CoreModule.v2_0_0);
-		
-		v1_0_0 = new WaterBodyModule (
-				CityGMLModuleType.WATER_BODY,
-				CityGMLModuleVersion.v1_0_0,
-				"http://www.opengis.net/citygml/waterbody/1.0",
-				"wtr",
-				"http://schemas.opengis.net/citygml/waterbody/1.0/waterBody.xsd",			
-				CoreModule.v1_0_0);
+    static {
+        v2_0_0 = new WaterBodyModule(
+                CityGMLModuleType.WATER_BODY,
+                CityGMLModuleVersion.v2_0_0,
+                "http://www.opengis.net/citygml/waterbody/2.0",
+                "wtr",
+                "http://schemas.opengis.net/citygml/waterbody/2.0/waterBody.xsd",
+                CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
-		v2_0_0.features.put("WaterBody", WaterBody.class);
-		v2_0_0.features.put("WaterSurface", WaterSurface.class);
-		v2_0_0.features.put("WaterGroundSurface", WaterGroundSurface.class);
-		v2_0_0.features.put("WaterClosureSurface", WaterClosureSurface.class);
-		v2_0_0.features.put("_WaterObject", AbstractWaterObject.class);
-		v2_0_0.features.put("_WaterBoundarySurface", AbstractWaterBoundarySurface.class);		
-		v1_0_0.features = v2_0_0.features;
-		
-		v2_0_0.featureProperties = new HashSet<String>();
-		v2_0_0.featureProperties.add("boundedBy");
-		v1_0_0.featureProperties = v2_0_0.featureProperties;
-	}
+        v1_0_0 = new WaterBodyModule(
+                CityGMLModuleType.WATER_BODY,
+                CityGMLModuleVersion.v1_0_0,
+                "http://www.opengis.net/citygml/waterbody/1.0",
+                "wtr",
+                "http://schemas.opengis.net/citygml/waterbody/1.0/waterBody.xsd",
+                CoreModule.v1_0_0);
 
-	public static List<WaterBodyModule> getInstances() {
-		return instances;
-	}
-	
-	public static WaterBodyModule getInstance(CityGMLModuleVersion version) {
-		switch (version) {
-		case v2_0_0:
-			return v2_0_0;
-		case v1_0_0:
-			return v1_0_0;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return "WaterBody".equals(name);
-	}
+        v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
+        v2_0_0.features.put("WaterBody", WaterBody.class);
+        v2_0_0.features.put("WaterSurface", WaterSurface.class);
+        v2_0_0.features.put("WaterGroundSurface", WaterGroundSurface.class);
+        v2_0_0.features.put("WaterClosureSurface", WaterClosureSurface.class);
+        v2_0_0.features.put("_WaterObject", AbstractWaterObject.class);
+        v2_0_0.features.put("_WaterBoundarySurface", AbstractWaterBoundarySurface.class);
+        v1_0_0.features = v2_0_0.features;
+
+        v2_0_0.featureProperties = new HashSet<String>();
+        v2_0_0.featureProperties.add("boundedBy");
+        v1_0_0.featureProperties = v2_0_0.featureProperties;
+    }
+
+    public static List<WaterBodyModule> getInstances() {
+        return instances;
+    }
+
+    public static WaterBodyModule getInstance(CityGMLModuleVersion version) {
+        switch (version) {
+            case v2_0_0:
+                return v2_0_0;
+            case v1_0_0:
+                return v1_0_0;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return "WaterBody".equals(name);
+    }
 
 }

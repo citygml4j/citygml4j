@@ -35,123 +35,123 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class ArrayAssociation<T extends Associable & Child> implements GML, Association<T>, Child, Copyable {
-	private List<T> object;
-	private Map<String, Object> localProperties;
-	private ModelObject parent;
+    private List<T> object;
+    private Map<String, Object> localProperties;
+    private ModelObject parent;
 
-	public ArrayAssociation() {
+    public ArrayAssociation() {
 
-	}
-	
-	public ArrayAssociation(T object) {
-		addObject(object);
-	}
+    }
 
-	public ArrayAssociation(List<T> object) {
-		setObject(object);
-	}
+    public ArrayAssociation(T object) {
+        addObject(object);
+    }
 
-	public ArrayAssociation(T[] object) {
-		this(Arrays.asList(object));
-	}
-	
-	public void addObject(T object) {
-		getObject().add(object);
-	}
+    public ArrayAssociation(List<T> object) {
+        setObject(object);
+    }
 
-	public void addObjectIfValid(Object object) {
-		if (getAssociableClass().isInstance(object))
-			addObject(getAssociableClass().cast(object));
-	}
+    public ArrayAssociation(T[] object) {
+        this(Arrays.asList(object));
+    }
 
-	public List<T> getObject() {
-		if (object == null)
-			object = new ChildList<T>(this);
+    public void addObject(T object) {
+        getObject().add(object);
+    }
 
-		return object;
-	}
+    public void addObjectIfValid(Object object) {
+        if (getAssociableClass().isInstance(object))
+            addObject(getAssociableClass().cast(object));
+    }
 
-	public boolean isSetObject() {
-		return object != null && !object.isEmpty();
-	}
+    public List<T> getObject() {
+        if (object == null)
+            object = new ChildList<T>(this);
 
-	public void setObject(List<T> object) {
-		this.object = new ChildList<T>(this, object);
-	}
+        return object;
+    }
 
-	public void unsetObject() {
-		object = ModelObjects.setNull(object);
-	}
+    public boolean isSetObject() {
+        return object != null && !object.isEmpty();
+    }
 
-	public boolean unsetObject(T object) {
-		return isSetObject() && this.object.remove(object);
-	}
+    public void setObject(List<T> object) {
+        this.object = new ChildList<T>(this, object);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ARRAY_ASSOCIATION;
-	}
+    public void unsetObject() {
+        object = ModelObjects.setNull(object);
+    }
 
-	public Object getLocalProperty(String name) {
-		if (localProperties != null)
-			return localProperties.get(name);
+    public boolean unsetObject(T object) {
+        return isSetObject() && this.object.remove(object);
+    }
 
-		return null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.ARRAY_ASSOCIATION;
+    }
 
-	public void setLocalProperty(String name, Object value) {
-		if (localProperties == null)
-			localProperties = new HashMap<>();
+    public Object getLocalProperty(String name) {
+        if (localProperties != null)
+            return localProperties.get(name);
 
-		localProperties.put(name, value);
-	}
+        return null;
+    }
 
-	public boolean hasLocalProperty(String name) {
-		return localProperties != null && localProperties.containsKey(name);
-	}
+    public void setLocalProperty(String name, Object value) {
+        if (localProperties == null)
+            localProperties = new HashMap<>();
 
-	public Object unsetLocalProperty(String name) {
-		if (localProperties != null)
-			return localProperties.remove(name);
+        localProperties.put(name, value);
+    }
 
-		return null;
-	}
+    public boolean hasLocalProperty(String name) {
+        return localProperties != null && localProperties.containsKey(name);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public Object unsetLocalProperty(String name) {
+        if (localProperties != null)
+            return localProperties.remove(name);
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+        return null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-		ArrayAssociation<T> copy = (ArrayAssociation<T>)target;
+    public void unsetParent() {
+        parent = null;
+    }
 
-		if (isSetObject()) {
-			for (T part : object) {
-				T copyPart = (T)copyBuilder.copy(part);
-				copy.addObject(copyPart);
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        ArrayAssociation<T> copy = (ArrayAssociation<T>) target;
 
-		copy.unsetParent();
+        if (isSetObject()) {
+            for (T part : object) {
+                T copyPart = (T) copyBuilder.copy(part);
+                copy.addObject(copyPart);
 
-		return copy;
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

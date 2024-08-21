@@ -52,86 +52,86 @@ import java.util.Date;
 
 public class DOMAndXPath {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "creating citygml4j JAXBUnmarshaller and JAXBMarshaller instances");
-		JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller();
-		JAXBMarshaller marshaller = builder.createJAXBMarshaller();
-		marshaller.setModuleContext(new ModuleContext(CityGMLVersion.v2_0_0));
-		
-		// create DOM model from CityGML document
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_with_Placeholder_v200.gml as DOM tree");
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-		docFactory.setNamespaceAware(true);		
-		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document document = docBuilder.parse("datasets/LOD2_Building_with_Placeholder_v200.gml");
+        System.out.println(df.format(new Date()) + "creating citygml4j JAXBUnmarshaller and JAXBMarshaller instances");
+        JAXBUnmarshaller unmarshaller = builder.createJAXBUnmarshaller();
+        JAXBMarshaller marshaller = builder.createJAXBMarshaller();
+        marshaller.setModuleContext(new ModuleContext(CityGMLVersion.v2_0_0));
 
-		// create XPath factory
-		System.out.println(df.format(new Date()) + "creating XPath factory");
-		XPathFactory xpathFactory = XPathFactory.newInstance();
-		XPath xpath = xpathFactory.newXPath();
+        // create DOM model from CityGML document
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_with_Placeholder_v200.gml as DOM tree");
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        docFactory.setNamespaceAware(true);
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+        Document document = docBuilder.parse("datasets/LOD2_Building_with_Placeholder_v200.gml");
 
-		// get CityGML namespace context
-		CityGMLNamespaceContext nsContext = new CityGMLNamespaceContext();
-		nsContext.setPrefixes(CityGMLVersion.v2_0_0);
-		xpath.setNamespaceContext(nsContext);
+        // create XPath factory
+        System.out.println(df.format(new Date()) + "creating XPath factory");
+        XPathFactory xpathFactory = XPathFactory.newInstance();
+        XPath xpath = xpathFactory.newXPath();
 
-		// first: retrieve building node using XPath
-		System.out.println(df.format(new Date()) + "searching for bldg:Building node in DOM tree using an XPath expression");
-		Node buildingNode = (Node)xpath.evaluate("//bldg:Building", document, XPathConstants.NODE);
+        // get CityGML namespace context
+        CityGMLNamespaceContext nsContext = new CityGMLNamespaceContext();
+        nsContext.setPrefixes(CityGMLVersion.v2_0_0);
+        xpath.setNamespaceContext(nsContext);
 
-		// unmarshal DOM node to citygml4j
-		System.out.println(df.format(new Date()) + "unmarshalling DOM node to citygml4j");
-		Building building = (Building)unmarshaller.unmarshal(buildingNode);
+        // first: retrieve building node using XPath
+        System.out.println(df.format(new Date()) + "searching for bldg:Building node in DOM tree using an XPath expression");
+        Node buildingNode = (Node) xpath.evaluate("//bldg:Building", document, XPathConstants.NODE);
 
-		// add gml:id and gml:description to building
-		System.out.println(df.format(new Date()) + "processing content using citygml4j");
-		building.setId(DefaultGMLIdManager.getInstance().generateUUID());
-		StringOrRef description = new StringOrRef();
-		description.setValue("processed by citygml4j using DOM and XPath");
-		building.setDescription(description);
+        // unmarshal DOM node to citygml4j
+        System.out.println(df.format(new Date()) + "unmarshalling DOM node to citygml4j");
+        Building building = (Building) unmarshaller.unmarshal(buildingNode);
 
-		// marshal to DOM and put into document
-		System.out.println(df.format(new Date()) + "marshalling back to DOM");
-		Element newBuildingNode = marshaller.marshalDOMElement(building, document);
-		buildingNode.getParentNode().replaceChild(newBuildingNode, buildingNode);
-		
-		// second: get placeholder using XPath
-		System.out.println(df.format(new Date()) + "searching for 'Placeholder' in DOM tree using an XPath expression");
-		Node memberNode = (Node)xpath.evaluate("//core:cityObjectMember[comment()='Placeholder']", document, XPathConstants.NODE);
+        // add gml:id and gml:description to building
+        System.out.println(df.format(new Date()) + "processing content using citygml4j");
+        building.setId(DefaultGMLIdManager.getInstance().generateUUID());
+        StringOrRef description = new StringOrRef();
+        description.setValue("processed by citygml4j using DOM and XPath");
+        building.setDescription(description);
 
-		// create simple citygml4j object to insert into placeholder
-		System.out.println(df.format(new Date()) + "inserting CityFurniture instance at placeholder using citygml4j");
-		CityFurniture cityFurniture = new CityFurniture();
-		cityFurniture.setDescription(description);		
-		CityObjectMember member = new CityObjectMember(cityFurniture);
+        // marshal to DOM and put into document
+        System.out.println(df.format(new Date()) + "marshalling back to DOM");
+        Element newBuildingNode = marshaller.marshalDOMElement(building, document);
+        buildingNode.getParentNode().replaceChild(newBuildingNode, buildingNode);
 
-		// marshal to DOM and put into document
-		System.out.println(df.format(new Date()) + "marshalling back to DOM");
-		Element newMemberNode = marshaller.marshalDOMElement(member, document);
-		memberNode.getParentNode().replaceChild(newMemberNode, memberNode);
-		
-		// write DOM to file
-		System.out.println(df.format(new Date()) + "writing DOM tree");
-		Files.createDirectories(Paths.get("output"));
+        // second: get placeholder using XPath
+        System.out.println(df.format(new Date()) + "searching for 'Placeholder' in DOM tree using an XPath expression");
+        Node memberNode = (Node) xpath.evaluate("//core:cityObjectMember[comment()='Placeholder']", document, XPathConstants.NODE);
 
-		TransformerFactory transFactory = TransformerFactory.newInstance();
-		Transformer trans = transFactory.newTransformer();
-		DOMSource source = new DOMSource(document);
+        // create simple citygml4j object to insert into placeholder
+        System.out.println(df.format(new Date()) + "inserting CityFurniture instance at placeholder using citygml4j");
+        CityFurniture cityFurniture = new CityFurniture();
+        cityFurniture.setDescription(description);
+        CityObjectMember member = new CityObjectMember(cityFurniture);
 
-		try (SAXWriter saxWriter = new SAXWriter(new FileOutputStream("output/LOD2_DOM_result_v200.gml"), "UTF-8")) {
-			saxWriter.setIndentString("  ");
-			saxWriter.setNamespaceContext(nsContext);
-			trans.transform(source, new SAXResult(saxWriter));
-		}
+        // marshal to DOM and put into document
+        System.out.println(df.format(new Date()) + "marshalling back to DOM");
+        Element newMemberNode = marshaller.marshalDOMElement(member, document);
+        memberNode.getParentNode().replaceChild(newMemberNode, memberNode);
 
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_DOM_result_v200.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        // write DOM to file
+        System.out.println(df.format(new Date()) + "writing DOM tree");
+        Files.createDirectories(Paths.get("output"));
+
+        TransformerFactory transFactory = TransformerFactory.newInstance();
+        Transformer trans = transFactory.newTransformer();
+        DOMSource source = new DOMSource(document);
+
+        try (SAXWriter saxWriter = new SAXWriter(new FileOutputStream("output/LOD2_DOM_result_v200.gml"), "UTF-8")) {
+            saxWriter.setIndentString("  ");
+            saxWriter.setNamespaceContext(nsContext);
+            trans.transform(source, new SAXResult(saxWriter));
+        }
+
+        System.out.println(df.format(new Date()) + "CityGML file LOD2_DOM_result_v200.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Volume extends Measure {
-	
-	public Volume() {
-	}
-	
-	public Volume(double value) {
-		super(value);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.VOLUME;
-	}
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Volume(), copyBuilder);
-	}
+    public Volume() {
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Volume copy = (target == null) ? new Volume() : (Volume)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    public Volume(double value) {
+        super(value);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.VOLUME;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Volume(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Volume copy = (target == null) ? new Volume() : (Volume) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

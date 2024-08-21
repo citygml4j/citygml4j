@@ -24,53 +24,53 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
 public abstract class AbstractGenericAttribute implements GenericsModuleComponent, Child, Copyable {
-	private String name;
-	private ModelObject parent;
-	
-	public String getName() {
-		return name;
-	}
+    private String name;
+    private ModelObject parent;
 
-	public boolean isSetName() {
-		return name != null;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public boolean isSetName() {
+        return name != null;
+    }
 
-	public void unsetName() {
-		name = null;
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void unsetName() {
+        name = null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-		AbstractGenericAttribute copy = (AbstractGenericAttribute)target;
-		
-		if (isSetName())
-			copy.setName(copyBuilder.copy(name));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractGenericAttribute copy = (AbstractGenericAttribute) target;
+
+        if (isSetName())
+            copy.setName(copyBuilder.copy(name));
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

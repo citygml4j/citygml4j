@@ -23,16 +23,16 @@ import org.xml.sax.InputSource;
 
 public class SchemaEntityResolver implements EntityResolver {
 
-	public InputSource resolveEntity(String publicId, String systemId) {
-		System.out.println("SCHEMA ENTITY RESOLVE ERROR: Failed to parse schema '" + publicId + "' when reading from '" + systemId +"'");
-		
-		InputSource inputSource = null;
-		if (publicId.equals("http://www.citygml.org/ade/noise_de/2.0")) {
-			inputSource = new InputSource("datasets/schemas/CityGML-NoiseADE-2_0_0.xsd");
-			System.out.println("FIX: Reading from '" + inputSource.getSystemId() + "'\n");
-		}
-			
-		return inputSource;
-	}
+    public InputSource resolveEntity(String publicId, String systemId) {
+        System.out.println("SCHEMA ENTITY RESOLVE ERROR: Failed to parse schema '" + publicId + "' when reading from '" + systemId + "'");
+
+        InputSource inputSource = null;
+        if (publicId.equals("http://www.citygml.org/ade/noise_de/2.0")) {
+            inputSource = new InputSource("datasets/schemas/CityGML-NoiseADE-2_0_0.xsd");
+            System.out.println("FIX: Reading from '" + inputSource.getSystemId() + "'\n");
+        }
+
+        return inputSource;
+    }
 
 }

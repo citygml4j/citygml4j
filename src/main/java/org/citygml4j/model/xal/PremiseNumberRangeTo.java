@@ -30,198 +30,198 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class PremiseNumberRangeTo implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private List<PremiseNumberPrefix> premiseNumberPrefix;
-	private List<PremiseNumber> premiseNumber;
-	private List<PremiseNumberSuffix> premiseNumberSuffix;
-	private ModelObject parent;
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private List<PremiseNumberPrefix> premiseNumberPrefix;
+    private List<PremiseNumber> premiseNumber;
+    private List<PremiseNumberSuffix> premiseNumberSuffix;
+    private ModelObject parent;
 
-	public void addPremiseNumber(PremiseNumber premiseNumber) {
-		getPremiseNumber().add(premiseNumber);
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-	public void addPremiseNumberPrefix(PremiseNumberPrefix premiseNumberPrefix) {
-		getPremiseNumberPrefix().add(premiseNumberPrefix);
-	}
+    public void addPremiseNumber(PremiseNumber premiseNumber) {
+        getPremiseNumber().add(premiseNumber);
+    }
 
-	public void addPremiseNumberSuffix(PremiseNumberSuffix premiseNumberSuffix) {
-		getPremiseNumberSuffix().add(premiseNumberSuffix);
-	}
+    public void addPremiseNumberPrefix(PremiseNumberPrefix premiseNumberPrefix) {
+        getPremiseNumberPrefix().add(premiseNumberPrefix);
+    }
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addPremiseNumberSuffix(PremiseNumberSuffix premiseNumberSuffix) {
+        getPremiseNumberSuffix().add(premiseNumberSuffix);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public List<PremiseNumber> getPremiseNumber() {
-		if (premiseNumber == null)
-			premiseNumber = new ChildList<>(this);
+        return addressLine;
+    }
 
-		return premiseNumber;
-	}
+    public List<PremiseNumber> getPremiseNumber() {
+        if (premiseNumber == null)
+            premiseNumber = new ChildList<>(this);
 
-	public List<PremiseNumberPrefix> getPremiseNumberPrefix() {
-		if (premiseNumberPrefix == null)
-			premiseNumberPrefix = new ChildList<>(this);
+        return premiseNumber;
+    }
 
-		return premiseNumberPrefix;
-	}
+    public List<PremiseNumberPrefix> getPremiseNumberPrefix() {
+        if (premiseNumberPrefix == null)
+            premiseNumberPrefix = new ChildList<>(this);
 
-	public List<PremiseNumberSuffix> getPremiseNumberSuffix() {
-		if (premiseNumberSuffix == null)
-			premiseNumberSuffix = new ChildList<>(this);
+        return premiseNumberPrefix;
+    }
 
-		return premiseNumberSuffix;
-	}
+    public List<PremiseNumberSuffix> getPremiseNumberSuffix() {
+        if (premiseNumberSuffix == null)
+            premiseNumberSuffix = new ChildList<>(this);
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+        return premiseNumberSuffix;
+    }
 
-	public boolean isSetPremiseNumber() {
-		return premiseNumber != null && !premiseNumber.isEmpty();
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetPremiseNumberPrefix() {
-		return premiseNumberPrefix != null && !premiseNumberPrefix.isEmpty();
-	}
+    public boolean isSetPremiseNumber() {
+        return premiseNumber != null && !premiseNumber.isEmpty();
+    }
 
-	public boolean isSetPremiseNumberSuffix() {
-		return premiseNumberSuffix != null && !premiseNumberSuffix.isEmpty();
-	}
+    public boolean isSetPremiseNumberPrefix() {
+        return premiseNumberPrefix != null && !premiseNumberPrefix.isEmpty();
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetPremiseNumberSuffix() {
+        return premiseNumberSuffix != null && !premiseNumberSuffix.isEmpty();
+    }
 
-	public void setPremiseNumber(List<PremiseNumber> premiseNumber) {
-		this.premiseNumber = new ChildList<>(this, premiseNumber);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setPremiseNumberPrefix(List<PremiseNumberPrefix> premiseNumberPrefix) {
-		this.premiseNumberPrefix = new ChildList<>(this, premiseNumberPrefix);
-	}
+    public void setPremiseNumber(List<PremiseNumber> premiseNumber) {
+        this.premiseNumber = new ChildList<>(this, premiseNumber);
+    }
 
-	public void setPremiseNumberSuffix(List<PremiseNumberSuffix> premiseNumberSuffix) {
-		this.premiseNumberSuffix = new ChildList<>(this, premiseNumberSuffix);
-	}
+    public void setPremiseNumberPrefix(List<PremiseNumberPrefix> premiseNumberPrefix) {
+        this.premiseNumberPrefix = new ChildList<>(this, premiseNumberPrefix);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setPremiseNumberSuffix(List<PremiseNumberSuffix> premiseNumberSuffix) {
+        this.premiseNumberSuffix = new ChildList<>(this, premiseNumberSuffix);
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetPremiseNumber() {
-		premiseNumber = ModelObjects.setNull(premiseNumber);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public boolean unsetPremiseNumber(PremiseNumber premiseNumber) {
-		return isSetPremiseNumber() && this.premiseNumber.remove(premiseNumber);
-	}
+    public void unsetPremiseNumber() {
+        premiseNumber = ModelObjects.setNull(premiseNumber);
+    }
 
-	public void unsetPremiseNumberPrefix() {
-		premiseNumberPrefix = ModelObjects.setNull(premiseNumberPrefix);
-	}
+    public boolean unsetPremiseNumber(PremiseNumber premiseNumber) {
+        return isSetPremiseNumber() && this.premiseNumber.remove(premiseNumber);
+    }
 
-	public boolean unsetPremiseNumberPrefix(PremiseNumberPrefix premiseNumberPrefix) {
-		return isSetPremiseNumberPrefix() && this.premiseNumberPrefix.remove(premiseNumberPrefix);
-	}
+    public void unsetPremiseNumberPrefix() {
+        premiseNumberPrefix = ModelObjects.setNull(premiseNumberPrefix);
+    }
 
-	public void unsetPremiseNumberSuffix() {
-		premiseNumberSuffix = ModelObjects.setNull(premiseNumberSuffix);
-	}
+    public boolean unsetPremiseNumberPrefix(PremiseNumberPrefix premiseNumberPrefix) {
+        return isSetPremiseNumberPrefix() && this.premiseNumberPrefix.remove(premiseNumberPrefix);
+    }
 
-	public boolean unsetPremiseNumberSuffix(PremiseNumberSuffix premiseNumberSuffix) {
-		return isSetPremiseNumberSuffix() && this.premiseNumberSuffix.remove(premiseNumberSuffix);
-	}
+    public void unsetPremiseNumberSuffix() {
+        premiseNumberSuffix = ModelObjects.setNull(premiseNumberSuffix);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.PREMISE_NUMBER_RANGE_FROM;
-	}
+    public boolean unsetPremiseNumberSuffix(PremiseNumberSuffix premiseNumberSuffix) {
+        return isSetPremiseNumberSuffix() && this.premiseNumberSuffix.remove(premiseNumberSuffix);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.PREMISE_NUMBER_RANGE_FROM;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PremiseNumberRangeTo(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PremiseNumberRangeTo copy = (target == null) ? new PremiseNumberRangeTo() : (PremiseNumberRangeTo)target;
-		
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPremiseNumber()) {
-			for (PremiseNumber part : premiseNumber) {
-				PremiseNumber copyPart = (PremiseNumber)copyBuilder.copy(part);
-				copy.addPremiseNumber(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPremiseNumberPrefix()) {
-			for (PremiseNumberPrefix part : premiseNumberPrefix) {
-				PremiseNumberPrefix copyPart = (PremiseNumberPrefix)copyBuilder.copy(part);
-				copy.addPremiseNumberPrefix(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetPremiseNumberSuffix()) {
-			for (PremiseNumberSuffix part : premiseNumberSuffix) {
-				PremiseNumberSuffix copyPart = (PremiseNumberSuffix)copyBuilder.copy(part);
-				copy.addPremiseNumberSuffix(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PremiseNumberRangeTo(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PremiseNumberRangeTo copy = (target == null) ? new PremiseNumberRangeTo() : (PremiseNumberRangeTo) target;
+
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPremiseNumber()) {
+            for (PremiseNumber part : premiseNumber) {
+                PremiseNumber copyPart = (PremiseNumber) copyBuilder.copy(part);
+                copy.addPremiseNumber(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPremiseNumberPrefix()) {
+            for (PremiseNumberPrefix part : premiseNumberPrefix) {
+                PremiseNumberPrefix copyPart = (PremiseNumberPrefix) copyBuilder.copy(part);
+                copy.addPremiseNumberPrefix(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetPremiseNumberSuffix()) {
+            for (PremiseNumberSuffix part : premiseNumberSuffix) {
+                PremiseNumberSuffix copyPart = (PremiseNumberSuffix) copyBuilder.copy(part);
+                copy.addPremiseNumberSuffix(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

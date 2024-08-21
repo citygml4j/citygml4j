@@ -36,13 +36,13 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Denotes the relation of an Building or Room to its bounding thematic surfaces (walls, roofs, ..). There is no differentiation between interior
- * 				surfaces bounding rooms and outer ones bounding buildings (one reason is, that ClosureSurfaces belong to both types). It has to be made sure by additional integrity
- * 				constraints that, e.g. a building is not related to CeilingSurfaces or a room not to RoofSurfaces. 
- * 
+ * surfaces bounding rooms and outer ones bounding buildings (one reason is, that ClosureSurfaces belong to both types). It has to be made sure by additional integrity
+ * constraints that, e.g. a building is not related to CeilingSurfaces or a room not to RoofSurfaces.
+ *
  * <p>Java-Klasse für InteriorRoomPropertyType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="InteriorRoomPropertyType">
  *   &lt;complexContent>
@@ -55,14 +55,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "InteriorRoomPropertyType")
 public class InteriorRoomPropertyType
-    extends AssociationType
-{
+        extends AssociationType {
 
 
 }

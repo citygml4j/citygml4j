@@ -52,186 +52,186 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CityGMLUnmarshaller {
-	private final CityJSONUnmarshaller json;
-	
-	private final AppearanceUnmarshaller app;
-	private final BridgeUnmarshaller brid;
-	private final BuildingUnmarshaller bldg;
-	private final CityFurnitureUnmarshaller frn;
-	private final CityObjectGroupUnmarshaller grp;
-	private final CoreUnmarshaller core;
-	private final GenericsUnmarshaller gen;
-	private final LandUseUnmarshaller luse;
-	private final ReliefUnmarshaller dem;
-	private final TransportationUnmarshaller tran;
-	private final TunnelUnmarshaller tun;
-	private final VegetationUnmarshaller veg;
-	private final WaterBodyUnmarshaller wtr;
+    private final CityJSONUnmarshaller json;
 
-	public CityGMLUnmarshaller(CityJSONUnmarshaller json) {
-		this.json = json;
-		
-		app = new AppearanceUnmarshaller(this);
-		brid = new BridgeUnmarshaller(this);
-		bldg = new BuildingUnmarshaller(this);
-		frn = new CityFurnitureUnmarshaller(this);
-		grp = new CityObjectGroupUnmarshaller(this);
-		core = new CoreUnmarshaller(this);
-		gen = new GenericsUnmarshaller(this);
-		luse = new LandUseUnmarshaller(this);		
-		dem = new ReliefUnmarshaller(this);
-		tran = new TransportationUnmarshaller(this);
-		tun = new TunnelUnmarshaller(this);
-		veg = new VegetationUnmarshaller(this);
-		wtr = new WaterBodyUnmarshaller(this);
-	}
+    private final AppearanceUnmarshaller app;
+    private final BridgeUnmarshaller brid;
+    private final BuildingUnmarshaller bldg;
+    private final CityFurnitureUnmarshaller frn;
+    private final CityObjectGroupUnmarshaller grp;
+    private final CoreUnmarshaller core;
+    private final GenericsUnmarshaller gen;
+    private final LandUseUnmarshaller luse;
+    private final ReliefUnmarshaller dem;
+    private final TransportationUnmarshaller tran;
+    private final TunnelUnmarshaller tun;
+    private final VegetationUnmarshaller veg;
+    private final WaterBodyUnmarshaller wtr;
 
-	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		AbstractCityObject dest = null;
-		
-		if (src instanceof BridgeType)
-			dest = brid.unmarshal(src, cityJSON);
-		else if (src instanceof BuildingType)
-			dest = bldg.unmarshal(src, cityJSON);
-		else if (src instanceof CityFurnitureType)
-			dest = frn.unmarshalCityFurniture((CityFurnitureType) src, cityJSON);
-		else if (src instanceof CityObjectGroupType)
-			dest = grp.unmarshalCityObjectGroup((CityObjectGroupType) src, cityJSON);
-		else if (src instanceof GenericCityObjectType)
-			dest = gen.unmarshalGenericCityObject((GenericCityObjectType) src, cityJSON);
-		else if (src instanceof LandUseType)
-			dest = luse.unmarshalLandUse((LandUseType) src, cityJSON);
-		else if (src instanceof TINReliefType)
-			dest = dem.unmarshalTINRelief((TINReliefType) src, cityJSON);
-		else if (src instanceof AbstractTransportationComplexType)
-			dest = tran.unmarshal(src, cityJSON);
-		else if (src instanceof TunnelType)
-			dest = tun.unmarshal(src, cityJSON);
-		else if (src instanceof AbstractVegetationObjectType)
-			dest = veg.unmarshal(src, cityJSON);
-		else if (src instanceof WaterBodyType)
-			dest = wtr.unmarshalWaterBody((WaterBodyType) src, cityJSON);
-		
-		return dest;
-	}
-	
-	public void unmarshalSemanticSurface(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject root, CityJSON cityJSON) {
-		Map<Integer, AbstractCityObject> parents = new HashMap<>();
-		List<Integer> indexes = orderByParents(src);
+    public CityGMLUnmarshaller(CityJSONUnmarshaller json) {
+        this.json = json;
 
-		for (int index : indexes) {
-			SemanticsType semanticsType = src.getSurfaces().get(index);
-			if (semanticsType == null)
-				continue;
+        app = new AppearanceUnmarshaller(this);
+        brid = new BridgeUnmarshaller(this);
+        bldg = new BuildingUnmarshaller(this);
+        frn = new CityFurnitureUnmarshaller(this);
+        grp = new CityObjectGroupUnmarshaller(this);
+        core = new CoreUnmarshaller(this);
+        gen = new GenericsUnmarshaller(this);
+        luse = new LandUseUnmarshaller(this);
+        dem = new ReliefUnmarshaller(this);
+        tran = new TransportationUnmarshaller(this);
+        tun = new TunnelUnmarshaller(this);
+        veg = new VegetationUnmarshaller(this);
+        wtr = new WaterBodyUnmarshaller(this);
+    }
 
-			List<AbstractSurface> tmp = surfaces.get(index);
-			if (tmp == null) {
-				if (semanticsType.isSetChildren()) {
-					tmp = Collections.emptyList();
-				} else {
-					continue;
-				}
-			}
+    public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
+        AbstractCityObject dest = null;
 
-			AbstractCityObject parent = null;
-			if (semanticsType.isSetParent())
-				parent = parents.get(semanticsType.getParent());
+        if (src instanceof BridgeType)
+            dest = brid.unmarshal(src, cityJSON);
+        else if (src instanceof BuildingType)
+            dest = bldg.unmarshal(src, cityJSON);
+        else if (src instanceof CityFurnitureType)
+            dest = frn.unmarshalCityFurniture((CityFurnitureType) src, cityJSON);
+        else if (src instanceof CityObjectGroupType)
+            dest = grp.unmarshalCityObjectGroup((CityObjectGroupType) src, cityJSON);
+        else if (src instanceof GenericCityObjectType)
+            dest = gen.unmarshalGenericCityObject((GenericCityObjectType) src, cityJSON);
+        else if (src instanceof LandUseType)
+            dest = luse.unmarshalLandUse((LandUseType) src, cityJSON);
+        else if (src instanceof TINReliefType)
+            dest = dem.unmarshalTINRelief((TINReliefType) src, cityJSON);
+        else if (src instanceof AbstractTransportationComplexType)
+            dest = tran.unmarshal(src, cityJSON);
+        else if (src instanceof TunnelType)
+            dest = tun.unmarshal(src, cityJSON);
+        else if (src instanceof AbstractVegetationObjectType)
+            dest = veg.unmarshal(src, cityJSON);
+        else if (src instanceof WaterBodyType)
+            dest = wtr.unmarshalWaterBody((WaterBodyType) src, cityJSON);
 
-			if (parent == null)
-				parent = root;
+        return dest;
+    }
 
-			AbstractCityObject cityObject = null;
-			Class<?> semanticsTypeClass = json.getCityJSONRegistry().getSemanticSurfaceClass(semanticsType.getType());
-			if (semanticsTypeClass != InternalSemanticsType.class) {
-				cityObject = json.getADEUnmarshaller().unmarshalSemanticSurface(semanticsType, tmp, lod, parent);
-			} else {
-				if (parent instanceof BridgeModuleComponent)
-					cityObject = brid.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
-				else if (parent instanceof BuildingModuleComponent)
-					cityObject = bldg.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
-				else if (parent instanceof TransportationModuleComponent)
-					cityObject = tran.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
-				else if (parent instanceof TunnelModuleComponent)
-					cityObject = tun.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
-				else if (parent instanceof WaterBodyModuleComponent)
-					cityObject = wtr.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
-			}
+    public void unmarshalSemanticSurface(AbstractSemanticsObject src, Map<Integer, List<AbstractSurface>> surfaces, Number lod, AbstractCityObject root, CityJSON cityJSON) {
+        Map<Integer, AbstractCityObject> parents = new HashMap<>();
+        List<Integer> indexes = orderByParents(src);
 
-			if (cityObject != null)
-				parents.put(index, cityObject);
-		}
-	}
+        for (int index : indexes) {
+            SemanticsType semanticsType = src.getSurfaces().get(index);
+            if (semanticsType == null)
+                continue;
 
-	private List<Integer> orderByParents(AbstractSemanticsObject semanticsObject) {
-		Map<Integer, Integer> indexes = new HashMap<>();
-		for (int i = 0; i < semanticsObject.getNumSurfaces(); i++) {
-			SemanticsType type = semanticsObject.getSurfaces().get(i);
-			int weight = 0;
+            List<AbstractSurface> tmp = surfaces.get(index);
+            if (tmp == null) {
+                if (semanticsType.isSetChildren()) {
+                    tmp = Collections.emptyList();
+                } else {
+                    continue;
+                }
+            }
 
-			SemanticsType parent = type;
-			while (parent != null && parent.isSetParent()) {
-				parent = semanticsObject.getSurfaces().get(parent.getParent());
-				weight++;
-			}
+            AbstractCityObject parent = null;
+            if (semanticsType.isSetParent())
+                parent = parents.get(semanticsType.getParent());
 
-			indexes.put(i, weight);
-		}
+            if (parent == null)
+                parent = root;
 
-		return indexes.entrySet().stream()
-				.sorted(Map.Entry.comparingByValue())
-				.map(Map.Entry::getKey)
-				.collect(Collectors.toList());
-	}
-	
-	public AppearanceUnmarshaller getAppearanceUnmarshaller() {
-		return app;
-	}
-	
-	public BridgeUnmarshaller getBridgeUnmarshaller() {
-		return brid;
-	}
-	
-	public BuildingUnmarshaller getBuildingUnmarshaller() {
-		return bldg;
-	}
-	
-	public CityFurnitureUnmarshaller getCityFurnitureUnmarshaller() {
-		return frn;
-	}
+            AbstractCityObject cityObject = null;
+            Class<?> semanticsTypeClass = json.getCityJSONRegistry().getSemanticSurfaceClass(semanticsType.getType());
+            if (semanticsTypeClass != InternalSemanticsType.class) {
+                cityObject = json.getADEUnmarshaller().unmarshalSemanticSurface(semanticsType, tmp, lod, parent);
+            } else {
+                if (parent instanceof BridgeModuleComponent)
+                    cityObject = brid.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
+                else if (parent instanceof BuildingModuleComponent)
+                    cityObject = bldg.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
+                else if (parent instanceof TransportationModuleComponent)
+                    cityObject = tran.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
+                else if (parent instanceof TunnelModuleComponent)
+                    cityObject = tun.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
+                else if (parent instanceof WaterBodyModuleComponent)
+                    cityObject = wtr.unmarshalSemanticSurface(semanticsType, tmp, lod, parent, cityJSON);
+            }
 
-	public CityObjectGroupUnmarshaller getCiyCityObjectGroupUnmarshaller() {
-		return grp;
-	}
+            if (cityObject != null)
+                parents.put(index, cityObject);
+        }
+    }
 
-	public CoreUnmarshaller getCoreUnmarshaller() {
-		return core;
-	}
-	
-	public GenericsUnmarshaller getGenericsUnmarshaller() {
-		return gen;
-	}
-	
-	public LandUseUnmarshaller getLandUseUnmarshaller() {
-		return luse;
-	}
+    private List<Integer> orderByParents(AbstractSemanticsObject semanticsObject) {
+        Map<Integer, Integer> indexes = new HashMap<>();
+        for (int i = 0; i < semanticsObject.getNumSurfaces(); i++) {
+            SemanticsType type = semanticsObject.getSurfaces().get(i);
+            int weight = 0;
 
-	public ReliefUnmarshaller getReliefUnmarshaller() {
-		return dem;
-	}
-	
-	public TransportationUnmarshaller getTransportationUnmarshaller() {
-		return tran;
-	}
-	
-	public VegetationUnmarshaller getVegetationUnmarshaller() {
-		return veg;
-	}
-	
-	public WaterBodyUnmarshaller getWaterBodyUnmarshaller() {
-		return wtr;
-	}
-	
-	public CityJSONUnmarshaller getCityJSONUnmarshaller() {
-		return json;
-	}
+            SemanticsType parent = type;
+            while (parent != null && parent.isSetParent()) {
+                parent = semanticsObject.getSurfaces().get(parent.getParent());
+                weight++;
+            }
+
+            indexes.put(i, weight);
+        }
+
+        return indexes.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
+
+    public AppearanceUnmarshaller getAppearanceUnmarshaller() {
+        return app;
+    }
+
+    public BridgeUnmarshaller getBridgeUnmarshaller() {
+        return brid;
+    }
+
+    public BuildingUnmarshaller getBuildingUnmarshaller() {
+        return bldg;
+    }
+
+    public CityFurnitureUnmarshaller getCityFurnitureUnmarshaller() {
+        return frn;
+    }
+
+    public CityObjectGroupUnmarshaller getCiyCityObjectGroupUnmarshaller() {
+        return grp;
+    }
+
+    public CoreUnmarshaller getCoreUnmarshaller() {
+        return core;
+    }
+
+    public GenericsUnmarshaller getGenericsUnmarshaller() {
+        return gen;
+    }
+
+    public LandUseUnmarshaller getLandUseUnmarshaller() {
+        return luse;
+    }
+
+    public ReliefUnmarshaller getReliefUnmarshaller() {
+        return dem;
+    }
+
+    public TransportationUnmarshaller getTransportationUnmarshaller() {
+        return tran;
+    }
+
+    public VegetationUnmarshaller getVegetationUnmarshaller() {
+        return veg;
+    }
+
+    public WaterBodyUnmarshaller getWaterBodyUnmarshaller() {
+        return wtr;
+    }
+
+    public CityJSONUnmarshaller getCityJSONUnmarshaller() {
+        return json;
+    }
 }

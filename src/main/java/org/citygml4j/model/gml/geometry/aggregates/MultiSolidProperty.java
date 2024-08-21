@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiSolidProperty extends GeometryProperty<MultiSolid> {
 
-	public MultiSolidProperty() {
+    public MultiSolidProperty() {
 
-	}
+    }
 
-	public MultiSolidProperty(MultiSolid multiSolid) {
-		super(multiSolid);
-	}
+    public MultiSolidProperty(MultiSolid multiSolid) {
+        super(multiSolid);
+    }
 
-	public MultiSolidProperty(String href) {
-		super(href);
-	}
-	
-	public MultiSolid getMultiSolid() {
-		return super.getGeometry();
-	}
+    public MultiSolidProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetMultiSolid() {
-		return super.isSetGeometry();
-	}
+    public MultiSolid getMultiSolid() {
+        return super.getGeometry();
+    }
 
-	public void setMultiSolid(MultiSolid multiSolid) {
-		super.setGeometry(multiSolid);
-	}
+    public boolean isSetMultiSolid() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetMultiSolid() {
-		super.unsetGeometry();
-	}
+    public void setMultiSolid(MultiSolid multiSolid) {
+        super.setGeometry(multiSolid);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_SOLID_PROPERTY;
-	}
+    public void unsetMultiSolid() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<MultiSolid> getAssociableClass() {
-		return MultiSolid.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_SOLID_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiSolidProperty(), copyBuilder);
-	}
+    @Override
+    public Class<MultiSolid> getAssociableClass() {
+        return MultiSolid.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiSolidProperty copy = (target == null) ? new MultiSolidProperty() : (MultiSolidProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiSolidProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiSolidProperty copy = (target == null) ? new MultiSolidProperty() : (MultiSolidProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

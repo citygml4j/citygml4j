@@ -29,22 +29,37 @@ import org.citygml4j.model.gml.feature.LocationProperty;
 import java.util.List;
 
 public interface ParentInfo {
-	public boolean isSetParentInfo();
-	public ParentInfo getParentInfo();
-	
-	public boolean isSetId();
-	public String getId();
-	public boolean isSetName();
-	public List<Code> getName();
-	public boolean isSetDescription();
-	public StringOrRef getDescription();
-	public boolean isSetMetaDataProperty();
-	public List<MetaDataProperty> getMetaDataProperty();
-	public boolean isSetBoundedBy();
-	public BoundingShape getBoundedBy();
-	public boolean isSetLocation();
-	public LocationProperty getLocation();
-	public boolean isSetAppearance();
-	public List<? extends AppearanceProperty> getAppearance();
-	public CityGMLClass getCityGMLClass();
+    public boolean isSetParentInfo();
+
+    public ParentInfo getParentInfo();
+
+    public boolean isSetId();
+
+    public String getId();
+
+    public boolean isSetName();
+
+    public List<Code> getName();
+
+    public boolean isSetDescription();
+
+    public StringOrRef getDescription();
+
+    public boolean isSetMetaDataProperty();
+
+    public List<MetaDataProperty> getMetaDataProperty();
+
+    public boolean isSetBoundedBy();
+
+    public BoundingShape getBoundedBy();
+
+    public boolean isSetLocation();
+
+    public LocationProperty getLocation();
+
+    public boolean isSetAppearance();
+
+    public List<? extends AppearanceProperty> getAppearance();
+
+    public CityGMLClass getCityGMLClass();
 }

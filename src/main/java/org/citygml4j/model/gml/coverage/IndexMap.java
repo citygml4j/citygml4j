@@ -25,54 +25,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IndexMap extends GridFunction {
-	private List<Integer> lookUpTable;
-	
-	public List<Integer> getLookUpTable() {
-		if (lookUpTable == null)
-			lookUpTable = new ArrayList<>();
-		
-		return lookUpTable;
-	}
+    private List<Integer> lookUpTable;
 
-	public boolean isSetLookUpTable() {
-		return lookUpTable != null && !lookUpTable.isEmpty();
-	}
+    public List<Integer> getLookUpTable() {
+        if (lookUpTable == null)
+            lookUpTable = new ArrayList<>();
 
-	public void addLookUpIndex(Integer lookUpIndex) {
-		if (lookUpTable == null)
-			lookUpTable = new ArrayList<>();
-		
-		lookUpTable.add(lookUpIndex);
-	}
+        return lookUpTable;
+    }
 
-	public void setLookUpTable(List<Integer> lookUpTable) {
-		this.lookUpTable = lookUpTable;
-	}
+    public boolean isSetLookUpTable() {
+        return lookUpTable != null && !lookUpTable.isEmpty();
+    }
 
-	public void unsetLookUpTable() {
-		lookUpTable = null;
-	}
+    public void addLookUpIndex(Integer lookUpIndex) {
+        if (lookUpTable == null)
+            lookUpTable = new ArrayList<>();
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.INDEX_MAP;
-	}
+        lookUpTable.add(lookUpIndex);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		IndexMap copy = (target == null) ? new IndexMap() : (IndexMap)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetLookUpTable())
-			copy.setLookUpTable((List<Integer>)copyBuilder.copy(lookUpTable));
-		
-		return copy;
-	}
+    public void setLookUpTable(List<Integer> lookUpTable) {
+        this.lookUpTable = lookUpTable;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new IndexMap(), copyBuilder);
-	}
+    public void unsetLookUpTable() {
+        lookUpTable = null;
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.INDEX_MAP;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        IndexMap copy = (target == null) ? new IndexMap() : (IndexMap) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetLookUpTable())
+            copy.setLookUpTable((List<Integer>) copyBuilder.copy(lookUpTable));
+
+        return copy;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new IndexMap(), copyBuilder);
+    }
 
 }

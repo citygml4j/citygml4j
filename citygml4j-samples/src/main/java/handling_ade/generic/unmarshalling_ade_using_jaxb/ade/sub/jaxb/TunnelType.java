@@ -36,9 +36,9 @@ import java.util.List;
 
 /**
  * <p>Java-Klasse für TunnelType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="TunnelType">
  *   &lt;complexContent>
@@ -50,40 +50,35 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TunnelType", propOrder = {
-    "_GenericApplicationPropertyOfTunnel"
+        "_GenericApplicationPropertyOfTunnel"
 })
 public class TunnelType
-    extends AbstractTunnelType
-{
+        extends AbstractTunnelType {
 
     protected List<Object> _GenericApplicationPropertyOfTunnel;
 
     /**
      * Gets the value of the genericApplicationPropertyOfTunnel property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfTunnel property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfTunnel().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfTunnel() {
         if (_GenericApplicationPropertyOfTunnel == null) {
@@ -93,7 +88,7 @@ public class TunnelType
     }
 
     public boolean isSet_GenericApplicationPropertyOfTunnel() {
-        return ((this._GenericApplicationPropertyOfTunnel!= null)&&(!this._GenericApplicationPropertyOfTunnel.isEmpty()));
+        return ((this._GenericApplicationPropertyOfTunnel != null) && (!this._GenericApplicationPropertyOfTunnel.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfTunnel() {

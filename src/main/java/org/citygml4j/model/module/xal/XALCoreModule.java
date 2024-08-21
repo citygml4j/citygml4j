@@ -23,42 +23,42 @@ import org.citygml4j.model.module.Module;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XALCoreModule extends AbstractXALModule {	
-	private static final List<XALCoreModule> instances = new ArrayList<XALCoreModule>();
+public class XALCoreModule extends AbstractXALModule {
+    private static final List<XALCoreModule> instances = new ArrayList<XALCoreModule>();
 
-	public static final XALCoreModule v2_0;
+    public static final XALCoreModule v2_0;
 
-	public XALCoreModule (
-			XALModuleType type,
-			XALModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
-		instances.add(this);
-	}
+    public XALCoreModule(
+            XALModuleType type,
+            XALModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0 = new XALCoreModule (
-				XALModuleType.CORE,
-				XALModuleVersion.v2_0,
-				"urn:oasis:names:tc:ciq:xsdschema:xAL:2.0", 
-				"xAL", 
-				"http://schemas.opengis.net/citygml/xAL/xAL.xsd");
-	}
+    static {
+        v2_0 = new XALCoreModule(
+                XALModuleType.CORE,
+                XALModuleVersion.v2_0,
+                "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0",
+                "xAL",
+                "http://schemas.opengis.net/citygml/xAL/xAL.xsd");
+    }
 
-	public static List<XALCoreModule> getInstances() {
-		return instances;
-	}
-	
-	public static XALCoreModule getInstance(XALModuleVersion version) {
-		switch (version) {
-		case v2_0:
-			return v2_0;
-		default:
-			return null;
-		}
-	}
-	
+    public static List<XALCoreModule> getInstances() {
+        return instances;
+    }
+
+    public static XALCoreModule getInstance(XALModuleVersion version) {
+        switch (version) {
+            case v2_0:
+                return v2_0;
+            default:
+                return null;
+        }
+    }
+
 }

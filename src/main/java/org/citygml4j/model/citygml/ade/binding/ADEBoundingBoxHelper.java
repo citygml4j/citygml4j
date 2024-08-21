@@ -29,28 +29,28 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class ADEBoundingBoxHelper {
-	
-	public static BoundingShape calcBoundedBy(ADEModelObject ade, BoundingBoxOptions options) {
-		BoundingShape boundedBy = new BoundingShape();
-		updateEnvelope(ade, boundedBy, options);
-		return boundedBy;
-	}
 
-	private static void updateEnvelope(Object object, BoundingShape boundedBy, BoundingBoxOptions options) {
-		if (object instanceof AbstractGeometry) {
-			boundedBy.updateEnvelope(((AbstractGeometry) object).calcBoundingBox());
-		} else if (object instanceof AbstractFeature) {
-			boundedBy.updateEnvelope(((AbstractFeature) object).calcBoundedBy(options).getEnvelope());
-		} else if (object instanceof ADEGenericApplicationProperty<?>) {
-			updateEnvelope(((ADEGenericApplicationProperty<?>) object).getValue(), boundedBy, options);
-		} else if (object instanceof ArrayAssociation<?>) {
-			((ArrayAssociation<?>) object).getObject().forEach(v -> updateEnvelope(v, boundedBy, options));
-		} else if (object instanceof AssociationByRep<?>) {
-			updateEnvelope(((AssociationByRep<?>) object).getObject(), boundedBy, options);
-		} else if (object instanceof Collection<?>) {
-			((Collection<?>) object).forEach(v -> updateEnvelope(v, boundedBy, options));
-		} else if (object instanceof Object[]) {
-			Arrays.stream(((Object[]) object)).forEach(v -> updateEnvelope(v, boundedBy, options));
-		}
-	}
+    public static BoundingShape calcBoundedBy(ADEModelObject ade, BoundingBoxOptions options) {
+        BoundingShape boundedBy = new BoundingShape();
+        updateEnvelope(ade, boundedBy, options);
+        return boundedBy;
+    }
+
+    private static void updateEnvelope(Object object, BoundingShape boundedBy, BoundingBoxOptions options) {
+        if (object instanceof AbstractGeometry) {
+            boundedBy.updateEnvelope(((AbstractGeometry) object).calcBoundingBox());
+        } else if (object instanceof AbstractFeature) {
+            boundedBy.updateEnvelope(((AbstractFeature) object).calcBoundedBy(options).getEnvelope());
+        } else if (object instanceof ADEGenericApplicationProperty<?>) {
+            updateEnvelope(((ADEGenericApplicationProperty<?>) object).getValue(), boundedBy, options);
+        } else if (object instanceof ArrayAssociation<?>) {
+            ((ArrayAssociation<?>) object).getObject().forEach(v -> updateEnvelope(v, boundedBy, options));
+        } else if (object instanceof AssociationByRep<?>) {
+            updateEnvelope(((AssociationByRep<?>) object).getObject(), boundedBy, options);
+        } else if (object instanceof Collection<?>) {
+            ((Collection<?>) object).forEach(v -> updateEnvelope(v, boundedBy, options));
+        } else if (object instanceof Object[]) {
+            Arrays.stream(((Object[]) object)).forEach(v -> updateEnvelope(v, boundedBy, options));
+        }
+    }
 }

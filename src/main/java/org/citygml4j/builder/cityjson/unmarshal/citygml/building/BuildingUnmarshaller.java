@@ -51,391 +51,389 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BuildingUnmarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityJSONUnmarshaller json;
-	private final CityGMLUnmarshaller citygml;
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObject> typeMapper;
-
-	public BuildingUnmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONUnmarshaller();
-	}
-
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObject> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObject>create()
-							.with(BuildingType.class, this::unmarshalBuilding)
-							.with(BuildingPartType.class, this::unmarshalBuildingPart)
-							.with(BuildingInstallationType.class, this::unmarshalBuildingInstallation);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
-
-		return typeMapper;
-	}
-
-	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		return getTypeMapper().apply(src, cityJSON);
-	}
-
-	public AbstractCityObject unmarshalSemanticSurface(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent, CityJSON cityJSON) {
-		AbstractCityObject cityObject = null;
-		switch (semanticsType.getType()) {
-			case "RoofSurface":
-				cityObject = unmarshalRoofSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "GroundSurface":
-				cityObject = unmarshalGroundSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "WallSurface":
-				cityObject = unmarshalWallSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "ClosureSurface":
-				cityObject = unmarshalClosureSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "OuterCeilingSurface":
-				cityObject = unmarshalOuterCeilingSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "OuterFloorSurface":
-				cityObject = unmarshalOuterFloorSurface(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "Window":
-				cityObject = unmarshalWindow(semanticsType, surfaces, lod, cityJSON);
-				break;
-			case "Door":
-				cityObject = unmarshalDoor(semanticsType, surfaces, lod, cityJSON);
-				break;
-			default:
-				return null;
-		}
-
-		if (parent instanceof ADEModelObject) {
-			boolean success = json.getADEUnmarshaller().assignSemanticSurface(cityObject, lod, parent);
-			if (success)
-				return cityObject;
-		}
-
-		if (cityObject instanceof AbstractBoundarySurface) {
-			AbstractBoundarySurface boundarySurface = (AbstractBoundarySurface) cityObject;
-			if (parent instanceof AbstractBuilding)
-				((AbstractBuilding) parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
-			else if (parent instanceof BuildingInstallation)
-				((BuildingInstallation) parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
-		}
-
-		else if (cityObject != null) {
-			AbstractOpening opening = (AbstractOpening) cityObject;
-
-			if (parent instanceof AbstractBoundarySurface)
-				((AbstractBoundarySurface) parent).addOpening(new OpeningProperty(opening));
-			else {
-				// if the parent is not a boundary surface, then we try
-				// and add the opening to the last boundary surface of the parent
-				List<BoundarySurfaceProperty> boundedBy = null;
-				if (parent instanceof AbstractBuilding)
-					boundedBy = ((AbstractBuilding) parent).getBoundedBySurface();
-				else if (parent instanceof BuildingInstallation)
-					boundedBy = ((BuildingInstallation) parent).getBoundedBySurface();
-
-				if (boundedBy != null && !boundedBy.isEmpty()) {
-					AbstractBoundarySurface boundarySurface = boundedBy.get(boundedBy.size() - 1).getBoundarySurface();
-					boundarySurface.addOpening(new OpeningProperty(opening));
-				}
-			}
-		}
-
-		return cityObject;
-	}
-
-	public void unmarshalAbstractBuilding(AbstractBuildingType src, AbstractBuilding dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
-
-		if (src.isSetAttributes()) {
-			BuildingAttributes attributes = src.getAttributes();
-
-			if (attributes.isSetClazz())
-				dest.setClazz(new Code(attributes.getClazz()));
-
-			if (attributes.isSetFunction())
-				dest.addFunction(new Code(attributes.getFunction()));
-
-			if (attributes.isSetUsage())
-				dest.addUsage(new Code(attributes.getUsage()));
-
-			if (attributes.isSetMeasuredHeight()) {
-				Length measuredHeight = new Length(attributes.getMeasuredHeight());
-				measuredHeight.setUom("#m");
-				dest.setMeasuredHeight(measuredHeight);
-			}
-
-			if (attributes.isSetRoofType())
-				dest.setRoofType(new Code(attributes.getRoofType()));
-
-			if (attributes.isSetStoreysAboveGround())
-				dest.setStoreysAboveGround(attributes.getStoreysAboveGround());
-
-			if (attributes.isSetStoreysBelowGround())
-				dest.setStoreysBelowGround(attributes.getStoreysBelowGround());
-
-			if (attributes.isSetStoreyHeightsAboveGround()) {
-				MeasureOrNullList heights = new MeasureOrNullList();
-				for (Double height : attributes.getStoreyHeightsAboveGround())
-					heights.addDoubleOrNull(new DoubleOrNull(height));
-
-				heights.setUom("#m");
-				dest.setStoreyHeightsAboveGround(heights);
-			}
-
-			if (attributes.isSetStoreyHeightsBelowGround()) {
-				MeasureOrNullList heights = new MeasureOrNullList();
-				for (Double height : attributes.getStoreyHeightsBelowGround())
-					heights.addDoubleOrNull(new DoubleOrNull(height));
-
-				heights.setUom("#m");
-				dest.setStoreyHeightsBelowGround(heights);
-			}
-
-			if (attributes.isSetYearOfConstruction())
-				dest.setYearOfConstruction(LocalDate.of(attributes.getYearOfConstruction(), 1, 1));
-
-			if (attributes.isSetYearOfDemolition())
-				dest.setYearOfDemolition(LocalDate.of(attributes.getYearOfDemolition(), 1, 1));
-		}
-
-		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			AbstractGeometry geometry = null;
-			int lod = 0;
-
-			if (geometryType instanceof AbstractGeometryObjectType) {
-				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
-				lod = geometryObject.getLod().intValue();
-			} else if (geometryType instanceof GeometryInstanceType) {
-				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest, cityJSON);
-				lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
-			}
-
-			if (geometry != null) {
-				if (geometry instanceof MultiSurface) {
-					MultiSurface multiSurface = (MultiSurface) geometry;
-					switch (lod) {
-						case 0:
-							dest.setLod0FootPrint(new MultiSurfaceProperty(multiSurface));
-							break;
-						case 1:
-							dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
-							break;
-						case 2:
-							dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-							break;
-						case 3:
-							dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-							break;
-					}
-				} else if (geometry instanceof AbstractSolid) {
-					AbstractSolid solid = (AbstractSolid) geometry;
-					switch (lod) {
-						case 1:
-							dest.setLod1Solid(new SolidProperty(solid));
-							break;
-						case 2:
-							dest.setLod2Solid(new SolidProperty(solid));
-							break;
-						case 3:
-							dest.setLod3Solid(new SolidProperty(solid));
-							break;
-					}
-				}
-			}
-		}
-
-		if (src.isSetChildren()) {
-			for (String gmlId : src.getChildren()) {
-				AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
-				if (cityObject == null || !json.getCityJSONRegistry().isCoreCityObject(cityObject.getType()))
-					continue;
-
-				if (cityObject instanceof BuildingInstallationType) {
-					BuildingInstallation installation = unmarshalBuildingInstallation((BuildingInstallationType) cityObject, cityJSON);
-					dest.addOuterBuildingInstallation(new BuildingInstallationProperty(installation));
-				} else if (cityObject instanceof BuildingPartType && src instanceof BuildingType) {
-					BuildingPart part = unmarshalBuildingPart((BuildingPartType) cityObject, cityJSON);
-					dest.addConsistsOfBuildingPart(new BuildingPartProperty(part));
-				}
-			}
-		}
-
-		if (src.isSetAddress())
-			dest.addAddress(new AddressProperty(citygml.getCoreUnmarshaller().unmarshalAddress(src.getAddress(), cityJSON)));
-	}
-
-	public void unmarshalBuilding(BuildingType src, Building dest, CityJSON cityJSON) {
-		unmarshalAbstractBuilding(src, dest, cityJSON);
-	}
-
-	public Building unmarshalBuilding(BuildingType src, CityJSON cityJSON) {
-		Building dest = new Building();
-		unmarshalBuilding(src, dest, cityJSON);
-
-		return dest;
-	}
-
-	public void unmarshalBuildingPart(BuildingPartType src, BuildingPart dest, CityJSON cityJSON) {
-		unmarshalAbstractBuilding(src, dest, cityJSON);
-	}
-	
-	public BuildingPart unmarshalBuildingPart(BuildingPartType src, CityJSON cityJSON) {
-		BuildingPart dest = new BuildingPart();
-		unmarshalBuildingPart(src, dest, cityJSON);
-
-		return dest;
-	}
-
-	public void unmarshalBuildingInstallation(BuildingInstallationType src, BuildingInstallation dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
-
-		if (src.isSetAttributes()) {
-			Attributes attributes = src.getAttributes();
-			if (attributes.isSetClazz())
-				dest.setClazz(new Code(attributes.getClazz()));
-
-			if (attributes.isSetFunction())
-				dest.addFunction(new Code(attributes.getFunction()));
-
-			if (attributes.isSetUsage())
-				dest.addUsage(new Code(attributes.getUsage()));
-		}
-
-		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			if (geometryType instanceof AbstractGeometryObjectType) {
-				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
-
-				if (geometry != null) {
-					int lod = geometryObject.getLod().intValue();
-					switch (lod) {
-						case 2:
-							dest.setLod2Geometry(new GeometryProperty<>(geometry));
-							break;
-						case 3:
-							dest.setLod3Geometry(new GeometryProperty<>(geometry));
-							break;
-					}
-				}
-			} else if (geometryType instanceof GeometryInstanceType) {
-				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance, cityJSON);
-
-				if (geometry != null) {
-					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
-						case 2:
-							dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
-							break;
-						case 3:
-							dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
-							break;
-					}
-				}
-			}
-		}
-	}
-
-	public BuildingInstallation unmarshalBuildingInstallation(BuildingInstallationType src, CityJSON cityJSON) {
-		BuildingInstallation dest = new BuildingInstallation();
-		unmarshalBuildingInstallation(src, dest, cityJSON);
-
-		return dest;
-	}
-
-	public void unmarshalAbstractBoundarySurface(SemanticsType src, AbstractBoundarySurface dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
-
-		MultiSurface multiSurface = new MultiSurface();
-		for (AbstractSurface surface : surfaces)
-			multiSurface.addSurfaceMember(new SurfaceProperty(surface));
-
-		switch (lod.intValue()) {
-		case 2:
-			dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
-			break;
-		case 3:
-			dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-			break;
-		}
-	}
-
-	public RoofSurface unmarshalRoofSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		RoofSurface dest = new RoofSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
-
-	public GroundSurface unmarshalGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		GroundSurface dest = new GroundSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
-
-	public WallSurface unmarshalWallSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		WallSurface dest = new WallSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
-
-	public ClosureSurface unmarshalClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		ClosureSurface dest = new ClosureSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
-
-	public OuterCeilingSurface unmarshalOuterCeilingSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		OuterCeilingSurface dest = new OuterCeilingSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
-
-	public OuterFloorSurface unmarshalOuterFloorSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		OuterFloorSurface dest = new OuterFloorSurface();
-		unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
-
-	public void unmarshalAbstractOpening(SemanticsType src, AbstractOpening dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
-
-		if (lod.intValue() == 3) {
-			MultiSurface multiSurface = new MultiSurface();
-			for (AbstractSurface surface : surfaces)
-				multiSurface.addSurfaceMember(new SurfaceProperty(surface));
-
-			dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
-		}
-	}
-
-	public Door unmarshalDoor(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		Door dest = new Door();
-		unmarshalAbstractOpening(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
-
-	public Window unmarshalWindow(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
-		Window dest = new Window();
-		unmarshalAbstractOpening(src, dest, surfaces, lod, cityJSON);
-
-		return dest;
-	}
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityJSONUnmarshaller json;
+    private final CityGMLUnmarshaller citygml;
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObject> typeMapper;
+
+    public BuildingUnmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONUnmarshaller();
+    }
+
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObject> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObject>create()
+                            .with(BuildingType.class, this::unmarshalBuilding)
+                            .with(BuildingPartType.class, this::unmarshalBuildingPart)
+                            .with(BuildingInstallationType.class, this::unmarshalBuildingInstallation);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        return typeMapper;
+    }
+
+    public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
+        return getTypeMapper().apply(src, cityJSON);
+    }
+
+    public AbstractCityObject unmarshalSemanticSurface(SemanticsType semanticsType, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent, CityJSON cityJSON) {
+        AbstractCityObject cityObject = null;
+        switch (semanticsType.getType()) {
+            case "RoofSurface":
+                cityObject = unmarshalRoofSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "GroundSurface":
+                cityObject = unmarshalGroundSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "WallSurface":
+                cityObject = unmarshalWallSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "ClosureSurface":
+                cityObject = unmarshalClosureSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "OuterCeilingSurface":
+                cityObject = unmarshalOuterCeilingSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "OuterFloorSurface":
+                cityObject = unmarshalOuterFloorSurface(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "Window":
+                cityObject = unmarshalWindow(semanticsType, surfaces, lod, cityJSON);
+                break;
+            case "Door":
+                cityObject = unmarshalDoor(semanticsType, surfaces, lod, cityJSON);
+                break;
+            default:
+                return null;
+        }
+
+        if (parent instanceof ADEModelObject) {
+            boolean success = json.getADEUnmarshaller().assignSemanticSurface(cityObject, lod, parent);
+            if (success)
+                return cityObject;
+        }
+
+        if (cityObject instanceof AbstractBoundarySurface) {
+            AbstractBoundarySurface boundarySurface = (AbstractBoundarySurface) cityObject;
+            if (parent instanceof AbstractBuilding)
+                ((AbstractBuilding) parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
+            else if (parent instanceof BuildingInstallation)
+                ((BuildingInstallation) parent).addBoundedBySurface(new BoundarySurfaceProperty(boundarySurface));
+        } else if (cityObject != null) {
+            AbstractOpening opening = (AbstractOpening) cityObject;
+
+            if (parent instanceof AbstractBoundarySurface)
+                ((AbstractBoundarySurface) parent).addOpening(new OpeningProperty(opening));
+            else {
+                // if the parent is not a boundary surface, then we try
+                // and add the opening to the last boundary surface of the parent
+                List<BoundarySurfaceProperty> boundedBy = null;
+                if (parent instanceof AbstractBuilding)
+                    boundedBy = ((AbstractBuilding) parent).getBoundedBySurface();
+                else if (parent instanceof BuildingInstallation)
+                    boundedBy = ((BuildingInstallation) parent).getBoundedBySurface();
+
+                if (boundedBy != null && !boundedBy.isEmpty()) {
+                    AbstractBoundarySurface boundarySurface = boundedBy.get(boundedBy.size() - 1).getBoundarySurface();
+                    boundarySurface.addOpening(new OpeningProperty(opening));
+                }
+            }
+        }
+
+        return cityObject;
+    }
+
+    public void unmarshalAbstractBuilding(AbstractBuildingType src, AbstractBuilding dest, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+
+        if (src.isSetAttributes()) {
+            BuildingAttributes attributes = src.getAttributes();
+
+            if (attributes.isSetClazz())
+                dest.setClazz(new Code(attributes.getClazz()));
+
+            if (attributes.isSetFunction())
+                dest.addFunction(new Code(attributes.getFunction()));
+
+            if (attributes.isSetUsage())
+                dest.addUsage(new Code(attributes.getUsage()));
+
+            if (attributes.isSetMeasuredHeight()) {
+                Length measuredHeight = new Length(attributes.getMeasuredHeight());
+                measuredHeight.setUom("#m");
+                dest.setMeasuredHeight(measuredHeight);
+            }
+
+            if (attributes.isSetRoofType())
+                dest.setRoofType(new Code(attributes.getRoofType()));
+
+            if (attributes.isSetStoreysAboveGround())
+                dest.setStoreysAboveGround(attributes.getStoreysAboveGround());
+
+            if (attributes.isSetStoreysBelowGround())
+                dest.setStoreysBelowGround(attributes.getStoreysBelowGround());
+
+            if (attributes.isSetStoreyHeightsAboveGround()) {
+                MeasureOrNullList heights = new MeasureOrNullList();
+                for (Double height : attributes.getStoreyHeightsAboveGround())
+                    heights.addDoubleOrNull(new DoubleOrNull(height));
+
+                heights.setUom("#m");
+                dest.setStoreyHeightsAboveGround(heights);
+            }
+
+            if (attributes.isSetStoreyHeightsBelowGround()) {
+                MeasureOrNullList heights = new MeasureOrNullList();
+                for (Double height : attributes.getStoreyHeightsBelowGround())
+                    heights.addDoubleOrNull(new DoubleOrNull(height));
+
+                heights.setUom("#m");
+                dest.setStoreyHeightsBelowGround(heights);
+            }
+
+            if (attributes.isSetYearOfConstruction())
+                dest.setYearOfConstruction(LocalDate.of(attributes.getYearOfConstruction(), 1, 1));
+
+            if (attributes.isSetYearOfDemolition())
+                dest.setYearOfDemolition(LocalDate.of(attributes.getYearOfDemolition(), 1, 1));
+        }
+
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            AbstractGeometry geometry = null;
+            int lod = 0;
+
+            if (geometryType instanceof AbstractGeometryObjectType) {
+                AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+                geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
+                lod = geometryObject.getLod().intValue();
+            } else if (geometryType instanceof GeometryInstanceType) {
+                GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+                geometry = citygml.getCoreUnmarshaller().unmarshalAndTransformGeometryInstance(geometryInstance, dest, cityJSON);
+                lod = (int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD);
+            }
+
+            if (geometry != null) {
+                if (geometry instanceof MultiSurface) {
+                    MultiSurface multiSurface = (MultiSurface) geometry;
+                    switch (lod) {
+                        case 0:
+                            dest.setLod0FootPrint(new MultiSurfaceProperty(multiSurface));
+                            break;
+                        case 1:
+                            dest.setLod1MultiSurface(new MultiSurfaceProperty(multiSurface));
+                            break;
+                        case 2:
+                            dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+                            break;
+                        case 3:
+                            dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+                            break;
+                    }
+                } else if (geometry instanceof AbstractSolid) {
+                    AbstractSolid solid = (AbstractSolid) geometry;
+                    switch (lod) {
+                        case 1:
+                            dest.setLod1Solid(new SolidProperty(solid));
+                            break;
+                        case 2:
+                            dest.setLod2Solid(new SolidProperty(solid));
+                            break;
+                        case 3:
+                            dest.setLod3Solid(new SolidProperty(solid));
+                            break;
+                    }
+                }
+            }
+        }
+
+        if (src.isSetChildren()) {
+            for (String gmlId : src.getChildren()) {
+                AbstractCityObjectType cityObject = cityJSON.getCityObject(gmlId);
+                if (cityObject == null || !json.getCityJSONRegistry().isCoreCityObject(cityObject.getType()))
+                    continue;
+
+                if (cityObject instanceof BuildingInstallationType) {
+                    BuildingInstallation installation = unmarshalBuildingInstallation((BuildingInstallationType) cityObject, cityJSON);
+                    dest.addOuterBuildingInstallation(new BuildingInstallationProperty(installation));
+                } else if (cityObject instanceof BuildingPartType && src instanceof BuildingType) {
+                    BuildingPart part = unmarshalBuildingPart((BuildingPartType) cityObject, cityJSON);
+                    dest.addConsistsOfBuildingPart(new BuildingPartProperty(part));
+                }
+            }
+        }
+
+        if (src.isSetAddress())
+            dest.addAddress(new AddressProperty(citygml.getCoreUnmarshaller().unmarshalAddress(src.getAddress(), cityJSON)));
+    }
+
+    public void unmarshalBuilding(BuildingType src, Building dest, CityJSON cityJSON) {
+        unmarshalAbstractBuilding(src, dest, cityJSON);
+    }
+
+    public Building unmarshalBuilding(BuildingType src, CityJSON cityJSON) {
+        Building dest = new Building();
+        unmarshalBuilding(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public void unmarshalBuildingPart(BuildingPartType src, BuildingPart dest, CityJSON cityJSON) {
+        unmarshalAbstractBuilding(src, dest, cityJSON);
+    }
+
+    public BuildingPart unmarshalBuildingPart(BuildingPartType src, CityJSON cityJSON) {
+        BuildingPart dest = new BuildingPart();
+        unmarshalBuildingPart(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public void unmarshalBuildingInstallation(BuildingInstallationType src, BuildingInstallation dest, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+
+        if (src.isSetAttributes()) {
+            Attributes attributes = src.getAttributes();
+            if (attributes.isSetClazz())
+                dest.setClazz(new Code(attributes.getClazz()));
+
+            if (attributes.isSetFunction())
+                dest.addFunction(new Code(attributes.getFunction()));
+
+            if (attributes.isSetUsage())
+                dest.addUsage(new Code(attributes.getUsage()));
+        }
+
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType instanceof AbstractGeometryObjectType) {
+                AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+                AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
+
+                if (geometry != null) {
+                    int lod = geometryObject.getLod().intValue();
+                    switch (lod) {
+                        case 2:
+                            dest.setLod2Geometry(new GeometryProperty<>(geometry));
+                            break;
+                        case 3:
+                            dest.setLod3Geometry(new GeometryProperty<>(geometry));
+                            break;
+                    }
+                }
+            } else if (geometryType instanceof GeometryInstanceType) {
+                GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+                ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance, cityJSON);
+
+                if (geometry != null) {
+                    switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
+                        case 2:
+                            dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+                            break;
+                        case 3:
+                            dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    public BuildingInstallation unmarshalBuildingInstallation(BuildingInstallationType src, CityJSON cityJSON) {
+        BuildingInstallation dest = new BuildingInstallation();
+        unmarshalBuildingInstallation(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public void unmarshalAbstractBoundarySurface(SemanticsType src, AbstractBoundarySurface dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
+        MultiSurface multiSurface = new MultiSurface();
+        for (AbstractSurface surface : surfaces)
+            multiSurface.addSurfaceMember(new SurfaceProperty(surface));
+
+        switch (lod.intValue()) {
+            case 2:
+                dest.setLod2MultiSurface(new MultiSurfaceProperty(multiSurface));
+                break;
+            case 3:
+                dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+                break;
+        }
+    }
+
+    public RoofSurface unmarshalRoofSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        RoofSurface dest = new RoofSurface();
+        unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public GroundSurface unmarshalGroundSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        GroundSurface dest = new GroundSurface();
+        unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public WallSurface unmarshalWallSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        WallSurface dest = new WallSurface();
+        unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public ClosureSurface unmarshalClosureSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        ClosureSurface dest = new ClosureSurface();
+        unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public OuterCeilingSurface unmarshalOuterCeilingSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        OuterCeilingSurface dest = new OuterCeilingSurface();
+        unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public OuterFloorSurface unmarshalOuterFloorSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        OuterFloorSurface dest = new OuterFloorSurface();
+        unmarshalAbstractBoundarySurface(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public void unmarshalAbstractOpening(SemanticsType src, AbstractOpening dest, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
+        if (lod.intValue() == 3) {
+            MultiSurface multiSurface = new MultiSurface();
+            for (AbstractSurface surface : surfaces)
+                multiSurface.addSurfaceMember(new SurfaceProperty(surface));
+
+            dest.setLod3MultiSurface(new MultiSurfaceProperty(multiSurface));
+        }
+    }
+
+    public Door unmarshalDoor(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        Door dest = new Door();
+        unmarshalAbstractOpening(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
+
+    public Window unmarshalWindow(SemanticsType src, List<AbstractSurface> surfaces, Number lod, CityJSON cityJSON) {
+        Window dest = new Window();
+        unmarshalAbstractOpening(src, dest, surfaces, lod, cityJSON);
+
+        return dest;
+    }
 
 }

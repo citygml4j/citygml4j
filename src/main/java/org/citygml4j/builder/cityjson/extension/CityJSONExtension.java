@@ -23,6 +23,8 @@ import java.util.List;
 
 public interface CityJSONExtension {
     List<CityJSONExtensionModule> getExtensionModules();
+
     CityJSONExtensionMarshaller createExtensionMarshaller();
+
     CityJSONExtensionUnmarshaller createExtensionUnmarshaller();
 }

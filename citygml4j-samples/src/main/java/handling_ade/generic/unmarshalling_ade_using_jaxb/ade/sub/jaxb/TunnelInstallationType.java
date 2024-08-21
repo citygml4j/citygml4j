@@ -41,13 +41,13 @@ import java.util.List;
 
 /**
  * An TunnelInstallation is an external part of a Tunnel which has a specific function or semantical meaning. As subclass of _CityObject, a
- * 				TunnelInstallation inherits all attributes and relations, in particular an id, names, external references, generic attributes and generalization relations.
- * 			
- * 
+ * TunnelInstallation inherits all attributes and relations, in particular an id, names, external references, generic attributes and generalization relations.
+ *
+ *
  * <p>Java-Klasse für TunnelInstallationType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="TunnelInstallationType">
  *   &lt;complexContent>
@@ -63,20 +63,17 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TunnelInstallationType", propOrder = {
-    "clazz",
-    "function",
-    "usage",
-    "lod4Geometry",
-    "_GenericApplicationPropertyOfTunnelInstallation"
+        "clazz",
+        "function",
+        "usage",
+        "lod4Geometry",
+        "_GenericApplicationPropertyOfTunnelInstallation"
 })
 public class TunnelInstallationType
-    extends AbstractCityObjectType
-{
+        extends AbstractCityObjectType {
 
     @XmlElement(name = "class")
     protected CodeType clazz;
@@ -87,11 +84,9 @@ public class TunnelInstallationType
 
     /**
      * Ruft den Wert der clazz-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CodeType }
-     *     
+     *
+     * @return possible object is
+     * {@link CodeType }
      */
     public CodeType getClazz() {
         return clazz;
@@ -99,41 +94,37 @@ public class TunnelInstallationType
 
     /**
      * Legt den Wert der clazz-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CodeType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link CodeType }
      */
     public void setClazz(CodeType value) {
         this.clazz = value;
     }
 
     public boolean isSetClazz() {
-        return (this.clazz!= null);
+        return (this.clazz != null);
     }
 
     /**
      * Gets the value of the function property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the function property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getFunction().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link CodeType }
-     * 
-     * 
      */
     public List<CodeType> getFunction() {
         if (function == null) {
@@ -143,7 +134,7 @@ public class TunnelInstallationType
     }
 
     public boolean isSetFunction() {
-        return ((this.function!= null)&&(!this.function.isEmpty()));
+        return ((this.function != null) && (!this.function.isEmpty()));
     }
 
     public void unsetFunction() {
@@ -152,25 +143,23 @@ public class TunnelInstallationType
 
     /**
      * Gets the value of the usage property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the usage property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getUsage().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link CodeType }
-     * 
-     * 
      */
     public List<CodeType> getUsage() {
         if (usage == null) {
@@ -180,7 +169,7 @@ public class TunnelInstallationType
     }
 
     public boolean isSetUsage() {
-        return ((this.usage!= null)&&(!this.usage.isEmpty()));
+        return ((this.usage != null) && (!this.usage.isEmpty()));
     }
 
     public void unsetUsage() {
@@ -189,11 +178,9 @@ public class TunnelInstallationType
 
     /**
      * Ruft den Wert der lod4Geometry-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GeometryPropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link GeometryPropertyType }
      */
     public GeometryPropertyType getLod4Geometry() {
         return lod4Geometry;
@@ -201,41 +188,37 @@ public class TunnelInstallationType
 
     /**
      * Legt den Wert der lod4Geometry-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GeometryPropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link GeometryPropertyType }
      */
     public void setLod4Geometry(GeometryPropertyType value) {
         this.lod4Geometry = value;
     }
 
     public boolean isSetLod4Geometry() {
-        return (this.lod4Geometry!= null);
+        return (this.lod4Geometry != null);
     }
 
     /**
      * Gets the value of the genericApplicationPropertyOfTunnelInstallation property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfTunnelInstallation property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfTunnelInstallation().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfTunnelInstallation() {
         if (_GenericApplicationPropertyOfTunnelInstallation == null) {
@@ -245,7 +228,7 @@ public class TunnelInstallationType
     }
 
     public boolean isSet_GenericApplicationPropertyOfTunnelInstallation() {
-        return ((this._GenericApplicationPropertyOfTunnelInstallation!= null)&&(!this._GenericApplicationPropertyOfTunnelInstallation.isEmpty()));
+        return ((this._GenericApplicationPropertyOfTunnelInstallation != null) && (!this._GenericApplicationPropertyOfTunnelInstallation.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfTunnelInstallation() {

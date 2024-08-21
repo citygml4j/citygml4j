@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class CityObjectMember extends FeatureProperty<AbstractCityObject> implements CoreModuleComponent {
 
-	public CityObjectMember() {
-		
-	}
-	
-	public CityObjectMember(AbstractCityObject abstractCityObject) {
-		super(abstractCityObject);
-	}
-	
-	public CityObjectMember(String href) {
-		super(href);
-	}
-	
-	public AbstractCityObject getCityObject() {
-		return super.getFeature();
-	}
+    public CityObjectMember() {
 
-	public boolean isSetCityObject() {
-		return super.isSetFeature();
-	}
+    }
 
-	public void setCityObject(AbstractCityObject cityObject) {
-		super.setFeature(cityObject);
-	}
+    public CityObjectMember(AbstractCityObject abstractCityObject) {
+        super(abstractCityObject);
+    }
 
-	public void unsetCityObject() {
-		super.unsetFeature();
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITY_OBJECT_MEMBER;
-	}
+    public CityObjectMember(String href) {
+        super(href);
+    }
 
-	@Override
-	public Class<AbstractCityObject> getAssociableClass() {
-		return AbstractCityObject.class;
-	}
+    public AbstractCityObject getCityObject() {
+        return super.getFeature();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CityObjectMember(), copyBuilder);
-	}
+    public boolean isSetCityObject() {
+        return super.isSetFeature();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CityObjectMember copy = (target == null) ? new CityObjectMember() : (CityObjectMember)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void setCityObject(AbstractCityObject cityObject) {
+        super.setFeature(cityObject);
+    }
+
+    public void unsetCityObject() {
+        super.unsetFeature();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.CITY_OBJECT_MEMBER;
+    }
+
+    @Override
+    public Class<AbstractCityObject> getAssociableClass() {
+        return AbstractCityObject.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CityObjectMember(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CityObjectMember copy = (target == null) ? new CityObjectMember() : (CityObjectMember) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

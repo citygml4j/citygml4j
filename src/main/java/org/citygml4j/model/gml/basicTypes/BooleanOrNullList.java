@@ -30,76 +30,76 @@ import org.citygml4j.model.gml.GMLClass;
 import java.util.List;
 
 public class BooleanOrNullList implements GML, Child, Copyable {
-	private List<BooleanOrNull> booleanOrNull;
-	private ModelObject parent;
+    private List<BooleanOrNull> booleanOrNull;
+    private ModelObject parent;
 
-	public void addBooleanOrNull(BooleanOrNull booleanOrNull) {
-		getBooleanOrNull().add(booleanOrNull);
-	}
+    public void addBooleanOrNull(BooleanOrNull booleanOrNull) {
+        getBooleanOrNull().add(booleanOrNull);
+    }
 
-	public List<BooleanOrNull> getBooleanOrNull() {
-		if (booleanOrNull == null)
-			booleanOrNull = new ChildList<>(this);
-		
-		return booleanOrNull;
-	}
+    public List<BooleanOrNull> getBooleanOrNull() {
+        if (booleanOrNull == null)
+            booleanOrNull = new ChildList<>(this);
 
-	public boolean isSetBooleanOrNull() {
-		return booleanOrNull != null && !booleanOrNull.isEmpty();
-	}
+        return booleanOrNull;
+    }
 
-	public void setBooleanOrNull(List<BooleanOrNull> booleanOrNull) {
-		this.booleanOrNull = new ChildList<>(this, booleanOrNull);
-	}
+    public boolean isSetBooleanOrNull() {
+        return booleanOrNull != null && !booleanOrNull.isEmpty();
+    }
 
-	public void unsetBooleanOrNull() {
-		booleanOrNull = ModelObjects.setNull(booleanOrNull);
-	}
+    public void setBooleanOrNull(List<BooleanOrNull> booleanOrNull) {
+        this.booleanOrNull = new ChildList<>(this, booleanOrNull);
+    }
 
-	public boolean unsetBooleanOrNull(BooleanOrNull booleanOrNull) {
-		return isSetBooleanOrNull() && this.booleanOrNull.remove(booleanOrNull);
-	}
+    public void unsetBooleanOrNull() {
+        booleanOrNull = ModelObjects.setNull(booleanOrNull);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.BOOLEAN_OR_NULL_LIST;
-	}
+    public boolean unsetBooleanOrNull(BooleanOrNull booleanOrNull) {
+        return isSetBooleanOrNull() && this.booleanOrNull.remove(booleanOrNull);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.BOOLEAN_OR_NULL_LIST;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BooleanOrNullList(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BooleanOrNullList copy = (target == null) ? new BooleanOrNullList() : (BooleanOrNullList)target;
-		
-		if (isSetBooleanOrNull()) {
-			for (BooleanOrNull part : booleanOrNull) {
-				BooleanOrNull copyPart = (BooleanOrNull)copyBuilder.copy(part);
-				copy.addBooleanOrNull(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BooleanOrNullList(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BooleanOrNullList copy = (target == null) ? new BooleanOrNullList() : (BooleanOrNullList) target;
+
+        if (isSetBooleanOrNull()) {
+            for (BooleanOrNull part : booleanOrNull) {
+                BooleanOrNull copyPart = (BooleanOrNull) copyBuilder.copy(part);
+                copy.addBooleanOrNull(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

@@ -33,81 +33,81 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public abstract class AbstractVegetationObject extends AbstractCityObject implements VegetationModuleComponent {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public AbstractVegetationObject() {
-		
-	}
-	
-	public AbstractVegetationObject(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfVegetationObject(ADEComponent ade) {
-		getGenericApplicationPropertyOfVegetationObject().add(ade);
-	}
+    public AbstractVegetationObject() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfVegetationObject() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public AbstractVegetationObject(Module module) {
+        super(module);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfVegetationObject() {
-		return ade != null && !ade.isEmpty();
-	}
+    public void addGenericApplicationPropertyOfVegetationObject(ADEComponent ade) {
+        getGenericApplicationPropertyOfVegetationObject().add(ade);
+    }
 
-	public void setGenericApplicationPropertyOfVegetationObject(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfVegetationObject() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public void unsetGenericApplicationPropertyOfVegetationObject() {
-		ade = ModelObjects.setNull(ade);
-	}
+        return ade;
+    }
 
-	public boolean unsetGenericApplicationPropertyOfVegetationObject(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfVegetationObject() && this.ade.remove(ade);
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfVegetationObject()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfVegetationObject()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public boolean isSetGenericApplicationPropertyOfVegetationObject() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public void setGenericApplicationPropertyOfVegetationObject(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-		AbstractVegetationObject copy = (AbstractVegetationObject)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfVegetationObject()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfVegetationObject(copyPart);
+    public void unsetGenericApplicationPropertyOfVegetationObject() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;		
-	}
+    public boolean unsetGenericApplicationPropertyOfVegetationObject(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfVegetationObject() && this.ade.remove(ade);
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfVegetationObject()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfVegetationObject()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractVegetationObject copy = (AbstractVegetationObject) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfVegetationObject()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfVegetationObject(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 
 }

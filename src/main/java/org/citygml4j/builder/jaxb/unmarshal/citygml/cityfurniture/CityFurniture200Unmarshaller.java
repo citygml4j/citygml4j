@@ -36,120 +36,120 @@ import javax.xml.namespace.QName;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CityFurniture200Unmarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityFurnitureModule module = CityFurnitureModule.v2_0_0;
-	private final JAXBUnmarshaller jaxb;
-	private final CityGMLUnmarshaller citygml;
-	private CheckedTypeMapper<CityGML> typeMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityFurnitureModule module = CityFurnitureModule.v2_0_0;
+    private final JAXBUnmarshaller jaxb;
+    private final CityGMLUnmarshaller citygml;
+    private CheckedTypeMapper<CityGML> typeMapper;
 
-	public CityFurniture200Unmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		jaxb = citygml.getJAXBUnmarshaller();
-	}
+    public CityFurniture200Unmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        jaxb = citygml.getJAXBUnmarshaller();
+    }
 
-	private CheckedTypeMapper<CityGML> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = CheckedTypeMapper.<CityGML>create()
-							.with(CityFurnitureType.class, this::unmarshalCityFurniture)
-							.with(JAXBElement.class, this::unmarshal);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private CheckedTypeMapper<CityGML> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = CheckedTypeMapper.<CityGML>create()
+                            .with(CityFurnitureType.class, this::unmarshalCityFurniture)
+                            .with(JAXBElement.class, this::unmarshal);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return typeMapper;
-	}
+        return typeMapper;
+    }
 
-	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		return unmarshal(src.getValue());
-	}
+    public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+        return unmarshal(src.getValue());
+    }
 
-	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return getTypeMapper().apply(src);
-	}
+    public CityGML unmarshal(Object src) throws MissingADESchemaException {
+        return getTypeMapper().apply(src);
+    }
 
-	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest) throws MissingADESchemaException {
-		citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
+    public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest) throws MissingADESchemaException {
+        citygml.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
-		if (src.isSetClazz())
-			dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
+        if (src.isSetClazz())
+            dest.setClazz(jaxb.getGMLUnmarshaller().unmarshalCode(src.getClazz()));
 
-		if (src.isSetFunction()) {
-			for (CodeType function : src.getFunction())
-				dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
-		}
+        if (src.isSetFunction()) {
+            for (CodeType function : src.getFunction())
+                dest.addFunction(jaxb.getGMLUnmarshaller().unmarshalCode(function));
+        }
 
-		if (src.isSetUsage()) {
-			for (CodeType usage : src.getUsage())
-				dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
-		}
+        if (src.isSetUsage()) {
+            for (CodeType usage : src.getUsage())
+                dest.addUsage(jaxb.getGMLUnmarshaller().unmarshalCode(usage));
+        }
 
-		if (src.isSetLod1Geometry())
-			dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));
+        if (src.isSetLod1Geometry())
+            dest.setLod1Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod1Geometry()));
 
-		if (src.isSetLod2Geometry())
-			dest.setLod2Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod2Geometry()));
+        if (src.isSetLod2Geometry())
+            dest.setLod2Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod2Geometry()));
 
-		if (src.isSetLod3Geometry())
-			dest.setLod3Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod3Geometry()));
+        if (src.isSetLod3Geometry())
+            dest.setLod3Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod3Geometry()));
 
-		if (src.isSetLod4Geometry())
-			dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
+        if (src.isSetLod4Geometry())
+            dest.setLod4Geometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getLod4Geometry()));
 
-		if (src.isSetLod1ImplicitRepresentation())
-			dest.setLod1ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
+        if (src.isSetLod1ImplicitRepresentation())
+            dest.setLod1ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation()));
 
-		if (src.isSetLod2ImplicitRepresentation())
-			dest.setLod2ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
+        if (src.isSetLod2ImplicitRepresentation())
+            dest.setLod2ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation()));
 
-		if (src.isSetLod3ImplicitRepresentation())
-			dest.setLod3ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
+        if (src.isSetLod3ImplicitRepresentation())
+            dest.setLod3ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation()));
 
-		if (src.isSetLod4ImplicitRepresentation())
-			dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
+        if (src.isSetLod4ImplicitRepresentation())
+            dest.setLod4ImplicitRepresentation(citygml.getCore200Unmarshaller().unmarshalImplicitRepresentationProperty(src.getLod4ImplicitRepresentation()));
 
-		if (src.isSetLod1TerrainIntersection())
-			dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1TerrainIntersection()));
+        if (src.isSetLod1TerrainIntersection())
+            dest.setLod1TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod1TerrainIntersection()));
 
-		if (src.isSetLod2TerrainIntersection())
-			dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2TerrainIntersection()));
+        if (src.isSetLod2TerrainIntersection())
+            dest.setLod2TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod2TerrainIntersection()));
 
-		if (src.isSetLod3TerrainIntersection())
-			dest.setLod3TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3TerrainIntersection()));
+        if (src.isSetLod3TerrainIntersection())
+            dest.setLod3TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod3TerrainIntersection()));
 
-		if (src.isSetLod4TerrainIntersection())
-			dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
+        if (src.isSetLod4TerrainIntersection())
+            dest.setLod4TerrainIntersection(jaxb.getGMLUnmarshaller().unmarshalMultiCurveProperty(src.getLod4TerrainIntersection()));
 
-		if (src.isSet_GenericApplicationPropertyOfCityFurniture()) {
-			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityFurniture()) {
-				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
-				if (ade != null)
-					dest.addGenericApplicationPropertyOfCityFurniture(ade);
-			}
-		}
-	}
+        if (src.isSet_GenericApplicationPropertyOfCityFurniture()) {
+            for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityFurniture()) {
+                ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+                if (ade != null)
+                    dest.addGenericApplicationPropertyOfCityFurniture(ade);
+            }
+        }
+    }
 
-	public CityFurniture unmarshalCityFurniture(CityFurnitureType src) throws MissingADESchemaException {
-		CityFurniture dest = new CityFurniture(module);
-		unmarshalCityFurniture(src, dest);
+    public CityFurniture unmarshalCityFurniture(CityFurnitureType src) throws MissingADESchemaException {
+        CityFurniture dest = new CityFurniture(module);
+        unmarshalCityFurniture(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
-		String name = substitutionGroup.getLocalPart();
-		boolean success = true;
+    public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
+        String name = substitutionGroup.getLocalPart();
+        boolean success = true;
 
-		if (dest instanceof CityFurniture && name.equals("_GenericApplicationPropertyOfCityFurniture"))
-			((CityFurniture)dest).addGenericApplicationPropertyOfCityFurniture(genericProperty);		
-		else
-			success = false;
+        if (dest instanceof CityFurniture && name.equals("_GenericApplicationPropertyOfCityFurniture"))
+            ((CityFurniture) dest).addGenericApplicationPropertyOfCityFurniture(genericProperty);
+        else
+            success = false;
 
-		return success;
-	}
+        return success;
+    }
 
 }

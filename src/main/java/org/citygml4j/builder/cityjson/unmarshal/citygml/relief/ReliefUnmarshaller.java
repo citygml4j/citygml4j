@@ -35,70 +35,70 @@ import org.citygml4j.model.citygml.relief.TinProperty;
 import org.citygml4j.model.gml.geometry.primitives.TriangulatedSurface;
 
 public class ReliefUnmarshaller {
-	private final CityJSONUnmarshaller json;
-	private final CityGMLUnmarshaller citygml;
+    private final CityJSONUnmarshaller json;
+    private final CityGMLUnmarshaller citygml;
 
-	public ReliefUnmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONUnmarshaller();
-	}
+    public ReliefUnmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONUnmarshaller();
+    }
 
-	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		if (src instanceof TINReliefType)
-			return unmarshalTINRelief((TINReliefType) src, cityJSON);
+    public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
+        if (src instanceof TINReliefType)
+            return unmarshalTINRelief((TINReliefType) src, cityJSON);
 
-		return null;
-	}
+        return null;
+    }
 
-	public void unmarshalTINRelief(TINReliefType src, ReliefFeature dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+    public void unmarshalTINRelief(TINReliefType src, ReliefFeature dest, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
-		if (src.isSetAttributes()) {
-			Attributes attributes = src.getAttributes();
-			if (attributes.isSetClazz()) {
-				StringAttribute clazz = new StringAttribute(attributes.getClazz());
-				clazz.setName("class");
-				dest.addGenericAttribute(clazz);
-			}
+        if (src.isSetAttributes()) {
+            Attributes attributes = src.getAttributes();
+            if (attributes.isSetClazz()) {
+                StringAttribute clazz = new StringAttribute(attributes.getClazz());
+                clazz.setName("class");
+                dest.addGenericAttribute(clazz);
+            }
 
-			if (attributes.isSetFunction()) {
-				StringAttribute function = new StringAttribute(attributes.getFunction());
-				function.setName("function");
-				dest.addGenericAttribute(function);
-			}
+            if (attributes.isSetFunction()) {
+                StringAttribute function = new StringAttribute(attributes.getFunction());
+                function.setName("function");
+                dest.addGenericAttribute(function);
+            }
 
-			if (attributes.isSetUsage()) {
-				StringAttribute usage = new StringAttribute(attributes.getUsage());
-				usage.setName("usage");
-				dest.addGenericAttribute(usage);
-			}
-		}
+            if (attributes.isSetUsage()) {
+                StringAttribute usage = new StringAttribute(attributes.getUsage());
+                usage.setName("usage");
+                dest.addGenericAttribute(usage);
+            }
+        }
 
-		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			if (geometryType instanceof CompositeSurfaceType) {
-				CompositeSurfaceType compositeSurface = (CompositeSurfaceType) geometryType;
-				TriangulatedSurface geometry = json.getGMLUnmarshaller().unmarshalTriangulatedSurface(compositeSurface, dest);
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType instanceof CompositeSurfaceType) {
+                CompositeSurfaceType compositeSurface = (CompositeSurfaceType) geometryType;
+                TriangulatedSurface geometry = json.getGMLUnmarshaller().unmarshalTriangulatedSurface(compositeSurface, dest);
 
-				if (geometry != null) {
-					TINRelief tinRelief = new TINRelief();
-					int lod = compositeSurface.getLod().intValue();
-					
-					tinRelief.setLod(lod);
-					if (lod > dest.getLod())
-						dest.setLod(lod);
-					
-					tinRelief.setTin(new TinProperty(geometry));
-					dest.addReliefComponent(new ReliefComponentProperty(tinRelief));
-				}	
-			}
-		}
-	}
+                if (geometry != null) {
+                    TINRelief tinRelief = new TINRelief();
+                    int lod = compositeSurface.getLod().intValue();
 
-	public ReliefFeature unmarshalTINRelief(TINReliefType src, CityJSON cityJSON) {
-		ReliefFeature dest = new ReliefFeature();
-		unmarshalTINRelief(src, dest, cityJSON);
+                    tinRelief.setLod(lod);
+                    if (lod > dest.getLod())
+                        dest.setLod(lod);
 
-		return dest;
-	}
+                    tinRelief.setTin(new TinProperty(geometry));
+                    dest.addReliefComponent(new ReliefComponentProperty(tinRelief));
+                }
+            }
+        }
+    }
+
+    public ReliefFeature unmarshalTINRelief(TINReliefType src, CityJSON cityJSON) {
+        ReliefFeature dest = new ReliefFeature();
+        unmarshalTINRelief(src, dest, cityJSON);
+
+        return dest;
+    }
 
 }

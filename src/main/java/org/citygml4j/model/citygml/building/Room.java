@@ -43,394 +43,394 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class Room extends AbstractCityObject implements BuildingModuleComponent, StandardObjectClassifier {
-	private Code clazz;
-	private List<Code> function;
-	private List<Code> usage;
-	private SolidProperty lod4Solid;
-	private MultiSurfaceProperty lod4MultiSurface;
-	private List<BoundarySurfaceProperty> boundedBySurface;
-	private List<InteriorFurnitureProperty> interiorFurniture;
-	private List<IntBuildingInstallationProperty> roomInstallation;
-	private List<ADEComponent> ade;
+    private Code clazz;
+    private List<Code> function;
+    private List<Code> usage;
+    private SolidProperty lod4Solid;
+    private MultiSurfaceProperty lod4MultiSurface;
+    private List<BoundarySurfaceProperty> boundedBySurface;
+    private List<InteriorFurnitureProperty> interiorFurniture;
+    private List<IntBuildingInstallationProperty> roomInstallation;
+    private List<ADEComponent> ade;
 
-	public Room() {
-		
-	}
-	
-	public Room(Module module) {
-		super(module);
-	}
-	
-	public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		getBoundedBySurface().add(boundedBySurface);
-	}
+    public Room() {
 
-	public void addFunction(Code function) {
-		getFunction().add(function);
-	}
-	
-	public void addUsage(Code usage) {
-		getUsage().add(usage);
-	}
+    }
 
-	public void addGenericApplicationPropertyOfRoom(ADEComponent ade) {
-		getGenericApplicationPropertyOfRoom().add(ade);
-	}
+    public Room(Module module) {
+        super(module);
+    }
 
-	public void addInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
-		getInteriorFurniture().add(interiorFurniture);
-	}
+    public void addBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
+        getBoundedBySurface().add(boundedBySurface);
+    }
 
-	public void addRoomInstallation(IntBuildingInstallationProperty roomInstallation) {
-		getRoomInstallation().add(roomInstallation);
-	}
+    public void addFunction(Code function) {
+        getFunction().add(function);
+    }
 
-	public List<BoundarySurfaceProperty> getBoundedBySurface() {
-		if (boundedBySurface == null)
-			boundedBySurface = new ChildList<>(this);
+    public void addUsage(Code usage) {
+        getUsage().add(usage);
+    }
 
-		return boundedBySurface;
-	}
+    public void addGenericApplicationPropertyOfRoom(ADEComponent ade) {
+        getGenericApplicationPropertyOfRoom().add(ade);
+    }
 
-	public Code getClazz() {
-		return clazz;
-	}
+    public void addInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
+        getInteriorFurniture().add(interiorFurniture);
+    }
 
-	public List<Code> getFunction() {
-		if (function == null)
-			function = new ChildList<>(this);
+    public void addRoomInstallation(IntBuildingInstallationProperty roomInstallation) {
+        getRoomInstallation().add(roomInstallation);
+    }
 
-		return function;
-	}
-	
-	public List<Code> getUsage() {
-		if (usage == null)
-			usage = new ChildList<>(this);
+    public List<BoundarySurfaceProperty> getBoundedBySurface() {
+        if (boundedBySurface == null)
+            boundedBySurface = new ChildList<>(this);
 
-		return usage;
-	}
+        return boundedBySurface;
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfRoom() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public Code getClazz() {
+        return clazz;
+    }
 
-		return ade;
-	}
+    public List<Code> getFunction() {
+        if (function == null)
+            function = new ChildList<>(this);
 
-	public List<InteriorFurnitureProperty> getInteriorFurniture() {
-		if (interiorFurniture == null)
-			interiorFurniture = new ChildList<>(this);
+        return function;
+    }
 
-		return interiorFurniture;
-	}
+    public List<Code> getUsage() {
+        if (usage == null)
+            usage = new ChildList<>(this);
 
-	public MultiSurfaceProperty getLod4MultiSurface() {
-		return lod4MultiSurface;
-	}
+        return usage;
+    }
 
-	public SolidProperty getLod4Solid() {
-		return lod4Solid;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfRoom() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public List<IntBuildingInstallationProperty> getRoomInstallation() {
-		if (roomInstallation == null)
-			roomInstallation = new ChildList<>(this);
+        return ade;
+    }
 
-		return roomInstallation;
-	}
-	
-	public boolean isSetBoundedBySurface() {
-		return boundedBySurface != null && !boundedBySurface.isEmpty();
-	}
+    public List<InteriorFurnitureProperty> getInteriorFurniture() {
+        if (interiorFurniture == null)
+            interiorFurniture = new ChildList<>(this);
 
-	public boolean isSetClazz() {
-		return clazz != null;
-	}
+        return interiorFurniture;
+    }
 
-	public boolean isSetFunction() {
-		return function != null && !function.isEmpty();
-	}
-	
-	public boolean isSetUsage() {
-		return usage != null && !usage.isEmpty();
-	}
+    public MultiSurfaceProperty getLod4MultiSurface() {
+        return lod4MultiSurface;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfRoom() {
-		return ade != null && !ade.isEmpty();
-	}
+    public SolidProperty getLod4Solid() {
+        return lod4Solid;
+    }
 
-	public boolean isSetInteriorFurniture() {
-		return interiorFurniture != null && !interiorFurniture.isEmpty();
-	}
+    public List<IntBuildingInstallationProperty> getRoomInstallation() {
+        if (roomInstallation == null)
+            roomInstallation = new ChildList<>(this);
 
-	public boolean isSetLod4MultiSurface() {
-		return lod4MultiSurface != null;
-	}
+        return roomInstallation;
+    }
 
-	public boolean isSetLod4Solid() {
-		return lod4Solid != null;
-	}
+    public boolean isSetBoundedBySurface() {
+        return boundedBySurface != null && !boundedBySurface.isEmpty();
+    }
 
-	public boolean isSetRoomInstallation() {
-		return roomInstallation != null && !roomInstallation.isEmpty();
-	}
+    public boolean isSetClazz() {
+        return clazz != null;
+    }
 
-	public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
-		this.boundedBySurface = new ChildList<>(this, boundedBySurface);
-	}
+    public boolean isSetFunction() {
+        return function != null && !function.isEmpty();
+    }
 
-	public void setClazz(Code clazz) {
-		this.clazz = ModelObjects.setParent(clazz, this);
-	}
+    public boolean isSetUsage() {
+        return usage != null && !usage.isEmpty();
+    }
 
-	public void setFunction(List<Code> function) {
-		this.function = new ChildList<>(this, function);
-	}
-	
-	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<>(this, usage);
-	}
-	
-	public void setGenericApplicationPropertyOfRoom(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfRoom() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setInteriorFurniture(List<InteriorFurnitureProperty> interiorFurniture) {
-		this.interiorFurniture = new ChildList<>(this, interiorFurniture);
-	}
+    public boolean isSetInteriorFurniture() {
+        return interiorFurniture != null && !interiorFurniture.isEmpty();
+    }
 
-	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
-	}
+    public boolean isSetLod4MultiSurface() {
+        return lod4MultiSurface != null;
+    }
 
-	public void setLod4Solid(SolidProperty lod4Solid) {
-		this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
-	}
+    public boolean isSetLod4Solid() {
+        return lod4Solid != null;
+    }
 
-	public void setRoomInstallation(List<IntBuildingInstallationProperty> roomInstallation) {
-		this.roomInstallation = new ChildList<>(this, roomInstallation);
-	}
+    public boolean isSetRoomInstallation() {
+        return roomInstallation != null && !roomInstallation.isEmpty();
+    }
 
-	public void unsetBoundedBySurface() {
-		boundedBySurface = ModelObjects.setNull(boundedBySurface);
-	}
+    public void setBoundedBySurface(List<BoundarySurfaceProperty> boundedBySurface) {
+        this.boundedBySurface = new ChildList<>(this, boundedBySurface);
+    }
 
-	public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
-		return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
-	}
+    public void setClazz(Code clazz) {
+        this.clazz = ModelObjects.setParent(clazz, this);
+    }
 
-	public void unsetClazz() {
-		clazz = ModelObjects.setNull(clazz);
-	}
+    public void setFunction(List<Code> function) {
+        this.function = new ChildList<>(this, function);
+    }
 
-	public void unsetFunction() {
-		function = ModelObjects.setNull(function);
-	}
+    public void setUsage(List<Code> usage) {
+        this.usage = new ChildList<>(this, usage);
+    }
 
-	public boolean unsetFunction(Code function) {
-		return isSetFunction() && this.function.remove(function);
-	}
-	
-	public void unsetUsage() {
-		usage = ModelObjects.setNull(usage);
-	}
+    public void setGenericApplicationPropertyOfRoom(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetUsage(Code usage) {
-		return isSetUsage() && this.usage.remove(usage);
-	}
+    public void setInteriorFurniture(List<InteriorFurnitureProperty> interiorFurniture) {
+        this.interiorFurniture = new ChildList<>(this, interiorFurniture);
+    }
 
-	public void unsetGenericApplicationPropertyOfRoom() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
+        this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfRoom(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfRoom() && this.ade.remove(ade);
-	}
+    public void setLod4Solid(SolidProperty lod4Solid) {
+        this.lod4Solid = ModelObjects.setParent(lod4Solid, this);
+    }
 
-	public void unsetInteriorFurniture() {
-		interiorFurniture = ModelObjects.setNull(interiorFurniture);
-	}
+    public void setRoomInstallation(List<IntBuildingInstallationProperty> roomInstallation) {
+        this.roomInstallation = new ChildList<>(this, roomInstallation);
+    }
 
-	public boolean unsetInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
-		return isSetInteriorFurniture() && this.interiorFurniture.remove(interiorFurniture);
-	}
+    public void unsetBoundedBySurface() {
+        boundedBySurface = ModelObjects.setNull(boundedBySurface);
+    }
 
-	public void unsetLod4MultiSurface() {
-		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
-	}
+    public boolean unsetBoundedBySurface(BoundarySurfaceProperty boundedBySurface) {
+        return isSetBoundedBySurface() && this.boundedBySurface.remove(boundedBySurface);
+    }
 
-	public void unsetLod4Solid() {
-		lod4Solid = ModelObjects.setNull(lod4Solid);
-	}
+    public void unsetClazz() {
+        clazz = ModelObjects.setNull(clazz);
+    }
 
-	public void unsetRoomInstallation() {
-		roomInstallation = ModelObjects.setNull(roomInstallation);
-	}
+    public void unsetFunction() {
+        function = ModelObjects.setNull(function);
+    }
 
-	public boolean unsetRoomInstallation(IntBuildingInstallationProperty roomInstallation) {
-		return isSetRoomInstallation() && this.roomInstallation.remove(roomInstallation);
-	}
+    public boolean unsetFunction(Code function) {
+        return isSetFunction() && this.function.remove(function);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDING_ROOM;
-	}
+    public void unsetUsage() {
+        usage = ModelObjects.setNull(usage);
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetLod4MultiSurface()) {
-			if (lod4MultiSurface.isSetMultiSurface()) {
-				boundedBy.updateEnvelope(lod4MultiSurface.getMultiSurface().calcBoundingBox());			
-			} else {
-				// xlink
-			}
-		}
-		
-		if (isSetLod4Solid()) {
-			if (lod4Solid.isSetSolid()) {
-				boundedBy.updateEnvelope(lod4Solid.getSolid().calcBoundingBox());			
-			} else {
-				// xlink
-			}
-		}
-		
-		if (isSetBoundedBySurface()) {
-			for (BoundarySurfaceProperty boundarySurfaceProperty : boundedBySurface) {
-				if (boundarySurfaceProperty.isSetObject()) {
-					boundedBy.updateEnvelope(boundarySurfaceProperty.getObject().calcBoundedBy(options).getEnvelope());
-				} else {
-					// xlink
-				}
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfRoom()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfRoom()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
-	
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		lodRepresentation.addRepresentation(4, lod4MultiSurface);
-		lodRepresentation.addRepresentation(4, lod4Solid);
-		
-		return lodRepresentation;
-	}
+    public boolean unsetUsage(Code usage) {
+        return isSetUsage() && this.usage.remove(usage);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Room(), copyBuilder);
-	}
+    public void unsetGenericApplicationPropertyOfRoom() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Room copy = (target == null) ? new Room() : (Room)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetClazz())
-			copy.setClazz((Code)copyBuilder.copy(clazz));
+    public boolean unsetGenericApplicationPropertyOfRoom(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfRoom() && this.ade.remove(ade);
+    }
 
-		if (isSetFunction()) {
-			for (Code part : function) {
-				Code copyPart = (Code)copyBuilder.copy(part);
-				copy.addFunction(copyPart);
+    public void unsetInteriorFurniture() {
+        interiorFurniture = ModelObjects.setNull(interiorFurniture);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetUsage()) {
-			for (Code part : usage) {
-				Code copyPart = (Code)copyBuilder.copy(part);
-				copy.addUsage(copyPart);
+    public boolean unsetInteriorFurniture(InteriorFurnitureProperty interiorFurniture) {
+        return isSetInteriorFurniture() && this.interiorFurniture.remove(interiorFurniture);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetBoundedBySurface()) {
-			for (BoundarySurfaceProperty part : boundedBySurface) {
-				BoundarySurfaceProperty copyPart = (BoundarySurfaceProperty)copyBuilder.copy(part);
-				copy.addBoundedBySurface(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetInteriorFurniture()) {
-			for (InteriorFurnitureProperty part : interiorFurniture) {
-				InteriorFurnitureProperty copyPart = (InteriorFurnitureProperty)copyBuilder.copy(part);
-				copy.addInteriorFurniture(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetRoomInstallation()) {
-			for (IntBuildingInstallationProperty part : roomInstallation) {
-				IntBuildingInstallationProperty copyPart = (IntBuildingInstallationProperty)copyBuilder.copy(part);
-				copy.addRoomInstallation(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetLod4MultiSurface()) {
-			copy.setLod4MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod4MultiSurface));
-			if (copy.getLod4MultiSurface() == lod4MultiSurface)
-				lod4MultiSurface.setParent(this);
-		}
-		
-		if (isSetLod4Solid()) {
-			copy.setLod4Solid((SolidProperty)copyBuilder.copy(lod4Solid));
-			if (copy.getLod4Solid() == lod4Solid)
-				lod4Solid.setParent(this);
-		}
-		
-		if (isSetGenericApplicationPropertyOfRoom()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfRoom(copyPart);
+    public void unsetLod4MultiSurface() {
+        lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    public void unsetLod4Solid() {
+        lod4Solid = ModelObjects.setNull(lod4Solid);
+    }
 
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void unsetRoomInstallation() {
+        roomInstallation = ModelObjects.setNull(roomInstallation);
+    }
+
+    public boolean unsetRoomInstallation(IntBuildingInstallationProperty roomInstallation) {
+        return isSetRoomInstallation() && this.roomInstallation.remove(roomInstallation);
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BUILDING_ROOM;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetLod4MultiSurface()) {
+            if (lod4MultiSurface.isSetMultiSurface()) {
+                boundedBy.updateEnvelope(lod4MultiSurface.getMultiSurface().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
+
+        if (isSetLod4Solid()) {
+            if (lod4Solid.isSetSolid()) {
+                boundedBy.updateEnvelope(lod4Solid.getSolid().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
+
+        if (isSetBoundedBySurface()) {
+            for (BoundarySurfaceProperty boundarySurfaceProperty : boundedBySurface) {
+                if (boundarySurfaceProperty.isSetObject()) {
+                    boundedBy.updateEnvelope(boundarySurfaceProperty.getObject().calcBoundedBy(options).getEnvelope());
+                } else {
+                    // xlink
+                }
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfRoom()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfRoom()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+
+        lodRepresentation.addRepresentation(4, lod4MultiSurface);
+        lodRepresentation.addRepresentation(4, lod4Solid);
+
+        return lodRepresentation;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Room(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Room copy = (target == null) ? new Room() : (Room) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetClazz())
+            copy.setClazz((Code) copyBuilder.copy(clazz));
+
+        if (isSetFunction()) {
+            for (Code part : function) {
+                Code copyPart = (Code) copyBuilder.copy(part);
+                copy.addFunction(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetUsage()) {
+            for (Code part : usage) {
+                Code copyPart = (Code) copyBuilder.copy(part);
+                copy.addUsage(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetBoundedBySurface()) {
+            for (BoundarySurfaceProperty part : boundedBySurface) {
+                BoundarySurfaceProperty copyPart = (BoundarySurfaceProperty) copyBuilder.copy(part);
+                copy.addBoundedBySurface(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetInteriorFurniture()) {
+            for (InteriorFurnitureProperty part : interiorFurniture) {
+                InteriorFurnitureProperty copyPart = (InteriorFurnitureProperty) copyBuilder.copy(part);
+                copy.addInteriorFurniture(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetRoomInstallation()) {
+            for (IntBuildingInstallationProperty part : roomInstallation) {
+                IntBuildingInstallationProperty copyPart = (IntBuildingInstallationProperty) copyBuilder.copy(part);
+                copy.addRoomInstallation(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetLod4MultiSurface()) {
+            copy.setLod4MultiSurface((MultiSurfaceProperty) copyBuilder.copy(lod4MultiSurface));
+            if (copy.getLod4MultiSurface() == lod4MultiSurface)
+                lod4MultiSurface.setParent(this);
+        }
+
+        if (isSetLod4Solid()) {
+            copy.setLod4Solid((SolidProperty) copyBuilder.copy(lod4Solid));
+            if (copy.getLod4Solid() == lod4Solid)
+                lod4Solid.setParent(this);
+        }
+
+        if (isSetGenericApplicationPropertyOfRoom()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfRoom(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

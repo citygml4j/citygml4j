@@ -38,53 +38,53 @@ import java.util.TreeMap;
 
 public class GeneratingStatistics {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Railway_v200.gml");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Railway_v200.gml"));
-		CityModel cityModel = (CityModel)reader.nextFeature();
-		reader.close();
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD3_Railway_v200.gml");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD3_Railway_v200.gml"));
+        CityModel cityModel = (CityModel) reader.nextFeature();
+        reader.close();
 
-		final Map<CityGMLClass, Integer> features = new TreeMap<>();
-		final Map<GMLClass, Integer> geometries = new TreeMap<>();
+        final Map<CityGMLClass, Integer> features = new TreeMap<>();
+        final Map<GMLClass, Integer> geometries = new TreeMap<>();
 
-		System.out.println(df.format(new Date()) + "walking through document and counting features/geometries");
-		GMLWalker walker = new GMLWalker() {
+        System.out.println(df.format(new Date()) + "walking through document and counting features/geometries");
+        GMLWalker walker = new GMLWalker() {
 
-			@Override
-			public void visit(AbstractFeature abstractFeature) {
-				if (abstractFeature instanceof CityGML) {
-					CityGMLClass key = ((CityGML)abstractFeature).getCityGMLClass();
-					features.merge(key, 1, Integer::sum);
-				}				
-					
-				super.visit(abstractFeature);
-			}
+            @Override
+            public void visit(AbstractFeature abstractFeature) {
+                if (abstractFeature instanceof CityGML) {
+                    CityGMLClass key = ((CityGML) abstractFeature).getCityGMLClass();
+                    features.merge(key, 1, Integer::sum);
+                }
 
-			@Override
-			public void visit(AbstractGeometry abstractGeometry) {
-				GMLClass key = abstractGeometry.getGMLClass();
-				geometries.merge(key, 1, Integer::sum);
-				super.visit(abstractGeometry);
-			}
-			
-		};
-		
-		cityModel.accept(walker);
+                super.visit(abstractFeature);
+            }
 
-		System.out.println(df.format(new Date()) + "LOD3_Railway_v200.gml contains:");
-		System.out.println("Features:");
-		features.forEach((key, value) -> System.out.println(key + ": " + value));
+            @Override
+            public void visit(AbstractGeometry abstractGeometry) {
+                GMLClass key = abstractGeometry.getGMLClass();
+                geometries.merge(key, 1, Integer::sum);
+                super.visit(abstractGeometry);
+            }
 
-		System.out.println("\nGeometries:");
-		geometries.forEach((key, value) -> System.out.println(key + ": " + value));
-		
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        };
+
+        cityModel.accept(walker);
+
+        System.out.println(df.format(new Date()) + "LOD3_Railway_v200.gml contains:");
+        System.out.println("Features:");
+        features.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        System.out.println("\nGeometries:");
+        geometries.forEach((key, value) -> System.out.println(key + ": " + value));
+
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 }

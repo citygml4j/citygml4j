@@ -24,47 +24,47 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public enum XLinkType implements GML, Copyable {
-	SIMPLE("simple"),
-	EXTENDED("extended"),
-	TITLE("title"),
-	RESOURCE("resource"),
-	LOCATOR("locator"),
-	ARC("arc");
+    SIMPLE("simple"),
+    EXTENDED("extended"),
+    TITLE("title"),
+    RESOURCE("resource"),
+    LOCATOR("locator"),
+    ARC("arc");
 
-	private final String value;
+    private final String value;
 
-	XLinkType(String v) {
-		value = v;
-	}
+    XLinkType(String v) {
+        value = v;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static XLinkType fromValue(String v) {
-		v = v.trim();
+    public static XLinkType fromValue(String v) {
+        v = v.trim();
 
-		for (XLinkType c: XLinkType.values())
-			if (c.value.equals(v))
-				return c;
+        for (XLinkType c : XLinkType.values())
+            if (c.value.equals(v))
+                return c;
 
-		return SIMPLE;
-	}
+        return SIMPLE;
+    }
 
-	public String toString() {
-		return value;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.XLINK_TYPE;
-	}
+    public String toString() {
+        return value;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? SIMPLE : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.XLINK_TYPE;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? SIMPLE : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
 
 }

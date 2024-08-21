@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class GridLength extends Measure {
-	
-	public GridLength() {
-	}
-	
-	public GridLength(double value) {
-		super(value);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.GRID_LENGTH;
-	}
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GridLength(), copyBuilder);
-	}
+    public GridLength() {
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GridLength copy = (target == null) ? new GridLength() : (GridLength)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    public GridLength(double value) {
+        super(value);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.GRID_LENGTH;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GridLength(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GridLength copy = (target == null) ? new GridLength() : (GridLength) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

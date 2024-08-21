@@ -34,100 +34,100 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MultiLineString extends AbstractGeometricAggregate {
-	private List<LineStringProperty> lineStringMember;		
-	
-	public MultiLineString() {
-		
-	}
-	
-	public MultiLineString(List<LineString> lineStrings) {
-		for (LineString lineString : lineStrings)
-			addLineStringMember(new LineStringProperty(lineString));
-	}
-	
-	public MultiLineString(LineString... lineStrings) {
-		this(Arrays.asList(lineStrings));
-	}
-	
-	public void addLineStringMember(LineStringProperty lineStringMember) {
-		getLineStringMember().add(lineStringMember);
-	}
+    private List<LineStringProperty> lineStringMember;
 
-	public List<LineStringProperty> getLineStringMember() {
-		if (lineStringMember == null)
-			lineStringMember = new ChildList<>(this);
-		
-		return lineStringMember;
-	}
+    public MultiLineString() {
 
-	public boolean isSetLineStringMember() {
-		return lineStringMember != null && !lineStringMember.isEmpty();
-	}
+    }
 
-	public void setLineStringMember(List<LineStringProperty> lineStringMember) {
-		this.lineStringMember = new ChildList<>(this, lineStringMember);
-	}
+    public MultiLineString(List<LineString> lineStrings) {
+        for (LineString lineString : lineStrings)
+            addLineStringMember(new LineStringProperty(lineString));
+    }
 
-	public void unsetLineStringMember() {
-		lineStringMember = ModelObjects.setNull(lineStringMember);
-	}
+    public MultiLineString(LineString... lineStrings) {
+        this(Arrays.asList(lineStrings));
+    }
 
-	public boolean unsetLineStringMember(LineStringProperty lineStringMember) {
-		return isSetLineStringMember() && this.lineStringMember.remove(lineStringMember);
-	}
+    public void addLineStringMember(LineStringProperty lineStringMember) {
+        getLineStringMember().add(lineStringMember);
+    }
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		
-		if (isSetLineStringMember()) {
-			for (LineStringProperty lineStringProperty : getLineStringMember())
-				if (lineStringProperty.isSetLineString())
-					bbox.update(lineStringProperty.getLineString().calcBoundingBox());
-		}
-		
-		return bbox;
-	}
+    public List<LineStringProperty> getLineStringMember() {
+        if (lineStringMember == null)
+            lineStringMember = new ChildList<>(this);
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_LINE_STRING;
-	}
+        return lineStringMember;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiLineString(), copyBuilder);
-	}
+    public boolean isSetLineStringMember() {
+        return lineStringMember != null && !lineStringMember.isEmpty();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiLineString copy = (target == null) ? new MultiLineString() : (MultiLineString)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetLineStringMember()) {
-			for (LineStringProperty part : lineStringMember) {
-				LineStringProperty copyPart = (LineStringProperty)copyBuilder.copy(part);
-				copy.addLineStringMember(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void setLineStringMember(List<LineStringProperty> lineStringMember) {
+        this.lineStringMember = new ChildList<>(this, lineStringMember);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void unsetLineStringMember() {
+        lineStringMember = ModelObjects.setNull(lineStringMember);
+    }
+
+    public boolean unsetLineStringMember(LineStringProperty lineStringMember) {
+        return isSetLineStringMember() && this.lineStringMember.remove(lineStringMember);
+    }
+
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
+
+        if (isSetLineStringMember()) {
+            for (LineStringProperty lineStringProperty : getLineStringMember())
+                if (lineStringProperty.isSetLineString())
+                    bbox.update(lineStringProperty.getLineString().calcBoundingBox());
+        }
+
+        return bbox;
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_LINE_STRING;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiLineString(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiLineString copy = (target == null) ? new MultiLineString() : (MultiLineString) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetLineStringMember()) {
+            for (LineStringProperty part : lineStringMember) {
+                LineStringProperty copyPart = (LineStringProperty) copyBuilder.copy(part);
+                copy.addLineStringMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

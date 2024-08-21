@@ -30,191 +30,191 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Coordinates implements GML, Child, Copyable, CoordinateListProvider {
-	private String value;
-	private String decimal;
-	private String cs;
-	private String ts;
-	private ModelObject parent;
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.COORDINATES;
-	}
+    private String value;
+    private String decimal;
+    private String cs;
+    private String ts;
+    private ModelObject parent;
 
-	public String getCs() {
-		if (cs == null)
-			return ",";
-		else
-			return cs;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.COORDINATES;
+    }
 
-	public String getDecimal() {
-		if (decimal == null)
-			return ".";
-		else
-			return decimal;
-	}
+    public String getCs() {
+        if (cs == null)
+            return ",";
+        else
+            return cs;
+    }
 
-	public String getTs() {
-		if (ts == null)
-			return " ";
-		else
-			return ts;
-	}
+    public String getDecimal() {
+        if (decimal == null)
+            return ".";
+        else
+            return decimal;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getTs() {
+        if (ts == null)
+            return " ";
+        else
+            return ts;
+    }
 
-	public boolean isSetCs() {
-		return cs != null;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public boolean isSetDecimal() {
-		return decimal != null;
-	}
+    public boolean isSetCs() {
+        return cs != null;
+    }
 
-	public boolean isSetTs() {
-		return ts != null;
-	}
+    public boolean isSetDecimal() {
+        return decimal != null;
+    }
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public boolean isSetTs() {
+        return ts != null;
+    }
 
-	public void setCs(String cs) {
-		this.cs = cs;
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-	public void setDecimal(String decimal) {
-		this.decimal = decimal;
-	}
+    public void setCs(String cs) {
+        this.cs = cs;
+    }
 
-	public void setTs(String ts) {
-		this.ts = ts;
-	}
+    public void setDecimal(String decimal) {
+        this.decimal = decimal;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setTs(String ts) {
+        this.ts = ts;
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<>();
-		boolean isValid = false;
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-		if (isSetValue()) {
-			String coordinates = getValue();
-			String decimal = prepareRegex(getDecimal());
-			String cs = prepareRegex(getCs());
-			String ts = prepareRegex(getTs());
+    @Override
+    public List<Double> toList3d() {
+        List<Double> tmp = new ArrayList<>();
+        boolean isValid = false;
 
-			isValid = true;
-			coordinates = coordinates.replaceAll("[\\t\\n\\r]+", ts);
+        if (isSetValue()) {
+            String coordinates = getValue();
+            String decimal = prepareRegex(getDecimal());
+            String cs = prepareRegex(getCs());
+            String ts = prepareRegex(getTs());
 
-			String[] tupels = coordinates.split(ts);
-			for (int i = 0; i < tupels.length && isValid ; ++i) {
-				if (tupels[i] != null && tupels[i].length() != 0) {
-					String[] coords = tupels[i].split(cs);
-					List<Double> point = new ArrayList<>();
+            isValid = true;
+            coordinates = coordinates.replaceAll("[\\t\\n\\r]+", ts);
 
-					for (int j = 0; j < coords.length && isValid; ++j) {
-						if (coords[j] != null && coords[j].trim().length() != 0) {
-							coords[j] = coords[j].replaceAll(decimal, ".");
+            String[] tupels = coordinates.split(ts);
+            for (int i = 0; i < tupels.length && isValid; ++i) {
+                if (tupels[i] != null && tupels[i].length() != 0) {
+                    String[] coords = tupels[i].split(cs);
+                    List<Double> point = new ArrayList<>();
 
-							try {
-								double result = Double.parseDouble(coords[j]);
-								point.add(result);
-							} catch (NumberFormatException e) {
-								isValid = false;
-								break;
-							}
-						} else
-							isValid = false;
-					}
+                    for (int j = 0; j < coords.length && isValid; ++j) {
+                        if (coords[j] != null && coords[j].trim().length() != 0) {
+                            coords[j] = coords[j].replaceAll(decimal, ".");
 
-					if (isValid) {
-						while (point.size() < 3)
-							point.add(0.0);
+                            try {
+                                double result = Double.parseDouble(coords[j]);
+                                point.add(result);
+                            } catch (NumberFormatException e) {
+                                isValid = false;
+                                break;
+                            }
+                        } else
+                            isValid = false;
+                    }
 
-						tmp.addAll(point.subList(0, 3));
-					}
-				}
-			}
-		}
+                    if (isValid) {
+                        while (point.size() < 3)
+                            point.add(0.0);
 
-		if (!isValid || tmp.size() == 0)
-			tmp.clear();
+                        tmp.addAll(point.subList(0, 3));
+                    }
+                }
+            }
+        }
 
-		return tmp;
-	}
+        if (!isValid || tmp.size() == 0)
+            tmp.clear();
 
-	public void unsetCs() {
-		cs = null;
-	}
+        return tmp;
+    }
 
-	public void unsetDecimal() {
-		decimal = null;
-	}
+    public void unsetCs() {
+        cs = null;
+    }
 
-	public void unsetTs() {
-		ts = null;
-	}
+    public void unsetDecimal() {
+        decimal = null;
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public void unsetTs() {
+        ts = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Coordinates copy = (target == null) ? new Coordinates() : (Coordinates)target;
-		
-		if (isSetValue())
-			copy.setValue(copyBuilder.copy(value));
-		
-		if (isSetDecimal())
-			copy.setDecimal(copyBuilder.copy(decimal));
-		
-		if (isSetCs())
-			copy.setCs(copyBuilder.copy(cs));
-		
-		if (isSetTs())
-			copy.setTs(copyBuilder.copy(ts));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Coordinates(), copyBuilder);
-	}
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Coordinates copy = (target == null) ? new Coordinates() : (Coordinates) target;
 
-	public ModelObject getParent() {
-		return parent;
-	}
+        if (isSetValue())
+            copy.setValue(copyBuilder.copy(value));
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+        if (isSetDecimal())
+            copy.setDecimal(copyBuilder.copy(decimal));
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+        if (isSetCs())
+            copy.setCs(copyBuilder.copy(cs));
 
-	public void unsetParent() {
-		parent = null;
-	}
+        if (isSetTs())
+            copy.setTs(copyBuilder.copy(ts));
 
-	private String prepareRegex(String input) {
-		StringBuilder buffer = new StringBuilder();
+        copy.unsetParent();
 
-		for (char c : input.toCharArray()) {
-			if ("+()^$.{}[]|\\".indexOf(c) != -1)
-				buffer.append('\\').append(c);
-			else
-				buffer.append(c);
-		}
+        return copy;
+    }
 
-		return buffer.toString();
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Coordinates(), copyBuilder);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    private String prepareRegex(String input) {
+        StringBuilder buffer = new StringBuilder();
+
+        for (char c : input.toCharArray()) {
+            if ("+()^$.{}[]|\\".indexOf(c) != -1)
+                buffer.append('\\').append(c);
+            else
+                buffer.append(c);
+        }
+
+        return buffer.toString();
+    }
 
 }

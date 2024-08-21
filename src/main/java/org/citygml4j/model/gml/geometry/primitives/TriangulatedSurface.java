@@ -25,55 +25,55 @@ import org.citygml4j.model.gml.GMLClass;
 
 public class TriangulatedSurface extends Surface {
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.TRIANGULATED_SURFACE;
-	}
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.TRIANGULATED_SURFACE;
+    }
 
-	public TrianglePatchArrayProperty getTrianglePatches() {
-		return getPatches();
-	}
+    public TrianglePatchArrayProperty getTrianglePatches() {
+        return getPatches();
+    }
 
-	public boolean isSetTrianglePatches() {
-		return super.isSetPatches();
-	}
+    public boolean isSetTrianglePatches() {
+        return super.isSetPatches();
+    }
 
-	public void setTrianglePatches(TrianglePatchArrayProperty trianglePatches) {
-		super.setPatches(trianglePatches);
-	}
+    public void setTrianglePatches(TrianglePatchArrayProperty trianglePatches) {
+        super.setPatches(trianglePatches);
+    }
 
-	public void unsetTrianglePatches() {
-		super.unsetPatches();
-	}
-	
-	@Override
-	public TrianglePatchArrayProperty getPatches() {
-		return (TrianglePatchArrayProperty)super.getPatches();
-	}
+    public void unsetTrianglePatches() {
+        super.unsetPatches();
+    }
 
-	@Override
-	public void setPatches(SurfacePatchArrayProperty patches) {
-		if (patches instanceof TrianglePatchArrayProperty)
-			super.setPatches(patches);
-	}
+    @Override
+    public TrianglePatchArrayProperty getPatches() {
+        return (TrianglePatchArrayProperty) super.getPatches();
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TriangulatedSurface(), copyBuilder);
-	}
+    @Override
+    public void setPatches(SurfacePatchArrayProperty patches) {
+        if (patches instanceof TrianglePatchArrayProperty)
+            super.setPatches(patches);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TriangulatedSurface copy = (target == null) ? new TriangulatedSurface() : (TriangulatedSurface)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TriangulatedSurface(), copyBuilder);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TriangulatedSurface copy = (target == null) ? new TriangulatedSurface() : (TriangulatedSurface) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

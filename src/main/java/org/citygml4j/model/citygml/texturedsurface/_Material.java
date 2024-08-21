@@ -25,158 +25,158 @@ import org.citygml4j.model.common.visitor.GMLFunctor;
 import org.citygml4j.model.common.visitor.GMLVisitor;
 
 public class _Material extends _AbstractAppearance {
-	private Double shininess;
-	private Double transparency;
-	private Double ambientIntensity;
-	private _Color diffuseColor;
-	private _Color emissiveColor;
-	private _Color specularColor;
-	
-	public Double getAmbientIntensity() {
-		return ambientIntensity;
-	}
+    private Double shininess;
+    private Double transparency;
+    private Double ambientIntensity;
+    private _Color diffuseColor;
+    private _Color emissiveColor;
+    private _Color specularColor;
 
-	public _Color getDiffuseColor() {
-		return diffuseColor;
-	}
+    public Double getAmbientIntensity() {
+        return ambientIntensity;
+    }
 
-	public _Color getEmissiveColor() {
-		return emissiveColor;
-	}
+    public _Color getDiffuseColor() {
+        return diffuseColor;
+    }
 
-	public Double getShininess() {
-		return shininess;
-	}
+    public _Color getEmissiveColor() {
+        return emissiveColor;
+    }
 
-	public _Color getSpecularColor() {
-		return specularColor;
-	}
+    public Double getShininess() {
+        return shininess;
+    }
 
-	public Double getTransparency() {
-		return transparency;
-	}
+    public _Color getSpecularColor() {
+        return specularColor;
+    }
 
-	public boolean isSetAmbientIntensity() {
-		return ambientIntensity != null;
-	}
+    public Double getTransparency() {
+        return transparency;
+    }
 
-	public boolean isSetDiffuseColor() {
-		return diffuseColor != null;
-	}
+    public boolean isSetAmbientIntensity() {
+        return ambientIntensity != null;
+    }
 
-	public boolean isSetEmissiveColor() {
-		return emissiveColor != null;
-	}
+    public boolean isSetDiffuseColor() {
+        return diffuseColor != null;
+    }
 
-	public boolean isSetShininess() {
-		return shininess != null;
-	}
+    public boolean isSetEmissiveColor() {
+        return emissiveColor != null;
+    }
 
-	public boolean isSetSpecularColor() {
-		return specularColor != null;
-	}
+    public boolean isSetShininess() {
+        return shininess != null;
+    }
 
-	public boolean isSetTransparency() {
-		return transparency != null;
-	}
+    public boolean isSetSpecularColor() {
+        return specularColor != null;
+    }
 
-	public void setAmbientIntensity(Double ambientIntensity) {
-		this.ambientIntensity = ambientIntensity;
-	}
+    public boolean isSetTransparency() {
+        return transparency != null;
+    }
 
-	public void setDiffuseColor(_Color diffuseColor) {
-		this.diffuseColor = ModelObjects.setParent(diffuseColor, this);
-	}
+    public void setAmbientIntensity(Double ambientIntensity) {
+        this.ambientIntensity = ambientIntensity;
+    }
 
-	public void setEmissiveColor(_Color emissiveColor) {
-		this.emissiveColor = ModelObjects.setParent(emissiveColor, this);
-	}
+    public void setDiffuseColor(_Color diffuseColor) {
+        this.diffuseColor = ModelObjects.setParent(diffuseColor, this);
+    }
 
-	public void setShininess(Double shininess) {
-		this.shininess = shininess;
-	}
+    public void setEmissiveColor(_Color emissiveColor) {
+        this.emissiveColor = ModelObjects.setParent(emissiveColor, this);
+    }
 
-	public void setSpecularColor(_Color specularColor) {
-		this.specularColor = ModelObjects.setParent(specularColor, this);
-	}
+    public void setShininess(Double shininess) {
+        this.shininess = shininess;
+    }
 
-	public void setTransparency(Double transparency) {
-		this.transparency = transparency;
-	}
+    public void setSpecularColor(_Color specularColor) {
+        this.specularColor = ModelObjects.setParent(specularColor, this);
+    }
 
-	public void unsetAmbientIntensity() {
-		ambientIntensity = null;
-	}
+    public void setTransparency(Double transparency) {
+        this.transparency = transparency;
+    }
 
-	public void unsetDiffuseColor() {
-		diffuseColor = ModelObjects.setNull(diffuseColor);
-	}
+    public void unsetAmbientIntensity() {
+        ambientIntensity = null;
+    }
 
-	public void unsetEmissiveColor() {
-		emissiveColor = ModelObjects.setNull(emissiveColor);
-	}
+    public void unsetDiffuseColor() {
+        diffuseColor = ModelObjects.setNull(diffuseColor);
+    }
 
-	public void unsetShininess() {
-		shininess = null;
-	}
+    public void unsetEmissiveColor() {
+        emissiveColor = ModelObjects.setNull(emissiveColor);
+    }
 
-	public void unsetSpecularColor() {
-		specularColor = ModelObjects.setNull(specularColor);
-	}
+    public void unsetShininess() {
+        shininess = null;
+    }
 
-	public void unsetTransparency() {
-		transparency = null;
-	}
+    public void unsetSpecularColor() {
+        specularColor = ModelObjects.setNull(specularColor);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._MATERIAL;
-	}
+    public void unsetTransparency() {
+        transparency = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new _Material(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass._MATERIAL;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		_Material copy = (target == null) ? new _Material() : (_Material)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetAmbientIntensity())
-			copy.setAmbientIntensity((Double)copyBuilder.copy(ambientIntensity));
-		
-		if (isSetShininess())
-			copy.setShininess((Double)copyBuilder.copy(shininess));
-		
-		if (isSetTransparency())
-			copy.setTransparency((Double)copyBuilder.copy(transparency));
-		
-		if (isSetDiffuseColor()) {
-			copy.setDiffuseColor((_Color)copyBuilder.copy(diffuseColor));
-			if (copy.getDiffuseColor() == diffuseColor)
-				diffuseColor.setParent(this);
-		}
-		
-		if (isSetEmissiveColor()) {
-			copy.setEmissiveColor((_Color)copyBuilder.copy(emissiveColor));
-			if (copy.getEmissiveColor() == emissiveColor)
-				emissiveColor.setParent(this);
-		}
-		
-		if (isSetSpecularColor()) {
-			copy.setSpecularColor((_Color)copyBuilder.copy(specularColor));
-			if (copy.getSpecularColor() == specularColor)
-				specularColor.setParent(this);
-		}
-		
-		return copy;
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new _Material(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        _Material copy = (target == null) ? new _Material() : (_Material) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetAmbientIntensity())
+            copy.setAmbientIntensity((Double) copyBuilder.copy(ambientIntensity));
+
+        if (isSetShininess())
+            copy.setShininess((Double) copyBuilder.copy(shininess));
+
+        if (isSetTransparency())
+            copy.setTransparency((Double) copyBuilder.copy(transparency));
+
+        if (isSetDiffuseColor()) {
+            copy.setDiffuseColor((_Color) copyBuilder.copy(diffuseColor));
+            if (copy.getDiffuseColor() == diffuseColor)
+                diffuseColor.setParent(this);
+        }
+
+        if (isSetEmissiveColor()) {
+            copy.setEmissiveColor((_Color) copyBuilder.copy(emissiveColor));
+            if (copy.getEmissiveColor() == emissiveColor)
+                emissiveColor.setParent(this);
+        }
+
+        if (isSetSpecularColor()) {
+            copy.setSpecularColor((_Color) copyBuilder.copy(specularColor));
+            if (copy.getSpecularColor() == specularColor)
+                specularColor.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

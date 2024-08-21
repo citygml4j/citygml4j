@@ -36,9 +36,9 @@ import java.util.List;
 
 /**
  * <p>Java-Klasse für InteriorWallSurfaceType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="InteriorWallSurfaceType">
  *   &lt;complexContent>
@@ -50,40 +50,35 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "InteriorWallSurfaceType", propOrder = {
-    "_GenericApplicationPropertyOfInteriorWallSurface"
+        "_GenericApplicationPropertyOfInteriorWallSurface"
 })
 public class InteriorWallSurfaceType
-    extends AbstractBoundarySurfaceType
-{
+        extends AbstractBoundarySurfaceType {
 
     protected List<Object> _GenericApplicationPropertyOfInteriorWallSurface;
 
     /**
      * Gets the value of the genericApplicationPropertyOfInteriorWallSurface property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfInteriorWallSurface property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfInteriorWallSurface().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfInteriorWallSurface() {
         if (_GenericApplicationPropertyOfInteriorWallSurface == null) {
@@ -93,7 +88,7 @@ public class InteriorWallSurfaceType
     }
 
     public boolean isSet_GenericApplicationPropertyOfInteriorWallSurface() {
-        return ((this._GenericApplicationPropertyOfInteriorWallSurface!= null)&&(!this._GenericApplicationPropertyOfInteriorWallSurface.isEmpty()));
+        return ((this._GenericApplicationPropertyOfInteriorWallSurface != null) && (!this._GenericApplicationPropertyOfInteriorWallSurface.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfInteriorWallSurface() {

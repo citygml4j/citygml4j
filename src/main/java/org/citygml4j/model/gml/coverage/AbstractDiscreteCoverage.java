@@ -23,47 +23,47 @@ import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.module.Module;
 
 public abstract class AbstractDiscreteCoverage extends AbstractCoverage {
-	private CoverageFunction coverageFunction;
+    private CoverageFunction coverageFunction;
 
-	public AbstractDiscreteCoverage() {
+    public AbstractDiscreteCoverage() {
 
-	}
+    }
 
-	public AbstractDiscreteCoverage(Module module) {
-		super(module);
-	}
+    public AbstractDiscreteCoverage(Module module) {
+        super(module);
+    }
 
-	public CoverageFunction getCoverageFunction() {
-		return coverageFunction;
-	}
+    public CoverageFunction getCoverageFunction() {
+        return coverageFunction;
+    }
 
-	public boolean isSetCoverageFunction() {
-		return coverageFunction != null;
-	}
+    public boolean isSetCoverageFunction() {
+        return coverageFunction != null;
+    }
 
-	public void setCoverageFunction(CoverageFunction coverageFunction) {
-		this.coverageFunction = ModelObjects.setParent(coverageFunction, this);
-	}
+    public void setCoverageFunction(CoverageFunction coverageFunction) {
+        this.coverageFunction = ModelObjects.setParent(coverageFunction, this);
+    }
 
-	public void unsetCoverageFunction() {
-		coverageFunction = ModelObjects.setNull(coverageFunction);
-	}
+    public void unsetCoverageFunction() {
+        coverageFunction = ModelObjects.setNull(coverageFunction);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-		AbstractDiscreteCoverage copy = (AbstractDiscreteCoverage)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetCoverageFunction()) {
-			copy.setCoverageFunction((CoverageFunction)copyBuilder.copy(coverageFunction));
-			if (copy.getCoverageFunction() == coverageFunction)
-				coverageFunction.setParent(this);
-		}
-		
-		return copy;
-	}
+        AbstractDiscreteCoverage copy = (AbstractDiscreteCoverage) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetCoverageFunction()) {
+            copy.setCoverageFunction((CoverageFunction) copyBuilder.copy(coverageFunction));
+            if (copy.getCoverageFunction() == coverageFunction)
+                coverageFunction.setParent(this);
+        }
+
+        return copy;
+    }
 
 }

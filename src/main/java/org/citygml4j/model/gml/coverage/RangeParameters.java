@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 import org.citygml4j.model.gml.valueObjects.ValueObject;
 
 public class RangeParameters extends AssociationByRepOrRef<ValueObject> {
-	
-	public RangeParameters() {
-		
-	}
-	
-	public RangeParameters(ValueObject valueObject) {
-		super(valueObject);
-	}
-	
-	public RangeParameters(String href) {
-		super(href);
-	}
-	
-	public ValueObject getValueObject() {
-		return super.getObject();
-	}
 
-	public boolean isSetValueObject() {
-		return super.isSetObject();
-	}
+    public RangeParameters() {
 
-	public void setValueObject(ValueObject valueObject) {
-		super.setObject(valueObject);
-	}
+    }
 
-	public void unsetValueObject() {
-		super.unsetObject();
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.RANGE_PARAMETERS;
-	}
+    public RangeParameters(ValueObject valueObject) {
+        super(valueObject);
+    }
 
-	public Class<ValueObject> getAssociableClass() {
-		return ValueObject.class;
-	}
+    public RangeParameters(String href) {
+        super(href);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		RangeParameters copy = (target == null) ? new RangeParameters() : (RangeParameters)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public ValueObject getValueObject() {
+        return super.getObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new RangeParameters(), copyBuilder);
-	}
+    public boolean isSetValueObject() {
+        return super.isSetObject();
+    }
+
+    public void setValueObject(ValueObject valueObject) {
+        super.setObject(valueObject);
+    }
+
+    public void unsetValueObject() {
+        super.unsetObject();
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.RANGE_PARAMETERS;
+    }
+
+    public Class<ValueObject> getAssociableClass() {
+        return ValueObject.class;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        RangeParameters copy = (target == null) ? new RangeParameters() : (RangeParameters) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new RangeParameters(), copyBuilder);
+    }
 
 }

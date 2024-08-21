@@ -27,95 +27,95 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class DoubleOrNull implements GML, Child, Copyable {
-	private Double _double;
-	private Null _null;
-	private ModelObject parent;
-	
-	public DoubleOrNull() {
-		
-	}
-	
-	public DoubleOrNull(Double _double) {
-		this._double = _double;
-	}
-	
-	public DoubleOrNull(Null _null) {
-		setNull(_null);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.DOUBLE_OR_NULL;
-	}
+    private Double _double;
+    private Null _null;
+    private ModelObject parent;
 
-	public Double getDouble() {
-		return _double;
-	}
-	
-	public Null getNull() {
-		return _null;
-	}
+    public DoubleOrNull() {
 
-	public boolean isSetDouble() {
-		return _double != null;
-	}
-	
-	public boolean isSetNull() {
-		return _null != null;
-	}
+    }
 
-	public void setDouble(Double _double) {
-		this._double = _double;
-		unsetNull();
-	}
+    public DoubleOrNull(Double _double) {
+        this._double = _double;
+    }
 
-	public void setNull(Null _null) {
-		this._null = ModelObjects.setParent(_null, this);
-		unsetDouble();
-	}
+    public DoubleOrNull(Null _null) {
+        setNull(_null);
+    }
 
-	public void unsetDouble() {
-		_double = null;
-	}
-	
-	public void unsetNull() {
-		_null = ModelObjects.setNull(_null);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.DOUBLE_OR_NULL;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public Double getDouble() {
+        return _double;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public Null getNull() {
+        return _null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetDouble() {
+        return _double != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetNull() {
+        return _null != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DoubleOrNull(), copyBuilder);
-	}
+    public void setDouble(Double _double) {
+        this._double = _double;
+        unsetNull();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DoubleOrNull copy = (target == null) ? new DoubleOrNull() : (DoubleOrNull)target;
-		
-		if (isSetDouble())
-			copy.setDouble((Double)copyBuilder.copy(_double));
-			
-		if (isSetNull()) {
-			copy.setNull((Null)copyBuilder.copy(_null));
-			if (copy.getNull() == _null)
-				_null.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setNull(Null _null) {
+        this._null = ModelObjects.setParent(_null, this);
+        unsetDouble();
+    }
+
+    public void unsetDouble() {
+        _double = null;
+    }
+
+    public void unsetNull() {
+        _null = ModelObjects.setNull(_null);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DoubleOrNull(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DoubleOrNull copy = (target == null) ? new DoubleOrNull() : (DoubleOrNull) target;
+
+        if (isSetDouble())
+            copy.setDouble((Double) copyBuilder.copy(_double));
+
+        if (isSetNull()) {
+            copy.setNull((Null) copyBuilder.copy(_null));
+            if (copy.getNull() == _null)
+                _null.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

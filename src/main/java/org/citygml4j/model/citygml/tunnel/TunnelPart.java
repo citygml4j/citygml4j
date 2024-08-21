@@ -37,102 +37,102 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class TunnelPart extends AbstractTunnel {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public TunnelPart() {
-		
-	}
-	
-	public TunnelPart(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfTunnelPart(ADEComponent ade) {
-		getGenericApplicationPropertyOfTunnelPart().add(ade);
-	}
+    public TunnelPart() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfTunnelPart() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public TunnelPart(Module module) {
+        super(module);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfTunnelPart() {
-		return ade != null && !ade.isEmpty();
-	}
+    public void addGenericApplicationPropertyOfTunnelPart(ADEComponent ade) {
+        getGenericApplicationPropertyOfTunnelPart().add(ade);
+    }
 
-	public void setGenericApplicationPropertyOfTunnelPart(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfTunnelPart() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public void unsetGenericApplicationPropertyOfTunnelPart() {
-		ade = ModelObjects.setNull(ade);
-	}
+        return ade;
+    }
 
-	public boolean unsetGenericApplicationPropertyOfTunnelPart(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTunnelPart() && this.ade.remove(ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfTunnelPart() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TUNNEL_PART;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfTunnelPart()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfTunnelPart()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public void setGenericApplicationPropertyOfTunnelPart(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TunnelPart(), copyBuilder);
-	}
+    public void unsetGenericApplicationPropertyOfTunnelPart() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TunnelPart copy = (target == null) ? new TunnelPart() : (TunnelPart)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfTunnelPart()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfTunnelPart(copyPart);
+    public boolean unsetGenericApplicationPropertyOfTunnelPart(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfTunnelPart() && this.ade.remove(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TUNNEL_PART;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfTunnelPart()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfTunnelPart()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TunnelPart(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TunnelPart copy = (target == null) ? new TunnelPart() : (TunnelPart) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfTunnelPart()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfTunnelPart(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

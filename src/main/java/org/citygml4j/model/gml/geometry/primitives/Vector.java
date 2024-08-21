@@ -31,199 +31,199 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vector implements SRSReferenceGroup, Child, Copyable, CoordinateListProvider {
-	private List<Double> value;
-	private Integer srsDimension;
-	private String srsName;
-	private List<String> axisLabels;
-	private List<String> uomLabels;
-	private ModelObject parent;
-	
-	public Vector() {
-		
-	}
-	
-	public Vector(Matrix matrix) {
-		if (matrix.getColumnDimension() > 1) 
-			throw new IllegalArgumentException("Matrix column dimension must be 1.");
-		
-		value = matrix.toColumnPackedList();
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.VECTOR;
-	}
-	
-	public List<Double> getValue() {
-		if (value == null)
-			value = new ArrayList<Double>();
+    private List<Double> value;
+    private Integer srsDimension;
+    private String srsName;
+    private List<String> axisLabels;
+    private List<String> uomLabels;
+    private ModelObject parent;
 
-		return value;
-	}
+    public Vector() {
 
-	public boolean isSetValue() {
-		return value != null && !value.isEmpty();
-	}
+    }
 
-	public void addValue(Double value) {
-		getValue().add(value);
-	}
+    public Vector(Matrix matrix) {
+        if (matrix.getColumnDimension() > 1)
+            throw new IllegalArgumentException("Matrix column dimension must be 1.");
 
-	public void setValue(List<Double> value) {
-		this.value = value;
-	}
+        value = matrix.toColumnPackedList();
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.VECTOR;
+    }
 
-	public Integer getSrsDimension() {
-		return srsDimension;
-	}
+    public List<Double> getValue() {
+        if (value == null)
+            value = new ArrayList<Double>();
 
-	public String getSrsName() {
-		return srsName;
-	}
+        return value;
+    }
 
-	public boolean isSetSrsDimension() {
-		return srsDimension != null;
-	}
+    public boolean isSetValue() {
+        return value != null && !value.isEmpty();
+    }
 
-	public boolean isSetSrsName() {
-		return srsName != null;
-	}
+    public void addValue(Double value) {
+        getValue().add(value);
+    }
 
-	public void setSrsDimension(Integer srsDimension) {
-		if (srsDimension > 0)
-			this.srsDimension = srsDimension;
-	}
+    public void setValue(List<Double> value) {
+        this.value = value;
+    }
 
-	public void setSrsName(String srsName) {
-		this.srsName = srsName;
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	public void unsetSrsDimension() {
-		srsDimension = null;
-	}
+    public Integer getSrsDimension() {
+        return srsDimension;
+    }
 
-	public void unsetSrsName() {
-		srsName = null;
-	}
+    public String getSrsName() {
+        return srsName;
+    }
 
-	public void addAxisLabel(String axisLabel) {
-		getAxisLabels().add(axisLabel);
-	}
+    public boolean isSetSrsDimension() {
+        return srsDimension != null;
+    }
 
-	public void addUomLabel(String uomLabel) {
-		getUomLabels().add(uomLabel);
-	}
+    public boolean isSetSrsName() {
+        return srsName != null;
+    }
 
-	public List<String> getAxisLabels() {
-		if (axisLabels == null)
-			axisLabels = new ArrayList<>();
+    public void setSrsDimension(Integer srsDimension) {
+        if (srsDimension > 0)
+            this.srsDimension = srsDimension;
+    }
 
-		return axisLabels;
-	}
+    public void setSrsName(String srsName) {
+        this.srsName = srsName;
+    }
 
-	public List<String> getUomLabels() {
-		if (uomLabels == null)
-			uomLabels = new ArrayList<>();
+    public void unsetSrsDimension() {
+        srsDimension = null;
+    }
 
-		return uomLabels;
-	}
+    public void unsetSrsName() {
+        srsName = null;
+    }
 
-	public boolean isSetAxisLabels() {
-		return axisLabels != null && !axisLabels.isEmpty();
-	}
+    public void addAxisLabel(String axisLabel) {
+        getAxisLabels().add(axisLabel);
+    }
 
-	public boolean isSetUomLabels() {
-		return uomLabels != null && !uomLabels.isEmpty();
-	}
+    public void addUomLabel(String uomLabel) {
+        getUomLabels().add(uomLabel);
+    }
 
-	public void setAxisLabels(List<String> axisLabels) {
-		this.axisLabels = axisLabels;
-	}
+    public List<String> getAxisLabels() {
+        if (axisLabels == null)
+            axisLabels = new ArrayList<>();
 
-	public void setUomLabels(List<String> uomLabels) {
-		this.uomLabels = uomLabels;
-	}
+        return axisLabels;
+    }
 
-	public void unsetAxisLabels() {
-		axisLabels = null;
-	}
+    public List<String> getUomLabels() {
+        if (uomLabels == null)
+            uomLabels = new ArrayList<>();
 
-	public boolean unsetAxisLabels(String axisLabel) {
-		return isSetAxisLabels() && axisLabels.remove(axisLabel);
-	}
+        return uomLabels;
+    }
 
-	public void unsetUomLabels() {
-		uomLabels = null;
-	}
+    public boolean isSetAxisLabels() {
+        return axisLabels != null && !axisLabels.isEmpty();
+    }
 
-	public boolean unsetUomLabels(String uomLabel) {
-		return isSetUomLabels() && uomLabels.remove(uomLabel);
-	}
+    public boolean isSetUomLabels() {
+        return uomLabels != null && !uomLabels.isEmpty();
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setAxisLabels(List<String> axisLabels) {
+        this.axisLabels = axisLabels;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setUomLabels(List<String> uomLabels) {
+        this.uomLabels = uomLabels;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void unsetAxisLabels() {
+        axisLabels = null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean unsetAxisLabels(String axisLabel) {
+        return isSetAxisLabels() && axisLabels.remove(axisLabel);
+    }
 
-	public Matrix toMatrix() {
-		return (isSetValue()) ? new Matrix(value, value.size()) : null;
-	}
+    public void unsetUomLabels() {
+        uomLabels = null;
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<Double>();
+    public boolean unsetUomLabels(String uomLabel) {
+        return isSetUomLabels() && uomLabels.remove(uomLabel);
+    }
 
-		if (isSetValue()) {
-			tmp.addAll(value);
-			while (tmp.size() < 3)
-				tmp.add(0.0);
+    public ModelObject getParent() {
+        return parent;
+    }
 
-			tmp = tmp.subList(0, 3);
-		}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-		return tmp;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Vector copy = (target == null) ? new Vector() : (Vector)target;
-		
-		if (isSetValue())
-			copy.setValue((List<Double>)copyBuilder.copy(value));
-		
-		if (isSetSrsDimension())
-			copy.setSrsDimension((Integer)copyBuilder.copy(srsDimension));
-		
-		if (isSetSrsName())
-        	copy.setSrsName(copyBuilder.copy(srsName));
-        
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Matrix toMatrix() {
+        return (isSetValue()) ? new Matrix(value, value.size()) : null;
+    }
+
+    @Override
+    public List<Double> toList3d() {
+        List<Double> tmp = new ArrayList<Double>();
+
+        if (isSetValue()) {
+            tmp.addAll(value);
+            while (tmp.size() < 3)
+                tmp.add(0.0);
+
+            tmp = tmp.subList(0, 3);
+        }
+
+        return tmp;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Vector copy = (target == null) ? new Vector() : (Vector) target;
+
+        if (isSetValue())
+            copy.setValue((List<Double>) copyBuilder.copy(value));
+
+        if (isSetSrsDimension())
+            copy.setSrsDimension((Integer) copyBuilder.copy(srsDimension));
+
+        if (isSetSrsName())
+            copy.setSrsName(copyBuilder.copy(srsName));
+
         if (isSetAxisLabels())
-        	copy.setAxisLabels((List<String>)copyBuilder.copy(axisLabels));
-        
-        if (isSetUomLabels())
-        	copy.setUomLabels((List<String>)copyBuilder.copy(uomLabels));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+            copy.setAxisLabels((List<String>) copyBuilder.copy(axisLabels));
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Vector(), copyBuilder);
-	}
+        if (isSetUomLabels())
+            copy.setUomLabels((List<String>) copyBuilder.copy(uomLabels));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Vector(), copyBuilder);
+    }
 
 }

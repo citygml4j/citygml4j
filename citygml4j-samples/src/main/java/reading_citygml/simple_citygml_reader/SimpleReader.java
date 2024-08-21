@@ -34,39 +34,39 @@ import java.util.Date;
 
 public class SimpleReader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml completely into main memory");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Buildings_v100.gml"));
-		
-		while (reader.hasNext()) {
-			CityGML citygml = reader.nextFeature();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-			if (citygml.getCityGMLClass() == CityGMLClass.CITY_MODEL) {
-				CityModel cityModel = (CityModel)citygml;
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml completely into main memory");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Buildings_v100.gml"));
 
-				System.out.println(df.format(new Date()) + "Found " + citygml.getCityGMLClass() + " version " + cityModel.getModule().getVersion());
-				System.out.println(df.format(new Date()) + "going through city model and counting building instances");
+        while (reader.hasNext()) {
+            CityGML citygml = reader.nextFeature();
 
-				int count = 0;
-				for (CityObjectMember cityObjectMember : cityModel.getCityObjectMember()) {
-					AbstractCityObject cityObject = cityObjectMember.getCityObject();
-					if (cityObject.getCityGMLClass() == CityGMLClass.BUILDING)
-						count++;
-				}
+            if (citygml.getCityGMLClass() == CityGMLClass.CITY_MODEL) {
+                CityModel cityModel = (CityModel) citygml;
 
-				System.out.println(df.format(new Date()) + "The city model contains " + count + " building features");
-			}	
-		}			
-		
-		reader.close();
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+                System.out.println(df.format(new Date()) + "Found " + citygml.getCityGMLClass() + " version " + cityModel.getModule().getVersion());
+                System.out.println(df.format(new Date()) + "going through city model and counting building instances");
+
+                int count = 0;
+                for (CityObjectMember cityObjectMember : cityModel.getCityObjectMember()) {
+                    AbstractCityObject cityObject = cityObjectMember.getCityObject();
+                    if (cityObject.getCityGMLClass() == CityGMLClass.BUILDING)
+                        count++;
+                }
+
+                System.out.println(df.format(new Date()) + "The city model contains " + count + " building features");
+            }
+        }
+
+        reader.close();
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

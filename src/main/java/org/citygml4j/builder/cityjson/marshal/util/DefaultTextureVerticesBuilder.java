@@ -27,71 +27,71 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DefaultTextureVerticesBuilder implements TextureVerticesBuilder {
-	private final ReentrantLock lock = new ReentrantLock();	
-	private final Map<String, Integer> indexes = new ConcurrentHashMap<>();
-	private final List<List<Double>> vertices = new ArrayList<>();	
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Map<String, Integer> indexes = new ConcurrentHashMap<>();
+    private final List<List<Double>> vertices = new ArrayList<>();
 
-	private int significantDigits = 7;
+    private int significantDigits = 7;
 
-	public DefaultTextureVerticesBuilder withSignificantDigits(int significantDigits) {
-		if (significantDigits > 0)
-			this.significantDigits = significantDigits;
+    public DefaultTextureVerticesBuilder withSignificantDigits(int significantDigits) {
+        if (significantDigits > 0)
+            this.significantDigits = significantDigits;
 
-		return this;
-	}
+        return this;
+    }
 
-	public int getSignificantDigits() {
-		return significantDigits;
-	}
+    public int getSignificantDigits() {
+        return significantDigits;
+    }
 
-	@Override
-	public List<Integer> addTextureVertices(List<Double> vertices) {
-		List<Integer> result = new ArrayList<>();
+    @Override
+    public List<Integer> addTextureVertices(List<Double> vertices) {
+        List<Integer> result = new ArrayList<>();
 
-		for (int i = 0; i < vertices.size(); i += 2) {
-			List<Double> vertex = vertices.subList(i, i + 2);
+        for (int i = 0; i < vertices.size(); i += 2) {
+            List<Double> vertex = vertices.subList(i, i + 2);
 
-			vertex.set(0, round(vertex.get(0)).doubleValue());
-			vertex.set(1, round(vertex.get(1)).doubleValue());
+            vertex.set(0, round(vertex.get(0)).doubleValue());
+            vertex.set(1, round(vertex.get(1)).doubleValue());
 
-			String key = vertex.get(0).toString() + vertex.get(1).toString();
-			
-			Integer index = indexes.get(key);
-			if (index == null) {
-				Integer tmp = null;
+            String key = vertex.get(0).toString() + vertex.get(1).toString();
 
-				lock.lock();
-				try {
-					tmp = this.vertices.size();
-					this.vertices.add(vertex);
-				} finally {
-					lock.unlock();
-				}
+            Integer index = indexes.get(key);
+            if (index == null) {
+                Integer tmp = null;
 
-				index = indexes.putIfAbsent(key, tmp);
-				if (index == null)
-					index = tmp;
-			}
+                lock.lock();
+                try {
+                    tmp = this.vertices.size();
+                    this.vertices.add(vertex);
+                } finally {
+                    lock.unlock();
+                }
 
-			result.add(index);
-		}
+                index = indexes.putIfAbsent(key, tmp);
+                if (index == null)
+                    index = tmp;
+            }
 
-		return result;
-	}
+            result.add(index);
+        }
 
-	@Override
-	public List<List<Double>> build() {
-		indexes.clear();
-		return vertices;
-	}
+        return result;
+    }
 
-	@Override
-	public void reset() {
-		indexes.clear();
-		vertices.clear();
-	}
+    @Override
+    public List<List<Double>> build() {
+        indexes.clear();
+        return vertices;
+    }
 
-	private BigDecimal round(double value) {
-		return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP);
-	}
+    @Override
+    public void reset() {
+        indexes.clear();
+        vertices.clear();
+    }
+
+    private BigDecimal round(double value) {
+        return BigDecimal.valueOf(value).setScale(significantDigits, RoundingMode.HALF_UP);
+    }
 }

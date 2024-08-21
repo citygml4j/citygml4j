@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class GeometricPrimitiveProperty extends GeometryProperty<AbstractGeometricPrimitive> {
 
-	public GeometricPrimitiveProperty() {
+    public GeometricPrimitiveProperty() {
 
-	}
+    }
 
-	public GeometricPrimitiveProperty(AbstractGeometricPrimitive abstractGeometricPrimitive) {
-		super(abstractGeometricPrimitive);
-	}
+    public GeometricPrimitiveProperty(AbstractGeometricPrimitive abstractGeometricPrimitive) {
+        super(abstractGeometricPrimitive);
+    }
 
-	public GeometricPrimitiveProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractGeometricPrimitive getGeometricPrimitive() {
-		return super.getGeometry();
-	}
+    public GeometricPrimitiveProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetGeometricPrimitive() {
-		return super.isSetGeometry();
-	}
+    public AbstractGeometricPrimitive getGeometricPrimitive() {
+        return super.getGeometry();
+    }
 
-	public void setGeometricPrimitive(AbstractGeometricPrimitive abstractGeometricPrimitive) {
-		super.setGeometry(abstractGeometricPrimitive);
-	}
+    public boolean isSetGeometricPrimitive() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetGeometricPrimitive() {
-		super.unsetGeometry();
-	}
+    public void setGeometricPrimitive(AbstractGeometricPrimitive abstractGeometricPrimitive) {
+        super.setGeometry(abstractGeometricPrimitive);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.GEOMETRIC_PRIMITIVE_PROPERTY;
-	}
+    public void unsetGeometricPrimitive() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<AbstractGeometricPrimitive> getAssociableClass() {
-		return AbstractGeometricPrimitive.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.GEOMETRIC_PRIMITIVE_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GeometricPrimitiveProperty(), copyBuilder);
-	}
+    @Override
+    public Class<AbstractGeometricPrimitive> getAssociableClass() {
+        return AbstractGeometricPrimitive.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GeometricPrimitiveProperty copy = (target == null) ? new GeometricPrimitiveProperty() : (GeometricPrimitiveProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GeometricPrimitiveProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GeometricPrimitiveProperty copy = (target == null) ? new GeometricPrimitiveProperty() : (GeometricPrimitiveProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

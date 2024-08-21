@@ -30,96 +30,96 @@ import org.citygml4j.model.gml.GMLClass;
 import java.util.List;
 
 public class CodeOrNullList implements GML, Child, Copyable {
-	private List<NameOrNull> nameOrNull;
-	private String codeSpace;
-	private ModelObject parent;
+    private List<NameOrNull> nameOrNull;
+    private String codeSpace;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.CODE_OR_NULL_LIST;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.CODE_OR_NULL_LIST;
+    }
 
-	public List<NameOrNull> getNameOrNull() {
-		if (nameOrNull == null)
-			nameOrNull = new ChildList<>(this);
+    public List<NameOrNull> getNameOrNull() {
+        if (nameOrNull == null)
+            nameOrNull = new ChildList<>(this);
 
-		return nameOrNull;
-	}
+        return nameOrNull;
+    }
 
-	public String getCodeSpace() {
-		return codeSpace;
-	}
+    public String getCodeSpace() {
+        return codeSpace;
+    }
 
-	public boolean isSetNameOrNull() {
-		return nameOrNull != null && !nameOrNull.isEmpty();
-	}
+    public boolean isSetNameOrNull() {
+        return nameOrNull != null && !nameOrNull.isEmpty();
+    }
 
-	public boolean isSetCodeSpace() {
-		return codeSpace != null;
-	}
+    public boolean isSetCodeSpace() {
+        return codeSpace != null;
+    }
 
-	public void setCodeSpace(String codeSpace) {
-		this.codeSpace = codeSpace;
-	}
+    public void setCodeSpace(String codeSpace) {
+        this.codeSpace = codeSpace;
+    }
 
-	public void setNameOrNull(List<NameOrNull> nameOrNull) {
-		this.nameOrNull = new ChildList<>(this, nameOrNull);
-	}
+    public void setNameOrNull(List<NameOrNull> nameOrNull) {
+        this.nameOrNull = new ChildList<>(this, nameOrNull);
+    }
 
-	public void addNameOrNull(NameOrNull nameOrNull) {
-		getNameOrNull().add(nameOrNull);
-	}
+    public void addNameOrNull(NameOrNull nameOrNull) {
+        getNameOrNull().add(nameOrNull);
+    }
 
-	public void unsetNameOrNull() {
-		nameOrNull = ModelObjects.setNull(nameOrNull);
-	}
+    public void unsetNameOrNull() {
+        nameOrNull = ModelObjects.setNull(nameOrNull);
+    }
 
-	public boolean unsetNameOrNull(NameOrNull nameOrNull) {
-		return isSetNameOrNull() && this.nameOrNull.remove(nameOrNull);
-	}
+    public boolean unsetNameOrNull(NameOrNull nameOrNull) {
+        return isSetNameOrNull() && this.nameOrNull.remove(nameOrNull);
+    }
 
-	public void unsetCodeSpace() {
-		codeSpace = null;
-	}
+    public void unsetCodeSpace() {
+        codeSpace = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CodeOrNullList copy = (target == null) ? new CodeOrNullList() : (CodeOrNullList)target;
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CodeOrNullList copy = (target == null) ? new CodeOrNullList() : (CodeOrNullList) target;
 
-		if (isSetNameOrNull()) {
-			for (NameOrNull part : nameOrNull) {
-				NameOrNull copyPart = (NameOrNull)copyBuilder.copy(part);
-				copy.addNameOrNull(copyPart);
+        if (isSetNameOrNull()) {
+            for (NameOrNull part : nameOrNull) {
+                NameOrNull copyPart = (NameOrNull) copyBuilder.copy(part);
+                copy.addNameOrNull(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetCodeSpace())
-			copy.setCodeSpace(copyBuilder.copy(codeSpace));
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		copy.unsetParent();
+        if (isSetCodeSpace())
+            copy.setCodeSpace(copyBuilder.copy(codeSpace));
 
-		return copy;
-	}
+        copy.unsetParent();
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CodeOrNullList(), copyBuilder);
-	}
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CodeOrNullList(), copyBuilder);
+    }
 
 }

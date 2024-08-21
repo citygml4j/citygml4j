@@ -36,81 +36,81 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class CityFurnitureUnmarshaller {
-	private final CityJSONUnmarshaller json;
-	private final CityGMLUnmarshaller citygml;
-	
-	public CityFurnitureUnmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONUnmarshaller();
-	}
-	
-	public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
-		if (src instanceof CityFurnitureType)
-			return unmarshalCityFurniture((CityFurnitureType) src, cityJSON);
+    private final CityJSONUnmarshaller json;
+    private final CityGMLUnmarshaller citygml;
 
-		return null;
-	}
-	
-	public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest, CityJSON cityJSON) {
-		citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
-		
-		if (src.isSetAttributes()) {
-			Attributes attributes = src.getAttributes();
-			if (attributes.isSetClazz())
-				dest.setClazz(new Code(attributes.getClazz()));
+    public CityFurnitureUnmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONUnmarshaller();
+    }
 
-			if (attributes.isSetFunction())
-				dest.addFunction(new Code(attributes.getFunction()));
+    public AbstractCityObject unmarshal(AbstractCityObjectType src, CityJSON cityJSON) {
+        if (src instanceof CityFurnitureType)
+            return unmarshalCityFurniture((CityFurnitureType) src, cityJSON);
 
-			if (attributes.isSetUsage())
-				dest.addUsage(new Code(attributes.getUsage()));
-		}
-		
-		for (AbstractGeometryType geometryType : src.getGeometry()) {
-			if (geometryType instanceof AbstractGeometryObjectType) {
-				AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
-				AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
+        return null;
+    }
 
-				if (geometry != null) {
-					int lod = geometryObject.getLod().intValue();
-					switch (lod) {
-						case 1:
-							dest.setLod1Geometry(new GeometryProperty<>(geometry));
-							break;
-						case 2:
-							dest.setLod2Geometry(new GeometryProperty<>(geometry));
-							break;
-						case 3:
-							dest.setLod3Geometry(new GeometryProperty<>(geometry));
-							break;
-					}
-				}
-			} else if (geometryType instanceof GeometryInstanceType) {
-				GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
-				ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance, cityJSON);
+    public void unmarshalCityFurniture(CityFurnitureType src, CityFurniture dest, CityJSON cityJSON) {
+        citygml.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
 
-				if (geometry != null) {
-					switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
-						case 1:
-							dest.setLod1ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
-							break;
-						case 2:
-							dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
-							break;
-						case 3:
-							dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
-							break;
-					}
-				}
-			}
-		}
-	}
-	
-	public CityFurniture unmarshalCityFurniture(CityFurnitureType src, CityJSON cityJSON) {
-		CityFurniture dest = new CityFurniture();
-		unmarshalCityFurniture(src, dest, cityJSON);
-		
-		return dest;
-	}
-	
+        if (src.isSetAttributes()) {
+            Attributes attributes = src.getAttributes();
+            if (attributes.isSetClazz())
+                dest.setClazz(new Code(attributes.getClazz()));
+
+            if (attributes.isSetFunction())
+                dest.addFunction(new Code(attributes.getFunction()));
+
+            if (attributes.isSetUsage())
+                dest.addUsage(new Code(attributes.getUsage()));
+        }
+
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType instanceof AbstractGeometryObjectType) {
+                AbstractGeometryObjectType geometryObject = (AbstractGeometryObjectType) geometryType;
+                AbstractGeometry geometry = json.getGMLUnmarshaller().unmarshal(geometryObject, dest, cityJSON);
+
+                if (geometry != null) {
+                    int lod = geometryObject.getLod().intValue();
+                    switch (lod) {
+                        case 1:
+                            dest.setLod1Geometry(new GeometryProperty<>(geometry));
+                            break;
+                        case 2:
+                            dest.setLod2Geometry(new GeometryProperty<>(geometry));
+                            break;
+                        case 3:
+                            dest.setLod3Geometry(new GeometryProperty<>(geometry));
+                            break;
+                    }
+                }
+            } else if (geometryType instanceof GeometryInstanceType) {
+                GeometryInstanceType geometryInstance = (GeometryInstanceType) geometryType;
+                ImplicitGeometry geometry = citygml.getCoreUnmarshaller().unmarshalGeometryInstance(geometryInstance, cityJSON);
+
+                if (geometry != null) {
+                    switch ((int) geometry.getLocalProperty(CityJSONUnmarshaller.GEOMETRY_INSTANCE_LOD)) {
+                        case 1:
+                            dest.setLod1ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+                            break;
+                        case 2:
+                            dest.setLod2ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+                            break;
+                        case 3:
+                            dest.setLod3ImplicitRepresentation(new ImplicitRepresentationProperty(geometry));
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    public CityFurniture unmarshalCityFurniture(CityFurnitureType src, CityJSON cityJSON) {
+        CityFurniture dest = new CityFurniture();
+        unmarshalCityFurniture(src, dest, cityJSON);
+
+        return dest;
+    }
+
 }

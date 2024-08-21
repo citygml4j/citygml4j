@@ -24,54 +24,54 @@ import org.citygml4j.model.common.base.ModelObjects;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class MeasureAttribute extends AbstractGenericAttribute {
-	private Measure value;
+    private Measure value;
 
-	public MeasureAttribute() {
+    public MeasureAttribute() {
 
-	}
-	
-	public MeasureAttribute(Measure value) {
-		this.value = ModelObjects.setParent(value, this);
-	}
-	
-	public MeasureAttribute(String name, Measure value) {
-		this.value = ModelObjects.setParent(value, this);
-		setName(name);
-	}
+    }
 
-	public Measure getValue() {
-		return value;
-	}
+    public MeasureAttribute(Measure value) {
+        this.value = ModelObjects.setParent(value, this);
+    }
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public MeasureAttribute(String name, Measure value) {
+        this.value = ModelObjects.setParent(value, this);
+        setName(name);
+    }
 
-	public void setValue(Measure value) {
-		this.value = ModelObjects.setParent(value, this);
-	}
+    public Measure getValue() {
+        return value;
+    }
 
-	public void unsetValue() {
-		value = ModelObjects.setNull(value);
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.MEASURE_ATTRIBUTE;
-	}
+    public void setValue(Measure value) {
+        this.value = ModelObjects.setParent(value, this);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MeasureAttribute(), copyBuilder);
-	}
+    public void unsetValue() {
+        value = ModelObjects.setNull(value);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MeasureAttribute copy = (target == null) ? new MeasureAttribute() : (MeasureAttribute)target;
-		super.copyTo(copy, copyBuilder);
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.MEASURE_ATTRIBUTE;
+    }
 
-		if (isSetValue())
-			copy.setValue((Measure)copyBuilder.copy(value));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MeasureAttribute(), copyBuilder);
+    }
 
-		return copy;
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MeasureAttribute copy = (target == null) ? new MeasureAttribute() : (MeasureAttribute) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetValue())
+            copy.setValue((Measure) copyBuilder.copy(value));
+
+        return copy;
+    }
 
 }

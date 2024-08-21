@@ -21,22 +21,22 @@ package org.citygml4j.model.module.gml;
 import org.citygml4j.model.module.ModuleVersion;
 
 public enum GMLModuleVersion implements ModuleVersion {
-	v3_1_1("3.1.1");
-	
-	private final String value;
-	
-	GMLModuleVersion(String value) {
-		this.value = value;
-	}
+    v3_1_1("3.1.1");
 
-	@Override
-	public String getVersionString() {
-		return value;
-	}
+    private final String value;
 
-	@Override
-	public String toString() {
-		return value;
-	}
-	
+    GMLModuleVersion(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String getVersionString() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
 }

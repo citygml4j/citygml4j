@@ -27,86 +27,86 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ValueArray extends CompositeValue {
-	private String codeSpace;
-	private String uom;
-	
-	public ValueArray() {
-		
-	}
-	
-	public ValueArray(List<Value> values) {
-		for (Value value : values)
-			addValueComponent(new ValueProperty(value));
-	}
-	
-	public ValueArray(Value... values) {
-		this(Arrays.asList(values));
-	}
-	
-	public String getCodeSpace() {
-		return codeSpace;
-	}
+    private String codeSpace;
+    private String uom;
 
-	public String getUom() {
-		return uom;
-	}
+    public ValueArray() {
 
-	public boolean isSetCodeSpace() {
-		return codeSpace != null;
-	}
+    }
 
-	public boolean isSetUom() {
-		return uom != null;
-	}
+    public ValueArray(List<Value> values) {
+        for (Value value : values)
+            addValueComponent(new ValueProperty(value));
+    }
 
-	public void setCodeSpace(String codeSpace) {
-		this.codeSpace = codeSpace;
-	}
+    public ValueArray(Value... values) {
+        this(Arrays.asList(values));
+    }
 
-	public void setUom(String uom) {
-		this.uom = uom;
-	}
+    public String getCodeSpace() {
+        return codeSpace;
+    }
 
-	public void unsetCodeSpace() {
-		codeSpace = null;
-	}
+    public String getUom() {
+        return uom;
+    }
 
-	public void unsetUom() {
-		uom = null;
-	}
+    public boolean isSetCodeSpace() {
+        return codeSpace != null;
+    }
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.VALUE_ARRAY;
-	}
+    public boolean isSetUom() {
+        return uom != null;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ValueArray copy = (target == null) ? new ValueArray() : (ValueArray)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetCodeSpace())
-			copy.setCodeSpace(copyBuilder.copy(codeSpace));
-		
-		if (isSetUom())
-			copy.setUom(copyBuilder.copy(uom));
-		
-		return copy;
-	}
+    public void setCodeSpace(String codeSpace) {
+        this.codeSpace = codeSpace;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ValueArray(), copyBuilder);
-	}
+    public void setUom(String uom) {
+        this.uom = uom;
+    }
 
-	@Override
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void unsetCodeSpace() {
+        codeSpace = null;
+    }
 
-	@Override
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void unsetUom() {
+        uom = null;
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.VALUE_ARRAY;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ValueArray copy = (target == null) ? new ValueArray() : (ValueArray) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetCodeSpace())
+            copy.setCodeSpace(copyBuilder.copy(codeSpace));
+
+        if (isSetUom())
+            copy.setUom(copyBuilder.copy(uom));
+
+        return copy;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ValueArray(), copyBuilder);
+    }
+
+    @Override
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

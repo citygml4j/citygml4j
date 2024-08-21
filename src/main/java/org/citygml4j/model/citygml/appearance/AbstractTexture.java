@@ -28,165 +28,165 @@ import org.citygml4j.model.module.Module;
 import java.util.List;
 
 public abstract class AbstractTexture extends AbstractSurfaceData {
-	private String imageURI;
-	private Code mimeType;
-	private TextureType textureType;
-	private WrapMode wrapMode;
-	private ColorPlusOpacity borderColor;
-	private List<ADEComponent> ade;
-	
-	public AbstractTexture() {
-		
-	}
-	
-	public AbstractTexture(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfTexture(ADEComponent ade) {
-		getGenericApplicationPropertyOfTexture().add(ade);
-	}
+    private String imageURI;
+    private Code mimeType;
+    private TextureType textureType;
+    private WrapMode wrapMode;
+    private ColorPlusOpacity borderColor;
+    private List<ADEComponent> ade;
 
-	public ColorPlusOpacity getBorderColor() {
-		return borderColor;
-	}
+    public AbstractTexture() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfTexture() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public AbstractTexture(Module module) {
+        super(module);
+    }
 
-	public String getImageURI() {
-		return imageURI;
-	}
+    public void addGenericApplicationPropertyOfTexture(ADEComponent ade) {
+        getGenericApplicationPropertyOfTexture().add(ade);
+    }
 
-	public Code getMimeType() {
-		return mimeType;
-	}
+    public ColorPlusOpacity getBorderColor() {
+        return borderColor;
+    }
 
-	public TextureType getTextureType() {
-		return textureType;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfTexture() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public WrapMode getWrapMode() {
-		return wrapMode;
-	}
+        return ade;
+    }
 
-	public boolean isSetBorderColor() {
-		return borderColor != null;
-	}
+    public String getImageURI() {
+        return imageURI;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfTexture() {
-		return ade != null && !ade.isEmpty();
-	}
+    public Code getMimeType() {
+        return mimeType;
+    }
 
-	public boolean isSetImageURI() {
-		return imageURI != null;
-	}
+    public TextureType getTextureType() {
+        return textureType;
+    }
 
-	public boolean isSetMimeType() {
-		return mimeType != null;
-	}
+    public WrapMode getWrapMode() {
+        return wrapMode;
+    }
 
-	public boolean isSetTextureType() {
-		return textureType != null;
-	}
+    public boolean isSetBorderColor() {
+        return borderColor != null;
+    }
 
-	public boolean isSetWrapMode() {
-		return wrapMode != null;
-	}
+    public boolean isSetGenericApplicationPropertyOfTexture() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setBorderColor(ColorPlusOpacity borderColor) {
-		this.borderColor = ModelObjects.setParent(borderColor, this);
-	}
+    public boolean isSetImageURI() {
+        return imageURI != null;
+    }
 
-	public void setGenericApplicationPropertyOfTexture(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetMimeType() {
+        return mimeType != null;
+    }
 
-	public void setImageURI(String imageURI) {
-		this.imageURI = imageURI;
-	}
+    public boolean isSetTextureType() {
+        return textureType != null;
+    }
 
-	public void setMimeType(Code mimeType) {
-		this.mimeType = ModelObjects.setParent(mimeType, this);
-	}
+    public boolean isSetWrapMode() {
+        return wrapMode != null;
+    }
 
-	public void setTextureType(TextureType textureType) {
-		this.textureType = textureType;
-	}
+    public void setBorderColor(ColorPlusOpacity borderColor) {
+        this.borderColor = ModelObjects.setParent(borderColor, this);
+    }
 
-	public void setWrapMode(WrapMode wrapMode) {
-		this.wrapMode = wrapMode;
-	}
+    public void setGenericApplicationPropertyOfTexture(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void unsetBorderColor() {
-		borderColor = ModelObjects.setNull(borderColor);
-	}
+    public void setImageURI(String imageURI) {
+        this.imageURI = imageURI;
+    }
 
-	public void unsetGenericApplicationPropertyOfTexture() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setMimeType(Code mimeType) {
+        this.mimeType = ModelObjects.setParent(mimeType, this);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfTexture(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTexture() && this.ade.remove(ade);
-	}
+    public void setTextureType(TextureType textureType) {
+        this.textureType = textureType;
+    }
 
-	public void unsetImageURI() {
-		imageURI = null;
-	}
+    public void setWrapMode(WrapMode wrapMode) {
+        this.wrapMode = wrapMode;
+    }
 
-	public void unsetMimeType() {
-		mimeType = null;
-	}
+    public void unsetBorderColor() {
+        borderColor = ModelObjects.setNull(borderColor);
+    }
 
-	public void unsetTextureType() {
-		textureType = null;
-	}
+    public void unsetGenericApplicationPropertyOfTexture() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public void unsetWrapMode() {
-		wrapMode = null;
-	}
+    public boolean unsetGenericApplicationPropertyOfTexture(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfTexture() && this.ade.remove(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public void unsetImageURI() {
+        imageURI = null;
+    }
 
-		AbstractTexture copy = (AbstractTexture)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetImageURI())
-			copy.setImageURI(copyBuilder.copy(imageURI));
-		
-		if (isSetMimeType())
-			copy.setMimeType((Code)copyBuilder.copy(mimeType));
-		
-		if (isSetTextureType())
-			copy.setTextureType((TextureType)copyBuilder.copy(textureType));
-		
-		if (isSetWrapMode())
-			copy.setWrapMode((WrapMode)copyBuilder.copy(wrapMode));
-		
-		if (isSetBorderColor()) {
-			copy.setBorderColor((ColorPlusOpacity)copyBuilder.copy(borderColor));
-			if (copy.getBorderColor() == borderColor)
-				borderColor.setParent(this);
-		}
+    public void unsetMimeType() {
+        mimeType = null;
+    }
 
-		if (isSetGenericApplicationPropertyOfTexture()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfTexture(copyPart);
+    public void unsetTextureType() {
+        textureType = null;
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
+    public void unsetWrapMode() {
+        wrapMode = null;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractTexture copy = (AbstractTexture) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetImageURI())
+            copy.setImageURI(copyBuilder.copy(imageURI));
+
+        if (isSetMimeType())
+            copy.setMimeType((Code) copyBuilder.copy(mimeType));
+
+        if (isSetTextureType())
+            copy.setTextureType((TextureType) copyBuilder.copy(textureType));
+
+        if (isSetWrapMode())
+            copy.setWrapMode((WrapMode) copyBuilder.copy(wrapMode));
+
+        if (isSetBorderColor()) {
+            copy.setBorderColor((ColorPlusOpacity) copyBuilder.copy(borderColor));
+            if (copy.getBorderColor() == borderColor)
+                borderColor.setParent(this);
+        }
+
+        if (isSetGenericApplicationPropertyOfTexture()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfTexture(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 
 }

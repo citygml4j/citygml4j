@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class BoundarySurfaceProperty extends FeatureProperty<AbstractBoundarySurface> implements TunnelModuleComponent {
 
-	public BoundarySurfaceProperty() {
-		
-	}
-	
-	public BoundarySurfaceProperty(AbstractBoundarySurface abstractBoundarySurface) {
-		super(abstractBoundarySurface);
-	}
-	
-	public BoundarySurfaceProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractBoundarySurface getBoundarySurface() {
-		return super.getObject();
-	}
+    public BoundarySurfaceProperty() {
 
-	public boolean isSetBoundarySurface() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setBoundarySurface(AbstractBoundarySurface boundarySurface) {
-		super.setObject(boundarySurface);
-	}
+    public BoundarySurfaceProperty(AbstractBoundarySurface abstractBoundarySurface) {
+        super(abstractBoundarySurface);
+    }
 
-	public void unsetBoundarySurface() {
-		super.unsetObject();
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TUNNEL_BOUNDARY_SURFACE_PROPERTY;
-	}
+    public BoundarySurfaceProperty(String href) {
+        super(href);
+    }
 
-	@Override
-	public Class<AbstractBoundarySurface> getAssociableClass() {
-		return AbstractBoundarySurface.class;
-	}
+    public AbstractBoundarySurface getBoundarySurface() {
+        return super.getObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BoundarySurfaceProperty(), copyBuilder);
-	}
+    public boolean isSetBoundarySurface() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BoundarySurfaceProperty copy = (target == null) ? new BoundarySurfaceProperty() : (BoundarySurfaceProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void setBoundarySurface(AbstractBoundarySurface boundarySurface) {
+        super.setObject(boundarySurface);
+    }
+
+    public void unsetBoundarySurface() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TUNNEL_BOUNDARY_SURFACE_PROPERTY;
+    }
+
+    @Override
+    public Class<AbstractBoundarySurface> getAssociableClass() {
+        return AbstractBoundarySurface.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BoundarySurfaceProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BoundarySurfaceProperty copy = (target == null) ? new BoundarySurfaceProperty() : (BoundarySurfaceProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

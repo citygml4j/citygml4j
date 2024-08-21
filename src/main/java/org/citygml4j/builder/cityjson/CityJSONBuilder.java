@@ -25,20 +25,20 @@ import org.citygml4j.builder.cityjson.unmarshal.CityJSONUnmarshaller;
 
 public class CityJSONBuilder {
 
-	public CityJSONUnmarshaller createCityJSONUnmarshaller() {
-		return new CityJSONUnmarshaller();
-	}
-	
-	public CityJSONMarshaller createCityJSONMarshaller() {
-		return new CityJSONMarshaller();
-	}
-	
-	public CityJSONInputFactory createCityJSONInputFactory() throws CityJSONBuilderException {
-		return new CityJSONInputFactory();
-	}
-	
-	public CityJSONOutputFactory createCityJSONOutputFactory() throws CityJSONBuilderException {
-		return new CityJSONOutputFactory();
-	}
-	
+    public CityJSONUnmarshaller createCityJSONUnmarshaller() {
+        return new CityJSONUnmarshaller();
+    }
+
+    public CityJSONMarshaller createCityJSONMarshaller() {
+        return new CityJSONMarshaller();
+    }
+
+    public CityJSONInputFactory createCityJSONInputFactory() throws CityJSONBuilderException {
+        return new CityJSONInputFactory();
+    }
+
+    public CityJSONOutputFactory createCityJSONOutputFactory() throws CityJSONBuilderException {
+        return new CityJSONOutputFactory();
+    }
+
 }

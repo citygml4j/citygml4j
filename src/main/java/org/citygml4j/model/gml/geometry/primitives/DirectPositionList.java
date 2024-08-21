@@ -30,220 +30,220 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DirectPositionList implements SRSReferenceGroup, Child, Copyable, CoordinateListProvider {
-	private List<Double> value;
-	private Integer count;
-	private Integer srsDimension;
-	private String srsName;
-	private List<String> axisLabels;
-	private List<String> uomLabels;
-	private ModelObject parent;
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.DIRECT_POSITION_LIST;
-	}
+    private List<Double> value;
+    private Integer count;
+    private Integer srsDimension;
+    private String srsName;
+    private List<String> axisLabels;
+    private List<String> uomLabels;
+    private ModelObject parent;
 
-	public void addValue(Double value) {
-		getValue().add(value);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.DIRECT_POSITION_LIST;
+    }
 
-	public void addValue(List<Double> value) {
-		getValue().addAll(value);
-	}
+    public void addValue(Double value) {
+        getValue().add(value);
+    }
 
-	public Integer getCount() {
-		return count;
-	}
+    public void addValue(List<Double> value) {
+        getValue().addAll(value);
+    }
 
-	public List<Double> getValue() {
-		if (value == null)
-			value = new ArrayList<>();
-		
-		return value;
-	}
+    public Integer getCount() {
+        return count;
+    }
 
-	public boolean isSetCount() {
-		return count != null;
-	}
+    public List<Double> getValue() {
+        if (value == null)
+            value = new ArrayList<>();
 
-	public boolean isSetValue() {
-		return value != null && !value.isEmpty();
-	}
+        return value;
+    }
 
-	public void setCount(Integer count) {
-		if (count > 0)
-			this.count = count;
-	}
+    public boolean isSetCount() {
+        return count != null;
+    }
 
-	public void setValue(List<Double> value) {
-		this.value = value;
-	}
+    public boolean isSetValue() {
+        return value != null && !value.isEmpty();
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<>();
+    public void setCount(Integer count) {
+        if (count > 0)
+            this.count = count;
+    }
 
-		if (isSetValue()) {
-			tmp.addAll(value);
+    public void setValue(List<Double> value) {
+        this.value = value;
+    }
 
-			int dim = (isSetSrsDimension() && srsDimension == 2) ? 2 : 3;
-			while (tmp.size() % dim != 0)
-				tmp.add(0.0);
+    @Override
+    public List<Double> toList3d() {
+        List<Double> tmp = new ArrayList<>();
 
-			if (dim == 2) {
-				List<Double> points = new ArrayList<>();
+        if (isSetValue()) {
+            tmp.addAll(value);
 
-				for (int i = 0; i < tmp.size(); i += 2) {
-					points.addAll(tmp.subList(i, i + 2));
-					points.add(0.0);
-				}
+            int dim = (isSetSrsDimension() && srsDimension == 2) ? 2 : 3;
+            while (tmp.size() % dim != 0)
+                tmp.add(0.0);
 
-				tmp = points;
-			}
-		}
+            if (dim == 2) {
+                List<Double> points = new ArrayList<>();
 
-		return tmp;
-	}
+                for (int i = 0; i < tmp.size(); i += 2) {
+                    points.addAll(tmp.subList(i, i + 2));
+                    points.add(0.0);
+                }
 
-	public void unsetCount() {
-		count = null;
-	}
+                tmp = points;
+            }
+        }
 
-	public void unsetValue() {
-		value = null;
-	}
+        return tmp;
+    }
 
-	public Integer getSrsDimension() {
-		return srsDimension;
-	}
+    public void unsetCount() {
+        count = null;
+    }
 
-	public String getSrsName() {
-		return srsName;
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	public boolean isSetSrsDimension() {
-		return srsDimension != null;
-	}
+    public Integer getSrsDimension() {
+        return srsDimension;
+    }
 
-	public boolean isSetSrsName() {
-		return srsName != null;
-	}
+    public String getSrsName() {
+        return srsName;
+    }
 
-	public void setSrsDimension(Integer srsDimension) {
-		if (srsDimension > 0)
-			this.srsDimension = srsDimension;
-	}
+    public boolean isSetSrsDimension() {
+        return srsDimension != null;
+    }
 
-	public void setSrsName(String srsName) {
-		this.srsName = srsName;
-	}
+    public boolean isSetSrsName() {
+        return srsName != null;
+    }
 
-	public void unsetSrsDimension() {
-		srsDimension = null;
-	}
+    public void setSrsDimension(Integer srsDimension) {
+        if (srsDimension > 0)
+            this.srsDimension = srsDimension;
+    }
 
-	public void unsetSrsName() {
-		srsName = null;
-	}
+    public void setSrsName(String srsName) {
+        this.srsName = srsName;
+    }
 
-	public void addAxisLabel(String axisLabel) {
-		getAxisLabels().add(axisLabel);
-	}
+    public void unsetSrsDimension() {
+        srsDimension = null;
+    }
 
-	public void addUomLabel(String uomLabel) {
-		getUomLabels().add(uomLabel);
-	}
+    public void unsetSrsName() {
+        srsName = null;
+    }
 
-	public List<String> getAxisLabels() {
-		if (axisLabels == null)
-			axisLabels = new ArrayList<>();
+    public void addAxisLabel(String axisLabel) {
+        getAxisLabels().add(axisLabel);
+    }
 
-		return axisLabels;
-	}
+    public void addUomLabel(String uomLabel) {
+        getUomLabels().add(uomLabel);
+    }
 
-	public List<String> getUomLabels() {
-		if (uomLabels == null)
-			uomLabels = new ArrayList<>();
+    public List<String> getAxisLabels() {
+        if (axisLabels == null)
+            axisLabels = new ArrayList<>();
 
-		return uomLabels;
-	}
+        return axisLabels;
+    }
 
-	public boolean isSetAxisLabels() {
-		return axisLabels != null && !axisLabels.isEmpty();
-	}
+    public List<String> getUomLabels() {
+        if (uomLabels == null)
+            uomLabels = new ArrayList<>();
 
-	public boolean isSetUomLabels() {
-		return uomLabels != null && !uomLabels.isEmpty();
-	}
+        return uomLabels;
+    }
 
-	public void setAxisLabels(List<String> axisLabels) {
-		this.axisLabels = axisLabels;
-	}
+    public boolean isSetAxisLabels() {
+        return axisLabels != null && !axisLabels.isEmpty();
+    }
 
-	public void setUomLabels(List<String> uomLabels) {
-		this.uomLabels = uomLabels;
-	}
-	
-	public void unsetAxisLabels() {
-		axisLabels = null;
-	}
+    public boolean isSetUomLabels() {
+        return uomLabels != null && !uomLabels.isEmpty();
+    }
 
-	public boolean unsetAxisLabels(String axisLabel) {
-		return isSetAxisLabels() && axisLabels.remove(axisLabel);
-	}
+    public void setAxisLabels(List<String> axisLabels) {
+        this.axisLabels = axisLabels;
+    }
 
-	public void unsetUomLabels() {
-		uomLabels = null;
-	}
+    public void setUomLabels(List<String> uomLabels) {
+        this.uomLabels = uomLabels;
+    }
 
-	public boolean unsetUomLabels(String uomLabel) {
-		return isSetUomLabels() && uomLabels.remove(uomLabel);
-	}
+    public void unsetAxisLabels() {
+        axisLabels = null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DirectPositionList copy = (target == null) ? new DirectPositionList() : (DirectPositionList)target;
-		
-		if (isSetValue())
-			copy.setValue((List<Double>)copyBuilder.copy(value));
-		
-		if (isSetCount())
-			copy.setCount((Integer)copyBuilder.copy(count));
-		
-		if (isSetSrsDimension())
-			copy.setSrsDimension((Integer)copyBuilder.copy(srsDimension));
-		
-		if (isSetSrsName())
-        	copy.setSrsName(copyBuilder.copy(srsName));
-        
+    public boolean unsetAxisLabels(String axisLabel) {
+        return isSetAxisLabels() && axisLabels.remove(axisLabel);
+    }
+
+    public void unsetUomLabels() {
+        uomLabels = null;
+    }
+
+    public boolean unsetUomLabels(String uomLabel) {
+        return isSetUomLabels() && uomLabels.remove(uomLabel);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DirectPositionList copy = (target == null) ? new DirectPositionList() : (DirectPositionList) target;
+
+        if (isSetValue())
+            copy.setValue((List<Double>) copyBuilder.copy(value));
+
+        if (isSetCount())
+            copy.setCount((Integer) copyBuilder.copy(count));
+
+        if (isSetSrsDimension())
+            copy.setSrsDimension((Integer) copyBuilder.copy(srsDimension));
+
+        if (isSetSrsName())
+            copy.setSrsName(copyBuilder.copy(srsName));
+
         if (isSetAxisLabels())
-        	copy.setAxisLabels((List<String>)copyBuilder.copy(axisLabels));
-        
+            copy.setAxisLabels((List<String>) copyBuilder.copy(axisLabels));
+
         if (isSetUomLabels())
-        	copy.setUomLabels((List<String>)copyBuilder.copy(uomLabels));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+            copy.setUomLabels((List<String>) copyBuilder.copy(uomLabels));
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DirectPositionList(), copyBuilder);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+        copy.unsetParent();
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+        return copy;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DirectPositionList(), copyBuilder);
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
 
 }

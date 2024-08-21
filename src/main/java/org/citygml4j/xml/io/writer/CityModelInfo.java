@@ -33,217 +33,217 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CityModelInfo {
-	private final CityModel cityModel;
+    private final CityModel cityModel;
 
-	public CityModelInfo(CityModel cityModel) {
-		this.cityModel = cityModel;
-	}
-	
-	public CityModelInfo(ParentInfo parentInfo) {
-		this();
-		if (parentInfo != null) {
-			setId(parentInfo.getId());
-			setName(parentInfo.getName());
-			setDescription(parentInfo.getDescription());
-			setMetaDataProperty(parentInfo.getMetaDataProperty());
-			setBoundedBy(parentInfo.getBoundedBy());
-			setLocation(parentInfo.getLocation());
-		}
-	}
+    public CityModelInfo(CityModel cityModel) {
+        this.cityModel = cityModel;
+    }
 
-	public CityModelInfo() {
-		this(new CityModel());
-	}
+    public CityModelInfo(ParentInfo parentInfo) {
+        this();
+        if (parentInfo != null) {
+            setId(parentInfo.getId());
+            setName(parentInfo.getName());
+            setDescription(parentInfo.getDescription());
+            setMetaDataProperty(parentInfo.getMetaDataProperty());
+            setBoundedBy(parentInfo.getBoundedBy());
+            setLocation(parentInfo.getLocation());
+        }
+    }
 
-	public boolean isSetId() {
-		return cityModel.isSetId();
-	}
+    public CityModelInfo() {
+        this(new CityModel());
+    }
 
-	public String getId() {
-		return cityModel.getId();
-	}
+    public boolean isSetId() {
+        return cityModel.isSetId();
+    }
 
-	public void setId(String id) {
-		cityModel.setId(id);
-	}
+    public String getId() {
+        return cityModel.getId();
+    }
 
-	public void unsetId() {
-		cityModel.unsetId();
-	}
+    public void setId(String id) {
+        cityModel.setId(id);
+    }
 
-	public boolean isSetName() {
-		return cityModel.isSetName();
-	}
+    public void unsetId() {
+        cityModel.unsetId();
+    }
 
-	public List<Code> getName() {
-		return cityModel.getName();
-	}
+    public boolean isSetName() {
+        return cityModel.isSetName();
+    }
 
-	public void addName(Code name) {
-		cityModel.addName(name);
-	}
+    public List<Code> getName() {
+        return cityModel.getName();
+    }
 
-	public void setName(List<Code> name) {
-		cityModel.setName(name);
-	}
+    public void addName(Code name) {
+        cityModel.addName(name);
+    }
 
-	public void unsetName() {
-		cityModel.unsetName();
-	}
+    public void setName(List<Code> name) {
+        cityModel.setName(name);
+    }
 
-	public boolean unsetName(Code name) {
-		return cityModel.unsetName(name);
-	}
+    public void unsetName() {
+        cityModel.unsetName();
+    }
 
-	public boolean isSetDescription() {
-		return cityModel.isSetDescription();
-	}
+    public boolean unsetName(Code name) {
+        return cityModel.unsetName(name);
+    }
 
-	public StringOrRef getDescription() {
-		return cityModel.getDescription();
-	}
+    public boolean isSetDescription() {
+        return cityModel.isSetDescription();
+    }
 
-	public void setDescription(StringOrRef description) {
-		cityModel.setDescription(description);
-	}
+    public StringOrRef getDescription() {
+        return cityModel.getDescription();
+    }
 
-	public void unsetDescription() {
-		cityModel.unsetDescription();
-	}
+    public void setDescription(StringOrRef description) {
+        cityModel.setDescription(description);
+    }
 
-	public boolean isSetMetaDataProperty() {
-		return cityModel.isSetMetaDataProperty();
-	}
+    public void unsetDescription() {
+        cityModel.unsetDescription();
+    }
 
-	public List<MetaDataProperty> getMetaDataProperty() {
-		return cityModel.getMetaDataProperty();
-	}
+    public boolean isSetMetaDataProperty() {
+        return cityModel.isSetMetaDataProperty();
+    }
 
-	public void addMetaDataProperty(MetaDataProperty metaDataProperty) {
-		cityModel.addMetaDataProperty(metaDataProperty);
-	}
+    public List<MetaDataProperty> getMetaDataProperty() {
+        return cityModel.getMetaDataProperty();
+    }
 
-	public void setMetaDataProperty(List<MetaDataProperty> metaDataProperty) {
-		cityModel.setMetaDataProperty(metaDataProperty);
-	}
+    public void addMetaDataProperty(MetaDataProperty metaDataProperty) {
+        cityModel.addMetaDataProperty(metaDataProperty);
+    }
 
-	public void unsetMetaDataProperty() {
-		cityModel.unsetMetaDataProperty();
-	}
+    public void setMetaDataProperty(List<MetaDataProperty> metaDataProperty) {
+        cityModel.setMetaDataProperty(metaDataProperty);
+    }
 
-	public boolean unsetMetaDataProperty(MetaDataProperty metaDataProperty) {
-		return cityModel.unsetMetaDataProperty(metaDataProperty);
-	}
+    public void unsetMetaDataProperty() {
+        cityModel.unsetMetaDataProperty();
+    }
 
-	public boolean isSetBoundedBy() {
-		return cityModel.isSetBoundedBy();
-	}
+    public boolean unsetMetaDataProperty(MetaDataProperty metaDataProperty) {
+        return cityModel.unsetMetaDataProperty(metaDataProperty);
+    }
 
-	public BoundingShape getBoundedBy() {
-		return cityModel.getBoundedBy();
-	}
+    public boolean isSetBoundedBy() {
+        return cityModel.isSetBoundedBy();
+    }
 
-	public void setBoundedBy(BoundingShape boundingBy) {
-		cityModel.setBoundedBy(boundingBy);
-	}
+    public BoundingShape getBoundedBy() {
+        return cityModel.getBoundedBy();
+    }
 
-	public void unsetBoundedBy() {
-		cityModel.unsetBoundedBy();
-	}
+    public void setBoundedBy(BoundingShape boundingBy) {
+        cityModel.setBoundedBy(boundingBy);
+    }
 
-	public boolean isSetLocation() {
-		return cityModel.isSetLocation();
-	}
+    public void unsetBoundedBy() {
+        cityModel.unsetBoundedBy();
+    }
 
-	public LocationProperty getLocation() {
-		return cityModel.getLocation();
-	}
+    public boolean isSetLocation() {
+        return cityModel.isSetLocation();
+    }
 
-	public void setLocation(LocationProperty location) {
-		cityModel.setLocation(location);
-	}
-	
-	public void unsetLocation() {
-		cityModel.unsetLocation();
-	}
+    public LocationProperty getLocation() {
+        return cityModel.getLocation();
+    }
 
-	public boolean isSetGenericApplicationPropertyOfCityModel() {
-		return cityModel.isSetGenericApplicationPropertyOfCityModel();
-	}
+    public void setLocation(LocationProperty location) {
+        cityModel.setLocation(location);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfCityModel() {
-		return cityModel.getGenericApplicationPropertyOfCityModel();
-	}
+    public void unsetLocation() {
+        cityModel.unsetLocation();
+    }
 
-	public void addGenericApplicationPropertyOfCityModel(ADEComponent ade) {
-		cityModel.addGenericApplicationPropertyOfCityModel(ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfCityModel() {
+        return cityModel.isSetGenericApplicationPropertyOfCityModel();
+    }
 
-	public void setGenericApplicationPropertyOfCityModel(List<ADEComponent> ade) {
-		cityModel.setGenericApplicationPropertyOfCityModel(ade);
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfCityModel() {
+        return cityModel.getGenericApplicationPropertyOfCityModel();
+    }
 
-	public void unsetGenericApplicationPropertyOfCityModel() {
-		cityModel.unsetGenericApplicationPropertyOfCityModel();
-	}
+    public void addGenericApplicationPropertyOfCityModel(ADEComponent ade) {
+        cityModel.addGenericApplicationPropertyOfCityModel(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfCityModel(ADEComponent ade) {
-		return cityModel.unsetGenericApplicationPropertyOfCityModel(ade);
-	}
+    public void setGenericApplicationPropertyOfCityModel(List<ADEComponent> ade) {
+        cityModel.setGenericApplicationPropertyOfCityModel(ade);
+    }
 
-	public boolean isSetGenericADEElement() {
-		return cityModel.isSetGenericADEElement();
-	}
+    public void unsetGenericApplicationPropertyOfCityModel() {
+        cityModel.unsetGenericApplicationPropertyOfCityModel();
+    }
 
-	public List<ADEGenericElement> getGenericADEElement() {
-		return cityModel.getGenericADEElement();
-	}
+    public boolean unsetGenericApplicationPropertyOfCityModel(ADEComponent ade) {
+        return cityModel.unsetGenericApplicationPropertyOfCityModel(ade);
+    }
 
-	public void addGenericADEElement(ADEGenericElement genericADEElement) {
-		cityModel.addGenericADEElement(genericADEElement);
-	}
+    public boolean isSetGenericADEElement() {
+        return cityModel.isSetGenericADEElement();
+    }
 
-	public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
-		cityModel.setGenericADEElement(genericADEElement);
-	}
+    public List<ADEGenericElement> getGenericADEElement() {
+        return cityModel.getGenericADEElement();
+    }
 
-	public void unsetGenericADEElement() {
-		cityModel.unsetGenericADEElement();
-	}
+    public void addGenericADEElement(ADEGenericElement genericADEElement) {
+        cityModel.addGenericADEElement(genericADEElement);
+    }
 
-	public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
-		return cityModel.unsetGenericADEElement(genericADEElement);
-	}
+    public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
+        cityModel.setGenericADEElement(genericADEElement);
+    }
 
-	public CityModel toCityModel() {
-		CityModel cityModel = new CityModel();
-		ShallowCopyBuilder builder = new ShallowCopyBuilder();
+    public void unsetGenericADEElement() {
+        cityModel.unsetGenericADEElement();
+    }
 
-		if (isSetId())
-			cityModel.setId(getId());
+    public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
+        return cityModel.unsetGenericADEElement(genericADEElement);
+    }
 
-		if (isSetName())
-			cityModel.setName(new ArrayList<>(getName()));
+    public CityModel toCityModel() {
+        CityModel cityModel = new CityModel();
+        ShallowCopyBuilder builder = new ShallowCopyBuilder();
 
-		if (isSetDescription())
-			cityModel.setDescription((StringOrRef) getDescription().copy(builder));
+        if (isSetId())
+            cityModel.setId(getId());
 
-		if (isSetMetaDataProperty())
-			cityModel.setMetaDataProperty(new ArrayList<>(getMetaDataProperty()));
+        if (isSetName())
+            cityModel.setName(new ArrayList<>(getName()));
 
-		if (isSetBoundedBy())
-			cityModel.setBoundedBy((BoundingShape) getBoundedBy().copy(builder));
+        if (isSetDescription())
+            cityModel.setDescription((StringOrRef) getDescription().copy(builder));
 
-		if (isSetLocation())
-			cityModel.setLocation((LocationProperty) getLocation().copy(builder));
-		
-		if (isSetGenericApplicationPropertyOfCityModel())
-			cityModel.setGenericApplicationPropertyOfCityModel(new ArrayList<>(getGenericApplicationPropertyOfCityModel()));
-		
-		if (isSetGenericADEElement())
-			cityModel.setGenericADEElement(new ArrayList<>(getGenericADEElement()));
-		
-		return cityModel;
-	}
-	
+        if (isSetMetaDataProperty())
+            cityModel.setMetaDataProperty(new ArrayList<>(getMetaDataProperty()));
+
+        if (isSetBoundedBy())
+            cityModel.setBoundedBy((BoundingShape) getBoundedBy().copy(builder));
+
+        if (isSetLocation())
+            cityModel.setLocation((LocationProperty) getLocation().copy(builder));
+
+        if (isSetGenericApplicationPropertyOfCityModel())
+            cityModel.setGenericApplicationPropertyOfCityModel(new ArrayList<>(getGenericApplicationPropertyOfCityModel()));
+
+        if (isSetGenericADEElement())
+            cityModel.setGenericADEElement(new ArrayList<>(getGenericADEElement()));
+
+        return cityModel;
+    }
+
 }

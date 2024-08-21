@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class InteriorHollowSpaceProperty extends FeatureProperty<HollowSpace> implements TunnelModuleComponent {
 
-	public InteriorHollowSpaceProperty() {
-		
-	}
-	
-	public InteriorHollowSpaceProperty(HollowSpace hollowSpace) {
-		super(hollowSpace);
-	}
-	
-	public InteriorHollowSpaceProperty(String href) {
-		super(href);
-	}
-	
-	public HollowSpace getHollowSpace() {
-		return super.getObject();
-	}
+    public InteriorHollowSpaceProperty() {
 
-	public boolean isSetHollowSpace() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setHollowSpace(HollowSpace hollowSpace) {
-		super.setObject(hollowSpace);
-	}
+    public InteriorHollowSpaceProperty(HollowSpace hollowSpace) {
+        super(hollowSpace);
+    }
 
-	public void unsetHollowSpace() {
-		super.unsetObject();
-	}
+    public InteriorHollowSpaceProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_HOLLOW_SPACE_PROPERTY;
-	}
+    public HollowSpace getHollowSpace() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<HollowSpace> getAssociableClass() {
-		return HollowSpace.class;
-	}
+    public boolean isSetHollowSpace() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new InteriorHollowSpaceProperty(), copyBuilder);
-	}
+    public void setHollowSpace(HollowSpace hollowSpace) {
+        super.setObject(hollowSpace);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		InteriorHollowSpaceProperty copy = (target == null) ? new InteriorHollowSpaceProperty() : (InteriorHollowSpaceProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetHollowSpace() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INTERIOR_HOLLOW_SPACE_PROPERTY;
+    }
+
+    @Override
+    public Class<HollowSpace> getAssociableClass() {
+        return HollowSpace.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new InteriorHollowSpaceProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        InteriorHollowSpaceProperty copy = (target == null) ? new InteriorHollowSpaceProperty() : (InteriorHollowSpaceProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

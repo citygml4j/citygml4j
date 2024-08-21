@@ -21,24 +21,24 @@ package org.citygml4j.model.module.ade;
 import org.citygml4j.model.module.ModuleVersion;
 
 public class ADEModuleVersion implements ModuleVersion {
-	private final String value;
-	
-	public ADEModuleVersion(String value) {
-		this.value = value != null ? value : "undefined";
-	}
-	
-	ADEModuleVersion() {
-		this("undefined");
-	}
+    private final String value;
 
-	@Override
-	public String getVersionString() {
-		return value;
-	}
+    public ADEModuleVersion(String value) {
+        this.value = value != null ? value : "undefined";
+    }
 
-	@Override
-	public String toString() {
-		return value;
-	}
+    ADEModuleVersion() {
+        this("undefined");
+    }
+
+    @Override
+    public String getVersionString() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 
 }

@@ -24,68 +24,68 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.module.Module;
 
 public abstract class AbstractCoverage extends AbstractFeature {
-	private RangeSet rangeSet;
-	private Integer dimension;
+    private RangeSet rangeSet;
+    private Integer dimension;
 
-	public AbstractCoverage() {
+    public AbstractCoverage() {
 
-	}
+    }
 
-	public AbstractCoverage(Module module) {
-		super(module);
-	}
-	
-	public RangeSet getRangeSet() {
-		return rangeSet;
-	}
-	
-	public Integer getDimension() {
-		return dimension;
-	}
+    public AbstractCoverage(Module module) {
+        super(module);
+    }
 
-	public boolean isSetRangeSet() {
-		return rangeSet != null;
-	}
-	
-	public boolean isSetDimension() {
-		return dimension != null;
-	}
-	
-	public void setRangeSet(RangeSet rangeSet) {
-		this.rangeSet = ModelObjects.setParent(rangeSet, this);
-	}
+    public RangeSet getRangeSet() {
+        return rangeSet;
+    }
 
-	public void setDimension(Integer dimension) {
-		if (dimension > 0)
-			this.dimension = dimension;
-	}
-	
-	public void unsetRangeSet() {
-		rangeSet = ModelObjects.setNull(rangeSet);
-	}
+    public Integer getDimension() {
+        return dimension;
+    }
 
-	public void unsetDimension() {
-		dimension = null;
-	}
-	
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public boolean isSetRangeSet() {
+        return rangeSet != null;
+    }
 
-		AbstractCoverage copy = (AbstractCoverage)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetRangeSet()) {
-			copy.setRangeSet((RangeSet)copyBuilder.copy(rangeSet));
-			if (copy.getRangeSet() == rangeSet)
-				rangeSet.setParent(this);
-		}
-		
-		if (isSetDimension())
-			copy.setDimension((Integer)copyBuilder.copy(dimension));
-		
-		return copy;
-	}
-	
+    public boolean isSetDimension() {
+        return dimension != null;
+    }
+
+    public void setRangeSet(RangeSet rangeSet) {
+        this.rangeSet = ModelObjects.setParent(rangeSet, this);
+    }
+
+    public void setDimension(Integer dimension) {
+        if (dimension > 0)
+            this.dimension = dimension;
+    }
+
+    public void unsetRangeSet() {
+        rangeSet = ModelObjects.setNull(rangeSet);
+    }
+
+    public void unsetDimension() {
+        dimension = null;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractCoverage copy = (AbstractCoverage) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetRangeSet()) {
+            copy.setRangeSet((RangeSet) copyBuilder.copy(rangeSet));
+            if (copy.getRangeSet() == rangeSet)
+                rangeSet.setParent(this);
+        }
+
+        if (isSetDimension())
+            copy.setDimension((Integer) copyBuilder.copy(dimension));
+
+        return copy;
+    }
+
 }

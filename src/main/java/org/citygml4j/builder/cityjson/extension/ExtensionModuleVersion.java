@@ -21,54 +21,54 @@ package org.citygml4j.builder.cityjson.extension;
 import org.citygml4j.model.module.ModuleVersion;
 
 public class ExtensionModuleVersion implements ModuleVersion {
-	private final int major;
-	private final int minor;
-	private final int patch;
-	private final String additionalLabel;
+    private final int major;
+    private final int minor;
+    private final int patch;
+    private final String additionalLabel;
 
-	public ExtensionModuleVersion(int major, int minor, int patch, String additionalLabel) {
-		this.major = major;
-		this.minor = minor;
-		this.patch = patch;
-		this.additionalLabel = additionalLabel;
-	}
+    public ExtensionModuleVersion(int major, int minor, int patch, String additionalLabel) {
+        this.major = major;
+        this.minor = minor;
+        this.patch = patch;
+        this.additionalLabel = additionalLabel;
+    }
 
-	public ExtensionModuleVersion(int major, int minor, int patch) {
-		this(major, minor, patch, null);
-	}
+    public ExtensionModuleVersion(int major, int minor, int patch) {
+        this(major, minor, patch, null);
+    }
 
-	public ExtensionModuleVersion(int major, int minor) {
-		this(major, minor, 0, null);
-	}
+    public ExtensionModuleVersion(int major, int minor) {
+        this(major, minor, 0, null);
+    }
 
-	public int getMajor() {
-		return major;
-	}
+    public int getMajor() {
+        return major;
+    }
 
-	public int getMinor() {
-		return minor;
-	}
+    public int getMinor() {
+        return minor;
+    }
 
-	public int getPatch() {
-		return patch;
-	}
+    public int getPatch() {
+        return patch;
+    }
 
-	public String getAdditionalLabel() {
-		return additionalLabel;
-	}
+    public String getAdditionalLabel() {
+        return additionalLabel;
+    }
 
-	@Override
-	public String getVersionString() {
-		StringBuilder version = new StringBuilder(major).append(".").append(minor).append(patch);
-		if (additionalLabel != null)
-			version.append(additionalLabel);
+    @Override
+    public String getVersionString() {
+        StringBuilder version = new StringBuilder(major).append(".").append(minor).append(patch);
+        if (additionalLabel != null)
+            version.append(additionalLabel);
 
-		return version.toString();
-	}
+        return version.toString();
+    }
 
-	@Override
-	public String toString() {
-		return getVersionString();
-	}
+    @Override
+    public String toString() {
+        return getVersionString();
+    }
 
 }

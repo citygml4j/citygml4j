@@ -31,162 +31,162 @@ import org.citygml4j.model.gml.basicTypes.IntegerOrNullList;
 import org.citygml4j.model.gml.basicTypes.MeasureOrNullList;
 
 public class ScalarValueList implements GML, Child, Copyable {
-	private BooleanOrNullList booleanList;
-	private CodeOrNullList categoryList;
-	private MeasureOrNullList quantityList;
-	private IntegerOrNullList countList;
-	private ModelObject parent;
-	
-	public ScalarValueList() {
-		
-	}
-	
-	public ScalarValueList(BooleanOrNullList booleanList) {
-		setBooleanList(booleanList);
-	}
-	
-	public ScalarValueList(CodeOrNullList categoryList) {
-		setCategoryList(categoryList);
-	}
-	
-	public ScalarValueList(MeasureOrNullList quantityList) {
-		setQuantityList(quantityList);
-	}
-	
-	public ScalarValueList(IntegerOrNullList countList) {
-		setCountList(countList);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.SCALAR_VALUE_LIST;
-	}
+    private BooleanOrNullList booleanList;
+    private CodeOrNullList categoryList;
+    private MeasureOrNullList quantityList;
+    private IntegerOrNullList countList;
+    private ModelObject parent;
 
-	public BooleanOrNullList getBooleanList() {
-		return booleanList;
-	}
+    public ScalarValueList() {
 
-	public CodeOrNullList getCategoryList() {
-		return categoryList;
-	}
+    }
 
-	public MeasureOrNullList getQuantityList() {
-		return quantityList;
-	}
+    public ScalarValueList(BooleanOrNullList booleanList) {
+        setBooleanList(booleanList);
+    }
 
-	public IntegerOrNullList getCountList() {
-		return countList;
-	}
+    public ScalarValueList(CodeOrNullList categoryList) {
+        setCategoryList(categoryList);
+    }
 
-	public boolean isSetBooleanList() {
-		return booleanList != null;
-	}
+    public ScalarValueList(MeasureOrNullList quantityList) {
+        setQuantityList(quantityList);
+    }
 
-	public boolean isSetCategoryList() {
-		return categoryList != null;
-	}
+    public ScalarValueList(IntegerOrNullList countList) {
+        setCountList(countList);
+    }
 
-	public boolean isSetQuantityList() {
-		return quantityList != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SCALAR_VALUE_LIST;
+    }
 
-	public boolean isSetCountList() {
-		return countList != null;
-	}
+    public BooleanOrNullList getBooleanList() {
+        return booleanList;
+    }
 
-	public void setBooleanList(BooleanOrNullList booleanList) {
-		this.booleanList = ModelObjects.setParent(booleanList, this);
-		unsetCategoryList();
-		unsetCountList();
-		unsetQuantityList();
-	}
+    public CodeOrNullList getCategoryList() {
+        return categoryList;
+    }
 
-	public void setCategoryList(CodeOrNullList categoryList) {
-		this.categoryList = ModelObjects.setParent(categoryList, this);
-		unsetBooleanList();
-		unsetCountList();
-		unsetQuantityList();
-	}
+    public MeasureOrNullList getQuantityList() {
+        return quantityList;
+    }
 
-	public void setQuantityList(MeasureOrNullList quantityList) {
-		this.quantityList = ModelObjects.setParent(quantityList, this);
-		unsetBooleanList();
-		unsetCategoryList();
-		unsetCountList();
-	}
+    public IntegerOrNullList getCountList() {
+        return countList;
+    }
 
-	public void setCountList(IntegerOrNullList countList) {
-		this.countList = ModelObjects.setParent(countList, this);
-		unsetBooleanList();
-		unsetCategoryList();
-		unsetQuantityList();
-	}
+    public boolean isSetBooleanList() {
+        return booleanList != null;
+    }
 
-	public void unsetBooleanList() {
-		booleanList = ModelObjects.setNull(booleanList);
-	}
+    public boolean isSetCategoryList() {
+        return categoryList != null;
+    }
 
-	public void unsetCategoryList() {
-		categoryList = ModelObjects.setNull(categoryList);
-	}
+    public boolean isSetQuantityList() {
+        return quantityList != null;
+    }
 
-	public void unsetQuantityList() {
-		quantityList = ModelObjects.setNull(quantityList);
-	}
+    public boolean isSetCountList() {
+        return countList != null;
+    }
 
-	public void unsetCountList() {
-		countList = ModelObjects.setNull(countList);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setBooleanList(BooleanOrNullList booleanList) {
+        this.booleanList = ModelObjects.setParent(booleanList, this);
+        unsetCategoryList();
+        unsetCountList();
+        unsetQuantityList();
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setCategoryList(CodeOrNullList categoryList) {
+        this.categoryList = ModelObjects.setParent(categoryList, this);
+        unsetBooleanList();
+        unsetCountList();
+        unsetQuantityList();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setQuantityList(MeasureOrNullList quantityList) {
+        this.quantityList = ModelObjects.setParent(quantityList, this);
+        unsetBooleanList();
+        unsetCategoryList();
+        unsetCountList();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ScalarValueList copy = (target == null) ? new ScalarValueList() : (ScalarValueList)target;
-		
-		if (isSetBooleanList()) {
-			copy.setBooleanList((BooleanOrNullList)copyBuilder.copy(booleanList));
-			if (copy.getBooleanList() == booleanList)
-				booleanList.setParent(this);
-		}
-		
-		if (isSetCategoryList()) {
-			copy.setCategoryList((CodeOrNullList)copyBuilder.copy(categoryList));
-			if (copy.getCategoryList() == categoryList)
-				categoryList.setParent(this);
-		}
-		
-		if (isSetQuantityList()) {
-			copy.setQuantityList((MeasureOrNullList)copyBuilder.copy(quantityList));
-			if (copy.getQuantityList() == quantityList)
-				quantityList.setParent(this);
-		}
-		
-		if (isSetCountList()) {
-			copy.setCountList((IntegerOrNullList)copyBuilder.copy(countList));
-			if (copy.getCountList() == countList)
-				countList.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setCountList(IntegerOrNullList countList) {
+        this.countList = ModelObjects.setParent(countList, this);
+        unsetBooleanList();
+        unsetCategoryList();
+        unsetQuantityList();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ScalarValueList(), copyBuilder);
-	}
+    public void unsetBooleanList() {
+        booleanList = ModelObjects.setNull(booleanList);
+    }
+
+    public void unsetCategoryList() {
+        categoryList = ModelObjects.setNull(categoryList);
+    }
+
+    public void unsetQuantityList() {
+        quantityList = ModelObjects.setNull(quantityList);
+    }
+
+    public void unsetCountList() {
+        countList = ModelObjects.setNull(countList);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ScalarValueList copy = (target == null) ? new ScalarValueList() : (ScalarValueList) target;
+
+        if (isSetBooleanList()) {
+            copy.setBooleanList((BooleanOrNullList) copyBuilder.copy(booleanList));
+            if (copy.getBooleanList() == booleanList)
+                booleanList.setParent(this);
+        }
+
+        if (isSetCategoryList()) {
+            copy.setCategoryList((CodeOrNullList) copyBuilder.copy(categoryList));
+            if (copy.getCategoryList() == categoryList)
+                categoryList.setParent(this);
+        }
+
+        if (isSetQuantityList()) {
+            copy.setQuantityList((MeasureOrNullList) copyBuilder.copy(quantityList));
+            if (copy.getQuantityList() == quantityList)
+                quantityList.setParent(this);
+        }
+
+        if (isSetCountList()) {
+            copy.setCountList((IntegerOrNullList) copyBuilder.copy(countList));
+            if (copy.getCountList() == countList)
+                countList.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ScalarValueList(), copyBuilder);
+    }
 
 }

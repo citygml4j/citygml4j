@@ -28,86 +28,86 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextureCoordinates implements AppearanceModuleComponent, Child, Copyable {
-	private List<Double> value;
-	private String ring;
-	private ModelObject parent;
-	
-	public void addValue(Double value) {
-		getValue().add(value);
-	}
+    private List<Double> value;
+    private String ring;
+    private ModelObject parent;
 
-	public String getRing() {
-		return ring;
-	}
+    public void addValue(Double value) {
+        getValue().add(value);
+    }
 
-	public List<Double> getValue() {
-		if (value == null)
-			value = new ArrayList<>();
-		
-		return value;
-	}
+    public String getRing() {
+        return ring;
+    }
 
-	public boolean isSetRing() {
-		return ring != null;
-	}
+    public List<Double> getValue() {
+        if (value == null)
+            value = new ArrayList<>();
 
-	public boolean isSetValue() {
-		return value != null && !value.isEmpty();
-	}
+        return value;
+    }
 
-	public void setRing(String ring) {
-		this.ring = ring;
-	}
+    public boolean isSetRing() {
+        return ring != null;
+    }
 
-	public void setValue(List<Double> value) {
-		this.value = value;
-	}
+    public boolean isSetValue() {
+        return value != null && !value.isEmpty();
+    }
 
-	public void unsetRing() {
-		ring = null;
-	}
+    public void setRing(String ring) {
+        this.ring = ring;
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public void setValue(List<Double> value) {
+        this.value = value;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEXTURE_COORDINATES;
-	}
+    public void unsetRing() {
+        ring = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TEXTURE_COORDINATES;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TextureCoordinates(), copyBuilder);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TextureCoordinates copy = (target == null) ? new TextureCoordinates() : (TextureCoordinates)target;
-		
-		if (isSetValue())
-			copy.setValue((List<Double>)copyBuilder.copy(value));
-		
-		if (isSetRing())
-			copy.setRing(copyBuilder.copy(ring));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TextureCoordinates(), copyBuilder);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TextureCoordinates copy = (target == null) ? new TextureCoordinates() : (TextureCoordinates) target;
+
+        if (isSetValue())
+            copy.setValue((List<Double>) copyBuilder.copy(value));
+
+        if (isSetRing())
+            copy.setRing(copyBuilder.copy(ring));
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

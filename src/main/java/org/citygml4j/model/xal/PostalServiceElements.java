@@ -30,326 +30,326 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class PostalServiceElements implements XAL, Child, Copyable {
-	private List<AddressIdentifier> addressIdentifier;
-	private EndorsementLineCode endorsementLineCode;
-	private KeyLineCode keyLineCode;
-	private Barcode barcode;
-	private SortingCode sortingCode;
-	private AddressLatitude addressLatitude;
-	private AddressLatitudeDirection addressLatitudeDirection;
-	private AddressLongitude addressLongitude;
-	private AddressLongitudeDirection addressLongitudeDirection;
-	private List<SupplementaryPostalServiceData> supplementaryPostalServiceData;
-	private String type;
-	private ModelObject parent;
-	
-	public void addAddressIdentifier(AddressIdentifier addressIdentifier) {
-		getAddressIdentifier().add(addressIdentifier);
-	}
+    private List<AddressIdentifier> addressIdentifier;
+    private EndorsementLineCode endorsementLineCode;
+    private KeyLineCode keyLineCode;
+    private Barcode barcode;
+    private SortingCode sortingCode;
+    private AddressLatitude addressLatitude;
+    private AddressLatitudeDirection addressLatitudeDirection;
+    private AddressLongitude addressLongitude;
+    private AddressLongitudeDirection addressLongitudeDirection;
+    private List<SupplementaryPostalServiceData> supplementaryPostalServiceData;
+    private String type;
+    private ModelObject parent;
 
-	public void addSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
-		getSupplementaryPostalServiceData().add(supplementaryPostalServiceData);
-	}
+    public void addAddressIdentifier(AddressIdentifier addressIdentifier) {
+        getAddressIdentifier().add(addressIdentifier);
+    }
 
-	public List<AddressIdentifier> getAddressIdentifier() {
-		if (addressIdentifier == null)
-			addressIdentifier = new ChildList<>(this);
-		
-		return addressIdentifier;
-	}
+    public void addSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
+        getSupplementaryPostalServiceData().add(supplementaryPostalServiceData);
+    }
 
-	public AddressLatitude getAddressLatitude() {
-		return addressLatitude;
-	}
+    public List<AddressIdentifier> getAddressIdentifier() {
+        if (addressIdentifier == null)
+            addressIdentifier = new ChildList<>(this);
 
-	public AddressLatitudeDirection getAddressLatitudeDirection() {
-		return addressLatitudeDirection;
-	}
+        return addressIdentifier;
+    }
 
-	public AddressLongitude getAddressLongitude() {
-		return addressLongitude;
-	}
+    public AddressLatitude getAddressLatitude() {
+        return addressLatitude;
+    }
 
-	public AddressLongitudeDirection getAddressLongitudeDirection() {
-		return addressLongitudeDirection;
-	}
+    public AddressLatitudeDirection getAddressLatitudeDirection() {
+        return addressLatitudeDirection;
+    }
 
-	public Barcode getBarcode() {
-		return barcode;
-	}
+    public AddressLongitude getAddressLongitude() {
+        return addressLongitude;
+    }
 
-	public EndorsementLineCode getEndorsementLineCode() {
-		return endorsementLineCode;
-	}
+    public AddressLongitudeDirection getAddressLongitudeDirection() {
+        return addressLongitudeDirection;
+    }
 
-	public KeyLineCode getKeyLineCode() {
-		return keyLineCode;
-	}
+    public Barcode getBarcode() {
+        return barcode;
+    }
 
-	public SortingCode getSortingCode() {
-		return sortingCode;
-	}
+    public EndorsementLineCode getEndorsementLineCode() {
+        return endorsementLineCode;
+    }
 
-	public List<SupplementaryPostalServiceData> getSupplementaryPostalServiceData() {
-		if (supplementaryPostalServiceData == null)
-			supplementaryPostalServiceData = new ChildList<>(this);
-		
-		return supplementaryPostalServiceData;
-	}
+    public KeyLineCode getKeyLineCode() {
+        return keyLineCode;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public SortingCode getSortingCode() {
+        return sortingCode;
+    }
 
-	public boolean isSetAddressIdentifier() {
-		return addressIdentifier != null && !addressIdentifier.isEmpty();
-	}
+    public List<SupplementaryPostalServiceData> getSupplementaryPostalServiceData() {
+        if (supplementaryPostalServiceData == null)
+            supplementaryPostalServiceData = new ChildList<>(this);
 
-	public boolean isSetAddressLatitude() {
-		return addressLatitude != null;
-	}
+        return supplementaryPostalServiceData;
+    }
 
-	public boolean isSetAddressLatitudeDirection() {
-		return addressLatitudeDirection != null;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetAddressLongitude() {
-		return addressLongitude != null;
-	}
+    public boolean isSetAddressIdentifier() {
+        return addressIdentifier != null && !addressIdentifier.isEmpty();
+    }
 
-	public boolean isSetAddressLongitudeDirection() {
-		return addressLongitudeDirection != null;
-	}
+    public boolean isSetAddressLatitude() {
+        return addressLatitude != null;
+    }
 
-	public boolean isSetBarcode() {
-		return barcode != null;
-	}
+    public boolean isSetAddressLatitudeDirection() {
+        return addressLatitudeDirection != null;
+    }
 
-	public boolean isSetEndorsementLineCode() {
-		return endorsementLineCode != null;
-	}
+    public boolean isSetAddressLongitude() {
+        return addressLongitude != null;
+    }
 
-	public boolean isSetKeyLineCode() {
-		return keyLineCode != null;
-	}
+    public boolean isSetAddressLongitudeDirection() {
+        return addressLongitudeDirection != null;
+    }
 
-	public boolean isSetSortingCode() {
-		return sortingCode != null;
-	}
+    public boolean isSetBarcode() {
+        return barcode != null;
+    }
 
-	public boolean isSetSupplementaryPostalServiceData() {
-		return supplementaryPostalServiceData != null && !supplementaryPostalServiceData.isEmpty();
-	}
+    public boolean isSetEndorsementLineCode() {
+        return endorsementLineCode != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetKeyLineCode() {
+        return keyLineCode != null;
+    }
 
-	public void setAddressIdentifier(List<AddressIdentifier> addressIdentifier) {
-		this.addressIdentifier = new ChildList<>(this, addressIdentifier);
-	}
+    public boolean isSetSortingCode() {
+        return sortingCode != null;
+    }
 
-	public void setAddressLatitude(AddressLatitude addressLatitude) {
-		this.addressLatitude = ModelObjects.setParent(addressLatitude, this);
-	}
+    public boolean isSetSupplementaryPostalServiceData() {
+        return supplementaryPostalServiceData != null && !supplementaryPostalServiceData.isEmpty();
+    }
 
-	public void setAddressLatitudeDirection(AddressLatitudeDirection addressLatitudeDirection) {
-		this.addressLatitudeDirection = ModelObjects.setParent(addressLatitudeDirection, this);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setAddressLongitude(AddressLongitude addressLongitude) {
-		this.addressLongitude = ModelObjects.setParent(addressLongitude, this);
-	}
+    public void setAddressIdentifier(List<AddressIdentifier> addressIdentifier) {
+        this.addressIdentifier = new ChildList<>(this, addressIdentifier);
+    }
 
-	public void setAddressLongitudeDirection(AddressLongitudeDirection addressLongitudeDirection) {
-		this.addressLongitudeDirection = ModelObjects.setParent(addressLongitudeDirection, this);
-	}
+    public void setAddressLatitude(AddressLatitude addressLatitude) {
+        this.addressLatitude = ModelObjects.setParent(addressLatitude, this);
+    }
 
-	public void setBarcode(Barcode barcode) {
-		this.barcode = ModelObjects.setParent(barcode, this);
-	}
+    public void setAddressLatitudeDirection(AddressLatitudeDirection addressLatitudeDirection) {
+        this.addressLatitudeDirection = ModelObjects.setParent(addressLatitudeDirection, this);
+    }
 
-	public void setEndorsementLineCode(EndorsementLineCode endorsementLineCode) {
-		this.endorsementLineCode = ModelObjects.setParent(endorsementLineCode, this);
-	}
+    public void setAddressLongitude(AddressLongitude addressLongitude) {
+        this.addressLongitude = ModelObjects.setParent(addressLongitude, this);
+    }
 
-	public void setKeyLineCode(KeyLineCode keyLineCode) {
-		this.keyLineCode = ModelObjects.setParent(keyLineCode, this);
-	}
+    public void setAddressLongitudeDirection(AddressLongitudeDirection addressLongitudeDirection) {
+        this.addressLongitudeDirection = ModelObjects.setParent(addressLongitudeDirection, this);
+    }
 
-	public void setSortingCode(SortingCode sortingCode) {
-		this.sortingCode = ModelObjects.setParent(sortingCode, this);
-	}
+    public void setBarcode(Barcode barcode) {
+        this.barcode = ModelObjects.setParent(barcode, this);
+    }
 
-	public void setSupplementaryPostalServiceData(List<SupplementaryPostalServiceData> supplementaryPostalServiceData) {
-		this.supplementaryPostalServiceData = new ChildList<>(this, supplementaryPostalServiceData);
-	}
+    public void setEndorsementLineCode(EndorsementLineCode endorsementLineCode) {
+        this.endorsementLineCode = ModelObjects.setParent(endorsementLineCode, this);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setKeyLineCode(KeyLineCode keyLineCode) {
+        this.keyLineCode = ModelObjects.setParent(keyLineCode, this);
+    }
 
-	public void unsetAddressIdentifier() {
-		addressIdentifier = ModelObjects.setNull(addressIdentifier);
-	}
+    public void setSortingCode(SortingCode sortingCode) {
+        this.sortingCode = ModelObjects.setParent(sortingCode, this);
+    }
 
-	public boolean unsetAddressIdentifier(AddressIdentifier addressIdentifier) {
-		return isSetAddressIdentifier() && this.addressIdentifier.remove(addressIdentifier);
-	}
+    public void setSupplementaryPostalServiceData(List<SupplementaryPostalServiceData> supplementaryPostalServiceData) {
+        this.supplementaryPostalServiceData = new ChildList<>(this, supplementaryPostalServiceData);
+    }
 
-	public void unsetAddressLatitude() {
-		addressLatitude = ModelObjects.setNull(addressLatitude);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetAddressLatitudeDirection() {
-		addressLatitudeDirection = ModelObjects.setNull(addressLatitudeDirection);
-	}
+    public void unsetAddressIdentifier() {
+        addressIdentifier = ModelObjects.setNull(addressIdentifier);
+    }
 
-	public void unsetAddressLongitude() {
-		addressLongitude = ModelObjects.setNull(addressLongitude);
-	}
+    public boolean unsetAddressIdentifier(AddressIdentifier addressIdentifier) {
+        return isSetAddressIdentifier() && this.addressIdentifier.remove(addressIdentifier);
+    }
 
-	public void unsetAddressLongitudeDirection() {
-		addressLongitudeDirection = ModelObjects.setNull(addressLongitudeDirection);
-	}
+    public void unsetAddressLatitude() {
+        addressLatitude = ModelObjects.setNull(addressLatitude);
+    }
 
-	public void unsetBarcode() {
-		barcode = ModelObjects.setNull(barcode);
-	}
+    public void unsetAddressLatitudeDirection() {
+        addressLatitudeDirection = ModelObjects.setNull(addressLatitudeDirection);
+    }
 
-	public void unsetEndorsementLineCode() {
-		endorsementLineCode = ModelObjects.setNull(endorsementLineCode);
-	}
+    public void unsetAddressLongitude() {
+        addressLongitude = ModelObjects.setNull(addressLongitude);
+    }
 
-	public void unsetKeyLineCode() {
-		keyLineCode = ModelObjects.setNull(keyLineCode);
-	}
+    public void unsetAddressLongitudeDirection() {
+        addressLongitudeDirection = ModelObjects.setNull(addressLongitudeDirection);
+    }
 
-	public void unsetSortingCode() {
-		sortingCode = ModelObjects.setNull(sortingCode);
-	}
+    public void unsetBarcode() {
+        barcode = ModelObjects.setNull(barcode);
+    }
 
-	public void unsetSupplementaryPostalServiceData() {
-		supplementaryPostalServiceData = ModelObjects.setNull(supplementaryPostalServiceData);
-	}
+    public void unsetEndorsementLineCode() {
+        endorsementLineCode = ModelObjects.setNull(endorsementLineCode);
+    }
 
-	public boolean unsetSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
-		return isSetSupplementaryPostalServiceData() && this.supplementaryPostalServiceData.remove(supplementaryPostalServiceData);
-	}
+    public void unsetKeyLineCode() {
+        keyLineCode = ModelObjects.setNull(keyLineCode);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetSortingCode() {
+        sortingCode = ModelObjects.setNull(sortingCode);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POSTAL_SERVICE_ELEMENTS;
-	}
+    public void unsetSupplementaryPostalServiceData() {
+        supplementaryPostalServiceData = ModelObjects.setNull(supplementaryPostalServiceData);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public boolean unsetSupplementaryPostalServiceData(SupplementaryPostalServiceData supplementaryPostalServiceData) {
+        return isSetSupplementaryPostalServiceData() && this.supplementaryPostalServiceData.remove(supplementaryPostalServiceData);
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POSTAL_SERVICE_ELEMENTS;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostalServiceElements(), copyBuilder);
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostalServiceElements copy = (target == null) ? new PostalServiceElements() : (PostalServiceElements)target;
-		
-		if (isSetAddressIdentifier()) {
-			for (AddressIdentifier part : addressIdentifier) {
-				AddressIdentifier copyPart = (AddressIdentifier)copyBuilder.copy(part);
-				copy.addAddressIdentifier(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-		if (isSetEndorsementLineCode()) {
-			copy.setEndorsementLineCode((EndorsementLineCode)copyBuilder.copy(endorsementLineCode));
-			if (copy.getEndorsementLineCode() == endorsementLineCode)
-				endorsementLineCode.setParent(this);
-		}
-		
-		if (isSetKeyLineCode()) {
-			copy.setKeyLineCode((KeyLineCode)copyBuilder.copy(keyLineCode));
-			if (copy.getKeyLineCode() == keyLineCode)
-				keyLineCode.setParent(this);
-		}
-		
-		if (isSetBarcode()) {
-			copy.setBarcode((Barcode)copyBuilder.copy(barcode));
-			if (copy.getBarcode() == barcode)
-				barcode.setParent(this);
-		}
-		
-		if (isSetSortingCode()) {
-			copy.setSortingCode((SortingCode)copyBuilder.copy(sortingCode));
-			if (copy.getSortingCode() == sortingCode)
-				sortingCode.setParent(this);
-		}
-			
-		if (isSetAddressLatitude()) {
-			copy.setAddressLatitude((AddressLatitude)copyBuilder.copy(addressLatitude));
-			if (copy.getAddressLatitude() == addressLatitude)
-				addressLatitude.setParent(this);
-		}
+    public void unsetParent() {
+        parent = null;
+    }
 
-		if (isSetAddressLatitudeDirection()) {
-			copy.setAddressLatitudeDirection((AddressLatitudeDirection)copyBuilder.copy(addressLatitudeDirection));
-			if (copy.getAddressLatitudeDirection() == addressLatitudeDirection)
-				addressLatitudeDirection.setParent(this);
-		}		
-		
-		if (isSetAddressLongitude()) {
-			copy.setAddressLongitude((AddressLongitude)copyBuilder.copy(addressLongitude));
-			if (copy.getAddressLongitude() == addressLongitude)
-				addressLongitude.setParent(this);
-		}	
-		
-		if (isSetAddressLongitudeDirection()) {
-			copy.setAddressLongitudeDirection((AddressLongitudeDirection)copyBuilder.copy(addressLongitudeDirection));
-			if (copy.getAddressLongitudeDirection() == addressLongitudeDirection)
-				addressLongitudeDirection.setParent(this);
-		}
-		
-		if (isSetSupplementaryPostalServiceData()) {
-			for (SupplementaryPostalServiceData part : supplementaryPostalServiceData) {
-				SupplementaryPostalServiceData copyPart = (SupplementaryPostalServiceData)copyBuilder.copy(part);
-				copy.addSupplementaryPostalServiceData(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostalServiceElements(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostalServiceElements copy = (target == null) ? new PostalServiceElements() : (PostalServiceElements) target;
+
+        if (isSetAddressIdentifier()) {
+            for (AddressIdentifier part : addressIdentifier) {
+                AddressIdentifier copyPart = (AddressIdentifier) copyBuilder.copy(part);
+                copy.addAddressIdentifier(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetEndorsementLineCode()) {
+            copy.setEndorsementLineCode((EndorsementLineCode) copyBuilder.copy(endorsementLineCode));
+            if (copy.getEndorsementLineCode() == endorsementLineCode)
+                endorsementLineCode.setParent(this);
+        }
+
+        if (isSetKeyLineCode()) {
+            copy.setKeyLineCode((KeyLineCode) copyBuilder.copy(keyLineCode));
+            if (copy.getKeyLineCode() == keyLineCode)
+                keyLineCode.setParent(this);
+        }
+
+        if (isSetBarcode()) {
+            copy.setBarcode((Barcode) copyBuilder.copy(barcode));
+            if (copy.getBarcode() == barcode)
+                barcode.setParent(this);
+        }
+
+        if (isSetSortingCode()) {
+            copy.setSortingCode((SortingCode) copyBuilder.copy(sortingCode));
+            if (copy.getSortingCode() == sortingCode)
+                sortingCode.setParent(this);
+        }
+
+        if (isSetAddressLatitude()) {
+            copy.setAddressLatitude((AddressLatitude) copyBuilder.copy(addressLatitude));
+            if (copy.getAddressLatitude() == addressLatitude)
+                addressLatitude.setParent(this);
+        }
+
+        if (isSetAddressLatitudeDirection()) {
+            copy.setAddressLatitudeDirection((AddressLatitudeDirection) copyBuilder.copy(addressLatitudeDirection));
+            if (copy.getAddressLatitudeDirection() == addressLatitudeDirection)
+                addressLatitudeDirection.setParent(this);
+        }
+
+        if (isSetAddressLongitude()) {
+            copy.setAddressLongitude((AddressLongitude) copyBuilder.copy(addressLongitude));
+            if (copy.getAddressLongitude() == addressLongitude)
+                addressLongitude.setParent(this);
+        }
+
+        if (isSetAddressLongitudeDirection()) {
+            copy.setAddressLongitudeDirection((AddressLongitudeDirection) copyBuilder.copy(addressLongitudeDirection));
+            if (copy.getAddressLongitudeDirection() == addressLongitudeDirection)
+                addressLongitudeDirection.setParent(this);
+        }
+
+        if (isSetSupplementaryPostalServiceData()) {
+            for (SupplementaryPostalServiceData part : supplementaryPostalServiceData) {
+                SupplementaryPostalServiceData copyPart = (SupplementaryPostalServiceData) copyBuilder.copy(part);
+                copy.addSupplementaryPostalServiceData(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

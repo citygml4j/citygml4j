@@ -31,97 +31,97 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.basicTypes.Code;
 
 public class CityFurnitureMarshaller {
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	
-	public CityFurnitureMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
-	
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		if (src instanceof CityFurniture)
-			return marshalCityFurniture((CityFurniture) src, cityJSON);
-		
-		return null;
-	}
-	
-	public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
 
-		Attributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
+    public CityFurnitureMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        if (src instanceof CityFurniture)
+            return marshalCityFurniture((CityFurniture) src, cityJSON);
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
+        return null;
+    }
 
-		if (src.isSetGenericApplicationPropertyOfCityFurniture())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityFurniture(), dest, cityJSON);
-		
-		if (src.isSetLod1Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod2Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod3Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod1ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation(), 1, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
-		
-		if (src.isSetLod2ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
-		
-		if (src.isSetLod3ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
-	}
-	
-	public CityFurnitureType marshalCityFurniture(CityFurniture src, CityJSON cityJSON) {
-		CityFurnitureType dest = new CityFurnitureType();
-		marshalCityFurniture(src, dest, cityJSON);
-		
-		return dest;
-	}
-	
+    public void marshalCityFurniture(CityFurniture src, CityFurnitureType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+
+        Attributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
+
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetGenericApplicationPropertyOfCityFurniture())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfCityFurniture(), dest, cityJSON);
+
+        if (src.isSetLod1Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod2Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod3Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod1ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod1ImplicitRepresentation(), 1, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+
+        if (src.isSetLod2ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+
+        if (src.isSetLod3ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+    }
+
+    public CityFurnitureType marshalCityFurniture(CityFurniture src, CityJSON cityJSON) {
+        CityFurnitureType dest = new CityFurnitureType();
+        marshalCityFurniture(src, dest, cityJSON);
+
+        return dest;
+    }
+
 }

@@ -32,198 +32,198 @@ import org.citygml4j.model.gml.valueObjects.ValueArray;
 import java.util.List;
 
 public class RangeSet implements GML, Child, Copyable {
-	private List<ValueArray> valueArray;
-	private List<ScalarValueList> scalarValueList;
-	private DataBlock dataBlock;
-	private File file;
-	private ModelObject parent;
-	
-	public RangeSet() {
-		
-	}
-	
-	public RangeSet(ValueArray valueArray) {
-		addValueArray(valueArray);
-	}
-	
-	public RangeSet(ScalarValueList scalarValueList) {
-		addScalarValueList(scalarValueList);
-	}
-	
-	public RangeSet(DataBlock dataBlock) {
-		setDataBlock(dataBlock);
-	}
-	
-	public RangeSet(File file) {
-		setFile(file);
-	}
+    private List<ValueArray> valueArray;
+    private List<ScalarValueList> scalarValueList;
+    private DataBlock dataBlock;
+    private File file;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.RANGE_SET;
-	}
+    public RangeSet() {
 
-	public void addValueArray(ValueArray valueArray) {
-		getValueArray().add(valueArray);
-		unsetDataBlock();
-		unsetFile();
-		unsetScalarValueList();
-	}
+    }
 
-	public List<ValueArray> getValueArray() {
-		if (valueArray == null)
-			valueArray = new ChildList<>(this);
-		
-		return valueArray;
-	}
+    public RangeSet(ValueArray valueArray) {
+        addValueArray(valueArray);
+    }
 
-	public void addScalarValueList(ScalarValueList scalarValueList) {
-		getScalarValueList().add(scalarValueList);
-		unsetDataBlock();
-		unsetFile();
-		unsetValueArray();
-	}
+    public RangeSet(ScalarValueList scalarValueList) {
+        addScalarValueList(scalarValueList);
+    }
 
-	public List<ScalarValueList> getScalarValueList() {
-		if (scalarValueList == null)
-			scalarValueList = new ChildList<>(this);
-		
-		return scalarValueList;
-	}
+    public RangeSet(DataBlock dataBlock) {
+        setDataBlock(dataBlock);
+    }
 
-	public DataBlock getDataBlock() {
-		return dataBlock;
-	}
+    public RangeSet(File file) {
+        setFile(file);
+    }
 
-	public File getFile() {
-		return file;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.RANGE_SET;
+    }
 
-	public boolean isSetValueArray() {
-		return valueArray != null && !valueArray.isEmpty();
-	}
+    public void addValueArray(ValueArray valueArray) {
+        getValueArray().add(valueArray);
+        unsetDataBlock();
+        unsetFile();
+        unsetScalarValueList();
+    }
 
-	public boolean isSetScalarValueList() {
-		return scalarValueList != null && !scalarValueList.isEmpty();
-	}
+    public List<ValueArray> getValueArray() {
+        if (valueArray == null)
+            valueArray = new ChildList<>(this);
 
-	public boolean isSetDataBlock() {
-		return dataBlock != null;
-	}
+        return valueArray;
+    }
 
-	public boolean isSetFile() {
-		return file != null;
-	}
+    public void addScalarValueList(ScalarValueList scalarValueList) {
+        getScalarValueList().add(scalarValueList);
+        unsetDataBlock();
+        unsetFile();
+        unsetValueArray();
+    }
 
-	public void setValueArray(List<ValueArray> valueArray) {
-		this.valueArray = new ChildList<>(this, valueArray);
-		unsetDataBlock();
-		unsetFile();
-		unsetScalarValueList();
-	}
+    public List<ScalarValueList> getScalarValueList() {
+        if (scalarValueList == null)
+            scalarValueList = new ChildList<>(this);
 
-	public void setScalarValueList(List<ScalarValueList> scalarValueList) {
-		this.scalarValueList = new ChildList<>(this, scalarValueList);
-		unsetDataBlock();
-		unsetFile();
-		unsetValueArray();
-	}
+        return scalarValueList;
+    }
 
-	public void setDataBlock(DataBlock dataBlock) {
-		this.dataBlock = ModelObjects.setParent(dataBlock, this);
-		unsetFile();
-		unsetScalarValueList();
-		unsetValueArray();
-	}
+    public DataBlock getDataBlock() {
+        return dataBlock;
+    }
 
-	public void setFile(File file) {
-		this.file = ModelObjects.setParent(file, this);
-		unsetDataBlock();
-		unsetScalarValueList();
-		unsetValueArray();
-	}
+    public File getFile() {
+        return file;
+    }
 
-	public boolean unsetValueArray(ValueArray valueArray) {
-		return isSetValueArray() && this.valueArray.remove(valueArray);
-	}
+    public boolean isSetValueArray() {
+        return valueArray != null && !valueArray.isEmpty();
+    }
 
-	public void unsetValueArray() {
-		valueArray = ModelObjects.setNull(valueArray);
-	}
+    public boolean isSetScalarValueList() {
+        return scalarValueList != null && !scalarValueList.isEmpty();
+    }
 
-	public boolean unsetScalarValueList(ScalarValueList scalarValueList) {
-		return isSetScalarValueList() && this.scalarValueList.remove(scalarValueList);
-	}
+    public boolean isSetDataBlock() {
+        return dataBlock != null;
+    }
 
-	public void unsetScalarValueList() {
-		scalarValueList = ModelObjects.setNull(scalarValueList);
-	}
+    public boolean isSetFile() {
+        return file != null;
+    }
 
-	public void unsetDataBlock() {
-		dataBlock = ModelObjects.setNull(dataBlock);
-	}
+    public void setValueArray(List<ValueArray> valueArray) {
+        this.valueArray = new ChildList<>(this, valueArray);
+        unsetDataBlock();
+        unsetFile();
+        unsetScalarValueList();
+    }
 
-	public void unsetFile() {
-		file = ModelObjects.setNull(file);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setScalarValueList(List<ScalarValueList> scalarValueList) {
+        this.scalarValueList = new ChildList<>(this, scalarValueList);
+        unsetDataBlock();
+        unsetFile();
+        unsetValueArray();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setDataBlock(DataBlock dataBlock) {
+        this.dataBlock = ModelObjects.setParent(dataBlock, this);
+        unsetFile();
+        unsetScalarValueList();
+        unsetValueArray();
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setFile(File file) {
+        this.file = ModelObjects.setParent(file, this);
+        unsetDataBlock();
+        unsetScalarValueList();
+        unsetValueArray();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		RangeSet copy = (target == null) ? new RangeSet() : (RangeSet)target;
-		
-		if (isSetDataBlock()) {
-			copy.setDataBlock((DataBlock)copyBuilder.copy(dataBlock));
-			if (copy.getDataBlock() == dataBlock)
-				dataBlock.setParent(this);
-		}
-		
-		if (isSetScalarValueList()) {
-			for (ScalarValueList part : scalarValueList) {
-				ScalarValueList copyPart = (ScalarValueList)copyBuilder.copy(part);
-				copy.addScalarValueList(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetFile()) {
-			copy.setFile((File)copyBuilder.copy(file));
-			if (copy.getFile() == file)
-				file.setParent(this);
-		}
-		
-		if (isSetValueArray()) {
-			for (ValueArray part : valueArray) {
-				ValueArray copyPart = (ValueArray)copyBuilder.copy(part);
-				copy.addValueArray(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public boolean unsetValueArray(ValueArray valueArray) {
+        return isSetValueArray() && this.valueArray.remove(valueArray);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new RangeSet(), copyBuilder);
-	}
+    public void unsetValueArray() {
+        valueArray = ModelObjects.setNull(valueArray);
+    }
+
+    public boolean unsetScalarValueList(ScalarValueList scalarValueList) {
+        return isSetScalarValueList() && this.scalarValueList.remove(scalarValueList);
+    }
+
+    public void unsetScalarValueList() {
+        scalarValueList = ModelObjects.setNull(scalarValueList);
+    }
+
+    public void unsetDataBlock() {
+        dataBlock = ModelObjects.setNull(dataBlock);
+    }
+
+    public void unsetFile() {
+        file = ModelObjects.setNull(file);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        RangeSet copy = (target == null) ? new RangeSet() : (RangeSet) target;
+
+        if (isSetDataBlock()) {
+            copy.setDataBlock((DataBlock) copyBuilder.copy(dataBlock));
+            if (copy.getDataBlock() == dataBlock)
+                dataBlock.setParent(this);
+        }
+
+        if (isSetScalarValueList()) {
+            for (ScalarValueList part : scalarValueList) {
+                ScalarValueList copyPart = (ScalarValueList) copyBuilder.copy(part);
+                copy.addScalarValueList(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetFile()) {
+            copy.setFile((File) copyBuilder.copy(file));
+            if (copy.getFile() == file)
+                file.setParent(this);
+        }
+
+        if (isSetValueArray()) {
+            for (ValueArray part : valueArray) {
+                ValueArray copyPart = (ValueArray) copyBuilder.copy(part);
+                copy.addValueArray(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new RangeSet(), copyBuilder);
+    }
 
 }

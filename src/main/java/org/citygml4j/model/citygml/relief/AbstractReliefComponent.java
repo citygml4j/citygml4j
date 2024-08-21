@@ -34,128 +34,128 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public abstract class AbstractReliefComponent extends AbstractCityObject implements ReliefModuleComponent {
-	private int lod;
-	private PolygonProperty extent;
-	private List<ADEComponent> ade;
+    private int lod;
+    private PolygonProperty extent;
+    private List<ADEComponent> ade;
 
-	public AbstractReliefComponent() {
-		
-	}
-	
-	public AbstractReliefComponent(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfReliefComponent(ADEComponent ade) {
-		getGenericApplicationPropertyOfReliefComponent().add(ade);
-	}
+    public AbstractReliefComponent() {
 
-	public PolygonProperty getExtent() {
-		return extent;
-	}
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfReliefComponent() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public AbstractReliefComponent(Module module) {
+        super(module);
+    }
 
-		return ade;
-	}
+    public void addGenericApplicationPropertyOfReliefComponent(ADEComponent ade) {
+        getGenericApplicationPropertyOfReliefComponent().add(ade);
+    }
 
-	public int getLod() {
-		return lod;
-	}
+    public PolygonProperty getExtent() {
+        return extent;
+    }
 
-	public boolean isSetExtent() {
-		return extent != null;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfReliefComponent() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetGenericApplicationPropertyOfReliefComponent() {
-		return ade != null && !ade.isEmpty();
-	}
+        return ade;
+    }
 
-	public boolean isSetLod() {
-		return true;
-	}
+    public int getLod() {
+        return lod;
+    }
 
-	public void setExtent(PolygonProperty extent) {
-		this.extent = ModelObjects.setParent(extent, this);
-	}
+    public boolean isSetExtent() {
+        return extent != null;
+    }
 
-	public void setGenericApplicationPropertyOfReliefComponent(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfReliefComponent() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setLod(int lod) {
-		if (lod >= 0 && lod <= 4)
-			this.lod = lod;
-	}
+    public boolean isSetLod() {
+        return true;
+    }
 
-	public void unsetExtent() {
-		extent = ModelObjects.setNull(extent);
-	}
+    public void setExtent(PolygonProperty extent) {
+        this.extent = ModelObjects.setParent(extent, this);
+    }
 
-	public void unsetGenericApplicationPropertyOfReliefComponent() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setGenericApplicationPropertyOfReliefComponent(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfReliefComponent(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfReliefComponent() && this.ade.remove(ade);
-	}
+    public void setLod(int lod) {
+        if (lod >= 0 && lod <= 4)
+            this.lod = lod;
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetExtent()) {
-			if (extent.isSetPolygon()) {
-				boundedBy.updateEnvelope(extent.getPolygon().calcBoundingBox());	
-			} else {
-				// xlink
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfReliefComponent()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfReliefComponent()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public void unsetExtent() {
+        extent = ModelObjects.setNull(extent);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public void unsetGenericApplicationPropertyOfReliefComponent() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-		AbstractReliefComponent copy = (AbstractReliefComponent)target;		
-		super.copyTo(copy, copyBuilder);
+    public boolean unsetGenericApplicationPropertyOfReliefComponent(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfReliefComponent() && this.ade.remove(ade);
+    }
 
-		if (isSetLod())
-			copy.setLod(copyBuilder.copy(lod));
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		if (isSetExtent()) {
-			copy.setExtent((PolygonProperty)copyBuilder.copy(extent));
-			if (copy.getExtent() == extent)
-				extent.setParent(this);
-		}
+        if (isSetExtent()) {
+            if (extent.isSetPolygon()) {
+                boundedBy.updateEnvelope(extent.getPolygon().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
 
-		if (isSetGenericApplicationPropertyOfReliefComponent()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfReliefComponent(copyPart);
+        if (isSetGenericApplicationPropertyOfReliefComponent()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfReliefComponent()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-		return copy;
-	}
+        return boundedBy;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractReliefComponent copy = (AbstractReliefComponent) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetLod())
+            copy.setLod(copyBuilder.copy(lod));
+
+        if (isSetExtent()) {
+            copy.setExtent((PolygonProperty) copyBuilder.copy(extent));
+            if (copy.getExtent() == extent)
+                extent.setParent(this);
+        }
+
+        if (isSetGenericApplicationPropertyOfReliefComponent()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfReliefComponent(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 }

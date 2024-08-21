@@ -33,81 +33,81 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public abstract class AbstractWaterObject extends AbstractCityObject implements WaterBodyModuleComponent {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public AbstractWaterObject() {
+    public AbstractWaterObject() {
 
-	}
+    }
 
-	public AbstractWaterObject(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
-		getGenericApplicationPropertyOfWaterObject().add(ade);
-	}
+    public AbstractWaterObject(Module module) {
+        super(module);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfWaterObject() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public void addGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
+        getGenericApplicationPropertyOfWaterObject().add(ade);
+    }
 
-		return ade;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfWaterObject() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetGenericApplicationPropertyOfWaterObject() {
-		return ade != null && !ade.isEmpty();
-	}
+        return ade;
+    }
 
-	public void setGenericApplicationPropertyOfWaterObject(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfWaterObject() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void unsetGenericApplicationPropertyOfWaterObject() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setGenericApplicationPropertyOfWaterObject(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWaterObject() && this.ade.remove(ade);
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfWaterObject()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfWaterObject()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public void unsetGenericApplicationPropertyOfWaterObject() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public boolean unsetGenericApplicationPropertyOfWaterObject(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfWaterObject() && this.ade.remove(ade);
+    }
 
-		AbstractWaterObject copy = (AbstractWaterObject)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfWaterObject()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfWaterObject(copyPart);
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
+        if (isSetGenericApplicationPropertyOfWaterObject()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfWaterObject()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractWaterObject copy = (AbstractWaterObject) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfWaterObject()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfWaterObject(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 
 }

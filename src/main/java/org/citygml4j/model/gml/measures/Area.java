@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Area extends Measure {
-	
-	public Area() {
-	}
-	
-	public Area(double value) {
-		super(value);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.AREA;
-	}
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Area(), copyBuilder);
-	}
+    public Area() {
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Area copy = (target == null) ? new Area() : (Area)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    public Area(double value) {
+        super(value);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.AREA;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Area(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Area copy = (target == null) ? new Area() : (Area) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

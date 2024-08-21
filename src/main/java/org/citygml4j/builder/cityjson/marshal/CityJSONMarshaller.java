@@ -37,203 +37,203 @@ import java.util.List;
 import java.util.Objects;
 
 public class CityJSONMarshaller {
-	public static final String GEOMETRY_XLINK = "org.citygml4j.geometry.xlink";
-	public static final String GEOMETRY_SURFACE_DATA = "org.citygml4j.geometry.surfaceData";
-	public static final String GEOMETRY_DUMMY = "org.citygml4j.geometry.dummy";
+    public static final String GEOMETRY_XLINK = "org.citygml4j.geometry.xlink";
+    public static final String GEOMETRY_SURFACE_DATA = "org.citygml4j.geometry.surfaceData";
+    public static final String GEOMETRY_DUMMY = "org.citygml4j.geometry.dummy";
 
-	private final CityGMLMarshaller citygml;
-	private final GMLMarshaller gml;
-	private final ADEMarshaller ade;
-	private final GeometryXlinkResolver xlinkResolver;
-	private final AppearanceResolver appearanceResolver;
-	
-	private VerticesBuilder verticesBuilder;
-	private VerticesTransformer verticesTransformer;
-	private TextureVerticesBuilder textureVerticesBuilder;
-	private TextureFileHandler textureFileHandler;
-	private VerticesBuilder templatesVerticesBuilder;
-	private boolean removeDuplicateChildGeometries;
-	private boolean generateCityGMLMetadata;
-	private boolean useMaterialDefaults = true;
-	private String fallbackTheme = "unnamed";
+    private final CityGMLMarshaller citygml;
+    private final GMLMarshaller gml;
+    private final ADEMarshaller ade;
+    private final GeometryXlinkResolver xlinkResolver;
+    private final AppearanceResolver appearanceResolver;
 
-	public CityJSONMarshaller() {
-		this.verticesBuilder = new DefaultVerticesBuilder();
-		this.textureVerticesBuilder = new DefaultTextureVerticesBuilder();
-		this.textureFileHandler = new DefaultTextureFileHandler();
-		this.templatesVerticesBuilder = new DefaultVerticesBuilder();
+    private VerticesBuilder verticesBuilder;
+    private VerticesTransformer verticesTransformer;
+    private TextureVerticesBuilder textureVerticesBuilder;
+    private TextureFileHandler textureFileHandler;
+    private VerticesBuilder templatesVerticesBuilder;
+    private boolean removeDuplicateChildGeometries;
+    private boolean generateCityGMLMetadata;
+    private boolean useMaterialDefaults = true;
+    private String fallbackTheme = "unnamed";
 
-		citygml = new CityGMLMarshaller(this);
-		gml = new GMLMarshaller(this, this::getVerticesBuilder);
-		ade = new ADEMarshaller(this);
+    public CityJSONMarshaller() {
+        this.verticesBuilder = new DefaultVerticesBuilder();
+        this.textureVerticesBuilder = new DefaultTextureVerticesBuilder();
+        this.textureFileHandler = new DefaultTextureFileHandler();
+        this.templatesVerticesBuilder = new DefaultVerticesBuilder();
 
-		xlinkResolver = new GeometryXlinkResolver();
-		appearanceResolver = new AppearanceResolver(this);
-	}
+        citygml = new CityGMLMarshaller(this);
+        gml = new GMLMarshaller(this, this::getVerticesBuilder);
+        ade = new ADEMarshaller(this);
 
-	public void reset() {
-		verticesBuilder.reset();
-		textureVerticesBuilder.reset();
-		templatesVerticesBuilder.reset();
-	}
-	
-	public CityJSON marshal(CityModel src) {
-		xlinkResolver.resolve(src);
-		appearanceResolver.resolve(src);
+        xlinkResolver = new GeometryXlinkResolver();
+        appearanceResolver = new AppearanceResolver(this);
+    }
 
-		CityJSON dest = new CityJSON();
-		citygml.marshal(src, dest);
+    public void reset() {
+        verticesBuilder.reset();
+        textureVerticesBuilder.reset();
+        templatesVerticesBuilder.reset();
+    }
 
-		if (dest.hasCityObjects()) {
-			List<List<Double>> vertices = verticesBuilder.build();
-			dest.setVertices(vertices);
+    public CityJSON marshal(CityModel src) {
+        xlinkResolver.resolve(src);
+        appearanceResolver.resolve(src);
 
-			if (verticesTransformer != null) {
-				TransformType transform = verticesTransformer.applyTransformation(vertices);
-				if (transform != null) {
-					dest.setTransform(transform);
-					dest.removeDuplicateVertices();
-				}
-			}
+        CityJSON dest = new CityJSON();
+        citygml.marshal(src, dest);
 
-			if (appearanceResolver.hasTextures() || appearanceResolver.hasMaterials()) {
-				AppearanceType appearance = new AppearanceType();
-				dest.setAppearance(appearance);
+        if (dest.hasCityObjects()) {
+            List<List<Double>> vertices = verticesBuilder.build();
+            dest.setVertices(vertices);
 
-				if (appearanceResolver.hasMaterials())
-					appearance.setMaterials(appearanceResolver.getMaterials());			
+            if (verticesTransformer != null) {
+                TransformType transform = verticesTransformer.applyTransformation(vertices);
+                if (transform != null) {
+                    dest.setTransform(transform);
+                    dest.removeDuplicateVertices();
+                }
+            }
 
-				if (appearanceResolver.hasTextures()) {
-					List<List<Double>> textureVertices = textureVerticesBuilder.build();
-					if (textureVertices.size() > 0) {
-						appearance.setTextures(appearanceResolver.getTextures());
-						appearance.setTextureVertices(textureVertices);
-					}
-				}
-			}
+            if (appearanceResolver.hasTextures() || appearanceResolver.hasMaterials()) {
+                AppearanceType appearance = new AppearanceType();
+                dest.setAppearance(appearance);
 
-			if (citygml.getCoreMarshaller().hasGeometryTemplates()) {
-				GeometryTemplatesType geometryTemplates = new GeometryTemplatesType();
-				dest.setGeometryTemplates(geometryTemplates);
+                if (appearanceResolver.hasMaterials())
+                    appearance.setMaterials(appearanceResolver.getMaterials());
 
-				geometryTemplates.setTemplates(citygml.getCoreMarshaller().getGeometryTemplates());
-				geometryTemplates.setTemplatesVertices(templatesVerticesBuilder.build());
-			}
+                if (appearanceResolver.hasTextures()) {
+                    List<List<Double>> textureVertices = textureVerticesBuilder.build();
+                    if (textureVertices.size() > 0) {
+                        appearance.setTextures(appearanceResolver.getTextures());
+                        appearance.setTextureVertices(textureVertices);
+                    }
+                }
+            }
 
-			if (citygml.getGenericsMarshaller().hasGenericAttributeTypes()) {
-				CityGMLMetadata metadata = new CityGMLMetadata();
-				metadata.setGenericAttributeTypes(citygml.getGenericsMarshaller().getGenericAttributeTypes());
-				dest.addExtensionProperty(CityGMLMetadata.JSON_KEY, metadata);
-			}
-		}
+            if (citygml.getCoreMarshaller().hasGeometryTemplates()) {
+                GeometryTemplatesType geometryTemplates = new GeometryTemplatesType();
+                dest.setGeometryTemplates(geometryTemplates);
 
-		// remove local properties from input objects
-		src.accept(new LocalPropertiesCleaner());
+                geometryTemplates.setTemplates(citygml.getCoreMarshaller().getGeometryTemplates());
+                geometryTemplates.setTemplatesVertices(templatesVerticesBuilder.build());
+            }
 
-		return dest;
-	}
-	
-	public AbstractCityObjectType marshal(AbstractCityObject src, CityJSON cityJSON) {
-		xlinkResolver.resolve(src);
-		appearanceResolver.resolve(src);
+            if (citygml.getGenericsMarshaller().hasGenericAttributeTypes()) {
+                CityGMLMetadata metadata = new CityGMLMetadata();
+                metadata.setGenericAttributeTypes(citygml.getGenericsMarshaller().getGenericAttributeTypes());
+                dest.addExtensionProperty(CityGMLMetadata.JSON_KEY, metadata);
+            }
+        }
 
-		AbstractCityObjectType dest = citygml.marshal(src, cityJSON);
+        // remove local properties from input objects
+        src.accept(new LocalPropertiesCleaner());
 
-		// remove local properties from input objects
-		src.accept(new LocalPropertiesCleaner());
+        return dest;
+    }
 
-		return dest;
-	}
+    public AbstractCityObjectType marshal(AbstractCityObject src, CityJSON cityJSON) {
+        xlinkResolver.resolve(src);
+        appearanceResolver.resolve(src);
 
-	public CityGMLMarshaller getCityGMLMarshaller() {
-		return citygml;
-	}
+        AbstractCityObjectType dest = citygml.marshal(src, cityJSON);
 
-	public GMLMarshaller getGMLMarshaller() {
-		return gml;
-	}
+        // remove local properties from input objects
+        src.accept(new LocalPropertiesCleaner());
 
-	public ADEMarshaller getADEMarshaller() {
-		return ade;
-	}
+        return dest;
+    }
 
-	public GeometryXlinkResolver getGeometryXlinkResolver() {
-		return xlinkResolver;
-	}
+    public CityGMLMarshaller getCityGMLMarshaller() {
+        return citygml;
+    }
 
-	public AppearanceResolver getAppearanceResolver() {
-		return appearanceResolver;
-	}
+    public GMLMarshaller getGMLMarshaller() {
+        return gml;
+    }
 
-	public VerticesBuilder getVerticesBuilder() {
-		return verticesBuilder;
-	}
+    public ADEMarshaller getADEMarshaller() {
+        return ade;
+    }
 
-	public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
-		this.verticesBuilder = Objects.requireNonNull(verticesBuilder, "vertices builder may not be null.");
-	}
-	
-	public VerticesTransformer getVerticesTransformer() {
-		return verticesTransformer;
-	}
+    public GeometryXlinkResolver getGeometryXlinkResolver() {
+        return xlinkResolver;
+    }
 
-	public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
-		this.verticesTransformer = Objects.requireNonNull(verticesTransformer, "vertices transformer may not be null.");
-	}
-	
-	public TextureVerticesBuilder getTextureVerticesBuilder() {
-		return textureVerticesBuilder;
-	}
+    public AppearanceResolver getAppearanceResolver() {
+        return appearanceResolver;
+    }
 
-	public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
-		this.textureVerticesBuilder = Objects.requireNonNull(textureVerticesBuilder, "texture vertices builder may not be null.");
-	}
+    public VerticesBuilder getVerticesBuilder() {
+        return verticesBuilder;
+    }
 
-	public VerticesBuilder getTemplatesVerticesBuilder() {
-		return templatesVerticesBuilder;
-	}
+    public void setVerticesBuilder(VerticesBuilder verticesBuilder) {
+        this.verticesBuilder = Objects.requireNonNull(verticesBuilder, "vertices builder may not be null.");
+    }
 
-	public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
-		this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
-	}
+    public VerticesTransformer getVerticesTransformer() {
+        return verticesTransformer;
+    }
 
-	public TextureFileHandler getTextureFileHandler() {
-		return textureFileHandler;
-	}
+    public void setVerticesTransformer(VerticesTransformer verticesTransformer) {
+        this.verticesTransformer = Objects.requireNonNull(verticesTransformer, "vertices transformer may not be null.");
+    }
 
-	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
-		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
-	}
+    public TextureVerticesBuilder getTextureVerticesBuilder() {
+        return textureVerticesBuilder;
+    }
 
-	public boolean isRemoveDuplicateChildGeometries() {
-		return removeDuplicateChildGeometries;
-	}
+    public void setTextureVerticesBuilder(TextureVerticesBuilder textureVerticesBuilder) {
+        this.textureVerticesBuilder = Objects.requireNonNull(textureVerticesBuilder, "texture vertices builder may not be null.");
+    }
 
-	public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
-		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
-	}
+    public VerticesBuilder getTemplatesVerticesBuilder() {
+        return templatesVerticesBuilder;
+    }
 
-	public boolean isGenerateCityGMLMetadata() {
-		return generateCityGMLMetadata;
-	}
+    public void setTemplatesVerticesBuilder(VerticesBuilder templatesVerticesBuilder) {
+        this.templatesVerticesBuilder = Objects.requireNonNull(templatesVerticesBuilder, "templates vertices builder may not be null.");
+    }
 
-	public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
-		this.generateCityGMLMetadata = generateCityGMLMetadata;
-	}
+    public TextureFileHandler getTextureFileHandler() {
+        return textureFileHandler;
+    }
 
-	public boolean isUseMaterialDefaults() {
-		return useMaterialDefaults;
-	}
+    public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+        this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
+    }
 
-	public void setUseMaterialDefaults(boolean useMaterialDefaults) {
-		this.useMaterialDefaults = useMaterialDefaults;
-	}
+    public boolean isRemoveDuplicateChildGeometries() {
+        return removeDuplicateChildGeometries;
+    }
 
-	public String getFallbackTheme() {
-		return fallbackTheme;
-	}
+    public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
+        this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
+    }
 
-	public void setFallbackTheme(String fallbackTheme) {
-		this.fallbackTheme = fallbackTheme;
-	}
+    public boolean isGenerateCityGMLMetadata() {
+        return generateCityGMLMetadata;
+    }
+
+    public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
+        this.generateCityGMLMetadata = generateCityGMLMetadata;
+    }
+
+    public boolean isUseMaterialDefaults() {
+        return useMaterialDefaults;
+    }
+
+    public void setUseMaterialDefaults(boolean useMaterialDefaults) {
+        this.useMaterialDefaults = useMaterialDefaults;
+    }
+
+    public String getFallbackTheme() {
+        return fallbackTheme;
+    }
+
+    public void setFallbackTheme(String fallbackTheme) {
+        this.fallbackTheme = fallbackTheme;
+    }
 }

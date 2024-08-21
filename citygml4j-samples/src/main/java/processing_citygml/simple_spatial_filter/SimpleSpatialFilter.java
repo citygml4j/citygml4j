@@ -42,75 +42,75 @@ import java.util.Date;
 
 public class SimpleSpatialFilter {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml chunk-wise");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Buildings_v100.gml"));
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Buildings_v100.gml chunk-wise");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_COLLECTION_MEMBER);
 
-		System.out.println(df.format(new Date()) + "creating CityGML 2.0.0 model writer");
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
-		out.setCityGMLVersion(CityGMLVersion.v2_0_0);
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Buildings_v100.gml"));
 
-		CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_Buildings_cutout_v200.gml"));
-		writer.setPrefixes(CityGMLVersion.v2_0_0);
-		writer.setDefaultNamespace(CoreModule.v2_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
-		writer.setIndentString("  ");
-		writer.setHeaderComment("written by citygml4j");
+        System.out.println(df.format(new Date()) + "creating CityGML 2.0.0 model writer");
+        CityGMLOutputFactory out = builder.createCityGMLOutputFactory();
+        out.setCityGMLVersion(CityGMLVersion.v2_0_0);
 
-		System.out.println(df.format(new Date()) + "creating region filter as bounding box");
-		BoundingBox regionFilter = new BoundingBox();
-		regionFilter.setLowerCorner(new Point(20, 20, 0));
-		regionFilter.setUpperCorner(new Point(60, 60, 0));
+        CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_Buildings_cutout_v200.gml"));
+        writer.setPrefixes(CityGMLVersion.v2_0_0);
+        writer.setDefaultNamespace(CoreModule.v2_0_0);
+        writer.setSchemaLocations(CityGMLVersion.v2_0_0);
+        writer.setIndentString("  ");
+        writer.setHeaderComment("written by citygml4j");
 
-		CityModelInfo info = new CityModelInfo();
-		StringOrRef description = new StringOrRef();
-		description.setValue("Cutout of LOD2_Buildings_v100.gml to demonstrate simple spatial filtering.");
-		info.setDescription(description);
-		info.setBoundedBy(new BoundingShape(regionFilter));
-		
-		writer.setCityModelInfo(info);
-		writer.writeStartDocument();
+        System.out.println(df.format(new Date()) + "creating region filter as bounding box");
+        BoundingBox regionFilter = new BoundingBox();
+        regionFilter.setLowerCorner(new Point(20, 20, 0));
+        regionFilter.setUpperCorner(new Point(60, 60, 0));
 
-		while (reader.hasNext()) {
-			CityGML chunk = reader.nextFeature();
+        CityModelInfo info = new CityModelInfo();
+        StringOrRef description = new StringOrRef();
+        description.setValue("Cutout of LOD2_Buildings_v100.gml to demonstrate simple spatial filtering.");
+        info.setDescription(description);
+        info.setBoundedBy(new BoundingShape(regionFilter));
 
-			if (chunk instanceof AbstractFeature) {
-				AbstractFeature feature = (AbstractFeature)chunk;
+        writer.setCityModelInfo(info);
+        writer.writeStartDocument();
 
-				System.out.println(df.format(new Date()) + "calculating bounding box of feature " + feature.getId());
-				BoundingShape boundedBy = feature.calcBoundedBy(BoundingBoxOptions.defaults().useExistingEnvelopes(true));
+        while (reader.hasNext()) {
+            CityGML chunk = reader.nextFeature();
 
-				if (boundedBy != null) {
-					BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();
+            if (chunk instanceof AbstractFeature) {
+                AbstractFeature feature = (AbstractFeature) chunk;
 
-					if (bbox.getLowerCorner().getX() >= regionFilter.getLowerCorner().getX() &&
-							bbox.getLowerCorner().getY() >= regionFilter.getLowerCorner().getY() &&
-							bbox.getUpperCorner().getX() <= regionFilter.getUpperCorner().getX() &&
-							bbox.getUpperCorner().getY() <= regionFilter.getUpperCorner().getY()) {
-						System.out.println(df.format(new Date()) + "feature is within region filter - keeping");
-						feature.setBoundedBy(boundedBy);
-						writer.writeFeatureMember(feature);
-					}
-				}
-			}
-		}
+                System.out.println(df.format(new Date()) + "calculating bounding box of feature " + feature.getId());
+                BoundingShape boundedBy = feature.calcBoundedBy(BoundingBoxOptions.defaults().useExistingEnvelopes(true));
 
-		writer.writeEndDocument();
+                if (boundedBy != null) {
+                    BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();
 
-		reader.close();
-		writer.close();
-		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_cutout_v200.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+                    if (bbox.getLowerCorner().getX() >= regionFilter.getLowerCorner().getX() &&
+                            bbox.getLowerCorner().getY() >= regionFilter.getLowerCorner().getY() &&
+                            bbox.getUpperCorner().getX() <= regionFilter.getUpperCorner().getX() &&
+                            bbox.getUpperCorner().getY() <= regionFilter.getUpperCorner().getY()) {
+                        System.out.println(df.format(new Date()) + "feature is within region filter - keeping");
+                        feature.setBoundedBy(boundedBy);
+                        writer.writeFeatureMember(feature);
+                    }
+                }
+            }
+        }
+
+        writer.writeEndDocument();
+
+        reader.close();
+        writer.close();
+
+        System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_cutout_v200.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

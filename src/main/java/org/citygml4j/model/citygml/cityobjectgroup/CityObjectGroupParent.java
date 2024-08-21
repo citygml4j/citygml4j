@@ -25,51 +25,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class CityObjectGroupParent extends FeatureProperty<AbstractCityObject> implements CityObjectGroupModuleComponent {
 
-	public CityObjectGroupParent() {
-		
-	}
-	
-	public CityObjectGroupParent(AbstractCityObject abstractCityObject) {
-		super(abstractCityObject);
-	}
-	
-	public CityObjectGroupParent(String href) {
-		super(href);
-	}
-	
-	public AbstractCityObject getCityObject() {
-		return super.getObject();
-	}
+    public CityObjectGroupParent() {
 
-	public boolean isSetCityObject() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setCityObject(AbstractCityObject cityObject) {
-		super.setObject(cityObject);
-	}
+    public CityObjectGroupParent(AbstractCityObject abstractCityObject) {
+        super(abstractCityObject);
+    }
 
-	public void unsetCityObject() {
-		super.unsetObject();
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.CITY_OBJECT_GROUP_PARENT;
-	}
+    public CityObjectGroupParent(String href) {
+        super(href);
+    }
 
-	@Override
-	public Class<AbstractCityObject> getAssociableClass() {
-		return AbstractCityObject.class;
-	}
+    public AbstractCityObject getCityObject() {
+        return super.getObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CityObjectGroupParent(), copyBuilder);
-	}
+    public boolean isSetCityObject() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CityObjectGroupParent copy = (target == null) ? new CityObjectGroupParent() : (CityObjectGroupParent)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void setCityObject(AbstractCityObject cityObject) {
+        super.setObject(cityObject);
+    }
+
+    public void unsetCityObject() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.CITY_OBJECT_GROUP_PARENT;
+    }
+
+    @Override
+    public Class<AbstractCityObject> getAssociableClass() {
+        return AbstractCityObject.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CityObjectGroupParent(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CityObjectGroupParent copy = (target == null) ? new CityObjectGroupParent() : (CityObjectGroupParent) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

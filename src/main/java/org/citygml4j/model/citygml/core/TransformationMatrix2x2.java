@@ -28,84 +28,84 @@ import org.citygml4j.model.common.copy.Copyable;
 import java.util.List;
 
 public class TransformationMatrix2x2 implements CoreModuleComponent, Child, Copyable {
-	private Matrix matrix;
-	private ModelObject parent;
-	
-	public TransformationMatrix2x2() {
-		matrix = new Matrix(2, 2);
-	}
-	
-	public TransformationMatrix2x2(Matrix matrix) {
-		if (matrix == null)
-			throw new IllegalArgumentException("Matrix must not be null.");
-		
-		if (matrix.getRowDimension() != 2 || matrix.getColumnDimension() != 2)
-			throw new IllegalArgumentException("Matrix dimensions must be 2x2.");
-		
-		this.matrix = matrix;
-	}
+    private Matrix matrix;
+    private ModelObject parent;
 
-	public TransformationMatrix2x2(List<Double> vals) {
-		if (vals == null)
-			throw new IllegalArgumentException("Value list must not be null.");
-		
-		if (vals.size() != 4)
-			throw new IllegalArgumentException("List size must be 4.");
+    public TransformationMatrix2x2() {
+        matrix = new Matrix(2, 2);
+    }
 
-		matrix = new Matrix(2, 2);
-		matrix.setMatrix(vals);
-	}
+    public TransformationMatrix2x2(Matrix matrix) {
+        if (matrix == null)
+            throw new IllegalArgumentException("Matrix must not be null.");
 
-	public Matrix getMatrix() {
-		return matrix;
-	}
-	
-	public boolean isSetMatrix() {
-		return matrix != null;
-	}
+        if (matrix.getRowDimension() != 2 || matrix.getColumnDimension() != 2)
+            throw new IllegalArgumentException("Matrix dimensions must be 2x2.");
 
-	public void setMatrix(Matrix matrix) {
-		if (matrix == null)
-			throw new IllegalArgumentException("Matrix must not be null.");
-		
-		if (matrix.getRowDimension() != 2 || matrix.getColumnDimension() != 2)
-			throw new IllegalArgumentException("Matrix dimensions must be 2x2.");
+        this.matrix = matrix;
+    }
 
-		this.matrix = matrix;
-	}
+    public TransformationMatrix2x2(List<Double> vals) {
+        if (vals == null)
+            throw new IllegalArgumentException("Value list must not be null.");
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TRANSFORMATION_MATRIX_2X2;
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+        if (vals.size() != 4)
+            throw new IllegalArgumentException("List size must be 4.");
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+        matrix = new Matrix(2, 2);
+        matrix.setMatrix(vals);
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public Matrix getMatrix() {
+        return matrix;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetMatrix() {
+        return matrix != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TransformationMatrix2x2(), copyBuilder);
-	}
+    public void setMatrix(Matrix matrix) {
+        if (matrix == null)
+            throw new IllegalArgumentException("Matrix must not be null.");
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TransformationMatrix2x2 copy = (target == null) ? new TransformationMatrix2x2() : (TransformationMatrix2x2)target;
-		
-		copy.setMatrix((Matrix)copyBuilder.copy(matrix));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
+        if (matrix.getRowDimension() != 2 || matrix.getColumnDimension() != 2)
+            throw new IllegalArgumentException("Matrix dimensions must be 2x2.");
+
+        this.matrix = matrix;
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TRANSFORMATION_MATRIX_2X2;
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TransformationMatrix2x2(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TransformationMatrix2x2 copy = (target == null) ? new TransformationMatrix2x2() : (TransformationMatrix2x2) target;
+
+        copy.setMatrix((Matrix) copyBuilder.copy(matrix));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
 }

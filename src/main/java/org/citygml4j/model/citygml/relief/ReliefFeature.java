@@ -38,167 +38,167 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class ReliefFeature extends AbstractCityObject implements ReliefModuleComponent {
-	private int lod;
-	private List<ReliefComponentProperty> reliefComponent;
-	private List<ADEComponent> ade;
+    private int lod;
+    private List<ReliefComponentProperty> reliefComponent;
+    private List<ADEComponent> ade;
 
-	public ReliefFeature() {
-		
-	}
-	
-	public ReliefFeature(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfReliefFeature(ADEComponent ade) {
-		getGenericApplicationPropertyOfReliefFeature().add(ade);
-	}
+    public ReliefFeature() {
 
-	public void addReliefComponent(ReliefComponentProperty reliefComponent) {
-		getReliefComponent().add(reliefComponent);
-	}
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfReliefFeature() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public ReliefFeature(Module module) {
+        super(module);
+    }
 
-		return ade;
-	}
+    public void addGenericApplicationPropertyOfReliefFeature(ADEComponent ade) {
+        getGenericApplicationPropertyOfReliefFeature().add(ade);
+    }
 
-	public int getLod() {
-		return lod;
-	}
+    public void addReliefComponent(ReliefComponentProperty reliefComponent) {
+        getReliefComponent().add(reliefComponent);
+    }
 
-	public List<ReliefComponentProperty> getReliefComponent() {
-		if (reliefComponent == null)
-			reliefComponent = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfReliefFeature() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return reliefComponent;
-	}
+        return ade;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfReliefFeature() {
-		return ade != null && !ade.isEmpty();
-	}
+    public int getLod() {
+        return lod;
+    }
 
-	public boolean isSetLod() {
-		return true;
-	}
+    public List<ReliefComponentProperty> getReliefComponent() {
+        if (reliefComponent == null)
+            reliefComponent = new ChildList<>(this);
 
-	public boolean isSetReliefComponent() {
-		return reliefComponent != null && !reliefComponent.isEmpty();
-	}
+        return reliefComponent;
+    }
 
-	public void setGenericApplicationPropertyOfReliefFeature(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfReliefFeature() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setLod(int lod) {
-		if (lod >= 0 && lod <= 4)
-			this.lod = lod;
-	}
+    public boolean isSetLod() {
+        return true;
+    }
 
-	public void setReliefComponent(List<ReliefComponentProperty> reliefComponent) {
-		this.reliefComponent = new ChildList<>(this, reliefComponent);
-	}
+    public boolean isSetReliefComponent() {
+        return reliefComponent != null && !reliefComponent.isEmpty();
+    }
 
-	public void unsetGenericApplicationPropertyOfReliefFeature() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setGenericApplicationPropertyOfReliefFeature(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfReliefFeature(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfReliefFeature() && this.ade.remove(ade);
-	}
+    public void setLod(int lod) {
+        if (lod >= 0 && lod <= 4)
+            this.lod = lod;
+    }
 
-	public void unsetReliefComponent() {
-		reliefComponent = ModelObjects.setNull(reliefComponent);
-	}
+    public void setReliefComponent(List<ReliefComponentProperty> reliefComponent) {
+        this.reliefComponent = new ChildList<>(this, reliefComponent);
+    }
 
-	public boolean unsetReliefComponent(ReliefComponentProperty reliefComponent) {
-		return isSetReliefComponent() && this.reliefComponent.remove(reliefComponent);
-	}
+    public void unsetGenericApplicationPropertyOfReliefFeature() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RELIEF_FEATURE;
-	}
+    public boolean unsetGenericApplicationPropertyOfReliefFeature(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfReliefFeature() && this.ade.remove(ade);
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetReliefComponent()) {
-			for (ReliefComponentProperty reliefComponentProperty : reliefComponent) {
-				if (reliefComponentProperty.isSetObject()) {
-					boundedBy.updateEnvelope(reliefComponentProperty.getObject().calcBoundedBy(options).getEnvelope());
-				} else {
-					// xlink
-				}
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfReliefFeature()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfReliefFeature()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
+    public void unsetReliefComponent() {
+        reliefComponent = ModelObjects.setNull(reliefComponent);
+    }
 
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public boolean unsetReliefComponent(ReliefComponentProperty reliefComponent) {
+        return isSetReliefComponent() && this.reliefComponent.remove(reliefComponent);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ReliefFeature(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.RELIEF_FEATURE;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ReliefFeature copy = (target == null) ? new ReliefFeature() : (ReliefFeature)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetLod())
-			copy.setLod(copyBuilder.copy(lod));
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		if (isSetReliefComponent()) {
-			for (ReliefComponentProperty part : reliefComponent) {
-				ReliefComponentProperty copyPart = (ReliefComponentProperty)copyBuilder.copy(part);
-				copy.addReliefComponent(copyPart);
+        if (isSetReliefComponent()) {
+            for (ReliefComponentProperty reliefComponentProperty : reliefComponent) {
+                if (reliefComponentProperty.isSetObject()) {
+                    boundedBy.updateEnvelope(reliefComponentProperty.getObject().calcBoundedBy(options).getEnvelope());
+                } else {
+                    // xlink
+                }
+            }
+        }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (isSetGenericApplicationPropertyOfReliefFeature()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfReliefFeature()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-		if (isSetGenericApplicationPropertyOfReliefFeature()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfReliefFeature(copyPart);
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        return boundedBy;
+    }
 
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ReliefFeature(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ReliefFeature copy = (target == null) ? new ReliefFeature() : (ReliefFeature) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetLod())
+            copy.setLod(copyBuilder.copy(lod));
+
+        if (isSetReliefComponent()) {
+            for (ReliefComponentProperty part : reliefComponent) {
+                ReliefComponentProperty copyPart = (ReliefComponentProperty) copyBuilder.copy(part);
+                copy.addReliefComponent(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetGenericApplicationPropertyOfReliefFeature()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfReliefFeature(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -30,162 +30,162 @@ import org.citygml4j.model.gml.basicTypes.Null;
 import org.citygml4j.model.gml.geometry.AbstractGeometry;
 
 public class Value implements GML, Associable, Child, Copyable {
-	private ValueObject valueObject;
-	private AbstractGeometry geometry;
-	private GenericValueObject genericValueObject;
-	private Null _null;
-	private ModelObject parent;
-	
-	public Value() {
-		
-	}
-	
-	public Value(ValueObject valueObject) {
-		setValueObject(valueObject);
-	}
-	
-	public Value(AbstractGeometry geometry) {
-		setGeometry(geometry);
-	}
-	
-	public Value(GenericValueObject genericValueObject) {
-		setGenericValueObject(genericValueObject);
-	}
-	
-	public Value(Null _null) {
-		setNull(_null);
-	}
+    private ValueObject valueObject;
+    private AbstractGeometry geometry;
+    private GenericValueObject genericValueObject;
+    private Null _null;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.VALUE;
-	}
+    public Value() {
 
-	public ValueObject getValueObject() {
-		return valueObject;
-	}
+    }
 
-	public AbstractGeometry getGeometry() {
-		return geometry;
-	}
+    public Value(ValueObject valueObject) {
+        setValueObject(valueObject);
+    }
 
-	public GenericValueObject getGenericValueObject() {
-		return genericValueObject;
-	}
+    public Value(AbstractGeometry geometry) {
+        setGeometry(geometry);
+    }
 
-	public Null getNull() {
-		return _null;
-	}
+    public Value(GenericValueObject genericValueObject) {
+        setGenericValueObject(genericValueObject);
+    }
 
-	public boolean isSetValueObject() {
-		return valueObject != null;
-	}
+    public Value(Null _null) {
+        setNull(_null);
+    }
 
-	public boolean isSetGeometry() {
-		return geometry != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.VALUE;
+    }
 
-	public boolean isSetGenericValueObject() {
-		return genericValueObject != null;
-	}
+    public ValueObject getValueObject() {
+        return valueObject;
+    }
 
-	public boolean isSetNull() {
-		return _null != null;
-	}
+    public AbstractGeometry getGeometry() {
+        return geometry;
+    }
 
-	public void setValueObject(ValueObject valueObject) {
-		this.valueObject = ModelObjects.setParent(valueObject, this);
-		unsetGeometry();
-		unsetNull();
-		unsetGenericValueObject();
-	}
+    public GenericValueObject getGenericValueObject() {
+        return genericValueObject;
+    }
 
-	public void setGeometry(AbstractGeometry geometry) {
-		this.geometry = ModelObjects.setParent(geometry, this);
-		unsetNull();
-		unsetValueObject();
-		unsetGenericValueObject();
-	}
+    public Null getNull() {
+        return _null;
+    }
 
-	public void setGenericValueObject(GenericValueObject genericValueObject) {
-		this.genericValueObject = ModelObjects.setParent(genericValueObject, this);
-		unsetGeometry();
-		unsetNull();
-		unsetValueObject();
-	}
+    public boolean isSetValueObject() {
+        return valueObject != null;
+    }
 
-	public void setNull(Null _null) {
-		this._null = ModelObjects.setParent(_null, this);
-		unsetGeometry();
-		unsetValueObject();
-		unsetGenericValueObject();
-	}
+    public boolean isSetGeometry() {
+        return geometry != null;
+    }
 
-	public void unsetValueObject() {
-		valueObject = ModelObjects.setNull(valueObject);
-	}
+    public boolean isSetGenericValueObject() {
+        return genericValueObject != null;
+    }
 
-	public void unsetGeometry() {
-		geometry = ModelObjects.setNull(geometry);
-	}
+    public boolean isSetNull() {
+        return _null != null;
+    }
 
-	public void unsetGenericValueObject() {
-		genericValueObject = ModelObjects.setNull(genericValueObject);
-	}
+    public void setValueObject(ValueObject valueObject) {
+        this.valueObject = ModelObjects.setParent(valueObject, this);
+        unsetGeometry();
+        unsetNull();
+        unsetGenericValueObject();
+    }
 
-	public void unsetNull() {
-		_null = ModelObjects.setNull(_null);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setGeometry(AbstractGeometry geometry) {
+        this.geometry = ModelObjects.setParent(geometry, this);
+        unsetNull();
+        unsetValueObject();
+        unsetGenericValueObject();
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setGenericValueObject(GenericValueObject genericValueObject) {
+        this.genericValueObject = ModelObjects.setParent(genericValueObject, this);
+        unsetGeometry();
+        unsetNull();
+        unsetValueObject();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setNull(Null _null) {
+        this._null = ModelObjects.setParent(_null, this);
+        unsetGeometry();
+        unsetValueObject();
+        unsetGenericValueObject();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Value copy = (target == null) ? new Value() : (Value)target;
-		
-		if (isSetValueObject()) {
-			copy.setValueObject((ValueObject)copyBuilder.copy(valueObject));
-			if (copy.getValueObject() == valueObject)
-				valueObject.setParent(this);
-		}
-		
-		if (isSetGeometry()) {
-			copy.setGeometry((AbstractGeometry)copyBuilder.copy(geometry));
-			if (copy.getGeometry() == geometry)
-				geometry.setParent(this);
-		}
-		
-		if (isSetGenericValueObject()) {
-			copy.setGenericValueObject((GenericValueObject)copyBuilder.copy(genericValueObject));
-			if (copy.getGenericValueObject() == genericValueObject)
-				genericValueObject.setParent(this);
-		}
-		
-		if (isSetNull()) {
-			copy.setNull((Null)copyBuilder.copy(_null));
-			if (copy.getNull() == _null)
-				_null.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetValueObject() {
+        valueObject = ModelObjects.setNull(valueObject);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Value(), copyBuilder);
-	}
+    public void unsetGeometry() {
+        geometry = ModelObjects.setNull(geometry);
+    }
+
+    public void unsetGenericValueObject() {
+        genericValueObject = ModelObjects.setNull(genericValueObject);
+    }
+
+    public void unsetNull() {
+        _null = ModelObjects.setNull(_null);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Value copy = (target == null) ? new Value() : (Value) target;
+
+        if (isSetValueObject()) {
+            copy.setValueObject((ValueObject) copyBuilder.copy(valueObject));
+            if (copy.getValueObject() == valueObject)
+                valueObject.setParent(this);
+        }
+
+        if (isSetGeometry()) {
+            copy.setGeometry((AbstractGeometry) copyBuilder.copy(geometry));
+            if (copy.getGeometry() == geometry)
+                geometry.setParent(this);
+        }
+
+        if (isSetGenericValueObject()) {
+            copy.setGenericValueObject((GenericValueObject) copyBuilder.copy(genericValueObject));
+            if (copy.getGenericValueObject() == genericValueObject)
+                genericValueObject.setParent(this);
+        }
+
+        if (isSetNull()) {
+            copy.setNull((Null) copyBuilder.copy(_null));
+            if (copy.getNull() == _null)
+                _null.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Value(), copyBuilder);
+    }
 
 }

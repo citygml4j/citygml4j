@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class IntTunnelInstallationProperty extends FeatureProperty<IntTunnelInstallation> implements TunnelModuleComponent {
 
-	public IntTunnelInstallationProperty() {
-		
-	}
-	
-	public IntTunnelInstallationProperty(IntTunnelInstallation intTunnelInstallation) {
-		super(intTunnelInstallation);
-	}
-	
-	public IntTunnelInstallationProperty(String href) {
-		super(href);
-	}
-	
-	public IntTunnelInstallation getIntTunnelInstallation() {
-		return super.getObject();
-	}
+    public IntTunnelInstallationProperty() {
 
-	public boolean isSetIntTunnelInstallation() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setIntTunnelInstallation(IntTunnelInstallation intTunnelInstallation) {
-		super.setObject(intTunnelInstallation);
-	}
+    public IntTunnelInstallationProperty(IntTunnelInstallation intTunnelInstallation) {
+        super(intTunnelInstallation);
+    }
 
-	public void unsetIntTunnelInstallation() {
-		super.unsetObject();
-	}
+    public IntTunnelInstallationProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INT_TUNNEL_INSTALLATION_PROPERTY;
-	}
+    public IntTunnelInstallation getIntTunnelInstallation() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<IntTunnelInstallation> getAssociableClass() {
-		return IntTunnelInstallation.class;
-	}
+    public boolean isSetIntTunnelInstallation() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new IntTunnelInstallationProperty(), copyBuilder);
-	}
+    public void setIntTunnelInstallation(IntTunnelInstallation intTunnelInstallation) {
+        super.setObject(intTunnelInstallation);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		IntTunnelInstallationProperty copy = (target == null) ? new IntTunnelInstallationProperty() : (IntTunnelInstallationProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetIntTunnelInstallation() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INT_TUNNEL_INSTALLATION_PROPERTY;
+    }
+
+    @Override
+    public Class<IntTunnelInstallation> getAssociableClass() {
+        return IntTunnelInstallation.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new IntTunnelInstallationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        IntTunnelInstallationProperty copy = (target == null) ? new IntTunnelInstallationProperty() : (IntTunnelInstallationProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

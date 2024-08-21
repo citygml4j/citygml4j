@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Length extends Measure {
-	
-	public Length() {
-	}
-	
-	public Length(double value) {
-		super(value);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.LENGTH;
-	}
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Length(), copyBuilder);
-	}
+    public Length() {
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Length copy = (target == null) ? new Length() : (Length)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    public Length(double value) {
+        super(value);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.LENGTH;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Length(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Length copy = (target == null) ? new Length() : (Length) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

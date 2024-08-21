@@ -23,51 +23,51 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class PolygonProperty extends GeometryProperty<Polygon> {
-	
-	public PolygonProperty() {
 
-	}
+    public PolygonProperty() {
 
-	public PolygonProperty(Polygon polygon) {
-		super(polygon);
-	}
+    }
 
-	public PolygonProperty(String href) {
-		super(href);
-	}
-	
-	public Polygon getPolygon() {
-		return super.getGeometry();
-	}
+    public PolygonProperty(Polygon polygon) {
+        super(polygon);
+    }
 
-	public boolean isSetPolygon() {
-		return super.isSetGeometry();
-	}
+    public PolygonProperty(String href) {
+        super(href);
+    }
 
-	public void setPolygon(Polygon polygon) {
-		super.setGeometry(polygon);
-	}
+    public Polygon getPolygon() {
+        return super.getGeometry();
+    }
 
-	public void unsetPolygon() {
-		super.unsetGeometry();
-	}
+    public boolean isSetPolygon() {
+        return super.isSetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.POLYGON_PROPERTY;
-	}
+    public void setPolygon(Polygon polygon) {
+        super.setGeometry(polygon);
+    }
 
-	@Override
-	public Class<Polygon> getAssociableClass() {
-		return Polygon.class;
-	}
+    public void unsetPolygon() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PolygonProperty(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.POLYGON_PROPERTY;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PolygonProperty copy = (target == null) ? new PolygonProperty() : (PolygonProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<Polygon> getAssociableClass() {
+        return Polygon.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PolygonProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PolygonProperty copy = (target == null) ? new PolygonProperty() : (PolygonProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

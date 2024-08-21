@@ -50,130 +50,130 @@ import org.citygml4j.builder.jaxb.marshal.xal.XALMarshaller;
 import org.citygml4j.model.module.citygml.CityGMLVersion;
 
 public class ADEMarshallerHelper {
-	private final JAXBMarshaller jaxb;
-	
-	public ADEMarshallerHelper(JAXBMarshaller jaxb) {
-		this.jaxb = jaxb;
-	}
-	
-	public CityGMLVersion getTargetCityGMLVersion() {
-		return jaxb.getModuleContext().getCityGMLVersion();
-	}
-	
-	public JAXBMarshaller getJAXBMarshaller() {
-		return jaxb;
-	}
-	
-	public Appearance200Marshaller getAppearance200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getAppearance200Marshaller();
-	}
+    private final JAXBMarshaller jaxb;
 
-	public Bridge200Marshaller getBridge200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getBridge200Marshaller();
-	}
+    public ADEMarshallerHelper(JAXBMarshaller jaxb) {
+        this.jaxb = jaxb;
+    }
 
-	public Building200Marshaller getBuilding200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getBuilding200Marshaller();
-	}
+    public CityGMLVersion getTargetCityGMLVersion() {
+        return jaxb.getModuleContext().getCityGMLVersion();
+    }
 
-	public CityFurniture200Marshaller getCityFurniture200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getCityFurniture200Marshaller();
-	}
+    public JAXBMarshaller getJAXBMarshaller() {
+        return jaxb;
+    }
 
-	public CityObjectGroup200Marshaller getCityObjectGroup200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getCityObjectGroup200Marshaller();
-	}
+    public Appearance200Marshaller getAppearance200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getAppearance200Marshaller();
+    }
 
-	public Core200Marshaller getCore200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getCore200Marshaller();
-	}
+    public Bridge200Marshaller getBridge200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getBridge200Marshaller();
+    }
 
-	public Generics200Marshaller getGenerics200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getGenerics200Marshaller();
-	}
+    public Building200Marshaller getBuilding200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getBuilding200Marshaller();
+    }
 
-	public LandUse200Marshaller getLandUse200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getLandUse200Marshaller();
-	}
+    public CityFurniture200Marshaller getCityFurniture200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getCityFurniture200Marshaller();
+    }
 
-	public Relief200Marshaller getRelief200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getRelief200Marshaller();
-	}
+    public CityObjectGroup200Marshaller getCityObjectGroup200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getCityObjectGroup200Marshaller();
+    }
 
-	public TexturedSurface200Marshaller getTexturedSurface200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getTexturedSurface200Marshaller();
-	}
+    public Core200Marshaller getCore200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getCore200Marshaller();
+    }
 
-	public Transportation200Marshaller getTransportation200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getTransportation200Marshaller();
-	}
+    public Generics200Marshaller getGenerics200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getGenerics200Marshaller();
+    }
 
-	public Tunnel200Marshaller getTunnel200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getTunnel200Marshaller();
-	}
+    public LandUse200Marshaller getLandUse200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getLandUse200Marshaller();
+    }
 
-	public Vegetation200Marshaller getVegetation200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getVegetation200Marshaller();
-	}
+    public Relief200Marshaller getRelief200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getRelief200Marshaller();
+    }
 
-	public WaterBody200Marshaller getWaterBody200Marshaller() {
-		return jaxb.getCityGMLMarshaller().getWaterBody200Marshaller();
-	}
+    public TexturedSurface200Marshaller getTexturedSurface200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getTexturedSurface200Marshaller();
+    }
 
-	public Appearance100Marshaller getAppearance100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getAppearance100Marshaller();
-	}
+    public Transportation200Marshaller getTransportation200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getTransportation200Marshaller();
+    }
 
-	public Building100Marshaller getBuilding100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getBuilding100Marshaller();
-	}
+    public Tunnel200Marshaller getTunnel200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getTunnel200Marshaller();
+    }
 
-	public CityFurniture100Marshaller getCityFurniture100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getCityFurniture100Marshaller();
-	}
+    public Vegetation200Marshaller getVegetation200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getVegetation200Marshaller();
+    }
 
-	public CityObjectGroup100Marshaller getCityObjectGroup100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getCityObjectGroup100Marshaller();
-	}
+    public WaterBody200Marshaller getWaterBody200Marshaller() {
+        return jaxb.getCityGMLMarshaller().getWaterBody200Marshaller();
+    }
 
-	public Core100Marshaller getCore100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getCore100Marshaller();
-	}
+    public Appearance100Marshaller getAppearance100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getAppearance100Marshaller();
+    }
 
-	public Generics100Marshaller getGenerics100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getGenerics100Marshaller();
-	}
+    public Building100Marshaller getBuilding100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getBuilding100Marshaller();
+    }
 
-	public LandUse100Marshaller getLandUse100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getLandUse100Marshaller();
-	}
+    public CityFurniture100Marshaller getCityFurniture100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getCityFurniture100Marshaller();
+    }
 
-	public Relief100Marshaller getRelief100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getRelief100Marshaller();
-	}
+    public CityObjectGroup100Marshaller getCityObjectGroup100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getCityObjectGroup100Marshaller();
+    }
 
-	public TexturedSurface100Marshaller getTexturedSurface100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getTexturedSurface100Marshaller();
-	}
+    public Core100Marshaller getCore100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getCore100Marshaller();
+    }
 
-	public Transportation100Marshaller getTransportation100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getTransportation100Marshaller();
-	}
+    public Generics100Marshaller getGenerics100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getGenerics100Marshaller();
+    }
 
-	public Vegetation100Marshaller getVegetation100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getVegetation100Marshaller();
-	}
+    public LandUse100Marshaller getLandUse100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getLandUse100Marshaller();
+    }
 
-	public WaterBody100Marshaller getWaterBody100Marshaller() {
-		return jaxb.getCityGMLMarshaller().getWaterBody100Marshaller();
-	}
-	
-	public GMLMarshaller getGMLMarshaller() {
-		return jaxb.getGMLMarshaller();
-	}
+    public Relief100Marshaller getRelief100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getRelief100Marshaller();
+    }
 
-	public XALMarshaller getXALMarshaller() {
-		return jaxb.getXALMarshaller();
-	}
-	
+    public TexturedSurface100Marshaller getTexturedSurface100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getTexturedSurface100Marshaller();
+    }
+
+    public Transportation100Marshaller getTransportation100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getTransportation100Marshaller();
+    }
+
+    public Vegetation100Marshaller getVegetation100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getVegetation100Marshaller();
+    }
+
+    public WaterBody100Marshaller getWaterBody100Marshaller() {
+        return jaxb.getCityGMLMarshaller().getWaterBody100Marshaller();
+    }
+
+    public GMLMarshaller getGMLMarshaller() {
+        return jaxb.getGMLMarshaller();
+    }
+
+    public XALMarshaller getXALMarshaller() {
+        return jaxb.getXALMarshaller();
+    }
+
 }

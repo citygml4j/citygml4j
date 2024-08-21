@@ -30,150 +30,150 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class MailStop implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private MailStopName mailStopName;
-	private MailStopNumber mailStopNumber;
-	private String type;
-	private ModelObject parent;
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private MailStopName mailStopName;
+    private MailStopNumber mailStopNumber;
+    private String type;
+    private ModelObject parent;
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public MailStopName getMailStopName() {
-		return mailStopName;
-	}
+        return addressLine;
+    }
 
-	public MailStopNumber getMailStopNumber() {
-		return mailStopNumber;
-	}
+    public MailStopName getMailStopName() {
+        return mailStopName;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public MailStopNumber getMailStopNumber() {
+        return mailStopNumber;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetMailStopName() {
-		return mailStopName != null;
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetMailStopNumber() {
-		return mailStopNumber != null;
-	}
+    public boolean isSetMailStopName() {
+        return mailStopName != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetMailStopNumber() {
+        return mailStopNumber != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setMailStopName(MailStopName mailStopName) {
-		this.mailStopName = ModelObjects.setParent(mailStopName, this);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setMailStopNumber(MailStopNumber mailStopNumber) {
-		this.mailStopNumber = ModelObjects.setParent(mailStopNumber, this);
-	}
+    public void setMailStopName(MailStopName mailStopName) {
+        this.mailStopName = ModelObjects.setParent(mailStopName, this);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setMailStopNumber(MailStopNumber mailStopNumber) {
+        this.mailStopNumber = ModelObjects.setParent(mailStopNumber, this);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetMailStopName() {
-		mailStopName = ModelObjects.setNull(mailStopName);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public void unsetMailStopNumber() {
-		mailStopNumber = ModelObjects.setNull(mailStopNumber);
-	}
+    public void unsetMailStopName() {
+        mailStopName = ModelObjects.setNull(mailStopName);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetMailStopNumber() {
+        mailStopNumber = ModelObjects.setNull(mailStopNumber);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.MAIL_STOP;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.MAIL_STOP;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MailStop(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MailStop copy = (target == null) ? new MailStop() : (MailStop)target;
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetMailStopName()) {
-			copy.setMailStopName((MailStopName)copyBuilder.copy(mailStopName));
-			if (copy.getMailStopName() == mailStopName)
-				mailStopName.setParent(this);
-		}
-		
-		if (isSetMailStopNumber()) {
-			copy.setMailStopNumber((MailStopNumber)copyBuilder.copy(mailStopNumber));
-			if (copy.getMailStopNumber() == mailStopNumber)
-				mailStopNumber.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MailStop(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MailStop copy = (target == null) ? new MailStop() : (MailStop) target;
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetMailStopName()) {
+            copy.setMailStopName((MailStopName) copyBuilder.copy(mailStopName));
+            if (copy.getMailStopName() == mailStopName)
+                mailStopName.setParent(this);
+        }
+
+        if (isSetMailStopNumber()) {
+            copy.setMailStopNumber((MailStopNumber) copyBuilder.copy(mailStopNumber));
+            if (copy.getMailStopNumber() == mailStopNumber)
+                mailStopNumber.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

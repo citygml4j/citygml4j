@@ -36,187 +36,188 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractGML implements GML, StandardObjectProperties, Associable, Child, Copyable {
-	private static final long serialVersionUID = 8038430725115673854L;
+    private static final long serialVersionUID = 8038430725115673854L;
 
-	private String id;
-	private StringOrRef description;
-	private List<Code> name;
-	private List<MetaDataProperty> metaDataProperty;
-	private Map<String, Object> localProperties;
-	private ModelObject parent;
+    private String id;
+    private StringOrRef description;
+    private List<Code> name;
+    private List<MetaDataProperty> metaDataProperty;
+    private Map<String, Object> localProperties;
+    private ModelObject parent;
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public boolean isSetId() {
-		return id != null;
-	}
+    public boolean isSetId() {
+        return id != null;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void unsetId() {
-		id = null;
-	}
+    public void unsetId() {
+        id = null;
+    }
 
-	public void addMetaDataProperty(MetaDataProperty metaDataProperty) {
-		getMetaDataProperty().add(metaDataProperty);
-	}
-	
-	public void addName(Code name) {
-		getName().add(name);
-	}
+    public void addMetaDataProperty(MetaDataProperty metaDataProperty) {
+        getMetaDataProperty().add(metaDataProperty);
+    }
 
-	public StringOrRef getDescription() {
-		return description;
-	}
+    public void addName(Code name) {
+        getName().add(name);
+    }
 
-	public List<MetaDataProperty> getMetaDataProperty() {
-		if (metaDataProperty == null)
-			metaDataProperty = new ChildList<>(this);
-		
-		return metaDataProperty;
-	}
-	
-	public List<Code> getName() {
-		if (name == null)
-			name = new ChildList<>(this);
+    public StringOrRef getDescription() {
+        return description;
+    }
 
-		return name;
-	}
+    public List<MetaDataProperty> getMetaDataProperty() {
+        if (metaDataProperty == null)
+            metaDataProperty = new ChildList<>(this);
 
-	public boolean isSetDescription() {
-		return description != null;
-	}
+        return metaDataProperty;
+    }
 
-	public boolean isSetMetaDataProperty() {
-		return metaDataProperty != null && !metaDataProperty.isEmpty();
-	}
+    public List<Code> getName() {
+        if (name == null)
+            name = new ChildList<>(this);
 
-	public boolean isSetName() {
-		return name != null && !name.isEmpty();
-	}
+        return name;
+    }
 
-	public void setDescription(StringOrRef description) {
-		this.description = ModelObjects.setParent(description, this);
-	}
+    public boolean isSetDescription() {
+        return description != null;
+    }
 
-	public void setMetaDataProperty(List<MetaDataProperty> metaDataProperty) {
-		this.metaDataProperty = new ChildList<>(this, metaDataProperty);
-	}
+    public boolean isSetMetaDataProperty() {
+        return metaDataProperty != null && !metaDataProperty.isEmpty();
+    }
 
-	public void setName(List<Code> name) {
-		this.name = new ChildList<>(this, name);
-	}
+    public boolean isSetName() {
+        return name != null && !name.isEmpty();
+    }
 
-	public void unsetDescription() {
-		description = ModelObjects.setNull(description);
-	}
+    public void setDescription(StringOrRef description) {
+        this.description = ModelObjects.setParent(description, this);
+    }
 
-	public void unsetMetaDataProperty() {
-		metaDataProperty = ModelObjects.setNull(metaDataProperty);
-	}
-	
-	public boolean unsetMetaDataProperty(MetaDataProperty metaDataProperty) {
-		return isSetMetaDataProperty() && this.metaDataProperty.remove(metaDataProperty);
-	}
+    public void setMetaDataProperty(List<MetaDataProperty> metaDataProperty) {
+        this.metaDataProperty = new ChildList<>(this, metaDataProperty);
+    }
 
-	public void unsetName() {
-		name = ModelObjects.setNull(name);
-	}
+    public void setName(List<Code> name) {
+        this.name = new ChildList<>(this, name);
+    }
 
-	public boolean unsetName(Code name) {
-		return isSetName() && this.name.remove(name);
-	}
+    public void unsetDescription() {
+        description = ModelObjects.setNull(description);
+    }
 
-	public Object getLocalProperty(String name) {
-		if (localProperties != null)
-			return localProperties.get(name);
-			
-		return null;
-	}
+    public void unsetMetaDataProperty() {
+        metaDataProperty = ModelObjects.setNull(metaDataProperty);
+    }
 
-	public void setLocalProperty(String name, Object value) {
-		if (localProperties == null)
-			localProperties = new HashMap<>();
-		
-		localProperties.put(name, value);
-	}
+    public boolean unsetMetaDataProperty(MetaDataProperty metaDataProperty) {
+        return isSetMetaDataProperty() && this.metaDataProperty.remove(metaDataProperty);
+    }
 
-	public boolean hasLocalProperty(String name) {
-		return localProperties != null && localProperties.containsKey(name);
-	}
+    public void unsetName() {
+        name = ModelObjects.setNull(name);
+    }
 
-	public Object unsetLocalProperty(String name) {
-		if (localProperties != null)
-			return localProperties.remove(name);
-		
-		return null;
-	}
+    public boolean unsetName(Code name) {
+        return isSetName() && this.name.remove(name);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public Object getLocalProperty(String name) {
+        if (localProperties != null)
+            return localProperties.get(name);
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+        return null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setLocalProperty(String name, Object value) {
+        if (localProperties == null)
+            localProperties = new HashMap<>();
 
-	public void unsetParent() {
-		parent = null;
-	}
+        localProperties.put(name, value);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_GML;
-	}
+    public boolean hasLocalProperty(String name) {
+        return localProperties != null && localProperties.containsKey(name);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public Object unsetLocalProperty(String name) {
+        if (localProperties != null)
+            return localProperties.remove(name);
 
-		AbstractGML copy = (AbstractGML)target;
+        return null;
+    }
 
-		if (isSetId())
-			copy.setId(copyBuilder.copy(id));
+    public ModelObject getParent() {
+        return parent;
+    }
 
-		if (isSetDescription()) {
-			copy.setDescription((StringOrRef)copyBuilder.copy(description));
-			if (copy.getDescription() == description)
-				description.setParent(this);
-		}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-		if (isSetName()) {
-			for (Code part : name) {
-				Code copyPart = (Code)copyBuilder.copy(part);
-				copy.addName(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}			
-		}
-		
-		if (isSetMetaDataProperty()) {
-			for (MetaDataProperty part : metaDataProperty) {
-				MetaDataProperty copyPart = (MetaDataProperty)copyBuilder.copy(part);
-				copy.addMetaDataProperty(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-		copy.unsetParent();
+    public void unsetParent() {
+        parent = null;
+    }
 
-		return copy;
-	}
-	
-	public abstract void accept(GMLVisitor visitor);
-	public abstract <T> T accept(GMLFunctor<T> visitor);
+    public GMLClass getGMLClass() {
+        return GMLClass.ABSTRACT_GML;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractGML copy = (AbstractGML) target;
+
+        if (isSetId())
+            copy.setId(copyBuilder.copy(id));
+
+        if (isSetDescription()) {
+            copy.setDescription((StringOrRef) copyBuilder.copy(description));
+            if (copy.getDescription() == description)
+                description.setParent(this);
+        }
+
+        if (isSetName()) {
+            for (Code part : name) {
+                Code copyPart = (Code) copyBuilder.copy(part);
+                copy.addName(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetMetaDataProperty()) {
+            for (MetaDataProperty part : metaDataProperty) {
+                MetaDataProperty copyPart = (MetaDataProperty) copyBuilder.copy(part);
+                copy.addMetaDataProperty(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public abstract void accept(GMLVisitor visitor);
+
+    public abstract <T> T accept(GMLFunctor<T> visitor);
 
 }

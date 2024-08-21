@@ -27,8 +27,12 @@ import org.citygml4j.model.gml.feature.AbstractFeature;
 
 public interface CityJSONExtensionUnmarshaller {
     void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper);
+
     AbstractFeature unmarshalCityObject(AbstractCityObjectType src, CityObjectContext context);
+
     AbstractCityObject unmarshalSemanticSurface(SemanticsType src, SemanticSurfaceContext context);
+
     boolean assignSemanticSurface(AbstractCityObject semanticSurface, SemanticSurfaceContext context);
+
     void unmarshalExtensionProperty(String name, ExtensionPropertyContext context);
 }

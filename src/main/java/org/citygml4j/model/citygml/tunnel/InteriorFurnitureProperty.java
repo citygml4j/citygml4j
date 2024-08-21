@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class InteriorFurnitureProperty extends FeatureProperty<TunnelFurniture> implements TunnelModuleComponent {
 
-	public InteriorFurnitureProperty() {
-		
-	}
-	
-	public InteriorFurnitureProperty(TunnelFurniture tunnelFurniture) {
-		super(tunnelFurniture);
-	}
-	
-	public InteriorFurnitureProperty(String href) {
-		super(href);
-	}
-	
-	public TunnelFurniture getTunnelFurniture() {
-		return super.getObject();
-	}
+    public InteriorFurnitureProperty() {
 
-	public boolean isSetTunnelFurniture() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setTunnelFurniture(TunnelFurniture tunnelFurniture) {
-		super.setObject(tunnelFurniture);
-	}
+    public InteriorFurnitureProperty(TunnelFurniture tunnelFurniture) {
+        super(tunnelFurniture);
+    }
 
-	public void unsetTunnelFurniture() {
-		super.unsetObject();
-	}
+    public InteriorFurnitureProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_TUNNEL_FURNITURE_PROPERTY;
-	}
+    public TunnelFurniture getTunnelFurniture() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<TunnelFurniture> getAssociableClass() {
-		return TunnelFurniture.class;
-	}
+    public boolean isSetTunnelFurniture() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new InteriorFurnitureProperty(), copyBuilder);
-	}
+    public void setTunnelFurniture(TunnelFurniture tunnelFurniture) {
+        super.setObject(tunnelFurniture);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetTunnelFurniture() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INTERIOR_TUNNEL_FURNITURE_PROPERTY;
+    }
+
+    @Override
+    public Class<TunnelFurniture> getAssociableClass() {
+        return TunnelFurniture.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new InteriorFurnitureProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

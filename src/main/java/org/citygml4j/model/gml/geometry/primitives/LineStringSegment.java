@@ -29,207 +29,208 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LineStringSegment extends AbstractCurveSegment {
-	private List<PosOrPointPropertyOrPointRep> controlPoints;
-	private DirectPositionList posList;
-	private Coordinates coordinates;
-	private CurveInterpolation interpolation;
+    private List<PosOrPointPropertyOrPointRep> controlPoints;
+    private DirectPositionList posList;
+    private Coordinates coordinates;
+    private CurveInterpolation interpolation;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.LINE_STRING_SEGMENT;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.LINE_STRING_SEGMENT;
+    }
 
-	public void addPointProperty(PointProperty pointProperty) {
-		getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pointProperty));
-	}
+    public void addPointProperty(PointProperty pointProperty) {
+        getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pointProperty));
+    }
 
-	public void addPointRep(PointRep pointRep) {
-		getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pointRep));
-	}
+    public void addPointRep(PointRep pointRep) {
+        getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pointRep));
+    }
 
-	public void addPos(DirectPosition pos) {
-		getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pos));
-	}
+    public void addPos(DirectPosition pos) {
+        getPosOrPointPropertyOrPointRep().add(new PosOrPointPropertyOrPointRep(pos));
+    }
 
-	public void addControlPoint(PosOrPointPropertyOrPointRep controlPoint) {
-		getPosOrPointPropertyOrPointRep().add(controlPoint);
-	}
+    public void addControlPoint(PosOrPointPropertyOrPointRep controlPoint) {
+        getPosOrPointPropertyOrPointRep().add(controlPoint);
+    }
 
-	public Coordinates getCoordinates() {
-		return coordinates;
-	}
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
 
-	public CurveInterpolation getInterpolation() {
-		return interpolation == null ? CurveInterpolation.LINEAR : interpolation;
-	}
+    public CurveInterpolation getInterpolation() {
+        return interpolation == null ? CurveInterpolation.LINEAR : interpolation;
+    }
 
-	public DirectPositionList getPosList() {
-		return posList;
-	}
+    public DirectPositionList getPosList() {
+        return posList;
+    }
 
-	public List<PosOrPointPropertyOrPointRep> getPosOrPointPropertyOrPointRep() {
-		if (controlPoints == null)
-			controlPoints = new ChildList<>(this);
+    public List<PosOrPointPropertyOrPointRep> getPosOrPointPropertyOrPointRep() {
+        if (controlPoints == null)
+            controlPoints = new ChildList<>(this);
 
-		return controlPoints;
-	}
+        return controlPoints;
+    }
 
-	public boolean isSetCoordinates() {
-		return coordinates != null;
-	}
+    public boolean isSetCoordinates() {
+        return coordinates != null;
+    }
 
-	public boolean isSetInterpolation() {
-		return interpolation != null;
-	}
+    public boolean isSetInterpolation() {
+        return interpolation != null;
+    }
 
-	public boolean isSetPosList() {
-		return posList != null;
-	}
+    public boolean isSetPosList() {
+        return posList != null;
+    }
 
-	public boolean isSetPosOrPointPropertyOrPointRep() {
-		return controlPoints != null && !controlPoints.isEmpty();
-	}
+    public boolean isSetPosOrPointPropertyOrPointRep() {
+        return controlPoints != null && !controlPoints.isEmpty();
+    }
 
-	public void setCoordinates(Coordinates coordinates) {
-		this.coordinates = ModelObjects.setParent(coordinates, this);
-	}
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = ModelObjects.setParent(coordinates, this);
+    }
 
-	public void setInterpolation(CurveInterpolation interpolation) {
-		this.interpolation = CurveInterpolation.LINEAR;
-	}
+    public void setInterpolation(CurveInterpolation interpolation) {
+        this.interpolation = CurveInterpolation.LINEAR;
+    }
 
-	public void setPosList(DirectPositionList posList) {
-		this.posList = ModelObjects.setParent(posList, this);
-	}
+    public void setPosList(DirectPositionList posList) {
+        this.posList = ModelObjects.setParent(posList, this);
+    }
 
-	public void setPosOrPointPropertyOrPointRep(List<PosOrPointPropertyOrPointRep> controlPoints) {
-		this.controlPoints = new ChildList<>(this, controlPoints);
-	}
+    public void setPosOrPointPropertyOrPointRep(List<PosOrPointPropertyOrPointRep> controlPoints) {
+        this.controlPoints = new ChildList<>(this, controlPoints);
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<>();
+    @Override
+    public List<Double> toList3d() {
+        List<Double> tmp = new ArrayList<>();
 
-		if (isSetPosList()) 
-			tmp.addAll(posList.toList3d());
+        if (isSetPosList())
+            tmp.addAll(posList.toList3d());
 
-		if (isSetPosOrPointPropertyOrPointRep())
-			for (PosOrPointPropertyOrPointRep controlPoint : controlPoints)
-				controlPoint.toList3d();
+        if (isSetPosOrPointPropertyOrPointRep())
+            for (PosOrPointPropertyOrPointRep controlPoint : controlPoints)
+                controlPoint.toList3d();
 
-		if (isSetCoordinates())
-			tmp.addAll(coordinates.toList3d());
+        if (isSetCoordinates())
+            tmp.addAll(coordinates.toList3d());
 
-		return tmp;
-	}
+        return tmp;
+    }
 
-	public void unsetCoordinates() {
-		coordinates = ModelObjects.setNull(coordinates);
-	}
+    public void unsetCoordinates() {
+        coordinates = ModelObjects.setNull(coordinates);
+    }
 
-	public void unsetInterpolation() {
-		interpolation = null;
-	}
+    public void unsetInterpolation() {
+        interpolation = null;
+    }
 
-	public void unsetPosList() {
-		posList = ModelObjects.setNull(posList);
-	}
+    public void unsetPosList() {
+        posList = ModelObjects.setNull(posList);
+    }
 
-	public boolean unsetPosOrPointPropertyOrPointRep(PosOrPointPropertyOrPointRep controlPoint) {
-		return isSetPosOrPointPropertyOrPointRep() && controlPoints.remove(controlPoint);	}
+    public boolean unsetPosOrPointPropertyOrPointRep(PosOrPointPropertyOrPointRep controlPoint) {
+        return isSetPosOrPointPropertyOrPointRep() && controlPoints.remove(controlPoint);
+    }
 
-	public boolean unsetPointProperty(PointProperty pointProperty) {
-		boolean success = false;
+    public boolean unsetPointProperty(PointProperty pointProperty) {
+        boolean success = false;
 
-		if (isSetPosOrPointPropertyOrPointRep()) {
-			Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
-			while (iter.hasNext()) {
-				PosOrPointPropertyOrPointRep controlPoint = iter.next();
-				if (controlPoint != null && controlPoint.getPointProperty().equals(pointProperty)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
+        if (isSetPosOrPointPropertyOrPointRep()) {
+            Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
+            while (iter.hasNext()) {
+                PosOrPointPropertyOrPointRep controlPoint = iter.next();
+                if (controlPoint != null && controlPoint.getPointProperty().equals(pointProperty)) {
+                    iter.remove();
+                    success = true;
+                    break;
+                }
+            }
+        }
 
-		return success;
-	}
+        return success;
+    }
 
-	public boolean unsetPointRep(PointRep pointRep) {
-		boolean success = false;
+    public boolean unsetPointRep(PointRep pointRep) {
+        boolean success = false;
 
-		if (isSetPosOrPointPropertyOrPointRep()) {
-			Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
-			while (iter.hasNext()) {
-				PosOrPointPropertyOrPointRep controlPoint = iter.next();
-				if (controlPoint != null && controlPoint.getPointRep().equals(pointRep)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
+        if (isSetPosOrPointPropertyOrPointRep()) {
+            Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
+            while (iter.hasNext()) {
+                PosOrPointPropertyOrPointRep controlPoint = iter.next();
+                if (controlPoint != null && controlPoint.getPointRep().equals(pointRep)) {
+                    iter.remove();
+                    success = true;
+                    break;
+                }
+            }
+        }
 
-		return success;
-	}
+        return success;
+    }
 
-	public boolean unsetPos(DirectPosition pos) {
-		boolean success = false;
+    public boolean unsetPos(DirectPosition pos) {
+        boolean success = false;
 
-		if (isSetPosOrPointPropertyOrPointRep()) {
-			Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
-			while (iter.hasNext()) {
-				PosOrPointPropertyOrPointRep controlPoint = iter.next();
-				if (controlPoint != null && controlPoint.getPos().equals(pos)) {
-					iter.remove();
-					success = true;
-					break;
-				}
-			}
-		}
+        if (isSetPosOrPointPropertyOrPointRep()) {
+            Iterator<PosOrPointPropertyOrPointRep> iter = controlPoints.iterator();
+            while (iter.hasNext()) {
+                PosOrPointPropertyOrPointRep controlPoint = iter.next();
+                if (controlPoint != null && controlPoint.getPos().equals(pos)) {
+                    iter.remove();
+                    success = true;
+                    break;
+                }
+            }
+        }
 
-		return success;
-	}
+        return success;
+    }
 
-	public void unsetPosOrPointPropertyOrPointRep() {
-		controlPoints = ModelObjects.setNull(controlPoints);
-	}
+    public void unsetPosOrPointPropertyOrPointRep() {
+        controlPoints = ModelObjects.setNull(controlPoints);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		LineStringSegment copy = (target == null) ? new LineStringSegment() : (LineStringSegment)target;
-		super.copyTo(copy, copyBuilder);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        LineStringSegment copy = (target == null) ? new LineStringSegment() : (LineStringSegment) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetPosOrPointPropertyOrPointRep()) {
-			for (PosOrPointPropertyOrPointRep part : controlPoints) {
-				PosOrPointPropertyOrPointRep copyPart = (PosOrPointPropertyOrPointRep)copyBuilder.copy(part);
-				copy.addControlPoint(copyPart);
+        if (isSetPosOrPointPropertyOrPointRep()) {
+            for (PosOrPointPropertyOrPointRep part : controlPoints) {
+                PosOrPointPropertyOrPointRep copyPart = (PosOrPointPropertyOrPointRep) copyBuilder.copy(part);
+                copy.addControlPoint(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		if (isSetPosList()) {
-			copy.setPosList((DirectPositionList)copyBuilder.copy(posList));
-			if (copy.getPosList() == posList)
-				posList.setParent(this);
-		}
+        if (isSetPosList()) {
+            copy.setPosList((DirectPositionList) copyBuilder.copy(posList));
+            if (copy.getPosList() == posList)
+                posList.setParent(this);
+        }
 
-		if (isSetCoordinates()) {
-			copy.setCoordinates((Coordinates)copyBuilder.copy(coordinates));
-			if (copy.getCoordinates() == coordinates)
-				coordinates.setParent(this);
-		}
+        if (isSetCoordinates()) {
+            copy.setCoordinates((Coordinates) copyBuilder.copy(coordinates));
+            if (copy.getCoordinates() == coordinates)
+                coordinates.setParent(this);
+        }
 
-		if (isSetInterpolation())
-			copy.setInterpolation((CurveInterpolation)copyBuilder.copy(interpolation));
+        if (isSetInterpolation())
+            copy.setInterpolation((CurveInterpolation) copyBuilder.copy(interpolation));
 
-		return copy;
-	}
+        return copy;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new LineStringSegment(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new LineStringSegment(), copyBuilder);
+    }
 
 }

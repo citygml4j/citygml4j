@@ -23,51 +23,51 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiPolygonProperty extends GeometryProperty<MultiPolygon> {
-	
-	public MultiPolygonProperty() {
 
-	}
+    public MultiPolygonProperty() {
 
-	public MultiPolygonProperty(MultiPolygon multiPolygon) {
-		super(multiPolygon);
-	}
+    }
 
-	public MultiPolygonProperty(String href) {
-		super(href);
-	}
-	
-	public MultiPolygon getMultiPolygon() {
-		return super.getGeometry();
-	}
+    public MultiPolygonProperty(MultiPolygon multiPolygon) {
+        super(multiPolygon);
+    }
 
-	public boolean isSetMultiPolygon() {
-		return super.isSetGeometry();
-	}
+    public MultiPolygonProperty(String href) {
+        super(href);
+    }
 
-	public void setMultiPolygon(MultiPolygon multiPolygon) {
-		super.setGeometry(multiPolygon);
-	}
+    public MultiPolygon getMultiPolygon() {
+        return super.getGeometry();
+    }
 
-	public void unsetMultiPolygon() {
-		super.unsetGeometry();
-	}
+    public boolean isSetMultiPolygon() {
+        return super.isSetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_POLYGON_PROPERTY;
-	}
+    public void setMultiPolygon(MultiPolygon multiPolygon) {
+        super.setGeometry(multiPolygon);
+    }
 
-	@Override
-	public Class<MultiPolygon> getAssociableClass() {
-		return MultiPolygon.class;
-	}
+    public void unsetMultiPolygon() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiPolygonProperty(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_POLYGON_PROPERTY;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiPolygonProperty copy = (target == null) ? new MultiPolygonProperty() : (MultiPolygonProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<MultiPolygon> getAssociableClass() {
+        return MultiPolygon.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiPolygonProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiPolygonProperty copy = (target == null) ? new MultiPolygonProperty() : (MultiPolygonProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

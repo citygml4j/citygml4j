@@ -29,284 +29,274 @@ import javax.xml.stream.XMLStreamReader;
 import java.util.Stack;
 
 public class CityGMLNamespaceMapper implements XMLStreamReader {
-	private final XMLStreamReader reader;
+    private final XMLStreamReader reader;
 
-	private Stack<ParentFeatureElement> parents;
-	private ParentFeatureElement parent;
-	private QName currentName;
-	
-	private boolean isCityGML;
-	private int depth = 0;
+    private Stack<ParentFeatureElement> parents;
+    private ParentFeatureElement parent;
+    private QName currentName;
 
-	public CityGMLNamespaceMapper(XMLStreamReader reader) {
-		this.reader = reader;
-		parents = new Stack<ParentFeatureElement>();
-	}
+    private boolean isCityGML;
+    private int depth = 0;
 
-	public void close() throws XMLStreamException {
-		reader.close();
-		parents = null;
-	}
+    public CityGMLNamespaceMapper(XMLStreamReader reader) {
+        this.reader = reader;
+        parents = new Stack<ParentFeatureElement>();
+    }
 
-	public int getAttributeCount() {
-		return reader.getAttributeCount();
-	}
+    public void close() throws XMLStreamException {
+        reader.close();
+        parents = null;
+    }
 
-	public String getAttributeLocalName(int arg0) {
-		return reader.getAttributeLocalName(arg0);
-	}
+    public int getAttributeCount() {
+        return reader.getAttributeCount();
+    }
 
-	public QName getAttributeName(int arg0) {
-		return reader.getAttributeName(arg0);
-	}
+    public String getAttributeLocalName(int arg0) {
+        return reader.getAttributeLocalName(arg0);
+    }
 
-	public String getAttributeNamespace(int arg0) {
-		String namespaceURI = reader.getAttributeNamespace(arg0);
-		return (namespaceURI != null && namespaceURI.startsWith("http://www.citygml.org/citygml")) ? currentName.getNamespaceURI() : reader.getAttributeNamespace(arg0);
-	}
+    public QName getAttributeName(int arg0) {
+        return reader.getAttributeName(arg0);
+    }
 
-	public String getAttributePrefix(int arg0) {
-		return reader.getAttributePrefix(arg0);
-	}
+    public String getAttributeNamespace(int arg0) {
+        String namespaceURI = reader.getAttributeNamespace(arg0);
+        return (namespaceURI != null && namespaceURI.startsWith("http://www.citygml.org/citygml")) ? currentName.getNamespaceURI() : reader.getAttributeNamespace(arg0);
+    }
 
-	public String getAttributeType(int arg0) {
-		return reader.getAttributeType(arg0);
-	}
+    public String getAttributePrefix(int arg0) {
+        return reader.getAttributePrefix(arg0);
+    }
 
-	public String getAttributeValue(int arg0) {
-		return reader.getAttributeValue(arg0);
-	}
+    public String getAttributeType(int arg0) {
+        return reader.getAttributeType(arg0);
+    }
 
-	public String getAttributeValue(String arg0, String arg1) {
-		return reader.getAttributeValue(arg0, arg1);
-	}
+    public String getAttributeValue(int arg0) {
+        return reader.getAttributeValue(arg0);
+    }
 
-	public String getCharacterEncodingScheme() {
-		return reader.getCharacterEncodingScheme();
-	}
+    public String getAttributeValue(String arg0, String arg1) {
+        return reader.getAttributeValue(arg0, arg1);
+    }
 
-	public String getElementText() throws XMLStreamException {
-		return reader.getElementText();
-	}
+    public String getCharacterEncodingScheme() {
+        return reader.getCharacterEncodingScheme();
+    }
 
-	public String getEncoding() {
-		return reader.getEncoding();
-	}
+    public String getElementText() throws XMLStreamException {
+        return reader.getElementText();
+    }
 
-	public int getEventType() {
-		return reader.getEventType();
-	}
+    public String getEncoding() {
+        return reader.getEncoding();
+    }
 
-	public String getLocalName() {
-		return isCityGML ? currentName.getLocalPart() : reader.getLocalName();
-	}
+    public int getEventType() {
+        return reader.getEventType();
+    }
 
-	public Location getLocation() {
-		return reader.getLocation();
-	}
+    public String getLocalName() {
+        return isCityGML ? currentName.getLocalPart() : reader.getLocalName();
+    }
 
-	public QName getName() {
-		return isCityGML ? currentName : reader.getName();
-	}
+    public Location getLocation() {
+        return reader.getLocation();
+    }
 
-	public NamespaceContext getNamespaceContext() {
-		return reader.getNamespaceContext();
-	}
+    public QName getName() {
+        return isCityGML ? currentName : reader.getName();
+    }
 
-	public int getNamespaceCount() {
-		return reader.getNamespaceCount();
-	}
+    public NamespaceContext getNamespaceContext() {
+        return reader.getNamespaceContext();
+    }
 
-	public String getNamespacePrefix(int arg0) {
-		return reader.getNamespacePrefix(arg0);
-	}
+    public int getNamespaceCount() {
+        return reader.getNamespaceCount();
+    }
 
-	public String getNamespaceURI() {
-		return isCityGML ? currentName.getNamespaceURI() : reader.getNamespaceURI();
-	}
+    public String getNamespacePrefix(int arg0) {
+        return reader.getNamespacePrefix(arg0);
+    }
 
-	public String getNamespaceURI(String arg0) {
-		return reader.getNamespaceURI(arg0);
-	}
+    public String getNamespaceURI() {
+        return isCityGML ? currentName.getNamespaceURI() : reader.getNamespaceURI();
+    }
 
-	public String getNamespaceURI(int arg0) {
-		return reader.getNamespaceURI(arg0);
-	}
+    public String getNamespaceURI(String arg0) {
+        return reader.getNamespaceURI(arg0);
+    }
 
-	public String getPIData() {
-		return reader.getPIData();
-	}
+    public String getNamespaceURI(int arg0) {
+        return reader.getNamespaceURI(arg0);
+    }
 
-	public String getPITarget() {
-		return reader.getPITarget();
-	}
+    public String getPIData() {
+        return reader.getPIData();
+    }
 
-	public String getPrefix() {
-		return reader.getPrefix();
-	}
+    public String getPITarget() {
+        return reader.getPITarget();
+    }
 
-	public Object getProperty(String arg0) throws IllegalArgumentException {
-		return reader.getProperty(arg0);
-	}
+    public String getPrefix() {
+        return reader.getPrefix();
+    }
 
-	public String getText() {
-		return reader.getText();
-	}
+    public Object getProperty(String arg0) throws IllegalArgumentException {
+        return reader.getProperty(arg0);
+    }
 
-	public char[] getTextCharacters() {
-		return reader.getTextCharacters();
-	}
+    public String getText() {
+        return reader.getText();
+    }
 
-	public int getTextCharacters(int arg0, char[] arg1, int arg2, int arg3) throws XMLStreamException {
-		return reader.getTextCharacters(arg0, arg1, arg2, arg3);
-	}
+    public char[] getTextCharacters() {
+        return reader.getTextCharacters();
+    }
 
-	public int getTextLength() {
-		return reader.getTextLength();
-	}
+    public int getTextCharacters(int arg0, char[] arg1, int arg2, int arg3) throws XMLStreamException {
+        return reader.getTextCharacters(arg0, arg1, arg2, arg3);
+    }
 
-	public int getTextStart() {
-		return reader.getTextStart();
-	}
+    public int getTextLength() {
+        return reader.getTextLength();
+    }
 
-	public String getVersion() {
-		return reader.getVersion();
-	}
+    public int getTextStart() {
+        return reader.getTextStart();
+    }
 
-	public boolean hasName() {
-		return reader.hasName();
-	}
+    public String getVersion() {
+        return reader.getVersion();
+    }
 
-	public boolean hasNext() throws XMLStreamException {
-		return reader.hasNext();
-	}
+    public boolean hasName() {
+        return reader.hasName();
+    }
 
-	public boolean hasText() {
-		return reader.hasText();
-	}
+    public boolean hasNext() throws XMLStreamException {
+        return reader.hasNext();
+    }
 
-	public boolean isAttributeSpecified(int arg0) {
-		return reader.isAttributeSpecified(arg0);
-	}
+    public boolean hasText() {
+        return reader.hasText();
+    }
 
-	public boolean isCharacters() {
-		return reader.isCharacters();
-	}
+    public boolean isAttributeSpecified(int arg0) {
+        return reader.isAttributeSpecified(arg0);
+    }
 
-	public boolean isEndElement() {
-		return reader.isEndElement();
-	}
+    public boolean isCharacters() {
+        return reader.isCharacters();
+    }
 
-	public boolean isStandalone() {
-		return reader.isStandalone();
-	}
+    public boolean isEndElement() {
+        return reader.isEndElement();
+    }
 
-	public boolean isStartElement() {
-		return reader.isStartElement();
-	}
+    public boolean isStandalone() {
+        return reader.isStandalone();
+    }
 
-	public boolean isWhiteSpace() {
-		return reader.isWhiteSpace();
-	}
+    public boolean isStartElement() {
+        return reader.isStartElement();
+    }
 
-	public int next() throws XMLStreamException {
-		int event = reader.next();
-		
-		if (event == XMLStreamConstants.START_ELEMENT) {
-			String localPart = reader.getLocalName();
-			String namespaceURI = reader.getNamespaceURI();
-			depth++;
+    public boolean isWhiteSpace() {
+        return reader.isWhiteSpace();
+    }
 
-			if (namespaceURI.startsWith("http://www.citygml.org/citygml")) {
-				isCityGML = true;
+    public int next() throws XMLStreamException {
+        int event = reader.next();
 
-				if (localPart.equals("creationDate") ||
-						localPart.equals("terminationDate") ||
-						localPart.equals("generalizesTo")) {
-					namespaceURI = CoreModule.v1_0_0.getNamespaceURI();
-				}
+        if (event == XMLStreamConstants.START_ELEMENT) {
+            String localPart = reader.getLocalName();
+            String namespaceURI = reader.getNamespaceURI();
+            depth++;
 
-				else if (localPart.equals("externalReference")) {
-					parents.push(parent);
-					parent = new ParentFeatureElement(localPart, CoreModule.v1_0_0.getNamespaceURI(), depth);
-					namespaceURI = CoreModule.v1_0_0.getNamespaceURI();
-				} 
+            if (namespaceURI.startsWith("http://www.citygml.org/citygml")) {
+                isCityGML = true;
 
-				else if (localPart.equals("stringAttribute") ||
-						localPart.equals("intAttribute") ||
-						localPart.equals("doubleAttribute") ||
-						localPart.equals("dateAttribute") ||
-						localPart.equals("uriAttribute")) {
-					parents.push(parent);
-					parent = new ParentFeatureElement(localPart, GenericsModule.v1_0_0.getNamespaceURI(), depth);
-					namespaceURI = GenericsModule.v1_0_0.getNamespaceURI();
-				}
+                if (localPart.equals("creationDate") ||
+                        localPart.equals("terminationDate") ||
+                        localPart.equals("generalizesTo")) {
+                    namespaceURI = CoreModule.v1_0_0.getNamespaceURI();
+                } else if (localPart.equals("externalReference")) {
+                    parents.push(parent);
+                    parent = new ParentFeatureElement(localPart, CoreModule.v1_0_0.getNamespaceURI(), depth);
+                    namespaceURI = CoreModule.v1_0_0.getNamespaceURI();
+                } else if (localPart.equals("stringAttribute") ||
+                        localPart.equals("intAttribute") ||
+                        localPart.equals("doubleAttribute") ||
+                        localPart.equals("dateAttribute") ||
+                        localPart.equals("uriAttribute")) {
+                    parents.push(parent);
+                    parent = new ParentFeatureElement(localPart, GenericsModule.v1_0_0.getNamespaceURI(), depth);
+                    namespaceURI = GenericsModule.v1_0_0.getNamespaceURI();
+                } else if (localPart.equals("appearanceMember")) {
+                    if (parent != null && !parent.localPart.equals("CityModel"))
+                        localPart = "appearance";
 
-				else if (localPart.equals("appearanceMember")) {
-					if (parent != null && !parent.localPart.equals("CityModel"))
-						localPart = "appearance";
+                    namespaceURI = AppearanceModule.v1_0_0.getNamespaceURI();
+                } else if (localPart.equals("TexturedSurface") ||
+                        localPart.equals("SimpleTexture") ||
+                        localPart.equals("Material")) {
+                    namespaceURI = TexturedSurfaceModule.v1_0_0.getNamespaceURI();
+                } else {
+                    for (CityGMLModule module : CityGMLVersion.v1_0_0.getCityGMLModules()) {
+                        if (module.getType() == CityGMLModuleType.BRIDGE || module.getType() == CityGMLModuleType.TUNNEL)
+                            continue;
 
-					namespaceURI = AppearanceModule.v1_0_0.getNamespaceURI();					
-				}
-				
-				else if (localPart.equals("TexturedSurface") ||
-						localPart.equals("SimpleTexture") ||
-						localPart.equals("Material")) {
-					namespaceURI = TexturedSurfaceModule.v1_0_0.getNamespaceURI();
-				}
+                        if (module.hasFeature(localPart)) {
+                            parents.push(parent);
+                            parent = new ParentFeatureElement(localPart, module.getNamespaceURI(), depth);
+                            break;
+                        }
+                    }
 
-				else {
-					for (CityGMLModule module : CityGMLVersion.v1_0_0.getCityGMLModules()) {
-						if (module.getType() == CityGMLModuleType.BRIDGE || module.getType() == CityGMLModuleType.TUNNEL)
-							continue;
+                    namespaceURI = parent.namespaceURI;
+                }
 
-						if (module.hasFeature(localPart)) {
-							parents.push(parent);
-							parent = new ParentFeatureElement(localPart, module.getNamespaceURI(), depth);
-							break;
-						}		
-					}
+            } else
+                isCityGML = false;
 
-					namespaceURI = parent.namespaceURI;
-				}
+            currentName = new QName(namespaceURI, localPart);
 
-			} else
-				isCityGML = false;
-			
-			currentName = new QName(namespaceURI, localPart);
+        } else if (event == XMLStreamConstants.END_ELEMENT) {
+            if (parent != null && parent.depth == depth)
+                parent = parents.pop();
 
-		} else if (event == XMLStreamConstants.END_ELEMENT) {
-			if (parent != null && parent.depth == depth)
-				parent = parents.pop();
+            depth--;
+        }
 
-			depth--;
-		}
+        return event;
+    }
 
-		return event;
-	}
+    public int nextTag() throws XMLStreamException {
+        return reader.nextTag();
+    }
 
-	public int nextTag() throws XMLStreamException {
-		return reader.nextTag();
-	}
+    public void require(int arg0, String arg1, String arg2) throws XMLStreamException {
+        reader.require(arg0, arg1, arg2);
+    }
 
-	public void require(int arg0, String arg1, String arg2) throws XMLStreamException {
-		reader.require(arg0, arg1, arg2);
-	}
+    public boolean standaloneSet() {
+        return reader.standaloneSet();
+    }
 
-	public boolean standaloneSet() {
-		return reader.standaloneSet();
-	}
+    private final class ParentFeatureElement {
+        private final String localPart;
+        private final String namespaceURI;
+        private final int depth;
 
-	private final class ParentFeatureElement {
-		private final String localPart;
-		private final String namespaceURI;
-		private final int depth;
-
-		public ParentFeatureElement(String localPart, String namespaceURI, int depth) {
-			this.localPart = localPart;
-			this.namespaceURI = namespaceURI;
-			this.depth = depth;
-		}
-	}
+        public ParentFeatureElement(String localPart, String namespaceURI, int depth) {
+            this.localPart = localPart;
+            this.namespaceURI = namespaceURI;
+            this.depth = depth;
+        }
+    }
 
 }

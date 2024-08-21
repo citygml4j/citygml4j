@@ -38,53 +38,53 @@ import java.util.Date;
 
 public class AccessingParentElements {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.gml");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.gml");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
 
-		CityModel cityModel = (CityModel)reader.nextFeature();
-		reader.close();
-		
-		System.out.println(df.format(new Date()) + "retrieving object with gml:id UUID_08371879-bde6-4ba6-9fc6-088ee2ce1913");
-		XLinkResolver resolver = new XLinkResolver();
-		AbstractGeometry geometry = resolver.getGeometry("UUID_08371879-bde6-4ba6-9fc6-088ee2ce1913", cityModel);
-		System.out.println("gml:id 'UUID_08371879-bde6-4ba6-9fc6-088ee2ce1913' belongs to: " + geometry.getGMLClass());
+        CityModel cityModel = (CityModel) reader.nextFeature();
+        reader.close();
 
-		System.out.println(df.format(new Date()) + "retrieving direct and transitive parents");			
-		ChildInfo info = new ChildInfo();
-		
-		System.out.println("Direct parent XML element: " + ((GML)geometry.getParent()).getGMLClass());
-		
-		AbstractGeometry parentGeometry = info.getParentGeometry(geometry);
-		System.out.println("Direct parent geometry: " + parentGeometry.getGMLClass()
-				+ ", gml:id='" + parentGeometry.getId() + "'");
-		
-		AbstractCityObject parentCityObject = info.getParentCityObject(geometry);
-		System.out.println("Direct parent CityObject: " + parentCityObject.getCityGMLClass()
-				+ ", gml:id='" + parentCityObject.getId() + "'");
-		
-		Building parentCityObjectByType = info.getParentCityObject(geometry, Building.class);
-		System.out.println("Transitive parent CityObject of type Building: " + parentCityObjectByType.getCityGMLClass()
-				+ ", gml:id='" + parentCityObjectByType.getId() + "'");
+        System.out.println(df.format(new Date()) + "retrieving object with gml:id UUID_08371879-bde6-4ba6-9fc6-088ee2ce1913");
+        XLinkResolver resolver = new XLinkResolver();
+        AbstractGeometry geometry = resolver.getGeometry("UUID_08371879-bde6-4ba6-9fc6-088ee2ce1913", cityModel);
+        System.out.println("gml:id 'UUID_08371879-bde6-4ba6-9fc6-088ee2ce1913' belongs to: " + geometry.getGMLClass());
 
-		LandUse noParent = info.getParentCityObject(geometry, LandUse.class);
-		System.out.println("Transitive parent CityObject of type LandUse: " + noParent);
+        System.out.println(df.format(new Date()) + "retrieving direct and transitive parents");
+        ChildInfo info = new ChildInfo();
 
-		AbstractCityObject rootCityObject = info.getRootCityObject(geometry);
-		System.out.println("Root CityObject: " + rootCityObject.getCityGMLClass()
-				+ ", gml:id='" + rootCityObject.getId() + "'");
-		
-		CityGML rootFeature = info.getRootCityGML(geometry);
-		System.out.println("Root CityGML instance: " + rootFeature.getCityGMLClass());
-		
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println("Direct parent XML element: " + ((GML) geometry.getParent()).getGMLClass());
+
+        AbstractGeometry parentGeometry = info.getParentGeometry(geometry);
+        System.out.println("Direct parent geometry: " + parentGeometry.getGMLClass()
+                + ", gml:id='" + parentGeometry.getId() + "'");
+
+        AbstractCityObject parentCityObject = info.getParentCityObject(geometry);
+        System.out.println("Direct parent CityObject: " + parentCityObject.getCityGMLClass()
+                + ", gml:id='" + parentCityObject.getId() + "'");
+
+        Building parentCityObjectByType = info.getParentCityObject(geometry, Building.class);
+        System.out.println("Transitive parent CityObject of type Building: " + parentCityObjectByType.getCityGMLClass()
+                + ", gml:id='" + parentCityObjectByType.getId() + "'");
+
+        LandUse noParent = info.getParentCityObject(geometry, LandUse.class);
+        System.out.println("Transitive parent CityObject of type LandUse: " + noParent);
+
+        AbstractCityObject rootCityObject = info.getRootCityObject(geometry);
+        System.out.println("Root CityObject: " + rootCityObject.getCityGMLClass()
+                + ", gml:id='" + rootCityObject.getId() + "'");
+
+        CityGML rootFeature = info.getRootCityGML(geometry);
+        System.out.println("Root CityGML instance: " + rootFeature.getCityGMLClass());
+
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

@@ -110,10 +110,10 @@ public class MeasureList implements GML, Child, Copyable {
     @SuppressWarnings("unchecked")
     @Override
     public Object copyTo(Object target, CopyBuilder copyBuilder) {
-        MeasureList copy = (target == null) ? new MeasureList() : (MeasureList)target;
+        MeasureList copy = (target == null) ? new MeasureList() : (MeasureList) target;
 
         if (isSetValue())
-            copy.setValue((List<Double>)copyBuilder.copy(value));
+            copy.setValue((List<Double>) copyBuilder.copy(value));
 
         if (isSetUom())
             copy.setUom(copyBuilder.copy(uom));

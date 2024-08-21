@@ -27,92 +27,92 @@ import org.citygml4j.model.common.child.Child;
 import java.lang.reflect.ParameterizedType;
 
 public abstract class ADEGenericApplicationProperty<T> implements ADEModelObject {
-	private T value;
-	private ModelObject parent;
-	
-	public ADEGenericApplicationProperty() {
-	}
-	
-	public ADEGenericApplicationProperty(T value) {
-		setValue(value);
-	}
-	
-	public T getValue() {
-		return value;
-	}
+    private T value;
+    private ModelObject parent;
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public ADEGenericApplicationProperty() {
+    }
 
-	public void setValue(T value) {
-		if (value instanceof Child)
-			((Child)value).setParent(this);
-			
-		this.value = value;
-	}
+    public ADEGenericApplicationProperty(T value) {
+        setValue(value);
+    }
 
-	@Override
-	public ModelObject getParent() {
-		return parent;
-	}
+    public T getValue() {
+        return value;
+    }
 
-	@Override
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-	@Override
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setValue(T value) {
+        if (value instanceof Child)
+            ((Child) value).setParent(this);
 
-	@Override
-	public void unsetParent() {
-		parent = null;
-	}
+        this.value = value;
+    }
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ADE_COMPONENT;
-	}
+    @Override
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	@Override
-	public ADEClass getADEClass() {
-		return ADEClass.MODEL_OBJECT;
-	}
+    @Override
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
-		
-		if (target instanceof ADEGenericApplicationProperty<?>) {
-			Class<?> type = inferValueType();
-			
-			if (((ADEGenericApplicationProperty<?>)target).inferValueType() == type) {				
-				ADEGenericApplicationProperty<T> copy = (ADEGenericApplicationProperty<T>)target;
-				Object copyValue = null;
-				
-				copyValue = copyBuilder.copy(value);
-				if (copyValue != null)
-					copy.setValue((T)copyValue);
-				
-				copy.unsetParent();				
-				return copy;
-			}
-		}
-		
-		return target;
-	}
-	
-	private Class<?> inferValueType() {		
-		Class<?> cls = this.getClass();
-		while (!(cls.getSuperclass() == null || cls.getSuperclass().equals(ADEGenericApplicationProperty.class)))
-			cls = cls.getSuperclass();
-		
-		return cls.getSuperclass() != null ? (Class<?>)((ParameterizedType)cls.getGenericSuperclass()).getActualTypeArguments()[0] : null;
-	}
-	
+    @Override
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    @Override
+    public void unsetParent() {
+        parent = null;
+    }
+
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.ADE_COMPONENT;
+    }
+
+    @Override
+    public ADEClass getADEClass() {
+        return ADEClass.MODEL_OBJECT;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        if (target instanceof ADEGenericApplicationProperty<?>) {
+            Class<?> type = inferValueType();
+
+            if (((ADEGenericApplicationProperty<?>) target).inferValueType() == type) {
+                ADEGenericApplicationProperty<T> copy = (ADEGenericApplicationProperty<T>) target;
+                Object copyValue = null;
+
+                copyValue = copyBuilder.copy(value);
+                if (copyValue != null)
+                    copy.setValue((T) copyValue);
+
+                copy.unsetParent();
+                return copy;
+            }
+        }
+
+        return target;
+    }
+
+    private Class<?> inferValueType() {
+        Class<?> cls = this.getClass();
+        while (!(cls.getSuperclass() == null || cls.getSuperclass().equals(ADEGenericApplicationProperty.class)))
+            cls = cls.getSuperclass();
+
+        return cls.getSuperclass() != null ? (Class<?>) ((ParameterizedType) cls.getGenericSuperclass()).getActualTypeArguments()[0] : null;
+    }
+
 }

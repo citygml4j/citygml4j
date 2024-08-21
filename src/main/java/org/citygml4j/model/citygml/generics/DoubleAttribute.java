@@ -22,54 +22,54 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 
 public class DoubleAttribute extends AbstractGenericAttribute {
-	private Double value;
+    private Double value;
 
-	public DoubleAttribute() {
+    public DoubleAttribute() {
 
-	}
-	
-	public DoubleAttribute(double value) {
-		this.value = value;
-	}
-	
-	public DoubleAttribute(String name, double value) {
-		this.value = value;
-		setName(name);
-	}
+    }
 
-	public Double getValue() {
-		return value;
-	}
+    public DoubleAttribute(double value) {
+        this.value = value;
+    }
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public DoubleAttribute(String name, double value) {
+        this.value = value;
+        setName(name);
+    }
 
-	public void setValue(Double value) {
-		this.value = value;
-	}
+    public Double getValue() {
+        return value;
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.DOUBLE_ATTRIBUTE;
-	}
+    public void setValue(Double value) {
+        this.value = value;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DoubleAttribute(), copyBuilder);
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DoubleAttribute copy = (target == null) ? new DoubleAttribute() : (DoubleAttribute)target;
-		super.copyTo(copy, copyBuilder);
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.DOUBLE_ATTRIBUTE;
+    }
 
-		if (isSetValue())
-			copy.setValue((Double)copyBuilder.copy(value));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DoubleAttribute(), copyBuilder);
+    }
 
-		return copy;
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DoubleAttribute copy = (target == null) ? new DoubleAttribute() : (DoubleAttribute) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetValue())
+            copy.setValue((Double) copyBuilder.copy(value));
+
+        return copy;
+    }
 
 }

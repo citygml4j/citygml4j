@@ -37,101 +37,102 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class WallSurface extends AbstractBoundarySurface {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public WallSurface() {
-		
-	}
-	
-	public WallSurface(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfWallSurface(ADEComponent ade) {
-		getGenericApplicationPropertyOfWallSurface().add(ade);
-	}
+    public WallSurface() {
 
-	public List<ADEComponent> getGenericApplicationPropertyOfWallSurface() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    }
 
-		return ade;
-	}
+    public WallSurface(Module module) {
+        super(module);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfWallSurface() {
-		return ade != null && !ade.isEmpty();
-	}
+    public void addGenericApplicationPropertyOfWallSurface(ADEComponent ade) {
+        getGenericApplicationPropertyOfWallSurface().add(ade);
+    }
 
-	public void setGenericApplicationPropertyOfWallSurface(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);	}
+    public List<ADEComponent> getGenericApplicationPropertyOfWallSurface() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public void unsetGenericApplicationPropertyOfWallSurface() {
-		ade = ModelObjects.setNull(ade);
-	}
+        return ade;
+    }
 
-	public boolean unsetGenericApplicationPropertyOfWallSurface(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWallSurface() && this.ade.remove(ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfWallSurface() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BRIDGE_WALL_SURFACE;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfWallSurface()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfWallSurface()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new WallSurface(), copyBuilder);
-	}
+    public void setGenericApplicationPropertyOfWallSurface(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		WallSurface copy = (target == null) ? new WallSurface() : (WallSurface)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfWallSurface()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfWallSurface(copyPart);
+    public void unsetGenericApplicationPropertyOfWallSurface() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+    public boolean unsetGenericApplicationPropertyOfWallSurface(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfWallSurface() && this.ade.remove(ade);
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BRIDGE_WALL_SURFACE;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfWallSurface()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfWallSurface()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new WallSurface(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        WallSurface copy = (target == null) ? new WallSurface() : (WallSurface) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfWallSurface()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfWallSurface(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

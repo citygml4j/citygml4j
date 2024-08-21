@@ -24,21 +24,35 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import java.util.List;
 
 public interface StandardObjectProperties extends GML {
-	List<Code> getName();
-	StringOrRef getDescription();
-	List<MetaDataProperty> getMetaDataProperty();
-	boolean isSetName();
-	boolean isSetDescription();
-	boolean isSetMetaDataProperty();
+    List<Code> getName();
 
-	void addName(Code name);
-	void setName(List<Code> name);
-	void setDescription(StringOrRef description);
-	void addMetaDataProperty(MetaDataProperty metaDataProperty);
-	void setMetaDataProperty(List<MetaDataProperty> metaDataProperty);
-	void unsetName();
-	boolean unsetName(Code name);
-	void unsetDescription();
-	void unsetMetaDataProperty();
-	boolean unsetMetaDataProperty(MetaDataProperty metaDataProperty);
+    StringOrRef getDescription();
+
+    List<MetaDataProperty> getMetaDataProperty();
+
+    boolean isSetName();
+
+    boolean isSetDescription();
+
+    boolean isSetMetaDataProperty();
+
+    void addName(Code name);
+
+    void setName(List<Code> name);
+
+    void setDescription(StringOrRef description);
+
+    void addMetaDataProperty(MetaDataProperty metaDataProperty);
+
+    void setMetaDataProperty(List<MetaDataProperty> metaDataProperty);
+
+    void unsetName();
+
+    boolean unsetName(Code name);
+
+    void unsetDescription();
+
+    void unsetMetaDataProperty();
+
+    boolean unsetMetaDataProperty(MetaDataProperty metaDataProperty);
 }

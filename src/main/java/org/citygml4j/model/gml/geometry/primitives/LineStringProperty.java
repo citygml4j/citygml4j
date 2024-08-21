@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class LineStringProperty extends GeometryProperty<LineString> {
 
-	public LineStringProperty() {
+    public LineStringProperty() {
 
-	}
+    }
 
-	public LineStringProperty(LineString lineString) {
-		super(lineString);
-	}
+    public LineStringProperty(LineString lineString) {
+        super(lineString);
+    }
 
-	public LineStringProperty(String href) {
-		super(href);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.LINE_STRING_PROPERTY;
-	}
+    public LineStringProperty(String href) {
+        super(href);
+    }
 
-	public LineString getLineString() {
-		return super.getGeometry();
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.LINE_STRING_PROPERTY;
+    }
 
-	public boolean isSetLineString() {
-		return super.isSetGeometry();
-	}
+    public LineString getLineString() {
+        return super.getGeometry();
+    }
 
-	public void setLineString(LineString lineString) {
-		super.setGeometry(lineString);
-	}
+    public boolean isSetLineString() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetLineString() {
-		super.unsetGeometry();
-	}
+    public void setLineString(LineString lineString) {
+        super.setGeometry(lineString);
+    }
 
-	@Override
-	public Class<LineString> getAssociableClass() {
-		return LineString.class;
-	}
+    public void unsetLineString() {
+        super.unsetGeometry();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		LineStringProperty copy = (target == null) ? new LineStringProperty() : (LineStringProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<LineString> getAssociableClass() {
+        return LineString.class;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new LineStringProperty(), copyBuilder);
-	}
-	
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        LineStringProperty copy = (target == null) ? new LineStringProperty() : (LineStringProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new LineStringProperty(), copyBuilder);
+    }
+
 }

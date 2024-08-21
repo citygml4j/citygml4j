@@ -37,102 +37,102 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class WaterClosureSurface extends AbstractWaterBoundarySurface {
-	private List<ADEComponent> ade;
+    private List<ADEComponent> ade;
 
-	public WaterClosureSurface() {
+    public WaterClosureSurface() {
 
-	}
+    }
 
-	public WaterClosureSurface(WaterBodyModule module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfWaterClosureSurface(ADEComponent ade) {
-		getGenericApplicationPropertyOfWaterClosureSurface().add(ade);
-	}
+    public WaterClosureSurface(WaterBodyModule module) {
+        super(module);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfWaterClosureSurface() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public void addGenericApplicationPropertyOfWaterClosureSurface(ADEComponent ade) {
+        getGenericApplicationPropertyOfWaterClosureSurface().add(ade);
+    }
 
-		return ade;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfWaterClosureSurface() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetGenericApplicationPropertyOfWaterClosureSurface() {
-		return ade != null && !ade.isEmpty();
-	}
+        return ade;
+    }
 
-	public void setGenericApplicationPropertyOfWaterClosureSurface(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfWaterClosureSurface() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void unsetGenericApplicationPropertyOfWaterClosureSurface() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setGenericApplicationPropertyOfWaterClosureSurface(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfWaterClosureSurface(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWaterClosureSurface() && this.ade.remove(ade);
-	}
+    public void unsetGenericApplicationPropertyOfWaterClosureSurface() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.WATER_CLOSURE_SURFACE;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfWaterClosureSurface()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfWaterClosureSurface()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public boolean unsetGenericApplicationPropertyOfWaterClosureSurface(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfWaterClosureSurface() && this.ade.remove(ade);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new WaterClosureSurface(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.WATER_CLOSURE_SURFACE;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		WaterClosureSurface copy = (target == null) ? new WaterClosureSurface() : (WaterClosureSurface)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfWaterClosureSurface()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfWaterClosureSurface(copyPart);
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+        if (isSetGenericApplicationPropertyOfWaterClosureSurface()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfWaterClosureSurface()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new WaterClosureSurface(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        WaterClosureSurface copy = (target == null) ? new WaterClosureSurface() : (WaterClosureSurface) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfWaterClosureSurface()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfWaterClosureSurface(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

@@ -23,17 +23,27 @@ import org.citygml4j.model.gml.GML;
 import java.util.List;
 
 public interface SRSInformationGroup extends GML {
-	List<String> getAxisLabels();
-	List<String> getUomLabels();
-	boolean isSetAxisLabels();
-	boolean isSetUomLabels();
+    List<String> getAxisLabels();
 
-	void setAxisLabels(List<String> axisLabels);
-	void addAxisLabel(String axisLabel);
-	void setUomLabels(List<String> uomLabels);
-	void addUomLabel(String uomLabel);
-	void unsetAxisLabels();
-	boolean unsetAxisLabels(String axisLabel);
-	void unsetUomLabels();
-	boolean unsetUomLabels(String uomLabel);
+    List<String> getUomLabels();
+
+    boolean isSetAxisLabels();
+
+    boolean isSetUomLabels();
+
+    void setAxisLabels(List<String> axisLabels);
+
+    void addAxisLabel(String axisLabel);
+
+    void setUomLabels(List<String> uomLabels);
+
+    void addUomLabel(String uomLabel);
+
+    void unsetAxisLabels();
+
+    boolean unsetAxisLabels(String axisLabel);
+
+    void unsetUomLabels();
+
+    boolean unsetUomLabels(String uomLabel);
 }

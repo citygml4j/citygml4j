@@ -38,300 +38,300 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TransportationMarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
-	private BiFunctionTypeMapper<CityJSON, SemanticsType> semanticsMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+    private BiFunctionTypeMapper<CityJSON, SemanticsType> semanticsMapper;
 
-	public TransportationMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
+    public TransportationMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
 
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-							.with(Road.class, this::marshalRoad)
-							.with(Railway.class, this::marshalRailway)
-							.with(Square.class, this::marshalSquare);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+                            .with(Road.class, this::marshalRoad)
+                            .with(Railway.class, this::marshalRailway)
+                            .with(Square.class, this::marshalSquare);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return typeMapper;
-	}
+        return typeMapper;
+    }
 
-	private BiFunctionTypeMapper<CityJSON, SemanticsType> getSemanticsMapper() {
-		if (semanticsMapper == null) {
-			lock.lock();
-			try {
-				if (semanticsMapper == null) {
-					semanticsMapper = BiFunctionTypeMapper.<CityJSON, SemanticsType>create()
-							.with(TrafficArea.class, this::marshalTrafficArea)
-							.with(AuxiliaryTrafficArea.class, this::marshalAuxiliaryTrafficArea);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private BiFunctionTypeMapper<CityJSON, SemanticsType> getSemanticsMapper() {
+        if (semanticsMapper == null) {
+            lock.lock();
+            try {
+                if (semanticsMapper == null) {
+                    semanticsMapper = BiFunctionTypeMapper.<CityJSON, SemanticsType>create()
+                            .with(TrafficArea.class, this::marshalTrafficArea)
+                            .with(AuxiliaryTrafficArea.class, this::marshalAuxiliaryTrafficArea);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return semanticsMapper;
-	}
+        return semanticsMapper;
+    }
 
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return getTypeMapper().apply(src, cityJSON);
-	}
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        return getTypeMapper().apply(src, cityJSON);
+    }
 
-	public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
-		return getSemanticsMapper().apply(src, cityJSON);
-	}
+    public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
+        return getSemanticsMapper().apply(src, cityJSON);
+    }
 
-	public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+    public void marshalAbstractTransportationObject(AbstractTransportationObject src, AbstractCityObjectType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfTransportationObject())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTransportationObject(), dest, cityJSON);
-	}
-	
-	public void marshalTransportationComplex(TransportationComplex src, AbstractTransportationComplexType dest, CityJSON cityJSON) {
-		marshalAbstractTransportationObject(src, dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfTransportationObject())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTransportationObject(), dest, cityJSON);
+    }
 
-		TransportationComplexAttributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
+    public void marshalTransportationComplex(TransportationComplex src, AbstractTransportationComplexType dest, CityJSON cityJSON) {
+        marshalAbstractTransportationObject(src, dest, cityJSON);
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
+        TransportationComplexAttributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
-		
-		if (src.isSetTrafficArea()) {
-			for (TrafficAreaProperty property : src.getTrafficArea()) {
-				if (property.isSetTrafficArea() && property.getTrafficArea().isSetSurfaceMaterial()) {
-					Code surfaceMaterial = property.getTrafficArea().getSurfaceMaterial();
-					if (surfaceMaterial.isSetValue())
-						attributes.addSurfaceMaterial(surfaceMaterial.getValue());
-				}
-			}
-		}
-		
-		if (src.isSetAuxiliaryTrafficArea()) {
-			for (AuxiliaryTrafficAreaProperty property : src.getAuxiliaryTrafficArea()) {
-				if (property.isSetAuxiliaryTrafficArea() && property.getAuxiliaryTrafficArea().isSetSurfaceMaterial()) {
-					Code surfaceMaterial = property.getAuxiliaryTrafficArea().getSurfaceMaterial();
-					if (surfaceMaterial.isSetValue())
-						attributes.addSurfaceMaterial(surfaceMaterial.getValue());
-				}
-			}
-		}
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
 
-		if (src.isSetGenericApplicationPropertyOfTransportationComplex())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTransportationComplex(), dest, cityJSON);
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
 
-		SemanticSurfaceCollector collector = null;
-		if (src.isSetTrafficArea() || src.isSetAuxiliaryTrafficArea())
-			collector = preprocessGeometry(src);
+        if (src.isSetTrafficArea()) {
+            for (TrafficAreaProperty property : src.getTrafficArea()) {
+                if (property.isSetTrafficArea() && property.getTrafficArea().isSetSurfaceMaterial()) {
+                    Code surfaceMaterial = property.getTrafficArea().getSurfaceMaterial();
+                    if (surfaceMaterial.isSetValue())
+                        attributes.addSurfaceMaterial(surfaceMaterial.getValue());
+                }
+            }
+        }
 
-		if (src.isSetLod0Network()) {
-			MultiLineStringType geometry = json.getGMLMarshaller().marshalMultiLineString(src.getLod0Network(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(0);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetAuxiliaryTrafficArea()) {
+            for (AuxiliaryTrafficAreaProperty property : src.getAuxiliaryTrafficArea()) {
+                if (property.isSetAuxiliaryTrafficArea() && property.getAuxiliaryTrafficArea().isSetSurfaceMaterial()) {
+                    Code surfaceMaterial = property.getAuxiliaryTrafficArea().getSurfaceMaterial();
+                    if (surfaceMaterial.isSetValue())
+                        attributes.addSurfaceMaterial(surfaceMaterial.getValue());
+                }
+            }
+        }
 
-		if (src.isSetLod2MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
+        if (src.isSetGenericApplicationPropertyOfTransportationComplex())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTransportationComplex(), dest, cityJSON);
 
-		if (src.isSetLod3MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
+        SemanticSurfaceCollector collector = null;
+        if (src.isSetTrafficArea() || src.isSetAuxiliaryTrafficArea())
+            collector = preprocessGeometry(src);
 
-		if (collector != null)
-			postprocessGeometry(src, collector);
-	}
+        if (src.isSetLod0Network()) {
+            MultiLineStringType geometry = json.getGMLMarshaller().marshalMultiLineString(src.getLod0Network(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(0);
+                dest.addGeometry(geometry);
+            }
+        }
 
-	public void marshalRoad(Road src, RoadType dest, CityJSON cityJSON) {
-		marshalTransportationComplex(src, dest, cityJSON);
+        if (src.isSetLod1MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetGenericApplicationPropertyOfRoad())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfRoad(), dest, cityJSON);
-	}
-	
-	public RoadType marshalRoad(Road src, CityJSON cityJSON) {
-		RoadType dest = new RoadType();
-		marshalRoad(src, dest, cityJSON);
-		
-		return dest;
-	}
+        if (src.isSetLod2MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
 
-	public void marshalRailway(Railway src, RailwayType dest, CityJSON cityJSON) {
-		marshalTransportationComplex(src, dest, cityJSON);
+        if (src.isSetLod3MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
 
-		if (src.isSetGenericApplicationPropertyOfRailway())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfRailway(), dest, cityJSON);
-	}
-	
-	public RailwayType marshalRailway(Railway src, CityJSON cityJSON) {
-		RailwayType dest = new RailwayType();
-		marshalRailway(src, dest, cityJSON);
-		
-		return dest;
-	}
+        if (collector != null)
+            postprocessGeometry(src, collector);
+    }
 
-	public void marshalSquare(Square src, TransportSquareType dest, CityJSON cityJSON) {
-		marshalTransportationComplex(src, dest, cityJSON);
+    public void marshalRoad(Road src, RoadType dest, CityJSON cityJSON) {
+        marshalTransportationComplex(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfSquare())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSquare(), dest, cityJSON);
-	}
-	
-	public TransportSquareType marshalSquare(Square src, CityJSON cityJSON) {
-		TransportSquareType dest = new TransportSquareType();
-		marshalSquare(src, dest, cityJSON);
-		
-		return dest;
-	}
+        if (src.isSetGenericApplicationPropertyOfRoad())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfRoad(), dest, cityJSON);
+    }
 
-	public void marshalAbstractTransportationObject(AbstractTransportationObject src, SemanticsType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
+    public RoadType marshalRoad(Road src, CityJSON cityJSON) {
+        RoadType dest = new RoadType();
+        marshalRoad(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfTransportationObject())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTransportationObject(), dest, cityJSON);
-	}
+        return dest;
+    }
 
-	public SemanticsType marshalTrafficArea(TrafficArea src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("TrafficArea");
-		marshalAbstractTransportationObject(src, dest, cityJSON);
+    public void marshalRailway(Railway src, RailwayType dest, CityJSON cityJSON) {
+        marshalTransportationComplex(src, dest, cityJSON);
 
-		if (src.isSetClazz())
-			dest.addAttribute("class", src.getClazz().getValue());
+        if (src.isSetGenericApplicationPropertyOfRailway())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfRailway(), dest, cityJSON);
+    }
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					dest.addAttribute("function", function.getValue());
-					break;
-				}
-			}
-		}
+    public RailwayType marshalRailway(Railway src, CityJSON cityJSON) {
+        RailwayType dest = new RailwayType();
+        marshalRailway(src, dest, cityJSON);
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					dest.addAttribute("usage", usage.getValue());
-					break;
-				}
-			}
-		}
+        return dest;
+    }
 
-		if (src.isSetSurfaceMaterial())
-			dest.addAttribute("surfaceMaterial", src.getSurfaceMaterial().getValue());
+    public void marshalSquare(Square src, TransportSquareType dest, CityJSON cityJSON) {
+        marshalTransportationComplex(src, dest, cityJSON);
 
-		if (src.isSetGenericApplicationPropertyOfTrafficArea())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTrafficArea(), dest, cityJSON);
+        if (src.isSetGenericApplicationPropertyOfSquare())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfSquare(), dest, cityJSON);
+    }
 
-		return dest;
-	}
+    public TransportSquareType marshalSquare(Square src, CityJSON cityJSON) {
+        TransportSquareType dest = new TransportSquareType();
+        marshalSquare(src, dest, cityJSON);
 
-	public SemanticsType marshalAuxiliaryTrafficArea(AuxiliaryTrafficArea src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("AuxiliaryTrafficArea");
-		marshalAbstractTransportationObject(src, dest, cityJSON);
+        return dest;
+    }
 
-		if (src.isSetClazz())
-			dest.addAttribute("class", src.getClazz().getValue());
+    public void marshalAbstractTransportationObject(AbstractTransportationObject src, SemanticsType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					dest.addAttribute("function", function.getValue());
-					break;
-				}
-			}
-		}
+        if (src.isSetGenericApplicationPropertyOfTransportationObject())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTransportationObject(), dest, cityJSON);
+    }
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					dest.addAttribute("usage", usage.getValue());
-					break;
-				}
-			}
-		}
+    public SemanticsType marshalTrafficArea(TrafficArea src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("TrafficArea");
+        marshalAbstractTransportationObject(src, dest, cityJSON);
 
-		if (src.isSetSurfaceMaterial())
-			dest.addAttribute("surfaceMaterial", src.getSurfaceMaterial().getValue());
+        if (src.isSetClazz())
+            dest.addAttribute("class", src.getClazz().getValue());
 
-		if (src.isSetGenericApplicationPropertyOfAuxiliaryTrafficArea())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAuxiliaryTrafficArea(), dest, cityJSON);
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    dest.addAttribute("function", function.getValue());
+                    break;
+                }
+            }
+        }
 
-		return dest;
-	}
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    dest.addAttribute("usage", usage.getValue());
+                    break;
+                }
+            }
+        }
 
-	private SemanticSurfaceCollector preprocessGeometry(TransportationComplex src) {
-		List<FeatureProperty<?>> properties = new ArrayList<>(src.getTrafficArea());
-		properties.addAll(src.getAuxiliaryTrafficArea());
+        if (src.isSetSurfaceMaterial())
+            dest.addAttribute("surfaceMaterial", src.getSurfaceMaterial().getValue());
 
-		SemanticSurfaceCollector collector = new SemanticSurfaceCollector(src);
-		collector.collectSurfaces(properties, 2, 3);
+        if (src.isSetGenericApplicationPropertyOfTrafficArea())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfTrafficArea(), dest, cityJSON);
 
-		for (int lod = 2; lod < 4; lod++) {
-			if (collector.hasSurfaces(lod)) {
-				if (lod == 2)
-					collector.assignSurfaces(src::getLod2MultiSurface, src::setLod2MultiSurface, lod);
-				else
-					collector.assignSurfaces(src::getLod3MultiSurface, src::setLod3MultiSurface, lod);
-			}
-		}
+        return dest;
+    }
 
-		return collector;
-	}
+    public SemanticsType marshalAuxiliaryTrafficArea(AuxiliaryTrafficArea src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("AuxiliaryTrafficArea");
+        marshalAbstractTransportationObject(src, dest, cityJSON);
 
-	private void postprocessGeometry(TransportationComplex src, SemanticSurfaceCollector collector) {
-		for (int lod = 2; lod < 4; lod++) {
-			if (collector.hasSurfaces(lod)) {
-				if (lod == 2)
-					collector.clean(src::getLod2MultiSurface, src::unsetLod2MultiSurface);
-				else
-					collector.clean(src::getLod3MultiSurface, src::unsetLod3MultiSurface);
-			}
-		}
-	}
+        if (src.isSetClazz())
+            dest.addAttribute("class", src.getClazz().getValue());
+
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    dest.addAttribute("function", function.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    dest.addAttribute("usage", usage.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetSurfaceMaterial())
+            dest.addAttribute("surfaceMaterial", src.getSurfaceMaterial().getValue());
+
+        if (src.isSetGenericApplicationPropertyOfAuxiliaryTrafficArea())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAuxiliaryTrafficArea(), dest, cityJSON);
+
+        return dest;
+    }
+
+    private SemanticSurfaceCollector preprocessGeometry(TransportationComplex src) {
+        List<FeatureProperty<?>> properties = new ArrayList<>(src.getTrafficArea());
+        properties.addAll(src.getAuxiliaryTrafficArea());
+
+        SemanticSurfaceCollector collector = new SemanticSurfaceCollector(src);
+        collector.collectSurfaces(properties, 2, 3);
+
+        for (int lod = 2; lod < 4; lod++) {
+            if (collector.hasSurfaces(lod)) {
+                if (lod == 2)
+                    collector.assignSurfaces(src::getLod2MultiSurface, src::setLod2MultiSurface, lod);
+                else
+                    collector.assignSurfaces(src::getLod3MultiSurface, src::setLod3MultiSurface, lod);
+            }
+        }
+
+        return collector;
+    }
+
+    private void postprocessGeometry(TransportationComplex src, SemanticSurfaceCollector collector) {
+        for (int lod = 2; lod < 4; lod++) {
+            if (collector.hasSurfaces(lod)) {
+                if (lod == 2)
+                    collector.clean(src::getLod2MultiSurface, src::unsetLod2MultiSurface);
+                else
+                    collector.clean(src::getLod3MultiSurface, src::unsetLod3MultiSurface);
+            }
+        }
+    }
 
 }

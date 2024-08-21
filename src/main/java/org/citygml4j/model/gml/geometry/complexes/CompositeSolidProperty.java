@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class CompositeSolidProperty extends GeometryProperty<CompositeSolid> {
 
-	public CompositeSolidProperty() {
+    public CompositeSolidProperty() {
 
-	}
+    }
 
-	public CompositeSolidProperty(CompositeSolid compositeSolid) {
-		super(compositeSolid);
-	}
+    public CompositeSolidProperty(CompositeSolid compositeSolid) {
+        super(compositeSolid);
+    }
 
-	public CompositeSolidProperty(String href) {
-		super(href);
-	}
+    public CompositeSolidProperty(String href) {
+        super(href);
+    }
 
-	public CompositeSolid getCompositeSolid() {
-		return super.getGeometry();
-	}
+    public CompositeSolid getCompositeSolid() {
+        return super.getGeometry();
+    }
 
-	public boolean isSetCompositeSolid() {
-		return super.isSetGeometry();
-	}
+    public boolean isSetCompositeSolid() {
+        return super.isSetGeometry();
+    }
 
-	public void setCompositeSolid(CompositeSolid compositeSolid) {
-		super.setGeometry(compositeSolid);
-	}
+    public void setCompositeSolid(CompositeSolid compositeSolid) {
+        super.setGeometry(compositeSolid);
+    }
 
-	public void unsetCompositeSolid() {
-		super.unsetGeometry();
-	}
+    public void unsetCompositeSolid() {
+        super.unsetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.COMPOSITE_SOLID_PROPERTY;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.COMPOSITE_SOLID_PROPERTY;
+    }
 
-	@Override
-	public Class<CompositeSolid> getAssociableClass() {
-		return CompositeSolid.class;
-	}
+    @Override
+    public Class<CompositeSolid> getAssociableClass() {
+        return CompositeSolid.class;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CompositeSolidProperty(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CompositeSolidProperty(), copyBuilder);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CompositeSolidProperty copy = (target == null) ? new CompositeSolidProperty() : (CompositeSolidProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CompositeSolidProperty copy = (target == null) ? new CompositeSolidProperty() : (CompositeSolidProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

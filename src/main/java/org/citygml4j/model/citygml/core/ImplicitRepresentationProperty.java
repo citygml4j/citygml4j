@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class ImplicitRepresentationProperty extends AssociationByRepOrRef<ImplicitGeometry> implements CoreModuleComponent {
 
-	public ImplicitRepresentationProperty() {
-		
-	}
-	
-	public ImplicitRepresentationProperty(ImplicitGeometry implicitGeometry) {
-		super(implicitGeometry);
-	}
-	
-	public ImplicitRepresentationProperty(String href) {
-		super(href);
-	}
-	
-	public ImplicitGeometry getImplicitGeometry() {
-		return super.getObject();
-	}
+    public ImplicitRepresentationProperty() {
 
-	public boolean isSetImplicitGeometry() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setImplicitGeometry(ImplicitGeometry implicitGeometry) {
-		super.setObject(implicitGeometry);
-	}
+    public ImplicitRepresentationProperty(ImplicitGeometry implicitGeometry) {
+        super(implicitGeometry);
+    }
 
-	public void unsetImplicitGeometry() {
-		super.unsetObject();
-	}
+    public ImplicitRepresentationProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.IMPLICIT_REPRESENTATION_PROPERTY;
-	}
-	
-	public Class<ImplicitGeometry> getAssociableClass() {
-		return ImplicitGeometry.class;
-	}
+    public ImplicitGeometry getImplicitGeometry() {
+        return super.getObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ImplicitRepresentationProperty(), copyBuilder);
-	}
+    public boolean isSetImplicitGeometry() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ImplicitRepresentationProperty copy = (target == null) ? new ImplicitRepresentationProperty() : (ImplicitRepresentationProperty)target;
-		return super.copyTo(copy, copyBuilder);		
-	}
+    public void setImplicitGeometry(ImplicitGeometry implicitGeometry) {
+        super.setObject(implicitGeometry);
+    }
+
+    public void unsetImplicitGeometry() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.IMPLICIT_REPRESENTATION_PROPERTY;
+    }
+
+    public Class<ImplicitGeometry> getAssociableClass() {
+        return ImplicitGeometry.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ImplicitRepresentationProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ImplicitRepresentationProperty copy = (target == null) ? new ImplicitRepresentationProperty() : (ImplicitRepresentationProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

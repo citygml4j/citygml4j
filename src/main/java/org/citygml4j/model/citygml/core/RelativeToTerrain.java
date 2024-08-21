@@ -29,42 +29,42 @@ public enum RelativeToTerrain implements CoreModuleComponent, Copyable {
     SUBSTANTIALLY_BELOW_TERRAIN("substantiallyBelowTerrain"),
     ENTIRELY_BELOW_TERRAIN("entirelyBelowTerrain");
 
-	private final String value;
+    private final String value;
 
-	RelativeToTerrain(String value) {
-		this.value = value;
-	}
+    RelativeToTerrain(String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static RelativeToTerrain fromValue(String v) {
-		v = v.trim().toLowerCase();
+    public static RelativeToTerrain fromValue(String v) {
+        v = v.trim().toLowerCase();
 
-		for (RelativeToTerrain c: RelativeToTerrain.values()) {
-			if (c.value.equals(v)) {
-				return c;
-			}
-		}
+        for (RelativeToTerrain c : RelativeToTerrain.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
 
-		return ENTIRELY_ABOVE_TERRAIN;
-	}
+        return ENTIRELY_ABOVE_TERRAIN;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.RELATIVE_TO_TERRAIN;
-	}
-	
-	public String toString() {
-		return value;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? ENTIRELY_ABOVE_TERRAIN : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
-	
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.RELATIVE_TO_TERRAIN;
+    }
+
+    public String toString() {
+        return value;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? ENTIRELY_ABOVE_TERRAIN : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
+
 }

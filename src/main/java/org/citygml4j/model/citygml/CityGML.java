@@ -21,5 +21,5 @@ package org.citygml4j.model.citygml;
 import org.citygml4j.model.common.base.ModelObject;
 
 public interface CityGML extends ModelObject {
-	public CityGMLClass getCityGMLClass();
+    public CityGMLClass getCityGMLClass();
 }

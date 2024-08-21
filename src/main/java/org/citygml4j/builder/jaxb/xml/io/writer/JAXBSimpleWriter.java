@@ -47,137 +47,131 @@ import java.util.List;
 
 public class JAXBSimpleWriter extends AbstractJAXBWriter implements CityGMLWriter {
 
-	public JAXBSimpleWriter(SAXWriter writer, JAXBOutputFactory factory, ModuleContext moduleContext) throws CityGMLWriteException {
-		super(writer, factory, moduleContext);
-	}
+    public JAXBSimpleWriter(SAXWriter writer, JAXBOutputFactory factory, ModuleContext moduleContext) throws CityGMLWriteException {
+        super(writer, factory, moduleContext);
+    }
 
-	public void write(AbstractFeature abstractFeature) throws CityGMLWriteException {
-		if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER && featureSplitter != null)
-			abstractFeature = split(abstractFeature);
+    public void write(AbstractFeature abstractFeature) throws CityGMLWriteException {
+        if (featureWriteMode == FeatureWriteMode.SPLIT_PER_COLLECTION_MEMBER && featureSplitter != null)
+            abstractFeature = split(abstractFeature);
 
-		try {
-			JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(abstractFeature);
-			if (jaxbElement != null) {
-				Marshaller marshaller = jaxbContext.createMarshaller();
-				
-				// validate output
-				if (useValidation) {
-					marshaller.setSchema(validationSchemaHandler.getSchema());
-					if (validationEventHandler != null)
-						marshaller.setEventHandler(validationEventHandler);
-				}
-				
-				// marshal output
-				if (transformerChainFactory == null)				
-					marshaller.marshal(jaxbElement, writer);
-				else {
-					// apply transformation before marshalling
-					TransformerChain chain = transformerChainFactory.buildChain();
-					chain.tail().setResult(new SAXResult(writer));
-					marshaller.marshal(jaxbElement, chain.head());
-				}
-				
-				writer.flush();
-			}
-		} catch (JAXBException | SAXException | TransformerConfigurationException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+        try {
+            JAXBElement<?> jaxbElement = jaxbMarshaller.marshalJAXBElement(abstractFeature);
+            if (jaxbElement != null) {
+                Marshaller marshaller = jaxbContext.createMarshaller();
 
-	private AbstractFeature split(AbstractFeature input) {
-		List<CityGML> results = featureSplitter.split(input);
-		
-		CityModel cityModel = null;
-		CityModel origModel = null;
-		HashSet<String> gmlIds = null;
+                // validate output
+                if (useValidation) {
+                    marshaller.setSchema(validationSchemaHandler.getSchema());
+                    if (validationEventHandler != null)
+                        marshaller.setEventHandler(validationEventHandler);
+                }
 
-		if (input instanceof CityModel) {
-			cityModel = new CityModelInfo((CityModel)input).toCityModel();
-			origModel = (CityModel)results.get(0);
-			gmlIds = new HashSet<String>();
-		} else
-			cityModel = new CityModel();
-		
-		for (CityGML result : results) {
-			if (result instanceof AbstractFeature) {
-				if (result == origModel)
-					continue;
-				
-				AbstractFeature feature = (AbstractFeature)result;
-				if (gmlIds != null && feature.isSetId())
-					gmlIds.add('#' + feature.getId());
+                // marshal output
+                if (transformerChainFactory == null)
+                    marshaller.marshal(jaxbElement, writer);
+                else {
+                    // apply transformation before marshalling
+                    TransformerChain chain = transformerChainFactory.buildChain();
+                    chain.tail().setResult(new SAXResult(writer));
+                    marshaller.marshal(jaxbElement, chain.head());
+                }
 
-				if (feature instanceof AbstractCityObject) {
-					CityObjectMember member = new CityObjectMember();
-					member.setCityObject((AbstractCityObject)feature);
-					cityModel.addCityObjectMember(member);
-				} 
+                writer.flush();
+            }
+        } catch (JAXBException | SAXException | TransformerConfigurationException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-				else if (feature instanceof Appearance) {
-					AppearanceMember member = new AppearanceMember();
-					member.setAppearance((Appearance)feature);
-					cityModel.addAppearanceMember(member);
-				} 
+    private AbstractFeature split(AbstractFeature input) {
+        List<CityGML> results = featureSplitter.split(input);
 
-				else {
-					FeatureMember member = new FeatureMember();
-					member.setFeature(feature);
-					cityModel.addFeatureMember(member);
-				}
+        CityModel cityModel = null;
+        CityModel origModel = null;
+        HashSet<String> gmlIds = null;
 
-			}
+        if (input instanceof CityModel) {
+            cityModel = new CityModelInfo((CityModel) input).toCityModel();
+            origModel = (CityModel) results.get(0);
+            gmlIds = new HashSet<String>();
+        } else
+            cityModel = new CityModel();
 
-			// handle generic ADE feature
-			else if (result instanceof ADEGenericElement) {
-				ADEGenericElement ade = (ADEGenericElement)result;
+        for (CityGML result : results) {
+            if (result instanceof AbstractFeature) {
+                if (result == origModel)
+                    continue;
 
-				if (gmlIds != null) {
-					String gmlId = ade.getContent().getAttribute("id");
-					if (gmlId.length() == 0)
-						gmlId = ade.getContent().getAttributeNS(GMLCoreModule.v3_1_1.getNamespaceURI(), "id");
-					
-					gmlIds.add('#' + gmlId);
-				}
+                AbstractFeature feature = (AbstractFeature) result;
+                if (gmlIds != null && feature.isSetId())
+                    gmlIds.add('#' + feature.getId());
 
-				// add ADE feature to new CityModel
-				if (isCityObject(ade)) {
-					CityObjectMember member = new CityObjectMember();
-					member.setGenericADEElement(ade);
-					cityModel.addCityObjectMember(member);
-				} 
+                if (feature instanceof AbstractCityObject) {
+                    CityObjectMember member = new CityObjectMember();
+                    member.setCityObject((AbstractCityObject) feature);
+                    cityModel.addCityObjectMember(member);
+                } else if (feature instanceof Appearance) {
+                    AppearanceMember member = new AppearanceMember();
+                    member.setAppearance((Appearance) feature);
+                    cityModel.addAppearanceMember(member);
+                } else {
+                    FeatureMember member = new FeatureMember();
+                    member.setFeature(feature);
+                    cityModel.addFeatureMember(member);
+                }
 
-				else {
-					FeatureMember member = new FeatureMember();
-					member.setGenericADEElement(ade);
-					cityModel.addFeatureMember(member);
-				}
-			}
-		}	
+            }
 
-		if (origModel != null) {
-			if (origModel.isSetCityObjectMember())
-				for (CityObjectMember member : origModel.getCityObjectMember())
-					if (!(member.isSetHref() && gmlIds.contains(member.getHref())))
-						cityModel.addCityObjectMember(member);
-					else
-						gmlIds.remove(member.getHref());
+            // handle generic ADE feature
+            else if (result instanceof ADEGenericElement) {
+                ADEGenericElement ade = (ADEGenericElement) result;
 
-			if (origModel.isSetAppearanceMember())
-				for (AppearanceMember member : origModel.getAppearanceMember())
-					if (!(member.isSetHref() && gmlIds.contains(member.getHref())))
-						cityModel.addAppearanceMember(member);
-					else
-						gmlIds.remove(member.getHref());
-			
-			if (origModel.isSetFeatureMember())
-				for (FeatureMember member : origModel.getFeatureMember())
-					if (!(member.isSetHref() && gmlIds.contains(member.getHref())))
-						cityModel.addFeatureMember(member);	
-					else
-						gmlIds.remove(member.getHref());
-		}
+                if (gmlIds != null) {
+                    String gmlId = ade.getContent().getAttribute("id");
+                    if (gmlId.length() == 0)
+                        gmlId = ade.getContent().getAttributeNS(GMLCoreModule.v3_1_1.getNamespaceURI(), "id");
 
-		return cityModel;
-	}
+                    gmlIds.add('#' + gmlId);
+                }
+
+                // add ADE feature to new CityModel
+                if (isCityObject(ade)) {
+                    CityObjectMember member = new CityObjectMember();
+                    member.setGenericADEElement(ade);
+                    cityModel.addCityObjectMember(member);
+                } else {
+                    FeatureMember member = new FeatureMember();
+                    member.setGenericADEElement(ade);
+                    cityModel.addFeatureMember(member);
+                }
+            }
+        }
+
+        if (origModel != null) {
+            if (origModel.isSetCityObjectMember())
+                for (CityObjectMember member : origModel.getCityObjectMember())
+                    if (!(member.isSetHref() && gmlIds.contains(member.getHref())))
+                        cityModel.addCityObjectMember(member);
+                    else
+                        gmlIds.remove(member.getHref());
+
+            if (origModel.isSetAppearanceMember())
+                for (AppearanceMember member : origModel.getAppearanceMember())
+                    if (!(member.isSetHref() && gmlIds.contains(member.getHref())))
+                        cityModel.addAppearanceMember(member);
+                    else
+                        gmlIds.remove(member.getHref());
+
+            if (origModel.isSetFeatureMember())
+                for (FeatureMember member : origModel.getFeatureMember())
+                    if (!(member.isSetHref() && gmlIds.contains(member.getHref())))
+                        cityModel.addFeatureMember(member);
+                    else
+                        gmlIds.remove(member.getHref());
+        }
+
+        return cityModel;
+    }
 
 }

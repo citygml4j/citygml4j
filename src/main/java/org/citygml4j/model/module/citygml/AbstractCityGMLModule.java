@@ -29,59 +29,59 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public abstract class AbstractCityGMLModule extends AbstractModule implements CityGMLModule {
-	HashMap<String, Class<? extends AbstractFeature>> features;
-	HashSet<String> featureProperties;
-	
-	public AbstractCityGMLModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
-	}
-	
-	@Override
-	public CityGMLModuleType getType() {
-		return (CityGMLModuleType)super.getType();
-	}
+    HashMap<String, Class<? extends AbstractFeature>> features;
+    HashSet<String> featureProperties;
 
-	@Override
-	public CityGMLModuleVersion getVersion() {
-		return (CityGMLModuleVersion)super.getVersion();
-	}
+    public AbstractCityGMLModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+    }
 
-	@Override
-	public boolean hasFeatureProperty(String name) {
-		return featureProperties != null && featureProperties.contains(name);
-	}
-	
-	@Override
-	public boolean hasFeature(String name) {
-		return features != null && features.containsKey(name);
-	}
+    @Override
+    public CityGMLModuleType getType() {
+        return (CityGMLModuleType) super.getType();
+    }
 
-	@Override
-	public Class<? extends AbstractFeature> getFeatureClass(String name) {
-		return features != null ? features.get(name) : null;
-	}
+    @Override
+    public CityGMLModuleVersion getVersion() {
+        return (CityGMLModuleVersion) super.getVersion();
+    }
 
-	@Override
-	public QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
-		if (features != null) {
-			for (Entry<String, Class<? extends AbstractFeature>> entry : features.entrySet()) {
-				if (entry.getValue() == featureClass)
-					return new QName(getNamespaceURI(), entry.getKey());
-			}
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public Map<String, Class<? extends AbstractFeature>> getFeatures() {
-		return features != null ? new HashMap<>(features) : super.getFeatures();
-	}
+    @Override
+    public boolean hasFeatureProperty(String name) {
+        return featureProperties != null && featureProperties.contains(name);
+    }
+
+    @Override
+    public boolean hasFeature(String name) {
+        return features != null && features.containsKey(name);
+    }
+
+    @Override
+    public Class<? extends AbstractFeature> getFeatureClass(String name) {
+        return features != null ? features.get(name) : null;
+    }
+
+    @Override
+    public QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
+        if (features != null) {
+            for (Entry<String, Class<? extends AbstractFeature>> entry : features.entrySet()) {
+                if (entry.getValue() == featureClass)
+                    return new QName(getNamespaceURI(), entry.getKey());
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public Map<String, Class<? extends AbstractFeature>> getFeatures() {
+        return features != null ? new HashMap<>(features) : super.getFeatures();
+    }
 
 }

@@ -24,53 +24,53 @@ import org.citygml4j.model.gml.grids.RectifiedGrid;
 
 public class RectifiedGridDomain extends DomainSet<RectifiedGrid> {
 
-	public RectifiedGridDomain() {
+    public RectifiedGridDomain() {
 
-	}
+    }
 
-	public RectifiedGridDomain(RectifiedGrid rectifiedGrid) {
-		super(rectifiedGrid);
-	}
+    public RectifiedGridDomain(RectifiedGrid rectifiedGrid) {
+        super(rectifiedGrid);
+    }
 
-	public RectifiedGridDomain(String href) {
-		super(href);
-	}
-	
-	public RectifiedGrid getRectifiedGrid() {
-		return super.getGeometry();
-	}
+    public RectifiedGridDomain(String href) {
+        super(href);
+    }
 
-	public boolean isSetRectifiedGrid() {
-		return super.isSetGeometry();
-	}
+    public RectifiedGrid getRectifiedGrid() {
+        return super.getGeometry();
+    }
 
-	public void setRectifiedGrid(RectifiedGrid rectifiedGrid) {
-		setObject(rectifiedGrid);
-	}
+    public boolean isSetRectifiedGrid() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetRectifiedGrid() {
-		super.unsetGeometry();
-	}
+    public void setRectifiedGrid(RectifiedGrid rectifiedGrid) {
+        setObject(rectifiedGrid);
+    }
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.RECTIFIED_GRID_DOMAIN;
-	}
+    public void unsetRectifiedGrid() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<RectifiedGrid> getAssociableClass() {
-		return RectifiedGrid.class;
-	}
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.RECTIFIED_GRID_DOMAIN;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		RectifiedGridDomain copy = (target == null) ? new RectifiedGridDomain() : (RectifiedGridDomain)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<RectifiedGrid> getAssociableClass() {
+        return RectifiedGrid.class;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new RectifiedGridDomain(), copyBuilder);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        RectifiedGridDomain copy = (target == null) ? new RectifiedGridDomain() : (RectifiedGridDomain) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new RectifiedGridDomain(), copyBuilder);
+    }
 
 }

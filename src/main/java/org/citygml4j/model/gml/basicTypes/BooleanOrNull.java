@@ -27,95 +27,95 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class BooleanOrNull implements GML, Child, Copyable {
-	private Boolean _boolean;
-	private Null _null;
-	private ModelObject parent;
-	
-	public BooleanOrNull() {
-		
-	}
-	
-	public BooleanOrNull(Boolean _boolean) {
-		this._boolean = _boolean;
-	}
-	
-	public BooleanOrNull(Null _null) {
-		setNull(_null);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.BOOLEAN_OR_NULL;
-	}
+    private Boolean _boolean;
+    private Null _null;
+    private ModelObject parent;
 
-	public Boolean getBoolean() {
-		return _boolean;
-	}
-	
-	public Null getNull() {
-		return _null;
-	}
+    public BooleanOrNull() {
 
-	public boolean isSetBoolean() {
-		return _boolean != null;
-	}
-	
-	public boolean isSetNull() {
-		return _null != null;
-	}
+    }
 
-	public void setBoolean(Boolean _boolean) {
-		this._boolean = _boolean;
-		unsetNull();
-	}
+    public BooleanOrNull(Boolean _boolean) {
+        this._boolean = _boolean;
+    }
 
-	public void setNull(Null _null) {
-		this._null = ModelObjects.setParent(_null, this);
-		unsetBoolean();
-	}
+    public BooleanOrNull(Null _null) {
+        setNull(_null);
+    }
 
-	public void unsetBoolean() {
-		_boolean = null;
-	}
-	
-	public void unsetNull() {
-		_null = ModelObjects.setNull(_null);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.BOOLEAN_OR_NULL;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public Boolean getBoolean() {
+        return _boolean;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public Null getNull() {
+        return _null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetBoolean() {
+        return _boolean != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetNull() {
+        return _null != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BooleanOrNull(), copyBuilder);
-	}
+    public void setBoolean(Boolean _boolean) {
+        this._boolean = _boolean;
+        unsetNull();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BooleanOrNull copy = (target == null) ? new BooleanOrNull() : (BooleanOrNull)target;
-		
-		if (isSetBoolean())
-			copy.setBoolean(copyBuilder.copy(_boolean));
-			
-		if (isSetNull()) {
-			copy.setNull((Null)copyBuilder.copy(_null));
-			if (copy.getNull() == _null)
-				_null.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setNull(Null _null) {
+        this._null = ModelObjects.setParent(_null, this);
+        unsetBoolean();
+    }
+
+    public void unsetBoolean() {
+        _boolean = null;
+    }
+
+    public void unsetNull() {
+        _null = ModelObjects.setNull(_null);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BooleanOrNull(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BooleanOrNull copy = (target == null) ? new BooleanOrNull() : (BooleanOrNull) target;
+
+        if (isSetBoolean())
+            copy.setBoolean(copyBuilder.copy(_boolean));
+
+        if (isSetNull()) {
+            copy.setNull((Null) copyBuilder.copy(_null));
+            if (copy.getNull() == _null)
+                _null.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

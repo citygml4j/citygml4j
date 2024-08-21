@@ -41,9 +41,9 @@ import java.util.List;
 
 /**
  * <p>Java-Klasse für TunnelFurnitureType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="TunnelFurnitureType">
  *   &lt;complexContent>
@@ -59,20 +59,17 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TunnelFurnitureType", propOrder = {
-    "clazz",
-    "function",
-    "usage",
-    "lod4Geometry",
-    "_GenericApplicationPropertyOfTunnelFurniture"
+        "clazz",
+        "function",
+        "usage",
+        "lod4Geometry",
+        "_GenericApplicationPropertyOfTunnelFurniture"
 })
 public class TunnelFurnitureType
-    extends AbstractCityObjectType
-{
+        extends AbstractCityObjectType {
 
     @XmlElement(name = "class")
     protected CodeType clazz;
@@ -83,11 +80,9 @@ public class TunnelFurnitureType
 
     /**
      * Ruft den Wert der clazz-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CodeType }
-     *     
+     *
+     * @return possible object is
+     * {@link CodeType }
      */
     public CodeType getClazz() {
         return clazz;
@@ -95,41 +90,37 @@ public class TunnelFurnitureType
 
     /**
      * Legt den Wert der clazz-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CodeType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link CodeType }
      */
     public void setClazz(CodeType value) {
         this.clazz = value;
     }
 
     public boolean isSetClazz() {
-        return (this.clazz!= null);
+        return (this.clazz != null);
     }
 
     /**
      * Gets the value of the function property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the function property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getFunction().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link CodeType }
-     * 
-     * 
      */
     public List<CodeType> getFunction() {
         if (function == null) {
@@ -139,7 +130,7 @@ public class TunnelFurnitureType
     }
 
     public boolean isSetFunction() {
-        return ((this.function!= null)&&(!this.function.isEmpty()));
+        return ((this.function != null) && (!this.function.isEmpty()));
     }
 
     public void unsetFunction() {
@@ -148,25 +139,23 @@ public class TunnelFurnitureType
 
     /**
      * Gets the value of the usage property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the usage property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getUsage().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link CodeType }
-     * 
-     * 
      */
     public List<CodeType> getUsage() {
         if (usage == null) {
@@ -176,7 +165,7 @@ public class TunnelFurnitureType
     }
 
     public boolean isSetUsage() {
-        return ((this.usage!= null)&&(!this.usage.isEmpty()));
+        return ((this.usage != null) && (!this.usage.isEmpty()));
     }
 
     public void unsetUsage() {
@@ -185,11 +174,9 @@ public class TunnelFurnitureType
 
     /**
      * Ruft den Wert der lod4Geometry-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link GeometryPropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link GeometryPropertyType }
      */
     public GeometryPropertyType getLod4Geometry() {
         return lod4Geometry;
@@ -197,41 +184,37 @@ public class TunnelFurnitureType
 
     /**
      * Legt den Wert der lod4Geometry-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link GeometryPropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link GeometryPropertyType }
      */
     public void setLod4Geometry(GeometryPropertyType value) {
         this.lod4Geometry = value;
     }
 
     public boolean isSetLod4Geometry() {
-        return (this.lod4Geometry!= null);
+        return (this.lod4Geometry != null);
     }
 
     /**
      * Gets the value of the genericApplicationPropertyOfTunnelFurniture property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfTunnelFurniture property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfTunnelFurniture().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfTunnelFurniture() {
         if (_GenericApplicationPropertyOfTunnelFurniture == null) {
@@ -241,7 +224,7 @@ public class TunnelFurnitureType
     }
 
     public boolean isSet_GenericApplicationPropertyOfTunnelFurniture() {
-        return ((this._GenericApplicationPropertyOfTunnelFurniture!= null)&&(!this._GenericApplicationPropertyOfTunnelFurniture.isEmpty()));
+        return ((this._GenericApplicationPropertyOfTunnelFurniture != null) && (!this._GenericApplicationPropertyOfTunnelFurniture.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfTunnelFurniture() {

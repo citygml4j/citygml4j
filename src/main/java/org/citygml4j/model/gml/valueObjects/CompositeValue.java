@@ -30,103 +30,103 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CompositeValue extends AbstractGML {
-	private List<ValueProperty> valueComponent;
-	private ValueArrayProperty valueComponents;
-	
-	public CompositeValue() {
-		
-	}
-	
-	public CompositeValue(List<Value> values) {
-		for (Value value : values)
-			addValueComponent(new ValueProperty(value));
-	}
-	
-	public CompositeValue(Value... values) {
-		this(Arrays.asList(values));
-	}
+    private List<ValueProperty> valueComponent;
+    private ValueArrayProperty valueComponents;
 
-	public List<ValueProperty> getValueComponent() {
-		if (valueComponent == null)
-			valueComponent = new ChildList<>(this);
-		
-		return valueComponent;
-	}
+    public CompositeValue() {
 
-	public ValueArrayProperty getValueComponents() {
-		return valueComponents;
-	}
+    }
 
-	public boolean isSetValueComponent() {
-		return valueComponent != null && !valueComponent.isEmpty();
-	}
+    public CompositeValue(List<Value> values) {
+        for (Value value : values)
+            addValueComponent(new ValueProperty(value));
+    }
 
-	public boolean isSetValueComponents() {
-		return valueComponents != null;
-	}
+    public CompositeValue(Value... values) {
+        this(Arrays.asList(values));
+    }
 
-	public void addValueComponent(ValueProperty valueComponent) {
-		getValueComponent().add(valueComponent);
-	}
+    public List<ValueProperty> getValueComponent() {
+        if (valueComponent == null)
+            valueComponent = new ChildList<>(this);
 
-	public void setValueComponent(List<ValueProperty> valueComponent) {
-		this.valueComponent = new ChildList<>(this, valueComponent);
-	}
+        return valueComponent;
+    }
 
-	public void setValueComponents(ValueArrayProperty valueComponents) {
-		this.valueComponents = ModelObjects.setParent(valueComponents, this);
-	}
+    public ValueArrayProperty getValueComponents() {
+        return valueComponents;
+    }
 
-	public boolean unsetValueComponent(ValueProperty valueComponent) {
-		return isSetValueComponent() && this.valueComponent.remove(valueComponent);
-	}
+    public boolean isSetValueComponent() {
+        return valueComponent != null && !valueComponent.isEmpty();
+    }
 
-	public void unsetValueComponent() {
-		valueComponent = ModelObjects.setNull(valueComponent);
-	}
+    public boolean isSetValueComponents() {
+        return valueComponents != null;
+    }
 
-	public void unsetValueComponents() {
-		valueComponents = ModelObjects.setNull(valueComponents);
-	}
+    public void addValueComponent(ValueProperty valueComponent) {
+        getValueComponent().add(valueComponent);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.COMPOSITE_VALUE;
-	}
+    public void setValueComponent(List<ValueProperty> valueComponent) {
+        this.valueComponent = new ChildList<>(this, valueComponent);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CompositeValue copy = (target == null) ? new CompositeValue() : (CompositeValue)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetValueComponent()) {
-			for (ValueProperty part : valueComponent) {
-				ValueProperty copyPart = (ValueProperty)copyBuilder.copy(part);
-				copy.addValueComponent(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetValueComponents()) {
-			copy.setValueComponents((ValueArrayProperty)copyBuilder.copy(valueComponents));
-			if (copy.getValueComponents() == valueComponents)
-				valueComponents.setParent(this);
-		}
-		
-		return copy;
-	}
+    public void setValueComponents(ValueArrayProperty valueComponents) {
+        this.valueComponents = ModelObjects.setParent(valueComponents, this);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CompositeValue(), copyBuilder);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public boolean unsetValueComponent(ValueProperty valueComponent) {
+        return isSetValueComponent() && this.valueComponent.remove(valueComponent);
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void unsetValueComponent() {
+        valueComponent = ModelObjects.setNull(valueComponent);
+    }
+
+    public void unsetValueComponents() {
+        valueComponents = ModelObjects.setNull(valueComponents);
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.COMPOSITE_VALUE;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CompositeValue copy = (target == null) ? new CompositeValue() : (CompositeValue) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetValueComponent()) {
+            for (ValueProperty part : valueComponent) {
+                ValueProperty copyPart = (ValueProperty) copyBuilder.copy(part);
+                copy.addValueComponent(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetValueComponents()) {
+            copy.setValueComponents((ValueArrayProperty) copyBuilder.copy(valueComponents));
+            if (copy.getValueComponents() == valueComponents)
+                valueComponents.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CompositeValue(), copyBuilder);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class BridgePartProperty extends FeatureProperty<BridgePart> implements BridgeModuleComponent {
 
-	public BridgePartProperty() {
-		
-	}
-	
-	public BridgePartProperty(BridgePart bridgePart) {
-		super(bridgePart);
-	}
-	
-	public BridgePartProperty(String href) {
-		super(href);
-	}
-	
-	public BridgePart getBridgePart() {
-		return super.getObject();
-	}
+    public BridgePartProperty() {
 
-	public boolean isSetBridgePart() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setBridgePart(BridgePart bridgePart) {
-		super.setObject(bridgePart);
-	}
+    public BridgePartProperty(BridgePart bridgePart) {
+        super(bridgePart);
+    }
 
-	public void unsetBridgePart() {
-		super.unsetObject();
-	}
+    public BridgePartProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BRIDGE_PART_PROPERTY;
-	}
+    public BridgePart getBridgePart() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<BridgePart> getAssociableClass() {
-		return BridgePart.class;
-	}
+    public boolean isSetBridgePart() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BridgePartProperty(), copyBuilder);
-	}
+    public void setBridgePart(BridgePart bridgePart) {
+        super.setObject(bridgePart);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BridgePartProperty copy = (target == null) ? new BridgePartProperty() : (BridgePartProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetBridgePart() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BRIDGE_PART_PROPERTY;
+    }
+
+    @Override
+    public Class<BridgePart> getAssociableClass() {
+        return BridgePart.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BridgePartProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BridgePartProperty copy = (target == null) ? new BridgePartProperty() : (BridgePartProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

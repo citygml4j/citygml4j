@@ -26,188 +26,188 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class SubPremiseNumber implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String indicator;
-	private String indicatorOccurrence;
-	private String premiseNumberSeparator;
-	private String numberTypeOccurrence;
-	private String type;
-	private String code;
-	private ModelObject parent;
-		
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String indicator;
+    private String indicatorOccurrence;
+    private String premiseNumberSeparator;
+    private String numberTypeOccurrence;
+    private String type;
+    private String code;
+    private ModelObject parent;
 
-	public String getIndicator() {
-		return indicator;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getIndicatorOccurrence() {
-		return indicatorOccurrence;
-	}
+    public String getIndicator() {
+        return indicator;
+    }
 
-	public String getNumberTypeOccurrence() {
-		return numberTypeOccurrence;
-	}
+    public String getIndicatorOccurrence() {
+        return indicatorOccurrence;
+    }
 
-	public String getPremiseNumberSeparator() {
-		return premiseNumberSeparator;
-	}
+    public String getNumberTypeOccurrence() {
+        return numberTypeOccurrence;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getPremiseNumberSeparator() {
+        return premiseNumberSeparator;
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetIndicator() {
-		return indicator != null;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public boolean isSetIndicatorOccurrence() {
-		return indicatorOccurrence != null;
-	}
+    public boolean isSetIndicator() {
+        return indicator != null;
+    }
 
-	public boolean isSetNumberTypeOccurrence() {
-		return numberTypeOccurrence != null;
-	}
+    public boolean isSetIndicatorOccurrence() {
+        return indicatorOccurrence != null;
+    }
 
-	public boolean isSetPremiseNumberSeparator() {
-		return premiseNumberSeparator != null;
-	}
+    public boolean isSetNumberTypeOccurrence() {
+        return numberTypeOccurrence != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetPremiseNumberSeparator() {
+        return premiseNumberSeparator != null;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setIndicator(String indicator) {
-		this.indicator = indicator;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setIndicatorOccurrence(String indicatorOccurrence) {
-		if (indicatorOccurrence.equals("Before") || indicatorOccurrence.equals("After"))
-			this.indicatorOccurrence = indicatorOccurrence;
-	}
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
 
-	public void setNumberTypeOccurrence(String numberTypeOccurrence) {
-		if (numberTypeOccurrence.equals("Before") || numberTypeOccurrence.equals("After"))
-			this.numberTypeOccurrence = numberTypeOccurrence;
-	}
+    public void setIndicatorOccurrence(String indicatorOccurrence) {
+        if (indicatorOccurrence.equals("Before") || indicatorOccurrence.equals("After"))
+            this.indicatorOccurrence = indicatorOccurrence;
+    }
 
-	public void setPremiseNumberSeparator(String premiseNumberSeparator) {
-		this.premiseNumberSeparator = premiseNumberSeparator;
-	}
+    public void setNumberTypeOccurrence(String numberTypeOccurrence) {
+        if (numberTypeOccurrence.equals("Before") || numberTypeOccurrence.equals("After"))
+            this.numberTypeOccurrence = numberTypeOccurrence;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setPremiseNumberSeparator(String premiseNumberSeparator) {
+        this.premiseNumberSeparator = premiseNumberSeparator;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetIndicator() {
-		indicator = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public void unsetIndicatorOccurrence() {
-		indicatorOccurrence = null;
-	}
+    public void unsetIndicator() {
+        indicator = null;
+    }
 
-	public void unsetNumberTypeOccurrence() {
-		numberTypeOccurrence = null;
-	}
+    public void unsetIndicatorOccurrence() {
+        indicatorOccurrence = null;
+    }
 
-	public void unsetPremiseNumberSeparator() {
-		premiseNumberSeparator = null;
-	}
+    public void unsetNumberTypeOccurrence() {
+        numberTypeOccurrence = null;
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetPremiseNumberSeparator() {
+        premiseNumberSeparator = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.SUB_PREMISE_NUMBER;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.SUB_PREMISE_NUMBER;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SubPremiseNumber(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SubPremiseNumber copy = (target == null) ? new SubPremiseNumber() : (SubPremiseNumber)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SubPremiseNumber(), copyBuilder);
+    }
 
-		if (isSetPremiseNumberSeparator())
-			copy.setPremiseNumberSeparator(copyBuilder.copy(premiseNumberSeparator));
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SubPremiseNumber copy = (target == null) ? new SubPremiseNumber() : (SubPremiseNumber) target;
 
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
 
-		if (isSetIndicator())
-			copy.setIndicator(copyBuilder.copy(indicator));
+        if (isSetPremiseNumberSeparator())
+            copy.setPremiseNumberSeparator(copyBuilder.copy(premiseNumberSeparator));
 
-		if (isSetIndicatorOccurrence())
-			copy.setIndicatorOccurrence(copyBuilder.copy(indicatorOccurrence));
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
 
-		if (isSetNumberTypeOccurrence())
-			copy.setNumberTypeOccurrence(copyBuilder.copy(numberTypeOccurrence));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
+        if (isSetIndicator())
+            copy.setIndicator(copyBuilder.copy(indicator));
 
-		copy.unsetParent();
+        if (isSetIndicatorOccurrence())
+            copy.setIndicatorOccurrence(copyBuilder.copy(indicatorOccurrence));
 
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetNumberTypeOccurrence())
+            copy.setNumberTypeOccurrence(copyBuilder.copy(numberTypeOccurrence));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

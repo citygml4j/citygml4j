@@ -25,50 +25,50 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class GridProperty extends FeatureProperty<RectifiedGridCoverage> implements ReliefModuleComponent {
 
-	public GridProperty() {
-		
-	}
-	
-	public GridProperty(RectifiedGridCoverage rectifiedGridCoverage) {
-		super(rectifiedGridCoverage);
-	}
-	
-	public GridProperty(String href) {
-		super(href);
-	}
-	
-	public RectifiedGridCoverage getRectifiedGridCoverage() {
-		return super.getObject();
-	}
+    public GridProperty() {
 
-	public boolean isSetRectifiedGridCoverage() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setRectifiedGridCoverage(RectifiedGridCoverage rectifiedGridCoverage) {
-		super.setObject(rectifiedGridCoverage);
-	}
+    public GridProperty(RectifiedGridCoverage rectifiedGridCoverage) {
+        super(rectifiedGridCoverage);
+    }
 
-	public void unsetRectifiedGridCoverage() {
-		super.unsetObject();
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GRID_PROPERTY;
-	}
+    public GridProperty(String href) {
+        super(href);
+    }
 
-	@Override
-	public Class<RectifiedGridCoverage> getAssociableClass() {
-		return RectifiedGridCoverage.class;
-	}
+    public RectifiedGridCoverage getRectifiedGridCoverage() {
+        return super.getObject();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GridProperty copy = (target == null) ? new GridProperty() : (GridProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public boolean isSetRectifiedGridCoverage() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GridProperty(), copyBuilder);
-	}
+    public void setRectifiedGridCoverage(RectifiedGridCoverage rectifiedGridCoverage) {
+        super.setObject(rectifiedGridCoverage);
+    }
+
+    public void unsetRectifiedGridCoverage() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.GRID_PROPERTY;
+    }
+
+    @Override
+    public Class<RectifiedGridCoverage> getAssociableClass() {
+        return RectifiedGridCoverage.class;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GridProperty copy = (target == null) ? new GridProperty() : (GridProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GridProperty(), copyBuilder);
+    }
 
 }

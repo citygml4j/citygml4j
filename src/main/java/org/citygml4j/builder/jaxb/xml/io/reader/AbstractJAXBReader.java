@@ -38,90 +38,90 @@ import java.net.URI;
 import java.util.List;
 
 public abstract class AbstractJAXBReader {
-	final XMLStreamReader reader;
-	final InputStream in;
+    final XMLStreamReader reader;
+    final InputStream in;
 
-	JAXBInputFactory factory;
-	SchemaHandler schemaHandler;
-	JAXBUnmarshaller jaxbUnmarshaller;
-	XMLElementChecker elementChecker;
-	TransformerChainFactory transformerChainFactory;
+    JAXBInputFactory factory;
+    SchemaHandler schemaHandler;
+    JAXBUnmarshaller jaxbUnmarshaller;
+    XMLElementChecker elementChecker;
+    TransformerChainFactory transformerChainFactory;
 
-	boolean useValidation;
-	boolean parseSchema;
+    boolean useValidation;
+    boolean parseSchema;
 
-	ValidationSchemaHandler validationSchemaHandler;
-	ValidationEventHandler validationEventHandler;
-	CityGMLInputFilter filter;
-	URI baseURI;
+    ValidationSchemaHandler validationSchemaHandler;
+    ValidationEventHandler validationEventHandler;
+    CityGMLInputFilter filter;
+    URI baseURI;
 
-	@SuppressWarnings("unchecked")
-	public AbstractJAXBReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
-		if ((Boolean)factory.getProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
-			reader = new CityGMLNamespaceMapper(reader);
+    @SuppressWarnings("unchecked")
+    public AbstractJAXBReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+        if ((Boolean) factory.getProperty(CityGMLInputFactory.SUPPORT_CITYGML_VERSION_0_4_0))
+            reader = new CityGMLNamespaceMapper(reader);
 
-		this.reader = reader;
-		this.in = in;
-		this.factory = factory;
-		this.baseURI = baseURI;
+        this.reader = reader;
+        this.in = in;
+        this.factory = factory;
+        this.baseURI = baseURI;
 
-		transformerChainFactory = factory.getTransformerChainFactory();
-		parseSchema = (Boolean)factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
-		useValidation = (Boolean)factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
-		boolean failOnMissingADESchema = (Boolean)factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA);
+        transformerChainFactory = factory.getTransformerChainFactory();
+        parseSchema = (Boolean) factory.getProperty(CityGMLInputFactory.PARSE_SCHEMA);
+        useValidation = (Boolean) factory.getProperty(CityGMLInputFactory.USE_VALIDATION);
+        boolean failOnMissingADESchema = (Boolean) factory.getProperty(CityGMLInputFactory.FAIL_ON_MISSING_ADE_SCHEMA);
 
-		schemaHandler = factory.getSchemaHandler();
-		jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
-		jaxbUnmarshaller.setThrowMissingADESchema(failOnMissingADESchema);
-		jaxbUnmarshaller.setSkipGenericADEContent((Boolean)factory.getProperty(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT));
+        schemaHandler = factory.getSchemaHandler();
+        jaxbUnmarshaller = factory.builder.createJAXBUnmarshaller(schemaHandler);
+        jaxbUnmarshaller.setThrowMissingADESchema(failOnMissingADESchema);
+        jaxbUnmarshaller.setSkipGenericADEContent((Boolean) factory.getProperty(CityGMLInputFactory.SKIP_GENERIC_ADE_CONTENT));
 
-		elementChecker = new XMLElementChecker(schemaHandler, 
-				(FeatureReadMode)factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
-				(Boolean)factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
-				parseSchema,
-				failOnMissingADESchema,
-				(List<QName>)factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING),
-				(List<QName>)factory.getProperty(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY));
+        elementChecker = new XMLElementChecker(schemaHandler,
+                (FeatureReadMode) factory.getProperty(CityGMLInputFactory.FEATURE_READ_MODE),
+                (Boolean) factory.getProperty(CityGMLInputFactory.KEEP_INLINE_APPEARANCE),
+                parseSchema,
+                failOnMissingADESchema,
+                (List<QName>) factory.getProperty(CityGMLInputFactory.EXCLUDE_FROM_SPLITTING),
+                (List<QName>) factory.getProperty(CityGMLInputFactory.SPLIT_AT_FEATURE_PROPERTY));
 
-		if (useValidation) {
-			validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);
-			validationEventHandler = factory.getValidationEventHandler();
-		}
-	}
+        if (useValidation) {
+            validationSchemaHandler = new ValidationSchemaHandler(schemaHandler);
+            validationEventHandler = factory.getValidationEventHandler();
+        }
+    }
 
-	public void close() throws CityGMLReadException {
-		try {
-			factory = null;
-			schemaHandler = null;
-			jaxbUnmarshaller = null;
-			elementChecker = null;	
+    public void close() throws CityGMLReadException {
+        try {
+            factory = null;
+            schemaHandler = null;
+            jaxbUnmarshaller = null;
+            elementChecker = null;
 
-			validationSchemaHandler = null;
-			validationEventHandler = null;	
-			filter = null;
+            validationSchemaHandler = null;
+            validationEventHandler = null;
+            filter = null;
 
-			if (reader != null) {
-				reader.close();
-				in.close();
-			}
-		} catch (XMLStreamException | IOException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
-	}
-	
-	public boolean isFilteredReader() {
-		return filter != null;
-	}
+            if (reader != null) {
+                reader.close();
+                in.close();
+            }
+        } catch (XMLStreamException | IOException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        }
+    }
 
-	public String getBaseURI() {
-		return baseURI.toString();
-	}
-	
-	void parseSchema(String schemaLocation) throws SAXException {
-		String[] split = schemaLocation.trim().split("\\s+");
-		if (split.length % 2 == 0)	
-			for (int i = 0; i < split.length; i += 2)
-				schemaHandler.parseSchema(split[i], baseURI.resolve(split[i+1]).toString());
-	}
+    public boolean isFilteredReader() {
+        return filter != null;
+    }
+
+    public String getBaseURI() {
+        return baseURI.toString();
+    }
+
+    void parseSchema(String schemaLocation) throws SAXException {
+        String[] split = schemaLocation.trim().split("\\s+");
+        if (split.length % 2 == 0)
+            for (int i = 0; i < split.length; i += 2)
+                schemaHandler.parseSchema(split[i], baseURI.resolve(split[i + 1]).toString());
+    }
 
 }

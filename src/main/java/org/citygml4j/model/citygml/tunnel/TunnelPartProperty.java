@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class TunnelPartProperty extends FeatureProperty<TunnelPart> implements TunnelModuleComponent {
 
-	public TunnelPartProperty() {
-		
-	}
-	
-	public TunnelPartProperty(TunnelPart tunnelPart) {
-		super(tunnelPart);
-	}
-	
-	public TunnelPartProperty(String href) {
-		super(href);
-	}
-	
-	public TunnelPart getTunnelPart() {
-		return super.getObject();
-	}
+    public TunnelPartProperty() {
 
-	public boolean isSetTunnelPart() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setTunnelPart(TunnelPart tunnelPart) {
-		super.setObject(tunnelPart);
-	}
+    public TunnelPartProperty(TunnelPart tunnelPart) {
+        super(tunnelPart);
+    }
 
-	public void unsetTunnelPart() {
-		super.unsetObject();
-	}
+    public TunnelPartProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TUNNEL_PART_PROPERTY;
-	}
+    public TunnelPart getTunnelPart() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<TunnelPart> getAssociableClass() {
-		return TunnelPart.class;
-	}
+    public boolean isSetTunnelPart() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TunnelPartProperty(), copyBuilder);
-	}
+    public void setTunnelPart(TunnelPart tunnelPart) {
+        super.setObject(tunnelPart);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TunnelPartProperty copy = (target == null) ? new TunnelPartProperty() : (TunnelPartProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetTunnelPart() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TUNNEL_PART_PROPERTY;
+    }
+
+    @Override
+    public Class<TunnelPart> getAssociableClass() {
+        return TunnelPart.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TunnelPartProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TunnelPartProperty copy = (target == null) ? new TunnelPartProperty() : (TunnelPartProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

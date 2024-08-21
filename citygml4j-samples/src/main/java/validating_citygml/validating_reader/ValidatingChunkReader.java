@@ -35,53 +35,53 @@ import java.util.Date;
 
 public class ValidatingChunkReader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		
-		System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml feature by feature");
-		System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
-		in.setProperty(CityGMLInputFactory.USE_VALIDATION, true);
-		in.registerSchemaLocation("http://www.citygml.org/ade/sub/0.9.0", new File("datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
-			
-		ValidationEventHandlerImpl validationEventHandler = new ValidationEventHandlerImpl();
-		in.setValidationEventHandler(validationEventHandler);
-		
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
-		
-		System.out.println(df.format(new Date()) + "validating features whilst reading from file");
-		while (reader.hasNext()) {
-			CityGML chunk = reader.nextFeature();			
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-			String type;
-			if (chunk instanceof ADEGenericElement){
-				Element element = ((ADEGenericElement)chunk).getContent();
-				type = element.getPrefix() + ':' + element.getLocalName();
-			} else
-				type = chunk.getCityGMLClass().toString();
-			
-			System.out.print(type + ": ");
-			System.out.println(validationEventHandler.isValid ? "valid" : "invalid (see error messages above)");
+        System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file LOD2_SubsurfaceStructureADE_invalid_v100.gml feature by feature");
+        System.out.println(df.format(new Date()) + "ADE schema file is read from xsi:schemaLocation attribute on root XML element");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        in.setProperty(CityGMLInputFactory.FEATURE_READ_MODE, FeatureReadMode.SPLIT_PER_FEATURE);
+        in.setProperty(CityGMLInputFactory.USE_VALIDATION, true);
+        in.registerSchemaLocation("http://www.citygml.org/ade/sub/0.9.0", new File("datasets/schemas/CityGML-SubsurfaceADE-0_9_0.xsd"));
 
-			validationEventHandler.isValid = true;
-		}
+        ValidationEventHandlerImpl validationEventHandler = new ValidationEventHandlerImpl();
+        in.setValidationEventHandler(validationEventHandler);
 
-		reader.close();
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_SubsurfaceStructureADE_invalid_v100.gml"));
 
-	private static final class ValidationEventHandlerImpl implements ValidationEventHandler {
-		boolean isValid = true;		
-		
-		public boolean handleEvent(ValidationEvent event) {
-			System.out.print("\t" + event.getMessage());
-			isValid = false;
-			return true;
-		}
-	}
+        System.out.println(df.format(new Date()) + "validating features whilst reading from file");
+        while (reader.hasNext()) {
+            CityGML chunk = reader.nextFeature();
+
+            String type;
+            if (chunk instanceof ADEGenericElement) {
+                Element element = ((ADEGenericElement) chunk).getContent();
+                type = element.getPrefix() + ':' + element.getLocalName();
+            } else
+                type = chunk.getCityGMLClass().toString();
+
+            System.out.print(type + ": ");
+            System.out.println(validationEventHandler.isValid ? "valid" : "invalid (see error messages above)");
+
+            validationEventHandler.isValid = true;
+        }
+
+        reader.close();
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
+
+    private static final class ValidationEventHandlerImpl implements ValidationEventHandler {
+        boolean isValid = true;
+
+        public boolean handleEvent(ValidationEvent event) {
+            System.out.print("\t" + event.getMessage());
+            isValid = false;
+            return true;
+        }
+    }
 }

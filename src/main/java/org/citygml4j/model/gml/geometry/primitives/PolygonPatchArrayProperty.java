@@ -25,67 +25,67 @@ import java.util.List;
 
 public class PolygonPatchArrayProperty extends SurfacePatchArrayProperty {
 
-	public PolygonPatchArrayProperty() {
+    public PolygonPatchArrayProperty() {
 
-	}
+    }
 
-	public PolygonPatchArrayProperty(PolygonPatch polygonPatch) {
-		super(polygonPatch);
-	}
+    public PolygonPatchArrayProperty(PolygonPatch polygonPatch) {
+        super(polygonPatch);
+    }
 
-	public PolygonPatchArrayProperty(List<PolygonPatch> polygonPatch) {
-		super(polygonPatch);
-	}
+    public PolygonPatchArrayProperty(List<PolygonPatch> polygonPatch) {
+        super(polygonPatch);
+    }
 
-	public PolygonPatchArrayProperty(PolygonPatch... polygonPatch) {
-		super(polygonPatch);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.POLYGON_PATCH_ARRAY_PROPERTY;
-	}
+    public PolygonPatchArrayProperty(PolygonPatch... polygonPatch) {
+        super(polygonPatch);
+    }
 
-	@Override
-	public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
-		if (surfacePatch instanceof PolygonPatch)
-			super.addSurfacePatch(surfacePatch);
-	}
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.POLYGON_PATCH_ARRAY_PROPERTY;
+    }
 
-	public void addPolygonPatch(PolygonPatch polygonPatch) {
-		super.addSurfacePatch(polygonPatch);
-	}
+    @Override
+    public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
+        if (surfacePatch instanceof PolygonPatch)
+            super.addSurfacePatch(surfacePatch);
+    }
 
-	@SuppressWarnings("unchecked")
-	public List<PolygonPatch> getPolygonPatch() {
-		return (List<PolygonPatch>)super.getSurfacePatch();
-	}
+    public void addPolygonPatch(PolygonPatch polygonPatch) {
+        super.addSurfacePatch(polygonPatch);
+    }
 
-	public boolean isSetPolygonPatch() {
-		return super.isSetSurfacePatch();
-	}
+    @SuppressWarnings("unchecked")
+    public List<PolygonPatch> getPolygonPatch() {
+        return (List<PolygonPatch>) super.getSurfacePatch();
+    }
 
-	public void setPolygonPatch(List<PolygonPatch> polygonPatch) {
-		super.setSurfacePatch(polygonPatch);
-	}
+    public boolean isSetPolygonPatch() {
+        return super.isSetSurfacePatch();
+    }
 
-	public void unsetPolygonPatch() {
-		super.unsetSurfacePatch();
-	}
+    public void setPolygonPatch(List<PolygonPatch> polygonPatch) {
+        super.setSurfacePatch(polygonPatch);
+    }
 
-	public boolean unsetPolygonPatch(PolygonPatch polygonPatch) {
-		return super.unsetSurfacePatch(polygonPatch);
-	}
-	
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PolygonPatchArrayProperty copy = (target == null) ? new PolygonPatchArrayProperty() : (PolygonPatchArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PolygonPatchArrayProperty(), copyBuilder);
-	}
+    public void unsetPolygonPatch() {
+        super.unsetSurfacePatch();
+    }
+
+    public boolean unsetPolygonPatch(PolygonPatch polygonPatch) {
+        return super.unsetSurfacePatch(polygonPatch);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PolygonPatchArrayProperty copy = (target == null) ? new PolygonPatchArrayProperty() : (PolygonPatchArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PolygonPatchArrayProperty(), copyBuilder);
+    }
 
 }

@@ -25,77 +25,77 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.base.AssociationByRepOrRef;
 
 public class FeatureProperty<T extends AbstractFeature> extends AssociationByRepOrRef<T> {
-	private ADEGenericElement genericADEElement;
-	
-	public FeatureProperty() {
-		
-	}
-	
-	public FeatureProperty(T feature) {
-		super(feature);
-	}
-	
-	public FeatureProperty(String href) {
-		super(href);
-	}
-	
-	public T getFeature() {
-		return super.getObject();
-	}
+    private ADEGenericElement genericADEElement;
 
-	public boolean isSetFeature() {
-		return super.isSetObject();
-	}
+    public FeatureProperty() {
 
-	public void setFeature(T feature) {
-		super.setObject(feature);
-	}
+    }
 
-	public void unsetFeature() {
-		super.unsetObject();
-	}
+    public FeatureProperty(T feature) {
+        super(feature);
+    }
 
-	public ADEGenericElement getGenericADEElement() {
-		return genericADEElement;
-	}
+    public FeatureProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetGenericADEElement() {
-		return genericADEElement != null;
-	}
-	
-	public void setGenericADEElement(ADEGenericElement genericADEElement) {
-		this.genericADEElement = ModelObjects.setParent(genericADEElement, this);
-	}
-	
-	public void unsetGenericADEElement() {
-		genericADEElement = ModelObjects.setNull(genericADEElement);
-	}
+    public T getFeature() {
+        return super.getObject();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.FEATURE_PROPERTY;
-	}
+    public boolean isSetFeature() {
+        return super.isSetObject();
+    }
 
-	@SuppressWarnings("unchecked")
-	public Class<T> getAssociableClass() {
-		return (Class<T>)AbstractFeature.class;
-	}
+    public void setFeature(T feature) {
+        super.setObject(feature);
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		FeatureProperty<T> copy = (target == null) ? new FeatureProperty<T>() : (FeatureProperty<T>)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericADEElement()) {
-			copy.setGenericADEElement((ADEGenericElement)copyBuilder.copy(genericADEElement));
-			if (copy.getGenericADEElement() == genericADEElement)
-				genericADEElement.setParent(this);
-		}
-		
-		return copy;
-	}
+    public void unsetFeature() {
+        super.unsetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new FeatureProperty<T>(), copyBuilder);
-	}
+    public ADEGenericElement getGenericADEElement() {
+        return genericADEElement;
+    }
+
+    public boolean isSetGenericADEElement() {
+        return genericADEElement != null;
+    }
+
+    public void setGenericADEElement(ADEGenericElement genericADEElement) {
+        this.genericADEElement = ModelObjects.setParent(genericADEElement, this);
+    }
+
+    public void unsetGenericADEElement() {
+        genericADEElement = ModelObjects.setNull(genericADEElement);
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.FEATURE_PROPERTY;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Class<T> getAssociableClass() {
+        return (Class<T>) AbstractFeature.class;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        FeatureProperty<T> copy = (target == null) ? new FeatureProperty<T>() : (FeatureProperty<T>) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericADEElement()) {
+            copy.setGenericADEElement((ADEGenericElement) copyBuilder.copy(genericADEElement));
+            if (copy.getGenericADEElement() == genericADEElement)
+                genericADEElement.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new FeatureProperty<T>(), copyBuilder);
+    }
 
 }

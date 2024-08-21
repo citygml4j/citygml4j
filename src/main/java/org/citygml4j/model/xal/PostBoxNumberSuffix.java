@@ -26,106 +26,106 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class PostBoxNumberSuffix implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String numberSuffixSeparator;
-	private String code;
-	private ModelObject parent;
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String numberSuffixSeparator;
+    private String code;
+    private ModelObject parent;
 
-	public String getNumberSuffixSeparator() {
-		return numberSuffixSeparator;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getNumberSuffixSeparator() {
+        return numberSuffixSeparator;
+    }
 
-	public boolean isSetNumberSuffixSeparator() {
-		return numberSuffixSeparator != null;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetNumberSuffixSeparator() {
+        return numberSuffixSeparator != null;
+    }
 
-	public void setNumberSuffixSeparator(String numberSuffixSeparator) {
-		this.numberSuffixSeparator = numberSuffixSeparator;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setNumberSuffixSeparator(String numberSuffixSeparator) {
+        this.numberSuffixSeparator = numberSuffixSeparator;
+    }
 
-	public void unsetNumberSuffixSeparator() {
-		numberSuffixSeparator = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POST_BOX_NUMBER_SUFFIX;
-	}
+    public void unsetNumberSuffixSeparator() {
+        numberSuffixSeparator = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POST_BOX_NUMBER_SUFFIX;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostBoxNumberSuffix(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostBoxNumberSuffix copy = (target == null) ? new PostBoxNumberSuffix() : (PostBoxNumberSuffix)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetNumberSuffixSeparator())
-			copy.setNumberSuffixSeparator(copyBuilder.copy(numberSuffixSeparator));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostBoxNumberSuffix(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostBoxNumberSuffix copy = (target == null) ? new PostBoxNumberSuffix() : (PostBoxNumberSuffix) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetNumberSuffixSeparator())
+            copy.setNumberSuffixSeparator(copyBuilder.copy(numberSuffixSeparator));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -36,48 +36,48 @@ import java.util.Date;
 
 public class ValidatingCityGMLWriter {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
-		
-		// creating example (and simple) CityGML object tree
-		System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
-		Building building = new Building();
-		building.setId("1st-Building");
-		
-		GenericCityObject genericObject = new GenericCityObject();
-		genericObject.addGenericAttribute(new GenericAttributeSet());
-		
-		CityModel cityModel = new CityModel();
-		cityModel.addCityObjectMember(new CityObjectMember(building));
-		cityModel.addCityObjectMember(new CityObjectMember(genericObject));
-		
-		CityGMLVersion version = CityGMLVersion.v2_0_0;
-		
-		System.out.println(df.format(new Date()) + "creating validating CityGML 2.0.0 writer");
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(version);
-		out.setProperty(CityGMLOutputFactory.USE_VALIDATION, true);
-		out.setValidationEventHandler(event -> {
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
+
+        // creating example (and simple) CityGML object tree
+        System.out.println(df.format(new Date()) + "creating simple city model with invalid content");
+        Building building = new Building();
+        building.setId("1st-Building");
+
+        GenericCityObject genericObject = new GenericCityObject();
+        genericObject.addGenericAttribute(new GenericAttributeSet());
+
+        CityModel cityModel = new CityModel();
+        cityModel.addCityObjectMember(new CityObjectMember(building));
+        cityModel.addCityObjectMember(new CityObjectMember(genericObject));
+
+        CityGMLVersion version = CityGMLVersion.v2_0_0;
+
+        System.out.println(df.format(new Date()) + "creating validating CityGML 2.0.0 writer");
+        CityGMLOutputFactory out = builder.createCityGMLOutputFactory(version);
+        out.setProperty(CityGMLOutputFactory.USE_VALIDATION, true);
+        out.setValidationEventHandler(event -> {
             System.out.println(event.getMessage());
             return true;
         });
-		
-		System.out.println(df.format(new Date()) + "validating citygml4j in-memory object tree whilst writing to file");
-		CityGMLWriter writer = out.createCityGMLWriter(new File("output/simple_but_invalid_building_v200.gml"));
-		writer.setPrefixes(version);
-		writer.setDefaultNamespace(CoreModule.v2_0_0);
-		writer.setSchemaLocations(version);
-		writer.setIndentString("  ");
-		
-		writer.write(cityModel);
-		
-		writer.close();
 
-		System.out.println(df.format(new Date()) + "CityGML file Simple_but_invalid_building_v100.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "validating citygml4j in-memory object tree whilst writing to file");
+        CityGMLWriter writer = out.createCityGMLWriter(new File("output/simple_but_invalid_building_v200.gml"));
+        writer.setPrefixes(version);
+        writer.setDefaultNamespace(CoreModule.v2_0_0);
+        writer.setSchemaLocations(version);
+        writer.setIndentString("  ");
+
+        writer.write(cityModel);
+
+        writer.close();
+
+        System.out.println(df.format(new Date()) + "CityGML file Simple_but_invalid_building_v100.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

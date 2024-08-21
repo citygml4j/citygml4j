@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiLineStringProperty extends GeometryProperty<MultiLineString> {
 
-	public MultiLineStringProperty() {
+    public MultiLineStringProperty() {
 
-	}
+    }
 
-	public MultiLineStringProperty(MultiLineString multiLineString) {
-		super(multiLineString);
-	}
+    public MultiLineStringProperty(MultiLineString multiLineString) {
+        super(multiLineString);
+    }
 
-	public MultiLineStringProperty(String href) {
-		super(href);
-	}
-	
-	public MultiLineString getMultiLineString() {
-		return super.getGeometry();
-	}
+    public MultiLineStringProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetMultiLineString() {
-		return super.isSetGeometry();
-	}
+    public MultiLineString getMultiLineString() {
+        return super.getGeometry();
+    }
 
-	public void setMultiLineString(MultiLineString multiLineString) {
-		super.setGeometry(multiLineString);
-	}
+    public boolean isSetMultiLineString() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetMultiLineString() {
-		super.unsetGeometry();
-	}
+    public void setMultiLineString(MultiLineString multiLineString) {
+        super.setGeometry(multiLineString);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_LINE_STRING_PROPERTY;
-	}
+    public void unsetMultiLineString() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<MultiLineString> getAssociableClass() {
-		return MultiLineString.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_LINE_STRING_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiLineStringProperty(), copyBuilder);
-	}
+    @Override
+    public Class<MultiLineString> getAssociableClass() {
+        return MultiLineString.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiLineStringProperty copy = (target == null) ? new MultiLineStringProperty() : (MultiLineStringProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiLineStringProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiLineStringProperty copy = (target == null) ? new MultiLineStringProperty() : (MultiLineStringProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

@@ -28,162 +28,162 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class ValueObject implements GML, Associable, Child, Copyable {
-	private ScalarValue scalarValue;
-	private ScalarValueList scalarValueList;
-	private ValueExtent valueExtent;
-	private CompositeValue compositeValue;
-	private ModelObject parent;
-	
-	public ValueObject() {
-		
-	}
-	
-	public ValueObject(ScalarValue scalarValue) {
-		setScalarValue(scalarValue);
-	}
-	
-	public ValueObject(ScalarValueList scalarValueList) {
-		setScalarValueList(scalarValueList);
-	}
-	
-	public ValueObject(ValueExtent valueExtent) {
-		setValueExtent(valueExtent);
-	}
-	
-	public ValueObject(CompositeValue compositeValue) {
-		setCompositeValue(compositeValue);
-	}
+    private ScalarValue scalarValue;
+    private ScalarValueList scalarValueList;
+    private ValueExtent valueExtent;
+    private CompositeValue compositeValue;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.VALUE_OBJECT;
-	}
+    public ValueObject() {
 
-	public ScalarValue getScalarValue() {
-		return scalarValue;
-	}
+    }
 
-	public ScalarValueList getScalarValueList() {
-		return scalarValueList;
-	}
+    public ValueObject(ScalarValue scalarValue) {
+        setScalarValue(scalarValue);
+    }
 
-	public ValueExtent getValueExtent() {
-		return valueExtent;
-	}
+    public ValueObject(ScalarValueList scalarValueList) {
+        setScalarValueList(scalarValueList);
+    }
 
-	public CompositeValue getCompositeValue() {
-		return compositeValue;
-	}
+    public ValueObject(ValueExtent valueExtent) {
+        setValueExtent(valueExtent);
+    }
 
-	public boolean isSetScalarValue() {
-		return scalarValue != null;
-	}
+    public ValueObject(CompositeValue compositeValue) {
+        setCompositeValue(compositeValue);
+    }
 
-	public boolean isSetScalarValueList() {
-		return scalarValueList != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.VALUE_OBJECT;
+    }
 
-	public boolean isSetValueExtent() {
-		return valueExtent != null;
-	}
+    public ScalarValue getScalarValue() {
+        return scalarValue;
+    }
 
-	public boolean isSetCompositeValue() {
-		return compositeValue != null;
-	}
+    public ScalarValueList getScalarValueList() {
+        return scalarValueList;
+    }
 
-	public void setScalarValue(ScalarValue scalarValue) {
-		this.scalarValue = ModelObjects.setParent(scalarValue, this);
-		unsetCompositeValue();
-		unsetScalarValueList();
-		unsetValueExtent();
-	}
+    public ValueExtent getValueExtent() {
+        return valueExtent;
+    }
 
-	public void setScalarValueList(ScalarValueList scalarValueList) {
-		this.scalarValueList = ModelObjects.setParent(scalarValueList, this);
-		unsetCompositeValue();
-		unsetScalarValue();
-		unsetValueExtent();
-	}
+    public CompositeValue getCompositeValue() {
+        return compositeValue;
+    }
 
-	public void setValueExtent(ValueExtent valueExtent) {
-		this.valueExtent = ModelObjects.setParent(valueExtent, this);
-		unsetCompositeValue();
-		unsetScalarValue();
-		unsetScalarValueList();
-	}
+    public boolean isSetScalarValue() {
+        return scalarValue != null;
+    }
 
-	public void setCompositeValue(CompositeValue compositeValue) {
-		this.compositeValue = ModelObjects.setParent(compositeValue, this);
-		unsetScalarValue();
-		unsetScalarValueList();
-		unsetValueExtent();
-	}
+    public boolean isSetScalarValueList() {
+        return scalarValueList != null;
+    }
 
-	public void unsetScalarValue() {
-		scalarValue = ModelObjects.setNull(scalarValue);
-	}
+    public boolean isSetValueExtent() {
+        return valueExtent != null;
+    }
 
-	public void unsetScalarValueList() {
-		scalarValueList = ModelObjects.setNull(scalarValueList);
-	}
+    public boolean isSetCompositeValue() {
+        return compositeValue != null;
+    }
 
-	public void unsetValueExtent() {
-		valueExtent = ModelObjects.setNull(valueExtent);
-	}
+    public void setScalarValue(ScalarValue scalarValue) {
+        this.scalarValue = ModelObjects.setParent(scalarValue, this);
+        unsetCompositeValue();
+        unsetScalarValueList();
+        unsetValueExtent();
+    }
 
-	public void unsetCompositeValue() {
-		compositeValue = ModelObjects.setNull(compositeValue);
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setScalarValueList(ScalarValueList scalarValueList) {
+        this.scalarValueList = ModelObjects.setParent(scalarValueList, this);
+        unsetCompositeValue();
+        unsetScalarValue();
+        unsetValueExtent();
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setValueExtent(ValueExtent valueExtent) {
+        this.valueExtent = ModelObjects.setParent(valueExtent, this);
+        unsetCompositeValue();
+        unsetScalarValue();
+        unsetScalarValueList();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setCompositeValue(CompositeValue compositeValue) {
+        this.compositeValue = ModelObjects.setParent(compositeValue, this);
+        unsetScalarValue();
+        unsetScalarValueList();
+        unsetValueExtent();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ValueObject copy = (target == null) ? new ValueObject() : (ValueObject)target;
-		
-		if (isSetScalarValue()) {
-			copy.setScalarValue((ScalarValue)copyBuilder.copy(scalarValue));
-			if (copy.getScalarValue() == scalarValue)
-				scalarValue.setParent(this);
-		}
-		
-		if (isSetScalarValueList()) {
-			copy.setScalarValueList((ScalarValueList)copyBuilder.copy(scalarValueList));
-			if (copy.getScalarValueList() == scalarValueList)
-				scalarValueList.setParent(this);
-		}
-		
-		if (isSetValueExtent()) {
-			copy.setValueExtent((ValueExtent)copyBuilder.copy(valueExtent));
-			if (copy.getValueExtent() == valueExtent)
-				valueExtent.setParent(this);
-		}
-		
-		if (isSetCompositeValue()) {
-			copy.setCompositeValue((CompositeValue)copyBuilder.copy(compositeValue));
-			if (copy.getCompositeValue() == compositeValue)
-				compositeValue.setParent(this);
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetScalarValue() {
+        scalarValue = ModelObjects.setNull(scalarValue);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ValueObject(), copyBuilder);
-	}
+    public void unsetScalarValueList() {
+        scalarValueList = ModelObjects.setNull(scalarValueList);
+    }
+
+    public void unsetValueExtent() {
+        valueExtent = ModelObjects.setNull(valueExtent);
+    }
+
+    public void unsetCompositeValue() {
+        compositeValue = ModelObjects.setNull(compositeValue);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ValueObject copy = (target == null) ? new ValueObject() : (ValueObject) target;
+
+        if (isSetScalarValue()) {
+            copy.setScalarValue((ScalarValue) copyBuilder.copy(scalarValue));
+            if (copy.getScalarValue() == scalarValue)
+                scalarValue.setParent(this);
+        }
+
+        if (isSetScalarValueList()) {
+            copy.setScalarValueList((ScalarValueList) copyBuilder.copy(scalarValueList));
+            if (copy.getScalarValueList() == scalarValueList)
+                scalarValueList.setParent(this);
+        }
+
+        if (isSetValueExtent()) {
+            copy.setValueExtent((ValueExtent) copyBuilder.copy(valueExtent));
+            if (copy.getValueExtent() == valueExtent)
+                valueExtent.setParent(this);
+        }
+
+        if (isSetCompositeValue()) {
+            copy.setCompositeValue((CompositeValue) copyBuilder.copy(compositeValue));
+            if (copy.getCompositeValue() == compositeValue)
+                compositeValue.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ValueObject(), copyBuilder);
+    }
 
 }

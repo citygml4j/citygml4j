@@ -39,174 +39,174 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class BreaklineRelief extends AbstractReliefComponent {
-	private MultiCurveProperty ridgeOrValleyLines;
-	private MultiCurveProperty breaklines;
-	private List<ADEComponent> ade;
+    private MultiCurveProperty ridgeOrValleyLines;
+    private MultiCurveProperty breaklines;
+    private List<ADEComponent> ade;
 
-	public BreaklineRelief() {
+    public BreaklineRelief() {
 
-	}
+    }
 
-	public BreaklineRelief(Module module) {
-		super(module);
-	}
+    public BreaklineRelief(Module module) {
+        super(module);
+    }
 
-	public void addGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade) {
-		getGenericApplicationPropertyOfBreaklineRelief().add(ade);
-	}
+    public void addGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade) {
+        getGenericApplicationPropertyOfBreaklineRelief().add(ade);
+    }
 
-	public MultiCurveProperty getBreaklines() {
-		return breaklines;
-	}
+    public MultiCurveProperty getBreaklines() {
+        return breaklines;
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfBreaklineRelief() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfBreaklineRelief() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return ade;
-	}
+        return ade;
+    }
 
-	public MultiCurveProperty getRidgeOrValleyLines() {
-		return ridgeOrValleyLines;
-	}
+    public MultiCurveProperty getRidgeOrValleyLines() {
+        return ridgeOrValleyLines;
+    }
 
-	public boolean isSetBreaklines() {
-		return breaklines != null;
-	}
+    public boolean isSetBreaklines() {
+        return breaklines != null;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfBreaklineRelief() {
-		return ade != null && !ade.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfBreaklineRelief() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean isSetRidgeOrValleyLines() {
-		return ridgeOrValleyLines != null;
-	}
+    public boolean isSetRidgeOrValleyLines() {
+        return ridgeOrValleyLines != null;
+    }
 
-	public void setBreaklines(MultiCurveProperty breaklines) {
-		this.breaklines = ModelObjects.setParent(breaklines, this);
-	}
+    public void setBreaklines(MultiCurveProperty breaklines) {
+        this.breaklines = ModelObjects.setParent(breaklines, this);
+    }
 
-	public void setGenericApplicationPropertyOfBreaklineRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void setGenericApplicationPropertyOfBreaklineRelief(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void setRidgeOrValleyLines(MultiCurveProperty ridgeOrValleyLines) {
-		this.ridgeOrValleyLines = ModelObjects.setParent(ridgeOrValleyLines, this);
-	}
+    public void setRidgeOrValleyLines(MultiCurveProperty ridgeOrValleyLines) {
+        this.ridgeOrValleyLines = ModelObjects.setParent(ridgeOrValleyLines, this);
+    }
 
-	public void unsetBreaklines() {
-		breaklines = ModelObjects.setNull(breaklines);
-	}
+    public void unsetBreaklines() {
+        breaklines = ModelObjects.setNull(breaklines);
+    }
 
-	public void unsetGenericApplicationPropertyOfBreaklineRelief() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void unsetGenericApplicationPropertyOfBreaklineRelief() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBreaklineRelief() && this.ade.remove(ade);
-	}
+    public boolean unsetGenericApplicationPropertyOfBreaklineRelief(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfBreaklineRelief() && this.ade.remove(ade);
+    }
 
-	public void unsetRidgeOrValleyLines() {
-		ridgeOrValleyLines = ModelObjects.setNull(ridgeOrValleyLines);
-	}
+    public void unsetRidgeOrValleyLines() {
+        ridgeOrValleyLines = ModelObjects.setNull(ridgeOrValleyLines);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BREAKLINE_RELIEF;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BREAKLINE_RELIEF;
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		if (isSetBreaklines()) {
-			if (breaklines.isSetMultiCurve()) {
-				boundedBy.updateEnvelope(breaklines.getMultiCurve().calcBoundingBox());
-			} else {
-				// xlink
-			}
-		}
+        if (isSetBreaklines()) {
+            if (breaklines.isSetMultiCurve()) {
+                boundedBy.updateEnvelope(breaklines.getMultiCurve().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
 
-		if (isSetRidgeOrValleyLines()) {
-			if (ridgeOrValleyLines.isSetMultiCurve()) {
-				boundedBy.updateEnvelope(ridgeOrValleyLines.getMultiCurve().calcBoundingBox());
-			} else {
-				// xlink
-			}
-		}
+        if (isSetRidgeOrValleyLines()) {
+            if (ridgeOrValleyLines.isSetMultiCurve()) {
+                boundedBy.updateEnvelope(ridgeOrValleyLines.getMultiCurve().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
 
-		if (isSetGenericApplicationPropertyOfBreaklineRelief()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfBreaklineRelief()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
+        if (isSetGenericApplicationPropertyOfBreaklineRelief()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfBreaklineRelief()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-		return boundedBy;
-	}
+        return boundedBy;
+    }
 
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
 
-		lodRepresentation.addRepresentation(getLod(), ridgeOrValleyLines);
-		lodRepresentation.addRepresentation(getLod(), breaklines);
+        lodRepresentation.addRepresentation(getLod(), ridgeOrValleyLines);
+        lodRepresentation.addRepresentation(getLod(), breaklines);
 
-		return lodRepresentation;
-	}
+        return lodRepresentation;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BreaklineRelief(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BreaklineRelief(), copyBuilder);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BreaklineRelief copy = (target == null) ? new BreaklineRelief() : (BreaklineRelief)target;
-		super.copyTo(copy, copyBuilder);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BreaklineRelief copy = (target == null) ? new BreaklineRelief() : (BreaklineRelief) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetBreaklines()) {
-			copy.setBreaklines((MultiCurveProperty)copyBuilder.copy(breaklines));
-			if (copy.getBreaklines() == breaklines)
-				breaklines.setParent(this);
-		}
+        if (isSetBreaklines()) {
+            copy.setBreaklines((MultiCurveProperty) copyBuilder.copy(breaklines));
+            if (copy.getBreaklines() == breaklines)
+                breaklines.setParent(this);
+        }
 
-		if (isSetRidgeOrValleyLines()) {
-			copy.setRidgeOrValleyLines((MultiCurveProperty)copyBuilder.copy(ridgeOrValleyLines));
-			if (copy.getRidgeOrValleyLines() == ridgeOrValleyLines)
-				ridgeOrValleyLines.setParent(this);
-		}
+        if (isSetRidgeOrValleyLines()) {
+            copy.setRidgeOrValleyLines((MultiCurveProperty) copyBuilder.copy(ridgeOrValleyLines));
+            if (copy.getRidgeOrValleyLines() == ridgeOrValleyLines)
+                ridgeOrValleyLines.setParent(this);
+        }
 
-		if (isSetGenericApplicationPropertyOfBreaklineRelief()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfBreaklineRelief(copyPart);
+        if (isSetGenericApplicationPropertyOfBreaklineRelief()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfBreaklineRelief(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		return copy;
-	}
+        return copy;
+    }
 
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

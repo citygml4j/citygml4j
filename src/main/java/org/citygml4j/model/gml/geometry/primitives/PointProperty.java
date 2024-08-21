@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class PointProperty extends GeometryProperty<Point> {
 
-	public PointProperty() {
+    public PointProperty() {
 
-	}
+    }
 
-	public PointProperty(Point point) {
-		super(point);
-	}
+    public PointProperty(Point point) {
+        super(point);
+    }
 
-	public PointProperty(String href) {
-		super(href);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.POINT_PROPERTY;
-	}
+    public PointProperty(String href) {
+        super(href);
+    }
 
-	public Point getPoint() {
-		return super.getGeometry();
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.POINT_PROPERTY;
+    }
 
-	public boolean isSetPoint() {
-		return super.isSetGeometry();
-	}
+    public Point getPoint() {
+        return super.getGeometry();
+    }
 
-	public void setPoint(Point point) {
-		super.setGeometry(point);
-	}
+    public boolean isSetPoint() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetPoint() {
-		super.unsetGeometry();
-	}
-	
-	@Override
-	public Class<Point> getAssociableClass() {
-		return Point.class;
-	}
+    public void setPoint(Point point) {
+        super.setGeometry(point);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PointProperty copy = (target == null) ? new PointProperty() : (PointProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetPoint() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PointProperty(), copyBuilder);
-	}
+    @Override
+    public Class<Point> getAssociableClass() {
+        return Point.class;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PointProperty copy = (target == null) ? new PointProperty() : (PointProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PointProperty(), copyBuilder);
+    }
 
 }

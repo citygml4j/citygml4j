@@ -33,79 +33,79 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ADEMarshaller {
-	private Map<String, org.citygml4j.model.citygml.ade.binding.ADEMarshaller> marshallers;
+    private Map<String, org.citygml4j.model.citygml.ade.binding.ADEMarshaller> marshallers;
 
-	public ADEMarshaller(JAXBMarshaller jaxb) {
-		reset(jaxb);
-	}
+    public ADEMarshaller(JAXBMarshaller jaxb) {
+        reset(jaxb);
+    }
 
-	public void reset(JAXBMarshaller jaxb) {
-		CityGMLContext context = CityGMLContext.getInstance();
-		if (context.hasADEContexts()) {
-			this.marshallers = new HashMap<>();
-			ADEMarshallerHelper helper = new ADEMarshallerHelper(jaxb);
+    public void reset(JAXBMarshaller jaxb) {
+        CityGMLContext context = CityGMLContext.getInstance();
+        if (context.hasADEContexts()) {
+            this.marshallers = new HashMap<>();
+            ADEMarshallerHelper helper = new ADEMarshallerHelper(jaxb);
 
-			for (ADEContext adeContext : context.getADEContexts()) {
-				boolean supportsTargetVersion = false;
-				for (ADEModule module : adeContext.getADEModules()) {
-					if (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
-						supportsTargetVersion = true;
-						break;
-					}
-				}
+            for (ADEContext adeContext : context.getADEContexts()) {
+                boolean supportsTargetVersion = false;
+                for (ADEModule module : adeContext.getADEModules()) {
+                    if (module.getCityGMLVersion() == jaxb.getModuleContext().getCityGMLVersion()) {
+                        supportsTargetVersion = true;
+                        break;
+                    }
+                }
 
-				if (supportsTargetVersion) {
-					org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = adeContext.createADEMarshaller();
-					if (marshaller != null) {
-						marshaller.setADEMarshallerHelper(helper);
-						for (String packageName : adeContext.getModelPackageNames())
-							this.marshallers.put(packageName, marshaller);
-					}
-				}
-			}
-		}
-	}
+                if (supportsTargetVersion) {
+                    org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = adeContext.createADEMarshaller();
+                    if (marshaller != null) {
+                        marshaller.setADEMarshallerHelper(helper);
+                        for (String packageName : adeContext.getModelPackageNames())
+                            this.marshallers.put(packageName, marshaller);
+                    }
+                }
+            }
+        }
+    }
 
-	@SuppressWarnings("unchecked")
-	public JAXBElement<Object> marshalJAXBElement(ADEComponent ade) {
-		switch (ade.getADEClass()) {
-		case MODEL_OBJECT:
-			JAXBElement<?> elem = marshalJAXBElement((ADEModelObject)ade);
-			if (elem != null && elem.getValue() != null)
-				return (JAXBElement<Object>)elem;
-			break;
-		case GENERIC_ELEMENT:	
-			Element element = marshalDOMElement((ADEGenericElement)ade);
-			if (element != null)
-				return new JAXBElement<Object>(new QName(element.getNamespaceURI(), element.getLocalName()), Object.class, element);
-			break;
-		}
+    @SuppressWarnings("unchecked")
+    public JAXBElement<Object> marshalJAXBElement(ADEComponent ade) {
+        switch (ade.getADEClass()) {
+            case MODEL_OBJECT:
+                JAXBElement<?> elem = marshalJAXBElement((ADEModelObject) ade);
+                if (elem != null && elem.getValue() != null)
+                    return (JAXBElement<Object>) elem;
+                break;
+            case GENERIC_ELEMENT:
+                Element element = marshalDOMElement((ADEGenericElement) ade);
+                if (element != null)
+                    return new JAXBElement<Object>(new QName(element.getNamespaceURI(), element.getLocalName()), Object.class, element);
+                break;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public Element marshalDOMElement(ADEGenericElement ade) {
-		return ade.isSetContent() ? ade.getContent() : null;
-	}
+    public Element marshalDOMElement(ADEGenericElement ade) {
+        return ade.isSetContent() ? ade.getContent() : null;
+    }
 
-	public JAXBElement<?> marshalJAXBElement(ADEModelObject ade) {
-		if (marshallers != null) {
-			org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
-			if (marshaller != null)
-				return marshaller.marshalJAXBElement(ade);
-		}
+    public JAXBElement<?> marshalJAXBElement(ADEModelObject ade) {
+        if (marshallers != null) {
+            org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
+            if (marshaller != null)
+                return marshaller.marshalJAXBElement(ade);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public Object marshal(ADEModelObject ade) {
-		if (marshallers != null) {
-			org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
-			if (marshaller != null)
-				return marshaller.marshal(ade);
-		}
+    public Object marshal(ADEModelObject ade) {
+        if (marshallers != null) {
+            org.citygml4j.model.citygml.ade.binding.ADEMarshaller marshaller = marshallers.get(ade.getClass().getPackage().getName());
+            if (marshaller != null)
+                return marshaller.marshal(ade);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

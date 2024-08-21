@@ -38,141 +38,141 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class TINRelief extends AbstractReliefComponent {
-	private TinProperty tin;
-	private List<ADEComponent> ade;
+    private TinProperty tin;
+    private List<ADEComponent> ade;
 
-	public TINRelief() {
+    public TINRelief() {
 
-	}
+    }
 
-	public TINRelief(Module module) {
-		super(module);
-	}
+    public TINRelief(Module module) {
+        super(module);
+    }
 
-	public void addGenericApplicationPropertyOfTinRelief(ADEComponent ade) {
-		getGenericApplicationPropertyOfTinRelief().add(ade);
-	}
+    public void addGenericApplicationPropertyOfTinRelief(ADEComponent ade) {
+        getGenericApplicationPropertyOfTinRelief().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfTinRelief() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public List<ADEComponent> getGenericApplicationPropertyOfTinRelief() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-		return ade;
-	}
+        return ade;
+    }
 
-	public TinProperty getTin() {
-		return tin;
-	}
+    public TinProperty getTin() {
+        return tin;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfTinRelief() {
-		return ade != null && !ade.isEmpty();
-	}
+    public boolean isSetGenericApplicationPropertyOfTinRelief() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean isSetTin() {
-		return tin != null;
-	}
+    public boolean isSetTin() {
+        return tin != null;
+    }
 
-	public void setGenericApplicationPropertyOfTinRelief(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void setGenericApplicationPropertyOfTinRelief(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void setTin(TinProperty tin) {
-		this.tin = ModelObjects.setParent(tin, this);
-	}
+    public void setTin(TinProperty tin) {
+        this.tin = ModelObjects.setParent(tin, this);
+    }
 
-	public void unsetGenericApplicationPropertyOfTinRelief() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void unsetGenericApplicationPropertyOfTinRelief() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfTinRelief(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTinRelief() && this.ade.remove(ade);
-	}
+    public boolean unsetGenericApplicationPropertyOfTinRelief(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfTinRelief() && this.ade.remove(ade);
+    }
 
-	public void unsetTin() {
-		tin = ModelObjects.setNull(tin);
-	}
+    public void unsetTin() {
+        tin = ModelObjects.setNull(tin);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TIN_RELIEF;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TIN_RELIEF;
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetTin()) {
-			if (tin.isSetObject()) {
-				boundedBy.updateEnvelope(tin.getObject().calcBoundingBox());
-			} else {
-				// xlink
-			}
-		}
-		
-		if (isSetGenericApplicationPropertyOfTinRelief()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfTinRelief()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+        if (isSetTin()) {
+            if (tin.isSetObject()) {
+                boundedBy.updateEnvelope(tin.getObject().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
 
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		lodRepresentation.addRepresentation(getLod(), tin);
-		
-		return lodRepresentation;
-	}
+        if (isSetGenericApplicationPropertyOfTinRelief()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfTinRelief()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TINRelief(), copyBuilder);
-	}
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TINRelief copy = (target == null) ? new TINRelief() : (TINRelief)target;
-		super.copyTo(copy, copyBuilder);
+        return boundedBy;
+    }
 
-		if (isSetTin()) {
-			copy.setTin((TinProperty)copyBuilder.copy(tin));
-			if (copy.getTin() == tin)
-				tin.setParent(this);
-		}
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+        lodRepresentation.addRepresentation(getLod(), tin);
 
-		if (isSetGenericApplicationPropertyOfTinRelief()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfTinRelief(copyPart);
+        return lodRepresentation;
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TINRelief(), copyBuilder);
+    }
 
-		return copy;
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TINRelief copy = (target == null) ? new TINRelief() : (TINRelief) target;
+        super.copyTo(copy, copyBuilder);
 
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+        if (isSetTin()) {
+            copy.setTin((TinProperty) copyBuilder.copy(tin));
+            if (copy.getTin() == tin)
+                tin.setParent(this);
+        }
 
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetGenericApplicationPropertyOfTinRelief()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfTinRelief(copyPart);
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

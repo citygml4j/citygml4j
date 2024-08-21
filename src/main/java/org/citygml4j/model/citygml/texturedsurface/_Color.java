@@ -28,124 +28,124 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class _Color implements TexturedSurfaceModuleComponent, Child, Copyable {
-	private Double red = 0.0;
-	private Double green = 0.0;
-	private Double blue = 0.0;
-	private ModelObject parent;
-	
-	public _Color() {
-		
-	}
-	
-	public _Color(Double defaultValue) {
-		if (defaultValue > 0.0 && defaultValue <= 1.0)
-			red = green = blue = defaultValue;
-	}
+    private Double red = 0.0;
+    private Double green = 0.0;
+    private Double blue = 0.0;
+    private ModelObject parent;
 
-	public _Color(Double red, Double green, Double blue) {
-		if (red > 0.0 && red <= 1.0)
-			this.red = red;
+    public _Color() {
 
-		if (green > 0.0 && green <= 1.0)
-			this.green = green;
+    }
 
-		if (blue > 0.0 && blue <= 1.0)
-			this.blue = blue;
-	}
-	
-	public Double getBlue() {
-		return blue;
-	}
+    public _Color(Double defaultValue) {
+        if (defaultValue > 0.0 && defaultValue <= 1.0)
+            red = green = blue = defaultValue;
+    }
 
-	public Double getGreen() {
-		return green;
-	}
+    public _Color(Double red, Double green, Double blue) {
+        if (red > 0.0 && red <= 1.0)
+            this.red = red;
 
-	public Double getRed() {
-		return red;
-	}
+        if (green > 0.0 && green <= 1.0)
+            this.green = green;
 
-	public void setBlue(Double blue) {
-		if (blue >= 0.0 && blue <= 1.0)
-			this.blue = blue;
-	}
+        if (blue > 0.0 && blue <= 1.0)
+            this.blue = blue;
+    }
 
-	public void setColor(List<Double> color) {
-		if (color.size() >= 3) {
-			for (int i = 0; i < 3 ; ++i) {
-				double value = color.get(i);
-				
-				if (value >= 0.0 && value <= 1.0) {
-					switch (i) {
-					case 0:
-						red = value;
-						break;
-					case 1:
-						green = value;
-						break;
-					case 2:
-						blue = value;
-						break;
-					}
-				}
-			}
-		}
-	}
+    public Double getBlue() {
+        return blue;
+    }
 
-	public void setGreen(Double green) {
-		if (green >= 0.0 && green <= 1.0)
-			this.green = green;
-	}
+    public Double getGreen() {
+        return green;
+    }
 
-	public void setRed(Double red) {
-		if (red >= 0.0 && red <= 1.0)
-			this.red = red;
-	}
+    public Double getRed() {
+        return red;
+    }
 
-	public List<Double> toList() {
-		List<Double> color = new ArrayList<Double>();
+    public void setBlue(Double blue) {
+        if (blue >= 0.0 && blue <= 1.0)
+            this.blue = blue;
+    }
 
-		color.add(red);
-		color.add(green);
-		color.add(blue);
+    public void setColor(List<Double> color) {
+        if (color.size() >= 3) {
+            for (int i = 0; i < 3; ++i) {
+                double value = color.get(i);
 
-		return color;
-	}
+                if (value >= 0.0 && value <= 1.0) {
+                    switch (i) {
+                        case 0:
+                            red = value;
+                            break;
+                        case 1:
+                            green = value;
+                            break;
+                        case 2:
+                            blue = value;
+                            break;
+                    }
+                }
+            }
+        }
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._COLOR;
-	}
+    public void setGreen(Double green) {
+        if (green >= 0.0 && green <= 1.0)
+            this.green = green;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setRed(Double red) {
+        if (red >= 0.0 && red <= 1.0)
+            this.red = red;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public List<Double> toList() {
+        List<Double> color = new ArrayList<Double>();
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+        color.add(red);
+        color.add(green);
+        color.add(blue);
 
-	public void unsetParent() {
-		parent = null;
-	}
+        return color;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new _Color(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass._COLOR;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		_Color copy = (target == null) ? new _Color() : (_Color)target;
-		
-		copy.setRed((Double)copyBuilder.copy(red));
-		copy.setGreen((Double)copyBuilder.copy(green));
-		copy.setBlue((Double)copyBuilder.copy(blue));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new _Color(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        _Color copy = (target == null) ? new _Color() : (_Color) target;
+
+        copy.setRed((Double) copyBuilder.copy(red));
+        copy.setGreen((Double) copyBuilder.copy(green));
+        copy.setBlue((Double) copyBuilder.copy(blue));
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

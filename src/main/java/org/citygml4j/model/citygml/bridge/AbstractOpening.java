@@ -37,222 +37,222 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 import java.util.List;
 
-public abstract class AbstractOpening extends AbstractCityObject implements BridgeModuleComponent {	
-	private MultiSurfaceProperty lod3MultiSurface;
-	private MultiSurfaceProperty lod4MultiSurface;
-	private ImplicitRepresentationProperty lod3ImplicitRepresentation;
-	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
-	private List<ADEComponent> ade;
+public abstract class AbstractOpening extends AbstractCityObject implements BridgeModuleComponent {
+    private MultiSurfaceProperty lod3MultiSurface;
+    private MultiSurfaceProperty lod4MultiSurface;
+    private ImplicitRepresentationProperty lod3ImplicitRepresentation;
+    private ImplicitRepresentationProperty lod4ImplicitRepresentation;
+    private List<ADEComponent> ade;
 
-	public AbstractOpening() {
-		
-	}
-	
-	public AbstractOpening(Module module) {
-		super(module);
-	}
+    public AbstractOpening() {
 
-	public ImplicitRepresentationProperty getLod3ImplicitRepresentation() {
-		return lod3ImplicitRepresentation;
-	}
-	
-	public ImplicitRepresentationProperty getLod4ImplicitRepresentation() {
-		return lod4ImplicitRepresentation;
-	}
-	
-	public boolean isSetLod3ImplicitRepresentation() {
-		return lod3ImplicitRepresentation != null;
-	}
-	
-	public boolean isSetLod4ImplicitRepresentation() {
-		return lod4ImplicitRepresentation != null;
-	}
-	
-	public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation) {
-		this.lod3ImplicitRepresentation = ModelObjects.setParent(lod3ImplicitRepresentation, this);
-	}
+    }
 
-	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
-		this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
-	}
-	
-	public void unsetLod3ImplicitRepresentation() {
-		lod3ImplicitRepresentation = ModelObjects.setNull(lod3ImplicitRepresentation);
-	}
-	
-	public void unsetLod4ImplicitRepresentation() {
-		lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
-	}
-	
-	public void addGenericApplicationPropertyOfOpening(ADEComponent ade) {
-		getGenericApplicationPropertyOfOpening().add(ade);
-	}
+    public AbstractOpening(Module module) {
+        super(module);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfOpening() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public ImplicitRepresentationProperty getLod3ImplicitRepresentation() {
+        return lod3ImplicitRepresentation;
+    }
 
-		return ade;
-	}
+    public ImplicitRepresentationProperty getLod4ImplicitRepresentation() {
+        return lod4ImplicitRepresentation;
+    }
 
-	public MultiSurfaceProperty getLod3MultiSurface() {
-		return lod3MultiSurface;
-	}
+    public boolean isSetLod3ImplicitRepresentation() {
+        return lod3ImplicitRepresentation != null;
+    }
 
-	public MultiSurfaceProperty getLod4MultiSurface() {
-		return lod4MultiSurface;
-	}
+    public boolean isSetLod4ImplicitRepresentation() {
+        return lod4ImplicitRepresentation != null;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfOpening() {
-		return ade != null && !ade.isEmpty();
-	}
+    public void setLod3ImplicitRepresentation(ImplicitRepresentationProperty lod3ImplicitRepresentation) {
+        this.lod3ImplicitRepresentation = ModelObjects.setParent(lod3ImplicitRepresentation, this);
+    }
 
-	public boolean isSetLod3MultiSurface() {
-		return lod3MultiSurface != null;
-	}
+    public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
+        this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
+    }
 
-	public boolean isSetLod4MultiSurface() {
-		return lod4MultiSurface != null;
-	}
+    public void unsetLod3ImplicitRepresentation() {
+        lod3ImplicitRepresentation = ModelObjects.setNull(lod3ImplicitRepresentation);
+    }
 
-	public void setGenericApplicationPropertyOfOpening(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void unsetLod4ImplicitRepresentation() {
+        lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
+    }
 
-	public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
-		this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
-	}
+    public void addGenericApplicationPropertyOfOpening(ADEComponent ade) {
+        getGenericApplicationPropertyOfOpening().add(ade);
+    }
 
-	public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
-		this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfOpening() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public void unsetGenericApplicationPropertyOfOpening() {
-		ade = ModelObjects.setNull(ade);
-	}
+        return ade;
+    }
 
-	public boolean unsetGenericApplicationPropertyOfOpening(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfOpening() && this.ade.remove(ade);
-	}
+    public MultiSurfaceProperty getLod3MultiSurface() {
+        return lod3MultiSurface;
+    }
 
-	public void unsetLod3MultiSurface() {
-		lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
-	}
+    public MultiSurfaceProperty getLod4MultiSurface() {
+        return lod4MultiSurface;
+    }
 
-	public void unsetLod4MultiSurface() {
-		lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
-	}
+    public boolean isSetGenericApplicationPropertyOfOpening() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		GeometryProperty<? extends AbstractGeometry> geometryProperty = null;		
-		for (int lod = 3; lod < 5; lod++) {
-			switch (lod) {
-			case 3:
-				geometryProperty = lod3MultiSurface;
-				break;
-			case 4:
-				geometryProperty = lod4MultiSurface;
-				break;
-			}
+    public boolean isSetLod3MultiSurface() {
+        return lod3MultiSurface != null;
+    }
 
-			if (geometryProperty != null) {
-				if (geometryProperty.isSetGeometry()) {
-					boundedBy.updateEnvelope(geometryProperty.getGeometry().calcBoundingBox());
-				} else {
-					// xlink
-				}
-			}
-		}
-		
-		ImplicitRepresentationProperty implicitRepresentation = null;
-		for (int lod = 3; lod < 5; lod++) {
-			switch (lod) {
-			case 3:
-				implicitRepresentation = lod3ImplicitRepresentation;
-				break;
-			case 4:
-				implicitRepresentation = lod4ImplicitRepresentation;
-				break;
-			}
+    public boolean isSetLod4MultiSurface() {
+        return lod4MultiSurface != null;
+    }
 
-			if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
-				boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
-		}
-		
-		if (isSetGenericApplicationPropertyOfOpening()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfOpening()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public void setGenericApplicationPropertyOfOpening(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
+    public void setLod3MultiSurface(MultiSurfaceProperty lod3MultiSurface) {
+        this.lod3MultiSurface = ModelObjects.setParent(lod3MultiSurface, this);
+    }
 
-		lodRepresentation.addRepresentation(3, lod3MultiSurface);
-		lodRepresentation.addRepresentation(4, lod4MultiSurface);
+    public void setLod4MultiSurface(MultiSurfaceProperty lod4MultiSurface) {
+        this.lod4MultiSurface = ModelObjects.setParent(lod4MultiSurface, this);
+    }
 
-		lodRepresentation.addRepresentation(3, lod3ImplicitRepresentation);
-		lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
-		
-		return lodRepresentation;
-	}
-	
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public void unsetGenericApplicationPropertyOfOpening() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-		AbstractOpening copy = (AbstractOpening)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetLod3MultiSurface()) {
-			copy.setLod3MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod3MultiSurface));
-			if (copy.getLod3MultiSurface() == lod3MultiSurface)
-				lod3MultiSurface.setParent(this);
-		}
+    public boolean unsetGenericApplicationPropertyOfOpening(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfOpening() && this.ade.remove(ade);
+    }
 
-		if (isSetLod4MultiSurface()) {
-			copy.setLod4MultiSurface((MultiSurfaceProperty)copyBuilder.copy(lod4MultiSurface));
-			if (copy.getLod4MultiSurface() == lod4MultiSurface)
-				lod4MultiSurface.setParent(this);
-		}
-		
-		if (isSetLod3ImplicitRepresentation()) {
-			copy.setLod3ImplicitRepresentation((ImplicitRepresentationProperty)copyBuilder.copy(lod3ImplicitRepresentation));
-			if (copy.getLod3ImplicitRepresentation() == lod3ImplicitRepresentation)
-				lod3ImplicitRepresentation.setParent(this);
-		}
+    public void unsetLod3MultiSurface() {
+        lod3MultiSurface = ModelObjects.setNull(lod3MultiSurface);
+    }
 
-		if (isSetLod4ImplicitRepresentation()) {
-			copy.setLod4ImplicitRepresentation((ImplicitRepresentationProperty)copyBuilder.copy(lod4ImplicitRepresentation));
-			if (copy.getLod4ImplicitRepresentation() == lod4ImplicitRepresentation)
-				lod4ImplicitRepresentation.setParent(this);
-		}
+    public void unsetLod4MultiSurface() {
+        lod4MultiSurface = ModelObjects.setNull(lod4MultiSurface);
+    }
 
-		if (isSetGenericApplicationPropertyOfOpening()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfOpening(copyPart);
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        GeometryProperty<? extends AbstractGeometry> geometryProperty = null;
+        for (int lod = 3; lod < 5; lod++) {
+            switch (lod) {
+                case 3:
+                    geometryProperty = lod3MultiSurface;
+                    break;
+                case 4:
+                    geometryProperty = lod4MultiSurface;
+                    break;
+            }
 
-		return copy;
-	}	
-	
+            if (geometryProperty != null) {
+                if (geometryProperty.isSetGeometry()) {
+                    boundedBy.updateEnvelope(geometryProperty.getGeometry().calcBoundingBox());
+                } else {
+                    // xlink
+                }
+            }
+        }
+
+        ImplicitRepresentationProperty implicitRepresentation = null;
+        for (int lod = 3; lod < 5; lod++) {
+            switch (lod) {
+                case 3:
+                    implicitRepresentation = lod3ImplicitRepresentation;
+                    break;
+                case 4:
+                    implicitRepresentation = lod4ImplicitRepresentation;
+                    break;
+            }
+
+            if (implicitRepresentation != null && implicitRepresentation.isSetImplicitGeometry())
+                boundedBy.updateEnvelope(implicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
+        }
+
+        if (isSetGenericApplicationPropertyOfOpening()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfOpening()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+
+        lodRepresentation.addRepresentation(3, lod3MultiSurface);
+        lodRepresentation.addRepresentation(4, lod4MultiSurface);
+
+        lodRepresentation.addRepresentation(3, lod3ImplicitRepresentation);
+        lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
+
+        return lodRepresentation;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractOpening copy = (AbstractOpening) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetLod3MultiSurface()) {
+            copy.setLod3MultiSurface((MultiSurfaceProperty) copyBuilder.copy(lod3MultiSurface));
+            if (copy.getLod3MultiSurface() == lod3MultiSurface)
+                lod3MultiSurface.setParent(this);
+        }
+
+        if (isSetLod4MultiSurface()) {
+            copy.setLod4MultiSurface((MultiSurfaceProperty) copyBuilder.copy(lod4MultiSurface));
+            if (copy.getLod4MultiSurface() == lod4MultiSurface)
+                lod4MultiSurface.setParent(this);
+        }
+
+        if (isSetLod3ImplicitRepresentation()) {
+            copy.setLod3ImplicitRepresentation((ImplicitRepresentationProperty) copyBuilder.copy(lod3ImplicitRepresentation));
+            if (copy.getLod3ImplicitRepresentation() == lod3ImplicitRepresentation)
+                lod3ImplicitRepresentation.setParent(this);
+        }
+
+        if (isSetLod4ImplicitRepresentation()) {
+            copy.setLod4ImplicitRepresentation((ImplicitRepresentationProperty) copyBuilder.copy(lod4ImplicitRepresentation));
+            if (copy.getLod4ImplicitRepresentation() == lod4ImplicitRepresentation)
+                lod4ImplicitRepresentation.setParent(this);
+        }
+
+        if (isSetGenericApplicationPropertyOfOpening()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfOpening(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
 }

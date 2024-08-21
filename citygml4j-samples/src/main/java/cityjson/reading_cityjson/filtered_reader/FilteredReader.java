@@ -34,45 +34,45 @@ import java.util.Date;
 
 public class FilteredReader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityJSONBuilder builder = ctx.createCityJSONBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityJSON builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityJSONBuilder builder = ctx.createCityJSONBuilder();
 
-		System.out.println(df.format(new Date()) + "reading only city furniture objects from CityJSON file LOD3_Railway.json");
-		CityJSONInputFactory in = builder.createCityJSONInputFactory();
+        System.out.println(df.format(new Date()) + "reading only city furniture objects from CityJSON file LOD3_Railway.json");
+        CityJSONInputFactory in = builder.createCityJSONInputFactory();
 
-		CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
-		reader = in.createFilteredCityJSONReader(reader, new CityObjectTypeFilter() {
+        CityJSONReader reader = in.createCityJSONReader(new File("datasets/LOD3_Railway.json"));
+        reader = in.createFilteredCityJSONReader(reader, new CityObjectTypeFilter() {
 
-			// return true if you want to consume the CityJSON feature of the given "type"
-			public boolean accept(String type) {
-				return type.equals("CityFurniture");
-			}
-		});
+            // return true if you want to consume the CityJSON feature of the given "type"
+            public boolean accept(String type) {
+                return type.equals("CityFurniture");
+            }
+        });
 
-		CityModel cityModel = reader.read();
-		reader.close();
-		
-		// iterate over all city objects of the city model
-		for (CityObjectMember member : cityModel.getCityObjectMember()) {
-			if (member.isSetCityObject()) {
-				AbstractCityObject cityObject = member.getCityObject();
-				System.out.println("Found " + cityObject.getCityGMLClass() + " feature");
-				System.out.println("\tgml:id '" + cityObject.getId() + "'");
-				
-				// check and print LoD geometries
-				LodRepresentation lods = cityObject.getLodRepresentation();
-				for (int lod = 0; lod < 5; lod++) {
-					if (lods.isSetGeometry(lod))
-						System.out.println("\thas LoD " + lod + " geometry");
-				}
-			}
-		}
-		
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        CityModel cityModel = reader.read();
+        reader.close();
+
+        // iterate over all city objects of the city model
+        for (CityObjectMember member : cityModel.getCityObjectMember()) {
+            if (member.isSetCityObject()) {
+                AbstractCityObject cityObject = member.getCityObject();
+                System.out.println("Found " + cityObject.getCityGMLClass() + " feature");
+                System.out.println("\tgml:id '" + cityObject.getId() + "'");
+
+                // check and print LoD geometries
+                LodRepresentation lods = cityObject.getLodRepresentation();
+                for (int lod = 0; lod < 5; lod++) {
+                    if (lods.isSetGeometry(lod))
+                        System.out.println("\thas LoD " + lod + " geometry");
+                }
+            }
+        }
+
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

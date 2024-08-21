@@ -20,22 +20,22 @@
 package org.citygml4j.model.citygml.ade;
 
 public class ADEException extends Exception {
-	private static final long serialVersionUID = -3716015045363231263L;
-	
-	public ADEException() {
-		super();
-	}
-	
-	public ADEException(String message) {
-		super(message);
-	}
-	
-	public ADEException(Throwable cause) {
-		super(cause);
-	}
-	
-	public ADEException(String message, Throwable cause) {
-		super(message, cause);
-	}
-	
+    private static final long serialVersionUID = -3716015045363231263L;
+
+    public ADEException() {
+        super();
+    }
+
+    public ADEException(String message) {
+        super(message);
+    }
+
+    public ADEException(Throwable cause) {
+        super(cause);
+    }
+
+    public ADEException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }

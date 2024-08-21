@@ -40,13 +40,13 @@ import java.util.List;
 
 /**
  * A BoundarySurface (German translation is 'Begrenzungsfläche') is a thematic object which classifies surfaces bounding a building or a room. The
- * 				geometry of a BoundarySurface is given by MultiSurfaces. As it is a subclass of _CityObject, it inherits all atributes and relations, in particular the external
- * 				references, the generic attributes, and the generalization relations. 
- * 
+ * geometry of a BoundarySurface is given by MultiSurfaces. As it is a subclass of _CityObject, it inherits all atributes and relations, in particular the external
+ * references, the generic attributes, and the generalization relations.
+ *
  * <p>Java-Klasse für AbstractBoundarySurfaceType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="AbstractBoundarySurfaceType">
  *   &lt;complexContent>
@@ -62,29 +62,26 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AbstractBoundarySurfaceType", propOrder = {
-    "lod2MultiSurface",
-    "lod3MultiSurface",
-    "lod4MultiSurface",
-    "opening",
-    "_GenericApplicationPropertyOfBoundarySurface"
+        "lod2MultiSurface",
+        "lod3MultiSurface",
+        "lod4MultiSurface",
+        "opening",
+        "_GenericApplicationPropertyOfBoundarySurface"
 })
 @XmlSeeAlso({
-    GroundSurfaceType.class,
-    WallSurfaceType.class,
-    InteriorWallSurfaceType.class,
-    RoofSurfaceType.class,
-    CeilingSurfaceType.class,
-    ClosureSurfaceType.class,
-    FloorSurfaceType.class
+        GroundSurfaceType.class,
+        WallSurfaceType.class,
+        InteriorWallSurfaceType.class,
+        RoofSurfaceType.class,
+        CeilingSurfaceType.class,
+        ClosureSurfaceType.class,
+        FloorSurfaceType.class
 })
 public abstract class AbstractBoundarySurfaceType
-    extends AbstractCityObjectType
-{
+        extends AbstractCityObjectType {
 
     protected MultiSurfacePropertyType lod2MultiSurface;
     protected MultiSurfacePropertyType lod3MultiSurface;
@@ -94,11 +91,9 @@ public abstract class AbstractBoundarySurfaceType
 
     /**
      * Ruft den Wert der lod2MultiSurface-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link MultiSurfacePropertyType }
      */
     public MultiSurfacePropertyType getLod2MultiSurface() {
         return lod2MultiSurface;
@@ -106,27 +101,23 @@ public abstract class AbstractBoundarySurfaceType
 
     /**
      * Legt den Wert der lod2MultiSurface-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link MultiSurfacePropertyType }
      */
     public void setLod2MultiSurface(MultiSurfacePropertyType value) {
         this.lod2MultiSurface = value;
     }
 
     public boolean isSetLod2MultiSurface() {
-        return (this.lod2MultiSurface!= null);
+        return (this.lod2MultiSurface != null);
     }
 
     /**
      * Ruft den Wert der lod3MultiSurface-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link MultiSurfacePropertyType }
      */
     public MultiSurfacePropertyType getLod3MultiSurface() {
         return lod3MultiSurface;
@@ -134,27 +125,23 @@ public abstract class AbstractBoundarySurfaceType
 
     /**
      * Legt den Wert der lod3MultiSurface-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link MultiSurfacePropertyType }
      */
     public void setLod3MultiSurface(MultiSurfacePropertyType value) {
         this.lod3MultiSurface = value;
     }
 
     public boolean isSetLod3MultiSurface() {
-        return (this.lod3MultiSurface!= null);
+        return (this.lod3MultiSurface != null);
     }
 
     /**
      * Ruft den Wert der lod4MultiSurface-Eigenschaft ab.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @return possible object is
+     * {@link MultiSurfacePropertyType }
      */
     public MultiSurfacePropertyType getLod4MultiSurface() {
         return lod4MultiSurface;
@@ -162,41 +149,37 @@ public abstract class AbstractBoundarySurfaceType
 
     /**
      * Legt den Wert der lod4MultiSurface-Eigenschaft fest.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MultiSurfacePropertyType }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link MultiSurfacePropertyType }
      */
     public void setLod4MultiSurface(MultiSurfacePropertyType value) {
         this.lod4MultiSurface = value;
     }
 
     public boolean isSetLod4MultiSurface() {
-        return (this.lod4MultiSurface!= null);
+        return (this.lod4MultiSurface != null);
     }
 
     /**
      * Gets the value of the opening property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the opening property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getOpening().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link OpeningPropertyType }
-     * 
-     * 
      */
     public List<OpeningPropertyType> getOpening() {
         if (opening == null) {
@@ -206,7 +189,7 @@ public abstract class AbstractBoundarySurfaceType
     }
 
     public boolean isSetOpening() {
-        return ((this.opening!= null)&&(!this.opening.isEmpty()));
+        return ((this.opening != null) && (!this.opening.isEmpty()));
     }
 
     public void unsetOpening() {
@@ -215,25 +198,23 @@ public abstract class AbstractBoundarySurfaceType
 
     /**
      * Gets the value of the genericApplicationPropertyOfBoundarySurface property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfBoundarySurface property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfBoundarySurface().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfBoundarySurface() {
         if (_GenericApplicationPropertyOfBoundarySurface == null) {
@@ -243,7 +224,7 @@ public abstract class AbstractBoundarySurfaceType
     }
 
     public boolean isSet_GenericApplicationPropertyOfBoundarySurface() {
-        return ((this._GenericApplicationPropertyOfBoundarySurface!= null)&&(!this._GenericApplicationPropertyOfBoundarySurface.isEmpty()));
+        return ((this._GenericApplicationPropertyOfBoundarySurface != null) && (!this._GenericApplicationPropertyOfBoundarySurface.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfBoundarySurface() {

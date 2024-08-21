@@ -35,133 +35,133 @@ import org.citygml4j.xml.io.reader.CityGMLInputFilter;
 import java.util.Objects;
 
 public class CityJSONUnmarshaller {
-	public static final String SURFACE_DATA_ID = "org.citygml4j.appearance.id";
-	public static final String TEXTURE_COORDINATES = "org.citygml4j.textureCoordinates";
-	public static final String GEOMETRY_INSTANCE_LOD = "org.citygml4j.implicitGeometry.lod";
+    public static final String SURFACE_DATA_ID = "org.citygml4j.appearance.id";
+    public static final String TEXTURE_COORDINATES = "org.citygml4j.textureCoordinates";
+    public static final String GEOMETRY_INSTANCE_LOD = "org.citygml4j.implicitGeometry.lod";
 
-	private final CityGMLUnmarshaller citygml;
-	private final GMLUnmarshaller gml;
-	private final ADEUnmarshaller ade;
-	private final CityJSONRegistry registry;
+    private final CityGMLUnmarshaller citygml;
+    private final GMLUnmarshaller gml;
+    private final ADEUnmarshaller ade;
+    private final CityJSONRegistry registry;
 
-	private TextureFileHandler textureFileHandler;
-	private CityGMLInputFilter nameFilter;
-	private boolean releaseCityJSONContent = true;
+    private TextureFileHandler textureFileHandler;
+    private CityGMLInputFilter nameFilter;
+    private boolean releaseCityJSONContent = true;
 
-	public CityJSONUnmarshaller() {
-		this.textureFileHandler = new DefaultTextureFileHandler();
-		
-		citygml = new CityGMLUnmarshaller(this);
-		gml = new GMLUnmarshaller(this);
-		ade = new ADEUnmarshaller(this);
-		registry = CityJSONRegistry.getInstance();
+    public CityJSONUnmarshaller() {
+        this.textureFileHandler = new DefaultTextureFileHandler();
 
-		if (!registry.hasExtensionProperty(CityGMLMetadata.JSON_KEY, CityJSON.class)) {
-			try {
-				registry.registerExtensionProperty(CityGMLMetadata.JSON_KEY, CityGMLMetadata.class, CityJSON.class);
-			} catch (ExtensionException e) {
-				//
-			}
-		}
-	}
+        citygml = new CityGMLUnmarshaller(this);
+        gml = new GMLUnmarshaller(this);
+        ade = new ADEUnmarshaller(this);
+        registry = CityJSONRegistry.getInstance();
 
-	public CityModel unmarshal(CityJSON src) {
-		prepareUnmarshaller(src);
+        if (!registry.hasExtensionProperty(CityGMLMetadata.JSON_KEY, CityJSON.class)) {
+            try {
+                registry.registerExtensionProperty(CityGMLMetadata.JSON_KEY, CityGMLMetadata.class, CityJSON.class);
+            } catch (ExtensionException e) {
+                //
+            }
+        }
+    }
 
-		CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
-		if (dest != null && citygml.getCoreUnmarshaller().hasGlobalAppearances()) {
-			for (Appearance appearance : citygml.getCoreUnmarshaller().getGlobalAppearances())
-				dest.addAppearanceMember(new AppearanceMember(appearance));
-		}
+    public CityModel unmarshal(CityJSON src) {
+        prepareUnmarshaller(src);
 
-		releaseCityJSONContent(src);
-		return dest;
-	}
+        CityModel dest = citygml.getCoreUnmarshaller().unmarshalCityModel(src);
+        if (dest != null && citygml.getCoreUnmarshaller().hasGlobalAppearances()) {
+            for (Appearance appearance : citygml.getCoreUnmarshaller().getGlobalAppearances())
+                dest.addAppearanceMember(new AppearanceMember(appearance));
+        }
 
-	public void unmarshal(CityJSON src, CityModel stub, CityObjectProcessor processor) throws Exception {
-		prepareUnmarshaller(src);
+        releaseCityJSONContent(src);
+        return dest;
+    }
 
-		citygml.getCoreUnmarshaller().unmarshalCityModel(src, stub, processor);
-		if (citygml.getCoreUnmarshaller().hasGlobalAppearances()) {
-			for (Appearance appearance : citygml.getCoreUnmarshaller().getGlobalAppearances())
-				processor.process(appearance);
-		}
+    public void unmarshal(CityJSON src, CityModel stub, CityObjectProcessor processor) throws Exception {
+        prepareUnmarshaller(src);
 
-		releaseCityJSONContent(src);
-	}
+        citygml.getCoreUnmarshaller().unmarshalCityModel(src, stub, processor);
+        if (citygml.getCoreUnmarshaller().hasGlobalAppearances()) {
+            for (Appearance appearance : citygml.getCoreUnmarshaller().getGlobalAppearances())
+                processor.process(appearance);
+        }
 
-	private void prepareUnmarshaller(CityJSON src) {
-		gml.setVertices(src.getVertices());
-		if (src.isSetTransform())
-			gml.applyTransformation(src.getTransform());
+        releaseCityJSONContent(src);
+    }
 
-		if (src.isSetAppearance())
-			citygml.getAppearanceUnmarshaller().setAppearanceInfo(src.getAppearance());
+    private void prepareUnmarshaller(CityJSON src) {
+        gml.setVertices(src.getVertices());
+        if (src.isSetTransform())
+            gml.applyTransformation(src.getTransform());
 
-		if (src.isSetGeometryTemplates())
-			citygml.getCoreUnmarshaller().setGeometryTemplatesInfo(src.getGeometryTemplates());
+        if (src.isSetAppearance())
+            citygml.getAppearanceUnmarshaller().setAppearanceInfo(src.getAppearance());
 
-		if (src.isSetExtensionProperties()) {
-			Object metadata = src.getExtensionProperties().get(CityGMLMetadata.JSON_KEY);
-			if (metadata instanceof CityGMLMetadata)
-				citygml.getGenericsUnmarshaller().setGenericAttributeTypes(((CityGMLMetadata) metadata).getGenericAttributeTypes());
-		}
-	}
+        if (src.isSetGeometryTemplates())
+            citygml.getCoreUnmarshaller().setGeometryTemplatesInfo(src.getGeometryTemplates());
 
-	private void releaseCityJSONContent(CityJSON src) {
-		if (releaseCityJSONContent) {
-			src.unsetMetadata();
-			src.unsetExtensions();
-			src.unsetExtensionProperties();
-			src.unsetCityObjects();
-			src.unsetVertices();
-			src.unsetTransform();
-			src.unsetGeometryTemplates();
-			src.unsetAppearance();
-		}
-	}
-	
-	public CityGMLUnmarshaller getCityGMLUnmarshaller() {
-		return citygml;
-	}
-	
-	public GMLUnmarshaller getGMLUnmarshaller() {
-		return gml;
-	}
+        if (src.isSetExtensionProperties()) {
+            Object metadata = src.getExtensionProperties().get(CityGMLMetadata.JSON_KEY);
+            if (metadata instanceof CityGMLMetadata)
+                citygml.getGenericsUnmarshaller().setGenericAttributeTypes(((CityGMLMetadata) metadata).getGenericAttributeTypes());
+        }
+    }
 
-	public ADEUnmarshaller getADEUnmarshaller() {
-		return ade;
-	}
+    private void releaseCityJSONContent(CityJSON src) {
+        if (releaseCityJSONContent) {
+            src.unsetMetadata();
+            src.unsetExtensions();
+            src.unsetExtensionProperties();
+            src.unsetCityObjects();
+            src.unsetVertices();
+            src.unsetTransform();
+            src.unsetGeometryTemplates();
+            src.unsetAppearance();
+        }
+    }
 
-	public TextureFileHandler getTextureFileHandler() {
-		return textureFileHandler;
-	}
-	
-	public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
-		this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
-	}
+    public CityGMLUnmarshaller getCityGMLUnmarshaller() {
+        return citygml;
+    }
 
-	public boolean isSetCityGMLNameFilter() {
-		return nameFilter != null;
-	}
+    public GMLUnmarshaller getGMLUnmarshaller() {
+        return gml;
+    }
 
-	public CityGMLInputFilter getCityGMLNameFilter() {
-		return nameFilter;
-	}
+    public ADEUnmarshaller getADEUnmarshaller() {
+        return ade;
+    }
 
-	public void setCityGMLNameFilter(CityGMLInputFilter nameFilter) {
-		this.nameFilter = nameFilter;
-	}
+    public TextureFileHandler getTextureFileHandler() {
+        return textureFileHandler;
+    }
 
-	public CityJSONRegistry getCityJSONRegistry() {
-		return registry;
-	}
+    public void setTextureFileHandler(TextureFileHandler textureFileHandler) {
+        this.textureFileHandler = Objects.requireNonNull(textureFileHandler, "texture file handler builder may not be null.");
+    }
 
-	public boolean isReleaseCityJSONContent() {
-		return releaseCityJSONContent;
-	}
+    public boolean isSetCityGMLNameFilter() {
+        return nameFilter != null;
+    }
 
-	public void setReleaseCityJSONContent(boolean releaseCityJSONContent) {
-		this.releaseCityJSONContent = releaseCityJSONContent;
-	}
+    public CityGMLInputFilter getCityGMLNameFilter() {
+        return nameFilter;
+    }
+
+    public void setCityGMLNameFilter(CityGMLInputFilter nameFilter) {
+        this.nameFilter = nameFilter;
+    }
+
+    public CityJSONRegistry getCityJSONRegistry() {
+        return registry;
+    }
+
+    public boolean isReleaseCityJSONContent() {
+        return releaseCityJSONContent;
+    }
+
+    public void setReleaseCityJSONContent(boolean releaseCityJSONContent) {
+        this.releaseCityJSONContent = releaseCityJSONContent;
+    }
 }

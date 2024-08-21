@@ -33,130 +33,130 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Point extends AbstractGeometricPrimitive implements CoordinateListProvider {
-	private DirectPosition pos;
-	private Coordinates coordinates;
-	private Coord coord;
+    private DirectPosition pos;
+    private Coordinates coordinates;
+    private Coord coord;
 
-	public BoundingBox calcBoundingBox() {
-		BoundingBox bbox = new BoundingBox();
-		List<Double> points = toList3d();
+    public BoundingBox calcBoundingBox() {
+        BoundingBox bbox = new BoundingBox();
+        List<Double> points = toList3d();
 
-		for (int i = 0; i < points.size(); i += 3)
-			bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
-		
-		return bbox;
-	}
+        for (int i = 0; i < points.size(); i += 3)
+            bbox.update(points.get(i), points.get(i + 1), points.get(i + 2));
 
-	public GMLClass getGMLClass() {
-		return GMLClass.POINT;
-	}
-	
-	public Coord getCoord() {
-		return coord;
-	}
+        return bbox;
+    }
 
-	public Coordinates getCoordinates() {
-		return coordinates;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.POINT;
+    }
 
-	public DirectPosition getPos() {
-		return pos;
-	}
+    public Coord getCoord() {
+        return coord;
+    }
 
-	public boolean isSetCoord() {
-		return coord != null;
-	}
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
 
-	public boolean isSetCoordinates() {
-		return coordinates != null;
-	}
+    public DirectPosition getPos() {
+        return pos;
+    }
 
-	public boolean isSetPos() {
-		return pos != null;
-	}
+    public boolean isSetCoord() {
+        return coord != null;
+    }
 
-	public void setCoord(Coord coord) {
-		this.coord = ModelObjects.setParent(coord, this);
-	}
+    public boolean isSetCoordinates() {
+        return coordinates != null;
+    }
 
-	public void setCoordinates(Coordinates coordinates) {
-		this.coordinates = ModelObjects.setParent(coordinates, this);
-	}
+    public boolean isSetPos() {
+        return pos != null;
+    }
 
-	public void setPos(DirectPosition pos) {
-		this.pos = ModelObjects.setParent(pos, this);
-	}
+    public void setCoord(Coord coord) {
+        this.coord = ModelObjects.setParent(coord, this);
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		List<Double> tmp = new ArrayList<>();
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = ModelObjects.setParent(coordinates, this);
+    }
 
-		if (isSetPos())
-			tmp.addAll(pos.toList3d());
-		else if (isSetCoord())
-			tmp.addAll(coord.toList3d());
-		else if (isSetCoordinates())
-			tmp.addAll(coordinates.toList3d());
+    public void setPos(DirectPosition pos) {
+        this.pos = ModelObjects.setParent(pos, this);
+    }
 
-		return tmp;
-	}
+    @Override
+    public List<Double> toList3d() {
+        List<Double> tmp = new ArrayList<>();
 
-	public void unsetCoord() {
-		coord = ModelObjects.setNull(coord);
-	}
+        if (isSetPos())
+            tmp.addAll(pos.toList3d());
+        else if (isSetCoord())
+            tmp.addAll(coord.toList3d());
+        else if (isSetCoordinates())
+            tmp.addAll(coordinates.toList3d());
 
-	public void unsetCoordinates() {
-		coordinates = ModelObjects.setNull(coordinates);
-	}
+        return tmp;
+    }
 
-	public void unsetPos() {
-		pos = ModelObjects.setNull(pos);
-	}
+    public void unsetCoord() {
+        coord = ModelObjects.setNull(coord);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Point copy = (target == null) ? new Point() : (Point)target;		
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetPos()) {
-			copy.setPos((DirectPosition)copyBuilder.copy(pos));
-			if (copy.getPos() == pos)
-				pos.setParent(this);
-		}
-		
-		if (isSetCoordinates()) {
-			copy.setCoordinates((Coordinates)copyBuilder.copy(coordinates));
-			if (copy.getCoordinates() == coordinates)
-				coordinates.setParent(this);
-		}
-		
-		if (isSetCoord()) {
-			copy.setCoord((Coord)copyBuilder.copy(coord));
-			if (copy.getCoord() == coord)
-				coord.setParent(this);
-		}
-		
-		return copy;
-	}
+    public void unsetCoordinates() {
+        coordinates = ModelObjects.setNull(coordinates);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Point(), copyBuilder);
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void unsetPos() {
+        pos = ModelObjects.setNull(pos);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Point copy = (target == null) ? new Point() : (Point) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetPos()) {
+            copy.setPos((DirectPosition) copyBuilder.copy(pos));
+            if (copy.getPos() == pos)
+                pos.setParent(this);
+        }
+
+        if (isSetCoordinates()) {
+            copy.setCoordinates((Coordinates) copyBuilder.copy(coordinates));
+            if (copy.getCoordinates() == coordinates)
+                coordinates.setParent(this);
+        }
+
+        if (isSetCoord()) {
+            copy.setCoord((Coord) copyBuilder.copy(coord));
+            if (copy.getCoord() == coord)
+                coord.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Point(), copyBuilder);
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

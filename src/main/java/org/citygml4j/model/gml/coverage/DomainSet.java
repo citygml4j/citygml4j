@@ -24,31 +24,31 @@ import org.citygml4j.model.gml.geometry.AbstractGeometry;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class DomainSet<T extends AbstractGeometry> extends GeometryProperty<T> {
-	
-	public DomainSet() {
 
-	}
+    public DomainSet() {
 
-	public DomainSet(T geometry) {
-		super(geometry);
-	}
+    }
 
-	public DomainSet(String href) {
-		super(href);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.DOMAIN_SET;
-	}
+    public DomainSet(T geometry) {
+        super(geometry);
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DomainSet<T> copy = (target == null) ? new DomainSet<T>() : (DomainSet<T>)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public DomainSet(String href) {
+        super(href);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DomainSet<T>(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.DOMAIN_SET;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DomainSet<T> copy = (target == null) ? new DomainSet<T>() : (DomainSet<T>) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DomainSet<T>(), copyBuilder);
+    }
 
 }

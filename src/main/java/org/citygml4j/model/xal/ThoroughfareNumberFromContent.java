@@ -25,194 +25,194 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
 public class ThoroughfareNumberFromContent implements XAL, Child, Copyable {
-	private AddressLine addressLine;
-	private ThoroughfareNumber thoroughfareNumber;
-	private ThoroughfareNumberPrefix thoroughfareNumberPrefix;
-	private ThoroughfareNumberSuffix thoroughfareNumberSuffix;
-	private String string;	
-	private ModelObject parent;
-	
-	public ThoroughfareNumberFromContent() {
-		
-	}
-	
-	public ThoroughfareNumberFromContent(AddressLine addressLine) {
-		setAddressLine(addressLine);
-	}
-	
-	public ThoroughfareNumberFromContent(ThoroughfareNumber thoroughfareNumber) {
-		setThoroughfareNumber(thoroughfareNumber);
-	}
-	
-	public ThoroughfareNumberFromContent(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		setThoroughfareNumberPrefix(thoroughfareNumberPrefix);
-	}
-	
-	public ThoroughfareNumberFromContent(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		setThoroughfareNumberSuffix(thoroughfareNumberSuffix);
-	}
-	
-	public ThoroughfareNumberFromContent(String string) {
-		setString(string);
-	}
-	
-	public XALClass getXALClass() {
-		return XALClass.THOROUGHFARE_NUMBER_FROM_CONTENT;
-	}
+    private AddressLine addressLine;
+    private ThoroughfareNumber thoroughfareNumber;
+    private ThoroughfareNumberPrefix thoroughfareNumberPrefix;
+    private ThoroughfareNumberSuffix thoroughfareNumberSuffix;
+    private String string;
+    private ModelObject parent;
 
-	public AddressLine getAddressLine() {
-		return addressLine;
-	}
+    public ThoroughfareNumberFromContent() {
 
-	public String getString() {
-		return string;
-	}
+    }
 
-	public ThoroughfareNumber getThoroughfareNumber() {
-		return thoroughfareNumber;
-	}
+    public ThoroughfareNumberFromContent(AddressLine addressLine) {
+        setAddressLine(addressLine);
+    }
 
-	public ThoroughfareNumberPrefix getThoroughfareNumberPrefix() {
-		return thoroughfareNumberPrefix;
-	}
+    public ThoroughfareNumberFromContent(ThoroughfareNumber thoroughfareNumber) {
+        setThoroughfareNumber(thoroughfareNumber);
+    }
 
-	public ThoroughfareNumberSuffix getThoroughfareNumberSuffix() {
-		return thoroughfareNumberSuffix;
-	}
+    public ThoroughfareNumberFromContent(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
+        setThoroughfareNumberPrefix(thoroughfareNumberPrefix);
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null;
-	}
+    public ThoroughfareNumberFromContent(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
+        setThoroughfareNumberSuffix(thoroughfareNumberSuffix);
+    }
 
-	public boolean isSetString() {
-		return string != null;
-	}
+    public ThoroughfareNumberFromContent(String string) {
+        setString(string);
+    }
 
-	public boolean isSetThoroughfareNumber() {
-		return thoroughfareNumber != null;
-	}
+    public XALClass getXALClass() {
+        return XALClass.THOROUGHFARE_NUMBER_FROM_CONTENT;
+    }
 
-	public boolean isSetThoroughfareNumberPrefix() {
-		return thoroughfareNumberPrefix != null;
-	}
+    public AddressLine getAddressLine() {
+        return addressLine;
+    }
 
-	public boolean isSetThoroughfareNumberSuffix() {
-		return thoroughfareNumberSuffix != null;
-	}
+    public String getString() {
+        return string;
+    }
 
-	public void setAddressLine(AddressLine addressLine) {
-		this.addressLine = ModelObjects.setParent(addressLine, this);
-		unsetString();
-		unsetThoroughfareNumber();
-		unsetThoroughfareNumberPrefix();
-		unsetThoroughfareNumberSuffix();
-	}
+    public ThoroughfareNumber getThoroughfareNumber() {
+        return thoroughfareNumber;
+    }
 
-	public void setThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
-		this.thoroughfareNumber = ModelObjects.setParent(thoroughfareNumber, this);
-		unsetString();
-		unsetAddressLine();
-		unsetThoroughfareNumberPrefix();
-		unsetThoroughfareNumberSuffix();
-	}
+    public ThoroughfareNumberPrefix getThoroughfareNumberPrefix() {
+        return thoroughfareNumberPrefix;
+    }
 
-	public void setThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
-		this.thoroughfareNumberPrefix = ModelObjects.setParent(thoroughfareNumberPrefix, this);
-		unsetString();
-		unsetAddressLine();
-		unsetThoroughfareNumber();
-		unsetThoroughfareNumberSuffix();
-	}
+    public ThoroughfareNumberSuffix getThoroughfareNumberSuffix() {
+        return thoroughfareNumberSuffix;
+    }
 
-	public void setThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
-		this.thoroughfareNumberSuffix = ModelObjects.setParent(thoroughfareNumberSuffix, this);
-		unsetString();
-		unsetAddressLine();
-		unsetThoroughfareNumber();
-		unsetThoroughfareNumberPrefix();
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null;
+    }
 
-	public void setString(String string) {
-		this.string = string;
-		unsetAddressLine();
-		unsetThoroughfareNumber();
-		unsetThoroughfareNumberPrefix();
-		unsetThoroughfareNumberSuffix();
-	}
+    public boolean isSetString() {
+        return string != null;
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public boolean isSetThoroughfareNumber() {
+        return thoroughfareNumber != null;
+    }
 
-	public void unsetString() {
-		string = null;
-	}
+    public boolean isSetThoroughfareNumberPrefix() {
+        return thoroughfareNumberPrefix != null;
+    }
 
-	public void unsetThoroughfareNumber() {
-		thoroughfareNumber = ModelObjects.setNull(thoroughfareNumber);
-	}
+    public boolean isSetThoroughfareNumberSuffix() {
+        return thoroughfareNumberSuffix != null;
+    }
 
-	public void unsetThoroughfareNumberPrefix() {
-		thoroughfareNumberPrefix = ModelObjects.setNull(thoroughfareNumberPrefix);
-	}
+    public void setAddressLine(AddressLine addressLine) {
+        this.addressLine = ModelObjects.setParent(addressLine, this);
+        unsetString();
+        unsetThoroughfareNumber();
+        unsetThoroughfareNumberPrefix();
+        unsetThoroughfareNumberSuffix();
+    }
 
-	public void unsetThoroughfareNumberSuffix() {
-		thoroughfareNumberSuffix = ModelObjects.setNull(thoroughfareNumberSuffix);
-	}
+    public void setThoroughfareNumber(ThoroughfareNumber thoroughfareNumber) {
+        this.thoroughfareNumber = ModelObjects.setParent(thoroughfareNumber, this);
+        unsetString();
+        unsetAddressLine();
+        unsetThoroughfareNumberPrefix();
+        unsetThoroughfareNumberSuffix();
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setThoroughfareNumberPrefix(ThoroughfareNumberPrefix thoroughfareNumberPrefix) {
+        this.thoroughfareNumberPrefix = ModelObjects.setParent(thoroughfareNumberPrefix, this);
+        unsetString();
+        unsetAddressLine();
+        unsetThoroughfareNumber();
+        unsetThoroughfareNumberSuffix();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setThoroughfareNumberSuffix(ThoroughfareNumberSuffix thoroughfareNumberSuffix) {
+        this.thoroughfareNumberSuffix = ModelObjects.setParent(thoroughfareNumberSuffix, this);
+        unsetString();
+        unsetAddressLine();
+        unsetThoroughfareNumber();
+        unsetThoroughfareNumberPrefix();
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setString(String string) {
+        this.string = string;
+        unsetAddressLine();
+        unsetThoroughfareNumber();
+        unsetThoroughfareNumberPrefix();
+        unsetThoroughfareNumberSuffix();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ThoroughfareNumberFromContent(), copyBuilder);
-	}
+    public void unsetString() {
+        string = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ThoroughfareNumberFromContent copy = (target == null) ? new ThoroughfareNumberFromContent() : (ThoroughfareNumberFromContent)target;
-		
-		if (isSetAddressLine()) {
-			copy.setAddressLine((AddressLine)copyBuilder.copy(addressLine));
-			if (copy.getAddressLine() == addressLine)
-				addressLine.setParent(this);
-		}
-		
-		if (isSetThoroughfareNumber()) {
-			copy.setThoroughfareNumber((ThoroughfareNumber)copyBuilder.copy(thoroughfareNumber));
-			if (copy.getThoroughfareNumber() == thoroughfareNumber)
-				thoroughfareNumber.setParent(this);
-		}
-		
-		if (isSetThoroughfareNumberPrefix()) {
-			copy.setThoroughfareNumberPrefix((ThoroughfareNumberPrefix)copyBuilder.copy(thoroughfareNumberPrefix));
-			if (copy.getThoroughfareNumberPrefix() == thoroughfareNumberPrefix)
-				thoroughfareNumberPrefix.setParent(this);
-		}
-		
-		if (isSetThoroughfareNumberSuffix()) {
-			copy.setThoroughfareNumberSuffix((ThoroughfareNumberSuffix)copyBuilder.copy(thoroughfareNumberSuffix));
-			if (copy.getThoroughfareNumberSuffix() == thoroughfareNumberSuffix)
-				thoroughfareNumberSuffix.setParent(this);
-		}
-		
-		if (isSetString())
-			copy.setString(copyBuilder.copy(string));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetThoroughfareNumber() {
+        thoroughfareNumber = ModelObjects.setNull(thoroughfareNumber);
+    }
+
+    public void unsetThoroughfareNumberPrefix() {
+        thoroughfareNumberPrefix = ModelObjects.setNull(thoroughfareNumberPrefix);
+    }
+
+    public void unsetThoroughfareNumberSuffix() {
+        thoroughfareNumberSuffix = ModelObjects.setNull(thoroughfareNumberSuffix);
+    }
+
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ThoroughfareNumberFromContent(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ThoroughfareNumberFromContent copy = (target == null) ? new ThoroughfareNumberFromContent() : (ThoroughfareNumberFromContent) target;
+
+        if (isSetAddressLine()) {
+            copy.setAddressLine((AddressLine) copyBuilder.copy(addressLine));
+            if (copy.getAddressLine() == addressLine)
+                addressLine.setParent(this);
+        }
+
+        if (isSetThoroughfareNumber()) {
+            copy.setThoroughfareNumber((ThoroughfareNumber) copyBuilder.copy(thoroughfareNumber));
+            if (copy.getThoroughfareNumber() == thoroughfareNumber)
+                thoroughfareNumber.setParent(this);
+        }
+
+        if (isSetThoroughfareNumberPrefix()) {
+            copy.setThoroughfareNumberPrefix((ThoroughfareNumberPrefix) copyBuilder.copy(thoroughfareNumberPrefix));
+            if (copy.getThoroughfareNumberPrefix() == thoroughfareNumberPrefix)
+                thoroughfareNumberPrefix.setParent(this);
+        }
+
+        if (isSetThoroughfareNumberSuffix()) {
+            copy.setThoroughfareNumberSuffix((ThoroughfareNumberSuffix) copyBuilder.copy(thoroughfareNumberSuffix));
+            if (copy.getThoroughfareNumberSuffix() == thoroughfareNumberSuffix)
+                thoroughfareNumberSuffix.setParent(this);
+        }
+
+        if (isSetString())
+            copy.setString(copyBuilder.copy(string));
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

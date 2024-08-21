@@ -30,76 +30,76 @@ import org.citygml4j.model.gml.GMLClass;
 import java.util.List;
 
 public class DoubleOrNullList implements GML, Child, Copyable {
-	private List<DoubleOrNull> doubleOrNull;
-	private ModelObject parent;
+    private List<DoubleOrNull> doubleOrNull;
+    private ModelObject parent;
 
-	public void addDoubleOrNull(DoubleOrNull doubleOrNull) {
-		getDoubleOrNull().add(doubleOrNull);
-	}
+    public void addDoubleOrNull(DoubleOrNull doubleOrNull) {
+        getDoubleOrNull().add(doubleOrNull);
+    }
 
-	public List<DoubleOrNull> getDoubleOrNull() {
-		if (doubleOrNull == null)
-			doubleOrNull = new ChildList<>(this);
-		
-		return doubleOrNull;
-	}
+    public List<DoubleOrNull> getDoubleOrNull() {
+        if (doubleOrNull == null)
+            doubleOrNull = new ChildList<>(this);
 
-	public boolean isSetDoubleOrNull() {
-		return doubleOrNull != null && !doubleOrNull.isEmpty();
-	}
+        return doubleOrNull;
+    }
 
-	public void setDoubleOrNull(List<DoubleOrNull> doubleOrNull) {
-		this.doubleOrNull = new ChildList<>(this, doubleOrNull);
-	}
+    public boolean isSetDoubleOrNull() {
+        return doubleOrNull != null && !doubleOrNull.isEmpty();
+    }
 
-	public void unsetDoubleOrNull() {
-		doubleOrNull = ModelObjects.setNull(doubleOrNull);
-	}
+    public void setDoubleOrNull(List<DoubleOrNull> doubleOrNull) {
+        this.doubleOrNull = new ChildList<>(this, doubleOrNull);
+    }
 
-	public boolean unsetDoubleOrNull(DoubleOrNull doubleOrNull) {
-		return isSetDoubleOrNull() && this.doubleOrNull.remove(doubleOrNull);
-	}
+    public void unsetDoubleOrNull() {
+        doubleOrNull = ModelObjects.setNull(doubleOrNull);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.DOUBLE_OR_NULL_LIST;
-	}
+    public boolean unsetDoubleOrNull(DoubleOrNull doubleOrNull) {
+        return isSetDoubleOrNull() && this.doubleOrNull.remove(doubleOrNull);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.DOUBLE_OR_NULL_LIST;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DoubleOrNullList(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DoubleOrNullList copy = (target == null) ? new DoubleOrNullList() : (DoubleOrNullList)target;
-		
-		if (isSetDoubleOrNull()) {
-			for (DoubleOrNull part : doubleOrNull) {
-				DoubleOrNull copyPart = (DoubleOrNull)copyBuilder.copy(part);
-				copy.addDoubleOrNull(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DoubleOrNullList(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DoubleOrNullList copy = (target == null) ? new DoubleOrNullList() : (DoubleOrNullList) target;
+
+        if (isSetDoubleOrNull()) {
+            for (DoubleOrNull part : doubleOrNull) {
+                DoubleOrNull copyPart = (DoubleOrNull) copyBuilder.copy(part);
+                copy.addDoubleOrNull(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

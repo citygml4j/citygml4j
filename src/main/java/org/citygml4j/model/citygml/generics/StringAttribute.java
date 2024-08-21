@@ -22,54 +22,54 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 
 public class StringAttribute extends AbstractGenericAttribute {
-	private String value;
-	
-	public StringAttribute() {
+    private String value;
 
-	}
-	
-	public StringAttribute(String value) {
-		this.value = value;
-	}
+    public StringAttribute() {
 
-	public StringAttribute(String name, String value) {
-		this.value = value;
-		setName(name);
-	}
-	
-	public String getValue() {
-		return value;
-	}
+    }
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public StringAttribute(String value) {
+        this.value = value;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public StringAttribute(String name, String value) {
+        this.value = value;
+        setName(name);
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.STRING_ATTRIBUTE;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new StringAttribute(), copyBuilder);
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		StringAttribute copy = (target == null) ? new StringAttribute() : (StringAttribute)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetValue())
-			copy.setValue(copyBuilder.copy(value));
-		
-		return copy;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void unsetValue() {
+        value = null;
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.STRING_ATTRIBUTE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new StringAttribute(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        StringAttribute copy = (target == null) ? new StringAttribute() : (StringAttribute) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetValue())
+            copy.setValue(copyBuilder.copy(value));
+
+        return copy;
+    }
 
 }

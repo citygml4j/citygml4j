@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiCurveProperty extends GeometryProperty<MultiCurve> {
 
-	public MultiCurveProperty() {
+    public MultiCurveProperty() {
 
-	}
+    }
 
-	public MultiCurveProperty(MultiCurve multiCurve) {
-		super(multiCurve);
-	}
+    public MultiCurveProperty(MultiCurve multiCurve) {
+        super(multiCurve);
+    }
 
-	public MultiCurveProperty(String href) {
-		super(href);
-	}
-	
-	public MultiCurve getMultiCurve() {
-		return super.getGeometry();
-	}
+    public MultiCurveProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetMultiCurve() {
-		return super.isSetGeometry();
-	}
+    public MultiCurve getMultiCurve() {
+        return super.getGeometry();
+    }
 
-	public void setMultiCurve(MultiCurve multiCurve) {
-		super.setGeometry(multiCurve);
-	}
+    public boolean isSetMultiCurve() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetMultiCurve() {
-		super.unsetGeometry();
-	}
+    public void setMultiCurve(MultiCurve multiCurve) {
+        super.setGeometry(multiCurve);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_CURVE_PROPERTY;
-	}
+    public void unsetMultiCurve() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<MultiCurve> getAssociableClass() {
-		return MultiCurve.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_CURVE_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiCurveProperty(), copyBuilder);
-	}
+    @Override
+    public Class<MultiCurve> getAssociableClass() {
+        return MultiCurve.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiCurveProperty copy = (target == null) ? new MultiCurveProperty() : (MultiCurveProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiCurveProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiCurveProperty copy = (target == null) ? new MultiCurveProperty() : (MultiCurveProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

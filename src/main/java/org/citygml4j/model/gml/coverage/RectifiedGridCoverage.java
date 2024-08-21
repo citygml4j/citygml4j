@@ -30,83 +30,83 @@ import org.citygml4j.model.module.Module;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class RectifiedGridCoverage extends AbstractDiscreteCoverage {
-	private RectifiedGridDomain rectifiedGridDomain;
+    private RectifiedGridDomain rectifiedGridDomain;
 
-	public RectifiedGridCoverage() {
+    public RectifiedGridCoverage() {
 
-	}
+    }
 
-	public RectifiedGridCoverage(Module module) {
-		super(module);
-	}
-	
-	public RectifiedGridDomain getRectifiedGridDomain() {
-		return rectifiedGridDomain;
-	}
+    public RectifiedGridCoverage(Module module) {
+        super(module);
+    }
 
-	public boolean isSetRectifiedGridDomain() {
-		return rectifiedGridDomain != null;
-	}
+    public RectifiedGridDomain getRectifiedGridDomain() {
+        return rectifiedGridDomain;
+    }
 
-	public void setRectifiedGridDomain(RectifiedGridDomain rectifiedGridDomain) {
-		this.rectifiedGridDomain = ModelObjects.setParent(rectifiedGridDomain, this);
-	}
+    public boolean isSetRectifiedGridDomain() {
+        return rectifiedGridDomain != null;
+    }
 
-	public void unsetRectifiedGridDomain() {
-		rectifiedGridDomain = ModelObjects.setNull(rectifiedGridDomain);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.RECTIFIED_GRID_COVERAGE;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetRectifiedGridDomain() && rectifiedGridDomain.isSetGeometry())
-			boundedBy.updateEnvelope(rectifiedGridDomain.getGeometry().calcBoundingBox());
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public void setRectifiedGridDomain(RectifiedGridDomain rectifiedGridDomain) {
+        this.rectifiedGridDomain = ModelObjects.setParent(rectifiedGridDomain, this);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		RectifiedGridCoverage copy = (target == null) ? new RectifiedGridCoverage() : (RectifiedGridCoverage)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetRectifiedGridDomain()) {
-			copy.setRectifiedGridDomain((RectifiedGridDomain)copyBuilder.copy(rectifiedGridDomain));
-			if (copy.getRectifiedGridDomain() == rectifiedGridDomain)
-				rectifiedGridDomain.setParent(this);
-		}
-		
-		return copy;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new RectifiedGridCoverage(), copyBuilder);
-	}
+    public void unsetRectifiedGridDomain() {
+        rectifiedGridDomain = ModelObjects.setNull(rectifiedGridDomain);
+    }
 
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.RECTIFIED_GRID_COVERAGE;
+    }
 
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+        if (isSetRectifiedGridDomain() && rectifiedGridDomain.isSetGeometry())
+            boundedBy.updateEnvelope(rectifiedGridDomain.getGeometry().calcBoundingBox());
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        RectifiedGridCoverage copy = (target == null) ? new RectifiedGridCoverage() : (RectifiedGridCoverage) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetRectifiedGridDomain()) {
+            copy.setRectifiedGridDomain((RectifiedGridDomain) copyBuilder.copy(rectifiedGridDomain));
+            if (copy.getRectifiedGridDomain() == rectifiedGridDomain)
+                rectifiedGridDomain.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new RectifiedGridCoverage(), copyBuilder);
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

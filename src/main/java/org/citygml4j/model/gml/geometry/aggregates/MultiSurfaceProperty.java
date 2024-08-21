@@ -23,51 +23,51 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiSurfaceProperty extends GeometryProperty<MultiSurface> {
-	
-	public MultiSurfaceProperty() {
 
-	}
+    public MultiSurfaceProperty() {
 
-	public MultiSurfaceProperty(MultiSurface multiSurface) {
-		super(multiSurface);
-	}
+    }
 
-	public MultiSurfaceProperty(String href) {
-		super(href);
-	}
-	
-	public MultiSurface getMultiSurface() {
-		return super.getGeometry();
-	}
+    public MultiSurfaceProperty(MultiSurface multiSurface) {
+        super(multiSurface);
+    }
 
-	public boolean isSetMultiSurface() {
-		return super.isSetGeometry();
-	}
+    public MultiSurfaceProperty(String href) {
+        super(href);
+    }
 
-	public void setMultiSurface(MultiSurface multiSurface) {
-		super.setGeometry(multiSurface);
-	}
+    public MultiSurface getMultiSurface() {
+        return super.getGeometry();
+    }
 
-	public void unsetMultiSurface() {
-		super.unsetGeometry();
-	}
+    public boolean isSetMultiSurface() {
+        return super.isSetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_SURFACE_PROPERTY;
-	}
+    public void setMultiSurface(MultiSurface multiSurface) {
+        super.setGeometry(multiSurface);
+    }
 
-	@Override
-	public Class<MultiSurface> getAssociableClass() {
-		return MultiSurface.class;
-	}
+    public void unsetMultiSurface() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiSurfaceProperty(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_SURFACE_PROPERTY;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiSurfaceProperty copy = (target == null) ? new MultiSurfaceProperty() : (MultiSurfaceProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<MultiSurface> getAssociableClass() {
+        return MultiSurface.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiSurfaceProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiSurfaceProperty copy = (target == null) ? new MultiSurfaceProperty() : (MultiSurfaceProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class InteriorBridgeRoomProperty extends FeatureProperty<BridgeRoom> implements BridgeModuleComponent {
 
-	public InteriorBridgeRoomProperty() {
-		
-	}
-	
-	public InteriorBridgeRoomProperty(BridgeRoom bridgeRoom) {
-		super(bridgeRoom);
-	}
-	
-	public InteriorBridgeRoomProperty(String href) {
-		super(href);
-	}
-	
-	public BridgeRoom getBridgeRoom() {
-		return super.getObject();
-	}
+    public InteriorBridgeRoomProperty() {
 
-	public boolean isSetBridgeRoom() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setBridgeRoom(BridgeRoom room) {
-		super.setObject(room);
-	}
+    public InteriorBridgeRoomProperty(BridgeRoom bridgeRoom) {
+        super(bridgeRoom);
+    }
 
-	public void unsetBridgeRoom() {
-		super.unsetObject();
-	}
+    public InteriorBridgeRoomProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_BRIDGE_ROOM_PROPERTY;
-	}
+    public BridgeRoom getBridgeRoom() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<BridgeRoom> getAssociableClass() {
-		return BridgeRoom.class;
-	}
+    public boolean isSetBridgeRoom() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new InteriorBridgeRoomProperty(), copyBuilder);
-	}
+    public void setBridgeRoom(BridgeRoom room) {
+        super.setObject(room);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		InteriorBridgeRoomProperty copy = (target == null) ? new InteriorBridgeRoomProperty() : (InteriorBridgeRoomProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetBridgeRoom() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INTERIOR_BRIDGE_ROOM_PROPERTY;
+    }
+
+    @Override
+    public Class<BridgeRoom> getAssociableClass() {
+        return BridgeRoom.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new InteriorBridgeRoomProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        InteriorBridgeRoomProperty copy = (target == null) ? new InteriorBridgeRoomProperty() : (InteriorBridgeRoomProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

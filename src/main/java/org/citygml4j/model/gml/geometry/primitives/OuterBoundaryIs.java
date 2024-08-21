@@ -22,31 +22,31 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.GMLClass;
 
 public class OuterBoundaryIs extends AbstractRingProperty {
-	
-	public OuterBoundaryIs() {
 
-	}
+    public OuterBoundaryIs() {
 
-	public OuterBoundaryIs(AbstractRing abstractRing) {
-		super(abstractRing);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.OUTER_BOUNDARY_IS;
-	}
+    }
 
-	public Class<AbstractRing> getAssociableClass() {
-		return AbstractRing.class;
-	}
+    public OuterBoundaryIs(AbstractRing abstractRing) {
+        super(abstractRing);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		OuterBoundaryIs copy = (target == null) ? new OuterBoundaryIs() : (OuterBoundaryIs)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.OUTER_BOUNDARY_IS;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new OuterBoundaryIs(), copyBuilder);
-	}
+    public Class<AbstractRing> getAssociableClass() {
+        return AbstractRing.class;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        OuterBoundaryIs copy = (target == null) ? new OuterBoundaryIs() : (OuterBoundaryIs) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new OuterBoundaryIs(), copyBuilder);
+    }
 
 }

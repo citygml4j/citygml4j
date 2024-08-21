@@ -34,64 +34,66 @@ import java.util.List;
 import java.util.Map;
 
 public class GeometryXlinkResolver {
-	private enum ResolverState {
-		GET_XLINKS,
-		GET_GEOMETRY
-	};
+    private enum ResolverState {
+        GET_XLINKS,
+        GET_GEOMETRY
+    }
 
-	public void resolve(AbstractGML object) {
-		Walker walker = new Walker();
-		object.accept(walker);
+    ;
 
-		if (!walker.properties.isEmpty()) {
-			walker.state = ResolverState.GET_GEOMETRY;
-			object.accept(walker);
-		}
-	}
+    public void resolve(AbstractGML object) {
+        Walker walker = new Walker();
+        object.accept(walker);
 
-	private static class Walker extends GMLWalker {
-		private ResolverState state = ResolverState.GET_XLINKS;
-		private Map<String, List<GeometryProperty<?>>> properties = new HashMap<>();
+        if (!walker.properties.isEmpty()) {
+            walker.state = ResolverState.GET_GEOMETRY;
+            object.accept(walker);
+        }
+    }
 
-		@Override
-		public <T extends AbstractGeometry> void visit(GeometryProperty<T> property) {
-			if (state == ResolverState.GET_XLINKS && !property.isSetGeometry() && property.isSetHref()) {
-				String key = clipGMLId(property.getHref());
-				List<GeometryProperty<?>> properties = this.properties.computeIfAbsent(key, k -> new ArrayList<>());
-				properties.add(property);
-			} 
+    private static class Walker extends GMLWalker {
+        private ResolverState state = ResolverState.GET_XLINKS;
+        private Map<String, List<GeometryProperty<?>>> properties = new HashMap<>();
 
-			super.visit(property);			
-		}
+        @Override
+        public <T extends AbstractGeometry> void visit(GeometryProperty<T> property) {
+            if (state == ResolverState.GET_XLINKS && !property.isSetGeometry() && property.isSetHref()) {
+                String key = clipGMLId(property.getHref());
+                List<GeometryProperty<?>> properties = this.properties.computeIfAbsent(key, k -> new ArrayList<>());
+                properties.add(property);
+            }
 
-		@Override
-		public void visit(AbstractGeometry geometry) {
-			if (state == ResolverState.GET_GEOMETRY && geometry.isSetId()) {
-				List<GeometryProperty<?>> properties = this.properties.get(geometry.getId());
-				if (properties != null) {
-					for (GeometryProperty<?> property : properties) {
-						if (property.getAssociableClass().isAssignableFrom(geometry.getClass()))
-							property.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, geometry);
-					}
-				}
-			}
-			
-			super.visit(geometry);
-		}
+            super.visit(property);
+        }
 
-		@Override
-		public void visit(ADEGenericElement ade) {
-			// nothing to do here
-		}
+        @Override
+        public void visit(AbstractGeometry geometry) {
+            if (state == ResolverState.GET_GEOMETRY && geometry.isSetId()) {
+                List<GeometryProperty<?>> properties = this.properties.get(geometry.getId());
+                if (properties != null) {
+                    for (GeometryProperty<?> property : properties) {
+                        if (property.getAssociableClass().isAssignableFrom(geometry.getClass()))
+                            property.setLocalProperty(CityJSONMarshaller.GEOMETRY_XLINK, geometry);
+                    }
+                }
+            }
 
-		@Override
-		public <T extends AbstractFeature> void visit(FeatureProperty<T> property) {
-			if (!(property.getFeature() instanceof AppearanceModuleComponent))
-				super.visit(property);
-		}
-		
-		private String clipGMLId(String target) {
-			return target.replaceAll("^.*?#+?", "");
-		}
-	}
+            super.visit(geometry);
+        }
+
+        @Override
+        public void visit(ADEGenericElement ade) {
+            // nothing to do here
+        }
+
+        @Override
+        public <T extends AbstractFeature> void visit(FeatureProperty<T> property) {
+            if (!(property.getFeature() instanceof AppearanceModuleComponent))
+                super.visit(property);
+        }
+
+        private String clipGMLId(String target) {
+            return target.replaceAll("^.*?#+?", "");
+        }
+    }
 }

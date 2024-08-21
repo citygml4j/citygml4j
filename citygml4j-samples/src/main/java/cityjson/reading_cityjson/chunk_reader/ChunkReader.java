@@ -63,7 +63,7 @@ public class ChunkReader {
                     @Override
                     public void visit(AbstractFeature abstractFeature) {
                         if (abstractFeature instanceof CityGML) {
-                            CityGMLClass key = ((CityGML)abstractFeature).getCityGMLClass();
+                            CityGMLClass key = ((CityGML) abstractFeature).getCityGMLClass();
                             features.merge(key, 1, Integer::sum);
                         }
 

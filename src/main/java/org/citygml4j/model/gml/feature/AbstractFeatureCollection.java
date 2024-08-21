@@ -27,90 +27,90 @@ import org.citygml4j.model.module.Module;
 import java.util.List;
 
 public abstract class AbstractFeatureCollection extends AbstractFeature {
-	private List<FeatureMember> featureMember;
-	private FeatureArrayProperty featureMembers;
+    private List<FeatureMember> featureMember;
+    private FeatureArrayProperty featureMembers;
 
-	public AbstractFeatureCollection() {
+    public AbstractFeatureCollection() {
 
-	}
+    }
 
-	public AbstractFeatureCollection(Module module) {
-		super(module);
-	}
-	
-	public void addFeatureMember(FeatureMember featureMember) {
-		getFeatureMember().add(featureMember);
-	}
+    public AbstractFeatureCollection(Module module) {
+        super(module);
+    }
 
-	public List<FeatureMember> getFeatureMember() {
-		if (featureMember == null)
-			featureMember = new ChildList<>(this);
-		
-		return featureMember;
-	}
+    public void addFeatureMember(FeatureMember featureMember) {
+        getFeatureMember().add(featureMember);
+    }
 
-	public FeatureArrayProperty getFeatureMembers() {
-		return featureMembers;
-	}
-	
-	public boolean isSetFeatureMember() {
-		return featureMember != null && !featureMember.isEmpty();
-	}
+    public List<FeatureMember> getFeatureMember() {
+        if (featureMember == null)
+            featureMember = new ChildList<>(this);
 
-	public boolean isSetFeatureMembers() {
-		return featureMembers != null;
-	}
+        return featureMember;
+    }
 
-	public void setFeatureMember(List<FeatureMember> featureMember) {
-		this.featureMember = new ChildList<>(this, featureMember);
-	}
+    public FeatureArrayProperty getFeatureMembers() {
+        return featureMembers;
+    }
 
-	public void setFeatureMembers(FeatureArrayProperty featureMembers) {
-		this.featureMembers = ModelObjects.setParent(featureMembers, this);
-	}
+    public boolean isSetFeatureMember() {
+        return featureMember != null && !featureMember.isEmpty();
+    }
 
-	public void unsetFeatureMember() {
-		featureMember = ModelObjects.setNull(featureMember);
-	}
+    public boolean isSetFeatureMembers() {
+        return featureMembers != null;
+    }
 
-	public boolean unsetFeatureMember(FeatureMember featureMember) {
-		return isSetFeatureMember() && this.featureMember.remove(featureMember);
-	}
+    public void setFeatureMember(List<FeatureMember> featureMember) {
+        this.featureMember = new ChildList<>(this, featureMember);
+    }
 
-	public void unsetFeatureMembers() {
-		featureMembers = ModelObjects.setNull(featureMembers);
-	}
+    public void setFeatureMembers(FeatureArrayProperty featureMembers) {
+        this.featureMembers = ModelObjects.setParent(featureMembers, this);
+    }
 
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_FEATURE_COLLECTION;
-	}
-	
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public void unsetFeatureMember() {
+        featureMember = ModelObjects.setNull(featureMember);
+    }
 
-		AbstractFeatureCollection copy = (AbstractFeatureCollection)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetFeatureMember()) {
-			for (FeatureMember part : featureMember) {
-				FeatureMember copyPart = (FeatureMember)copyBuilder.copy(part);
-				copy.addFeatureMember(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetFeatureMembers()) {
-			copy.setFeatureMembers((FeatureArrayProperty)copyBuilder.copy(featureMembers));
-			if (copy.getFeatureMembers() == featureMembers)
-				featureMembers.setParent(this);
-		}
-		
-		return copy;
-	}
+    public boolean unsetFeatureMember(FeatureMember featureMember) {
+        return isSetFeatureMember() && this.featureMember.remove(featureMember);
+    }
+
+    public void unsetFeatureMembers() {
+        featureMembers = ModelObjects.setNull(featureMembers);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.ABSTRACT_FEATURE_COLLECTION;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractFeatureCollection copy = (AbstractFeatureCollection) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetFeatureMember()) {
+            for (FeatureMember part : featureMember) {
+                FeatureMember copyPart = (FeatureMember) copyBuilder.copy(part);
+                copy.addFeatureMember(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetFeatureMembers()) {
+            copy.setFeatureMembers((FeatureArrayProperty) copyBuilder.copy(featureMembers));
+            if (copy.getFeatureMembers() == featureMembers)
+                featureMembers.setParent(this);
+        }
+
+        return copy;
+    }
 
 }

@@ -44,265 +44,265 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class BridgeFurniture extends AbstractCityObject implements BridgeModuleComponent, StandardObjectClassifier {
-	private Code clazz;
-	private List<Code> function;
-	private List<Code> usage;
-	private GeometryProperty<? extends AbstractGeometry> lod4Geometry;
-	private ImplicitRepresentationProperty lod4ImplicitRepresentation;
-	private List<ADEComponent> ade;
+    private Code clazz;
+    private List<Code> function;
+    private List<Code> usage;
+    private GeometryProperty<? extends AbstractGeometry> lod4Geometry;
+    private ImplicitRepresentationProperty lod4ImplicitRepresentation;
+    private List<ADEComponent> ade;
 
-	public BridgeFurniture() {
-		
-	}
-	
-	public BridgeFurniture(Module module) {
-		super(module);
-	}
-	
-	public void addFunction(Code function) {
-		getFunction().add(function);
-	}
-	
-	public void addUsage(Code usage) {
-		getUsage().add(usage);
-	}
+    public BridgeFurniture() {
 
-	public void addGenericApplicationPropertyOfBridgeFurniture(ADEComponent ade) {
-		getGenericApplicationPropertyOfBridgeFurniture().add(ade);
-	}
+    }
 
-	public Code getClazz() {
-		return clazz;
-	}
+    public BridgeFurniture(Module module) {
+        super(module);
+    }
 
-	public List<Code> getFunction() {
-		if (function == null)
-			function = new ChildList<>(this);
+    public void addFunction(Code function) {
+        getFunction().add(function);
+    }
 
-		return function;
-	}
-	
-	public List<Code> getUsage() {
-		if (usage == null)
-			usage = new ChildList<>(this);
+    public void addUsage(Code usage) {
+        getUsage().add(usage);
+    }
 
-		return usage;
-	}
+    public void addGenericApplicationPropertyOfBridgeFurniture(ADEComponent ade) {
+        getGenericApplicationPropertyOfBridgeFurniture().add(ade);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfBridgeFurniture() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public Code getClazz() {
+        return clazz;
+    }
 
-		return ade;
-	}
+    public List<Code> getFunction() {
+        if (function == null)
+            function = new ChildList<>(this);
 
-	public ImplicitRepresentationProperty getLod4ImplicitRepresentation() {
-		return lod4ImplicitRepresentation;
-	}
+        return function;
+    }
 
-	public GeometryProperty<? extends AbstractGeometry> getLod4Geometry() {
-		return lod4Geometry;
-	}
+    public List<Code> getUsage() {
+        if (usage == null)
+            usage = new ChildList<>(this);
 
-	public boolean isSetClazz() {
-		return clazz != null;
-	}
+        return usage;
+    }
 
-	public boolean isSetFunction() {
-		return function != null && !function.isEmpty();
-	}
-	
-	public boolean isSetUsage() {
-		return usage != null && !usage.isEmpty();
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfBridgeFurniture() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean isSetGenericApplicationPropertyOfBridgeFurniture() {
-		return ade != null && !ade.isEmpty();
-	}
+        return ade;
+    }
 
-	public boolean isSetLod4ImplicitRepresentation() {
-		return lod4ImplicitRepresentation != null;
-	}
+    public ImplicitRepresentationProperty getLod4ImplicitRepresentation() {
+        return lod4ImplicitRepresentation;
+    }
 
-	public boolean isSetLod4Geometry() {
-		return lod4Geometry != null;
-	}
+    public GeometryProperty<? extends AbstractGeometry> getLod4Geometry() {
+        return lod4Geometry;
+    }
 
-	public void setClazz(Code clazz) {
-		this.clazz = ModelObjects.setParent(clazz, this);
-	}
+    public boolean isSetClazz() {
+        return clazz != null;
+    }
 
-	public void setFunction(List<Code> function) {
-		this.function = new ChildList<>(this, function);
-	}
-	
-	public void setUsage(List<Code> usage) {
-		this.usage = new ChildList<>(this, usage);
-	}
+    public boolean isSetFunction() {
+        return function != null && !function.isEmpty();
+    }
 
-	public void setGenericApplicationPropertyOfBridgeFurniture(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetUsage() {
+        return usage != null && !usage.isEmpty();
+    }
 
-	public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
-		this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
-	}
+    public boolean isSetGenericApplicationPropertyOfBridgeFurniture() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
-		this.lod4Geometry = ModelObjects.setParent(lod4Geometry, this);
-	}
+    public boolean isSetLod4ImplicitRepresentation() {
+        return lod4ImplicitRepresentation != null;
+    }
 
-	public void unsetClazz() {
-		clazz = ModelObjects.setNull(clazz);
-	}
+    public boolean isSetLod4Geometry() {
+        return lod4Geometry != null;
+    }
 
-	public void unsetFunction() {
-		function = ModelObjects.setNull(function);
-	}
+    public void setClazz(Code clazz) {
+        this.clazz = ModelObjects.setParent(clazz, this);
+    }
 
-	public boolean unsetFunction(Code function) {
-		return isSetFunction() && this.function.remove(function);
-	}
-	
-	public void unsetUsage() {
-		usage = ModelObjects.setNull(usage);
-	}
+    public void setFunction(List<Code> function) {
+        this.function = new ChildList<>(this, function);
+    }
 
-	public boolean unsetUsage(Code usage) {
-		return isSetUsage() && this.usage.remove(usage);
-	}
+    public void setUsage(List<Code> usage) {
+        this.usage = new ChildList<>(this, usage);
+    }
 
-	public void unsetGenericApplicationPropertyOfBridgeFurniture() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setGenericApplicationPropertyOfBridgeFurniture(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfBridgeFurniture(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfBridgeFurniture() && this.ade.remove(ade);
-	}
+    public void setLod4ImplicitRepresentation(ImplicitRepresentationProperty lod4ImplicitRepresentation) {
+        this.lod4ImplicitRepresentation = ModelObjects.setParent(lod4ImplicitRepresentation, this);
+    }
 
-	public void unsetLod4ImplicitRepresentation() {
-		lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
-	}
+    public void setLod4Geometry(GeometryProperty<? extends AbstractGeometry> lod4Geometry) {
+        this.lod4Geometry = ModelObjects.setParent(lod4Geometry, this);
+    }
 
-	public void unsetLod4Geometry() {
-		lod4Geometry = ModelObjects.setNull(lod4Geometry);
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BRIDGE_FURNITURE;
-	}
+    public void unsetClazz() {
+        clazz = ModelObjects.setNull(clazz);
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetLod4Geometry()) {
-			if (lod4Geometry.isSetGeometry()) {
-				boundedBy.updateEnvelope(lod4Geometry.getGeometry().calcBoundingBox());	
-			} else {
-				// xlink
-			}
-		}	
-		
-		if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
-			boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
-		
-		if (isSetGenericApplicationPropertyOfBridgeFurniture()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfBridgeFurniture()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
+    public void unsetFunction() {
+        function = ModelObjects.setNull(function);
+    }
 
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+    public boolean unsetFunction(Code function) {
+        return isSetFunction() && this.function.remove(function);
+    }
 
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		lodRepresentation.addRepresentation(4, lod4Geometry);
-		lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
-		
-		return lodRepresentation;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BridgeFurniture(), copyBuilder);
-	}
+    public void unsetUsage() {
+        usage = ModelObjects.setNull(usage);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BridgeFurniture copy = (target == null) ? new BridgeFurniture() : (BridgeFurniture)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetClazz())
-			copy.setClazz((Code)copyBuilder.copy(clazz));
+    public boolean unsetUsage(Code usage) {
+        return isSetUsage() && this.usage.remove(usage);
+    }
 
-		if (isSetFunction()) {
-			for (Code part : function) {
-				Code copyPart = (Code)copyBuilder.copy(part);
-				copy.addFunction(copyPart);
+    public void unsetGenericApplicationPropertyOfBridgeFurniture() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetUsage()) {
-			for (Code part : usage) {
-				Code copyPart = (Code)copyBuilder.copy(part);
-				copy.addUsage(copyPart);
+    public boolean unsetGenericApplicationPropertyOfBridgeFurniture(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfBridgeFurniture() && this.ade.remove(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetLod4ImplicitRepresentation()) {
-			copy.setLod4ImplicitRepresentation((ImplicitRepresentationProperty)copyBuilder.copy(lod4ImplicitRepresentation));
-			if (copy.getLod4ImplicitRepresentation() == lod4ImplicitRepresentation)
-				lod4ImplicitRepresentation.setParent(this);
-		}
-		
-		if (isSetLod4Geometry()) {
-			copy.setLod4Geometry((GeometryProperty<? extends AbstractGeometry>)copyBuilder.copy(lod4Geometry));
-			if (copy.getLod4Geometry() == lod4Geometry)
-				lod4Geometry.setParent(this);
-		}
-		
-		if (isSetGenericApplicationPropertyOfBridgeFurniture()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfBridgeFurniture(copyPart);
+    public void unsetLod4ImplicitRepresentation() {
+        lod4ImplicitRepresentation = ModelObjects.setNull(lod4ImplicitRepresentation);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    public void unsetLod4Geometry() {
+        lod4Geometry = ModelObjects.setNull(lod4Geometry);
+    }
 
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BRIDGE_FURNITURE;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetLod4Geometry()) {
+            if (lod4Geometry.isSetGeometry()) {
+                boundedBy.updateEnvelope(lod4Geometry.getGeometry().calcBoundingBox());
+            } else {
+                // xlink
+            }
+        }
+
+        if (isSetLod4ImplicitRepresentation() && lod4ImplicitRepresentation.isSetImplicitGeometry())
+            boundedBy.updateEnvelope(lod4ImplicitRepresentation.getImplicitGeometry().calcBoundingBox(options));
+
+        if (isSetGenericApplicationPropertyOfBridgeFurniture()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfBridgeFurniture()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+
+        lodRepresentation.addRepresentation(4, lod4Geometry);
+        lodRepresentation.addRepresentation(4, lod4ImplicitRepresentation);
+
+        return lodRepresentation;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BridgeFurniture(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BridgeFurniture copy = (target == null) ? new BridgeFurniture() : (BridgeFurniture) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetClazz())
+            copy.setClazz((Code) copyBuilder.copy(clazz));
+
+        if (isSetFunction()) {
+            for (Code part : function) {
+                Code copyPart = (Code) copyBuilder.copy(part);
+                copy.addFunction(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetUsage()) {
+            for (Code part : usage) {
+                Code copyPart = (Code) copyBuilder.copy(part);
+                copy.addUsage(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        if (isSetLod4ImplicitRepresentation()) {
+            copy.setLod4ImplicitRepresentation((ImplicitRepresentationProperty) copyBuilder.copy(lod4ImplicitRepresentation));
+            if (copy.getLod4ImplicitRepresentation() == lod4ImplicitRepresentation)
+                lod4ImplicitRepresentation.setParent(this);
+        }
+
+        if (isSetLod4Geometry()) {
+            copy.setLod4Geometry((GeometryProperty<? extends AbstractGeometry>) copyBuilder.copy(lod4Geometry));
+            if (copy.getLod4Geometry() == lod4Geometry)
+                lod4Geometry.setParent(this);
+        }
+
+        if (isSetGenericApplicationPropertyOfBridgeFurniture()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfBridgeFurniture(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

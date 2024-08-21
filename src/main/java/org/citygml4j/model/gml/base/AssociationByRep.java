@@ -32,100 +32,100 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AssociationByRep<T extends Associable & Child> implements GML, Association<T>, Child, Copyable {
-	private T object;
-	private Map<String, Object> localProperties;
-	private ModelObject parent;
+    private T object;
+    private Map<String, Object> localProperties;
+    private ModelObject parent;
 
-	public AssociationByRep() {
+    public AssociationByRep() {
 
-	}
+    }
 
-	public AssociationByRep(T object) {
-		setObject(object);
-	}
+    public AssociationByRep(T object) {
+        setObject(object);
+    }
 
-	public T getObject() {
-		return object;
-	}
+    public T getObject() {
+        return object;
+    }
 
-	public boolean isSetObject() {
-		return object != null;
-	}
+    public boolean isSetObject() {
+        return object != null;
+    }
 
-	public void setObject(T object) {
-		this.object = ModelObjects.setParent(object, this);
-	}
+    public void setObject(T object) {
+        this.object = ModelObjects.setParent(object, this);
+    }
 
-	public void setObjectIfValid(Object object) {
-		if (getAssociableClass().isInstance(object))
-			setObject(getAssociableClass().cast(object));
-	}
+    public void setObjectIfValid(Object object) {
+        if (getAssociableClass().isInstance(object))
+            setObject(getAssociableClass().cast(object));
+    }
 
-	public void unsetObject() {
-		object = ModelObjects.setNull(object);
-	}
+    public void unsetObject() {
+        object = ModelObjects.setNull(object);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ASSOCIATION_BY_REP;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.ASSOCIATION_BY_REP;
+    }
 
-	public Object getLocalProperty(String name) {
-		if (localProperties != null)
-			return localProperties.get(name);
+    public Object getLocalProperty(String name) {
+        if (localProperties != null)
+            return localProperties.get(name);
 
-		return null;
-	}
+        return null;
+    }
 
-	public void setLocalProperty(String name, Object value) {
-		if (localProperties == null)
-			localProperties = new HashMap<>();
+    public void setLocalProperty(String name, Object value) {
+        if (localProperties == null)
+            localProperties = new HashMap<>();
 
-		localProperties.put(name, value);
-	}
+        localProperties.put(name, value);
+    }
 
-	public boolean hasLocalProperty(String name) {
-		return localProperties != null && localProperties.containsKey(name);
-	}
+    public boolean hasLocalProperty(String name) {
+        return localProperties != null && localProperties.containsKey(name);
+    }
 
-	public Object unsetLocalProperty(String name) {
-		if (localProperties != null)
-			return localProperties.remove(name);
+    public Object unsetLocalProperty(String name) {
+        if (localProperties != null)
+            return localProperties.remove(name);
 
-		return null;
-	}
+        return null;
+    }
 
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-		AssociationByRep<T> copy = (AssociationByRep<T>)target;
+        AssociationByRep<T> copy = (AssociationByRep<T>) target;
 
-		if (isSetObject()) {
-			copy.setObject((T)copyBuilder.copy(object));
-			if (copy.getObject() == object)
-				object.setParent(this);
-		}
+        if (isSetObject()) {
+            copy.setObject((T) copyBuilder.copy(object));
+            if (copy.getObject() == object)
+                object.setParent(this);
+        }
 
-		copy.unsetParent();
+        copy.unsetParent();
 
-		return copy;
-	}
+        return copy;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
 }

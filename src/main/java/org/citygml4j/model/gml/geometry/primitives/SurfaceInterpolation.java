@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public enum SurfaceInterpolation implements GML, Copyable {
-	NONE("none"),
-	PLANAR("planar"),
-	SPHERICAL("spherical"),
-	ELLIPTICAL("elliptical"),
-	CONIC("conic"),
-	TIN("tin"),
-	PARAMETRIC_CURVE("parametricCurve"),
-	POLYNOMIAL_SPLINE("polynomialSpline"),
-	RATIONAL_SPLINE("rationalSpline"),
-	TRIANGULATED_SPLINE("triangulatedSpline");
+    NONE("none"),
+    PLANAR("planar"),
+    SPHERICAL("spherical"),
+    ELLIPTICAL("elliptical"),
+    CONIC("conic"),
+    TIN("tin"),
+    PARAMETRIC_CURVE("parametricCurve"),
+    POLYNOMIAL_SPLINE("polynomialSpline"),
+    RATIONAL_SPLINE("rationalSpline"),
+    TRIANGULATED_SPLINE("triangulatedSpline");
 
-	private final String value;
+    private final String value;
 
-	SurfaceInterpolation(String v) {
-		value = v;
-	}
+    SurfaceInterpolation(String v) {
+        value = v;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static SurfaceInterpolation fromValue(String v) {
-		v = v.trim();
+    public static SurfaceInterpolation fromValue(String v) {
+        v = v.trim();
 
-		for (SurfaceInterpolation c: SurfaceInterpolation.values())
-			if (c.value.equals(v))
-				return c;
+        for (SurfaceInterpolation c : SurfaceInterpolation.values())
+            if (c.value.equals(v))
+                return c;
 
-		return NONE;
-	}
+        return NONE;
+    }
 
-	public String toString() {
-		return value;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.SURFACE_INTERPOLATION;
-	}
+    public String toString() {
+        return value;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? NONE : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SURFACE_INTERPOLATION;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? NONE : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
 
 }

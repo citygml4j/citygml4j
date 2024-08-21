@@ -30,226 +30,226 @@ import org.citygml4j.model.common.visitor.XALVisitor;
 import java.util.List;
 
 public class Firm implements XAL, Child, Copyable {
-	private List<AddressLine> addressLine;
-	private List<FirmName> firmName;
-	private List<Department> department;
-	private MailStop mailStop;
-	private PostalCode postalCode;
-	private String type;
-	private ModelObject parent;
-	
-	public void addAddressLine(AddressLine addressLine) {
-		getAddressLine().add(addressLine);
-	}
+    private List<AddressLine> addressLine;
+    private List<FirmName> firmName;
+    private List<Department> department;
+    private MailStop mailStop;
+    private PostalCode postalCode;
+    private String type;
+    private ModelObject parent;
 
-	public void addDepartment(Department department) {
-		getDepartment().add(department);
-	}
+    public void addAddressLine(AddressLine addressLine) {
+        getAddressLine().add(addressLine);
+    }
 
-	public void addFirmName(FirmName firmName) {
-		getFirmName().add(firmName);
-	}
+    public void addDepartment(Department department) {
+        getDepartment().add(department);
+    }
 
-	public List<AddressLine> getAddressLine() {
-		if (addressLine == null)
-			addressLine = new ChildList<>(this);
+    public void addFirmName(FirmName firmName) {
+        getFirmName().add(firmName);
+    }
 
-		return addressLine;
-	}
+    public List<AddressLine> getAddressLine() {
+        if (addressLine == null)
+            addressLine = new ChildList<>(this);
 
-	public List<Department> getDepartment() {
-		if (department == null)
-			department = new ChildList<>(this);
+        return addressLine;
+    }
 
-		return department;
-	}
+    public List<Department> getDepartment() {
+        if (department == null)
+            department = new ChildList<>(this);
 
-	public List<FirmName> getFirmName() {
-		if (firmName == null)
-			firmName = new ChildList<>(this);
+        return department;
+    }
 
-		return firmName;
-	}
+    public List<FirmName> getFirmName() {
+        if (firmName == null)
+            firmName = new ChildList<>(this);
 
-	public MailStop getMailStop() {
-		return mailStop;
-	}
+        return firmName;
+    }
 
-	public PostalCode getPostalCode() {
-		return postalCode;
-	}
+    public MailStop getMailStop() {
+        return mailStop;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public PostalCode getPostalCode() {
+        return postalCode;
+    }
 
-	public boolean isSetAddressLine() {
-		return addressLine != null && !addressLine.isEmpty();
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetDepartment() {
-		return department != null && !department.isEmpty();
-	}
+    public boolean isSetAddressLine() {
+        return addressLine != null && !addressLine.isEmpty();
+    }
 
-	public boolean isSetFirmName() {
-		return firmName != null && !firmName.isEmpty();
-	}
+    public boolean isSetDepartment() {
+        return department != null && !department.isEmpty();
+    }
 
-	public boolean isSetMailStop() {
-		return mailStop != null;
-	}
+    public boolean isSetFirmName() {
+        return firmName != null && !firmName.isEmpty();
+    }
 
-	public boolean isSetPostalCode() {
-		return postalCode != null;
-	}
+    public boolean isSetMailStop() {
+        return mailStop != null;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetPostalCode() {
+        return postalCode != null;
+    }
 
-	public void setAddressLine(List<AddressLine> addressLine) {
-		this.addressLine = new ChildList<>(this, addressLine);
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setDepartment(List<Department> department) {
-		this.department = new ChildList<>(this, department);
-	}
+    public void setAddressLine(List<AddressLine> addressLine) {
+        this.addressLine = new ChildList<>(this, addressLine);
+    }
 
-	public void setFirmName(List<FirmName> firmName) {
-		this.firmName = new ChildList<>(this, firmName);
-	}
+    public void setDepartment(List<Department> department) {
+        this.department = new ChildList<>(this, department);
+    }
 
-	public void setMailStop(MailStop mailStop) {
-		this.mailStop = ModelObjects.setParent(mailStop, this);
-	}
+    public void setFirmName(List<FirmName> firmName) {
+        this.firmName = new ChildList<>(this, firmName);
+    }
 
-	public void setPostalCode(PostalCode postalCode) {
-		this.postalCode = ModelObjects.setParent(postalCode, this);
-	}
+    public void setMailStop(MailStop mailStop) {
+        this.mailStop = ModelObjects.setParent(mailStop, this);
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setPostalCode(PostalCode postalCode) {
+        this.postalCode = ModelObjects.setParent(postalCode, this);
+    }
 
-	public void unsetAddressLine() {
-		addressLine = ModelObjects.setNull(addressLine);
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public boolean unsetAddressLine(AddressLine addressLine) {
-		return isSetAddressLine() && this.addressLine.remove(addressLine);
-	}
+    public void unsetAddressLine() {
+        addressLine = ModelObjects.setNull(addressLine);
+    }
 
-	public void unsetDepartment() {
-		department = ModelObjects.setNull(department);
-	}
+    public boolean unsetAddressLine(AddressLine addressLine) {
+        return isSetAddressLine() && this.addressLine.remove(addressLine);
+    }
 
-	public boolean unsetDepartment(Department department) {
-		return isSetDepartment() && this.department.remove(department);
-	}
+    public void unsetDepartment() {
+        department = ModelObjects.setNull(department);
+    }
 
-	public void unsetFirmName() {
-		firmName = ModelObjects.setNull(firmName);
-	}
+    public boolean unsetDepartment(Department department) {
+        return isSetDepartment() && this.department.remove(department);
+    }
 
-	public boolean unsetFirmName(FirmName firmName) {
-		return isSetFirmName() && this.firmName.remove(firmName);
-	}
+    public void unsetFirmName() {
+        firmName = ModelObjects.setNull(firmName);
+    }
 
-	public void unsetMailStop() {
-		mailStop = ModelObjects.setNull(mailStop);
-	}
+    public boolean unsetFirmName(FirmName firmName) {
+        return isSetFirmName() && this.firmName.remove(firmName);
+    }
 
-	public void unsetPostalCode() {
-		postalCode = ModelObjects.setNull(postalCode);
-	}
+    public void unsetMailStop() {
+        mailStop = ModelObjects.setNull(mailStop);
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetPostalCode() {
+        postalCode = ModelObjects.setNull(postalCode);
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.FIRM;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public XALClass getXALClass() {
+        return XALClass.FIRM;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Firm(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Firm copy = (target == null) ? new Firm() : (Firm)target;
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Firm(), copyBuilder);
+    }
 
-		if (isSetAddressLine()) {
-			for (AddressLine part : addressLine) {
-				AddressLine copyPart = (AddressLine)copyBuilder.copy(part);
-				copy.addAddressLine(copyPart);
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Firm copy = (target == null) ? new Firm() : (Firm) target;
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
 
-		if (isSetDepartment()) {
-			for (Department part : department) {
-				Department copyPart = (Department)copyBuilder.copy(part);
-				copy.addDepartment(copyPart);
+        if (isSetAddressLine()) {
+            for (AddressLine part : addressLine) {
+                AddressLine copyPart = (AddressLine) copyBuilder.copy(part);
+                copy.addAddressLine(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		if (isSetFirmName()) {
-			for (FirmName part : firmName) {
-				FirmName copyPart = (FirmName)copyBuilder.copy(part);
-				copy.addFirmName(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		if (isSetMailStop()) {
-			copy.setMailStop((MailStop)copyBuilder.copy(mailStop));
-			if (copy.getMailStop() == mailStop)
-				mailStop.setParent(this);
-		}
+        if (isSetDepartment()) {
+            for (Department part : department) {
+                Department copyPart = (Department) copyBuilder.copy(part);
+                copy.addDepartment(copyPart);
 
-		if (isSetPostalCode()) {
-			copy.setPostalCode((PostalCode)copyBuilder.copy(postalCode));
-			if (copy.getPostalCode() == postalCode)
-				postalCode.setParent(this);
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		copy.unsetParent();
+        if (isSetFirmName()) {
+            for (FirmName part : firmName) {
+                FirmName copyPart = (FirmName) copyBuilder.copy(part);
+                copy.addFirmName(copyPart);
 
-		return copy;
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
+        if (isSetMailStop()) {
+            copy.setMailStop((MailStop) copyBuilder.copy(mailStop));
+            if (copy.getMailStop() == mailStop)
+                mailStop.setParent(this);
+        }
+
+        if (isSetPostalCode()) {
+            copy.setPostalCode((PostalCode) copyBuilder.copy(postalCode));
+            if (copy.getPostalCode() == postalCode)
+                postalCode.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
 }

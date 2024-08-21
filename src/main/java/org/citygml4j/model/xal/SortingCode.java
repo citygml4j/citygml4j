@@ -26,86 +26,86 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class SortingCode implements XAL, GrPostal, Child, Copyable {
-	private String type;
-	private String code;
-	private ModelObject parent;
+    private String type;
+    private String code;
+    private ModelObject parent;
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.SORTING_CODE;
-	}
+    public XALClass getXALClass() {
+        return XALClass.SORTING_CODE;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SortingCode(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SortingCode(), copyBuilder);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SortingCode copy = (target == null) ? new SortingCode() : (SortingCode)target;
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SortingCode copy = (target == null) ? new SortingCode() : (SortingCode) target;
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

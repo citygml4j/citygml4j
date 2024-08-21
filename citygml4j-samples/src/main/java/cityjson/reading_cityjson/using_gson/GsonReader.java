@@ -49,92 +49,92 @@ import java.util.Iterator;
 
 public class GsonReader {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		// creating a Gson instance. Note that we have to register
-		// the CityJSONTypeAdapterFactory.
-		System.out.println(df.format(new Date()) + "setting up Gson builder and reader");
-		Gson gson = new GsonBuilder()
-				.registerTypeAdapterFactory(new CityJSONTypeAdapterFactory())
-				.create();
+        // creating a Gson instance. Note that we have to register
+        // the CityJSONTypeAdapterFactory.
+        System.out.println(df.format(new Date()) + "setting up Gson builder and reader");
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new CityJSONTypeAdapterFactory())
+                .create();
 
-		JsonReader reader = new JsonReader(new FileReader(new File("datasets/LOD3_Railway.json")));
+        JsonReader reader = new JsonReader(new FileReader(new File("datasets/LOD3_Railway.json")));
 
-		// read the CityJSON file into main memory
-		// afterwards, the Json content is accessible through the
-		// Gson binding class org.citygml4j.cityjson.CityJSON
-		System.out.println(df.format(new Date()) + "reading CityJSON file LOD3_Railway.json completely into main memory");
-		CityJSON cityJSON = gson.fromJson(reader, CityJSON.class);
-		reader.close();
+        // read the CityJSON file into main memory
+        // afterwards, the Json content is accessible through the
+        // Gson binding class org.citygml4j.cityjson.CityJSON
+        System.out.println(df.format(new Date()) + "reading CityJSON file LOD3_Railway.json completely into main memory");
+        CityJSON cityJSON = gson.fromJson(reader, CityJSON.class);
+        reader.close();
 
-		// iterate over the city objects
-		System.out.println(df.format(new Date()) + "changing the CityJSON content using Gson binding classes");
-		if (cityJSON.hasCityObjects()) {
-			Iterator<AbstractCityObjectType> iter = cityJSON.getCityObjects().iterator();
-			while (iter.hasNext()) {
-				AbstractCityObjectType cityObject = iter.next();
+        // iterate over the city objects
+        System.out.println(df.format(new Date()) + "changing the CityJSON content using Gson binding classes");
+        if (cityJSON.hasCityObjects()) {
+            Iterator<AbstractCityObjectType> iter = cityJSON.getCityObjects().iterator();
+            while (iter.hasNext()) {
+                AbstractCityObjectType cityObject = iter.next();
 
-				// firstly, remove all city objects but buildings
-				if (!cityObject.getType().equals("Building")
-						&& !cityObject.getType().equals("BuildingPart")
-						&& !cityObject.getType().equals("BuildingInstallation")) {
-					System.out.println(df.format(new Date()) + "\t- removing " + cityObject.getType());
-					iter.remove();
-					continue;
-				}
-				
-				// secondly, add a generic attribute to each building
-				Attributes attributes = cityObject.isSetAttributes() ? cityObject.getAttributes() : cityObject.newAttributes();
-				attributes.addExtensionAttribute("gson", "added through Gson");
-				
-				// thirdly, remove appearance info from geometries
-				for (AbstractGeometryType geometry : cityObject.getGeometry()) {
-					if (geometry instanceof GeometryWithAppearance<?, ?>)
-						((GeometryWithAppearance<?, ?>)geometry).unsetAppearance();
-				}
-			}
-			
-			// re-calculate bounding box
-			cityJSON.calcBoundingBox();
-		}
-		
-		// we can also simply go from the Json content to a citygml4j object tree
-		// simply by using an instance of CityJSONUnmarshaller
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityJSONBuilder builder = ctx.createCityJSONBuilder();
-		CityJSONUnmarshaller unmarshaller = builder.createCityJSONUnmarshaller();
-		
-		System.out.println(df.format(new Date()) + "unmarshalling CityJSON content to citygml4j object tree");
-		CityModel cityModel = unmarshaller.unmarshal(cityJSON);
-		
-		// let's add another generic attribute to the city objects, but this time using citygml4j
-		for (CityObjectMember member : cityModel.getCityObjectMember()) {
-			if (member.isSetCityObject()) {
-				AbstractCityObject cityObject = member.getCityObject();
-				cityObject.addGenericAttribute(new StringAttribute("citygml4j", "added through citygml4j"));
-			}
-		}
-		
-		// finally, write the citygml4j object tree to file
-		System.out.println(df.format(new Date()) + "creating CityGML builder");
-		CityGMLBuilder cityGMLBuilder = ctx.createCityGMLBuilder();
+                // firstly, remove all city objects but buildings
+                if (!cityObject.getType().equals("Building")
+                        && !cityObject.getType().equals("BuildingPart")
+                        && !cityObject.getType().equals("BuildingInstallation")) {
+                    System.out.println(df.format(new Date()) + "\t- removing " + cityObject.getType());
+                    iter.remove();
+                    continue;
+                }
 
-		// create a CityGML output factory
-		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0 file");
-		CityGMLOutputFactory out = cityGMLBuilder.createCityGMLOutputFactory();
+                // secondly, add a generic attribute to each building
+                Attributes attributes = cityObject.isSetAttributes() ? cityObject.getAttributes() : cityObject.newAttributes();
+                attributes.addExtensionAttribute("gson", "added through Gson");
 
-		CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Buildings_v200.gml"), StandardCharsets.UTF_8.name());
-		writer.setIndentString("  ");
-		writer.setPrefixes(CityGMLVersion.v2_0_0);
-		writer.setDefaultNamespace(CoreModule.v2_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
+                // thirdly, remove appearance info from geometries
+                for (AbstractGeometryType geometry : cityObject.getGeometry()) {
+                    if (geometry instanceof GeometryWithAppearance<?, ?>)
+                        ((GeometryWithAppearance<?, ?>) geometry).unsetAppearance();
+                }
+            }
 
-		writer.write(cityModel);
-		writer.close();
-		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_v200.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+            // re-calculate bounding box
+            cityJSON.calcBoundingBox();
+        }
+
+        // we can also simply go from the Json content to a citygml4j object tree
+        // simply by using an instance of CityJSONUnmarshaller
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityJSONBuilder builder = ctx.createCityJSONBuilder();
+        CityJSONUnmarshaller unmarshaller = builder.createCityJSONUnmarshaller();
+
+        System.out.println(df.format(new Date()) + "unmarshalling CityJSON content to citygml4j object tree");
+        CityModel cityModel = unmarshaller.unmarshal(cityJSON);
+
+        // let's add another generic attribute to the city objects, but this time using citygml4j
+        for (CityObjectMember member : cityModel.getCityObjectMember()) {
+            if (member.isSetCityObject()) {
+                AbstractCityObject cityObject = member.getCityObject();
+                cityObject.addGenericAttribute(new StringAttribute("citygml4j", "added through citygml4j"));
+            }
+        }
+
+        // finally, write the citygml4j object tree to file
+        System.out.println(df.format(new Date()) + "creating CityGML builder");
+        CityGMLBuilder cityGMLBuilder = ctx.createCityGMLBuilder();
+
+        // create a CityGML output factory
+        System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML v2.0 file");
+        CityGMLOutputFactory out = cityGMLBuilder.createCityGMLOutputFactory();
+
+        CityGMLWriter writer = out.createCityGMLWriter(new File("output/LOD3_Buildings_v200.gml"), StandardCharsets.UTF_8.name());
+        writer.setIndentString("  ");
+        writer.setPrefixes(CityGMLVersion.v2_0_0);
+        writer.setDefaultNamespace(CoreModule.v2_0_0);
+        writer.setSchemaLocations(CityGMLVersion.v2_0_0);
+
+        writer.write(cityModel);
+        writer.close();
+
+        System.out.println(df.format(new Date()) + "CityGML file LOD2_Buildings_v200.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
 
 }

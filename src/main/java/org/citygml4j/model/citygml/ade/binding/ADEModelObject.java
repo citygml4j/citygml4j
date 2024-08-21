@@ -24,14 +24,14 @@ import org.citygml4j.model.citygml.ade.ADEComponent;
 
 public interface ADEModelObject extends ADEComponent {
 
-	@Override
-	default CityGMLClass getCityGMLClass() {
-		return CityGMLClass.ADE_COMPONENT;
-	}
+    @Override
+    default CityGMLClass getCityGMLClass() {
+        return CityGMLClass.ADE_COMPONENT;
+    }
 
-	@Override
-	default ADEClass getADEClass() {
-		return ADEClass.MODEL_OBJECT;
-	}
-	
+    @Override
+    default ADEClass getADEClass() {
+        return ADEClass.MODEL_OBJECT;
+    }
+
 }

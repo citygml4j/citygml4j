@@ -26,126 +26,126 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class LargeMailUserIdentifier implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String type;
-	private String indicator;
-	private String code;
-	private ModelObject parent;
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String type;
+    private String indicator;
+    private String code;
+    private ModelObject parent;
 
-	public String getType() {
-		return type;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getIndicator() {
-		return indicator;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getIndicator() {
+        return indicator;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public boolean isSetIndicator() {
-		return indicator != null;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetIndicator() {
+        return indicator != null;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setIndicator(String indicator) {
-		this.indicator = indicator;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public void unsetIndicator() {
-		indicator = null;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.LARGE_MAIL_USER_IDENTIFIER;
-	}
+    public void unsetIndicator() {
+        indicator = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.LARGE_MAIL_USER_IDENTIFIER;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new LargeMailUserIdentifier(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		LargeMailUserIdentifier copy = (target == null) ? new LargeMailUserIdentifier() : (LargeMailUserIdentifier)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		if (isSetIndicator())
-			copy.setIndicator(copyBuilder.copy(indicator));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new LargeMailUserIdentifier(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        LargeMailUserIdentifier copy = (target == null) ? new LargeMailUserIdentifier() : (LargeMailUserIdentifier) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        if (isSetIndicator())
+            copy.setIndicator(copyBuilder.copy(indicator));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

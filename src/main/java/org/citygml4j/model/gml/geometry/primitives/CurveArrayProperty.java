@@ -26,62 +26,62 @@ import java.util.List;
 
 public class CurveArrayProperty extends GeometryArrayProperty<AbstractCurve> {
 
-	public CurveArrayProperty() {
+    public CurveArrayProperty() {
 
-	}
+    }
 
-	public CurveArrayProperty(AbstractCurve abstractCurve) {
-		super(abstractCurve);
-	}
+    public CurveArrayProperty(AbstractCurve abstractCurve) {
+        super(abstractCurve);
+    }
 
-	public CurveArrayProperty(List<AbstractCurve> abstractCurve) {
-		super(abstractCurve);
-	}
-	
-	public CurveArrayProperty(AbstractCurve... abstractCurve) {
-		super(abstractCurve);
-	}
+    public CurveArrayProperty(List<AbstractCurve> abstractCurve) {
+        super(abstractCurve);
+    }
 
-	public void addCurve(AbstractCurve abstractCurve) {
-		super.addGeometry(abstractCurve);
-	}
+    public CurveArrayProperty(AbstractCurve... abstractCurve) {
+        super(abstractCurve);
+    }
 
-	public List<? extends AbstractCurve> getCurve() {
-		return super.getGeometry();
-	}
+    public void addCurve(AbstractCurve abstractCurve) {
+        super.addGeometry(abstractCurve);
+    }
 
-	public boolean isSetCurve() {
-		return super.isSetGeometry();
-	}
+    public List<? extends AbstractCurve> getCurve() {
+        return super.getGeometry();
+    }
 
-	@SuppressWarnings("unchecked")
-	public void setCurve(List<? extends AbstractCurve> abstractCurve) {
-		super.setGeometry((List<AbstractCurve>)abstractCurve);
-	}
+    public boolean isSetCurve() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetCurve() {
-		super.unsetGeometry();
-	}
+    @SuppressWarnings("unchecked")
+    public void setCurve(List<? extends AbstractCurve> abstractCurve) {
+        super.setGeometry((List<AbstractCurve>) abstractCurve);
+    }
 
-	public boolean unsetCurve(AbstractCurve abstractCurve) {
-		return super.unsetGeometry(abstractCurve);
-	}
+    public void unsetCurve() {
+        super.unsetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.CURVE_ARRAY_PROPERTY;
-	}
+    public boolean unsetCurve(AbstractCurve abstractCurve) {
+        return super.unsetGeometry(abstractCurve);
+    }
 
-	public Class<AbstractCurve> getAssociableClass() {
-		return AbstractCurve.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.CURVE_ARRAY_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CurveArrayProperty(), copyBuilder);
-	}
+    public Class<AbstractCurve> getAssociableClass() {
+        return AbstractCurve.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CurveArrayProperty copy = (target == null) ? new CurveArrayProperty() : (CurveArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CurveArrayProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CurveArrayProperty copy = (target == null) ? new CurveArrayProperty() : (CurveArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

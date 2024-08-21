@@ -40,492 +40,492 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BuildingMarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityJSONMarshaller json;
-	private final CityGMLMarshaller citygml;
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
-	private BiFunctionTypeMapper<CityJSON, SemanticsType> semanticsMapper;
-
-	public BuildingMarshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		json = citygml.getCityJSONMarshaller();
-	}
-
-	private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
-							.with(Building.class, this::marshalBuilding)
-							.with(BuildingPart.class, this::marshalBuildingPart)
-							.with(BuildingInstallation.class, this::marshalBuildingInstallation);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
-
-		return typeMapper;
-	}
-
-	private BiFunctionTypeMapper<CityJSON, SemanticsType> getSemanticsMapper() {
-		if (semanticsMapper == null) {
-			lock.lock();
-			try {
-				if (semanticsMapper == null) {
-					semanticsMapper = BiFunctionTypeMapper.<CityJSON, SemanticsType>create()
-							.with(RoofSurface.class, this::marshalRoofSurface)
-							.with(GroundSurface.class, this::marshalGroundSurface)
-							.with(WallSurface.class, this::marshalWallSurface)
-							.with(ClosureSurface.class, this::marshalClosureSurface)
-							.with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
-							.with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
-							.with(Window.class, this::marshalWindow)
-							.with(Door.class, this::marshalDoor);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
-
-		return semanticsMapper;
-	}
-
-	public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
-		return getTypeMapper().apply(src, cityJSON);
-	}
-
-	public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
-		return getSemanticsMapper().apply(src, cityJSON);
-	}
-
-	public void marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractSite(src, dest, cityJSON);
-
-		BuildingAttributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
-
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
-
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
-
-		if (src.isSetMeasuredHeight())
-			attributes.setMeasuredHeight(src.getMeasuredHeight().getValue());
-
-		if (src.isSetRoofType())
-			attributes.setRoofType(src.getRoofType().getValue());
-
-		if (src.isSetStoreysAboveGround())
-			attributes.setStoreysAboveGround(src.getStoreysAboveGround());
-
-		if (src.isSetStoreysBelowGround())
-			attributes.setStoreysBelowGround(src.getStoreysBelowGround());
-
-		if (src.isSetStoreyHeightsAboveGround()) {
-			for (DoubleOrNull value : src.getStoreyHeightsAboveGround().getDoubleOrNull()) {
-				if (value.isSetDouble())
-					attributes.addStoreyHeightsAboveGround(value.getDouble());
-			}
-		}
-
-		if (src.isSetStoreyHeightsBelowGround()) {
-			for (DoubleOrNull value : src.getStoreyHeightsBelowGround().getDoubleOrNull()) {
-				if (value.isSetDouble())
-					attributes.addStoreyHeightsBelowGround(value.getDouble());
-			}
-		}
-
-		if (src.isSetYearOfConstruction()) 
-			attributes.setYearOfConstruction(src.getYearOfConstruction().getYear());
-
-		if (src.isSetYearOfDemolition())
-			attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
-
-		if (src.isSetGenericApplicationPropertyOfAbstractBuilding())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAbstractBuilding(), dest, cityJSON);
-
-		SemanticSurfaceCollector collector = null;
-		if (src.isSetBoundedBySurface())
-			collector = preprocessGeometry(src);
-
-		MultiSurfaceProperty lod0Representation = src.isSetLod0FootPrint() ? src.getLod0FootPrint() : src.getLod0RoofEdge();
-		if (lod0Representation != null) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(lod0Representation, cityJSON);
-			if (geometry != null) {
-				geometry.setLod(0);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		if (src.isSetLod1MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		if (src.isSetLod2MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		if (src.isSetLod3MultiSurface()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		if (src.isSetLod1Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(1);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		if (src.isSetLod2Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		if (src.isSetLod3Solid()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		DuplicateGeometryRemover remover = null;
-		if (json.isRemoveDuplicateChildGeometries())
-			remover = new DuplicateGeometryRemover(dest);
-
-		if (src.isSetOuterBuildingInstallation()) {
-			for (BuildingInstallationProperty property : src.getOuterBuildingInstallation()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
-				if (cityObject instanceof BuildingInstallationType) {
-					if (remover != null) {
-						remover.removeDuplicateGeometries(cityObject);
-						if (!cityObject.isSetGeometry())
-							continue;
-					}
-
-					dest.addChild(cityObject);
-					cityJSON.addCityObject(cityObject);
-				}
-			}
-		}
-
-		if (dest instanceof BuildingType && src.isSetConsistsOfBuildingPart()) {
-			for (BuildingPartProperty property : src.getConsistsOfBuildingPart()) {
-				AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
-				if (cityObject instanceof BuildingPartType) {
-					if (remover != null) {
-						remover.removeDuplicateGeometries(cityObject);
-						if (!cityObject.isSetGeometry())
-							continue;
-					}
-
-					dest.addChild(cityObject);
-					cityJSON.addCityObject(cityObject);
-				}
-			}
-		}
-		
-		if (src.isSetAddress()) {
-			for (AddressProperty property : src.getAddress()) {
-				if (property.isSetAddress()) {
-					dest.setAddress(citygml.getCoreMarshaller().marshalAddress(property.getAddress(), cityJSON));
-					break;
-				}
-			}
-		}
-
-		if (collector != null)
-			postprocessGeometry(src, collector);
-	}
-
-	public void marshalBuilding(Building src, BuildingType dest, CityJSON cityJSON) {
-		marshalAbstractBuilding(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfBuilding())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuilding(), dest, cityJSON);
-	}
-
-	public BuildingType marshalBuilding(Building src, CityJSON cityJSON) {
-		BuildingType dest = new BuildingType();
-		marshalBuilding(src, dest, cityJSON);
-
-		return dest;
-	}
-
-	public void marshalBuildingPart(BuildingPart src, BuildingPartType dest, CityJSON cityJSON) {
-		marshalAbstractBuilding(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfBuildingPart())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuildingPart(), dest, cityJSON);
-	}
-
-	public BuildingPartType marshalBuildingPart(BuildingPart src, CityJSON cityJSON) {
-		BuildingPartType dest = new BuildingPartType();
-		marshalBuildingPart(src, dest, cityJSON);
-
-		return dest;
-	}
-
-	public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
-
-		Attributes attributes = dest.getAttributes();
-		if (src.isSetClazz())
-			attributes.setClazz(src.getClazz().getValue());
-
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction()) {
-				if (function.isSetValue()) {
-					attributes.setFunction(function.getValue());
-					break;
-				}
-			}
-		}
-
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage()) {
-				if (usage.isSetValue()) {
-					attributes.setUsage(usage.getValue());
-					break;
-				}
-			}
-		}
-
-		if (src.isSetGenericApplicationPropertyOfBuildingInstallation())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuildingInstallation(), dest, cityJSON);
-
-		SemanticSurfaceCollector collector = null;
-		if (src.isSetBoundedBySurface())
-			collector = preprocessGeometry(src);
-
-		if (src.isSetLod2Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(2);
-				dest.addGeometry(geometry);
-			}
-		}
-
-		if (src.isSetLod3Geometry()) {
-			AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
-			if (geometry != null) {
-				geometry.setLod(3);
-				dest.addGeometry(geometry);
-			}
-		}
-		
-		if (src.isSetLod2ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
-		
-		if (src.isSetLod3ImplicitRepresentation()) {
-			GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
-			if (geometry != null)
-				dest.addGeometry(geometry);
-		}
-
-		if (collector != null)
-			postprocessGeometry(src, collector);
-	}
-
-	public BuildingInstallationType marshalBuildingInstallation(BuildingInstallation src, CityJSON cityJSON) {
-		BuildingInstallationType dest = new BuildingInstallationType();
-		marshalBuildingInstallation(src, dest, cityJSON);
-
-		return dest;
-	}
-
-	public void marshalAbstractBoundarySurface(AbstractBoundarySurface src, SemanticsType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfBoundarySurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBoundarySurface(), dest, cityJSON);
-	}
-
-	public void marshalAbstractOpening(AbstractOpening src, SemanticsType dest, CityJSON cityJSON) {
-		citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfOpening())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOpening(), dest, cityJSON);
-	}
-
-	public SemanticsType marshalRoofSurface(RoofSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("RoofSurface");
-		marshalAbstractBoundarySurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfRoofSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfRoofSurface(), dest, cityJSON);
-
-		return dest;
-	}
-
-	public SemanticsType marshalGroundSurface(GroundSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("GroundSurface");
-		marshalAbstractBoundarySurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfGroundSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfGroundSurface(), dest, cityJSON);
-
-		return dest;
-	}
-
-	public SemanticsType marshalWallSurface(WallSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("WallSurface");
-		marshalAbstractBoundarySurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfWallSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWallSurface(), dest, cityJSON);
-
-		return dest;
-	}
-
-	public SemanticsType marshalClosureSurface(ClosureSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("ClosureSurface");
-		marshalAbstractBoundarySurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfClosureSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfClosureSurface(), dest, cityJSON);
-
-		return dest;
-	}
-
-	public SemanticsType marshalOuterCeilingSurface(OuterCeilingSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("OuterCeilingSurface");
-		marshalAbstractBoundarySurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfOuterCeilingSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOuterCeilingSurface(), dest, cityJSON);
-
-		return dest;
-	}
-
-	public SemanticsType marshalOuterFloorSurface(OuterFloorSurface src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("OuterFloorSurface");
-		marshalAbstractBoundarySurface(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfOuterFloorSurface())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOuterFloorSurface(), dest, cityJSON);
-
-		return dest;
-	}
-
-	public SemanticsType marshalWindow(Window src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("Window");
-		marshalAbstractOpening(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfWindow())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWindow(), dest, cityJSON);
-
-		return dest;
-	}
-
-	public SemanticsType marshalDoor(Door src, CityJSON cityJSON) {
-		SemanticsType dest = new SemanticsType("Door");
-		marshalAbstractOpening(src, dest, cityJSON);
-
-		if (src.isSetGenericApplicationPropertyOfDoor())
-			json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfDoor(), dest, cityJSON);
-
-		return dest;
-	}
-
-	private SemanticSurfaceCollector preprocessGeometry(AbstractBuilding src) {
-		SemanticSurfaceCollector collector = collectBoundarySurfaces(src, src.getBoundedBySurface());
-
-		for (int lod = 2; lod < 4; lod++) {
-			if (collector.hasSurfaces(lod)) {
-				if (lod == 2)
-					collector.assignSurfaces(src::getLod2MultiSurface, src::setLod2MultiSurface, lod);
-				else
-					collector.assignSurfaces(src::getLod3MultiSurface, src::setLod3MultiSurface, lod);
-			}
-		}
-
-		return collector;
-	}
-
-	private void postprocessGeometry(AbstractBuilding src, SemanticSurfaceCollector collector) {
-		for (int lod = 2; lod < 4; lod++) {
-			if (collector.hasSurfaces(lod)) {
-				if (lod == 2)
-					collector.clean(src::getLod2MultiSurface, src::unsetLod2MultiSurface);
-				else
-					collector.clean(src::getLod3MultiSurface, src::unsetLod3MultiSurface);
-			}
-		}
-	}
-
-	private SemanticSurfaceCollector preprocessGeometry(BuildingInstallation src) {
-		SemanticSurfaceCollector collector = collectBoundarySurfaces(src, src.getBoundedBySurface());
-
-		for (int lod = 2; lod < 4; lod++) {
-			if (collector.hasSurfaces(lod)) {
-				if (lod == 2)
-					collector.assignSurfaces(src::getLod2Geometry, src::setLod2Geometry, lod);
-				else
-					collector.assignSurfaces(src::getLod3Geometry, src::setLod3Geometry, lod);
-			}
-		}
-
-		return collector;
-	}
-
-	private void postprocessGeometry(BuildingInstallation src, SemanticSurfaceCollector collector) {
-		for (int lod = 2; lod < 4; lod++) {
-			if (collector.hasSurfaces(lod)) {
-				if (lod == 2)
-					collector.clean(src::getLod2Geometry, src::unsetLod2Geometry);
-				else
-					collector.clean(src::getLod3Geometry, src::unsetLod3Geometry);
-			}
-		}
-	}
-
-	private SemanticSurfaceCollector collectBoundarySurfaces(AbstractCityObject cityObject, List<BoundarySurfaceProperty> boundaryProperties) {
-		SemanticSurfaceCollector collector = new SemanticSurfaceCollector(cityObject);
-
-		for (BoundarySurfaceProperty boundaryProperty : boundaryProperties) {
-			if (boundaryProperty.isSetBoundarySurface()) {
-				AbstractBoundarySurface boundarySurface = boundaryProperty.getBoundarySurface();
-				collector.collectSurfaces(boundarySurface, 2, 3);
-				collector.collectSurfaces(boundarySurface.getOpening(), 2, 3);
-			}
-		}
-
-		return collector;
-	}
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityJSONMarshaller json;
+    private final CityGMLMarshaller citygml;
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> typeMapper;
+    private BiFunctionTypeMapper<CityJSON, SemanticsType> semanticsMapper;
+
+    public BuildingMarshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        json = citygml.getCityJSONMarshaller();
+    }
+
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+                            .with(Building.class, this::marshalBuilding)
+                            .with(BuildingPart.class, this::marshalBuildingPart)
+                            .with(BuildingInstallation.class, this::marshalBuildingInstallation);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        return typeMapper;
+    }
+
+    private BiFunctionTypeMapper<CityJSON, SemanticsType> getSemanticsMapper() {
+        if (semanticsMapper == null) {
+            lock.lock();
+            try {
+                if (semanticsMapper == null) {
+                    semanticsMapper = BiFunctionTypeMapper.<CityJSON, SemanticsType>create()
+                            .with(RoofSurface.class, this::marshalRoofSurface)
+                            .with(GroundSurface.class, this::marshalGroundSurface)
+                            .with(WallSurface.class, this::marshalWallSurface)
+                            .with(ClosureSurface.class, this::marshalClosureSurface)
+                            .with(OuterCeilingSurface.class, this::marshalOuterCeilingSurface)
+                            .with(OuterFloorSurface.class, this::marshalOuterFloorSurface)
+                            .with(Window.class, this::marshalWindow)
+                            .with(Door.class, this::marshalDoor);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        return semanticsMapper;
+    }
+
+    public AbstractCityObjectType marshal(ModelObject src, CityJSON cityJSON) {
+        return getTypeMapper().apply(src, cityJSON);
+    }
+
+    public SemanticsType marshalSemanticSurface(AbstractCityObject src, CityJSON cityJSON) {
+        return getSemanticsMapper().apply(src, cityJSON);
+    }
+
+    public void marshalAbstractBuilding(AbstractBuilding src, AbstractBuildingType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractSite(src, dest, cityJSON);
+
+        BuildingAttributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
+
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetMeasuredHeight())
+            attributes.setMeasuredHeight(src.getMeasuredHeight().getValue());
+
+        if (src.isSetRoofType())
+            attributes.setRoofType(src.getRoofType().getValue());
+
+        if (src.isSetStoreysAboveGround())
+            attributes.setStoreysAboveGround(src.getStoreysAboveGround());
+
+        if (src.isSetStoreysBelowGround())
+            attributes.setStoreysBelowGround(src.getStoreysBelowGround());
+
+        if (src.isSetStoreyHeightsAboveGround()) {
+            for (DoubleOrNull value : src.getStoreyHeightsAboveGround().getDoubleOrNull()) {
+                if (value.isSetDouble())
+                    attributes.addStoreyHeightsAboveGround(value.getDouble());
+            }
+        }
+
+        if (src.isSetStoreyHeightsBelowGround()) {
+            for (DoubleOrNull value : src.getStoreyHeightsBelowGround().getDoubleOrNull()) {
+                if (value.isSetDouble())
+                    attributes.addStoreyHeightsBelowGround(value.getDouble());
+            }
+        }
+
+        if (src.isSetYearOfConstruction())
+            attributes.setYearOfConstruction(src.getYearOfConstruction().getYear());
+
+        if (src.isSetYearOfDemolition())
+            attributes.setYearOfDemolition(src.getYearOfDemolition().getYear());
+
+        if (src.isSetGenericApplicationPropertyOfAbstractBuilding())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfAbstractBuilding(), dest, cityJSON);
+
+        SemanticSurfaceCollector collector = null;
+        if (src.isSetBoundedBySurface())
+            collector = preprocessGeometry(src);
+
+        MultiSurfaceProperty lod0Representation = src.isSetLod0FootPrint() ? src.getLod0FootPrint() : src.getLod0RoofEdge();
+        if (lod0Representation != null) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(lod0Representation, cityJSON);
+            if (geometry != null) {
+                geometry.setLod(0);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod1MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod2MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod3MultiSurface()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3MultiSurface(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod1Solid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod1Solid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(1);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod2Solid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Solid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod3Solid()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Solid(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        DuplicateGeometryRemover remover = null;
+        if (json.isRemoveDuplicateChildGeometries())
+            remover = new DuplicateGeometryRemover(dest);
+
+        if (src.isSetOuterBuildingInstallation()) {
+            for (BuildingInstallationProperty property : src.getOuterBuildingInstallation()) {
+                AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
+                if (cityObject instanceof BuildingInstallationType) {
+                    if (remover != null) {
+                        remover.removeDuplicateGeometries(cityObject);
+                        if (!cityObject.isSetGeometry())
+                            continue;
+                    }
+
+                    dest.addChild(cityObject);
+                    cityJSON.addCityObject(cityObject);
+                }
+            }
+        }
+
+        if (dest instanceof BuildingType && src.isSetConsistsOfBuildingPart()) {
+            for (BuildingPartProperty property : src.getConsistsOfBuildingPart()) {
+                AbstractCityObjectType cityObject = json.getGMLMarshaller().marshalFeatureProperty(property, cityJSON);
+                if (cityObject instanceof BuildingPartType) {
+                    if (remover != null) {
+                        remover.removeDuplicateGeometries(cityObject);
+                        if (!cityObject.isSetGeometry())
+                            continue;
+                    }
+
+                    dest.addChild(cityObject);
+                    cityJSON.addCityObject(cityObject);
+                }
+            }
+        }
+
+        if (src.isSetAddress()) {
+            for (AddressProperty property : src.getAddress()) {
+                if (property.isSetAddress()) {
+                    dest.setAddress(citygml.getCoreMarshaller().marshalAddress(property.getAddress(), cityJSON));
+                    break;
+                }
+            }
+        }
+
+        if (collector != null)
+            postprocessGeometry(src, collector);
+    }
+
+    public void marshalBuilding(Building src, BuildingType dest, CityJSON cityJSON) {
+        marshalAbstractBuilding(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfBuilding())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuilding(), dest, cityJSON);
+    }
+
+    public BuildingType marshalBuilding(Building src, CityJSON cityJSON) {
+        BuildingType dest = new BuildingType();
+        marshalBuilding(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public void marshalBuildingPart(BuildingPart src, BuildingPartType dest, CityJSON cityJSON) {
+        marshalAbstractBuilding(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfBuildingPart())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuildingPart(), dest, cityJSON);
+    }
+
+    public BuildingPartType marshalBuildingPart(BuildingPart src, CityJSON cityJSON) {
+        BuildingPartType dest = new BuildingPartType();
+        marshalBuildingPart(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public void marshalBuildingInstallation(BuildingInstallation src, BuildingInstallationType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalAbstractCityObject(src, dest, cityJSON);
+
+        Attributes attributes = dest.getAttributes();
+        if (src.isSetClazz())
+            attributes.setClazz(src.getClazz().getValue());
+
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction()) {
+                if (function.isSetValue()) {
+                    attributes.setFunction(function.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage()) {
+                if (usage.isSetValue()) {
+                    attributes.setUsage(usage.getValue());
+                    break;
+                }
+            }
+        }
+
+        if (src.isSetGenericApplicationPropertyOfBuildingInstallation())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBuildingInstallation(), dest, cityJSON);
+
+        SemanticSurfaceCollector collector = null;
+        if (src.isSetBoundedBySurface())
+            collector = preprocessGeometry(src);
+
+        if (src.isSetLod2Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod2Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(2);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod3Geometry()) {
+            AbstractGeometryObjectType geometry = json.getGMLMarshaller().marshalGeometryProperty(src.getLod3Geometry(), cityJSON);
+            if (geometry != null) {
+                geometry.setLod(3);
+                dest.addGeometry(geometry);
+            }
+        }
+
+        if (src.isSetLod2ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod2ImplicitRepresentation(), 2, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+
+        if (src.isSetLod3ImplicitRepresentation()) {
+            GeometryInstanceType geometry = citygml.getCoreMarshaller().marshalImplicitRepresentationProperty(src.getLod3ImplicitRepresentation(), 3, cityJSON);
+            if (geometry != null)
+                dest.addGeometry(geometry);
+        }
+
+        if (collector != null)
+            postprocessGeometry(src, collector);
+    }
+
+    public BuildingInstallationType marshalBuildingInstallation(BuildingInstallation src, CityJSON cityJSON) {
+        BuildingInstallationType dest = new BuildingInstallationType();
+        marshalBuildingInstallation(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public void marshalAbstractBoundarySurface(AbstractBoundarySurface src, SemanticsType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfBoundarySurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfBoundarySurface(), dest, cityJSON);
+    }
+
+    public void marshalAbstractOpening(AbstractOpening src, SemanticsType dest, CityJSON cityJSON) {
+        citygml.getCoreMarshaller().marshalSemanticSurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfOpening())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOpening(), dest, cityJSON);
+    }
+
+    public SemanticsType marshalRoofSurface(RoofSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("RoofSurface");
+        marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfRoofSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfRoofSurface(), dest, cityJSON);
+
+        return dest;
+    }
+
+    public SemanticsType marshalGroundSurface(GroundSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("GroundSurface");
+        marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfGroundSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfGroundSurface(), dest, cityJSON);
+
+        return dest;
+    }
+
+    public SemanticsType marshalWallSurface(WallSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("WallSurface");
+        marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfWallSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWallSurface(), dest, cityJSON);
+
+        return dest;
+    }
+
+    public SemanticsType marshalClosureSurface(ClosureSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("ClosureSurface");
+        marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfClosureSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfClosureSurface(), dest, cityJSON);
+
+        return dest;
+    }
+
+    public SemanticsType marshalOuterCeilingSurface(OuterCeilingSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("OuterCeilingSurface");
+        marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfOuterCeilingSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOuterCeilingSurface(), dest, cityJSON);
+
+        return dest;
+    }
+
+    public SemanticsType marshalOuterFloorSurface(OuterFloorSurface src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("OuterFloorSurface");
+        marshalAbstractBoundarySurface(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfOuterFloorSurface())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfOuterFloorSurface(), dest, cityJSON);
+
+        return dest;
+    }
+
+    public SemanticsType marshalWindow(Window src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("Window");
+        marshalAbstractOpening(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfWindow())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfWindow(), dest, cityJSON);
+
+        return dest;
+    }
+
+    public SemanticsType marshalDoor(Door src, CityJSON cityJSON) {
+        SemanticsType dest = new SemanticsType("Door");
+        marshalAbstractOpening(src, dest, cityJSON);
+
+        if (src.isSetGenericApplicationPropertyOfDoor())
+            json.getADEMarshaller().marshal(src.getGenericApplicationPropertyOfDoor(), dest, cityJSON);
+
+        return dest;
+    }
+
+    private SemanticSurfaceCollector preprocessGeometry(AbstractBuilding src) {
+        SemanticSurfaceCollector collector = collectBoundarySurfaces(src, src.getBoundedBySurface());
+
+        for (int lod = 2; lod < 4; lod++) {
+            if (collector.hasSurfaces(lod)) {
+                if (lod == 2)
+                    collector.assignSurfaces(src::getLod2MultiSurface, src::setLod2MultiSurface, lod);
+                else
+                    collector.assignSurfaces(src::getLod3MultiSurface, src::setLod3MultiSurface, lod);
+            }
+        }
+
+        return collector;
+    }
+
+    private void postprocessGeometry(AbstractBuilding src, SemanticSurfaceCollector collector) {
+        for (int lod = 2; lod < 4; lod++) {
+            if (collector.hasSurfaces(lod)) {
+                if (lod == 2)
+                    collector.clean(src::getLod2MultiSurface, src::unsetLod2MultiSurface);
+                else
+                    collector.clean(src::getLod3MultiSurface, src::unsetLod3MultiSurface);
+            }
+        }
+    }
+
+    private SemanticSurfaceCollector preprocessGeometry(BuildingInstallation src) {
+        SemanticSurfaceCollector collector = collectBoundarySurfaces(src, src.getBoundedBySurface());
+
+        for (int lod = 2; lod < 4; lod++) {
+            if (collector.hasSurfaces(lod)) {
+                if (lod == 2)
+                    collector.assignSurfaces(src::getLod2Geometry, src::setLod2Geometry, lod);
+                else
+                    collector.assignSurfaces(src::getLod3Geometry, src::setLod3Geometry, lod);
+            }
+        }
+
+        return collector;
+    }
+
+    private void postprocessGeometry(BuildingInstallation src, SemanticSurfaceCollector collector) {
+        for (int lod = 2; lod < 4; lod++) {
+            if (collector.hasSurfaces(lod)) {
+                if (lod == 2)
+                    collector.clean(src::getLod2Geometry, src::unsetLod2Geometry);
+                else
+                    collector.clean(src::getLod3Geometry, src::unsetLod3Geometry);
+            }
+        }
+    }
+
+    private SemanticSurfaceCollector collectBoundarySurfaces(AbstractCityObject cityObject, List<BoundarySurfaceProperty> boundaryProperties) {
+        SemanticSurfaceCollector collector = new SemanticSurfaceCollector(cityObject);
+
+        for (BoundarySurfaceProperty boundaryProperty : boundaryProperties) {
+            if (boundaryProperty.isSetBoundarySurface()) {
+                AbstractBoundarySurface boundarySurface = boundaryProperty.getBoundarySurface();
+                collector.collectSurfaces(boundarySurface, 2, 3);
+                collector.collectSurfaces(boundarySurface.getOpening(), 2, 3);
+            }
+        }
+
+        return collector;
+    }
 }

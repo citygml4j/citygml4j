@@ -27,62 +27,62 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CityFurnitureModule extends AbstractCityGMLModule {
-	private static final List<CityFurnitureModule> instances = new ArrayList<CityFurnitureModule>();
+    private static final List<CityFurnitureModule> instances = new ArrayList<CityFurnitureModule>();
 
-	public static final CityFurnitureModule v2_0_0;
-	public static final CityFurnitureModule v1_0_0;
+    public static final CityFurnitureModule v2_0_0;
+    public static final CityFurnitureModule v1_0_0;
 
-	private CityFurnitureModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);		
-		instances.add(this);
-	}
+    private CityFurnitureModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0_0 = new CityFurnitureModule (
-				CityGMLModuleType.CITY_FURNITURE,
-				CityGMLModuleVersion.v2_0_0,
-				"http://www.opengis.net/citygml/cityfurniture/2.0",
-				"frn",
-				"http://schemas.opengis.net/citygml/cityfurniture/2.0/cityFurniture.xsd",			
-				CoreModule.v2_0_0);
-		
-		v1_0_0 = new CityFurnitureModule (
-				CityGMLModuleType.CITY_FURNITURE,
-				CityGMLModuleVersion.v1_0_0,
-				"http://www.opengis.net/citygml/cityfurniture/1.0",
-				"frn",
-				"http://schemas.opengis.net/citygml/cityfurniture/1.0/cityFurniture.xsd",			
-				CoreModule.v1_0_0);
+    static {
+        v2_0_0 = new CityFurnitureModule(
+                CityGMLModuleType.CITY_FURNITURE,
+                CityGMLModuleVersion.v2_0_0,
+                "http://www.opengis.net/citygml/cityfurniture/2.0",
+                "frn",
+                "http://schemas.opengis.net/citygml/cityfurniture/2.0/cityFurniture.xsd",
+                CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
-		v2_0_0.features.put("CityFurniture", CityFurniture.class);
-		v1_0_0.features = v2_0_0.features;
-	}
+        v1_0_0 = new CityFurnitureModule(
+                CityGMLModuleType.CITY_FURNITURE,
+                CityGMLModuleVersion.v1_0_0,
+                "http://www.opengis.net/citygml/cityfurniture/1.0",
+                "frn",
+                "http://schemas.opengis.net/citygml/cityfurniture/1.0/cityFurniture.xsd",
+                CoreModule.v1_0_0);
 
-	public static List<CityFurnitureModule> getInstances() {
-		return instances;
-	}
-	
-	public static CityFurnitureModule getInstance(CityGMLModuleVersion version) {
-		switch (version) {
-		case v2_0_0:
-			return v2_0_0;
-		case v1_0_0:
-			return v1_0_0;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return "CityFurniture".equals(name);
-	}
-	
+        v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
+        v2_0_0.features.put("CityFurniture", CityFurniture.class);
+        v1_0_0.features = v2_0_0.features;
+    }
+
+    public static List<CityFurnitureModule> getInstances() {
+        return instances;
+    }
+
+    public static CityFurnitureModule getInstance(CityGMLModuleVersion version) {
+        switch (version) {
+            case v2_0_0:
+                return v2_0_0;
+            case v1_0_0:
+                return v1_0_0;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return "CityFurniture".equals(name);
+    }
+
 }

@@ -26,62 +26,62 @@ import java.util.List;
 
 public class SolidArrayProperty extends GeometryArrayProperty<AbstractSolid> {
 
-	public SolidArrayProperty() {
+    public SolidArrayProperty() {
 
-	}
+    }
 
-	public SolidArrayProperty(AbstractSolid abstractSolid) {
-		super(abstractSolid);
-	}
+    public SolidArrayProperty(AbstractSolid abstractSolid) {
+        super(abstractSolid);
+    }
 
-	public SolidArrayProperty(List<AbstractSolid> abstractSolid) {
-		super(abstractSolid);
-	}
-	
-	public SolidArrayProperty(AbstractSolid... abstractSolid) {
-		super(abstractSolid);
-	}
-	
-	public void addSolid(AbstractSolid abstractSolid) {
-		super.addGeometry(abstractSolid);
-	}
+    public SolidArrayProperty(List<AbstractSolid> abstractSolid) {
+        super(abstractSolid);
+    }
 
-	public List<? extends AbstractSolid> getSolid() {
-		return super.getGeometry();
-	}
+    public SolidArrayProperty(AbstractSolid... abstractSolid) {
+        super(abstractSolid);
+    }
 
-	public boolean isSetSolid() {
-		return super.isSetGeometry();
-	}
+    public void addSolid(AbstractSolid abstractSolid) {
+        super.addGeometry(abstractSolid);
+    }
 
-	@SuppressWarnings("unchecked")
-	public void setSolid(List<? extends AbstractSolid> abstractSolid) {
-		super.setGeometry((List<AbstractSolid>)abstractSolid);
-	}
+    public List<? extends AbstractSolid> getSolid() {
+        return super.getGeometry();
+    }
 
-	public void unsetSolid() {
-		super.unsetGeometry();
-	}
+    public boolean isSetSolid() {
+        return super.isSetGeometry();
+    }
 
-	public boolean unsetSolid(AbstractSolid abstractSolid) {
-		return super.unsetGeometry(abstractSolid);
-	}
+    @SuppressWarnings("unchecked")
+    public void setSolid(List<? extends AbstractSolid> abstractSolid) {
+        super.setGeometry((List<AbstractSolid>) abstractSolid);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.SOLID_ARRAY_PROPERTY;
-	}
+    public void unsetSolid() {
+        super.unsetGeometry();
+    }
 
-	public Class<AbstractSolid> getAssociableClass() {
-		return AbstractSolid.class;
-	}
+    public boolean unsetSolid(AbstractSolid abstractSolid) {
+        return super.unsetGeometry(abstractSolid);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SolidArrayProperty(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SOLID_ARRAY_PROPERTY;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SolidArrayProperty copy = (target == null) ? new SolidArrayProperty() : (SolidArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Class<AbstractSolid> getAssociableClass() {
+        return AbstractSolid.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SolidArrayProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SolidArrayProperty copy = (target == null) ? new SolidArrayProperty() : (SolidArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

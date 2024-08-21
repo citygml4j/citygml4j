@@ -32,120 +32,125 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class ADEModule extends AbstractModule {
-	private final CityGMLVersion cityGMLVersion;
-	private List<Module> adeDependencies;
-	
-	public ADEModule (
-			ModuleType type, 
-			ModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			CityGMLVersion cityGMLVersion) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, (Module)null);
-		this.cityGMLVersion = cityGMLVersion;
-		adeDependencies = new ArrayList<>(cityGMLVersion.getModules());
-	}
-	
-	public ADEModule (
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			CityGMLVersion cityGMLVersion) {
-		this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, namespacePrefix, schemaLocation, cityGMLVersion);
-	}
-	
-	public ADEModule (
-			String namespaceURI, 
-			String namespacePrefix, 
-			CityGMLVersion cityGMLVersion) {
-		this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, namespacePrefix, null, cityGMLVersion);
-	}
-	
-	public ADEModule (
-			String namespaceURI, 
-			CityGMLVersion cityGMLVersion) {
-		this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, null, null, cityGMLVersion);
-	}
+    private final CityGMLVersion cityGMLVersion;
+    private List<Module> adeDependencies;
 
-	public URL getSchemaResource() {
-		return null;
-	}
+    public ADEModule(
+            ModuleType type,
+            ModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            CityGMLVersion cityGMLVersion) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, (Module) null);
+        this.cityGMLVersion = cityGMLVersion;
+        adeDependencies = new ArrayList<>(cityGMLVersion.getModules());
+    }
 
-	public abstract List<String> getJAXBPackageNames();
+    public ADEModule(
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            CityGMLVersion cityGMLVersion) {
+        this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, namespacePrefix, schemaLocation, cityGMLVersion);
+    }
 
-	@Override
-	public abstract boolean hasFeatureProperty(String name);
-	@Override
-	public abstract boolean hasFeature(String name);
-	@Override
-	public abstract Class<? extends AbstractFeature> getFeatureClass(String name);
-	@Override
-	public abstract QName getFeatureName(Class<? extends AbstractFeature> featureClass);
-	@Override
-	public abstract Map<String, Class<? extends AbstractFeature>> getFeatures();
-	@Override
-	public abstract boolean isTopLevelFeature(String name);
+    public ADEModule(
+            String namespaceURI,
+            String namespacePrefix,
+            CityGMLVersion cityGMLVersion) {
+        this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, namespacePrefix, null, cityGMLVersion);
+    }
 
-	@Override
-	public final ADEModuleType getType() {
-		return (ADEModuleType)super.getType();
-	}
+    public ADEModule(
+            String namespaceURI,
+            CityGMLVersion cityGMLVersion) {
+        this(new ADEModuleType(), new ADEModuleVersion(), namespaceURI, null, null, cityGMLVersion);
+    }
 
-	@Override
-	public final ADEModuleVersion getVersion() {
-		return (ADEModuleVersion)super.getVersion();
-	}
+    public URL getSchemaResource() {
+        return null;
+    }
 
-	@Override
-	public final String getNamespaceURI() {
-		return super.getNamespaceURI();
-	}
+    public abstract List<String> getJAXBPackageNames();
 
-	@Override
-	public final String getNamespacePrefix() {
-		return super.getNamespacePrefix();
-	}
-	
-	public final void setNamespacePrefix(String prefix) {
-		if (prefix != null && prefix.trim().length() != 0)
-			namespacePrefix = prefix;
-	}
+    @Override
+    public abstract boolean hasFeatureProperty(String name);
 
-	@Override
-	public final String getSchemaLocation() {
-		return super.getSchemaLocation();
-	}
+    @Override
+    public abstract boolean hasFeature(String name);
 
-	@Override
-	public final Module[] getDependencies() {
-		return adeDependencies.toArray(new Module[0]);
-	}
+    @Override
+    public abstract Class<? extends AbstractFeature> getFeatureClass(String name);
 
-	@Override
-	public final boolean isDependentOn(Module module, boolean transitive) {
-		if (adeDependencies != null) {
-			for (Module dependency : adeDependencies) {
-				if (module == dependency)
-					return true;
+    @Override
+    public abstract QName getFeatureName(Class<? extends AbstractFeature> featureClass);
 
-				if (transitive && dependency.isDependentOn(module, transitive))
-					return true;			
-			}
-		}
+    @Override
+    public abstract Map<String, Class<? extends AbstractFeature>> getFeatures();
 
-		return false;
-	}
-	
-	public final void addADEModuleDependency(ADEModule module) {
-		if (adeDependencies == null)
-			adeDependencies = new ArrayList<>();
+    @Override
+    public abstract boolean isTopLevelFeature(String name);
 
-		adeDependencies.add(module);
-	}
-	
-	public final CityGMLVersion getCityGMLVersion() {
-		return cityGMLVersion;
-	}
+    @Override
+    public final ADEModuleType getType() {
+        return (ADEModuleType) super.getType();
+    }
+
+    @Override
+    public final ADEModuleVersion getVersion() {
+        return (ADEModuleVersion) super.getVersion();
+    }
+
+    @Override
+    public final String getNamespaceURI() {
+        return super.getNamespaceURI();
+    }
+
+    @Override
+    public final String getNamespacePrefix() {
+        return super.getNamespacePrefix();
+    }
+
+    public final void setNamespacePrefix(String prefix) {
+        if (prefix != null && prefix.trim().length() != 0)
+            namespacePrefix = prefix;
+    }
+
+    @Override
+    public final String getSchemaLocation() {
+        return super.getSchemaLocation();
+    }
+
+    @Override
+    public final Module[] getDependencies() {
+        return adeDependencies.toArray(new Module[0]);
+    }
+
+    @Override
+    public final boolean isDependentOn(Module module, boolean transitive) {
+        if (adeDependencies != null) {
+            for (Module dependency : adeDependencies) {
+                if (module == dependency)
+                    return true;
+
+                if (transitive && dependency.isDependentOn(module, transitive))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    public final void addADEModuleDependency(ADEModule module) {
+        if (adeDependencies == null)
+            adeDependencies = new ArrayList<>();
+
+        adeDependencies.add(module);
+    }
+
+    public final CityGMLVersion getCityGMLVersion() {
+        return cityGMLVersion;
+    }
 
 }

@@ -27,76 +27,74 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.*;
 
 public class ADEWalkerHelper<T extends Walker> {
-	private Deque<ADEWalker<T>> walkers;
-	private Map<String, SimpleEntry<ADEWalker<T>, Method>> methods;
-	private Class<?> returnType;
+    private Deque<ADEWalker<T>> walkers;
+    private Map<String, SimpleEntry<ADEWalker<T>, Method>> methods;
+    private Class<?> returnType;
 
-	public ADEWalkerHelper() {
-		walkers = new ArrayDeque<>();
-		methods = new HashMap<>();
-	}
+    public ADEWalkerHelper() {
+        walkers = new ArrayDeque<>();
+        methods = new HashMap<>();
+    }
 
-	public void addADEWalker(ADEWalker<T> walker) {
-		walkers.addFirst(walker);
-		if (!methods.isEmpty())
-			methods.clear();
-	}
+    public void addADEWalker(ADEWalker<T> walker) {
+        walkers.addFirst(walker);
+        if (!methods.isEmpty())
+            methods.clear();
+    }
 
-	public Object invokeWalkerMethod(ADEModelObject adeModelObject, String methodName) {
-		String key = getKey(adeModelObject, methodName);
+    public Object invokeWalkerMethod(ADEModelObject adeModelObject, String methodName) {
+        String key = getKey(adeModelObject, methodName);
 
-		ADEWalker<T> walker = null;
-		Method method = null;
+        ADEWalker<T> walker = null;
+        Method method = null;
 
-		SimpleEntry<ADEWalker<T>, Method> entry = methods.get(key);
-		if (entry != null) {
-			walker = entry.getKey();
-			method = entry.getValue();
-		}
+        SimpleEntry<ADEWalker<T>, Method> entry = methods.get(key);
+        if (entry != null) {
+            walker = entry.getKey();
+            method = entry.getValue();
+        } else {
+            for (Iterator<ADEWalker<T>> iter = walkers.iterator(); iter.hasNext(); ) {
+                walker = iter.next();
+                if (walker != null) {
+                    try {
+                        method = walker.getClass().getMethod(methodName, adeModelObject.getClass());
+                        method.setAccessible(true);
+                        methods.put(key, new SimpleEntry<>(walker, method));
+                        break;
+                    } catch (NoSuchMethodException | SecurityException e) {
+                        //
+                    }
+                }
+            }
 
-		else {
-			for (Iterator<ADEWalker<T>> iter = walkers.iterator(); iter.hasNext();) {
-				walker = iter.next();
-				if (walker != null) {
-					try {
-						method = walker.getClass().getMethod(methodName, adeModelObject.getClass());
-						method.setAccessible(true);
-						methods.put(key, new SimpleEntry<>(walker, method));
-						break;
-					} catch (NoSuchMethodException | SecurityException e) {
-						//
-					}
-				}
-			}
-			
-			if (method == null)
-				methods.put(key, new SimpleEntry<>(null, null));
-		}
+            if (method == null)
+                methods.put(key, new SimpleEntry<>(null, null));
+        }
 
-		if (method != null) {
-			try {
-				Object returnValue = method.invoke(walker, adeModelObject);
-				if (returnValue != null && returnType.isInstance(returnValue))
-					return returnValue;
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				//
-			}
-		}
+        if (method != null) {
+            try {
+                Object returnValue = method.invoke(walker, adeModelObject);
+                if (returnValue != null && returnType.isInstance(returnValue))
+                    return returnValue;
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                //
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public void inferFunctionType(T parent, Class<?> genericSuperClass) {		
-		Class<?> cls = parent.getClass();
-		while (!(cls.getSuperclass() == null || cls.getSuperclass().equals(genericSuperClass)))
-			cls = cls.getSuperclass();
+    public void inferFunctionType(T parent, Class<?> genericSuperClass) {
+        Class<?> cls = parent.getClass();
+        while (!(cls.getSuperclass() == null || cls.getSuperclass().equals(genericSuperClass)))
+            cls = cls.getSuperclass();
 
-		if (cls.getSuperclass() != null)
-			returnType = (Class<?>)((ParameterizedType)cls.getGenericSuperclass()).getActualTypeArguments()[0];
-	}
+        if (cls.getSuperclass() != null)
+            returnType = (Class<?>) ((ParameterizedType) cls.getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 
-	private String getKey(ADEModelObject adeModelObject, String methodName) {
-		return adeModelObject.getClass().getName() + '.' + methodName;
-	}
+    private String getKey(ADEModelObject adeModelObject, String methodName) {
+        return adeModelObject.getClass().getName() + '.' + methodName;
+    }
 
 }

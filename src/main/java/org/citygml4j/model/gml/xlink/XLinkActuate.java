@@ -24,45 +24,45 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public enum XLinkActuate implements GML, Copyable {
-	ON_LOAD("onLoad"),
-	ON_REQUEST("onRequest"),
-	OTHER("other"),
-	NONE("none");
+    ON_LOAD("onLoad"),
+    ON_REQUEST("onRequest"),
+    OTHER("other"),
+    NONE("none");
 
-	private final String value;
+    private final String value;
 
-	XLinkActuate(String v) {
-		value = v;
-	}
+    XLinkActuate(String v) {
+        value = v;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static XLinkActuate fromValue(String v) {
-		v = v.trim();
+    public static XLinkActuate fromValue(String v) {
+        v = v.trim();
 
-		for (XLinkActuate c: XLinkActuate.values())
-			if (c.value.equals(v))
-				return c;
+        for (XLinkActuate c : XLinkActuate.values())
+            if (c.value.equals(v))
+                return c;
 
-		return NONE;
-	}
+        return NONE;
+    }
 
-	public String toString() {
-		return value;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.XLINK_ACTUATE;
-	}
+    public String toString() {
+        return value;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? NONE : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.XLINK_ACTUATE;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? NONE : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
 
 }

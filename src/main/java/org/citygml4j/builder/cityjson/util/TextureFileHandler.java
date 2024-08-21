@@ -19,5 +19,5 @@
 package org.citygml4j.builder.cityjson.util;
 
 public interface TextureFileHandler {
-	public String getImageURI(String imageURI);
+    public String getImageURI(String imageURI);
 }

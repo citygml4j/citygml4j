@@ -28,78 +28,78 @@ import java.util.HashSet;
 import java.util.List;
 
 public class TransportationModule extends AbstractCityGMLModule {
-	private static final List<TransportationModule> instances = new ArrayList<TransportationModule>();
+    private static final List<TransportationModule> instances = new ArrayList<TransportationModule>();
 
-	public static final TransportationModule v2_0_0;
-	public static final TransportationModule v1_0_0;
+    public static final TransportationModule v2_0_0;
+    public static final TransportationModule v1_0_0;
 
-	private TransportationModule (
-			CityGMLModuleType type, 
-			CityGMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);		
-		instances.add(this);
-	}
+    private TransportationModule(
+            CityGMLModuleType type,
+            CityGMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
 
-	static {
-		v2_0_0 = new TransportationModule (
-				CityGMLModuleType.TRANSPORTATION,
-				CityGMLModuleVersion.v2_0_0,
-				"http://www.opengis.net/citygml/transportation/2.0",
-				"tran",
-				"http://schemas.opengis.net/citygml/transportation/2.0/transportation.xsd",			
-				CoreModule.v2_0_0);
-		
-		v1_0_0 = new TransportationModule (
-				CityGMLModuleType.TRANSPORTATION,
-				CityGMLModuleVersion.v1_0_0,
-				"http://www.opengis.net/citygml/transportation/1.0",
-				"tran",
-				"http://schemas.opengis.net/citygml/transportation/1.0/transportation.xsd",			
-				CoreModule.v1_0_0);
+    static {
+        v2_0_0 = new TransportationModule(
+                CityGMLModuleType.TRANSPORTATION,
+                CityGMLModuleVersion.v2_0_0,
+                "http://www.opengis.net/citygml/transportation/2.0",
+                "tran",
+                "http://schemas.opengis.net/citygml/transportation/2.0/transportation.xsd",
+                CoreModule.v2_0_0);
 
-		v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
-		v2_0_0.features.put("TransportationComplex", TransportationComplex.class);
-		v2_0_0.features.put("AuxiliaryTrafficArea", AuxiliaryTrafficArea.class);
-		v2_0_0.features.put("TrafficArea", TrafficArea.class);
-		v2_0_0.features.put("Square", Square.class);
-		v2_0_0.features.put("Track", Track.class);
-		v2_0_0.features.put("Railway", Railway.class);
-		v2_0_0.features.put("Road", Road.class);
-		v2_0_0.features.put("_TransportationObject", AbstractTransportationObject.class);
-		v1_0_0.features = v2_0_0.features;
-		
-		v2_0_0.featureProperties = new HashSet<String>();
-		v2_0_0.featureProperties.add("trafficArea");
-		v2_0_0.featureProperties.add("auxiliaryTrafficArea");
-		v1_0_0.featureProperties = v2_0_0.featureProperties;
-	}
+        v1_0_0 = new TransportationModule(
+                CityGMLModuleType.TRANSPORTATION,
+                CityGMLModuleVersion.v1_0_0,
+                "http://www.opengis.net/citygml/transportation/1.0",
+                "tran",
+                "http://schemas.opengis.net/citygml/transportation/1.0/transportation.xsd",
+                CoreModule.v1_0_0);
 
-	public static List<TransportationModule> getInstances() {
-		return instances;
-	}
-	
-	public static TransportationModule getInstance(CityGMLModuleVersion version) {
-		switch (version) {
-		case v2_0_0:
-			return v2_0_0;
-		case v1_0_0:
-			return v1_0_0;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return "TransportationComplex".equals(name)
-				|| "Road".equals(name)
-				|| "Railway".equals(name)
-				|| "Track".equals(name)
-				|| "Square".equals(name);
-	}
+        v2_0_0.features = new HashMap<String, Class<? extends AbstractFeature>>();
+        v2_0_0.features.put("TransportationComplex", TransportationComplex.class);
+        v2_0_0.features.put("AuxiliaryTrafficArea", AuxiliaryTrafficArea.class);
+        v2_0_0.features.put("TrafficArea", TrafficArea.class);
+        v2_0_0.features.put("Square", Square.class);
+        v2_0_0.features.put("Track", Track.class);
+        v2_0_0.features.put("Railway", Railway.class);
+        v2_0_0.features.put("Road", Road.class);
+        v2_0_0.features.put("_TransportationObject", AbstractTransportationObject.class);
+        v1_0_0.features = v2_0_0.features;
+
+        v2_0_0.featureProperties = new HashSet<String>();
+        v2_0_0.featureProperties.add("trafficArea");
+        v2_0_0.featureProperties.add("auxiliaryTrafficArea");
+        v1_0_0.featureProperties = v2_0_0.featureProperties;
+    }
+
+    public static List<TransportationModule> getInstances() {
+        return instances;
+    }
+
+    public static TransportationModule getInstance(CityGMLModuleVersion version) {
+        switch (version) {
+            case v2_0_0:
+                return v2_0_0;
+            case v1_0_0:
+                return v1_0_0;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return "TransportationComplex".equals(name)
+                || "Road".equals(name)
+                || "Railway".equals(name)
+                || "Track".equals(name)
+                || "Square".equals(name);
+    }
 
 }

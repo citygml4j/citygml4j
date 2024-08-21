@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class BoundedByWaterSurfaceProperty extends FeatureProperty<AbstractWaterBoundarySurface> implements WaterBodyModuleComponent {
 
-	public BoundedByWaterSurfaceProperty() {
-		
-	}
-	
-	public BoundedByWaterSurfaceProperty(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
-		super(abstractWaterBoundarySurface);
-	}
-	
-	public BoundedByWaterSurfaceProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractWaterBoundarySurface getWaterBoundarySurface() {
-		return super.getObject();
-	}
+    public BoundedByWaterSurfaceProperty() {
 
-	public boolean isSetWaterBoundarySurface() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setWaterBoundarySurface(AbstractWaterBoundarySurface waterBoundarySurface) {
-		super.setObject(waterBoundarySurface);
-	}
+    public BoundedByWaterSurfaceProperty(AbstractWaterBoundarySurface abstractWaterBoundarySurface) {
+        super(abstractWaterBoundarySurface);
+    }
 
-	public void unsetWaterBoundarySurface() {
-		super.unsetObject();
-	}
+    public BoundedByWaterSurfaceProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BOUNDED_BY_WATER_SURFACE_PROPERTY;
-	}
+    public AbstractWaterBoundarySurface getWaterBoundarySurface() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<AbstractWaterBoundarySurface> getAssociableClass() {
-		return AbstractWaterBoundarySurface.class;
-	}
+    public boolean isSetWaterBoundarySurface() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BoundedByWaterSurfaceProperty(), copyBuilder);
-	}
+    public void setWaterBoundarySurface(AbstractWaterBoundarySurface waterBoundarySurface) {
+        super.setObject(waterBoundarySurface);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BoundedByWaterSurfaceProperty copy = (target == null) ? new BoundedByWaterSurfaceProperty() : (BoundedByWaterSurfaceProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetWaterBoundarySurface() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BOUNDED_BY_WATER_SURFACE_PROPERTY;
+    }
+
+    @Override
+    public Class<AbstractWaterBoundarySurface> getAssociableClass() {
+        return AbstractWaterBoundarySurface.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BoundedByWaterSurfaceProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BoundedByWaterSurfaceProperty copy = (target == null) ? new BoundedByWaterSurfaceProperty() : (BoundedByWaterSurfaceProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

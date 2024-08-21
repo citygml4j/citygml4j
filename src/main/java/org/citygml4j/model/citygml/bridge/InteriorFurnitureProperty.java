@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class InteriorFurnitureProperty extends FeatureProperty<BridgeFurniture> implements BridgeModuleComponent {
 
-	public InteriorFurnitureProperty() {
-		
-	}
-	
-	public InteriorFurnitureProperty(BridgeFurniture bridgeFurniture) {
-		super(bridgeFurniture);
-	}
-	
-	public InteriorFurnitureProperty(String href) {
-		super(href);
-	}
-	
-	public BridgeFurniture getBridgeFurniture() {
-		return super.getObject();
-	}
+    public InteriorFurnitureProperty() {
 
-	public boolean isSetBridgeFurniture() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setBridgeFurniture(BridgeFurniture bridgeFurniture) {
-		super.setObject(bridgeFurniture);
-	}
+    public InteriorFurnitureProperty(BridgeFurniture bridgeFurniture) {
+        super(bridgeFurniture);
+    }
 
-	public void unsetBridgeFurniture() {
-		super.unsetObject();
-	}
+    public InteriorFurnitureProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_BRIDGE_FURNITURE_PROPERTY;
-	}
+    public BridgeFurniture getBridgeFurniture() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<BridgeFurniture> getAssociableClass() {
-		return BridgeFurniture.class;
-	}
+    public boolean isSetBridgeFurniture() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new InteriorFurnitureProperty(), copyBuilder);
-	}
+    public void setBridgeFurniture(BridgeFurniture bridgeFurniture) {
+        super.setObject(bridgeFurniture);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetBridgeFurniture() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INTERIOR_BRIDGE_FURNITURE_PROPERTY;
+    }
+
+    @Override
+    public Class<BridgeFurniture> getAssociableClass() {
+        return BridgeFurniture.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new InteriorFurnitureProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

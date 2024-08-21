@@ -24,43 +24,43 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public enum Sign implements GML, Copyable {
-	PLUS("+"),
-	MINUS("-");
-	
-	private final String value;
+    PLUS("+"),
+    MINUS("-");
 
-	Sign(String v) {
-		value = v;
-	}
+    private final String value;
 
-	public String getValue() {
-		return value;
-	}
+    Sign(String v) {
+        value = v;
+    }
 
-	public static Sign fromValue(String v) {
-		v = v.trim();
+    public String getValue() {
+        return value;
+    }
 
-		for (Sign c: Sign.values())
-			if (c.value.equals(v))
-				return c;
+    public static Sign fromValue(String v) {
+        v = v.trim();
 
-		return PLUS;
-	}
+        for (Sign c : Sign.values())
+            if (c.value.equals(v))
+                return c;
 
-	public String toString() {
-		return value;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.SIGN;
-	}
+        return PLUS;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? PLUS : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
+    public String toString() {
+        return value;
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.SIGN;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? PLUS : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
 
 }

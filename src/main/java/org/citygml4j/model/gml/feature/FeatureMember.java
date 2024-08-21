@@ -23,32 +23,32 @@ import org.citygml4j.model.gml.GMLClass;
 
 public class FeatureMember extends FeatureProperty<AbstractFeature> {
 
-	public FeatureMember() {
-		
-	}
-	
-	public FeatureMember(AbstractFeature abstractFeature) {
-		super(abstractFeature);
-	}
-	
-	public FeatureMember(String href) {
-		super(href);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.FEATURE_MEMBER;
-	}
+    public FeatureMember() {
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		FeatureMember copy = (target == null) ? new FeatureMember() : (FeatureMember)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new FeatureMember(), copyBuilder);
-	}
+    public FeatureMember(AbstractFeature abstractFeature) {
+        super(abstractFeature);
+    }
+
+    public FeatureMember(String href) {
+        super(href);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.FEATURE_MEMBER;
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        FeatureMember copy = (target == null) ? new FeatureMember() : (FeatureMember) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new FeatureMember(), copyBuilder);
+    }
 
 }

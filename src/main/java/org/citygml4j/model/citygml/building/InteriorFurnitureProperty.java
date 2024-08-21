@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class InteriorFurnitureProperty extends FeatureProperty<BuildingFurniture> implements BuildingModuleComponent {
 
-	public InteriorFurnitureProperty() {
-		
-	}
-	
-	public InteriorFurnitureProperty(BuildingFurniture buildingFurniture) {
-		super(buildingFurniture);
-	}
-	
-	public InteriorFurnitureProperty(String href) {
-		super(href);
-	}
-	
-	public BuildingFurniture getBuildingFurniture() {
-		return super.getObject();
-	}
+    public InteriorFurnitureProperty() {
 
-	public boolean isSetBuildingFurniture() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setBuildingFurniture(BuildingFurniture buildingFurniture) {
-		super.setObject(buildingFurniture);
-	}
+    public InteriorFurnitureProperty(BuildingFurniture buildingFurniture) {
+        super(buildingFurniture);
+    }
 
-	public void unsetBuildingFurniture() {
-		super.unsetObject();
-	}
+    public InteriorFurnitureProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_BUILDING_FURNITURE_PROPERTY;
-	}
+    public BuildingFurniture getBuildingFurniture() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<BuildingFurniture> getAssociableClass() {
-		return BuildingFurniture.class;
-	}
+    public boolean isSetBuildingFurniture() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new InteriorFurnitureProperty(), copyBuilder);
-	}
+    public void setBuildingFurniture(BuildingFurniture buildingFurniture) {
+        super.setObject(buildingFurniture);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetBuildingFurniture() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INTERIOR_BUILDING_FURNITURE_PROPERTY;
+    }
+
+    @Override
+    public Class<BuildingFurniture> getAssociableClass() {
+        return BuildingFurniture.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new InteriorFurnitureProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        InteriorFurnitureProperty copy = (target == null) ? new InteriorFurnitureProperty() : (InteriorFurnitureProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

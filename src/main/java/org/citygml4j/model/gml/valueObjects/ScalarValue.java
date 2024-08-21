@@ -29,156 +29,156 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class ScalarValue implements GML, Child, Copyable {
-	private Boolean _boolean;
-	private Code category;
-	private Measure quantity;
-	private Integer count;
-	private ModelObject parent;
-	
-	public ScalarValue() {
-		
-	}
-	
-	public ScalarValue(boolean _boolean) {
-		this._boolean = _boolean;
-	}
-	
-	public ScalarValue(Code category) {
-		setCategory(category);
-	}
-	
-	public ScalarValue(Measure quantity) {
-		setQuantity(quantity);
-	}
-	
-	public ScalarValue(Integer count) {
-		this.count = count;
-	}
+    private Boolean _boolean;
+    private Code category;
+    private Measure quantity;
+    private Integer count;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.SCALAR_VALUE;
-	}
+    public ScalarValue() {
 
-	public Boolean getBoolean() {
-		return _boolean;
-	}
+    }
 
-	public Code getCategory() {
-		return category;
-	}
+    public ScalarValue(boolean _boolean) {
+        this._boolean = _boolean;
+    }
 
-	public Measure getQuantity() {
-		return quantity;
-	}
+    public ScalarValue(Code category) {
+        setCategory(category);
+    }
 
-	public Integer getCount() {
-		return count;
-	}
+    public ScalarValue(Measure quantity) {
+        setQuantity(quantity);
+    }
 
-	public boolean isSetBoolean() {
-		return _boolean != null;
-	}
+    public ScalarValue(Integer count) {
+        this.count = count;
+    }
 
-	public boolean isSetCategory() {
-		return category != null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SCALAR_VALUE;
+    }
 
-	public boolean isSetQuantity() {
-		return quantity != null;
-	}
+    public Boolean getBoolean() {
+        return _boolean;
+    }
 
-	public boolean isSetCount() {
-		return count != null;
-	}
+    public Code getCategory() {
+        return category;
+    }
 
-	public void setBoolean(Boolean _boolean) {
-		this._boolean = _boolean;
-		unsetCategory();
-		unsetCount();
-		unsetQuantity();
-	}
+    public Measure getQuantity() {
+        return quantity;
+    }
 
-	public void setCategory(Code category) {
-		this.category = ModelObjects.setParent(category, this);
-		unsetBoolean();
-		unsetCount();
-		unsetQuantity();
-	}
+    public Integer getCount() {
+        return count;
+    }
 
-	public void setQuantity(Measure quantity) {
-		this.quantity = ModelObjects.setParent(quantity, this);
-		unsetBoolean();
-		unsetCategory();
-		unsetCount();
-	}
+    public boolean isSetBoolean() {
+        return _boolean != null;
+    }
 
-	public void setCount(Integer count) {
-		this.count = count;
-		unsetBoolean();
-		unsetCategory();
-		unsetQuantity();
-	}
+    public boolean isSetCategory() {
+        return category != null;
+    }
 
-	public void unsetBoolean() {
-		_boolean = null;
-	}
+    public boolean isSetQuantity() {
+        return quantity != null;
+    }
 
-	public void unsetCategory() {
-		category = ModelObjects.setNull(category);
-	}
+    public boolean isSetCount() {
+        return count != null;
+    }
 
-	public void unsetQuantity() {
-		quantity = ModelObjects.setNull(quantity);
-	}
+    public void setBoolean(Boolean _boolean) {
+        this._boolean = _boolean;
+        unsetCategory();
+        unsetCount();
+        unsetQuantity();
+    }
 
-	public void unsetCount() {
-		count = null;
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void setCategory(Code category) {
+        this.category = ModelObjects.setParent(category, this);
+        unsetBoolean();
+        unsetCount();
+        unsetQuantity();
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setQuantity(Measure quantity) {
+        this.quantity = ModelObjects.setParent(quantity, this);
+        unsetBoolean();
+        unsetCategory();
+        unsetCount();
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setCount(Integer count) {
+        this.count = count;
+        unsetBoolean();
+        unsetCategory();
+        unsetQuantity();
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetBoolean() {
+        _boolean = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ScalarValue copy = (target == null) ? new ScalarValue() : (ScalarValue)target;
-		
-		if (isSetBoolean())
-			copy.setBoolean(copyBuilder.copy(_boolean));
+    public void unsetCategory() {
+        category = ModelObjects.setNull(category);
+    }
 
-		if (isSetCategory()) {
-			copy.setCategory((Code)copyBuilder.copy(category));
-			if (copy.getCategory() == category)
-				category.setParent(this);
-		}
-		
-		if (isSetCount())
-			copy.setCount((Integer)copyBuilder.copy(count));
-		
-		if (isSetQuantity()) {
-			copy.setQuantity((Measure)copyBuilder.copy(quantity));
-			if (copy.getQuantity() == quantity)
-				quantity.setParent(this);
-		}
-		
-		copy.unsetParent();
+    public void unsetQuantity() {
+        quantity = ModelObjects.setNull(quantity);
+    }
 
-		return copy;
-	}
+    public void unsetCount() {
+        count = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ScalarValue(), copyBuilder);
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
+
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ScalarValue copy = (target == null) ? new ScalarValue() : (ScalarValue) target;
+
+        if (isSetBoolean())
+            copy.setBoolean(copyBuilder.copy(_boolean));
+
+        if (isSetCategory()) {
+            copy.setCategory((Code) copyBuilder.copy(category));
+            if (copy.getCategory() == category)
+                category.setParent(this);
+        }
+
+        if (isSetCount())
+            copy.setCount((Integer) copyBuilder.copy(count));
+
+        if (isSetQuantity()) {
+            copy.setQuantity((Measure) copyBuilder.copy(quantity));
+            if (copy.getQuantity() == quantity)
+                quantity.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ScalarValue(), copyBuilder);
+    }
 
 }

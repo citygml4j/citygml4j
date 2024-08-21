@@ -23,39 +23,45 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 
 public interface SRSReferenceGroup extends SRSInformationGroup {
-	String getSrsName();
-	Integer getSrsDimension();
-	boolean isSetSrsName();
-	boolean isSetSrsDimension();
+    String getSrsName();
 
-	void setSrsName(String srsName);
-	void setSrsDimension(Integer srsDimension);
-	void unsetSrsName();
-	void unsetSrsDimension();
+    Integer getSrsDimension();
 
-	default String getInheritedSrsName() {
-		if (getSrsName() == null && this instanceof Child) {
-			Child child = (Child) this;
-			ModelObject parent;
+    boolean isSetSrsName();
 
-			while ((parent = child.getParent()) != null) {
-				if (parent instanceof AbstractGeometry)
-					return ((AbstractGeometry)parent).getInheritedSrsName();
-				else if (parent instanceof AbstractFeature) {
-					AbstractFeature feature = (AbstractFeature)parent;
-					if (feature.isSetBoundedBy()
-							&& feature.getBoundedBy().isSetEnvelope()
-							&& feature.getBoundedBy().getEnvelope().isSetSrsName())
-						return feature.getBoundedBy().getEnvelope().getSrsName();
-				}
+    boolean isSetSrsDimension();
 
-				if (parent instanceof Child)
-					child = (Child) parent;
-				else
-					break;
-			}
-		}
+    void setSrsName(String srsName);
 
-		return getSrsName();
-	}
+    void setSrsDimension(Integer srsDimension);
+
+    void unsetSrsName();
+
+    void unsetSrsDimension();
+
+    default String getInheritedSrsName() {
+        if (getSrsName() == null && this instanceof Child) {
+            Child child = (Child) this;
+            ModelObject parent;
+
+            while ((parent = child.getParent()) != null) {
+                if (parent instanceof AbstractGeometry)
+                    return ((AbstractGeometry) parent).getInheritedSrsName();
+                else if (parent instanceof AbstractFeature) {
+                    AbstractFeature feature = (AbstractFeature) parent;
+                    if (feature.isSetBoundedBy()
+                            && feature.getBoundedBy().isSetEnvelope()
+                            && feature.getBoundedBy().getEnvelope().isSetSrsName())
+                        return feature.getBoundedBy().getEnvelope().getSrsName();
+                }
+
+                if (parent instanceof Child)
+                    child = (Child) parent;
+                else
+                    break;
+            }
+        }
+
+        return getSrsName();
+    }
 }

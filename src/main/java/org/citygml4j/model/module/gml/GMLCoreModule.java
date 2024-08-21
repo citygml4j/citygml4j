@@ -24,53 +24,53 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class GMLCoreModule extends AbstractGMLModule {	
-	private static final List<GMLCoreModule> instances = new ArrayList<GMLCoreModule>();
-	public static final GMLCoreModule v3_1_1;
-	
-	HashSet<String> featureProperties;
-	
-	private GMLCoreModule (
-			GMLModuleType type,
-			GMLModuleVersion version,
-			String namespaceURI, 
-			String namespacePrefix, 
-			String schemaLocation,
-			Module... dependencies) {
-		super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
-		instances.add(this);
-	}
-	
-	static {
-		v3_1_1 = new GMLCoreModule (
-				GMLModuleType.CORE,
-				GMLModuleVersion.v3_1_1,
-				"http://www.opengis.net/gml", 
-				"gml", 
-				"http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
-		
-		v3_1_1.featureProperties = new HashSet<>();
-		v3_1_1.featureProperties.add("featureMember");
-		v3_1_1.featureProperties.add("featureProperty");
-		v3_1_1.featureProperties.add("featureMembers");
-	}
+public class GMLCoreModule extends AbstractGMLModule {
+    private static final List<GMLCoreModule> instances = new ArrayList<GMLCoreModule>();
+    public static final GMLCoreModule v3_1_1;
 
-	public static List<GMLCoreModule> getInstances() {
-		return instances;
-	}
-	
-	public static GMLCoreModule getInstance(GMLModuleVersion version) {
-		switch (version) {
-		case v3_1_1:
-			return v3_1_1;
-		default:
-			return null;
-		}
-	}
-	
-	@Override
-	public boolean hasFeatureProperty(String name) {
-		return featureProperties.contains(name);
-	}
-	
+    HashSet<String> featureProperties;
+
+    private GMLCoreModule(
+            GMLModuleType type,
+            GMLModuleVersion version,
+            String namespaceURI,
+            String namespacePrefix,
+            String schemaLocation,
+            Module... dependencies) {
+        super(type, version, namespaceURI, namespacePrefix, schemaLocation, dependencies);
+        instances.add(this);
+    }
+
+    static {
+        v3_1_1 = new GMLCoreModule(
+                GMLModuleType.CORE,
+                GMLModuleVersion.v3_1_1,
+                "http://www.opengis.net/gml",
+                "gml",
+                "http://schemas.opengis.net/gml/3.1.1/base/gml.xsd");
+
+        v3_1_1.featureProperties = new HashSet<>();
+        v3_1_1.featureProperties.add("featureMember");
+        v3_1_1.featureProperties.add("featureProperty");
+        v3_1_1.featureProperties.add("featureMembers");
+    }
+
+    public static List<GMLCoreModule> getInstances() {
+        return instances;
+    }
+
+    public static GMLCoreModule getInstance(GMLModuleVersion version) {
+        switch (version) {
+            case v3_1_1:
+                return v3_1_1;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean hasFeatureProperty(String name) {
+        return featureProperties.contains(name);
+    }
+
 }

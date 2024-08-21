@@ -25,45 +25,45 @@ import org.citygml4j.model.xal.AddressDetails;
 
 public class XalAddressProperty extends AssociationByRep<AddressDetails> implements CoreModuleComponent {
 
-	public XalAddressProperty() {
-		
-	}
-	
-	public XalAddressProperty(AddressDetails addressDetails) {
-		super(addressDetails);
-	}
-	
-	public AddressDetails getAddressDetails() {
-		return super.getObject();
-	}
+    public XalAddressProperty() {
 
-	public boolean isSetAddressDetails() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setAddressDetails(AddressDetails addressDetails) {
-		super.setObject(addressDetails);
-	}
+    public XalAddressProperty(AddressDetails addressDetails) {
+        super(addressDetails);
+    }
 
-	public void unsetAddressDetails() {
-		super.unsetObject();
-	}
+    public AddressDetails getAddressDetails() {
+        return super.getObject();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.XAL_ADDRESS_PROPERTY;
-	}
+    public boolean isSetAddressDetails() {
+        return super.isSetObject();
+    }
 
-	public Class<AddressDetails> getAssociableClass() {
-		return AddressDetails.class;
-	}
+    public void setAddressDetails(AddressDetails addressDetails) {
+        super.setObject(addressDetails);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new XalAddressProperty(), copyBuilder);
-	}
+    public void unsetAddressDetails() {
+        super.unsetObject();
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		XalAddressProperty copy = (target == null) ? new XalAddressProperty() : (XalAddressProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.XAL_ADDRESS_PROPERTY;
+    }
+
+    public Class<AddressDetails> getAssociableClass() {
+        return AddressDetails.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new XalAddressProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        XalAddressProperty copy = (target == null) ? new XalAddressProperty() : (XalAddressProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

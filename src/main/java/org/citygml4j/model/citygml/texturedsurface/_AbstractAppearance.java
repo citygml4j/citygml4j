@@ -22,14 +22,14 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.gml.base.AbstractGML;
 
 public abstract class _AbstractAppearance extends AbstractGML implements TexturedSurfaceModuleComponent {
-	
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-		_AbstractAppearance copy = (_AbstractAppearance)target;		
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        _AbstractAppearance copy = (_AbstractAppearance) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

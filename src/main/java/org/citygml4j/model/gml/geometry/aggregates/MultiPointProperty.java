@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiPointProperty extends GeometryProperty<MultiPoint> {
 
-	public MultiPointProperty() {
+    public MultiPointProperty() {
 
-	}
+    }
 
-	public MultiPointProperty(MultiPoint multiPoint) {
-		super(multiPoint);
-	}
+    public MultiPointProperty(MultiPoint multiPoint) {
+        super(multiPoint);
+    }
 
-	public MultiPointProperty(String href) {
-		super(href);
-	}
-	
-	public MultiPoint getMultiPoint() {
-		return super.getGeometry();
-	}
+    public MultiPointProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetMultiPoint() {
-		return super.isSetGeometry();
-	}
+    public MultiPoint getMultiPoint() {
+        return super.getGeometry();
+    }
 
-	public void setMultiPoint(MultiPoint multiPoint) {
-		super.setGeometry(multiPoint);
-	}
+    public boolean isSetMultiPoint() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetMultiPoint() {
-		super.unsetGeometry();
-	}
+    public void setMultiPoint(MultiPoint multiPoint) {
+        super.setGeometry(multiPoint);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_POINT_PROPERTY;
-	}
+    public void unsetMultiPoint() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<MultiPoint> getAssociableClass() {
-		return MultiPoint.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_POINT_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiPointProperty(), copyBuilder);
-	}
+    @Override
+    public Class<MultiPoint> getAssociableClass() {
+        return MultiPoint.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiPointProperty copy = (target == null) ? new MultiPointProperty() : (MultiPointProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiPointProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiPointProperty copy = (target == null) ? new MultiPointProperty() : (MultiPointProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

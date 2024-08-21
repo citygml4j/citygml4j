@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class InteriorRoomProperty extends FeatureProperty<Room> implements BuildingModuleComponent {
 
-	public InteriorRoomProperty() {
-		
-	}
-	
-	public InteriorRoomProperty(Room room) {
-		super(room);
-	}
-	
-	public InteriorRoomProperty(String href) {
-		super(href);
-	}
-	
-	public Room getRoom() {
-		return super.getObject();
-	}
+    public InteriorRoomProperty() {
 
-	public boolean isSetRoom() {
-		return super.isSetObject();
-	}
+    }
 
-	public void setRoom(Room room) {
-		super.setObject(room);
-	}
+    public InteriorRoomProperty(Room room) {
+        super(room);
+    }
 
-	public void unsetRoom() {
-		super.unsetObject();
-	}
+    public InteriorRoomProperty(String href) {
+        super(href);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.INTERIOR_ROOM_PROPERTY;
-	}
+    public Room getRoom() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<Room> getAssociableClass() {
-		return Room.class;
-	}
+    public boolean isSetRoom() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new InteriorRoomProperty(), copyBuilder);
-	}
+    public void setRoom(Room room) {
+        super.setObject(room);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		InteriorRoomProperty copy = (target == null) ? new InteriorRoomProperty() : (InteriorRoomProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetRoom() {
+        super.unsetObject();
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.INTERIOR_ROOM_PROPERTY;
+    }
+
+    @Override
+    public Class<Room> getAssociableClass() {
+        return Room.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new InteriorRoomProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        InteriorRoomProperty copy = (target == null) ? new InteriorRoomProperty() : (InteriorRoomProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

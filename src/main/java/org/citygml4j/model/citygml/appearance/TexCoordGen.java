@@ -30,98 +30,98 @@ import org.citygml4j.model.module.Module;
 import java.util.List;
 
 public class TexCoordGen extends AbstractTextureParameterization {
-	private WorldToTexture worldToTexture;
-	private List<ADEComponent> ade;
+    private WorldToTexture worldToTexture;
+    private List<ADEComponent> ade;
 
-	public TexCoordGen() {
+    public TexCoordGen() {
 
-	}
+    }
 
-	public TexCoordGen(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfTexCoordGen(ADEComponent ade) {
-		getGenericApplicationPropertyOfTexCoordGen().add(ade);
-	}
+    public TexCoordGen(Module module) {
+        super(module);
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfTexCoordGen() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public void addGenericApplicationPropertyOfTexCoordGen(ADEComponent ade) {
+        getGenericApplicationPropertyOfTexCoordGen().add(ade);
+    }
 
-		return ade;
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfTexCoordGen() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public WorldToTexture getWorldToTexture() {
-		return worldToTexture;
-	}
+        return ade;
+    }
 
-	public boolean isSetGenericApplicationPropertyOfTexCoordGen() {
-		return ade != null && !ade.isEmpty();
-	}
+    public WorldToTexture getWorldToTexture() {
+        return worldToTexture;
+    }
 
-	public boolean isSetWorldToTexture() {
-		return worldToTexture != null;
-	}
+    public boolean isSetGenericApplicationPropertyOfTexCoordGen() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public void setGenericApplicationPropertyOfTexCoordGen(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public boolean isSetWorldToTexture() {
+        return worldToTexture != null;
+    }
 
-	public void setWorldToTexture(WorldToTexture worldToTexture) {
-		this.worldToTexture = ModelObjects.setNull(worldToTexture);
-	}
+    public void setGenericApplicationPropertyOfTexCoordGen(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	public void unsetGenericApplicationPropertyOfTexCoordGen() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public void setWorldToTexture(WorldToTexture worldToTexture) {
+        this.worldToTexture = ModelObjects.setNull(worldToTexture);
+    }
 
-	public boolean unsetGenericApplicationPropertyOfTexCoordGen(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTexCoordGen() && this.ade.remove(ade);
-	}
+    public void unsetGenericApplicationPropertyOfTexCoordGen() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	public void unsetWorldToTexture() {
-		worldToTexture = ModelObjects.setNull(worldToTexture);
-	}
+    public boolean unsetGenericApplicationPropertyOfTexCoordGen(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfTexCoordGen() && this.ade.remove(ade);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TEX_COORD_GEN;
-	}
+    public void unsetWorldToTexture() {
+        worldToTexture = ModelObjects.setNull(worldToTexture);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TexCoordGen(), copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TEX_COORD_GEN;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TexCoordGen copy = (target == null) ? new TexCoordGen() : (TexCoordGen)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetWorldToTexture()) {
-			copy.setWorldToTexture((WorldToTexture)copyBuilder.copy(worldToTexture));
-			if (copy.getWorldToTexture() == worldToTexture)
-				worldToTexture.setParent(this);
-		}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TexCoordGen(), copyBuilder);
+    }
 
-		if (isSetGenericApplicationPropertyOfTexCoordGen()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfTexCoordGen(copyPart);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TexCoordGen copy = (target == null) ? new TexCoordGen() : (TexCoordGen) target;
+        super.copyTo(copy, copyBuilder);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        if (isSetWorldToTexture()) {
+            copy.setWorldToTexture((WorldToTexture) copyBuilder.copy(worldToTexture));
+            if (copy.getWorldToTexture() == worldToTexture)
+                worldToTexture.setParent(this);
+        }
+
+        if (isSetGenericApplicationPropertyOfTexCoordGen()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfTexCoordGen(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

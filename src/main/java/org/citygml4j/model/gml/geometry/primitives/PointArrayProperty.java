@@ -25,62 +25,62 @@ import org.citygml4j.model.gml.geometry.GeometryArrayProperty;
 import java.util.List;
 
 public class PointArrayProperty extends GeometryArrayProperty<Point> {
-	
-	public PointArrayProperty() {
 
-	}
+    public PointArrayProperty() {
 
-	public PointArrayProperty(Point point) {
-		super(point);
-	}
+    }
 
-	public PointArrayProperty(List<Point> point) {
-		super(point);
-	}
-	
-	public PointArrayProperty(Point... point) {
-		super(point);
-	}
-	
-	public void addPoint(Point point) {
-		super.addGeometry(point);
-	}
+    public PointArrayProperty(Point point) {
+        super(point);
+    }
 
-	public List<Point> getPoint() {
-		return super.getGeometry();
-	}
+    public PointArrayProperty(List<Point> point) {
+        super(point);
+    }
 
-	public boolean isSetPoint() {
-		return super.isSetGeometry();
-	}
+    public PointArrayProperty(Point... point) {
+        super(point);
+    }
 
-	public void setPoint(List<Point> point) {
-		super.setGeometry(point);
-	}
+    public void addPoint(Point point) {
+        super.addGeometry(point);
+    }
 
-	public void unsetPoint() {
-		super.unsetGeometry();
-	}
+    public List<Point> getPoint() {
+        return super.getGeometry();
+    }
 
-	public boolean unsetPoint(Point point) {
-		return super.unsetGeometry(point);
-	}
+    public boolean isSetPoint() {
+        return super.isSetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.POINT_ARRAY_PROPERTY;
-	}
+    public void setPoint(List<Point> point) {
+        super.setGeometry(point);
+    }
 
-	public Class<Point> getAssociableClass() {
-		return Point.class;
-	}
+    public void unsetPoint() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PointArrayProperty(), copyBuilder);
-	}
+    public boolean unsetPoint(Point point) {
+        return super.unsetGeometry(point);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PointArrayProperty copy = (target == null) ? new PointArrayProperty() : (PointArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.POINT_ARRAY_PROPERTY;
+    }
+
+    public Class<Point> getAssociableClass() {
+        return Point.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PointArrayProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PointArrayProperty copy = (target == null) ? new PointArrayProperty() : (PointArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

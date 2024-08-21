@@ -24,37 +24,67 @@ import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
 
 public interface AssociationAttributeGroup extends GML {
-	String getRemoteSchema();
-	XLinkType getType();
-	String getHref();
-	String getRole();
-	String getArcrole();
-	String getTitle();
-	XLinkShow getShow();
-	XLinkActuate getActuate();
-	boolean isSetRemoteSchema();
-	boolean isSetType();
-	boolean isSetHref();
-	boolean isSetRole();
-	boolean isSetArcrole();
-	boolean isSetTitle();
-	boolean isSetShow();
-	boolean isSetActuate();
+    String getRemoteSchema();
 
-	void setRemoteSchema(String remoteSchema);
-	void setType(XLinkType type);
-	void setHref(String href);
-	void setRole(String role);
-	void setArcrole(String arcrole);
-	void setTitle(String title);
-	void setShow(XLinkShow show);
-	void setActuate(XLinkActuate actuate);
-	void unsetRemoteSchema();
-	void unsetType();
-	void unsetHref();
-	void unsetRole();
-	void unsetArcrole();
-	void unsetTitle();
-	void unsetShow();
-	void unsetActuate();
+    XLinkType getType();
+
+    String getHref();
+
+    String getRole();
+
+    String getArcrole();
+
+    String getTitle();
+
+    XLinkShow getShow();
+
+    XLinkActuate getActuate();
+
+    boolean isSetRemoteSchema();
+
+    boolean isSetType();
+
+    boolean isSetHref();
+
+    boolean isSetRole();
+
+    boolean isSetArcrole();
+
+    boolean isSetTitle();
+
+    boolean isSetShow();
+
+    boolean isSetActuate();
+
+    void setRemoteSchema(String remoteSchema);
+
+    void setType(XLinkType type);
+
+    void setHref(String href);
+
+    void setRole(String role);
+
+    void setArcrole(String arcrole);
+
+    void setTitle(String title);
+
+    void setShow(XLinkShow show);
+
+    void setActuate(XLinkActuate actuate);
+
+    void unsetRemoteSchema();
+
+    void unsetType();
+
+    void unsetHref();
+
+    void unsetRole();
+
+    void unsetArcrole();
+
+    void unsetTitle();
+
+    void unsetShow();
+
+    void unsetActuate();
 }

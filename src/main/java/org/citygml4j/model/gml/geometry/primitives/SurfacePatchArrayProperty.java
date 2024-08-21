@@ -25,64 +25,64 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 import java.util.List;
 
 public class SurfacePatchArrayProperty extends ArrayAssociation<AbstractSurfacePatch> {
-	
-	public SurfacePatchArrayProperty() {
 
-	}
+    public SurfacePatchArrayProperty() {
 
-	public SurfacePatchArrayProperty(AbstractSurfacePatch abstractSurfacePatch) {
-		super(abstractSurfacePatch);
-	}
+    }
 
-	@SuppressWarnings("unchecked")
-	public SurfacePatchArrayProperty(List<? extends AbstractSurfacePatch> abstractSurfacePatch) {
-		super((List<AbstractSurfacePatch>)abstractSurfacePatch);
-	}
-	
-	public SurfacePatchArrayProperty(AbstractSurfacePatch... abstractSurfacePatch) {
-		super(abstractSurfacePatch);
-	}
-	
-	public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
-		super.addObject(surfacePatch);
-	}
+    public SurfacePatchArrayProperty(AbstractSurfacePatch abstractSurfacePatch) {
+        super(abstractSurfacePatch);
+    }
 
-	public List<? extends AbstractSurfacePatch> getSurfacePatch() {
-		return super.getObject();
-	}
+    @SuppressWarnings("unchecked")
+    public SurfacePatchArrayProperty(List<? extends AbstractSurfacePatch> abstractSurfacePatch) {
+        super((List<AbstractSurfacePatch>) abstractSurfacePatch);
+    }
 
-	public boolean isSetSurfacePatch() {
-		return super.isSetObject();
-	}
+    public SurfacePatchArrayProperty(AbstractSurfacePatch... abstractSurfacePatch) {
+        super(abstractSurfacePatch);
+    }
 
-	@SuppressWarnings("unchecked")
-	public void setSurfacePatch(List<? extends AbstractSurfacePatch> surfacePatch) {
-		super.setObject((List<AbstractSurfacePatch>)surfacePatch);
-	}
+    public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
+        super.addObject(surfacePatch);
+    }
 
-	public void unsetSurfacePatch() {
-		super.unsetObject();
-	}
+    public List<? extends AbstractSurfacePatch> getSurfacePatch() {
+        return super.getObject();
+    }
 
-	public boolean unsetSurfacePatch(AbstractSurfacePatch surfacePatch) {
-		return super.unsetObject(surfacePatch);
-	}
+    public boolean isSetSurfacePatch() {
+        return super.isSetObject();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.SURFACE_ARRAY_PROPERTY;
-	}
+    @SuppressWarnings("unchecked")
+    public void setSurfacePatch(List<? extends AbstractSurfacePatch> surfacePatch) {
+        super.setObject((List<AbstractSurfacePatch>) surfacePatch);
+    }
 
-	public Class<AbstractSurfacePatch> getAssociableClass() {
-		return AbstractSurfacePatch.class;
-	}
+    public void unsetSurfacePatch() {
+        super.unsetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SurfacePatchArrayProperty(), copyBuilder);
-	}
+    public boolean unsetSurfacePatch(AbstractSurfacePatch surfacePatch) {
+        return super.unsetObject(surfacePatch);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SurfacePatchArrayProperty copy = (target == null) ? new SurfacePatchArrayProperty() : (SurfacePatchArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SURFACE_ARRAY_PROPERTY;
+    }
+
+    public Class<AbstractSurfacePatch> getAssociableClass() {
+        return AbstractSurfacePatch.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SurfacePatchArrayProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SurfacePatchArrayProperty copy = (target == null) ? new SurfacePatchArrayProperty() : (SurfacePatchArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

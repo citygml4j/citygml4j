@@ -27,100 +27,100 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class NameOrNull implements GML, Child, Copyable {
-	private String name;
-	private Null _null;
-	private ModelObject parent;
+    private String name;
+    private Null _null;
+    private ModelObject parent;
 
-	public NameOrNull() {
+    public NameOrNull() {
 
-	}
+    }
 
-	public NameOrNull(String name) {
-		setName(name);
-	}
+    public NameOrNull(String name) {
+        setName(name);
+    }
 
-	public NameOrNull(Null _null) {
-		setNull(_null);
-	}
+    public NameOrNull(Null _null) {
+        setNull(_null);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.NAME_OR_NULL;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.NAME_OR_NULL;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Null getNull() {
-		return _null;
-	}
+    public Null getNull() {
+        return _null;
+    }
 
-	public boolean isSetName() {
-		return name != null;
-	}
+    public boolean isSetName() {
+        return name != null;
+    }
 
-	public boolean isSetNull() {
-		return _null != null;
-	}
+    public boolean isSetNull() {
+        return _null != null;
+    }
 
-	public void setName(String name) {
-		if (name != null && name.length() > 0) {			
-			String[] split = name.trim().split("\\s");
-			if (split.length > 0) {
-				this.name = split[0];
-				unsetNull();
-			}
-		}
-	}
+    public void setName(String name) {
+        if (name != null && name.length() > 0) {
+            String[] split = name.trim().split("\\s");
+            if (split.length > 0) {
+                this.name = split[0];
+                unsetNull();
+            }
+        }
+    }
 
-	public void setNull(Null _null) {
-		this._null = ModelObjects.setParent(_null, this);
-		unsetName();
-	}
+    public void setNull(Null _null) {
+        this._null = ModelObjects.setParent(_null, this);
+        unsetName();
+    }
 
-	public void unsetName() {
-		name = null;
-	}
+    public void unsetName() {
+        name = null;
+    }
 
-	public void unsetNull() {
-		_null = ModelObjects.setNull(_null);
-	}
+    public void unsetNull() {
+        _null = ModelObjects.setNull(_null);
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NameOrNull(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new NameOrNull(), copyBuilder);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		NameOrNull copy = (target == null) ? new NameOrNull() : (NameOrNull)target;
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        NameOrNull copy = (target == null) ? new NameOrNull() : (NameOrNull) target;
 
-		if (isSetName())
-			copy.setName(copyBuilder.copy(name));
+        if (isSetName())
+            copy.setName(copyBuilder.copy(name));
 
-		if (isSetNull()) {
-			copy.setNull((Null)copyBuilder.copy(_null));
-			if (copy.getNull() == _null)
-				_null.setParent(this);
-		}
+        if (isSetNull()) {
+            copy.setNull((Null) copyBuilder.copy(_null));
+            if (copy.getNull() == _null)
+                _null.setParent(this);
+        }
 
-		copy.unsetParent();
+        copy.unsetParent();
 
-		return copy;
-	}
+        return copy;
+    }
 
 }

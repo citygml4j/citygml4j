@@ -23,5 +23,5 @@ import org.citygml4j.model.common.child.Child;
 import org.citygml4j.model.common.copy.Copyable;
 
 public interface ADEComponent extends CityGML, Child, Copyable {
-	public ADEClass getADEClass();
+    public ADEClass getADEClass();
 }

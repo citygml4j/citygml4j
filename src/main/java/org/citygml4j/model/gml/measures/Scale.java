@@ -23,28 +23,28 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class Scale extends Measure {
-	
-	public Scale() {
-	}
-	
-	public Scale(double value) {
-		super(value);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.SCALE;
-	}
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Scale(), copyBuilder);
-	}
+    public Scale() {
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Scale copy = (target == null) ? new Scale() : (Scale)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
+    public Scale(double value) {
+        super(value);
+    }
+
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.SCALE;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Scale(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Scale copy = (target == null) ? new Scale() : (Scale) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
 }

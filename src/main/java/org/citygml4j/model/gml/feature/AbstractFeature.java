@@ -32,138 +32,139 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public abstract class AbstractFeature extends AbstractGML {
-	private BoundingShape boundedBy;
-	private LocationProperty location;
-	private List<ADEGenericElement> genericADEElement;
-	private Module module;
+    private BoundingShape boundedBy;
+    private LocationProperty location;
+    private List<ADEGenericElement> genericADEElement;
+    private Module module;
 
-	public AbstractFeature() {
+    public AbstractFeature() {
 
-	}
+    }
 
-	public AbstractFeature(Module module) {
-		this.module = module;
-	}
+    public AbstractFeature(Module module) {
+        this.module = module;
+    }
 
-	public void addGenericADEElement(ADEGenericElement genericADEElement) {
-		getGenericADEElement().add(genericADEElement);
-	}
-	
-	public BoundingShape getBoundedBy() {
-		return boundedBy;
-	}
+    public void addGenericADEElement(ADEGenericElement genericADEElement) {
+        getGenericADEElement().add(genericADEElement);
+    }
 
-	public LocationProperty getLocation() {
-		return location;
-	}
-	
-	public List<ADEGenericElement> getGenericADEElement() {
-		if (genericADEElement == null)
-			genericADEElement = new ChildList<>(this);
-		
-		return genericADEElement;
-	}
+    public BoundingShape getBoundedBy() {
+        return boundedBy;
+    }
 
-	public boolean isSetBoundedBy() {
-		return boundedBy != null;
-	}
+    public LocationProperty getLocation() {
+        return location;
+    }
 
-	public boolean isSetLocation() {
-		return location != null;
-	}
-	
-	public boolean isSetGenericADEElement() {
-		return genericADEElement != null && !genericADEElement.isEmpty();
-	}
-	
-	public void setBoundedBy(BoundingShape boundingShape) {
-		if (boundingShape == null || !boundingShape.isEmpty())
-			boundedBy = ModelObjects.setParent(boundingShape, this);
-	}
+    public List<ADEGenericElement> getGenericADEElement() {
+        if (genericADEElement == null)
+            genericADEElement = new ChildList<>(this);
 
-	public void setLocation(LocationProperty location) {
-		this.location = ModelObjects.setParent(location, this);
-	}
-	
-	public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
-		this.genericADEElement = new ChildList<>(this, genericADEElement);
-	}
+        return genericADEElement;
+    }
 
-	public void unsetBoundedBy() {
-		boundedBy = ModelObjects.setNull(boundedBy);
-	}
+    public boolean isSetBoundedBy() {
+        return boundedBy != null;
+    }
 
-	public void unsetLocation() {
-		location = ModelObjects.setNull(location);
-	}
-	
-	public void unsetGenericADEElement() {
-		genericADEElement = ModelObjects.setNull(genericADEElement);
-	}
+    public boolean isSetLocation() {
+        return location != null;
+    }
 
-	public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
-		return isSetGenericADEElement() && this.genericADEElement.remove(genericADEElement);
-	}
+    public boolean isSetGenericADEElement() {
+        return genericADEElement != null && !genericADEElement.isEmpty();
+    }
 
-	public boolean isSetModule() {
-		return module != null;
-	}
+    public void setBoundedBy(BoundingShape boundingShape) {
+        if (boundingShape == null || !boundingShape.isEmpty())
+            boundedBy = ModelObjects.setParent(boundingShape, this);
+    }
 
-	public Module getModule() {
-		return module;
-	}
+    public void setLocation(LocationProperty location) {
+        this.location = ModelObjects.setParent(location, this);
+    }
 
-	public void setModule(Module module) {
-		this.module = module;
-	}
+    public void setGenericADEElement(List<ADEGenericElement> genericADEElement) {
+        this.genericADEElement = new ChildList<>(this, genericADEElement);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.ABSTRACT_FEATURE;
-	}
+    public void unsetBoundedBy() {
+        boundedBy = ModelObjects.setNull(boundedBy);
+    }
 
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		return (options.isUseExistingEnvelopes() && boundedBy != null && !boundedBy.isEmpty()) ? boundedBy : new BoundingShape();
-	}
+    public void unsetLocation() {
+        location = ModelObjects.setNull(location);
+    }
 
-	public SpatialRepresentation getSpatialRepresentation() {
-		// return an empty spatial representation per default
-		return SpatialRepresentation.emptyRepresentation();
-	}
+    public void unsetGenericADEElement() {
+        genericADEElement = ModelObjects.setNull(genericADEElement);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
-			throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+    public boolean unsetGenericADEElement(ADEGenericElement genericADEElement) {
+        return isSetGenericADEElement() && this.genericADEElement.remove(genericADEElement);
+    }
 
-		AbstractFeature copy = (AbstractFeature)target;
-		super.copyTo(copy, copyBuilder);
+    public boolean isSetModule() {
+        return module != null;
+    }
 
-		if (isSetBoundedBy()) {
-			copy.setBoundedBy((BoundingShape)copyBuilder.copy(boundedBy));
-			if (copy.getBoundedBy() == boundedBy)
-				boundedBy.setParent(this);
-		}
+    public Module getModule() {
+        return module;
+    }
 
-		if (isSetLocation()) {
-			copy.setLocation((LocationProperty)copyBuilder.copy(location));
-			if (copy.getLocation() == location)
-				location.setParent(this);
-		}
-		
-		if (isSetGenericADEElement()) {
-			for (ADEGenericElement part : genericADEElement) {
-				ADEGenericElement copyPart = (ADEGenericElement)copyBuilder.copy(part);
-				copy.addGenericADEElement(copyPart);
-				
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+    public void setModule(Module module) {
+        this.module = module;
+    }
 
-		return copy;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.ABSTRACT_FEATURE;
+    }
 
-	public abstract void accept(FeatureVisitor visitor);
-	public abstract <T> T accept(FeatureFunctor<T> visitor);
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        return (options.isUseExistingEnvelopes() && boundedBy != null && !boundedBy.isEmpty()) ? boundedBy : new BoundingShape();
+    }
+
+    public SpatialRepresentation getSpatialRepresentation() {
+        // return an empty spatial representation per default
+        return SpatialRepresentation.emptyRepresentation();
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
+            throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
+
+        AbstractFeature copy = (AbstractFeature) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetBoundedBy()) {
+            copy.setBoundedBy((BoundingShape) copyBuilder.copy(boundedBy));
+            if (copy.getBoundedBy() == boundedBy)
+                boundedBy.setParent(this);
+        }
+
+        if (isSetLocation()) {
+            copy.setLocation((LocationProperty) copyBuilder.copy(location));
+            if (copy.getLocation() == location)
+                location.setParent(this);
+        }
+
+        if (isSetGenericADEElement()) {
+            for (ADEGenericElement part : genericADEElement) {
+                ADEGenericElement copyPart = (ADEGenericElement) copyBuilder.copy(part);
+                copy.addGenericADEElement(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public abstract void accept(FeatureVisitor visitor);
+
+    public abstract <T> T accept(FeatureFunctor<T> visitor);
 
 }

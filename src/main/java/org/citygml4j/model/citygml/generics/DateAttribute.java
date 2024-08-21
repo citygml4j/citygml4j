@@ -26,63 +26,63 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class DateAttribute extends AbstractGenericAttribute {
-	private LocalDate value;
-	
-	public DateAttribute() {
-		
-	}
-	
-	public DateAttribute(LocalDate value) {
-		this.value = value;
-	}
-	
-	public DateAttribute(Date value) {
-		this.value = value.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-	}
-	
-	public DateAttribute(String name, LocalDate value) {
-		this(value);
-		setName(name);
-	}
-	
-	public DateAttribute(String name, Date value) {
-		this(value);
-		setName(name);
-	}
-	
-	public LocalDate getValue() {
-		return value;
-	}
+    private LocalDate value;
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public DateAttribute() {
 
-	public void setValue(LocalDate value) {
-		this.value = value;
-	}
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public DateAttribute(LocalDate value) {
+        this.value = value;
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.DATE_ATTRIBUTE;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new DateAttribute(), copyBuilder);
-	}
+    public DateAttribute(Date value) {
+        this.value = value.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		DateAttribute copy = (target == null) ? new DateAttribute() : (DateAttribute)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetValue())
-			copy.setValue((LocalDate)copyBuilder.copy(value));
-		
-		return copy;
-	}
+    public DateAttribute(String name, LocalDate value) {
+        this(value);
+        setName(name);
+    }
+
+    public DateAttribute(String name, Date value) {
+        this(value);
+        setName(name);
+    }
+
+    public LocalDate getValue() {
+        return value;
+    }
+
+    public boolean isSetValue() {
+        return value != null;
+    }
+
+    public void setValue(LocalDate value) {
+        this.value = value;
+    }
+
+    public void unsetValue() {
+        value = null;
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.DATE_ATTRIBUTE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new DateAttribute(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        DateAttribute copy = (target == null) ? new DateAttribute() : (DateAttribute) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetValue())
+            copy.setValue((LocalDate) copyBuilder.copy(value));
+
+        return copy;
+    }
 
 }

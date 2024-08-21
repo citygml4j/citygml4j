@@ -34,192 +34,192 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 public class JAXBChunkReader extends AbstractJAXBReader implements CityGMLReader {
-	private XMLChunkImpl current;
-	private XMLChunkImpl iterator;
+    private XMLChunkImpl current;
+    private XMLChunkImpl iterator;
 
-	private Stack<XMLChunkImpl> chunks;
-	private XMLChunkImpl chunk;
+    private Stack<XMLChunkImpl> chunks;
+    private XMLChunkImpl chunk;
 
-	private ElementInfo elementInfo;
-	private Stack<ElementInfo> elementInfos;
+    private ElementInfo elementInfo;
+    private Stack<ElementInfo> elementInfos;
 
-	private boolean isInited = false;
-	private boolean setXLink = false;
+    private boolean isInited = false;
+    private boolean setXLink = false;
 
-	public JAXBChunkReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
-		super(reader, in, factory, baseURI);
-		jaxbUnmarshaller.setParseSchema(false);
-		chunks = new Stack<XMLChunkImpl>();
-		elementInfos = new Stack<ElementInfo>();
-	}
+    public JAXBChunkReader(XMLStreamReader reader, InputStream in, JAXBInputFactory factory, URI baseURI) throws CityGMLReadException {
+        super(reader, in, factory, baseURI);
+        jaxbUnmarshaller.setParseSchema(false);
+        chunks = new Stack<XMLChunkImpl>();
+        elementInfos = new Stack<ElementInfo>();
+    }
 
-	public void close() throws CityGMLReadException {
-		super.close();
+    public void close() throws CityGMLReadException {
+        super.close();
 
-		current = null;
-		iterator = null;
-		chunks.clear();
-		chunk = null;
+        current = null;
+        iterator = null;
+        chunks.clear();
+        chunk = null;
 
-		elementInfos.clear();
-		elementInfo = null;
-	}
+        elementInfos.clear();
+        elementInfo = null;
+    }
 
-	public boolean hasNext() throws CityGMLReadException {
-		if (iterator == null) {
-			try {
-				iterator = (XMLChunkImpl)nextChunk();
-			} catch (NoSuchElementException e) {
-				//
-			}
-		}
+    public boolean hasNext() throws CityGMLReadException {
+        if (iterator == null) {
+            try {
+                iterator = (XMLChunkImpl) nextChunk();
+            } catch (NoSuchElementException e) {
+                //
+            }
+        }
 
-		return iterator != null;
-	}
+        return iterator != null;
+    }
 
-	public XMLChunk nextChunk() throws CityGMLReadException {
-		if (iterator == null) {
-			try {
-				current = null;
+    public XMLChunk nextChunk() throws CityGMLReadException {
+        if (iterator == null) {
+            try {
+                current = null;
 
-				while (reader.hasNext()) {
-					int event = reader.next();	
+                while (reader.hasNext()) {
+                    int event = reader.next();
 
-					// keep track of schema documents
-					if (event == XMLStreamConstants.START_ELEMENT && parseSchema) {
-						for (int i = 0; i < reader.getAttributeCount(); i++) {
-							if (reader.getAttributeLocalName(i).equals("schemaLocation"))
-								parseSchema(reader.getAttributeValue(i));					
-							else if (reader.getAttributeLocalName(i).equals("noNamespaceSchemaLocation"))
-								schemaHandler.parseSchema("", reader.getAttributeValue(i));
-						}
-					}
+                    // keep track of schema documents
+                    if (event == XMLStreamConstants.START_ELEMENT && parseSchema) {
+                        for (int i = 0; i < reader.getAttributeCount(); i++) {
+                            if (reader.getAttributeLocalName(i).equals("schemaLocation"))
+                                parseSchema(reader.getAttributeValue(i));
+                            else if (reader.getAttributeLocalName(i).equals("noNamespaceSchemaLocation"))
+                                schemaHandler.parseSchema("", reader.getAttributeValue(i));
+                        }
+                    }
 
-					// move to the next CityGML feature in the document
-					// and create a new chunk to initiate parsing
-					if (!isInited) {
-						if (event != XMLStreamConstants.START_ELEMENT)
-							continue;
+                    // move to the next CityGML feature in the document
+                    // and create a new chunk to initiate parsing
+                    if (!isInited) {
+                        if (event != XMLStreamConstants.START_ELEMENT)
+                            continue;
 
-						else {
-							elementInfo = elementChecker.getElementInfo(reader.getName());
+                        else {
+                            elementInfo = elementChecker.getElementInfo(reader.getName());
 
-							if (elementInfo != null && elementInfo.isFeature()) {
-								isInited = true;
-								chunks.clear();
+                            if (elementInfo != null && elementInfo.isFeature()) {
+                                isInited = true;
+                                chunks.clear();
 
-								chunk = new XMLChunkImpl(this, null);
-								chunk.setFirstElement(reader.getName());
+                                chunk = new XMLChunkImpl(this, null);
+                                chunk.setFirstElement(reader.getName());
 
-								if (isFilteredReader())
-									chunk.setIsFiltered(!filter.accept(reader.getName()));
-							} else
-								continue;
-						}						
-					}
+                                if (isFilteredReader())
+                                    chunk.setIsFiltered(!filter.accept(reader.getName()));
+                            } else
+                                continue;
+                        }
+                    }
 
-					// check whether start element is a feature
-					if (event == XMLStreamConstants.START_ELEMENT) {
-						ElementInfo lastElementInfo = elementInfos.push(elementInfo);
-						elementInfo = elementChecker.getElementInfo(reader.getName(), lastElementInfo);
+                    // check whether start element is a feature
+                    if (event == XMLStreamConstants.START_ELEMENT) {
+                        ElementInfo lastElementInfo = elementInfos.push(elementInfo);
+                        elementInfo = elementChecker.getElementInfo(reader.getName(), lastElementInfo);
 
-						if (elementInfo != null && elementInfo.isFeature()) {
-							chunk.removeTrailingCharacters();
-							chunks.add(chunk);
+                        if (elementInfo != null && elementInfo.isFeature()) {
+                            chunk.removeTrailingCharacters();
+                            chunks.add(chunk);
 
-							chunk = new XMLChunkImpl(this, chunks.peek());
-							chunk.setFirstElement(reader.getName());
+                            chunk = new XMLChunkImpl(this, chunks.peek());
+                            chunk.setFirstElement(reader.getName());
 
-							if (isFilteredReader())
-								chunk.setIsFiltered(!filter.accept(reader.getName()));								
+                            if (isFilteredReader())
+                                chunk.setIsFiltered(!filter.accept(reader.getName()));
 
-							if (lastElementInfo != null)
-								setXLink = lastElementInfo.hasXLink();
-						}
-					}
+                            if (lastElementInfo != null)
+                                setXLink = lastElementInfo.hasXLink();
+                        }
+                    }
 
-					// pop last element info
-					else if (event == XMLStreamConstants.END_ELEMENT)
-						elementInfo = elementInfos.pop();
+                    // pop last element info
+                    else if (event == XMLStreamConstants.END_ELEMENT)
+                        elementInfo = elementInfos.pop();
 
-					// add streaming event to the current chunk 
-					chunk.addEvent(reader);
-					if (setXLink)
-						setXLink(reader);
+                    // add streaming event to the current chunk
+                    chunk.addEvent(reader);
+                    if (setXLink)
+                        setXLink(reader);
 
-					// if the chunk is complete, return it
-					if (chunk.isComplete()) {
-						current = chunk;
+                    // if the chunk is complete, return it
+                    if (chunk.isComplete()) {
+                        current = chunk;
 
-						if (!chunks.isEmpty())
-							chunk = chunks.pop();
-						else {
-							chunk = null;
-							isInited = false;
-						}
+                        if (!chunks.isEmpty())
+                            chunk = chunks.pop();
+                        else {
+                            chunk = null;
+                            isInited = false;
+                        }
 
-						if (!isFilteredReader() || !current.isFiltered())
-							break;
-						else
-							current = null;
-					}
-				}
-			} catch (XMLStreamException | SAXException | MissingADESchemaException e) {
-				throw new CityGMLReadException("Caused by: ", e);
-			}
+                        if (!isFilteredReader() || !current.isFiltered())
+                            break;
+                        else
+                            current = null;
+                    }
+                }
+            } catch (XMLStreamException | SAXException | MissingADESchemaException e) {
+                throw new CityGMLReadException("Caused by: ", e);
+            }
 
-			if (current == null)
-				throw new NoSuchElementException();
-		} else
-			current = iterator;
+            if (current == null)
+                throw new NoSuchElementException();
+        } else
+            current = iterator;
 
-		iterator = null;
-		return current;
-	}
+        iterator = null;
+        return current;
+    }
 
-	public CityGML nextFeature() throws CityGMLReadException {	
-		CityGML cityGML = null;
-		XMLChunkImpl next = (XMLChunkImpl)nextChunk();
+    public CityGML nextFeature() throws CityGMLReadException {
+        CityGML cityGML = null;
+        XMLChunkImpl next = (XMLChunkImpl) nextChunk();
 
-		try {
-			cityGML = next.unmarshal();
-		} catch (UnmarshalException e) {
-			throw new CityGMLReadException("Caused by: ", e.getCause());
-		} catch (MissingADESchemaException e) {
-			throw new CityGMLReadException("Caused by: ", e);
-		}
+        try {
+            cityGML = next.unmarshal();
+        } catch (UnmarshalException e) {
+            throw new CityGMLReadException("Caused by: ", e.getCause());
+        } catch (MissingADESchemaException e) {
+            throw new CityGMLReadException("Caused by: ", e);
+        }
 
-		return cityGML;
-	}
-	
-	private void setXLink(XMLStreamReader reader) {
-		setXLink = false;
-		
-		// check whether the new chunk has a gml:id
-		String gmlId = null;
-		for (int i = 0; i < reader.getAttributeCount(); i++) {
-			if (reader.getAttributeLocalName(i).equals("id")) {
-				gmlId = reader.getAttributeValue(i);
-				break;
-			}
-		}
-		
-		// set gml:id if not present
-		if (gmlId == null) {
-			gmlId = factory.getGMLIdManager().generateUUID();
-			chunk.addAttribute(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", "id", "CDATA", gmlId);
-		}
-		
-		// set xlink:href property on previous chunk
-		chunks.peek().addAttribute(XLinkModule.v3_1_1.getNamespaceURI(), "href", "href", "CDATA", '#' + gmlId);
-	}
+        return cityGML;
+    }
 
-	public boolean isSetParentInfo() {
-		return getParentInfo() != null;
-	}
+    private void setXLink(XMLStreamReader reader) {
+        setXLink = false;
 
-	public ParentInfo getParentInfo() {
-		return current != null ? current.getParentInfo() : null;
-	}
+        // check whether the new chunk has a gml:id
+        String gmlId = null;
+        for (int i = 0; i < reader.getAttributeCount(); i++) {
+            if (reader.getAttributeLocalName(i).equals("id")) {
+                gmlId = reader.getAttributeValue(i);
+                break;
+            }
+        }
+
+        // set gml:id if not present
+        if (gmlId == null) {
+            gmlId = factory.getGMLIdManager().generateUUID();
+            chunk.addAttribute(GMLCoreModule.v3_1_1.getNamespaceURI(), "id", "id", "CDATA", gmlId);
+        }
+
+        // set xlink:href property on previous chunk
+        chunks.peek().addAttribute(XLinkModule.v3_1_1.getNamespaceURI(), "href", "href", "CDATA", '#' + gmlId);
+    }
+
+    public boolean isSetParentInfo() {
+        return getParentInfo() != null;
+    }
+
+    public ParentInfo getParentInfo() {
+        return current != null ? current.getParentInfo() : null;
+    }
 
 }

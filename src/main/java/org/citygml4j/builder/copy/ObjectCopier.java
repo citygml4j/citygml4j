@@ -24,54 +24,54 @@ import org.citygml4j.model.common.child.Child;
 import java.lang.reflect.Field;
 
 public class ObjectCopier {
-	
-	private ObjectCopier() {
-		// just to thwart instantiation
-	}
 
-	@SuppressWarnings("unchecked")
-	public static <T> T copyTo(T source, T target, CopyBuilder copyBuilder) {
-		return copyTo(source, target, (Class<T>) source.getClass(), copyBuilder);
-	}
-	
-	public static <T> T copyTo(T source, T target, Class<T> type, CopyBuilder copyBuilder) {
-		ModelObject tmp = null;
-		if (copyBuilder instanceof DeepCopyBuilder && target instanceof ModelObject) {
-			DeepCopyBuilder deepCopyBuilder = (DeepCopyBuilder)copyBuilder;
-			tmp = deepCopyBuilder.getTarget();
-			deepCopyBuilder.setTarget((ModelObject)target);
-		}
-		
-		for (Field sourceField : type.getDeclaredFields()) {
-			try {
-				Field targetField = type.getDeclaredField(sourceField.getName());
-				if (targetField == null)
-					continue;
-				
-				sourceField.setAccessible(true);
-				targetField.setAccessible(true);
-				
-				Object value = sourceField.get(source);
-				Object copy = copyBuilder.copy(value);
-				
-				if (copy != null) {
-					targetField.set(target, copy);
-					if (value != copy && copy instanceof Child && target instanceof ModelObject)
-						((Child)copy).setParent((ModelObject)target);
-				}
-				
-			} catch (Exception e) {
-				// 
-			}
-		}
-		
-		if (copyBuilder instanceof DeepCopyBuilder)
-			((DeepCopyBuilder)copyBuilder).setTarget(tmp);
-		
-		if (target instanceof Child)
-			((Child)target).unsetParent();
-		
-		return target;
-	}
-	
+    private ObjectCopier() {
+        // just to thwart instantiation
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T copyTo(T source, T target, CopyBuilder copyBuilder) {
+        return copyTo(source, target, (Class<T>) source.getClass(), copyBuilder);
+    }
+
+    public static <T> T copyTo(T source, T target, Class<T> type, CopyBuilder copyBuilder) {
+        ModelObject tmp = null;
+        if (copyBuilder instanceof DeepCopyBuilder && target instanceof ModelObject) {
+            DeepCopyBuilder deepCopyBuilder = (DeepCopyBuilder) copyBuilder;
+            tmp = deepCopyBuilder.getTarget();
+            deepCopyBuilder.setTarget((ModelObject) target);
+        }
+
+        for (Field sourceField : type.getDeclaredFields()) {
+            try {
+                Field targetField = type.getDeclaredField(sourceField.getName());
+                if (targetField == null)
+                    continue;
+
+                sourceField.setAccessible(true);
+                targetField.setAccessible(true);
+
+                Object value = sourceField.get(source);
+                Object copy = copyBuilder.copy(value);
+
+                if (copy != null) {
+                    targetField.set(target, copy);
+                    if (value != copy && copy instanceof Child && target instanceof ModelObject)
+                        ((Child) copy).setParent((ModelObject) target);
+                }
+
+            } catch (Exception e) {
+                //
+            }
+        }
+
+        if (copyBuilder instanceof DeepCopyBuilder)
+            ((DeepCopyBuilder) copyBuilder).setTarget(tmp);
+
+        if (target instanceof Child)
+            ((Child) target).unsetParent();
+
+        return target;
+    }
+
 }

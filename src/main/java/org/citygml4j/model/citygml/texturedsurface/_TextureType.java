@@ -26,7 +26,7 @@ public enum _TextureType implements TexturedSurfaceModuleComponent, Copyable {
     SPECIFIC("specific"),
     TYPICAL("typical"),
     UNKNOWN("unknown");
-    
+
     private final String value;
 
     _TextureType(String value) {
@@ -38,9 +38,9 @@ public enum _TextureType implements TexturedSurfaceModuleComponent, Copyable {
     }
 
     public static _TextureType fromValue(String v) {
-    	v = v.trim().toLowerCase();
-    	
-        for (_TextureType c: _TextureType.values()) {
+        v = v.trim().toLowerCase();
+
+        for (_TextureType c : _TextureType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
@@ -50,19 +50,19 @@ public enum _TextureType implements TexturedSurfaceModuleComponent, Copyable {
     }
 
     public CityGMLClass getCityGMLClass() {
-		return CityGMLClass._TEXTURE_TYPE;
-	}
+        return CityGMLClass._TEXTURE_TYPE;
+    }
 
-	public String toString() {
-		return value;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? UNKNOWN : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
-	
+    public String toString() {
+        return value;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? UNKNOWN : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
+
 }

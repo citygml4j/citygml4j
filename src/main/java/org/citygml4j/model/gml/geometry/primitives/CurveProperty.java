@@ -23,51 +23,51 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class CurveProperty extends GeometryProperty<AbstractCurve> {
-	
-	public CurveProperty() {
 
-	}
+    public CurveProperty() {
 
-	public CurveProperty(AbstractCurve abstractCurve) {
-		super(abstractCurve);
-	}
+    }
 
-	public CurveProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractCurve getCurve() {
-		return super.getGeometry();
-	}
+    public CurveProperty(AbstractCurve abstractCurve) {
+        super(abstractCurve);
+    }
 
-	public boolean isSetCurve() {
-		return super.isSetGeometry();
-	}
+    public CurveProperty(String href) {
+        super(href);
+    }
 
-	public void setCurve(AbstractCurve curve) {
-		super.setGeometry(curve);
-	}
+    public AbstractCurve getCurve() {
+        return super.getGeometry();
+    }
 
-	public void unsetCurve() {
-		super.unsetGeometry();
-	}
+    public boolean isSetCurve() {
+        return super.isSetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.CURVE_PROPERTY;
-	}
+    public void setCurve(AbstractCurve curve) {
+        super.setGeometry(curve);
+    }
 
-	@Override
-	public Class<AbstractCurve> getAssociableClass() {
-		return AbstractCurve.class;
-	}
+    public void unsetCurve() {
+        super.unsetGeometry();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CurveProperty(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.CURVE_PROPERTY;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CurveProperty copy = (target == null) ? new CurveProperty() : (CurveProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    @Override
+    public Class<AbstractCurve> getAssociableClass() {
+        return AbstractCurve.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CurveProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CurveProperty copy = (target == null) ? new CurveProperty() : (CurveProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

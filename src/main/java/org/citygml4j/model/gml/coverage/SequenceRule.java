@@ -26,78 +26,78 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public class SequenceRule implements GML, Child, Copyable {
-	private SequenceRuleNames value;
-	private IncrementOrder order;
-	private ModelObject parent;
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.SEQUENCE_RULE;
-	}
+    private SequenceRuleNames value;
+    private IncrementOrder order;
+    private ModelObject parent;
 
-	public SequenceRuleNames getValue() {
-		return value;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SEQUENCE_RULE;
+    }
 
-	public IncrementOrder getOrder() {
-		return order;
-	}
+    public SequenceRuleNames getValue() {
+        return value;
+    }
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    public IncrementOrder getOrder() {
+        return order;
+    }
 
-	public boolean isSetOrder() {
-		return order != null;
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
 
-	public void setValue(SequenceRuleNames value) {
-		this.value = value;
-	}
+    public boolean isSetOrder() {
+        return order != null;
+    }
 
-	public void setOrder(IncrementOrder order) {
-		this.order = order;
-	}
+    public void setValue(SequenceRuleNames value) {
+        this.value = value;
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public void setOrder(IncrementOrder order) {
+        this.order = order;
+    }
 
-	public void unsetOrder() {
-		order = null;
-	}
+    public void unsetValue() {
+        value = null;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetOrder() {
+        order = null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SequenceRule copy = (target == null) ? new SequenceRule() : (SequenceRule)target;
-		
-		if (isSetValue())
-			copy.setValue((SequenceRuleNames)copyBuilder.copy(value));
-		
-		if (isSetOrder())
-			copy.setOrder((IncrementOrder)copyBuilder.copy(order));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SequenceRule(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SequenceRule copy = (target == null) ? new SequenceRule() : (SequenceRule) target;
+
+        if (isSetValue())
+            copy.setValue((SequenceRuleNames) copyBuilder.copy(value));
+
+        if (isSetOrder())
+            copy.setOrder((IncrementOrder) copyBuilder.copy(order));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SequenceRule(), copyBuilder);
+    }
 
 }

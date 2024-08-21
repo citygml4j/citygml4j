@@ -27,137 +27,137 @@ import org.citygml4j.model.common.copy.Copyable;
 import java.util.List;
 
 public class ColorPlusOpacity implements AppearanceModuleComponent, Child, Copyable {
-	private Color color;
-	private Double opacity = 1.0;
-	private ModelObject parent;
+    private Color color;
+    private Double opacity = 1.0;
+    private ModelObject parent;
 
-	public ColorPlusOpacity() {
-		color = new Color();
-	}
-	
-	public ColorPlusOpacity(Color color, Double opacity) {
-		this.color = color;
+    public ColorPlusOpacity() {
+        color = new Color();
+    }
 
-		if (opacity >= 0.0 && opacity < 1.0)
-			this.opacity = opacity;
-	}
+    public ColorPlusOpacity(Color color, Double opacity) {
+        this.color = color;
 
-	public ColorPlusOpacity(Double defaultColorValue, Double opacity) {
-		this(new Color(defaultColorValue), opacity);
-	}
+        if (opacity >= 0.0 && opacity < 1.0)
+            this.opacity = opacity;
+    }
 
-	public ColorPlusOpacity(Double defaulColorValue) {
-		this(new Color(defaulColorValue), 1.0);
-	}
+    public ColorPlusOpacity(Double defaultColorValue, Double opacity) {
+        this(new Color(defaultColorValue), opacity);
+    }
 
-	public ColorPlusOpacity(Double red, Double green, Double blue, Double opacity) {
-		this(new Color(red, green, blue), opacity);
-	}
+    public ColorPlusOpacity(Double defaulColorValue) {
+        this(new Color(defaulColorValue), 1.0);
+    }
 
-	public ColorPlusOpacity(Double red, Double green, Double blue) {
-		this(new Color(red, green, blue), 1.0);
-	}
-	
-	public Double getBlue() {
-		return color.getBlue();
-	}
+    public ColorPlusOpacity(Double red, Double green, Double blue, Double opacity) {
+        this(new Color(red, green, blue), opacity);
+    }
 
-	public Color getColor() {
-		return color;
-	}
+    public ColorPlusOpacity(Double red, Double green, Double blue) {
+        this(new Color(red, green, blue), 1.0);
+    }
 
-	public Double getGreen() {
-		return color.getGreen();
-	}
+    public Double getBlue() {
+        return color.getBlue();
+    }
 
-	public Double getOpacity() {
-		return opacity;
-	}
+    public Color getColor() {
+        return color;
+    }
 
-	public Double getRed() {
-		return color.getRed();
-	}
+    public Double getGreen() {
+        return color.getGreen();
+    }
 
-	public void setBlue(Double blue) {
-		color.setBlue(blue);
-	}
+    public Double getOpacity() {
+        return opacity;
+    }
 
-	public void setColor(Color color) {
-		if (color != null)
-			color.setParent(this);
+    public Double getRed() {
+        return color.getRed();
+    }
 
-		this.color = color;
-	}
+    public void setBlue(Double blue) {
+        color.setBlue(blue);
+    }
 
-	public void setColorPlusOpacity(List<Double> colorPlusOpacity) {
-		if (colorPlusOpacity.size() >= 3)
-			color.setColor(colorPlusOpacity.subList(0, 3));
+    public void setColor(Color color) {
+        if (color != null)
+            color.setParent(this);
 
-		if (colorPlusOpacity.size() >= 4) {
-			Double opacity = colorPlusOpacity.get(3);
-			if (opacity >= 0.0 && opacity <= 1.0)
-				this.opacity = opacity;
-		}
-	}
+        this.color = color;
+    }
 
-	public void setGreen(Double green) {
-		color.setGreen(green);
-	}
+    public void setColorPlusOpacity(List<Double> colorPlusOpacity) {
+        if (colorPlusOpacity.size() >= 3)
+            color.setColor(colorPlusOpacity.subList(0, 3));
 
-	public void setOpacity(Double opacity) {
-		this.opacity = opacity;
-	}
+        if (colorPlusOpacity.size() >= 4) {
+            Double opacity = colorPlusOpacity.get(3);
+            if (opacity >= 0.0 && opacity <= 1.0)
+                this.opacity = opacity;
+        }
+    }
 
-	public void setRed(Double red) {
-		color.setRed(red);
-	}
+    public void setGreen(Double green) {
+        color.setGreen(green);
+    }
 
-	public List<Double> toList() {
-		List<Double> colorPlusOpacity = color.toList();
-		if (opacity != null)
-			colorPlusOpacity.add(opacity);
+    public void setOpacity(Double opacity) {
+        this.opacity = opacity;
+    }
 
-		return colorPlusOpacity;
-	}
+    public void setRed(Double red) {
+        color.setRed(red);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.COLOR_PLUS_OPACITY;
-	}
+    public List<Double> toList() {
+        List<Double> colorPlusOpacity = color.toList();
+        if (opacity != null)
+            colorPlusOpacity.add(opacity);
 
-	public ModelObject getParent() {
-		return parent;
-	}
+        return colorPlusOpacity;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.COLOR_PLUS_OPACITY;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new ColorPlusOpacity(), copyBuilder);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		ColorPlusOpacity copy = (target == null) ? new ColorPlusOpacity() : (ColorPlusOpacity)target;
-		
-		if (color != null) {
-			copy.setColor((Color)copyBuilder.copy(color));
-			if (copy.getColor() == color)
-				color.setParent(this);
-		}
-		
-		copy.setOpacity((Double)copyBuilder.copy(opacity));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new ColorPlusOpacity(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        ColorPlusOpacity copy = (target == null) ? new ColorPlusOpacity() : (ColorPlusOpacity) target;
+
+        if (color != null) {
+            copy.setColor((Color) copyBuilder.copy(color));
+            if (copy.getColor() == color)
+                color.setParent(this);
+        }
+
+        copy.setOpacity((Double) copyBuilder.copy(opacity));
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

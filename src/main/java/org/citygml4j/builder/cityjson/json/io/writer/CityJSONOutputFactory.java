@@ -25,115 +25,115 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class CityJSONOutputFactory {
-	boolean removeDuplicateChildGeometries;
-	boolean generateCityGMLMetadata;
-	boolean useMaterialDefaults = true;
-	String fallbackTheme = "unnamed";
+    boolean removeDuplicateChildGeometries;
+    boolean generateCityGMLMetadata;
+    boolean useMaterialDefaults = true;
+    String fallbackTheme = "unnamed";
 
-	public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new CityJSONWriter(new JsonWriter(new BufferedWriter(new FileWriter(file))), this);
-		} catch (IOException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
+    public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new CityJSONWriter(new JsonWriter(new BufferedWriter(new FileWriter(file))), this);
+        } catch (IOException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityJSONWriter createCityJSONWriter(File file, String encoding) throws CityJSONWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))), this);
-		} catch (IOException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
+    public CityJSONWriter createCityJSONWriter(File file, String encoding) throws CityJSONWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))), this);
+        } catch (IOException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityJSONWriter createCityJSONWriter(OutputStream outputStream) {
-		return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream))), this);
-	}
+    public CityJSONWriter createCityJSONWriter(OutputStream outputStream) {
+        return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream))), this);
+    }
 
-	public CityJSONWriter createCityJSONWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
-		try {
-			return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding))), this);
-		} catch (UnsupportedEncodingException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
-	
-	public CityJSONWriter createCityJSONWriter(Writer writer) {
-		return new CityJSONWriter(new JsonWriter(writer), this);
-	}
+    public CityJSONWriter createCityJSONWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
+        try {
+            return new CityJSONWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding))), this);
+        } catch (UnsupportedEncodingException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityJSONChunkWriter createCityJSONChunkWriter(File file) throws CityJSONWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new FileWriter(file))), this);
-		} catch (IOException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
+    public CityJSONWriter createCityJSONWriter(Writer writer) {
+        return new CityJSONWriter(new JsonWriter(writer), this);
+    }
 
-	public CityJSONChunkWriter createCityJSONChunkWriter(File file, String encoding) throws CityJSONWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))), this);
-		} catch (IOException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
+    public CityJSONChunkWriter createCityJSONChunkWriter(File file) throws CityJSONWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new FileWriter(file))), this);
+        } catch (IOException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream) {
-		return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream))), this);
-	}
+    public CityJSONChunkWriter createCityJSONChunkWriter(File file, String encoding) throws CityJSONWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), encoding))), this);
+        } catch (IOException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
-		try {
-			return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding))), this);
-		} catch (UnsupportedEncodingException e) {
-			throw new CityJSONWriteException("Caused by: ", e);
-		}
-	}
-	
-	public CityJSONChunkWriter createCityJSONChunkWriter(Writer writer) {
-		return new CityJSONChunkWriter(new JsonWriter(writer), this);
-	}
+    public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream) {
+        return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream))), this);
+    }
 
-	public boolean isRemoveDuplicateChildGeometries() {
-		return removeDuplicateChildGeometries;
-	}
+    public CityJSONChunkWriter createCityJSONChunkWriter(OutputStream outputStream, String encoding) throws CityJSONWriteException {
+        try {
+            return new CityJSONChunkWriter(new JsonWriter(new BufferedWriter(new OutputStreamWriter(outputStream, encoding))), this);
+        } catch (UnsupportedEncodingException e) {
+            throw new CityJSONWriteException("Caused by: ", e);
+        }
+    }
 
-	public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
-		this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
-	}
+    public CityJSONChunkWriter createCityJSONChunkWriter(Writer writer) {
+        return new CityJSONChunkWriter(new JsonWriter(writer), this);
+    }
 
-	public boolean isGenerateCityGMLMetadata() {
-		return generateCityGMLMetadata;
-	}
+    public boolean isRemoveDuplicateChildGeometries() {
+        return removeDuplicateChildGeometries;
+    }
 
-	public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
-		this.generateCityGMLMetadata = generateCityGMLMetadata;
-	}
+    public void setRemoveDuplicateChildGeometries(boolean removeDuplicateChildGeometries) {
+        this.removeDuplicateChildGeometries = removeDuplicateChildGeometries;
+    }
 
-	public boolean isUseMaterialDefaults() {
-		return useMaterialDefaults;
-	}
+    public boolean isGenerateCityGMLMetadata() {
+        return generateCityGMLMetadata;
+    }
 
-	public void setUseMaterialDefaults(boolean useMaterialDefaults) {
-		this.useMaterialDefaults = useMaterialDefaults;
-	}
+    public void setGenerateCityGMLMetadata(boolean generateCityGMLMetadata) {
+        this.generateCityGMLMetadata = generateCityGMLMetadata;
+    }
 
-	public String getFallbackTheme() {
-		return fallbackTheme;
-	}
+    public boolean isUseMaterialDefaults() {
+        return useMaterialDefaults;
+    }
 
-	public void setFallbackTheme(String fallbackTheme) {
-		this.fallbackTheme = fallbackTheme;
-	}
+    public void setUseMaterialDefaults(boolean useMaterialDefaults) {
+        this.useMaterialDefaults = useMaterialDefaults;
+    }
 
-	private void createParentDirectories(Path path) throws IOException {
-		Path parent = path.getParent();
-		if (parent != null && !Files.exists(parent))
-			Files.createDirectories(parent);
-	}
-	
+    public String getFallbackTheme() {
+        return fallbackTheme;
+    }
+
+    public void setFallbackTheme(String fallbackTheme) {
+        this.fallbackTheme = fallbackTheme;
+    }
+
+    private void createParentDirectories(Path path) throws IOException {
+        Path parent = path.getParent();
+        if (parent != null && !Files.exists(parent))
+            Files.createDirectories(parent);
+    }
+
 }

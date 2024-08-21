@@ -34,38 +34,55 @@ import java.io.File;
 import java.io.InputStream;
 
 public interface CityGMLInputFactory {
-	public static final String FEATURE_READ_MODE = "org.citygml4j.featureReadMode";
-	public static final String KEEP_INLINE_APPEARANCE = "org.citygml4j.keepInlineAppearance";
-	public static final String PARSE_SCHEMA = "org.citygml4j.parseSchema";
-	public static final String SPLIT_AT_FEATURE_PROPERTY = "org.citygml4j.splitAtFeatureProperty";
-	public static final String EXCLUDE_FROM_SPLITTING = "org.citygml4j.excludeFromSplitting";
-	public static final String USE_VALIDATION = "org.citygml4j.useValidation";
-	public static final String FAIL_ON_MISSING_ADE_SCHEMA = "org.citygml4j.failOnMissingADESchema";
-	public static final String SKIP_GENERIC_ADE_CONTENT = "org.citygml4j.skipGenericADEContent";
-	public static final String SUPPORT_CITYGML_VERSION_0_4_0 = "org.citygml4j.supportCityGML040";
-	
-	public XMLInputFactory getXMLInputFactory();
-	public GMLIdManager getGMLIdManager();
-	public SchemaHandler getSchemaHandler();
-	public ValidationEventHandler getValidationEventHandler();
-	public Templates[] getTransformationTemplates();
-	public Object getProperty(String name);
-	public void setXMLInputFactory(XMLInputFactory xmlInputFactory);	
-	public void setGMLIdManager(GMLIdManager gmlIdManager);
-	public void setSchemaHandler(SchemaHandler schemaHandler);
-	public void setValidationEventHandler(ValidationEventHandler validationEventHandler);
-	public void setTransformationTemplates(Templates... templates) throws CityGMLWriteException;
-	public void setProperty(String name, Object value);
-	
-	public boolean registerSchemaLocation(String namespaceURI, File schemaLocation);
-	public void parseSchema(File schemaLocation) throws SAXException;
-	public void parseSchema(String namespaceURI, String schemaLocation) throws SAXException;
-	public void parseSchema(Element element) throws SAXException;
-	
-	public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException;	
-	public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException;
-	public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException;	
-	public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException;
+    public static final String FEATURE_READ_MODE = "org.citygml4j.featureReadMode";
+    public static final String KEEP_INLINE_APPEARANCE = "org.citygml4j.keepInlineAppearance";
+    public static final String PARSE_SCHEMA = "org.citygml4j.parseSchema";
+    public static final String SPLIT_AT_FEATURE_PROPERTY = "org.citygml4j.splitAtFeatureProperty";
+    public static final String EXCLUDE_FROM_SPLITTING = "org.citygml4j.excludeFromSplitting";
+    public static final String USE_VALIDATION = "org.citygml4j.useValidation";
+    public static final String FAIL_ON_MISSING_ADE_SCHEMA = "org.citygml4j.failOnMissingADESchema";
+    public static final String SKIP_GENERIC_ADE_CONTENT = "org.citygml4j.skipGenericADEContent";
+    public static final String SUPPORT_CITYGML_VERSION_0_4_0 = "org.citygml4j.supportCityGML040";
 
-	public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter);
+    public XMLInputFactory getXMLInputFactory();
+
+    public GMLIdManager getGMLIdManager();
+
+    public SchemaHandler getSchemaHandler();
+
+    public ValidationEventHandler getValidationEventHandler();
+
+    public Templates[] getTransformationTemplates();
+
+    public Object getProperty(String name);
+
+    public void setXMLInputFactory(XMLInputFactory xmlInputFactory);
+
+    public void setGMLIdManager(GMLIdManager gmlIdManager);
+
+    public void setSchemaHandler(SchemaHandler schemaHandler);
+
+    public void setValidationEventHandler(ValidationEventHandler validationEventHandler);
+
+    public void setTransformationTemplates(Templates... templates) throws CityGMLWriteException;
+
+    public void setProperty(String name, Object value);
+
+    public boolean registerSchemaLocation(String namespaceURI, File schemaLocation);
+
+    public void parseSchema(File schemaLocation) throws SAXException;
+
+    public void parseSchema(String namespaceURI, String schemaLocation) throws SAXException;
+
+    public void parseSchema(Element element) throws SAXException;
+
+    public CityGMLReader createCityGMLReader(File file) throws CityGMLReadException;
+
+    public CityGMLReader createCityGMLReader(File file, String encoding) throws CityGMLReadException;
+
+    public CityGMLReader createCityGMLReader(String systemId, InputStream in) throws CityGMLReadException;
+
+    public CityGMLReader createCityGMLReader(String systemId, InputStream in, String encoding) throws CityGMLReadException;
+
+    public CityGMLReader createFilteredCityGMLReader(CityGMLReader reader, CityGMLInputFilter filter);
 }

@@ -47,109 +47,109 @@ import java.util.List;
 
 public class TranslateScaleAndRotate {
 
-	public static void main(String[] args) throws Exception {
-		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] "); 
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
-		CityGMLContext ctx = CityGMLContext.getInstance();
-		CityGMLBuilder builder = ctx.createCityGMLBuilder();
+        System.out.println(df.format(new Date()) + "setting up citygml4j context and CityGML builder");
+        CityGMLContext ctx = CityGMLContext.getInstance();
+        CityGMLBuilder builder = ctx.createCityGMLBuilder();
 
-		System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.gml");
-		CityGMLInputFactory in = builder.createCityGMLInputFactory();
-		CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
+        System.out.println(df.format(new Date()) + "reading CityGML file LOD2_Building_v100.gml");
+        CityGMLInputFactory in = builder.createCityGMLInputFactory();
+        CityGMLReader reader = in.createCityGMLReader(new File("datasets/LOD2_Building_v100.gml"));
 
-		CityModel cityModel = (CityModel)reader.nextFeature();
-		Building building = (Building)cityModel.getCityObjectMember().get(0).getCityObject();
+        CityModel cityModel = (CityModel) reader.nextFeature();
+        Building building = (Building) cityModel.getCityObjectMember().get(0).getCityObject();
 
-		System.out.println(df.format(new Date()) + "deep copying building object");
-		DeepCopyBuilder copyBuilder = new DeepCopyBuilder();
-		Building copy = (Building)building.copy(copyBuilder);
+        System.out.println(df.format(new Date()) + "deep copying building object");
+        DeepCopyBuilder copyBuilder = new DeepCopyBuilder();
+        Building copy = (Building) building.copy(copyBuilder);
 
-		BoundingShape boundedBy = copy.calcBoundedBy(BoundingBoxOptions.defaults());
-		BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();
-		double width = bbox.getUpperCorner().getX() - bbox.getLowerCorner().getX();
-		
-		System.out.println(df.format(new Date()) + "translating, scaling, and rotating building");
-		GMLVisitor gmlVisitor = new GMLVisitor(2 * width, 2, 90);
-		copy.accept(gmlVisitor);
+        BoundingShape boundedBy = copy.calcBoundedBy(BoundingBoxOptions.defaults());
+        BoundingBox bbox = boundedBy.getEnvelope().toBoundingBox();
+        double width = bbox.getUpperCorner().getX() - bbox.getLowerCorner().getX();
 
-		System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 2.0.0 document");
-		CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v2_0_0);
-		
-		CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_Building_v200.gml"));
-		writer.setPrefixes(CityGMLVersion.v2_0_0);
-		writer.setDefaultNamespace(CoreModule.v2_0_0);
-		writer.setSchemaLocations(CityGMLVersion.v2_0_0);
-		writer.setIndentString("  ");
-		
-		writer.writeStartDocument();
-		writer.writeFeatureMember(building);
-		writer.writeFeatureMember(copy);
-		writer.writeEndDocument();
-		
-		writer.close();
-		
-		System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_v200.gml written");
-		System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
-	}
+        System.out.println(df.format(new Date()) + "translating, scaling, and rotating building");
+        GMLVisitor gmlVisitor = new GMLVisitor(2 * width, 2, 90);
+        copy.accept(gmlVisitor);
 
-	private static class GMLVisitor extends GMLWalker {
-		private Matrix translate;
-		private Matrix scale;
-		private Matrix rotate;
-		
-		GMLVisitor(double translateBy, double scaleBy, double rotateBy) {
-			translate = new Matrix(new double[][]{
-					{1,0,0,translateBy},
-					{0,1,0,0},
-					{0,0,1,0},
-					{0,0,0,1}});
-			
-			scale = new Matrix(new double[][]{
-					{scaleBy,0,0,0},
-					{0,scaleBy,0,0},
-					{0,0,scaleBy,0},
-					{0,0,0,1}});
-			
-			rotateBy = Math.toRadians(90);
-			rotate = new Matrix(new double[][]{
-					{Math.cos(rotateBy),-Math.sin(rotateBy),0,0},
-					{Math.sin(rotateBy),Math.cos(rotateBy),0,0},
-					{0,0,1,0},
-					{0,0,0,1}});
-		}
-		
-		@Override
-		public void visit(AbstractGML abstractGML) {
-			if (abstractGML.isSetId())
-				abstractGML.setId(DefaultGMLIdManager.getInstance().generateUUID());
-			
-			super.visit(abstractGML);
-		}
+        System.out.println(df.format(new Date()) + "writing citygml4j object tree as CityGML 2.0.0 document");
+        CityGMLOutputFactory out = builder.createCityGMLOutputFactory(CityGMLVersion.v2_0_0);
 
-		@Override
-		public void visit(LinearRing linearRing) {
+        CityModelWriter writer = out.createCityModelWriter(new File("output/LOD2_Building_v200.gml"));
+        writer.setPrefixes(CityGMLVersion.v2_0_0);
+        writer.setDefaultNamespace(CoreModule.v2_0_0);
+        writer.setSchemaLocations(CityGMLVersion.v2_0_0);
+        writer.setIndentString("  ");
 
-			if (linearRing.isSetPosList()) {
-				DirectPositionList posList = linearRing.getPosList();
-				List<Double> points = posList.toList3d();
-				List<Double> newPoints = new ArrayList<Double>();
+        writer.writeStartDocument();
+        writer.writeFeatureMember(building);
+        writer.writeFeatureMember(copy);
+        writer.writeEndDocument();
 
-				for (int i = 0; i < points.size(); i += 3) {
-					double[] vals = new double[]{ points.get(i), points.get(i+1), points.get(i+2), 1};
-					Matrix v = new Matrix(vals, 1);
-					Matrix trans = rotate.times(scale.times(translate));
-					
-					double[] newVals = trans.times(v.transpose()).toColumnPackedArray();
-					newPoints.add(newVals[0]);
-					newPoints.add(newVals[1]);
-					newPoints.add(newVals[2]);
-				}
-				
-				posList.setValue(newPoints);
-			}
+        writer.close();
 
-			super.visit(linearRing);
-		}
-	}
+        System.out.println(df.format(new Date()) + "CityGML file LOD2_Building_v200.gml written");
+        System.out.println(df.format(new Date()) + "sample citygml4j application successfully finished");
+    }
+
+    private static class GMLVisitor extends GMLWalker {
+        private Matrix translate;
+        private Matrix scale;
+        private Matrix rotate;
+
+        GMLVisitor(double translateBy, double scaleBy, double rotateBy) {
+            translate = new Matrix(new double[][]{
+                    {1, 0, 0, translateBy},
+                    {0, 1, 0, 0},
+                    {0, 0, 1, 0},
+                    {0, 0, 0, 1}});
+
+            scale = new Matrix(new double[][]{
+                    {scaleBy, 0, 0, 0},
+                    {0, scaleBy, 0, 0},
+                    {0, 0, scaleBy, 0},
+                    {0, 0, 0, 1}});
+
+            rotateBy = Math.toRadians(90);
+            rotate = new Matrix(new double[][]{
+                    {Math.cos(rotateBy), -Math.sin(rotateBy), 0, 0},
+                    {Math.sin(rotateBy), Math.cos(rotateBy), 0, 0},
+                    {0, 0, 1, 0},
+                    {0, 0, 0, 1}});
+        }
+
+        @Override
+        public void visit(AbstractGML abstractGML) {
+            if (abstractGML.isSetId())
+                abstractGML.setId(DefaultGMLIdManager.getInstance().generateUUID());
+
+            super.visit(abstractGML);
+        }
+
+        @Override
+        public void visit(LinearRing linearRing) {
+
+            if (linearRing.isSetPosList()) {
+                DirectPositionList posList = linearRing.getPosList();
+                List<Double> points = posList.toList3d();
+                List<Double> newPoints = new ArrayList<Double>();
+
+                for (int i = 0; i < points.size(); i += 3) {
+                    double[] vals = new double[]{points.get(i), points.get(i + 1), points.get(i + 2), 1};
+                    Matrix v = new Matrix(vals, 1);
+                    Matrix trans = rotate.times(scale.times(translate));
+
+                    double[] newVals = trans.times(v.transpose()).toColumnPackedArray();
+                    newPoints.add(newVals[0]);
+                    newPoints.add(newVals[1]);
+                    newPoints.add(newVals[2]);
+                }
+
+                posList.setValue(newPoints);
+            }
+
+            super.visit(linearRing);
+        }
+    }
 }

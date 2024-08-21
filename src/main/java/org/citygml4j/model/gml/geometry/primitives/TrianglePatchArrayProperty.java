@@ -25,67 +25,67 @@ import java.util.List;
 
 public class TrianglePatchArrayProperty extends SurfacePatchArrayProperty {
 
-	public TrianglePatchArrayProperty() {
+    public TrianglePatchArrayProperty() {
 
-	}
+    }
 
-	public TrianglePatchArrayProperty(Triangle triangle) {
-		super(triangle);
-	}
+    public TrianglePatchArrayProperty(Triangle triangle) {
+        super(triangle);
+    }
 
-	public TrianglePatchArrayProperty(List<Triangle> triangle) {
-		super(triangle);
-	}
-	
-	public TrianglePatchArrayProperty(Triangle... triangle) {
-		super(triangle);
-	}
-	
-	@Override
-	public GMLClass getGMLClass() {
-		return GMLClass.TRIANGLE_PATCH_ARRAY_PROPERTY;
-	}
+    public TrianglePatchArrayProperty(List<Triangle> triangle) {
+        super(triangle);
+    }
 
-	@Override
-	public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
-		if (surfacePatch instanceof Triangle)
-			super.addSurfacePatch(surfacePatch);
-	}
+    public TrianglePatchArrayProperty(Triangle... triangle) {
+        super(triangle);
+    }
 
-	public void addTriangle(Triangle triangle) {
-		super.addSurfacePatch(triangle);
-	}
+    @Override
+    public GMLClass getGMLClass() {
+        return GMLClass.TRIANGLE_PATCH_ARRAY_PROPERTY;
+    }
 
-	@SuppressWarnings("unchecked")
-	public List<Triangle> getTriangle() {
-		return (List<Triangle>)super.getSurfacePatch();
-	}
+    @Override
+    public void addSurfacePatch(AbstractSurfacePatch surfacePatch) {
+        if (surfacePatch instanceof Triangle)
+            super.addSurfacePatch(surfacePatch);
+    }
 
-	public boolean isSetTriangle() {
-		return super.isSetSurfacePatch();
-	}
+    public void addTriangle(Triangle triangle) {
+        super.addSurfacePatch(triangle);
+    }
 
-	public void setTriangle(List<Triangle> triangle) {
-		super.setSurfacePatch(triangle);
-	}
+    @SuppressWarnings("unchecked")
+    public List<Triangle> getTriangle() {
+        return (List<Triangle>) super.getSurfacePatch();
+    }
 
-	public void unsetTriangle() {
-		super.unsetSurfacePatch();
-	}
+    public boolean isSetTriangle() {
+        return super.isSetSurfacePatch();
+    }
 
-	public boolean unsetTriangle(Triangle triangle) {
-		return super.unsetSurfacePatch(triangle);
-	}
-	
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TrianglePatchArrayProperty copy = (target == null) ? new TrianglePatchArrayProperty() : (TrianglePatchArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TrianglePatchArrayProperty(), copyBuilder);
-	}
+    public void setTriangle(List<Triangle> triangle) {
+        super.setSurfacePatch(triangle);
+    }
+
+    public void unsetTriangle() {
+        super.unsetSurfacePatch();
+    }
+
+    public boolean unsetTriangle(Triangle triangle) {
+        return super.unsetSurfacePatch(triangle);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TrianglePatchArrayProperty copy = (target == null) ? new TrianglePatchArrayProperty() : (TrianglePatchArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TrianglePatchArrayProperty(), copyBuilder);
+    }
 
 }

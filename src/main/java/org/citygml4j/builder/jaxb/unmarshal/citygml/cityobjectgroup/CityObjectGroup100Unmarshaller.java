@@ -45,178 +45,178 @@ import javax.xml.namespace.QName;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CityObjectGroup100Unmarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final CityObjectGroupModule module = CityObjectGroupModule.v1_0_0;
-	private final JAXBUnmarshaller jaxb;
-	private final CityGMLUnmarshaller citygml;
-	private CheckedTypeMapper<CityGML> typeMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final CityObjectGroupModule module = CityObjectGroupModule.v1_0_0;
+    private final JAXBUnmarshaller jaxb;
+    private final CityGMLUnmarshaller citygml;
+    private CheckedTypeMapper<CityGML> typeMapper;
 
-	public CityObjectGroup100Unmarshaller(CityGMLUnmarshaller citygml) {
-		this.citygml = citygml;
-		jaxb = citygml.getJAXBUnmarshaller();
-	}
+    public CityObjectGroup100Unmarshaller(CityGMLUnmarshaller citygml) {
+        this.citygml = citygml;
+        jaxb = citygml.getJAXBUnmarshaller();
+    }
 
-	private CheckedTypeMapper<CityGML> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = CheckedTypeMapper.<CityGML>create()
-							.with(CityObjectGroupType.class, this::unmarshalCityObjectGroup)
-							.with(CityObjectGroupMemberType.class, this::unmarshalCityObjectGroupMember)
-							.with(CityObjectGroupParentType.class, this::unmarshalCityObjectGroupParent)
-							.with(JAXBElement.class, this::unmarshal);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private CheckedTypeMapper<CityGML> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = CheckedTypeMapper.<CityGML>create()
+                            .with(CityObjectGroupType.class, this::unmarshalCityObjectGroup)
+                            .with(CityObjectGroupMemberType.class, this::unmarshalCityObjectGroupMember)
+                            .with(CityObjectGroupParentType.class, this::unmarshalCityObjectGroupParent)
+                            .with(JAXBElement.class, this::unmarshal);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return typeMapper;
-	}
+        return typeMapper;
+    }
 
-	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		return unmarshal(src.getValue());
-	}
+    public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+        return unmarshal(src.getValue());
+    }
 
-	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return getTypeMapper().apply(src);
-	}
+    public CityGML unmarshal(Object src) throws MissingADESchemaException {
+        return getTypeMapper().apply(src);
+    }
 
-	public void unmarshalCityObjectGroup(CityObjectGroupType src, CityObjectGroup dest) throws MissingADESchemaException {
-		citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
+    public void unmarshalCityObjectGroup(CityObjectGroupType src, CityObjectGroup dest) throws MissingADESchemaException {
+        citygml.getCore100Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
-		if (src.isSetClazz())
-			dest.setClazz(new Code(src.getClazz()));
+        if (src.isSetClazz())
+            dest.setClazz(new Code(src.getClazz()));
 
-		if (src.isSetFunction()) {
-			for (String function : src.getFunction())
-				dest.addFunction(new Code(function));
-		}
+        if (src.isSetFunction()) {
+            for (String function : src.getFunction())
+                dest.addFunction(new Code(function));
+        }
 
-		if (src.isSetUsage()) {
-			for (String usage : src.getUsage())
-				dest.addUsage(new Code(usage));
-		}
+        if (src.isSetUsage()) {
+            for (String usage : src.getUsage())
+                dest.addUsage(new Code(usage));
+        }
 
-		if (src.isSetGeometry())
-			dest.setGeometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getGeometry()));
+        if (src.isSetGeometry())
+            dest.setGeometry(jaxb.getGMLUnmarshaller().unmarshalGeometryProperty(src.getGeometry()));
 
-		if (src.isSetGroupMember()) {
-			for (CityObjectGroupMemberType cityObjectGroupMember : src.getGroupMember())
-				dest.addGroupMember(unmarshalCityObjectGroupMember(cityObjectGroupMember));
-		}
+        if (src.isSetGroupMember()) {
+            for (CityObjectGroupMemberType cityObjectGroupMember : src.getGroupMember())
+                dest.addGroupMember(unmarshalCityObjectGroupMember(cityObjectGroupMember));
+        }
 
-		if (src.isSetParent())
-			dest.setGroupParent(unmarshalCityObjectGroupParent(src.getParent()));
+        if (src.isSetParent())
+            dest.setGroupParent(unmarshalCityObjectGroupParent(src.getParent()));
 
-		if (src.isSet_GenericApplicationPropertyOfCityObjectGroup()) {
-			for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityObjectGroup()) {
-				ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
-				if (ade != null)
-					dest.addGenericApplicationPropertyOfCityObjectGroup(ade);
-			}
-		}
-	}
+        if (src.isSet_GenericApplicationPropertyOfCityObjectGroup()) {
+            for (JAXBElement<Object> elem : src.get_GenericApplicationPropertyOfCityObjectGroup()) {
+                ADEModelObject ade = jaxb.getADEUnmarshaller().unmarshal(elem);
+                if (ade != null)
+                    dest.addGenericApplicationPropertyOfCityObjectGroup(ade);
+            }
+        }
+    }
 
-	public CityObjectGroup unmarshalCityObjectGroup(CityObjectGroupType src) throws MissingADESchemaException {
-		CityObjectGroup dest = new CityObjectGroup(module);
-		unmarshalCityObjectGroup(src, dest);
+    public CityObjectGroup unmarshalCityObjectGroup(CityObjectGroupType src) throws MissingADESchemaException {
+        CityObjectGroup dest = new CityObjectGroup(module);
+        unmarshalCityObjectGroup(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public CityObjectGroupMember unmarshalCityObjectGroupMember(CityObjectGroupMemberType src) throws MissingADESchemaException {
-		CityObjectGroupMember dest = new CityObjectGroupMember();
+    public CityObjectGroupMember unmarshalCityObjectGroupMember(CityObjectGroupMemberType src) throws MissingADESchemaException {
+        CityObjectGroupMember dest = new CityObjectGroupMember();
 
-		if (src.isSet_CityObject()) {
-			ModelObject object = jaxb.unmarshal(src.get_CityObject());
-			if (object instanceof AbstractCityObject)
-				dest.setObject((AbstractCityObject)object);
-		}
+        if (src.isSet_CityObject()) {
+            ModelObject object = jaxb.unmarshal(src.get_CityObject());
+            if (object instanceof AbstractCityObject)
+                dest.setObject((AbstractCityObject) object);
+        }
 
-		if (src.isSetGroupRole())
-			dest.setGroupRole(src.getGroupRole());
+        if (src.isSetGroupRole())
+            dest.setGroupRole(src.getGroupRole());
 
-		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
-			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+        if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
+            dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
-		if (src.isSetRemoteSchema())
-			dest.setRemoteSchema(src.getRemoteSchema());
+        if (src.isSetRemoteSchema())
+            dest.setRemoteSchema(src.getRemoteSchema());
 
-		if (src.isSetType())
-			dest.setType(XLinkType.fromValue(src.getType().value()));
+        if (src.isSetType())
+            dest.setType(XLinkType.fromValue(src.getType().value()));
 
-		if (src.isSetHref())
-			dest.setHref(src.getHref());
+        if (src.isSetHref())
+            dest.setHref(src.getHref());
 
-		if (src.isSetRole())
-			dest.setRole(src.getRole());
+        if (src.isSetRole())
+            dest.setRole(src.getRole());
 
-		if (src.isSetArcrole())
-			dest.setArcrole(src.getArcrole());
+        if (src.isSetArcrole())
+            dest.setArcrole(src.getArcrole());
 
-		if (src.isSetTitle())
-			dest.setTitle(src.getTitle());
+        if (src.isSetTitle())
+            dest.setTitle(src.getTitle());
 
-		if (src.isSetShow())
-			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
+        if (src.isSetShow())
+            dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
-		if (src.isSetActuate())
-			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
+        if (src.isSetActuate())
+            dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public CityObjectGroupParent unmarshalCityObjectGroupParent(CityObjectGroupParentType src) throws MissingADESchemaException {
-		CityObjectGroupParent dest = new CityObjectGroupParent();
+    public CityObjectGroupParent unmarshalCityObjectGroupParent(CityObjectGroupParentType src) throws MissingADESchemaException {
+        CityObjectGroupParent dest = new CityObjectGroupParent();
 
-		if (src.isSet_CityObject()) {
-			ModelObject object = jaxb.unmarshal(src.get_CityObject());
-			if (object instanceof AbstractCityObject)
-				dest.setObject((AbstractCityObject)object);
-		}
+        if (src.isSet_CityObject()) {
+            ModelObject object = jaxb.unmarshal(src.get_CityObject());
+            if (object instanceof AbstractCityObject)
+                dest.setObject((AbstractCityObject) object);
+        }
 
-		if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
-			dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
+        if (!jaxb.isSkipGenericADEContent() && src.isSet_ADEComponent())
+            dest.setGenericADEElement(jaxb.getADEUnmarshaller().unmarshal(src.get_ADEComponent()));
 
-		if (src.isSetRemoteSchema())
-			dest.setRemoteSchema(src.getRemoteSchema());
+        if (src.isSetRemoteSchema())
+            dest.setRemoteSchema(src.getRemoteSchema());
 
-		if (src.isSetType())
-			dest.setType(XLinkType.fromValue(src.getType().value()));
+        if (src.isSetType())
+            dest.setType(XLinkType.fromValue(src.getType().value()));
 
-		if (src.isSetHref())
-			dest.setHref(src.getHref());
+        if (src.isSetHref())
+            dest.setHref(src.getHref());
 
-		if (src.isSetRole())
-			dest.setRole(src.getRole());
+        if (src.isSetRole())
+            dest.setRole(src.getRole());
 
-		if (src.isSetArcrole())
-			dest.setArcrole(src.getArcrole());
+        if (src.isSetArcrole())
+            dest.setArcrole(src.getArcrole());
 
-		if (src.isSetTitle())
-			dest.setTitle(src.getTitle());
+        if (src.isSetTitle())
+            dest.setTitle(src.getTitle());
 
-		if (src.isSetShow())
-			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
+        if (src.isSetShow())
+            dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
-		if (src.isSetActuate())
-			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
+        if (src.isSetActuate())
+            dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
-		String name = substitutionGroup.getLocalPart();
-		boolean success = true;
+    public boolean assignGenericProperty(ADEGenericElement genericProperty, QName substitutionGroup, AbstractGML dest) {
+        String name = substitutionGroup.getLocalPart();
+        boolean success = true;
 
-		if (dest instanceof CityObjectGroup && name.equals("_GenericApplicationPropertyOfCityObjectGroup"))
-			((CityObjectGroup)dest).addGenericApplicationPropertyOfCityObjectGroup(genericProperty);
-		else 
-			success = false;
+        if (dest instanceof CityObjectGroup && name.equals("_GenericApplicationPropertyOfCityObjectGroup"))
+            ((CityObjectGroup) dest).addGenericApplicationPropertyOfCityObjectGroup(genericProperty);
+        else
+            success = false;
 
-		return success;
-	}
+        return success;
+    }
 
 }

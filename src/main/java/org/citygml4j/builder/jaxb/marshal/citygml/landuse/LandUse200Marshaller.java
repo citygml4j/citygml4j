@@ -30,74 +30,74 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import javax.xml.bind.JAXBElement;
 
 public class LandUse200Marshaller {
-	private final ObjectFactory luse = new ObjectFactory();
-	private final JAXBMarshaller jaxb;
-	private final CityGMLMarshaller citygml;
-	
-	public LandUse200Marshaller(CityGMLMarshaller citygml) {
-		this.citygml = citygml;
-		jaxb = citygml.getJAXBMarshaller();
-	}
+    private final ObjectFactory luse = new ObjectFactory();
+    private final JAXBMarshaller jaxb;
+    private final CityGMLMarshaller citygml;
 
-	public JAXBElement<?> marshalJAXBElement(ModelObject src) {
-		if (src instanceof LandUse)
-			return luse.createLandUse(marshalLandUse((LandUse)src));
-		
-		return null;
-	}
-	
-	public Object marshal(ModelObject src) {
-		if (src instanceof LandUse)
-			return marshalLandUse((LandUse)src);
-		
-		return null;
-	}
-	
-	public void marshalLandUse(LandUse src, LandUseType dest) {
-		citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
+    public LandUse200Marshaller(CityGMLMarshaller citygml) {
+        this.citygml = citygml;
+        jaxb = citygml.getJAXBMarshaller();
+    }
 
-		if (src.isSetClazz())
-			dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
+    public JAXBElement<?> marshalJAXBElement(ModelObject src) {
+        if (src instanceof LandUse)
+            return luse.createLandUse(marshalLandUse((LandUse) src));
 
-		if (src.isSetFunction()) {
-			for (Code function : src.getFunction())
-				dest.getFunction().add(jaxb.getGMLMarshaller().marshalCode(function));
-		}
+        return null;
+    }
 
-		if (src.isSetUsage()) {
-			for (Code usage : src.getUsage())
-				dest.getUsage().add(jaxb.getGMLMarshaller().marshalCode(usage));
-		}
+    public Object marshal(ModelObject src) {
+        if (src instanceof LandUse)
+            return marshalLandUse((LandUse) src);
 
-		if (src.isSetLod0MultiSurface())
-			dest.setLod0MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod0MultiSurface()));
+        return null;
+    }
 
-		if (src.isSetLod1MultiSurface())
-			dest.setLod1MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod1MultiSurface()));
+    public void marshalLandUse(LandUse src, LandUseType dest) {
+        citygml.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
-		if (src.isSetLod2MultiSurface())
-			dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
+        if (src.isSetClazz())
+            dest.setClazz(jaxb.getGMLMarshaller().marshalCode(src.getClazz()));
 
-		if (src.isSetLod3MultiSurface())
-			dest.setLod3MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod3MultiSurface()));
+        if (src.isSetFunction()) {
+            for (Code function : src.getFunction())
+                dest.getFunction().add(jaxb.getGMLMarshaller().marshalCode(function));
+        }
 
-		if (src.isSetLod4MultiSurface())
-			dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
-		
-		if (src.isSetGenericApplicationPropertyOfLandUse()) {
-			for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfLandUse()) {
-				JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
-				if (jaxbElement != null)
-					dest.get_GenericApplicationPropertyOfLandUse().add(jaxbElement);
-			}
-		}
-	}
+        if (src.isSetUsage()) {
+            for (Code usage : src.getUsage())
+                dest.getUsage().add(jaxb.getGMLMarshaller().marshalCode(usage));
+        }
 
-	public LandUseType marshalLandUse(LandUse src) {
-		LandUseType dest = luse.createLandUseType();
-		marshalLandUse(src, dest);
+        if (src.isSetLod0MultiSurface())
+            dest.setLod0MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod0MultiSurface()));
 
-		return dest;
-	}
-	
+        if (src.isSetLod1MultiSurface())
+            dest.setLod1MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod1MultiSurface()));
+
+        if (src.isSetLod2MultiSurface())
+            dest.setLod2MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod2MultiSurface()));
+
+        if (src.isSetLod3MultiSurface())
+            dest.setLod3MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod3MultiSurface()));
+
+        if (src.isSetLod4MultiSurface())
+            dest.setLod4MultiSurface(jaxb.getGMLMarshaller().marshalMultiSurfaceProperty(src.getLod4MultiSurface()));
+
+        if (src.isSetGenericApplicationPropertyOfLandUse()) {
+            for (ADEComponent adeComponent : src.getGenericApplicationPropertyOfLandUse()) {
+                JAXBElement<Object> jaxbElement = jaxb.getADEMarshaller().marshalJAXBElement(adeComponent);
+                if (jaxbElement != null)
+                    dest.get_GenericApplicationPropertyOfLandUse().add(jaxbElement);
+            }
+        }
+    }
+
+    public LandUseType marshalLandUse(LandUse src) {
+        LandUseType dest = luse.createLandUseType();
+        marshalLandUse(src, dest);
+
+        return dest;
+    }
+
 }

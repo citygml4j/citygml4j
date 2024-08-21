@@ -37,13 +37,13 @@ import java.util.List;
 
 
 /**
- *  Type for doors in walls. Used in LOD3 and LOD4 only . As subclass of _CityObject, a Door inherits all attributes and relations, in particular an id,
- * 				names, external references, and generalization relations. 
- * 
+ * Type for doors in walls. Used in LOD3 and LOD4 only . As subclass of _CityObject, a Door inherits all attributes and relations, in particular an id,
+ * names, external references, and generalization relations.
+ *
  * <p>Java-Klasse für DoorType complex type.
- * 
+ *
  * <p>Das folgende Schemafragment gibt den erwarteten Content an, der in dieser Klasse enthalten ist.
- * 
+ *
  * <pre>
  * &lt;complexType name="DoorType">
  *   &lt;complexContent>
@@ -56,42 +56,37 @@ import java.util.List;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DoorType", propOrder = {
-    "address",
-    "_GenericApplicationPropertyOfDoor"
+        "address",
+        "_GenericApplicationPropertyOfDoor"
 })
 public class DoorType
-    extends AbstractOpeningType
-{
+        extends AbstractOpeningType {
 
     protected List<AddressPropertyType> address;
     protected List<Object> _GenericApplicationPropertyOfDoor;
 
     /**
      * Gets the value of the address property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the address property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAddress().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link AddressPropertyType }
-     * 
-     * 
      */
     public List<AddressPropertyType> getAddress() {
         if (address == null) {
@@ -101,7 +96,7 @@ public class DoorType
     }
 
     public boolean isSetAddress() {
-        return ((this.address!= null)&&(!this.address.isEmpty()));
+        return ((this.address != null) && (!this.address.isEmpty()));
     }
 
     public void unsetAddress() {
@@ -110,25 +105,23 @@ public class DoorType
 
     /**
      * Gets the value of the genericApplicationPropertyOfDoor property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the genericApplicationPropertyOfDoor property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    get_GenericApplicationPropertyOfDoor().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Object }
-     * 
-     * 
      */
     public List<Object> get_GenericApplicationPropertyOfDoor() {
         if (_GenericApplicationPropertyOfDoor == null) {
@@ -138,7 +131,7 @@ public class DoorType
     }
 
     public boolean isSet_GenericApplicationPropertyOfDoor() {
-        return ((this._GenericApplicationPropertyOfDoor!= null)&&(!this._GenericApplicationPropertyOfDoor.isEmpty()));
+        return ((this._GenericApplicationPropertyOfDoor != null) && (!this._GenericApplicationPropertyOfDoor.isEmpty()));
     }
 
     public void unset_GenericApplicationPropertyOfDoor() {

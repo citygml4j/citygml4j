@@ -30,129 +30,129 @@ import org.citygml4j.model.gml.basicTypes.Null;
 import org.citygml4j.model.gml.geometry.primitives.Envelope;
 
 public class BoundingShape implements GML, Child, Copyable {
-	private Envelope envelope;
-	private Null _null;
-	private ModelObject parent;
+    private Envelope envelope;
+    private Null _null;
+    private ModelObject parent;
 
-	public BoundingShape() {
+    public BoundingShape() {
 
-	}
+    }
 
-	public BoundingShape(Envelope envelope) {
-		setEnvelope(envelope);
-	}
+    public BoundingShape(Envelope envelope) {
+        setEnvelope(envelope);
+    }
 
-	public BoundingShape(BoundingBox boundingBox) {
-		setEnvelope(boundingBox);
-	}
-	
-	public boolean isEmpty() {
-		return isSetNull() || !isSetEnvelope() || envelope.isNull();
-	}
+    public BoundingShape(BoundingBox boundingBox) {
+        setEnvelope(boundingBox);
+    }
 
-	public Envelope getEnvelope() {
-		return envelope;
-	}
+    public boolean isEmpty() {
+        return isSetNull() || !isSetEnvelope() || envelope.isNull();
+    }
 
-	public Null getNull() {
-		return _null;
-	}
+    public Envelope getEnvelope() {
+        return envelope;
+    }
 
-	public boolean isSetEnvelope() {
-		return envelope != null;
-	}
+    public Null getNull() {
+        return _null;
+    }
 
-	public boolean isSetNull() {
-		return _null != null;
-	}
+    public boolean isSetEnvelope() {
+        return envelope != null;
+    }
 
-	public void setEnvelope(Envelope envelope) {
-		if (envelope != null) {
-			if (envelope.isNull())
-				return;
-			
-			_null = null;
-		}
-		
-		this.envelope = ModelObjects.setParent(envelope, this);
-	}
+    public boolean isSetNull() {
+        return _null != null;
+    }
 
-	public void setEnvelope(BoundingBox boundingBox) {
-		if (!isSetEnvelope())
-			setEnvelope(new Envelope(boundingBox));
-		else
-			envelope.setBoundingBox(boundingBox);
-	}
+    public void setEnvelope(Envelope envelope) {
+        if (envelope != null) {
+            if (envelope.isNull())
+                return;
 
-	public void updateEnvelope(BoundingBox boundingBox) {
-		if (!isSetEnvelope())
-			setEnvelope(new Envelope(boundingBox));
-		else
-			envelope.update(boundingBox);
-	}
-	
-	public void updateEnvelope(Envelope envelope) {
-		if (envelope != null)
-			updateEnvelope(envelope.toBoundingBox());			
-	}
+            _null = null;
+        }
 
-	public void setNull(Null _null) {
-		if (_null != null)
-			envelope = null;
+        this.envelope = ModelObjects.setParent(envelope, this);
+    }
 
-		this._null = ModelObjects.setParent(_null, this);
-	}
+    public void setEnvelope(BoundingBox boundingBox) {
+        if (!isSetEnvelope())
+            setEnvelope(new Envelope(boundingBox));
+        else
+            envelope.setBoundingBox(boundingBox);
+    }
 
-	public void unsetEnvelope() {
-		envelope = ModelObjects.setNull(envelope);
-	}
+    public void updateEnvelope(BoundingBox boundingBox) {
+        if (!isSetEnvelope())
+            setEnvelope(new Envelope(boundingBox));
+        else
+            envelope.update(boundingBox);
+    }
 
-	public void unsetNull() {
-		_null = ModelObjects.setNull(_null);
-	}
+    public void updateEnvelope(Envelope envelope) {
+        if (envelope != null)
+            updateEnvelope(envelope.toBoundingBox());
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.BOUNDING_SHAPE;
-	}
+    public void setNull(Null _null) {
+        if (_null != null)
+            envelope = null;
 
-	public ModelObject getParent() {
-		return parent;
-	}
+        this._null = ModelObjects.setParent(_null, this);
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void unsetEnvelope() {
+        envelope = ModelObjects.setNull(envelope);
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void unsetNull() {
+        _null = ModelObjects.setNull(_null);
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.BOUNDING_SHAPE;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BoundingShape(), copyBuilder);
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		BoundingShape copy = (target == null) ? new BoundingShape() : (BoundingShape)target;
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-		if (isSetEnvelope()) {
-			copy.setEnvelope((Envelope)copyBuilder.copy(envelope));
-			if (copy.getEnvelope() == envelope)
-				envelope.setParent(this);
-		}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-		if (isSetNull()) {
-			copy.setNull((Null)copyBuilder.copy(_null));
-			if (copy.getNull() == _null)
-				_null.setParent(this);
-		}
+    public void unsetParent() {
+        parent = null;
+    }
 
-		copy.unsetParent();
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BoundingShape(), copyBuilder);
+    }
 
-		return copy;
-	}
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        BoundingShape copy = (target == null) ? new BoundingShape() : (BoundingShape) target;
+
+        if (isSetEnvelope()) {
+            copy.setEnvelope((Envelope) copyBuilder.copy(envelope));
+            if (copy.getEnvelope() == envelope)
+                envelope.setParent(this);
+        }
+
+        if (isSetNull()) {
+            copy.setNull((Null) copyBuilder.copy(_null));
+            if (copy.getNull() == _null)
+                _null.setParent(this);
+        }
+
+        copy.unsetParent();
+
+        return copy;
+    }
 
 }

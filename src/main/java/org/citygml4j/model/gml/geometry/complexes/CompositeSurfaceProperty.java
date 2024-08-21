@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class CompositeSurfaceProperty extends GeometryProperty<CompositeSurface> {
 
-	public CompositeSurfaceProperty() {
+    public CompositeSurfaceProperty() {
 
-	}
+    }
 
-	public CompositeSurfaceProperty(CompositeSurface compositeSurface) {
-		super(compositeSurface);
-	}
+    public CompositeSurfaceProperty(CompositeSurface compositeSurface) {
+        super(compositeSurface);
+    }
 
-	public CompositeSurfaceProperty(String href) {
-		super(href);
-	}
-	
-	public CompositeSurface getCompositeSurface() {
-		return super.getGeometry();
-	}
+    public CompositeSurfaceProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetCompositeSurface() {
-		return super.isSetGeometry();
-	}
+    public CompositeSurface getCompositeSurface() {
+        return super.getGeometry();
+    }
 
-	public void setCompositeSurface(CompositeSurface compositeSurface) {
-		super.setGeometry(compositeSurface);
-	}
+    public boolean isSetCompositeSurface() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetCompositeSurface() {
-		super.unsetGeometry();
-	}
+    public void setCompositeSurface(CompositeSurface compositeSurface) {
+        super.setGeometry(compositeSurface);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.COMPOSITE_SURFACE_PROPERTY;
-	}
+    public void unsetCompositeSurface() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<CompositeSurface> getAssociableClass() {
-		return CompositeSurface.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.COMPOSITE_SURFACE_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CompositeSurfaceProperty(), copyBuilder);
-	}
+    @Override
+    public Class<CompositeSurface> getAssociableClass() {
+        return CompositeSurface.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CompositeSurfaceProperty copy = (target == null) ? new CompositeSurfaceProperty() : (CompositeSurfaceProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CompositeSurfaceProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CompositeSurfaceProperty copy = (target == null) ? new CompositeSurfaceProperty() : (CompositeSurfaceProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

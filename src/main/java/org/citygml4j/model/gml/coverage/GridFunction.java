@@ -30,89 +30,89 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GridFunction implements GML, Child, Copyable {
-	private SequenceRule sequenceRule;
-	private List<Integer> startPoint;
-	private ModelObject parent;
+    private SequenceRule sequenceRule;
+    private List<Integer> startPoint;
+    private ModelObject parent;
 
-	public GMLClass getGMLClass() {
-		return GMLClass.GRID_FUNCTION;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.GRID_FUNCTION;
+    }
 
-	public SequenceRule getSequenceRule() {
-		return sequenceRule;
-	}
+    public SequenceRule getSequenceRule() {
+        return sequenceRule;
+    }
 
-	public List<Integer> getStartPoint() {
-		if (startPoint == null)
-			startPoint = new ArrayList<>();
-		
-		return startPoint;
-	}
+    public List<Integer> getStartPoint() {
+        if (startPoint == null)
+            startPoint = new ArrayList<>();
 
-	public boolean isSetSequenceRule() {
-		return sequenceRule != null;
-	}
+        return startPoint;
+    }
 
-	public boolean isSetStartPoint() {
-		return startPoint != null && !startPoint.isEmpty();
-	}
+    public boolean isSetSequenceRule() {
+        return sequenceRule != null;
+    }
 
-	public void setSequenceRule(SequenceRule sequenceRule) {
-		this.sequenceRule = ModelObjects.setParent(sequenceRule, this);
-	}
+    public boolean isSetStartPoint() {
+        return startPoint != null && !startPoint.isEmpty();
+    }
 
-	public void addStartPoint(Integer startPoint) {
-		getStartPoint().add(startPoint);
-	}
+    public void setSequenceRule(SequenceRule sequenceRule) {
+        this.sequenceRule = ModelObjects.setParent(sequenceRule, this);
+    }
 
-	public void setStartPoint(List<Integer> startPoint) {
-		this.startPoint = startPoint;
-	}
+    public void addStartPoint(Integer startPoint) {
+        getStartPoint().add(startPoint);
+    }
 
-	public void unsetSequenceRule() {
-		sequenceRule = ModelObjects.setNull(sequenceRule);
-	}
+    public void setStartPoint(List<Integer> startPoint) {
+        this.startPoint = startPoint;
+    }
 
-	public void unsetStartPoint() {
-		startPoint = null;
-	}
-	
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetSequenceRule() {
+        sequenceRule = ModelObjects.setNull(sequenceRule);
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void unsetStartPoint() {
+        startPoint = null;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GridFunction copy = (target == null) ? new GridFunction() : (GridFunction)target;
-		
-		if (isSetSequenceRule()) {
-			copy.setSequenceRule((SequenceRule)copyBuilder.copy(sequenceRule));
-			if (copy.getSequenceRule() == sequenceRule)
-				sequenceRule.setParent(this);
-		}
-		
-		if (isSetStartPoint())
-			copy.setStartPoint((List<Integer>)copyBuilder.copy(startPoint));					
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GridFunction(), copyBuilder);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GridFunction copy = (target == null) ? new GridFunction() : (GridFunction) target;
+
+        if (isSetSequenceRule()) {
+            copy.setSequenceRule((SequenceRule) copyBuilder.copy(sequenceRule));
+            if (copy.getSequenceRule() == sequenceRule)
+                sequenceRule.setParent(this);
+        }
+
+        if (isSetStartPoint())
+            copy.setStartPoint((List<Integer>) copyBuilder.copy(startPoint));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GridFunction(), copyBuilder);
+    }
 
 }

@@ -161,9 +161,7 @@ public class CreateExtensions {
                 if (cityObject.getType().equals("Building")) {
                     boolean hasParcel = ((BuildingType) cityObject).getAttributes().getExtensionAttributes().containsKey("+parcel");
                     System.out.println(df.format(new Date()) + "-- has \"+parcel\" extension attribute: " + hasParcel);
-                }
-
-                else if (cityObject.getType().equals("+NoiseBuilding")) {
+                } else if (cityObject.getType().equals("+NoiseBuilding")) {
                     boolean hasNoiseLevel = ((NoiseBuildingType) cityObject).getAttributes().noiseLevel != 0;
                     System.out.println(df.format(new Date()) + "-- has \"noise-level\" attribute: " + hasNoiseLevel);
 

@@ -26,113 +26,113 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class CountryName implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String type;
-	private String code;
-	private ModelObject parent;
-	
-	public CountryName() {
-	}
-	
-	public CountryName(String content) {
-		this.content = content;
-	}
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String type;
+    private String code;
+    private ModelObject parent;
 
-	public String getType() {
-		return type;
-	}
+    public CountryName() {
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public CountryName(String content) {
+        this.content = content;
+    }
 
-	public boolean isSetType() {
-		return type != null;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void unsetType() {
-		type = null;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.COUNTRY_NAME;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public void unsetType() {
+        type = null;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.COUNTRY_NAME;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CountryName(), copyBuilder);
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CountryName copy = (target == null) ? new CountryName() : (CountryName)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetType())
-			copy.setType(copyBuilder.copy(type));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
+
+    public void unsetParent() {
+        parent = null;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CountryName(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CountryName copy = (target == null) ? new CountryName() : (CountryName) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetType())
+            copy.setType(copyBuilder.copy(type));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

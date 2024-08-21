@@ -31,103 +31,103 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ring extends AbstractRing {
-	private List<CurveProperty> curveMember;
+    private List<CurveProperty> curveMember;
 
-	public void addCurveMember(CurveProperty curveMember) {
-		getCurveMember().add(curveMember);
-	}
+    public void addCurveMember(CurveProperty curveMember) {
+        getCurveMember().add(curveMember);
+    }
 
-	public List<CurveProperty> getCurveMember() {
-		if (curveMember == null)
-			curveMember = new ChildList<>(this);
+    public List<CurveProperty> getCurveMember() {
+        if (curveMember == null)
+            curveMember = new ChildList<>(this);
 
-		return curveMember;
-	}
+        return curveMember;
+    }
 
-	public boolean isSetCurveMember() {
-		return curveMember != null && !curveMember.isEmpty();
-	}
+    public boolean isSetCurveMember() {
+        return curveMember != null && !curveMember.isEmpty();
+    }
 
-	public void setCurveMember(List<CurveProperty> curveMember) {
-		this.curveMember = new ChildList<>(this, curveMember);
-	}
+    public void setCurveMember(List<CurveProperty> curveMember) {
+        this.curveMember = new ChildList<>(this, curveMember);
+    }
 
-	public void unsetCurveMember() {
-		curveMember = ModelObjects.setNull(curveMember);
-	}
+    public void unsetCurveMember() {
+        curveMember = ModelObjects.setNull(curveMember);
+    }
 
-	public boolean unsetCurveMember(CurveProperty curveMember) {
-		return isSetCurveMember() && this.curveMember.remove(curveMember);
-	}
+    public boolean unsetCurveMember(CurveProperty curveMember) {
+        return isSetCurveMember() && this.curveMember.remove(curveMember);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.RING;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.RING;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Ring(), copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Ring(), copyBuilder);
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		if (isSetCurveMember()) {
-			List<Double> coordinates = new ArrayList<>();
-			for (CurveProperty property : curveMember) {
-				if (property != null && property.isSetCurve()) {
-					List<Double> candidates = property.getCurve().toList3d();
-					if (!candidates.isEmpty()) {
-						int size = coordinates.size();
-						if (size == 0)
-							coordinates.addAll(candidates);
-						else {
-							if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
-									&& candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
-									&& candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
-								coordinates.addAll(candidates.subList(3, candidates.size()));
-							else
-								coordinates.addAll(candidates);
-						}
-					}
-				}
-			}
+    @Override
+    public List<Double> toList3d() {
+        if (isSetCurveMember()) {
+            List<Double> coordinates = new ArrayList<>();
+            for (CurveProperty property : curveMember) {
+                if (property != null && property.isSetCurve()) {
+                    List<Double> candidates = property.getCurve().toList3d();
+                    if (!candidates.isEmpty()) {
+                        int size = coordinates.size();
+                        if (size == 0)
+                            coordinates.addAll(candidates);
+                        else {
+                            if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
+                                    && candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
+                                    && candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
+                                coordinates.addAll(candidates.subList(3, candidates.size()));
+                            else
+                                coordinates.addAll(candidates);
+                        }
+                    }
+                }
+            }
 
-			return coordinates;
-		} else
-			return new ArrayList<>();
-	}
+            return coordinates;
+        } else
+            return new ArrayList<>();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Ring copy = (target == null) ? new Ring() : (Ring)target;
-		super.copyTo(copy, copyBuilder);
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Ring copy = (target == null) ? new Ring() : (Ring) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetCurveMember()) {
-			for (CurveProperty part : curveMember) {
-				CurveProperty copyPart = (CurveProperty)copyBuilder.copy(part);
-				copy.addCurveMember(copyPart);
+        if (isSetCurveMember()) {
+            for (CurveProperty part : curveMember) {
+                CurveProperty copyPart = (CurveProperty) copyBuilder.copy(part);
+                copy.addCurveMember(copyPart);
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
 
-		return copy;
-	}
+        return copy;
+    }
 
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
 
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -27,24 +27,27 @@ import org.citygml4j.util.walker.GMLWalker;
 import java.util.List;
 
 public interface ADEContext {
-	List<ADEModule> getADEModules();
-	List<String> getModelPackageNames();
-	ADEMarshaller createADEMarshaller();
-	ADEUnmarshaller createADEUnmarshaller();
+    List<ADEModule> getADEModules();
 
-	default ADEWalker<FeatureWalker> createDefaultFeatureWalker() {
-		return null;
-	}
-	
-	default ADEWalker<GMLWalker> createDefaultGMLWalker() {
-		return null;
-	}
-	
-	default <T> ADEWalker<FeatureFunctionWalker<T>> createDefaultFeatureFunctionWalker() {
-		return null;
-	}
-	
-	default <T> ADEWalker<GMLFunctionWalker<T>> createDefaultGMLFunctionWalker() {
-		return null;
-	}
+    List<String> getModelPackageNames();
+
+    ADEMarshaller createADEMarshaller();
+
+    ADEUnmarshaller createADEUnmarshaller();
+
+    default ADEWalker<FeatureWalker> createDefaultFeatureWalker() {
+        return null;
+    }
+
+    default ADEWalker<GMLWalker> createDefaultGMLWalker() {
+        return null;
+    }
+
+    default <T> ADEWalker<FeatureFunctionWalker<T>> createDefaultFeatureFunctionWalker() {
+        return null;
+    }
+
+    default <T> ADEWalker<GMLFunctionWalker<T>> createDefaultGMLFunctionWalker() {
+        return null;
+    }
 }

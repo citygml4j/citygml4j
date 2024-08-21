@@ -26,92 +26,92 @@ import org.citygml4j.model.common.child.ChildList;
 import java.util.List;
 
 public class GenericAttributeSet extends AbstractGenericAttribute {
-	private List<AbstractGenericAttribute> genericAttribute;
-	private String codeSpace;
+    private List<AbstractGenericAttribute> genericAttribute;
+    private String codeSpace;
 
-	public GenericAttributeSet() {
+    public GenericAttributeSet() {
 
-	}
+    }
 
-	public GenericAttributeSet(List<AbstractGenericAttribute> attributes) {
-		genericAttribute = new ChildList<>(this, attributes);
-	}
-	
-	public GenericAttributeSet(String name, List<AbstractGenericAttribute> attributes) {
-		genericAttribute = new ChildList<>(this, attributes);
-		setName(name);
-	}
+    public GenericAttributeSet(List<AbstractGenericAttribute> attributes) {
+        genericAttribute = new ChildList<>(this, attributes);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.GENERIC_ATTRIBUTE_SET;
-	}
+    public GenericAttributeSet(String name, List<AbstractGenericAttribute> attributes) {
+        genericAttribute = new ChildList<>(this, attributes);
+        setName(name);
+    }
 
-	public void addGenericAttribute(AbstractGenericAttribute genericAttribute) {
-		getGenericAttribute().add(genericAttribute);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.GENERIC_ATTRIBUTE_SET;
+    }
 
-	public List<AbstractGenericAttribute> getGenericAttribute() {
-		if (genericAttribute == null)
-			genericAttribute = new ChildList<>(this);
+    public void addGenericAttribute(AbstractGenericAttribute genericAttribute) {
+        getGenericAttribute().add(genericAttribute);
+    }
 
-		return genericAttribute;
-	}
+    public List<AbstractGenericAttribute> getGenericAttribute() {
+        if (genericAttribute == null)
+            genericAttribute = new ChildList<>(this);
 
-	public String getCodeSpace() {
-		return codeSpace;
-	}
+        return genericAttribute;
+    }
 
-	public boolean isSetGenericAttribute() {
-		return genericAttribute != null && !genericAttribute.isEmpty();
-	}
+    public String getCodeSpace() {
+        return codeSpace;
+    }
 
-	public boolean isSetCodeSpace() {
-		return genericAttribute != null;
-	}
+    public boolean isSetGenericAttribute() {
+        return genericAttribute != null && !genericAttribute.isEmpty();
+    }
 
-	public void setGenericAttribute(List<AbstractGenericAttribute> genericAttribute) {
-		this.genericAttribute = new ChildList<>(this, genericAttribute);
-	}
+    public boolean isSetCodeSpace() {
+        return genericAttribute != null;
+    }
 
-	public void setCodeSpace(String codeSpace) {
-		this.codeSpace = codeSpace;
-	}
+    public void setGenericAttribute(List<AbstractGenericAttribute> genericAttribute) {
+        this.genericAttribute = new ChildList<>(this, genericAttribute);
+    }
 
-	public void unsetGenericAttribute() {
-		genericAttribute = ModelObjects.setNull(genericAttribute);
-	}
+    public void setCodeSpace(String codeSpace) {
+        this.codeSpace = codeSpace;
+    }
 
-	public boolean unsetGenericAttribute(AbstractGenericAttribute genericAttribute) {
-		return isSetGenericAttribute() && this.genericAttribute.remove(genericAttribute);
-	}
+    public void unsetGenericAttribute() {
+        genericAttribute = ModelObjects.setNull(genericAttribute);
+    }
 
-	public void unsetCodeSpace() {
-		codeSpace = null;
-	}
+    public boolean unsetGenericAttribute(AbstractGenericAttribute genericAttribute) {
+        return isSetGenericAttribute() && this.genericAttribute.remove(genericAttribute);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new GenericAttributeSet(), copyBuilder);
-	}
+    public void unsetCodeSpace() {
+        codeSpace = null;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		GenericAttributeSet copy = (target == null) ? new GenericAttributeSet() : (GenericAttributeSet)target;
-		super.copyTo(copy, copyBuilder);
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new GenericAttributeSet(), copyBuilder);
+    }
 
-		if (isSetCodeSpace())
-			copy.setCodeSpace(copyBuilder.copy(codeSpace));
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        GenericAttributeSet copy = (target == null) ? new GenericAttributeSet() : (GenericAttributeSet) target;
+        super.copyTo(copy, copyBuilder);
 
-		if (isSetGenericAttribute()) {
-			for (AbstractGenericAttribute part : genericAttribute) {
-				AbstractGenericAttribute copyPart = (AbstractGenericAttribute)copyBuilder.copy(part);
-				copy.addGenericAttribute(copyPart);
+        if (isSetCodeSpace())
+            copy.setCodeSpace(copyBuilder.copy(codeSpace));
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
+        if (isSetGenericAttribute()) {
+            for (AbstractGenericAttribute part : genericAttribute) {
+                AbstractGenericAttribute copyPart = (AbstractGenericAttribute) copyBuilder.copy(part);
+                copy.addGenericAttribute(copyPart);
 
-		return copy;
-	}
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
 
 }

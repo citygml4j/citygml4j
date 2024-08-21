@@ -22,54 +22,54 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.CityGMLClass;
 
 public class UriAttribute extends AbstractGenericAttribute {
-	private String value;
-	
-	public UriAttribute() {
+    private String value;
 
-	}
-	
-	public UriAttribute(String value) {
-		this.value = value;
-	}
-	
-	public UriAttribute(String name, String value) {
-		this.value = value;
-		setName(name);
-	}
-	
-	public String getValue() {
-		return value;
-	}
+    public UriAttribute() {
 
-	public boolean isSetValue() {
-		return value != null;
-	}
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public UriAttribute(String value) {
+        this.value = value;
+    }
 
-	public void unsetValue() {
-		value = null;
-	}
+    public UriAttribute(String name, String value) {
+        this.value = value;
+        setName(name);
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.URI_ATTRIBUTE;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new UriAttribute(), copyBuilder);
-	}
+    public String getValue() {
+        return value;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		UriAttribute copy = (target == null) ? new UriAttribute() : (UriAttribute)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetValue())
-			copy.setValue(copyBuilder.copy(value));
-		
-		return copy;
-	}
+    public boolean isSetValue() {
+        return value != null;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void unsetValue() {
+        value = null;
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.URI_ATTRIBUTE;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new UriAttribute(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        UriAttribute copy = (target == null) ? new UriAttribute() : (UriAttribute) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetValue())
+            copy.setValue(copyBuilder.copy(value));
+
+        return copy;
+    }
 
 }

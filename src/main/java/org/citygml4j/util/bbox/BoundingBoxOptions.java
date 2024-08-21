@@ -19,43 +19,43 @@
 package org.citygml4j.util.bbox;
 
 public class BoundingBoxOptions {
-	private boolean assignResultToFeatures;
-	private boolean useExistingEnvelopes;
-	private boolean useReferencePoint;
-	
-	private BoundingBoxOptions() {
-		// just to thwart instantiation
-	}
-	
-	public static synchronized BoundingBoxOptions defaults() {
-		return new BoundingBoxOptions();
-	}
+    private boolean assignResultToFeatures;
+    private boolean useExistingEnvelopes;
+    private boolean useReferencePoint;
 
-	public boolean isAssignResultToFeatures() {
-		return assignResultToFeatures;
-	}
+    private BoundingBoxOptions() {
+        // just to thwart instantiation
+    }
 
-	public BoundingBoxOptions assignResultToFeatures(boolean assignResultToFeatures) {
-		this.assignResultToFeatures = assignResultToFeatures;
-		return this;
-	}
-	
-	public boolean isUseExistingEnvelopes() {
-		return useExistingEnvelopes;
-	}
+    public static synchronized BoundingBoxOptions defaults() {
+        return new BoundingBoxOptions();
+    }
 
-	public BoundingBoxOptions useExistingEnvelopes(boolean useExistingEnvelopes) {
-		this.useExistingEnvelopes = useExistingEnvelopes;
-		return this;
-	}
-	
-	public boolean isUseReferencePointForImplicitGeometries() {
-		return useReferencePoint;
-	}
-	
-	public BoundingBoxOptions useReferencePointForImplicitGeometries(boolean useReferencePoint) {
-		this.useReferencePoint = useReferencePoint;
-		return this;
-	}
-	
+    public boolean isAssignResultToFeatures() {
+        return assignResultToFeatures;
+    }
+
+    public BoundingBoxOptions assignResultToFeatures(boolean assignResultToFeatures) {
+        this.assignResultToFeatures = assignResultToFeatures;
+        return this;
+    }
+
+    public boolean isUseExistingEnvelopes() {
+        return useExistingEnvelopes;
+    }
+
+    public BoundingBoxOptions useExistingEnvelopes(boolean useExistingEnvelopes) {
+        this.useExistingEnvelopes = useExistingEnvelopes;
+        return this;
+    }
+
+    public boolean isUseReferencePointForImplicitGeometries() {
+        return useReferencePoint;
+    }
+
+    public BoundingBoxOptions useReferencePointForImplicitGeometries(boolean useReferencePoint) {
+        this.useReferencePoint = useReferencePoint;
+        return this;
+    }
+
 }

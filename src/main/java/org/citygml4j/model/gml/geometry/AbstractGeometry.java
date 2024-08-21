@@ -28,149 +28,151 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractGeometry extends AbstractGML implements SRSReferenceGroup {
-	private String gid;
-	private Integer srsDimension;
-	private String srsName;
-	private List<String> axisLabels;
-	private List<String> uomLabels;
+    private String gid;
+    private Integer srsDimension;
+    private String srsName;
+    private List<String> axisLabels;
+    private List<String> uomLabels;
 
-	public String getGid() {
-		return gid;
-	}
+    public String getGid() {
+        return gid;
+    }
 
-	public boolean isSetGid() {
-		return gid != null;
-	}
+    public boolean isSetGid() {
+        return gid != null;
+    }
 
-	public void setGid(String gid) {
-		this.gid = gid;
-	}
+    public void setGid(String gid) {
+        this.gid = gid;
+    }
 
-	public void unsetGid() {
-		gid = null;
-	}
+    public void unsetGid() {
+        gid = null;
+    }
 
-	public Integer getSrsDimension() {
-		return srsDimension;
-	}
+    public Integer getSrsDimension() {
+        return srsDimension;
+    }
 
-	public String getSrsName() {
-		return srsName;
-	}
+    public String getSrsName() {
+        return srsName;
+    }
 
-	public boolean isSetSrsDimension() {
-		return srsDimension != null;
-	}
+    public boolean isSetSrsDimension() {
+        return srsDimension != null;
+    }
 
-	public boolean isSetSrsName() {
-		return srsName != null;
-	}
+    public boolean isSetSrsName() {
+        return srsName != null;
+    }
 
-	public void setSrsDimension(Integer srsDimension) {
-		if (srsDimension > 0)
-			this.srsDimension = srsDimension;
-	}
+    public void setSrsDimension(Integer srsDimension) {
+        if (srsDimension > 0)
+            this.srsDimension = srsDimension;
+    }
 
-	public void setSrsName(String srsName) {
-		this.srsName = srsName;
-	}
+    public void setSrsName(String srsName) {
+        this.srsName = srsName;
+    }
 
-	public void unsetSrsDimension() {
-		srsDimension = null;
-	}
+    public void unsetSrsDimension() {
+        srsDimension = null;
+    }
 
-	public void unsetSrsName() {
-		srsName = null;
-	}
+    public void unsetSrsName() {
+        srsName = null;
+    }
 
-	public void addAxisLabel(String axisLabel) {
-		if (axisLabels == null)
-			axisLabels = new ArrayList<>();
-		
-		axisLabels.add(axisLabel);
-	}
+    public void addAxisLabel(String axisLabel) {
+        if (axisLabels == null)
+            axisLabels = new ArrayList<>();
 
-	public void addUomLabel(String uomLabel) {
-		if (uomLabels == null)
-			uomLabels = new ArrayList<>();
-		
-		uomLabels.add(uomLabel);
-	}
+        axisLabels.add(axisLabel);
+    }
 
-	public List<String> getAxisLabels() {
-		if (axisLabels == null)
-			axisLabels = new ArrayList<>();
+    public void addUomLabel(String uomLabel) {
+        if (uomLabels == null)
+            uomLabels = new ArrayList<>();
 
-		return axisLabels;
-	}
+        uomLabels.add(uomLabel);
+    }
 
-	public List<String> getUomLabels() {
-		if (uomLabels == null)
-			uomLabels = new ArrayList<>();
+    public List<String> getAxisLabels() {
+        if (axisLabels == null)
+            axisLabels = new ArrayList<>();
 
-		return uomLabels;
-	}
+        return axisLabels;
+    }
 
-	public boolean isSetAxisLabels() {
-		return axisLabels != null && !axisLabels.isEmpty();
-	}
+    public List<String> getUomLabels() {
+        if (uomLabels == null)
+            uomLabels = new ArrayList<>();
 
-	public boolean isSetUomLabels() {
-		return uomLabels != null && !uomLabels.isEmpty();
-	}
+        return uomLabels;
+    }
 
-	public void setAxisLabels(List<String> axisLabels) {
-		this.axisLabels = axisLabels;
-	}
+    public boolean isSetAxisLabels() {
+        return axisLabels != null && !axisLabels.isEmpty();
+    }
 
-	public void setUomLabels(List<String> uomLabels) {
-		this.uomLabels = uomLabels;
-	}
+    public boolean isSetUomLabels() {
+        return uomLabels != null && !uomLabels.isEmpty();
+    }
 
-	public void unsetAxisLabels() {
-		axisLabels = null;
-	}
+    public void setAxisLabels(List<String> axisLabels) {
+        this.axisLabels = axisLabels;
+    }
 
-	public boolean unsetAxisLabels(String axisLabel) {
-		return isSetAxisLabels() && axisLabels.remove(axisLabel);
-	}
+    public void setUomLabels(List<String> uomLabels) {
+        this.uomLabels = uomLabels;
+    }
 
-	public void unsetUomLabels() {
-		uomLabels = null;
-	}
+    public void unsetAxisLabels() {
+        axisLabels = null;
+    }
 
-	public boolean unsetUomLabels(String uomLabel) {
-		return isSetUomLabels() && uomLabels.remove(uomLabel);
-	}
+    public boolean unsetAxisLabels(String axisLabel) {
+        return isSetAxisLabels() && axisLabels.remove(axisLabel);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		if (target == null)
+    public void unsetUomLabels() {
+        uomLabels = null;
+    }
+
+    public boolean unsetUomLabels(String uomLabel) {
+        return isSetUomLabels() && uomLabels.remove(uomLabel);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        if (target == null)
             throw new IllegalArgumentException("Target argument must not be null for abstract copyable classes.");
 
-        AbstractGeometry copy = (AbstractGeometry)target;
+        AbstractGeometry copy = (AbstractGeometry) target;
         super.copyTo(copy, copyBuilder);
-        
+
         if (isSetGid())
-        	copy.setGid(copyBuilder.copy(gid));
-        
+            copy.setGid(copyBuilder.copy(gid));
+
         if (isSetSrsDimension())
-        	copy.setSrsDimension((Integer)copyBuilder.copy(srsDimension));
-        
+            copy.setSrsDimension((Integer) copyBuilder.copy(srsDimension));
+
         if (isSetSrsName())
-        	copy.setSrsName(copyBuilder.copy(srsName));
-        
+            copy.setSrsName(copyBuilder.copy(srsName));
+
         if (isSetAxisLabels())
-        	copy.setAxisLabels((List<String>)copyBuilder.copy(axisLabels));
-        
+            copy.setAxisLabels((List<String>) copyBuilder.copy(axisLabels));
+
         if (isSetUomLabels())
-        	copy.setUomLabels((List<String>)copyBuilder.copy(uomLabels));
-        
+            copy.setUomLabels((List<String>) copyBuilder.copy(uomLabels));
+
         return copy;
-	}
-	
-	public abstract BoundingBox calcBoundingBox();	
-	public abstract void accept(GeometryVisitor visitor);
-	public abstract <T> T accept(GeometryFunctor<T> visitor);
+    }
+
+    public abstract BoundingBox calcBoundingBox();
+
+    public abstract void accept(GeometryVisitor visitor);
+
+    public abstract <T> T accept(GeometryFunctor<T> visitor);
 }

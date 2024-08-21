@@ -25,62 +25,62 @@ import org.citygml4j.model.gml.base.ArrayAssociation;
 import java.util.List;
 
 public class LineStringSegmentArrayProperty extends ArrayAssociation<LineStringSegment> {
-	
-	public LineStringSegmentArrayProperty() {
 
-	}
+    public LineStringSegmentArrayProperty() {
 
-	public LineStringSegmentArrayProperty(LineStringSegment lineStringSegment) {
-		super(lineStringSegment);
-	}
+    }
 
-	public LineStringSegmentArrayProperty(List<LineStringSegment> lineStringSegment) {
-		super(lineStringSegment);
-	}
-	
-	public LineStringSegmentArrayProperty(LineStringSegment... lineStringSegment) {
-		super(lineStringSegment);
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.LINE_STRING_SEGMENT_ARRAY_PROPERTY;
-	}
+    public LineStringSegmentArrayProperty(LineStringSegment lineStringSegment) {
+        super(lineStringSegment);
+    }
 
-	public void addLineStringSegment(LineStringSegment lineStringSegment) {
-		super.addObject(lineStringSegment);
-	}
+    public LineStringSegmentArrayProperty(List<LineStringSegment> lineStringSegment) {
+        super(lineStringSegment);
+    }
 
-	public List<LineStringSegment> getLineStringSegment() {
-		return super.getObject();
-	}
+    public LineStringSegmentArrayProperty(LineStringSegment... lineStringSegment) {
+        super(lineStringSegment);
+    }
 
-	public boolean isSetLineStringSegment() {
-		return super.isSetObject();
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.LINE_STRING_SEGMENT_ARRAY_PROPERTY;
+    }
 
-	public void setLineStringSegment(List<LineStringSegment> lineStringSegment) {
-		super.setObject(lineStringSegment);
-	}
+    public void addLineStringSegment(LineStringSegment lineStringSegment) {
+        super.addObject(lineStringSegment);
+    }
 
-	public void unsetLineStringSegment() {
-		super.unsetObject();
-	}
+    public List<LineStringSegment> getLineStringSegment() {
+        return super.getObject();
+    }
 
-	public boolean unsetLineStringSegment(LineStringSegment lineStringSegment) {
-		return super.unsetObject(lineStringSegment);
-	}
+    public boolean isSetLineStringSegment() {
+        return super.isSetObject();
+    }
 
-	public Class<LineStringSegment> getAssociableClass() {
-		return LineStringSegment.class;
-	}
+    public void setLineStringSegment(List<LineStringSegment> lineStringSegment) {
+        super.setObject(lineStringSegment);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		LineStringSegmentArrayProperty copy = (target == null) ? new LineStringSegmentArrayProperty() : (LineStringSegmentArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetLineStringSegment() {
+        super.unsetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new LineStringSegmentArrayProperty(), copyBuilder);
-	}
-	
+    public boolean unsetLineStringSegment(LineStringSegment lineStringSegment) {
+        return super.unsetObject(lineStringSegment);
+    }
+
+    public Class<LineStringSegment> getAssociableClass() {
+        return LineStringSegment.class;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        LineStringSegmentArrayProperty copy = (target == null) ? new LineStringSegmentArrayProperty() : (LineStringSegmentArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new LineStringSegmentArrayProperty(), copyBuilder);
+    }
+
 }

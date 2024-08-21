@@ -37,104 +37,104 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class Track extends TransportationComplex {
-	private List<ADEComponent> ade;
-	
-	public Track() {
+    private List<ADEComponent> ade;
 
-	}
+    public Track() {
 
-	public Track(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfTrack(ADEComponent ade) {
-		getGenericApplicationPropertyOfTrack().add(ade);
-	}
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfTrack() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public Track(Module module) {
+        super(module);
+    }
 
-		return ade;
-	}
+    public void addGenericApplicationPropertyOfTrack(ADEComponent ade) {
+        getGenericApplicationPropertyOfTrack().add(ade);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfTrack() {
-		return ade != null && !ade.isEmpty();
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfTrack() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public void setGenericApplicationPropertyOfTrack(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+        return ade;
+    }
 
-	public void unsetGenericApplicationPropertyOfTrack() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfTrack() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean unsetGenericApplicationPropertyOfTrack(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfTrack() && this.ade.remove(ade);
-	}
+    public void setGenericApplicationPropertyOfTrack(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TRACK;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfTrack()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfTrack()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Track(), copyBuilder);
-	}
+    public void unsetGenericApplicationPropertyOfTrack() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Track copy = (target == null) ? new Track() : (Track)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfTrack()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfTrack(copyPart);
+    public boolean unsetGenericApplicationPropertyOfTrack(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfTrack() && this.ade.remove(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TRACK;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfTrack()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfTrack()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Track(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Track copy = (target == null) ? new Track() : (Track) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfTrack()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfTrack(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

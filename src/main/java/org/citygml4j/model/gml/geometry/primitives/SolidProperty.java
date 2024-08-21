@@ -23,51 +23,51 @@ import org.citygml4j.model.gml.GMLClass;
 import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class SolidProperty extends GeometryProperty<AbstractSolid> {
-	
-	public SolidProperty() {
 
-	}
+    public SolidProperty() {
 
-	public SolidProperty(AbstractSolid abstractSolid) {
-		super(abstractSolid);
-	}
+    }
 
-	public SolidProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractSolid getSolid() {
-		return super.getGeometry();
-	}
+    public SolidProperty(AbstractSolid abstractSolid) {
+        super(abstractSolid);
+    }
 
-	public boolean isSetSolid() {
-		return super.isSetGeometry();
-	}
+    public SolidProperty(String href) {
+        super(href);
+    }
 
-	public void setSolid(AbstractSolid abstractSolid) {
-		super.setGeometry(abstractSolid);
-	}
+    public AbstractSolid getSolid() {
+        return super.getGeometry();
+    }
 
-	public void unsetSolid() {
-		super.unsetGeometry();
-	}
+    public boolean isSetSolid() {
+        return super.isSetGeometry();
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.SOLID_PROPERTY;
-	}
+    public void setSolid(AbstractSolid abstractSolid) {
+        super.setGeometry(abstractSolid);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new SolidProperty(), copyBuilder);
-	}
+    public void unsetSolid() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<AbstractSolid> getAssociableClass() {
-		return AbstractSolid.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.SOLID_PROPERTY;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		SolidProperty copy = (target == null) ? new SolidProperty() : (SolidProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new SolidProperty(), copyBuilder);
+    }
+
+    @Override
+    public Class<AbstractSolid> getAssociableClass() {
+        return AbstractSolid.class;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        SolidProperty copy = (target == null) ? new SolidProperty() : (SolidProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

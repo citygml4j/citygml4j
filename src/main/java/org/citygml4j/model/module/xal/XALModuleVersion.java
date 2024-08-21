@@ -21,22 +21,22 @@ package org.citygml4j.model.module.xal;
 import org.citygml4j.model.module.ModuleVersion;
 
 public enum XALModuleVersion implements ModuleVersion {
-	v2_0("2.0");
-	
-	private final String value;
-	
-	XALModuleVersion(String value) {
-		this.value = value;
-	}
+    v2_0("2.0");
 
-	@Override
-	public String getVersionString() {
-		return value;
-	}
+    private final String value;
 
-	@Override
-	public String toString() {
-		return value;
-	}
-	
+    XALModuleVersion(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String getVersionString() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
+
 }

@@ -26,62 +26,62 @@ import java.util.List;
 
 public class CurveSegmentArrayProperty extends ArrayAssociation<AbstractCurveSegment> {
 
-	public CurveSegmentArrayProperty() {
-		
-	}
-	
-	public CurveSegmentArrayProperty(AbstractCurveSegment abstractCurveSegment) {
-		super(abstractCurveSegment);
-	}
-	
-	public CurveSegmentArrayProperty(List<AbstractCurveSegment> abstractCurveSegment) {
-		super(abstractCurveSegment);
-	}
-	
-	public CurveSegmentArrayProperty(AbstractCurveSegment... abstractCurveSegment) {
-		super(abstractCurveSegment);
-	}
-	
-	public void addCurveSegment(AbstractCurveSegment curveSegment) {
-		super.addObject(curveSegment);
-	}
+    public CurveSegmentArrayProperty() {
 
-	public List<? extends AbstractCurveSegment> getCurveSegment() {
-		return super.getObject();
-	}
+    }
 
-	public boolean isSetCurveSegment() {
-		return super.isSetObject();
-	}
+    public CurveSegmentArrayProperty(AbstractCurveSegment abstractCurveSegment) {
+        super(abstractCurveSegment);
+    }
 
-	@SuppressWarnings("unchecked")
-	public void setCurveSegment(List<? extends AbstractCurveSegment> curveSegment) {
-		super.setObject((List<AbstractCurveSegment>)curveSegment);
-	}
+    public CurveSegmentArrayProperty(List<AbstractCurveSegment> abstractCurveSegment) {
+        super(abstractCurveSegment);
+    }
 
-	public void unsetCurveSegment() {
-		super.unsetObject();
-	}
+    public CurveSegmentArrayProperty(AbstractCurveSegment... abstractCurveSegment) {
+        super(abstractCurveSegment);
+    }
 
-	public boolean unsetCurveSegment(AbstractCurveSegment curveSegment) {
-		return super.unsetObject(curveSegment);
-	}
+    public void addCurveSegment(AbstractCurveSegment curveSegment) {
+        super.addObject(curveSegment);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.CURVE_SEGMENT_ARRAY_PROPERTY;
-	}
+    public List<? extends AbstractCurveSegment> getCurveSegment() {
+        return super.getObject();
+    }
 
-	public Class<AbstractCurveSegment> getAssociableClass() {
-		return AbstractCurveSegment.class;
-	}
+    public boolean isSetCurveSegment() {
+        return super.isSetObject();
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new CurveSegmentArrayProperty(), copyBuilder);
-	}
+    @SuppressWarnings("unchecked")
+    public void setCurveSegment(List<? extends AbstractCurveSegment> curveSegment) {
+        super.setObject((List<AbstractCurveSegment>) curveSegment);
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		CurveSegmentArrayProperty copy = (target == null) ? new CurveSegmentArrayProperty() : (CurveSegmentArrayProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetCurveSegment() {
+        super.unsetObject();
+    }
+
+    public boolean unsetCurveSegment(AbstractCurveSegment curveSegment) {
+        return super.unsetObject(curveSegment);
+    }
+
+    public GMLClass getGMLClass() {
+        return GMLClass.CURVE_SEGMENT_ARRAY_PROPERTY;
+    }
+
+    public Class<AbstractCurveSegment> getAssociableClass() {
+        return AbstractCurveSegment.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new CurveSegmentArrayProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        CurveSegmentArrayProperty copy = (target == null) ? new CurveSegmentArrayProperty() : (CurveSegmentArrayProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

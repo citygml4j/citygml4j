@@ -36,167 +36,167 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TexturedSurface200Unmarshaller {
-	private final ReentrantLock lock = new ReentrantLock();
-	private final JAXBUnmarshaller jaxb;
-	private CheckedTypeMapper<CityGML> typeMapper;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final JAXBUnmarshaller jaxb;
+    private CheckedTypeMapper<CityGML> typeMapper;
 
-	public TexturedSurface200Unmarshaller(CityGMLUnmarshaller citygml) {
-		jaxb = citygml.getJAXBUnmarshaller();
-	}
+    public TexturedSurface200Unmarshaller(CityGMLUnmarshaller citygml) {
+        jaxb = citygml.getJAXBUnmarshaller();
+    }
 
-	private CheckedTypeMapper<CityGML> getTypeMapper() {
-		if (typeMapper == null) {
-			lock.lock();
-			try {
-				if (typeMapper == null) {
-					typeMapper = CheckedTypeMapper.<CityGML>create()
-							.with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
-							.with(MaterialType.class, this::unmarshalMaterial)
-							.with(SimpleTextureType.class, this::unmarshalSimpleTexture)
-							.with(TexturedSurfaceType.class, this::unmarshalTexturedSurface)
-							.with(TextureTypeType.class, this::unmarshalTextureType)
-							.with(JAXBElement.class, this::unmarshal);
-				}
-			} finally {
-				lock.unlock();
-			}
-		}
+    private CheckedTypeMapper<CityGML> getTypeMapper() {
+        if (typeMapper == null) {
+            lock.lock();
+            try {
+                if (typeMapper == null) {
+                    typeMapper = CheckedTypeMapper.<CityGML>create()
+                            .with(AppearancePropertyType.class, this::unmarshalAppearanceProperty)
+                            .with(MaterialType.class, this::unmarshalMaterial)
+                            .with(SimpleTextureType.class, this::unmarshalSimpleTexture)
+                            .with(TexturedSurfaceType.class, this::unmarshalTexturedSurface)
+                            .with(TextureTypeType.class, this::unmarshalTextureType)
+                            .with(JAXBElement.class, this::unmarshal);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
 
-		return typeMapper;
-	}
+        return typeMapper;
+    }
 
-	public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		return unmarshal(src.getValue());
-	}
+    public CityGML unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
+        return unmarshal(src.getValue());
+    }
 
-	public CityGML unmarshal(Object src) throws MissingADESchemaException {
-		return getTypeMapper().apply(src);
-	}
+    public CityGML unmarshal(Object src) throws MissingADESchemaException {
+        return getTypeMapper().apply(src);
+    }
 
-	public void unmarshalAbstractAppearance(AbstractAppearanceType src, _AbstractAppearance dest) {
-		jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
-	}
+    public void unmarshalAbstractAppearance(AbstractAppearanceType src, _AbstractAppearance dest) {
+        jaxb.getGMLUnmarshaller().unmarshalAbstractGML(src, dest);
+    }
 
-	public _AppearanceProperty unmarshalAppearanceProperty(AppearancePropertyType src) {
-		_AppearanceProperty dest =  new _AppearanceProperty();
+    public _AppearanceProperty unmarshalAppearanceProperty(AppearancePropertyType src) {
+        _AppearanceProperty dest = new _AppearanceProperty();
 
-		if (src.isSetOrientation())
-			dest.setOrientation(Sign.fromValue(src.getOrientation()));
+        if (src.isSetOrientation())
+            dest.setOrientation(Sign.fromValue(src.getOrientation()));
 
-		if (src.isSet_Appearance()) {
-			try {
-				ModelObject appearance = jaxb.unmarshal(src.get_Appearance());
-				if (appearance instanceof _AbstractAppearance)
-					dest.setAppearance((_AbstractAppearance)appearance);
-			} catch (MissingADESchemaException e) {
-				//
-			}
-		}
+        if (src.isSet_Appearance()) {
+            try {
+                ModelObject appearance = jaxb.unmarshal(src.get_Appearance());
+                if (appearance instanceof _AbstractAppearance)
+                    dest.setAppearance((_AbstractAppearance) appearance);
+            } catch (MissingADESchemaException e) {
+                //
+            }
+        }
 
-		if (src.isSetRemoteSchema())
-			dest.setRemoteSchema(src.getRemoteSchema());
+        if (src.isSetRemoteSchema())
+            dest.setRemoteSchema(src.getRemoteSchema());
 
-		if (src.isSetType())
-			dest.setType(XLinkType.fromValue(src.getType().value()));
+        if (src.isSetType())
+            dest.setType(XLinkType.fromValue(src.getType().value()));
 
-		if (src.isSetHref())
-			dest.setHref(src.getHref());
+        if (src.isSetHref())
+            dest.setHref(src.getHref());
 
-		if (src.isSetRole())
-			dest.setRole(src.getRole());
+        if (src.isSetRole())
+            dest.setRole(src.getRole());
 
-		if (src.isSetArcrole())
-			dest.setArcrole(src.getArcrole());
+        if (src.isSetArcrole())
+            dest.setArcrole(src.getArcrole());
 
-		if (src.isSetTitle())
-			dest.setTitle(src.getTitle());
+        if (src.isSetTitle())
+            dest.setTitle(src.getTitle());
 
-		if (src.isSetShow())
-			dest.setShow(XLinkShow.fromValue(src.getShow().value()));
+        if (src.isSetShow())
+            dest.setShow(XLinkShow.fromValue(src.getShow().value()));
 
-		if (src.isSetActuate())
-			dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
+        if (src.isSetActuate())
+            dest.setActuate(XLinkActuate.fromValue(src.getActuate().value()));
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public _Color unmarshalColor(List<Double> src) {
-		_Color  dest = new _Color();
-		dest.setColor(src);
+    public _Color unmarshalColor(List<Double> src) {
+        _Color dest = new _Color();
+        dest.setColor(src);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public void unmarshalMaterial(MaterialType src, _Material dest) {
-		unmarshalAbstractAppearance(src, dest);
+    public void unmarshalMaterial(MaterialType src, _Material dest) {
+        unmarshalAbstractAppearance(src, dest);
 
-		if (src.isSetShininess())
-			dest.setShininess(src.getShininess());
+        if (src.isSetShininess())
+            dest.setShininess(src.getShininess());
 
-		if (src.isSetTransparency())
-			dest.setTransparency(src.getTransparency());
+        if (src.isSetTransparency())
+            dest.setTransparency(src.getTransparency());
 
-		if (src.isSetAmbientIntensity())
-			dest.setAmbientIntensity(src.getAmbientIntensity());
+        if (src.isSetAmbientIntensity())
+            dest.setAmbientIntensity(src.getAmbientIntensity());
 
-		if (src.isSetSpecularColor())
-			dest.setSpecularColor(unmarshalColor(src.getSpecularColor()));
+        if (src.isSetSpecularColor())
+            dest.setSpecularColor(unmarshalColor(src.getSpecularColor()));
 
-		if (src.isSetDiffuseColor())
-			dest.setDiffuseColor(unmarshalColor(src.getDiffuseColor()));
+        if (src.isSetDiffuseColor())
+            dest.setDiffuseColor(unmarshalColor(src.getDiffuseColor()));
 
-		if (src.isSetEmissiveColor())
-			dest.setEmissiveColor(unmarshalColor(src.getEmissiveColor()));
-	}
+        if (src.isSetEmissiveColor())
+            dest.setEmissiveColor(unmarshalColor(src.getEmissiveColor()));
+    }
 
-	public _Material unmarshalMaterial(MaterialType src) {
-		_Material dest = new _Material();
-		unmarshalMaterial(src, dest);
+    public _Material unmarshalMaterial(MaterialType src) {
+        _Material dest = new _Material();
+        unmarshalMaterial(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public void unmarshalSimpleTexture(SimpleTextureType src, _SimpleTexture dest) {
-		unmarshalAbstractAppearance(src, dest);
+    public void unmarshalSimpleTexture(SimpleTextureType src, _SimpleTexture dest) {
+        unmarshalAbstractAppearance(src, dest);
 
-		if (src.isSetTextureMap())
-			dest.setTextureMap(src.getTextureMap());
+        if (src.isSetTextureMap())
+            dest.setTextureMap(src.getTextureMap());
 
-		if (src.isSetTextureCoordinates())
-			dest.setTextureCoordinates(src.getTextureCoordinates());
+        if (src.isSetTextureCoordinates())
+            dest.setTextureCoordinates(src.getTextureCoordinates());
 
-		if (src.isSetTextureType())
-			dest.setTextureType(unmarshalTextureType(src.getTextureType()));
+        if (src.isSetTextureType())
+            dest.setTextureType(unmarshalTextureType(src.getTextureType()));
 
-		if (src.isSetRepeat())
-			dest.setRepeat(src.isRepeat());
-	}
+        if (src.isSetRepeat())
+            dest.setRepeat(src.isRepeat());
+    }
 
-	public _SimpleTexture unmarshalSimpleTexture(SimpleTextureType src) {
-		_SimpleTexture dest = new _SimpleTexture();
-		unmarshalSimpleTexture(src, dest);
+    public _SimpleTexture unmarshalSimpleTexture(SimpleTextureType src) {
+        _SimpleTexture dest = new _SimpleTexture();
+        unmarshalSimpleTexture(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public void unmarshalTexturedSurface(TexturedSurfaceType src, _TexturedSurface dest) {
-		jaxb.getGMLUnmarshaller().unmarshalOrientableSurface(src, dest);
+    public void unmarshalTexturedSurface(TexturedSurfaceType src, _TexturedSurface dest) {
+        jaxb.getGMLUnmarshaller().unmarshalOrientableSurface(src, dest);
 
-		if (src.isSetAppearance()) {
-			for (AppearancePropertyType appearanceProperty : src.getAppearance())
-				dest.addAppearance(unmarshalAppearanceProperty(appearanceProperty));
-		}
-	}
+        if (src.isSetAppearance()) {
+            for (AppearancePropertyType appearanceProperty : src.getAppearance())
+                dest.addAppearance(unmarshalAppearanceProperty(appearanceProperty));
+        }
+    }
 
-	public _TexturedSurface unmarshalTexturedSurface(TexturedSurfaceType src) {
-		_TexturedSurface dest = new _TexturedSurface();
-		unmarshalTexturedSurface(src, dest);
+    public _TexturedSurface unmarshalTexturedSurface(TexturedSurfaceType src) {
+        _TexturedSurface dest = new _TexturedSurface();
+        unmarshalTexturedSurface(src, dest);
 
-		return dest;
-	}
+        return dest;
+    }
 
-	public _TextureType unmarshalTextureType(TextureTypeType src) {
-		return _TextureType.fromValue(src.value());
-	}
+    public _TextureType unmarshalTextureType(TextureTypeType src) {
+        return _TextureType.fromValue(src.value());
+    }
 
 }

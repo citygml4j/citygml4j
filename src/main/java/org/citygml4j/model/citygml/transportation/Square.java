@@ -37,104 +37,104 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class Square extends TransportationComplex {
-	private List<ADEComponent> ade;
-	
-	public Square() {
+    private List<ADEComponent> ade;
 
-	}
+    public Square() {
 
-	public Square(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfSquare(ADEComponent ade) {
-		getGenericApplicationPropertyOfSquare().add(ade);
-	}
+    }
 
-	public List<ADEComponent> getGenericApplicationPropertyOfSquare() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public Square(Module module) {
+        super(module);
+    }
 
-		return ade;
-	}
+    public void addGenericApplicationPropertyOfSquare(ADEComponent ade) {
+        getGenericApplicationPropertyOfSquare().add(ade);
+    }
 
-	public boolean isSetGenericApplicationPropertyOfSquare() {
-		return ade != null && !ade.isEmpty();
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfSquare() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public void setGenericApplicationPropertyOfSquare(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+        return ade;
+    }
 
-	public void unsetGenericApplicationPropertyOfSquare() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public boolean isSetGenericApplicationPropertyOfSquare() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	public boolean unsetGenericApplicationPropertyOfSquare(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfSquare() && this.ade.remove(ade);
-	}
+    public void setGenericApplicationPropertyOfSquare(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-	@Override
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.SQUARE;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfSquare()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfSquare()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Square(), copyBuilder);
-	}
+    public void unsetGenericApplicationPropertyOfSquare() {
+        ade = ModelObjects.setNull(ade);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Square copy = (target == null) ? new Square() : (Square)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfSquare()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfSquare(copyPart);
+    public boolean unsetGenericApplicationPropertyOfSquare(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfSquare() && this.ade.remove(ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    @Override
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.SQUARE;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfSquare()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfSquare()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Square(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Square copy = (target == null) ? new Square() : (Square) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfSquare()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfSquare(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -29,10 +29,16 @@ import java.util.Map;
 
 public interface CityJSONExtensionModule {
     String getIdentifier();
+
     String getSchemaURI();
+
     ExtensionModuleVersion getVersion();
+
     URL getSchemaResource();
+
     Map<String, Class<? extends AbstractCityObjectType>> getCityObjects();
+
     Map<String, Class<? extends SemanticsType>> getSemanticSurfaces();
+
     Map<Class<? extends ExtensibleType>, Map<String, Type>> getExtensionProperties();
 }

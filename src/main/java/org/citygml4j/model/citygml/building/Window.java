@@ -37,102 +37,102 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import java.util.List;
 
 public class Window extends AbstractOpening {
-	private List<ADEComponent> ade;
-	
-	public Window() {
-		
-	}
-	
-	public Window(Module module) {
-		super(module);
-	}
-	
-	public void addGenericApplicationPropertyOfWindow(ADEComponent ade) {
-		getGenericApplicationPropertyOfWindow().add(ade);
-	}
+    private List<ADEComponent> ade;
 
-	public List<ADEComponent> getGenericApplicationPropertyOfWindow() {
-		if (ade == null)
-			ade = new ChildList<>(this);
+    public Window() {
 
-		return ade;
-	}
+    }
 
-	public boolean isSetGenericApplicationPropertyOfWindow() {
-		return ade != null && !ade.isEmpty();
-	}
+    public Window(Module module) {
+        super(module);
+    }
 
-	public void setGenericApplicationPropertyOfWindow(List<ADEComponent> ade) {
-		this.ade = new ChildList<>(this, ade);
-	}
+    public void addGenericApplicationPropertyOfWindow(ADEComponent ade) {
+        getGenericApplicationPropertyOfWindow().add(ade);
+    }
 
-	public void unsetGenericApplicationPropertyOfWindow() {
-		ade = ModelObjects.setNull(ade);
-	}
+    public List<ADEComponent> getGenericApplicationPropertyOfWindow() {
+        if (ade == null)
+            ade = new ChildList<>(this);
 
-	public boolean unsetGenericApplicationPropertyOfWindow(ADEComponent ade) {
-		return isSetGenericApplicationPropertyOfWindow() && this.ade.remove(ade);
-	}
-	
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.BUILDING_WINDOW;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (isSetGenericApplicationPropertyOfWindow()) {
-			for (ADEComponent ade : getGenericApplicationPropertyOfWindow()) {
-				if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
-					boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject)ade, options).getEnvelope());
-			}
-		}
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
+        return ade;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Window(), copyBuilder);
-	}
+    public boolean isSetGenericApplicationPropertyOfWindow() {
+        return ade != null && !ade.isEmpty();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Window copy = (target == null) ? new Window() : (Window)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetGenericApplicationPropertyOfWindow()) {
-			for (ADEComponent part : ade) {
-				ADEComponent copyPart = (ADEComponent)copyBuilder.copy(part);
-				copy.addGenericApplicationPropertyOfWindow(copyPart);
+    public void setGenericApplicationPropertyOfWindow(List<ADEComponent> ade) {
+        this.ade = new ChildList<>(this, ade);
+    }
 
-				if (part != null && copyPart == part)
-					part.setParent(this);
-			}
-		}
-		
-		return copy;
-	}
-	
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void unsetGenericApplicationPropertyOfWindow() {
+        ade = ModelObjects.setNull(ade);
+    }
+
+    public boolean unsetGenericApplicationPropertyOfWindow(ADEComponent ade) {
+        return isSetGenericApplicationPropertyOfWindow() && this.ade.remove(ade);
+    }
+
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.BUILDING_WINDOW;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (isSetGenericApplicationPropertyOfWindow()) {
+            for (ADEComponent ade : getGenericApplicationPropertyOfWindow()) {
+                if (ade.getADEClass() == ADEClass.MODEL_OBJECT)
+                    boundedBy.updateEnvelope(ADEBoundingBoxHelper.calcBoundedBy((ADEModelObject) ade, options).getEnvelope());
+            }
+        }
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Window(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Window copy = (target == null) ? new Window() : (Window) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetGenericApplicationPropertyOfWindow()) {
+            for (ADEComponent part : ade) {
+                ADEComponent copyPart = (ADEComponent) copyBuilder.copy(part);
+                copy.addGenericApplicationPropertyOfWindow(copyPart);
+
+                if (part != null && copyPart == part)
+                    part.setParent(this);
+            }
+        }
+
+        return copy;
+    }
+
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

@@ -19,8 +19,11 @@
 package org.citygml4j.model.xal;
 
 public interface GrPostal extends XAL {
-	String getCode();
-	boolean isSetCode();
-	void setCode(String code);
-	void unsetCode();
+    String getCode();
+
+    boolean isSetCode();
+
+    void setCode(String code);
+
+    void unsetCode();
 }

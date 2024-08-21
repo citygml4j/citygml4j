@@ -24,50 +24,50 @@ import org.citygml4j.model.gml.geometry.GeometryProperty;
 
 public class MultiGeometryProperty extends GeometryProperty<AbstractGeometricAggregate> {
 
-	public MultiGeometryProperty() {
+    public MultiGeometryProperty() {
 
-	}
+    }
 
-	public MultiGeometryProperty(AbstractGeometricAggregate abstractGeometricAggregate) {
-		super(abstractGeometricAggregate);
-	}
+    public MultiGeometryProperty(AbstractGeometricAggregate abstractGeometricAggregate) {
+        super(abstractGeometricAggregate);
+    }
 
-	public MultiGeometryProperty(String href) {
-		super(href);
-	}
-	
-	public AbstractGeometricAggregate getGeometricAggregate() {
-		return super.getGeometry();
-	}
+    public MultiGeometryProperty(String href) {
+        super(href);
+    }
 
-	public boolean isSetGeometricAggregate() {
-		return super.isSetGeometry();
-	}
+    public AbstractGeometricAggregate getGeometricAggregate() {
+        return super.getGeometry();
+    }
 
-	public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate) {
-		super.setGeometry(geometricAggregate);
-	}
+    public boolean isSetGeometricAggregate() {
+        return super.isSetGeometry();
+    }
 
-	public void unsetGeometricAggregate() {
-		super.unsetGeometry();
-	}
+    public void setGeometricAggregate(AbstractGeometricAggregate geometricAggregate) {
+        super.setGeometry(geometricAggregate);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.MULTI_GEOMETRY_PROPERTY;
-	}
+    public void unsetGeometricAggregate() {
+        super.unsetGeometry();
+    }
 
-	@Override
-	public Class<AbstractGeometricAggregate> getAssociableClass() {
-		return AbstractGeometricAggregate.class;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.MULTI_GEOMETRY_PROPERTY;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new MultiGeometryProperty(), copyBuilder);
-	}
+    @Override
+    public Class<AbstractGeometricAggregate> getAssociableClass() {
+        return AbstractGeometricAggregate.class;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		MultiGeometryProperty copy = (target == null) ? new MultiGeometryProperty() : (MultiGeometryProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new MultiGeometryProperty(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        MultiGeometryProperty copy = (target == null) ? new MultiGeometryProperty() : (MultiGeometryProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

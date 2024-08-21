@@ -24,51 +24,51 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class TrafficAreaProperty extends FeatureProperty<TrafficArea> implements TransportationModuleComponent {
 
-	public TrafficAreaProperty() {
+    public TrafficAreaProperty() {
 
-	}
-	
-	public TrafficAreaProperty(TrafficArea trafficArea) {
-		super(trafficArea);
-	}
-	
-	public TrafficAreaProperty(String href) {
-		super(href);
-	}
-	
-	public TrafficArea getTrafficArea() {
-		return super.getObject();
-	}
+    }
 
-	public boolean isSetTrafficArea() {
-		return super.isSetObject();
-	}
+    public TrafficAreaProperty(TrafficArea trafficArea) {
+        super(trafficArea);
+    }
 
-	public void setTrafficArea(TrafficArea trafficArea) {
-		super.setObject(trafficArea);
-	}
+    public TrafficAreaProperty(String href) {
+        super(href);
+    }
 
-	public void unsetTrafficArea() {
-		super.unsetObject();
-	}
+    public TrafficArea getTrafficArea() {
+        return super.getObject();
+    }
 
-	public CityGMLClass getCityGMLClass() {
-		return CityGMLClass.TRAFFIC_AREA_PROPERTY;
-	}
+    public boolean isSetTrafficArea() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Class<TrafficArea> getAssociableClass() {
-		return TrafficArea.class;
-	}
+    public void setTrafficArea(TrafficArea trafficArea) {
+        super.setObject(trafficArea);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TrafficAreaProperty(), copyBuilder);
-	}
+    public void unsetTrafficArea() {
+        super.unsetObject();
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TrafficAreaProperty copy = (target == null) ? new TrafficAreaProperty() : (TrafficAreaProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public CityGMLClass getCityGMLClass() {
+        return CityGMLClass.TRAFFIC_AREA_PROPERTY;
+    }
+
+    @Override
+    public Class<TrafficArea> getAssociableClass() {
+        return TrafficArea.class;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TrafficAreaProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TrafficAreaProperty copy = (target == null) ? new TrafficAreaProperty() : (TrafficAreaProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

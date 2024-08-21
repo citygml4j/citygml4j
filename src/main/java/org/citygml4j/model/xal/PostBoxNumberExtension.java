@@ -26,86 +26,86 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class PostBoxNumberExtension implements XAL, Child, Copyable {
-	private String content;
-	private String numberExtensionSeparator;
-	private ModelObject parent;
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String numberExtensionSeparator;
+    private ModelObject parent;
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POST_BOX_NUMBER_EXTENSION;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public String getNumberExtensionSeparator() {
-		return numberExtensionSeparator;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POST_BOX_NUMBER_EXTENSION;
+    }
 
-	public boolean isSetNumberExtensionSeparator() {
-		return numberExtensionSeparator != null;
-	}
+    public String getNumberExtensionSeparator() {
+        return numberExtensionSeparator;
+    }
 
-	public void setNumberExtensionSeparator(String numberExtensionSeparator) {
-		this.numberExtensionSeparator = numberExtensionSeparator;
-	}
+    public boolean isSetNumberExtensionSeparator() {
+        return numberExtensionSeparator != null;
+    }
 
-	public void unsetNumberExtensionSeparator() {
-		numberExtensionSeparator = null;
-	}
+    public void setNumberExtensionSeparator(String numberExtensionSeparator) {
+        this.numberExtensionSeparator = numberExtensionSeparator;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetNumberExtensionSeparator() {
+        numberExtensionSeparator = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostBoxNumberExtension(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostBoxNumberExtension copy = (target == null) ? new PostBoxNumberExtension() : (PostBoxNumberExtension)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetNumberExtensionSeparator())
-			copy.setNumberExtensionSeparator(copyBuilder.copy(numberExtensionSeparator));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostBoxNumberExtension(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostBoxNumberExtension copy = (target == null) ? new PostBoxNumberExtension() : (PostBoxNumberExtension) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetNumberExtensionSeparator())
+            copy.setNumberExtensionSeparator(copyBuilder.copy(numberExtensionSeparator));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

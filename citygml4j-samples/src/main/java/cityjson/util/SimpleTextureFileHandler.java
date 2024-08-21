@@ -29,16 +29,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SimpleTextureFileHandler implements TextureFileHandler {
-	private Path baseDir;
-	private Path targetDir;
+    private Path baseDir;
+    private Path targetDir;
 
-	public SimpleTextureFileHandler(Path baseDir, Path targetDir) throws IOException {
-		this.baseDir = baseDir;
-		this.targetDir = targetDir;
-	}
+    public SimpleTextureFileHandler(Path baseDir, Path targetDir) throws IOException {
+        this.baseDir = baseDir;
+        this.targetDir = targetDir;
+    }
 
-	@Override
-	public String getImageURI(String imageURI) {
+    @Override
+    public String getImageURI(String imageURI) {
 		/*
 		  This is a very simple implementation of the TextureFileHandler interface.
 		  We simply copy the incoming texture image to the target directory. A real
@@ -55,46 +55,46 @@ public class SimpleTextureFileHandler implements TextureFileHandler {
 		  speed up the process.
 		 */
 
-		if (imageURI != null) {
-			try {
-				imageURI = imageURI.replace('\\', '/');
-				Path imagePath = Paths.get(imageURI);
+        if (imageURI != null) {
+            try {
+                imageURI = imageURI.replace('\\', '/');
+                Path imagePath = Paths.get(imageURI);
 
-				// simply return imageURI in case it is an absolute path
-				if (imagePath.isAbsolute())
-					return imageURI;
+                // simply return imageURI in case it is an absolute path
+                if (imagePath.isAbsolute())
+                    return imageURI;
 
-				Path source = baseDir.resolve(imagePath).normalize().toAbsolutePath();
-				Path target = targetDir.resolve(imagePath).normalize().toAbsolutePath();
+                Path source = baseDir.resolve(imagePath).normalize().toAbsolutePath();
+                Path target = targetDir.resolve(imagePath).normalize().toAbsolutePath();
 
-				if (!Files.exists(target.getParent()))
-					Files.createDirectories(target.getParent());
+                if (!Files.exists(target.getParent()))
+                    Files.createDirectories(target.getParent());
 
-				copy(source, target);
-				return imagePath.toString().replace('\\', '/');
-			} catch (Exception e) {
-				// 
-			}
-		}
+                copy(source, target);
+                return imagePath.toString().replace('\\', '/');
+            } catch (Exception e) {
+                //
+            }
+        }
 
-		// return null if we cannot handle the texture image
-		return null;
-	}
+        // return null if we cannot handle the texture image
+        return null;
+    }
 
-	private void copy(Path source, Path target) throws IOException {
-		FileInputStream fromStream = new FileInputStream(source.toFile());
-		FileChannel fromChannel = fromStream.getChannel();
+    private void copy(Path source, Path target) throws IOException {
+        FileInputStream fromStream = new FileInputStream(source.toFile());
+        FileChannel fromChannel = fromStream.getChannel();
 
-		FileOutputStream toStream = new FileOutputStream(target.toFile());
-		FileChannel toChannel = toStream.getChannel();
+        FileOutputStream toStream = new FileOutputStream(target.toFile());
+        FileChannel toChannel = toStream.getChannel();
 
-		fromChannel.transferTo(0, fromChannel.size(), toChannel);
+        fromChannel.transferTo(0, fromChannel.size(), toChannel);
 
-		fromChannel.close();
-		toChannel.close();
+        fromChannel.close();
+        toChannel.close();
 
-		fromStream.close();
-		toStream.close();
-	}
+        fromStream.close();
+        toStream.close();
+    }
 
 }

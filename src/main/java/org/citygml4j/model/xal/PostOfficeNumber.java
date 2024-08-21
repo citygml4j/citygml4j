@@ -26,127 +26,127 @@ import org.citygml4j.model.common.visitor.XALFunctor;
 import org.citygml4j.model.common.visitor.XALVisitor;
 
 public class PostOfficeNumber implements XAL, GrPostal, Child, Copyable {
-	private String content;
-	private String indicatorOccurrence;
-	private String indicator;
-	private String code;
-	private ModelObject parent;
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String indicatorOccurrence;
+    private String indicator;
+    private String code;
+    private ModelObject parent;
 
-	public String getIndicatorOccurrence() {
-		return indicatorOccurrence;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getIndicator() {
-		return indicator;
-	}
+    public String getIndicatorOccurrence() {
+        return indicatorOccurrence;
+    }
 
-	public boolean isSetContent() {
-		return content != null;
-	}
+    public String getIndicator() {
+        return indicator;
+    }
 
-	public boolean isSetIndicatorOccurrence() {
-		return indicatorOccurrence != null;
-	}
+    public boolean isSetContent() {
+        return content != null;
+    }
 
-	public boolean isSetIndicator() {
-		return indicator != null;
-	}
+    public boolean isSetIndicatorOccurrence() {
+        return indicatorOccurrence != null;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public boolean isSetIndicator() {
+        return indicator != null;
+    }
 
-	public void setIndicatorOccurrence(String indicatorOccurrence) {
-		if (indicatorOccurrence.equals("Before") || indicatorOccurrence.equals("After"))
-			this.indicatorOccurrence = indicatorOccurrence;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setIndicator(String indicator) {
-		this.indicator = indicator;
-	}
+    public void setIndicatorOccurrence(String indicatorOccurrence) {
+        if (indicatorOccurrence.equals("Before") || indicatorOccurrence.equals("After"))
+            this.indicatorOccurrence = indicatorOccurrence;
+    }
 
-	public void unsetContent() {
-		content = null;
-	}
+    public void setIndicator(String indicator) {
+        this.indicator = indicator;
+    }
 
-	public void unsetIndicatorOccurrence() {
-		indicatorOccurrence = null;
-	}
+    public void unsetContent() {
+        content = null;
+    }
 
-	public void unsetIndicator() {
-		indicator = null;
-	}
+    public void unsetIndicatorOccurrence() {
+        indicatorOccurrence = null;
+    }
 
-	public XALClass getXALClass() {
-		return XALClass.POST_OFFICE_NUMBER;
-	}
+    public void unsetIndicator() {
+        indicator = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public XALClass getXALClass() {
+        return XALClass.POST_OFFICE_NUMBER;
+    }
 
-	public boolean isSetCode() {
-		return code != null;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public boolean isSetCode() {
+        return code != null;
+    }
 
-	public void unsetCode() {
-		code = null;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public ModelObject getParent() {
-		return parent;
-	}
+    public void unsetCode() {
+        code = null;
+    }
 
-	public void setParent(ModelObject parent) {
-		this.parent = parent;
-	}
+    public ModelObject getParent() {
+        return parent;
+    }
 
-	public boolean isSetParent() {
-		return parent != null;
-	}
+    public void setParent(ModelObject parent) {
+        this.parent = parent;
+    }
 
-	public void unsetParent() {
-		parent = null;
-	}
+    public boolean isSetParent() {
+        return parent != null;
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new PostOfficeNumber(), copyBuilder);
-	}
+    public void unsetParent() {
+        parent = null;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		PostOfficeNumber copy = (target == null) ? new PostOfficeNumber() : (PostOfficeNumber)target;
-		
-		if (isSetContent())
-			copy.setContent(copyBuilder.copy(content));
-		
-		if (isSetIndicatorOccurrence())
-			copy.setIndicatorOccurrence(copyBuilder.copy(indicatorOccurrence));
-		
-		if (isSetIndicator())
-			copy.setIndicator(copyBuilder.copy(indicator));
-		
-		if (isSetCode())
-			copy.setCode(copyBuilder.copy(code));
-		
-		copy.unsetParent();
-		
-		return copy;
-	}
-	
-	public void accept(XALVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(XALFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new PostOfficeNumber(), copyBuilder);
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        PostOfficeNumber copy = (target == null) ? new PostOfficeNumber() : (PostOfficeNumber) target;
+
+        if (isSetContent())
+            copy.setContent(copyBuilder.copy(content));
+
+        if (isSetIndicatorOccurrence())
+            copy.setIndicatorOccurrence(copyBuilder.copy(indicatorOccurrence));
+
+        if (isSetIndicator())
+            copy.setIndicator(copyBuilder.copy(indicator));
+
+        if (isSetCode())
+            copy.setCode(copyBuilder.copy(code));
+
+        copy.unsetParent();
+
+        return copy;
+    }
+
+    public void accept(XALVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(XALFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

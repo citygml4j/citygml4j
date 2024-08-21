@@ -24,46 +24,46 @@ import org.citygml4j.model.gml.GML;
 import org.citygml4j.model.gml.GMLClass;
 
 public enum XLinkShow implements GML, Copyable {
-	NEW("new"),
-	REPLACE("replace"),
-	EMBED("embed"),
-	OTHER("other"),
-	NONE("none");
+    NEW("new"),
+    REPLACE("replace"),
+    EMBED("embed"),
+    OTHER("other"),
+    NONE("none");
 
-	private final String value;
+    private final String value;
 
-	XLinkShow(String v) {
-		value = v;
-	}
+    XLinkShow(String v) {
+        value = v;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static XLinkShow fromValue(String v) {
-		v = v.trim();
+    public static XLinkShow fromValue(String v) {
+        v = v.trim();
 
-		for (XLinkShow c: XLinkShow.values())
-			if (c.value.equals(v))
-				return c;
+        for (XLinkShow c : XLinkShow.values())
+            if (c.value.equals(v))
+                return c;
 
-		return NONE;
-	}
+        return NONE;
+    }
 
-	public String toString() {
-		return value;
-	}
-	
-	public GMLClass getGMLClass() {
-		return GMLClass.XLINK_SHOW;
-	}
+    public String toString() {
+        return value;
+    }
 
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		return (target == null) ? NONE : this;
-	}
-	
-	public Object copy(CopyBuilder copyBuilder) {
-		return this;
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.XLINK_SHOW;
+    }
+
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        return (target == null) ? NONE : this;
+    }
+
+    public Object copy(CopyBuilder copyBuilder) {
+        return this;
+    }
 
 }

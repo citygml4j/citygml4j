@@ -46,404 +46,400 @@ import java.util.Objects;
 import java.util.Set;
 
 public class JAXBOutputFactory implements CityGMLOutputFactory {
-	CityGMLBuilder builder;
-	private SchemaHandler schemaHandler;	
-	private ModuleContext moduleContext;
-	private GMLIdManager gmlIdManager;
-	private ValidationEventHandler validationEventHandler;
-	private TransformerChainFactory transformerChainFactory;
+    CityGMLBuilder builder;
+    private SchemaHandler schemaHandler;
+    private ModuleContext moduleContext;
+    private GMLIdManager gmlIdManager;
+    private ValidationEventHandler validationEventHandler;
+    private TransformerChainFactory transformerChainFactory;
 
-	private FeatureWriteMode featureWriteMode;
-	private Set<Class<? extends CityGML>> excludes;
-	private boolean keepInlineAppearance;
-	private boolean splitCopy;
-	private boolean useValidation;
-	
-	public JAXBOutputFactory(CityGMLBuilder builder, ModuleContext moduleContext, SchemaHandler schemaHandler) {
-		this.builder = builder;
-		this.schemaHandler = schemaHandler;
-		this.moduleContext = moduleContext;
+    private FeatureWriteMode featureWriteMode;
+    private Set<Class<? extends CityGML>> excludes;
+    private boolean keepInlineAppearance;
+    private boolean splitCopy;
+    private boolean useValidation;
 
-		gmlIdManager = DefaultGMLIdManager.getInstance();
-		featureWriteMode = FeatureWriteMode.NO_SPLIT;
-		excludes = new HashSet<>();
-		keepInlineAppearance = true;
-		splitCopy = true;
-	}
-	
-	public JAXBOutputFactory(CityGMLBuilder builder) {
-		this(builder, new ModuleContext(), null);
-	}
-	
-	public JAXBOutputFactory(CityGMLBuilder builder, ModuleContext moduleContext) {
-		this(builder, moduleContext, null);
-	}
-	
-	public JAXBOutputFactory(CityGMLBuilder builder, SchemaHandler schemaHandler) {
-		this(builder, new ModuleContext(), schemaHandler);
-	}
-	
-	public CityGMLWriter createCityGMLWriter(File file, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new JAXBSimpleWriter(
-					new SAXWriter(new OutputStreamWriter(new FileOutputStream(file))), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public JAXBOutputFactory(CityGMLBuilder builder, ModuleContext moduleContext, SchemaHandler schemaHandler) {
+        this.builder = builder;
+        this.schemaHandler = schemaHandler;
+        this.moduleContext = moduleContext;
 
-	public CityGMLWriter createCityGMLWriter(File file, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new JAXBSimpleWriter(
-					new SAXWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+        gmlIdManager = DefaultGMLIdManager.getInstance();
+        featureWriteMode = FeatureWriteMode.NO_SPLIT;
+        excludes = new HashSet<>();
+        keepInlineAppearance = true;
+        splitCopy = true;
+    }
 
-	public CityGMLWriter createCityGMLWriter(OutputStream outputStream, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBSimpleWriter(
-					new SAXWriter(outputStream), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public JAXBOutputFactory(CityGMLBuilder builder) {
+        this(builder, new ModuleContext(), null);
+    }
 
-	public CityGMLWriter createCityGMLWriter(OutputStream outputStream, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBSimpleWriter(
-					new SAXWriter(outputStream, encoding), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public JAXBOutputFactory(CityGMLBuilder builder, ModuleContext moduleContext) {
+        this(builder, moduleContext, null);
+    }
 
-	public CityGMLWriter createCityGMLWriter(StreamResult streamResult, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBSimpleWriter(
-					new SAXWriter(streamResult, encoding), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public JAXBOutputFactory(CityGMLBuilder builder, SchemaHandler schemaHandler) {
+        this(builder, new ModuleContext(), schemaHandler);
+    }
 
-	public CityGMLWriter createCityGMLWriter(Writer writer, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBSimpleWriter(
-					new SAXWriter(writer), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
-	
-	public CityGMLWriter createCityGMLWriter(File file, String encoding) throws CityGMLWriteException {
-		return createCityGMLWriter(file, encoding, moduleContext);
-	}
+    public CityGMLWriter createCityGMLWriter(File file, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new JAXBSimpleWriter(
+                    new SAXWriter(new OutputStreamWriter(new FileOutputStream(file))),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityGMLWriter createCityGMLWriter(File file) throws CityGMLWriteException {
-		return createCityGMLWriter(file, moduleContext);
-	}
-	
-	public CityGMLWriter createCityGMLWriter(OutputStream outputStream, String encoding) throws CityGMLWriteException {
-		return createCityGMLWriter(outputStream, encoding, moduleContext);
-	}
+    public CityGMLWriter createCityGMLWriter(File file, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new JAXBSimpleWriter(
+                    new SAXWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityGMLWriter createCityGMLWriter(OutputStream outputStream) throws CityGMLWriteException {
-		return createCityGMLWriter(outputStream, moduleContext);
-	}
-	
-	public CityGMLWriter createCityGMLWriter(StreamResult streamResult, String encoding) throws CityGMLWriteException {
-		return createCityGMLWriter(streamResult, encoding, moduleContext);
-	}
-	
-	public CityGMLWriter createCityGMLWriter(Writer writer) throws CityGMLWriteException {
-		return createCityGMLWriter(writer, moduleContext);
-	}
+    public CityGMLWriter createCityGMLWriter(OutputStream outputStream, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBSimpleWriter(
+                    new SAXWriter(outputStream),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityModelWriter createCityModelWriter(File file, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new JAXBModelWriter(
-					new SAXWriter(new OutputStreamWriter(new FileOutputStream(file))), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public CityGMLWriter createCityGMLWriter(OutputStream outputStream, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBSimpleWriter(
+                    new SAXWriter(outputStream, encoding),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityModelWriter createCityModelWriter(File file, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			createParentDirectories(file.toPath());
-			return new JAXBModelWriter(
-					new SAXWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public CityGMLWriter createCityGMLWriter(StreamResult streamResult, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBSimpleWriter(
+                    new SAXWriter(streamResult, encoding),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityModelWriter createCityModelWriter(OutputStream outputStream, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBModelWriter(
-					new SAXWriter(outputStream), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public CityGMLWriter createCityGMLWriter(Writer writer, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBSimpleWriter(
+                    new SAXWriter(writer),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public CityModelWriter createCityModelWriter(OutputStream outputStream, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBModelWriter(
-					new SAXWriter(outputStream, encoding), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public CityGMLWriter createCityGMLWriter(File file, String encoding) throws CityGMLWriteException {
+        return createCityGMLWriter(file, encoding, moduleContext);
+    }
 
-	public CityModelWriter createCityModelWriter(StreamResult streamResult, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBModelWriter(
-					new SAXWriter(streamResult, encoding), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public CityGMLWriter createCityGMLWriter(File file) throws CityGMLWriteException {
+        return createCityGMLWriter(file, moduleContext);
+    }
 
-	public CityModelWriter createCityModelWriter(Writer writer, ModuleContext moduleContext) throws CityGMLWriteException {
-		try {
-			return new JAXBModelWriter(
-					new SAXWriter(writer), 
-					this, 
-					moduleContext);
-		} catch (IOException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
-	
-	public CityModelWriter createCityModelWriter(File file, String encoding) throws CityGMLWriteException {
-		return createCityModelWriter(file, encoding, moduleContext);
-	}
+    public CityGMLWriter createCityGMLWriter(OutputStream outputStream, String encoding) throws CityGMLWriteException {
+        return createCityGMLWriter(outputStream, encoding, moduleContext);
+    }
 
-	public CityModelWriter createCityModelWriter(File file) throws CityGMLWriteException {
-		return createCityModelWriter(file, moduleContext);
-	}
-	
-	public CityModelWriter createCityModelWriter(OutputStream outputStream, String encoding) throws CityGMLWriteException {
-		return createCityModelWriter(outputStream, encoding, moduleContext);
-	}
+    public CityGMLWriter createCityGMLWriter(OutputStream outputStream) throws CityGMLWriteException {
+        return createCityGMLWriter(outputStream, moduleContext);
+    }
 
-	public CityModelWriter createCityModelWriter(OutputStream outputStream) throws CityGMLWriteException {
-		return createCityModelWriter(outputStream, moduleContext);
-	}
-	
-	public CityModelWriter createCityModelWriter(StreamResult streamResult, String encoding) throws CityGMLWriteException {
-		return createCityModelWriter(streamResult, encoding, moduleContext);
-	}
-	
-	public CityModelWriter createCityModelWriter(Writer writer) throws CityGMLWriteException {
-		return createCityModelWriter(writer, moduleContext);
-	}
-	
-	public ModuleContext getModuleContext() {
-		return moduleContext;
-	}
+    public CityGMLWriter createCityGMLWriter(StreamResult streamResult, String encoding) throws CityGMLWriteException {
+        return createCityGMLWriter(streamResult, encoding, moduleContext);
+    }
 
-	public SchemaHandler getSchemaHandler() {
-		return schemaHandler;
-	}
+    public CityGMLWriter createCityGMLWriter(Writer writer) throws CityGMLWriteException {
+        return createCityGMLWriter(writer, moduleContext);
+    }
 
-	public void setSchemaHandler(SchemaHandler schemaHandler) {
-		if (schemaHandler == null)
-			throw new IllegalArgumentException("schema handler may not be null.");
+    public CityModelWriter createCityModelWriter(File file, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new JAXBModelWriter(
+                    new SAXWriter(new OutputStreamWriter(new FileOutputStream(file))),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-		this.schemaHandler = schemaHandler;
-	}
+    public CityModelWriter createCityModelWriter(File file, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            createParentDirectories(file.toPath());
+            return new JAXBModelWriter(
+                    new SAXWriter(new OutputStreamWriter(new FileOutputStream(file), encoding)),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public void setModuleContext(ModuleContext moduleContext) {
-		if (moduleContext == null)
-			throw new IllegalArgumentException("module context may not be null.");
+    public CityModelWriter createCityModelWriter(OutputStream outputStream, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBModelWriter(
+                    new SAXWriter(outputStream),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-		this.moduleContext = moduleContext;
-	}
+    public CityModelWriter createCityModelWriter(OutputStream outputStream, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBModelWriter(
+                    new SAXWriter(outputStream, encoding),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public void setCityGMLVersion(CityGMLVersion version) {
-		if (version == null)
-			throw new IllegalArgumentException("CityGML version may not be null.");
+    public CityModelWriter createCityModelWriter(StreamResult streamResult, String encoding, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBModelWriter(
+                    new SAXWriter(streamResult, encoding),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-		moduleContext = new ModuleContext(version);
-	}
+    public CityModelWriter createCityModelWriter(Writer writer, ModuleContext moduleContext) throws CityGMLWriteException {
+        try {
+            return new JAXBModelWriter(
+                    new SAXWriter(writer),
+                    this,
+                    moduleContext);
+        } catch (IOException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-	public GMLIdManager getGMLIdManager() {
-		return gmlIdManager;
-	}
+    public CityModelWriter createCityModelWriter(File file, String encoding) throws CityGMLWriteException {
+        return createCityModelWriter(file, encoding, moduleContext);
+    }
 
-	public void setGMLIdManager(GMLIdManager gmlIdManager) {
-		if (gmlIdManager == null)
-			throw new IllegalArgumentException("gml:id manager may not be null.");
+    public CityModelWriter createCityModelWriter(File file) throws CityGMLWriteException {
+        return createCityModelWriter(file, moduleContext);
+    }
 
-		this.gmlIdManager = gmlIdManager;
-	}
+    public CityModelWriter createCityModelWriter(OutputStream outputStream, String encoding) throws CityGMLWriteException {
+        return createCityModelWriter(outputStream, encoding, moduleContext);
+    }
 
-	public ValidationEventHandler getValidationEventHandler() {
-		return validationEventHandler;
-	}
+    public CityModelWriter createCityModelWriter(OutputStream outputStream) throws CityGMLWriteException {
+        return createCityModelWriter(outputStream, moduleContext);
+    }
 
-	public void setValidationEventHandler(ValidationEventHandler validationEventHandler) {
-		if (validationEventHandler == null)
-			throw new IllegalArgumentException("validation event handler may not be null.");
+    public CityModelWriter createCityModelWriter(StreamResult streamResult, String encoding) throws CityGMLWriteException {
+        return createCityModelWriter(streamResult, encoding, moduleContext);
+    }
 
-		this.validationEventHandler = validationEventHandler;
-	}
+    public CityModelWriter createCityModelWriter(Writer writer) throws CityGMLWriteException {
+        return createCityModelWriter(writer, moduleContext);
+    }
 
-	public void setTransformationTemplates(Templates... transformationTemplates) throws CityGMLWriteException {
-		if (transformationTemplates == null)
-			throw new IllegalArgumentException("transformation templates may not be null.");
+    public ModuleContext getModuleContext() {
+        return moduleContext;
+    }
 
-		try {
-			if (transformerChainFactory == null)
-				transformerChainFactory = new TransformerChainFactory(transformationTemplates);
-			else
-				transformerChainFactory.updateTemplates(transformationTemplates);
-		} catch (TransformerConfigurationException e) {
-			throw new CityGMLWriteException("Caused by: ", e);
-		}
-	}
+    public SchemaHandler getSchemaHandler() {
+        return schemaHandler;
+    }
 
-	public Templates[] getTransformationTemplates() {
-		return transformerChainFactory == null ? null : transformerChainFactory.getTemplates();
-	}
+    public void setSchemaHandler(SchemaHandler schemaHandler) {
+        if (schemaHandler == null)
+            throw new IllegalArgumentException("schema handler may not be null.");
 
-	public TransformerChainFactory getTransformerChainFactory() {
-		return transformerChainFactory;
-	}
+        this.schemaHandler = schemaHandler;
+    }
 
-	public Object getProperty(String name) {
-		Objects.requireNonNull(name, "property name may not be null.");
+    public void setModuleContext(ModuleContext moduleContext) {
+        if (moduleContext == null)
+            throw new IllegalArgumentException("module context may not be null.");
 
-		if (name.equals(CityGMLOutputFactory.FEATURE_WRITE_MODE))
-			return featureWriteMode;
-		if (name.equals(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE))
-			return keepInlineAppearance;
-		if (name.equals(CityGMLOutputFactory.SPLIT_COPY))
-			return splitCopy;
-		if (name.equals(CityGMLOutputFactory.USE_VALIDATION))
-			return useValidation;
-		if (name.equals(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING))
-			return excludes;
+        this.moduleContext = moduleContext;
+    }
 
-		throw new IllegalArgumentException("the property '" + name + "' is not supported.");
-	}
+    public void setCityGMLVersion(CityGMLVersion version) {
+        if (version == null)
+            throw new IllegalArgumentException("CityGML version may not be null.");
 
-	@SuppressWarnings("unchecked")
-	public void setProperty(String name, Object value) {
-		Objects.requireNonNull(name, "property name may not be null.");
+        moduleContext = new ModuleContext(version);
+    }
 
-		if (name.equals(CityGMLOutputFactory.FEATURE_WRITE_MODE)) {
-			FeatureWriteMode mode = FeatureWriteMode.fromValue(value.toString());
-			if (mode != null)
-				featureWriteMode = mode;
+    public GMLIdManager getGMLIdManager() {
+        return gmlIdManager;
+    }
 
-			return;
-		}
+    public void setGMLIdManager(GMLIdManager gmlIdManager) {
+        if (gmlIdManager == null)
+            throw new IllegalArgumentException("gml:id manager may not be null.");
 
-		if (name.equals(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE)) {
-			if (value instanceof Boolean)
-				keepInlineAppearance = (Boolean)value;
+        this.gmlIdManager = gmlIdManager;
+    }
 
-			return;		
-		}
+    public ValidationEventHandler getValidationEventHandler() {
+        return validationEventHandler;
+    }
 
-		if (name.equals(CityGMLOutputFactory.SPLIT_COPY)) {
-			if (value instanceof Boolean)
-				splitCopy = (Boolean)value;
+    public void setValidationEventHandler(ValidationEventHandler validationEventHandler) {
+        if (validationEventHandler == null)
+            throw new IllegalArgumentException("validation event handler may not be null.");
 
-			return;		
-		}
+        this.validationEventHandler = validationEventHandler;
+    }
 
-		if (name.equals(CityGMLOutputFactory.USE_VALIDATION)) {
-			if (value instanceof Boolean)
-				useValidation = (Boolean)value;
+    public void setTransformationTemplates(Templates... transformationTemplates) throws CityGMLWriteException {
+        if (transformationTemplates == null)
+            throw new IllegalArgumentException("transformation templates may not be null.");
 
-			return;		
-		}
+        try {
+            if (transformerChainFactory == null)
+                transformerChainFactory = new TransformerChainFactory(transformationTemplates);
+            else
+                transformerChainFactory.updateTemplates(transformationTemplates);
+        } catch (TransformerConfigurationException e) {
+            throw new CityGMLWriteException("Caused by: ", e);
+        }
+    }
 
-		if (name.equals(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING)) {
-			if (value instanceof Class<?>) {
-				if (isSubclassOfCityGML((Class<?>)value))
-					excludes.add((Class<? extends CityGML>)value);
-				else
-					throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
+    public Templates[] getTransformationTemplates() {
+        return transformerChainFactory == null ? null : transformerChainFactory.getTemplates();
+    }
 
-				return;
-			}
+    public TransformerChainFactory getTransformerChainFactory() {
+        return transformerChainFactory;
+    }
 
-			else if (value instanceof Collection<?>) {
-				for (Object o : (Collection<?>)value) {
-					if (isSubclassOfCityGML((Class<?>)o))
-						excludes.add((Class<? extends CityGML>)o);
-					else
-						throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
-				}
+    public Object getProperty(String name) {
+        Objects.requireNonNull(name, "property name may not be null.");
 
-				return;
-			}
+        if (name.equals(CityGMLOutputFactory.FEATURE_WRITE_MODE))
+            return featureWriteMode;
+        if (name.equals(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE))
+            return keepInlineAppearance;
+        if (name.equals(CityGMLOutputFactory.SPLIT_COPY))
+            return splitCopy;
+        if (name.equals(CityGMLOutputFactory.USE_VALIDATION))
+            return useValidation;
+        if (name.equals(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING))
+            return excludes;
 
-			else if (value instanceof Class<?>[]) {
-				for (Object o : (Class<?>[])value) {
-					if (isSubclassOfCityGML((Class<?>)o))
-						excludes.add((Class<? extends CityGML>)o);
-					else
-						throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
-				}
+        throw new IllegalArgumentException("the property '" + name + "' is not supported.");
+    }
 
-				return;
-			}
-		}
+    @SuppressWarnings("unchecked")
+    public void setProperty(String name, Object value) {
+        Objects.requireNonNull(name, "property name may not be null.");
 
-		throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
-	}
+        if (name.equals(CityGMLOutputFactory.FEATURE_WRITE_MODE)) {
+            FeatureWriteMode mode = FeatureWriteMode.fromValue(value.toString());
+            if (mode != null)
+                featureWriteMode = mode;
 
-	private boolean isSubclassOfCityGML(Class<?> a) {
-		if (a == null)
-			return false;
+            return;
+        }
 
-		if (a == CityGML.class)
-			return true;
+        if (name.equals(CityGMLOutputFactory.KEEP_INLINE_APPEARANCE)) {
+            if (value instanceof Boolean)
+                keepInlineAppearance = (Boolean) value;
 
-		for (Class<?> tmp : a.getInterfaces())
-			if (isSubclassOfCityGML(tmp))
-				return true;
+            return;
+        }
 
-		return a.getSuperclass() != Object.class && isSubclassOfCityGML(a.getSuperclass());
-	}
+        if (name.equals(CityGMLOutputFactory.SPLIT_COPY)) {
+            if (value instanceof Boolean)
+                splitCopy = (Boolean) value;
 
-	private void createParentDirectories(Path path) throws IOException {
-		Path parent = path.getParent();
-		if (parent != null && !Files.exists(parent))
-			Files.createDirectories(parent);
-	}
-	
+            return;
+        }
+
+        if (name.equals(CityGMLOutputFactory.USE_VALIDATION)) {
+            if (value instanceof Boolean)
+                useValidation = (Boolean) value;
+
+            return;
+        }
+
+        if (name.equals(CityGMLOutputFactory.EXCLUDE_FROM_SPLITTING)) {
+            if (value instanceof Class<?>) {
+                if (isSubclassOfCityGML((Class<?>) value))
+                    excludes.add((Class<? extends CityGML>) value);
+                else
+                    throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
+
+                return;
+            } else if (value instanceof Collection<?>) {
+                for (Object o : (Collection<?>) value) {
+                    if (isSubclassOfCityGML((Class<?>) o))
+                        excludes.add((Class<? extends CityGML>) o);
+                    else
+                        throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
+                }
+
+                return;
+            } else if (value instanceof Class<?>[]) {
+                for (Object o : (Class<?>[]) value) {
+                    if (isSubclassOfCityGML((Class<?>) o))
+                        excludes.add((Class<? extends CityGML>) o);
+                    else
+                        throw new IllegalArgumentException("exclude must be of type Class<? extends CityGML>.");
+                }
+
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("the key-value pair '" + name + " - " + value.getClass().getName() + "' is not supported.");
+    }
+
+    private boolean isSubclassOfCityGML(Class<?> a) {
+        if (a == null)
+            return false;
+
+        if (a == CityGML.class)
+            return true;
+
+        for (Class<?> tmp : a.getInterfaces())
+            if (isSubclassOfCityGML(tmp))
+                return true;
+
+        return a.getSuperclass() != Object.class && isSubclassOfCityGML(a.getSuperclass());
+    }
+
+    private void createParentDirectories(Path path) throws IOException {
+        Path parent = path.getParent();
+        if (parent != null && !Files.exists(parent))
+            Files.createDirectories(parent);
+    }
+
 }

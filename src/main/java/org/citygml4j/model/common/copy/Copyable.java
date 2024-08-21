@@ -21,6 +21,7 @@ package org.citygml4j.model.common.copy;
 import org.citygml4j.builder.copy.CopyBuilder;
 
 public interface Copyable {
-	Object copyTo(Object target, CopyBuilder copyBuilder);
-	Object copy(CopyBuilder copyBuilder);
+    Object copyTo(Object target, CopyBuilder copyBuilder);
+
+    Object copy(CopyBuilder copyBuilder);
 }

@@ -30,88 +30,88 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Curve extends AbstractCurve {
-	private CurveSegmentArrayProperty segments;
-	
-	public CurveSegmentArrayProperty getSegments() {
-		return segments;
-	}
+    private CurveSegmentArrayProperty segments;
 
-	public boolean isSetSegments() {
-		return segments != null;
-	}
+    public CurveSegmentArrayProperty getSegments() {
+        return segments;
+    }
 
-	public void setSegments(CurveSegmentArrayProperty segments) {
-		this.segments = ModelObjects.setParent(segments, this);
-	}
+    public boolean isSetSegments() {
+        return segments != null;
+    }
 
-	public void unsetSegments() {
-		segments = ModelObjects.setNull(segments);
-	}
+    public void setSegments(CurveSegmentArrayProperty segments) {
+        this.segments = ModelObjects.setParent(segments, this);
+    }
 
-	public GMLClass getGMLClass() {
-		return GMLClass.CURVE;
-	}
+    public void unsetSegments() {
+        segments = ModelObjects.setNull(segments);
+    }
 
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new Curve(), copyBuilder);
-	}
+    public GMLClass getGMLClass() {
+        return GMLClass.CURVE;
+    }
 
-	@Override
-	public List<Double> toList3d() {
-		if (segments != null) {
-			List<Double> coordinates = new ArrayList<>();
-			for (AbstractCurveSegment segment : segments.getCurveSegment()) {
-				if (segment != null) {
-					List<Double> candidates = segment.toList3d();
-					if (!candidates.isEmpty()) {
-						int size = coordinates.size();
-						if (size == 0)
-							coordinates.addAll(candidates);
-						else {
-							if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
-									&& candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
-									&& candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
-								coordinates.addAll(candidates.subList(3, candidates.size()));
-							else
-								coordinates.addAll(candidates);
-						}
-					}
-				}
-			}
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new Curve(), copyBuilder);
+    }
 
-			return coordinates;
-		} else
-			return new ArrayList<>();
-	}
+    @Override
+    public List<Double> toList3d() {
+        if (segments != null) {
+            List<Double> coordinates = new ArrayList<>();
+            for (AbstractCurveSegment segment : segments.getCurveSegment()) {
+                if (segment != null) {
+                    List<Double> candidates = segment.toList3d();
+                    if (!candidates.isEmpty()) {
+                        int size = coordinates.size();
+                        if (size == 0)
+                            coordinates.addAll(candidates);
+                        else {
+                            if (candidates.get(0).doubleValue() == coordinates.get(size - 3).doubleValue()
+                                    && candidates.get(1).doubleValue() == coordinates.get(size - 2).doubleValue()
+                                    && candidates.get(2).doubleValue() == coordinates.get(size - 1).doubleValue())
+                                coordinates.addAll(candidates.subList(3, candidates.size()));
+                            else
+                                coordinates.addAll(candidates);
+                        }
+                    }
+                }
+            }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		Curve copy = (target == null) ? new Curve() : (Curve)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetSegments()) {
-			copy.setSegments((CurveSegmentArrayProperty)copyBuilder.copy(segments));
-			if (copy.getSegments() == segments)
-				segments.setParent(this);
-		}
-		
-		return copy;
-	}
-	
-	public void accept(GeometryVisitor visitor) {
-		visitor.visit(this);
-	}
+            return coordinates;
+        } else
+            return new ArrayList<>();
+    }
 
-	public <T> T accept(GeometryFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
-	
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
-	
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        Curve copy = (target == null) ? new Curve() : (Curve) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetSegments()) {
+            copy.setSegments((CurveSegmentArrayProperty) copyBuilder.copy(segments));
+            if (copy.getSegments() == segments)
+                segments.setParent(this);
+        }
+
+        return copy;
+    }
+
+    public void accept(GeometryVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GeometryFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }
