@@ -8,6 +8,9 @@ Change Log
   to map them to CityJSON content. Note that this addition introduces a **breaking change** to the CityJSON Extension
   API and existing implementations of CityJSON Extensions will need to be adapted.
 
+##### Fixes
+* The CityJSON geometry mapping did not support all GML primitive geometries.
+
 ##### Changes
 * Updated to citygson version 1.1.6.
 

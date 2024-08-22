@@ -70,10 +70,13 @@ public class GMLMarshaller {
                             .with(Point.class, this::marshalPoint)
                             .with(MultiPoint.class, this::marshalMultiPoint)
                             .with(Curve.class, this::marshalMultiLineString)
+                            .with(OrientableCurve.class, this::marshalMultiLineString)
                             .with(CompositeCurve.class, this::marshalMultiLineString)
                             .with(LineString.class, this::marshalMultiLineString)
                             .with(MultiCurve.class, this::marshalMultiLineString)
                             .with(Surface.class, this::marshalSurface)
+                            .with(OrientableSurface.class, this::marshalSurface)
+                            .with(Polygon.class, this::marshalSurface)
                             .with(TriangulatedSurface.class, this::marshalTriangulatedSurface)
                             .with(Tin.class, this::marshalTin)
                             .with(MultiSurface.class, this::marshalMultiSurface)
@@ -149,6 +152,13 @@ public class GMLMarshaller {
         return dest;
     }
 
+    public MultiLineStringType marshalMultiLineString(OrientableCurve src, CityJSON cityJSON) {
+        MultiLineStringType dest = new MultiLineStringType();
+        marshalMultiLineString(src, dest, cityJSON);
+
+        return dest;
+    }
+
     public MultiLineStringType marshalMultiLineString(CompositeCurve src, CityJSON cityJSON) {
         MultiLineStringType dest = new MultiLineStringType();
         marshalMultiLineString(src, dest, cityJSON);
@@ -196,7 +206,7 @@ public class GMLMarshaller {
         return dest;
     }
 
-    public void marshalSurface(Surface src, CompositeSurfaceType dest, CityJSON cityJSON) {
+    public void marshalSurface(AbstractSurface src, CompositeSurfaceType dest, CityJSON cityJSON) {
         SurfaceCollectionBuilder surfaceBuilder = new SurfaceCollectionBuilder();
         SemanticsBuilder semanticsBuilder = new SemanticsBuilder(childInfo.getParentCityObject(src), json.getCityGMLMarshaller(), cityJSON);
         surfaceBuilder.process(src, dest, semanticsBuilder, true);
@@ -206,6 +216,20 @@ public class GMLMarshaller {
     }
 
     public CompositeSurfaceType marshalSurface(Surface src, CityJSON cityJSON) {
+        CompositeSurfaceType dest = new CompositeSurfaceType();
+        marshalSurface(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public CompositeSurfaceType marshalSurface(OrientableSurface src, CityJSON cityJSON) {
+        CompositeSurfaceType dest = new CompositeSurfaceType();
+        marshalSurface(src, dest, cityJSON);
+
+        return dest;
+    }
+
+    public CompositeSurfaceType marshalSurface(Polygon src, CityJSON cityJSON) {
         CompositeSurfaceType dest = new CompositeSurfaceType();
         marshalSurface(src, dest, cityJSON);
 
