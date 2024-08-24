@@ -72,10 +72,10 @@ public class CoreUnmarshaller {
     private final CityJSONUnmarshaller json;
     private final CityGMLUnmarshaller citygml;
     private final GMLUnmarshaller implicit;
+    private final AbstractCityObject appearanceContainer;
 
     private List<AbstractGeometryObjectType> templates;
     private ConcurrentHashMap<Integer, SimpleEntry<String, Integer>> templateInfos;
-    private AbstractCityObject appearanceContainer;
     private GMLIdManager gmlIdManager;
 
     private final String UNMARSHAL_AS_GLOBAL_FEATURE = "org.citygml4j.unmarshal.asGlobalFeature";
@@ -85,6 +85,7 @@ public class CoreUnmarshaller {
         this.citygml = citygml;
         json = citygml.getCityJSONUnmarshaller();
         implicit = new GMLUnmarshaller(json);
+        appearanceContainer = new GenericCityObject();
     }
 
     public void setGeometryTemplatesInfo(GeometryTemplatesType geometryTemplates) {
@@ -92,12 +93,10 @@ public class CoreUnmarshaller {
         implicit.setVertices(geometryTemplates.getTemplatesVertices());
 
         templateInfos = new ConcurrentHashMap<>();
-        appearanceContainer = new GenericCityObject();
         gmlIdManager = DefaultGMLIdManager.getInstance();
     }
 
-    @SuppressWarnings("unchecked")
-    public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest, CityJSON cityJSON) {
+    public void unmarshalAbstractFeature(AbstractCityObjectType src, AbstractFeature dest, CityJSON cityJSON) {
         dest.setId(src.getGmlId());
 
         if (src.isSetGeographicalExtent()) {
@@ -111,6 +110,21 @@ public class CoreUnmarshaller {
             dest.setBoundedBy(new BoundingShape(envelope));
         }
 
+        if (src.isSetAttributes()) {
+            Attributes attributes = src.getAttributes();
+
+            if (attributes.isSetDescription())
+                dest.setDescription(new StringOrRef(attributes.getDescription()));
+
+            if (attributes.isSetName())
+                dest.addName(new Code(attributes.getName()));
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void unmarshalAbstractCityObject(AbstractCityObjectType src, AbstractCityObject dest, CityJSON cityJSON) {
+        unmarshalAbstractFeature(src, dest, cityJSON);
+
         if (src.isSetExtensionProperties()) {
             for (Map.Entry<String, Object> entry : src.getExtensionProperties().entrySet()) {
                 if (json.getCityJSONRegistry().hasExtensionProperty(entry.getKey(), src))
@@ -122,12 +136,6 @@ public class CoreUnmarshaller {
 
         if (src.isSetAttributes()) {
             Attributes attributes = src.getAttributes();
-
-            if (attributes.isSetDescription())
-                dest.setDescription(new StringOrRef(attributes.getDescription()));
-
-            if (attributes.isSetName())
-                dest.addName(new Code(attributes.getName()));
 
             if (attributes.isSetCreationDate())
                 dest.setCreationDate(attributes.getCreationDate());
@@ -275,6 +283,10 @@ public class CoreUnmarshaller {
 
     public void unmarshalAsGlobalFeature(AbstractFeature feature) {
         feature.setLocalProperty(UNMARSHAL_AS_GLOBAL_FEATURE, true);
+    }
+
+    public void unmarshalAsGlobalAppearance(Appearance appearance) {
+        appearanceContainer.addAppearance(new AppearanceProperty(appearance));
     }
 
     public void unmarshalGeometryInstance(GeometryInstanceType src, ImplicitGeometry dest, CityJSON cityJSON) {
@@ -475,7 +487,7 @@ public class CoreUnmarshaller {
     }
 
     public boolean hasGlobalAppearances() {
-        return appearanceContainer != null && appearanceContainer.isSetAppearance()
+        return appearanceContainer.isSetAppearance()
                 && (!json.isSetCityGMLNameFilter()
                 || json.getCityGMLNameFilter().accept(new QName(AppearanceModule.v2_0_0.getNamespaceURI(), "Appearance"))
                 || json.getCityGMLNameFilter().accept(new QName(AppearanceModule.v1_0_0.getNamespaceURI(), "Appearance")));
@@ -491,7 +503,7 @@ public class CoreUnmarshaller {
 
             templates = null;
             templateInfos = null;
-            appearanceContainer = null;
+            appearanceContainer.unsetAppearance();
         } else
             result = Collections.emptyList();
 
