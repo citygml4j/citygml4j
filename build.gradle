@@ -25,9 +25,6 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
     }
-    compileJava {
-        options.release = 8
-    }
     withJavadocJar()
     withSourcesJar()
 }
@@ -46,7 +43,7 @@ configurations {
 }
 
 dependencies {
-    api 'org.citygml4j:citygson:1.1.6-SNAPSHOT'
+    api 'org.citygml4j:citygson:1.2.0-SNAPSHOT'
     api 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     api 'org.glassfish.jaxb:xsom:2.3.2'
 
@@ -127,7 +124,7 @@ distributions.main.contents {
                 version: project.version,
                 date: date.format('yyyy-MM-dd'),
                 copyright: date.format('yyyy'),
-                javaCompatibility: compileJava.options.release.get().toString(),
+                javaCompatibility: '11',
                 jar: jar.archiveFileName.get(),
                 groupId: project.group,
                 artifactId: project.name

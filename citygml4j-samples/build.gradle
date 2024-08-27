@@ -8,16 +8,13 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
     }
-    compileJava {
-        options.release = 8
-    }
 }
 
 jar.enabled false
 javadoc.enabled false
 
 ext {
-    noiseADEVersion = '2.5.2'
+    noiseADEVersion = '2.6.0-SNAPSHOT'
 }
 
 configurations {
