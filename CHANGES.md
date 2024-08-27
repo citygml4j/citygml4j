@@ -1,11 +1,11 @@
 Change Log
 ==========
 
-### 2.13.0 - tba
+### 2.13.0 - 2024-08-27
 
 ##### Changes
 * **Breaking:** Java 11 is now the minimum required version for using citygml4j v2.
-* Updated to citygson version 1.1.6.
+* Updated to citygson version 1.2.0.
 
 ##### Additions
 * CityGML ADE hook properties defined for boundary surfaces can now be processed with the CityJSON Extension API
