@@ -32,7 +32,6 @@ import org.citygml4j.cityjson.adapter.geometry.serializer.GeometrySerializer;
 import org.citygml4j.cityjson.adapter.geometry.serializer.SpaceGeometryBuilder;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.CityJSONVersion;
-import org.citygml4j.cityjson.model.core.ExtendedSpaceGeometry;
 import org.citygml4j.cityjson.model.generics.GenericAttributeTypes;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.model.geometry.Vertex;
@@ -297,13 +296,6 @@ public class CityJSONSerializerHelper {
         for (int lod = 0; lod < 4; lod++) {
             for (GeometryProperty<?> property : geometryInfo.getGeometries(lod)) {
                 addGeometry(property, lod, object, allowedTypes);
-            }
-        }
-
-        for (ADEOfAbstractSpace adeContainer : space.getADEProperties(ADEOfAbstractSpace.class)) {
-            if (adeContainer instanceof ExtendedSpaceGeometry geometry) {
-                addGeometry(geometry.getLod1MultiSurface(), 1, object, allowedTypes);
-                break;
             }
         }
 
