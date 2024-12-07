@@ -1,6 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Added `updateGeometryInfo` method to `ADEProperty`. This method can be overridden to avoid exposing your subclasses
+  of `ADEProperty` to the `org.citygml4j.core` module for reflection.
+
+### Fixed
+- Fixed conversion of `GenericThematicSurface` to CityJSON depending on whether it is used as space boundary
+  or as top-level feature.
 
 ## [3.2.2] - 2024-12-01
 ### Changed
