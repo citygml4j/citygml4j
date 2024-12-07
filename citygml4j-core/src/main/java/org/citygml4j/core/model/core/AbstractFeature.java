@@ -156,6 +156,11 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
     }
 
     protected final void updateGeometryInfo(ADEProperty property, GeometryInfo geometryInfo) {
-        ADEGeometryInfoBuilder.updateGeometryInfo(property, geometryInfo);
+        try {
+            property.getClass().getDeclaredMethod("updateGeometryInfo", GeometryInfo.class)
+                    .invoke(property, geometryInfo);
+        } catch (Exception e) {
+            ADEGeometryInfoBuilder.updateGeometryInfo(property, geometryInfo);
+        }
     }
 }
