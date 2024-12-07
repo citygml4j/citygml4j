@@ -37,6 +37,7 @@ import org.citygml4j.core.model.common.TopLevelFeature;
 import org.citygml4j.core.model.core.AbstractGenericAttribute;
 import org.citygml4j.core.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.core.model.core.AbstractSpaceBoundary;
+import org.citygml4j.core.model.core.AbstractSpaceBoundaryProperty;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.CodeWithAuthority;
 import org.xmlobjects.gml.model.deprecated.StringOrRef;
@@ -70,7 +71,7 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
     @SuppressWarnings("unchecked")
     @Override
     public void writeObject(T object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
-        ObjectNode attributes = object instanceof TopLevelFeature ?
+        ObjectNode attributes = isTopLevelObject(object) ?
                 helper.getOrPutObject(Fields.ATTRIBUTES, node) :
                 node;
 
@@ -112,5 +113,10 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
                 helper.addADEProperty(property, attributes);
             }
         }
+    }
+
+    protected final boolean isTopLevelObject(T object) {
+        return object instanceof TopLevelFeature
+                && !(object.getParent() instanceof AbstractSpaceBoundaryProperty);
     }
 }
