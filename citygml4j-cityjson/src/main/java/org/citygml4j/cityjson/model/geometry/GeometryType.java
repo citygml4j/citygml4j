@@ -31,6 +31,7 @@ public enum GeometryType {
     COMPOSITE_SOLID("CompositeSolid"),
     TEMPLATE_GEOMETRY("GeometryInstance");
 
+    public static final EnumSet<GeometryType> ALL_TYPES = EnumSet.allOf(GeometryType.class);
     public static final EnumSet<GeometryType> SURFACE_TYPES = EnumSet.of(MULTI_SURFACE, COMPOSITE_SURFACE);
     public static final EnumSet<GeometryType> SOLID_TYPES = EnumSet.of(SOLID, COMPOSITE_SOLID, MULTI_SOLID);
 

@@ -42,7 +42,6 @@ import java.util.EnumSet;
 import java.util.Map;
 
 public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends AbstractCityObjectAdapter<T> {
-    private final EnumSet<GeometryType> allowedTypes = EnumSet.allOf(GeometryType.class);
 
     @Override
     public void buildObject(T object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
@@ -87,7 +86,7 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
     }
 
     public EnumSet<GeometryType> getAllowedGeometryTypes(CityJSONVersion version) {
-        return allowedTypes;
+        return GeometryType.ALL_TYPES;
     }
 
     public Map<Integer, MultiSurfaceProvider> getMultiSurfaceProviders(T object) {
