@@ -40,15 +40,13 @@ public enum WrapMode implements AppearanceModuleComponent, Copyable {
     }
 
     public static WrapMode fromValue(String v) {
-        v = v.trim().toLowerCase();
-
         for (WrapMode c : WrapMode.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
         }
 
-        return NONE;
+        return null;
     }
 
     public CityGMLClass getCityGMLClass() {

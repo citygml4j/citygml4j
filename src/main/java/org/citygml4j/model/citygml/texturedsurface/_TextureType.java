@@ -38,15 +38,13 @@ public enum _TextureType implements TexturedSurfaceModuleComponent, Copyable {
     }
 
     public static _TextureType fromValue(String v) {
-        v = v.trim().toLowerCase();
-
         for (_TextureType c : _TextureType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
         }
 
-        return UNKNOWN;
+        return null;
     }
 
     public CityGMLClass getCityGMLClass() {

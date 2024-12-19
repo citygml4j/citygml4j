@@ -40,15 +40,13 @@ public enum RelativeToTerrain implements CoreModuleComponent, Copyable {
     }
 
     public static RelativeToTerrain fromValue(String v) {
-        v = v.trim().toLowerCase();
-
         for (RelativeToTerrain c : RelativeToTerrain.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
         }
 
-        return ENTIRELY_ABOVE_TERRAIN;
+        return null;
     }
 
     public CityGMLClass getCityGMLClass() {

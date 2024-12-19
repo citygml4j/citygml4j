@@ -38,15 +38,13 @@ public enum TextureType implements AppearanceModuleComponent, Copyable {
     }
 
     public static TextureType fromValue(String v) {
-        v = v.trim().toLowerCase();
-
         for (TextureType c : TextureType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
         }
 
-        return UNKNOWN;
+        return null;
     }
 
     public CityGMLClass getCityGMLClass() {

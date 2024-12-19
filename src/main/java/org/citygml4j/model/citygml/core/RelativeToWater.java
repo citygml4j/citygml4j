@@ -41,15 +41,13 @@ public enum RelativeToWater implements CoreModuleComponent, Copyable {
     }
 
     public static RelativeToWater fromValue(String v) {
-        v = v.trim().toLowerCase();
-
         for (RelativeToWater c : RelativeToWater.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
         }
 
-        return ENTIRELY_ABOVE_WATER_SURFACE;
+        return null;
     }
 
     public CityGMLClass getCityGMLClass() {
