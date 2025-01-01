@@ -69,7 +69,7 @@ public class TexCoordGen extends AbstractTextureParameterization {
     }
 
     public void setWorldToTexture(WorldToTexture worldToTexture) {
-        this.worldToTexture = ModelObjects.setNull(worldToTexture);
+        this.worldToTexture = ModelObjects.setParent(worldToTexture, this);
     }
 
     public void unsetGenericApplicationPropertyOfTexCoordGen() {
