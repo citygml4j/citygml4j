@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+### 2.13.1 - 2025-01-13
+
+##### Fixes
+* Fixed parsing of `relativeToTerrain` and `relativeToWater` properties of city objects.
+* The `worldToTexture` property of `TexCoordGen` elements was not correctly set when reading and writing CityGML
+  datasets.
+
 ### 2.13.0 - 2024-08-27
 
 ##### Changes

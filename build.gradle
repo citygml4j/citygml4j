@@ -10,7 +10,7 @@ plugins {
 
 allprojects {
     group 'org.citygml4j'
-    version '2.13.0'
+    version '2.13.1'
     description 'The Open Source Java API for CityGML'
 
     repositories {
