@@ -34,11 +34,14 @@ task copySamples {
         }
 
         file("$outputsDir/build.gradle").text = file('build.gradle').getText()
-                .replaceAll(".*copy-samples.gradle.*", "version '$rootProject.version'")
+                .replaceAll(".*copy-samples.gradle.*", "version = '$rootProject.version'")
                 .replaceAll("(?s)(dependencies) \\{.*?}", '$1 {\n' +
                         "    implementation fileTree(dir: '../lib', include: '*.jar')\n" +
                         "    annotationProcessor fileTree(dir: '../lib', include: '*.jar')\n}")
 
-        file("$outputsDir/settings.gradle").text = "rootProject.name = 'citygml4j-samples'"
+        file("$outputsDir/settings.gradle").text = "plugins {\n" +
+                "    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'\n" +
+                "}\n" +
+                "rootProject.name = 'citygml4j-samples'"
     }
 }

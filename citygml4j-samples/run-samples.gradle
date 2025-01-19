@@ -7,7 +7,7 @@ task createExecTasks {
             task("$className", type: JavaExec, dependsOn: ['build', 'cleanOutput'], group: 'samples') {
                 mainModule = 'org.citygml4j.samples'
                 mainClass = className
-                classpath sourceSets.main.runtimeClasspath
+                classpath = sourceSets.main.runtimeClasspath
             }
         }
     }
