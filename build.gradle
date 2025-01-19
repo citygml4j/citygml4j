@@ -4,9 +4,9 @@ plugins {
 }
 
 allprojects {
-    group 'org.citygml4j'
-    version '3.2.2'
-    description 'The Open Source Java API for CityGML'
+    group = 'org.citygml4j'
+    version = '3.2.2'
+    description = 'The Open Source Java API for CityGML'
 
     ext {
         gmlObjectsVersion = '1.1.2'
@@ -32,7 +32,7 @@ subprojects {
 
     repositories {
         maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
         mavenCentral()
     }
@@ -97,7 +97,7 @@ subprojects {
         }
 
         signing {
-            required { !project.hasProperty("skip.signing") }
+            required = { !project.hasProperty("skip.signing") }
             sign publishing.publications.mavenJava
         }
     }

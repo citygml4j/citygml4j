@@ -10,6 +10,6 @@ dependencies {
 
 idea {
     module {
-        outputDir file('out/production/classes')
+        outputDir = file('out/production/classes')
     }
 }
