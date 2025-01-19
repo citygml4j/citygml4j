@@ -19,7 +19,7 @@
 
 package org.citygml4j.core.model.core;
 
-import org.xmlobjects.gml.util.jama.Matrix;
+import org.xmlobjects.gml.util.matrix.Matrix;
 
 import java.util.List;
 
@@ -34,25 +34,7 @@ public class TransformationMatrix2x2 extends AbstractMatrix {
         setValue(matrix);
     }
 
-    public static TransformationMatrix2x2 ofRowMajorList(List<Double> values) {
-        TransformationMatrix2x2 matrix = new TransformationMatrix2x2();
-        try {
-            matrix.fromRowMajorList(values);
-        } catch (Throwable e) {
-            //
-        }
-
-        return matrix;
-    }
-
-    public static TransformationMatrix2x2 ofColumnMajorList(List<Double> values) {
-        TransformationMatrix2x2 matrix = new TransformationMatrix2x2();
-        try {
-            matrix.fromColumnMajorList(values);
-        } catch (Throwable e) {
-            //
-        }
-
-        return matrix;
+    public static TransformationMatrix2x2 ofRowMajor(List<Double> values) {
+        return new TransformationMatrix2x2(new Matrix(values, 2));
     }
 }

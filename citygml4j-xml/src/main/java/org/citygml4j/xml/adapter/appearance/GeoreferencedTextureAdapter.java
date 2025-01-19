@@ -72,7 +72,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
                     object.setReferencePoint(reader.getObjectUsingBuilder(PointPropertyAdapter.class));
                     return;
                 case "orientation":
-                    reader.getTextContent().ifDoubleList(v -> object.setOrientation(TransformationMatrix2x2.ofRowMajorList(v)));
+                    reader.getTextContent().ifDoubleList(v -> object.setOrientation(TransformationMatrix2x2.ofRowMajor(v)));
                     return;
                 case "target":
                     reader.getTextContent().ifPresent(v -> object.getTargets().add(new GeometryReference(v)));
@@ -113,7 +113,7 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
             writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "referencePoint"), object.getReferencePoint(), PointPropertyAdapter.class, namespaces);
 
         if (object.getOrientation() != null)
-            writer.writeElement(Element.of(appearanceNamespace, "orientation").addTextContent(TextContent.ofDoubleList(object.getOrientation().toRowMajorList())));
+            writer.writeElement(Element.of(appearanceNamespace, "orientation").addTextContent(TextContent.ofDoubleList(object.getOrientation().toRowMajor())));
 
         if (object.isSetTargets()) {
             for (GeometryReference target : object.getTargets()) {

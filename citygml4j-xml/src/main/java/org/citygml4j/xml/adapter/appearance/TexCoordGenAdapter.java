@@ -62,7 +62,7 @@ public class TexCoordGenAdapter extends AbstractTextureParameterizationAdapter<T
     @Override
     public void buildChildObject(TexCoordGen object, QName name, Attributes attributes, XMLReader reader) throws ObjectBuildException, XMLReadException {
         if (CityGMLBuilderHelper.isAppearanceNamespace(name.getNamespaceURI()) && "worldToTexture".equals(name.getLocalPart())) {
-            reader.getTextContent().ifDoubleList(v -> object.setWorldToTexture(TransformationMatrix3x4.ofRowMajorList(v)));
+            reader.getTextContent().ifDoubleList(v -> object.setWorldToTexture(TransformationMatrix3x4.ofRowMajor(v)));
             GMLBuilderHelper.buildSRSReference(object, attributes);
         }
     }
@@ -84,7 +84,7 @@ public class TexCoordGenAdapter extends AbstractTextureParameterizationAdapter<T
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
 
         if (object.getWorldToTexture() != null) {
-            Element worldToTexture = Element.of(appearanceNamespace, "worldToTexture").addTextContent(TextContent.ofDoubleList(object.getWorldToTexture().toRowMajorList()));
+            Element worldToTexture = Element.of(appearanceNamespace, "worldToTexture").addTextContent(TextContent.ofDoubleList(object.getWorldToTexture().toRowMajor()));
             if (!CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(appearanceNamespace))
                 GMLSerializerHelper.serializeSRSReference(worldToTexture, object, namespaces);
 

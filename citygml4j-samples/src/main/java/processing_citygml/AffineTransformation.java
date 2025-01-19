@@ -40,7 +40,7 @@ import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
 import org.xmlobjects.gml.util.Matrices;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
-import org.xmlobjects.gml.util.jama.Matrix;
+import org.xmlobjects.gml.util.matrix.Matrix;
 import org.xmlobjects.util.copy.CopyBuilder;
 
 import java.nio.charset.StandardCharsets;

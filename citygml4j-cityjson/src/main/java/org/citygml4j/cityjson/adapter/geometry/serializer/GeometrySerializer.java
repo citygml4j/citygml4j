@@ -29,7 +29,7 @@ import org.citygml4j.core.model.core.ImplicitGeometry;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.primitives.Point;
-import org.xmlobjects.gml.util.jama.Matrix;
+import org.xmlobjects.gml.util.matrix.Matrix;
 
 import java.util.*;
 
@@ -146,17 +146,17 @@ public class GeometrySerializer {
             return;
         }
 
-        double[] matrix = geometry.getTransformationMatrix().getValue().getRowPackedCopy();
+        List<Double> matrix = geometry.getTransformationMatrix().toRowMajor();
         Point referencePoint = geometry.getReferencePoint().getObject();
 
         List<Double> coordinates = referencePoint.toCoordinateList3D();
-        coordinates.set(0, coordinates.get(0) + matrix[3]);
-        coordinates.set(1, coordinates.get(1) + matrix[7]);
-        coordinates.set(2, coordinates.get(2) + matrix[11]);
+        coordinates.set(0, coordinates.get(0) + matrix.get(3));
+        coordinates.set(1, coordinates.get(1) + matrix.get(7));
+        coordinates.set(2, coordinates.get(2) + matrix.get(11));
 
-        matrix[3] = 0;
-        matrix[7] = 0;
-        matrix[11] = 0;
+        matrix.set(3, 0.0);
+        matrix.set(7, 0.0);
+        matrix.set(11, 0.0);
 
         ObjectNode boundary = createGeometry(new Point(new DirectPosition(coordinates)), lod, verticesBuilder, EnumSet.of(GeometryType.MULTI_POINT));
         if (boundary == null) {
@@ -168,7 +168,7 @@ public class GeometrySerializer {
         node.put(Fields.TEMPLATE, templateInfo.getIndex());
         node.set(Fields.BOUNDARIES, boundary.path(Fields.BOUNDARIES));
         ArrayNode transformationMatrix = node.putArray(Fields.TRANSFORMATION_MATRIX);
-        Arrays.stream(matrix).forEach(transformationMatrix::add);
+        matrix.forEach(transformationMatrix::add);
     }
 
     private void convertTemplateGeometry(ImplicitGeometry geometry, Number lod, ObjectNode object, EnumSet<GeometryType> allowedTypes) {

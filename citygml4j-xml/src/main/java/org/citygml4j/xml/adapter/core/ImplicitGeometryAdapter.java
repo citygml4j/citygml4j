@@ -61,7 +61,7 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
         if (CityGMLBuilderHelper.isCoreNamespace(name.getNamespaceURI())) {
             switch (name.getLocalPart()) {
                 case "transformationMatrix":
-                    reader.getTextContent().ifDoubleList(v -> object.setTransformationMatrix(TransformationMatrix4x4.ofRowMajorList(v)));
+                    reader.getTextContent().ifDoubleList(v -> object.setTransformationMatrix(TransformationMatrix4x4.ofRowMajor(v)));
                     break;
                 case "mimeType":
                     object.setMimeType(reader.getObjectUsingBuilder(CodeAdapter.class));
@@ -96,7 +96,7 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
             if (object.getTransformationMatrix() != null)
-                writer.writeElement(Element.of(coreNamespace, "transformationMatrix").addTextContent(TextContent.ofDoubleList(object.getTransformationMatrix().toRowMajorList())));
+                writer.writeElement(Element.of(coreNamespace, "transformationMatrix").addTextContent(TextContent.ofDoubleList(object.getTransformationMatrix().toRowMajor())));
 
             if (object.getMimeType() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
@@ -119,7 +119,7 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
 
             if (object.getTransformationMatrix() != null)
-                writer.writeElement(Element.of(coreNamespace, "transformationMatrix").addTextContent(TextContent.ofDoubleList(object.getTransformationMatrix().toRowMajorList())));
+                writer.writeElement(Element.of(coreNamespace, "transformationMatrix").addTextContent(TextContent.ofDoubleList(object.getTransformationMatrix().toRowMajor())));
 
             if (object.getLibraryObject() != null)
                 writer.writeElement(Element.of(coreNamespace, "libraryObject").addTextContent(object.getLibraryObject()));
