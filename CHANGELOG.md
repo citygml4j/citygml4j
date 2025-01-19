@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [3.2.3] - 2025-01-19
 ### Added
 - Added `updateGeometryInfo` method to `ADEProperty`. This method can be overridden to avoid exposing your subclasses
   of `ADEProperty` to the `org.citygml4j.core` module for reflection.
@@ -8,6 +10,12 @@
 ### Fixed
 - Fixed conversion of `GenericThematicSurface` to CityJSON depending on whether it is used as space boundary
   or as top-level feature.
+- Computing envelopes is more robust against invalid input.
+
+### Changed
+- Updated gml-objects to 1.1.4.
+- Updated xal-objects to 1.1.4.
+- Updated xml-objects to 1.1.4.
 
 ## [3.2.2] - 2024-12-01
 ### Changed
@@ -109,7 +117,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.2..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.3..HEAD
+[3.2.3]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.3
 [3.2.2]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.2
 [3.2.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.1
 [3.2.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.0
