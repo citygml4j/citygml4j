@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
     api project(':citygml4j-core')
-    api 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
     annotationProcessor "org.xmlobjects:xml-objects:$xmlObjectsVersion"
 }
