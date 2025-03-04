@@ -122,7 +122,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.3..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.4..HEAD
+[3.2.4]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.4
 [3.2.3]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.3
 [3.2.2]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.2
 [3.2.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.1
