@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [3.2.4] - 2025-03-04
+### Fixed
+- Fixed parsing of `TimePosition` values to support more ISO 8601 compliant representations.
+- Fixed `include` method of `Envelope` to correctly handle empty envelopes.
+
 ## [3.2.3] - 2025-01-19
 ### Added
 - Added `updateGeometryInfo` method to `ADEProperty`. This method can be overridden to avoid exposing your subclasses
