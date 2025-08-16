@@ -24,7 +24,7 @@ citygml4j is licensed under the [Apache License, Version 2.0](http://www.apache.
 See the `LICENSE` file for more details.
 
 ## Latest release
-The latest release of citygml4j is 3.2.4.
+The latest release of citygml4j is 3.2.5.
 
 Download the latest citygml4j release binaries [here](https://github.com/citygml4j/citygml4j/releases/latest).
 Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
@@ -65,7 +65,7 @@ have to adapt the citygml4j version number.
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j-xml</artifactId>
-  <version>3.2.4</version>
+  <version>3.2.5</version>
 </dependency>
 ```
 
@@ -78,8 +78,8 @@ repositories {
 }
 
 dependencies {
-  implementation 'org.citygml4j:citygml4j-xml:3.2.4'
-  implementation 'org.citygml4j:citygml4j-cityjson:3.2.4'
+  implementation 'org.citygml4j:citygml4j-xml:3.2.5'
+  implementation 'org.citygml4j:citygml4j-cityjson:3.2.5'
 }
 ```
 

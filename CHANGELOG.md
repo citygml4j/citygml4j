@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [3.2.5] - 2025-08-15
+### Changed
+- Updated jackson-databind to 2.19.2.
+
 ## [3.2.4] - 2025-03-04
 ### Fixed
 - Fixed parsing of `TimePosition` values to support more ISO 8601 compliant representations.
@@ -122,7 +126,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.4..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.5..HEAD
+[3.2.5]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.5
 [3.2.4]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.4
 [3.2.3]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.3
 [3.2.2]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.2
