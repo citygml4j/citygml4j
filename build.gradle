@@ -103,7 +103,9 @@ subprojects {
     }
 }
 
-task allJavadoc(type: Javadoc, group: 'documentation') {
+tasks.register('allJavadoc', Javadoc) {
+    group = 'documentation'
+
     rootProject.subprojects.each { project ->
         project.tasks.withType(Javadoc).each { javadocTask ->
             source += javadocTask.source
