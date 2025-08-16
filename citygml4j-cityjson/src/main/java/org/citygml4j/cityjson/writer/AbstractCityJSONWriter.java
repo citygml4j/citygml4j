@@ -317,9 +317,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
 
         if (helper.hasExtraRootProperties()) {
-            Iterator<Map.Entry<String, JsonNode>> iterator = helper.getExtraRootProperties().fields();
-            while (iterator.hasNext()) {
-                Map.Entry<String, JsonNode> entry = iterator.next();
+            for (Map.Entry<String, JsonNode> entry : helper.getExtraRootProperties().properties()) {
                 writer.writeObjectField(entry.getKey(), entry.getValue());
             }
         }

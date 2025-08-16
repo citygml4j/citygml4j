@@ -31,7 +31,6 @@ import org.xmlobjects.gml.model.geometry.primitives.Polygon;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -44,9 +43,7 @@ public class TextureBuilder {
 
     void build(JsonNode textures, List<SurfaceProperty> geometries, AppearanceBuilder appearanceBuilder, GeometryObject geometryObject) {
         TextureVerticesBuilder textureVerticesBuilder = appearanceBuilder.getTextureVerticesBuilder();
-        Iterator<Map.Entry<String, JsonNode>> iterator = textures.fields();
-        while (iterator.hasNext()) {
-            Map.Entry<String, JsonNode> entry = iterator.next();
+        for (Map.Entry<String, JsonNode> entry : textures.properties()) {
             List<JsonNode> flatValues = flatValues(entry.getValue().path(Fields.VALUES));
 
             for (int index = 0; index < flatValues.size() && index < geometries.size(); index++) {

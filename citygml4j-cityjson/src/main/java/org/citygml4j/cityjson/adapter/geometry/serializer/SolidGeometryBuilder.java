@@ -31,7 +31,10 @@ import org.xmlobjects.gml.model.geometry.complexes.CompositeSolid;
 import org.xmlobjects.gml.model.geometry.primitives.ShellProperty;
 import org.xmlobjects.gml.model.geometry.primitives.Solid;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Map;
 
 public class SolidGeometryBuilder extends GeometryBuilder {
     private final EnumSet<GeometryType> allowedTypes;
@@ -81,7 +84,7 @@ public class SolidGeometryBuilder extends GeometryBuilder {
 
     @Override
     public void visit(Solid solid) {
-        if (shouldBuild && (solids.size() == 0
+        if (shouldBuild && (solids.isEmpty()
                 || (disconnectedSolids == 0 && allowedTypes.contains(GeometryType.COMPOSITE_SOLID))
                 || allowedTypes.contains(GeometryType.MULTI_SOLID))) {
             if (solid.getExterior() != null && solid.getExterior().getObject() != null) {
@@ -134,9 +137,7 @@ public class SolidGeometryBuilder extends GeometryBuilder {
 
     private void sliceAppearance(ObjectNode appearance, List<Integer> limits) {
         if (appearance != null) {
-            Iterator<Map.Entry<String, JsonNode>> iterator = appearance.fields();
-            while (iterator.hasNext()) {
-                Map.Entry<String, JsonNode> entry = iterator.next();
+            for (Map.Entry<String, JsonNode> entry : appearance.properties()) {
                 if (entry.getValue().isObject()) {
                     ObjectNode material = (ObjectNode) entry.getValue();
                     material.set(Fields.VALUES, slice(helper.getOrPutArray(Fields.VALUES, material), limits));

@@ -38,7 +38,6 @@ import org.citygml4j.core.model.core.AbstractGenericAttribute;
 import org.citygml4j.core.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.core.model.generics.GenericAttributeSet;
 
-import java.util.Iterator;
 import java.util.Map;
 
 @CityJSONElements({
@@ -61,9 +60,7 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
                 object.getValue().add(new AbstractGenericAttributeProperty(attribute));
             }
         } else if (node.isObject()) {
-            Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
-            while (iterator.hasNext()) {
-                Map.Entry<String, JsonNode> entry = iterator.next();
+            for (Map.Entry<String, JsonNode> entry : node.properties()) {
                 AbstractGenericAttribute<?> attribute = helper.getGenericAttribute(entry.getKey(), entry.getValue());
                 object.getValue().add(new AbstractGenericAttributeProperty(attribute));
             }

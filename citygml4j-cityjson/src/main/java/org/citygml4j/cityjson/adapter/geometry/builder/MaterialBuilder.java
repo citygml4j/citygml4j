@@ -33,7 +33,6 @@ import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
 import org.xmlobjects.gml.visitor.GeometryWalker;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -45,10 +44,7 @@ public class MaterialBuilder {
     }
 
     void build(JsonNode materials, List<SurfaceProperty> geometries, AppearanceBuilder appearanceBuilder, GeometryObject geometryObject) {
-        Iterator<Map.Entry<String, JsonNode>> iterator = materials.fields();
-        while (iterator.hasNext()) {
-            Map.Entry<String, JsonNode> entry = iterator.next();
-
+        for (Map.Entry<String, JsonNode> entry : materials.properties()) {
             int value = entry.getValue().path(Fields.VALUE).asInt(-1);
             if (value == -1) {
                 List<Integer> flatValues = flatValues(entry.getValue(), geometries.size());

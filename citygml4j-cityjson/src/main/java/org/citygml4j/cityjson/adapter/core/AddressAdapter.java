@@ -41,7 +41,6 @@ import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class AddressAdapter implements JsonObjectBuilder<Address>, JsonObjectSerializer<Address> {
@@ -64,9 +63,7 @@ public class AddressAdapter implements JsonObjectBuilder<Address>, JsonObjectSer
         }
 
         Map<AddressType, ObjectNode> properties = new HashMap<>();
-        Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
-        while (iterator.hasNext()) {
-            Map.Entry<String, JsonNode> entry = iterator.next();
+        for (Map.Entry<String, JsonNode> entry : node.properties()) {
             AddressType type = AddressType.fromPropertyName(entry.getKey());
             properties.computeIfAbsent(type, v -> helper.createObject()).set(entry.getKey(), entry.getValue());
         }

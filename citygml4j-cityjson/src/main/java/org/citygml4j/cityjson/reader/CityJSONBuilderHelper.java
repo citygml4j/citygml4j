@@ -588,7 +588,7 @@ public class CityJSONBuilderHelper {
     private Attributes createAttributes(ObjectNode node) {
         Attributes attributes = new Attributes();
 
-        Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
+        Iterator<Map.Entry<String, JsonNode>> iterator = node.properties().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, JsonNode> entry = iterator.next();
             String name = entry.getKey();
@@ -602,10 +602,8 @@ public class CityJSONBuilderHelper {
                 case Fields.PARENT:
                     continue;
                 case Fields.ATTRIBUTES:
-                    Iterator<Map.Entry<String, JsonNode>> attrIterator = value.fields();
-                    while (attrIterator.hasNext()) {
-                        Map.Entry<String, JsonNode> attr = attrIterator.next();
-                        attributes.add(attr.getKey(), attr.getValue());
+                    for (Map.Entry<String, JsonNode> attribute : value.properties()) {
+                        attributes.add(attribute.getKey(), attribute.getValue());
                     }
                     break;
                 default:

@@ -177,9 +177,7 @@ public abstract class CityJSONReader implements AutoCloseable {
         JsonNode node = content.path(Fields.EXTENSIONS);
         if (node.isObject()) {
             extensions = new HashMap<>();
-            Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
-            while (iterator.hasNext()) {
-                Map.Entry<String, JsonNode> entry = iterator.next();
+            for (Map.Entry<String, JsonNode> entry : node.properties()) {
                 String name = entry.getKey();
 
                 ExtensionInfo extensionInfo = helper.getObjectUsingBuilder(entry.getValue(), ExtensionInfoAdapter.class);
@@ -192,7 +190,7 @@ public abstract class CityJSONReader implements AutoCloseable {
     }
 
     private void createExtraRootProperties(ObjectNode content, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        Iterator<Map.Entry<String, JsonNode>> iterator = content.fields();
+        Iterator<Map.Entry<String, JsonNode>> iterator = content.properties().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, JsonNode> entry = iterator.next();
             String name = entry.getKey();
@@ -240,7 +238,7 @@ public abstract class CityJSONReader implements AutoCloseable {
         @Override
         public boolean hasNext() {
             if (next == null) {
-                Iterator<Map.Entry<String, JsonNode>> iterator = helper.getCityObjects().fields();
+                Iterator<Map.Entry<String, JsonNode>> iterator = helper.getCityObjects().properties().iterator();
                 while (iterator.hasNext()) {
                     Map.Entry<String, JsonNode> entry = iterator.next();
                     JsonNode object = entry.getValue();

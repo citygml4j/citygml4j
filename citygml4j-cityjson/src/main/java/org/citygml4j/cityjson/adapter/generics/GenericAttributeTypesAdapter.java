@@ -37,7 +37,6 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 
-import java.util.Iterator;
 import java.util.Map;
 
 @CityJSONElements({
@@ -54,9 +53,7 @@ public class GenericAttributeTypesAdapter implements JsonObjectBuilder<GenericAt
 
     @Override
     public void buildObject(GenericAttributeTypes object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();
-        while (iterator.hasNext()) {
-            Map.Entry<String, JsonNode> entry = iterator.next();
+        for (Map.Entry<String, JsonNode> entry : node.properties()) {
             GenericAttributeType type = GenericAttributeType.fromValue(entry.getValue().asText());
             if (type != null) {
                 object.addType(entry.getKey(), type);
