@@ -1,46 +1,34 @@
-tasks.register('copySamples') {
-    def outputsDir = file("$rootProject.projectDir/build/samples")
-    outputs.dir outputsDir
+tasks.register('copySamples', Copy) {
+    def outputsDir = layout.buildDirectory.dir('samples')
+    into(outputsDir)
 
-    inputs.dir 'src/main/java'
-    inputs.dir 'input'
-    inputs.dir "$rootProject.projectDir/gradle"
+    from('src/main/java') {
+        into 'src/main/java'
+    }
+    from('src/main/resources') {
+        into 'src/main/resources'
+    }
+    from('input') {
+        into 'input'
+    }
+    from("$rootProject.projectDir/gradle") {
+        into 'gradle'
+    }
+    from("$rootProject.projectDir") {
+        include 'gradlew*'
+    }
+    from('run-samples.gradle')
 
     doLast {
-        copy {
-            from 'src/main/java'
-            into "$outputsDir/src/main/java"
-        }
-        copy {
-            from 'src/main/resources'
-            into "$outputsDir/src/main/resources"
-        }
-        copy {
-            from 'input'
-            into "$outputsDir/input"
-        }
-        copy {
-            from "$rootProject.projectDir/gradle"
-            into "$outputsDir/gradle"
-        }
-        copy {
-            from "$rootProject.projectDir"
-            into "$outputsDir"
-            include 'gradlew*'
-        }
-        copy {
-            from 'run-samples.gradle'
-            into "$outputsDir"
-        }
-
-        file("$outputsDir/build.gradle").text = file('build.gradle').getText()
+        def targetDir = outputsDir.get().asFile
+        file("$targetDir/build.gradle").text = file('build.gradle').getText()
                 .replaceAll(".*copy-samples.gradle.*", "version = '$rootProject.version'")
                 .replaceAll("(?s)(dependencies) \\{.*?}", '$1 {\n' +
                         "    implementation fileTree(dir: '../lib', include: '*.jar')\n" +
                         "    annotationProcessor fileTree(dir: '../lib', include: '*.jar')\n}")
 
-        file("$outputsDir/settings.gradle").text = "plugins {\n" +
-                "    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'\n" +
+        file("$targetDir/settings.gradle").text = "plugins {\n" +
+                "    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'\n" +
                 "}\n" +
                 "rootProject.name = 'citygml4j-samples'"
     }

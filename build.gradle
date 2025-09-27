@@ -57,7 +57,7 @@ subprojects {
         }
     }
 
-    plugins.withType(MavenPublishPlugin) {
+    plugins.withType(MavenPublishPlugin).configureEach {
         java {
             withJavadocJar()
             withSourcesJar()
@@ -138,7 +138,9 @@ distributions.main.contents {
         from 'LICENSE'
     }
     into('samples') {
-        from tasks.getByPath(':citygml4j-samples:copySamples')
+        from provider {
+            project(':citygml4j-samples').tasks.named('copySamples')
+        }
     }
 }
 
