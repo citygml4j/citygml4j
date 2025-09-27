@@ -1,6 +1,6 @@
 ![build](https://img.shields.io/github/actions/workflow/status/citygml4j/citygml4j/citygml4j-build.yml?logo=Gradle)
 ![release](https://img.shields.io/github/v/release/citygml4j/citygml4j?display_name=tag)
-[![maven](https://maven-badges.herokuapp.com/maven-central/org.citygml4j/citygml4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.citygml4j/citygml4j-core)
+[![maven](https://maven-badges.herokuapp.com/maven-central/org.citygml4j/citygml4j-core/badge.svg)](https://img.shields.io/maven-central/v/:groupId/:artifactId)
 [![license](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # citygml4j - The Open Source Java API for CityGML
