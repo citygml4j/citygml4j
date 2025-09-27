@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [3.2.6] - 2025-09-27
+### Changed
+- Updated gml-objects to 1.1.6.
+- Updated xal-objects to 1.1.6.
+- Updated xml-objects to 1.1.6.
+- Updated jackson-databind to 2.20.0.
+
 ## [3.2.5] - 2025-08-15
 ### Changed
 - Updated jackson-databind to 2.19.2.
@@ -126,7 +133,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.5..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.6..HEAD
+[3.2.6]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.6
 [3.2.5]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.5
 [3.2.4]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.4
 [3.2.3]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.3
