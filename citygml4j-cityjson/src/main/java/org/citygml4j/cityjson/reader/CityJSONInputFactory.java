@@ -191,7 +191,7 @@ public class CityJSONInputFactory {
 
     public CityJSONReader createCityJSONReader(URL url) throws CityJSONReadException {
         try {
-            return createReader(objectMapper.createParser(url));
+            return createReader(objectMapper.createParser(url.openStream()));
         } catch (IOException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
