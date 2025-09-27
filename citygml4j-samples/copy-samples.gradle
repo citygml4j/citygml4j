@@ -1,4 +1,4 @@
-task copySamples {
+tasks.register('copySamples') {
     def outputsDir = file("$rootProject.projectDir/build/samples")
     outputs.dir outputsDir
 
