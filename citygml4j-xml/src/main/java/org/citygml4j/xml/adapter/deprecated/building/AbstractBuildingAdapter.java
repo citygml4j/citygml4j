@@ -83,7 +83,10 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                     object.setRoofType(reader.getObjectUsingBuilder(CodeAdapter.class));
                     return;
                 case "measuredHeight":
-                    object.getHeights().add(new HeightProperty(Height.ofMeasuredHeight(reader.getObjectUsingBuilder(LengthAdapter.class))));
+                    Height height = Height.ofMeasuredHeight(reader.getObjectUsingBuilder(LengthAdapter.class));
+                    if (height.getValue() != null && height.getValue().getValue() != null) {
+                        object.getHeights().add(new HeightProperty(height));
+                    }
                     return;
                 case "storeysAboveGround":
                     reader.getTextContent().ifInteger(object::setStoreysAboveGround);
