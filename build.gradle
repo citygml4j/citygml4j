@@ -5,7 +5,7 @@ plugins {
 
 allprojects {
     group = 'org.citygml4j'
-    version = '3.2.6'
+    version = '3.2.7'
     description = 'The Open Source Java API for CityGML'
 
     ext {
