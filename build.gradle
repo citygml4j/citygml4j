@@ -9,9 +9,9 @@ allprojects {
     description = 'The Open Source Java API for CityGML'
 
     ext {
-        gmlObjectsVersion = '1.1.6'
-        xalObjectsVersion = '1.1.6'
-        xmlObjectsVersion = '1.1.6'
+        gmlObjectsVersion = '1.2.0-SNAPSHOT'
+        xalObjectsVersion = '1.2.0-SNAPSHOT'
+        xmlObjectsVersion = '1.2.0-SNAPSHOT'
         date = new Date()
     }
 }
@@ -32,7 +32,7 @@ subprojects {
 
     repositories {
         maven {
-            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+            url = 'https://central.sonatype.com/repository/maven-snapshots/'
         }
         mavenCentral()
     }
