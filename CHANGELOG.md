@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [3.2.7] - 2025-11-20
+### Fixed
+- Fixed `NullPointerException` when parsing GML/XML properties having an empty nil-reason list.
+
+### Changed
+- Updated gml-objects to 1.2.0.
+- Updated xal-objects to 1.2.0.
+- Updated xml-objects to 1.2.0.
+- Updated jackson-databind to 2.20.1.
+
 ## [3.2.6] - 2025-09-27
 ### Changed
 - Updated gml-objects to 1.1.6.
@@ -133,7 +143,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.6..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.7..HEAD
+[3.2.7]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.7
 [3.2.6]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.6
 [3.2.5]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.5
 [3.2.4]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.4
