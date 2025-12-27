@@ -192,15 +192,15 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
 
             if (multiCurve.isSetCurveMember()) {
                 for (CurveProperty property : multiCurve.getCurveMember())
-                    properties.add((CurveProperty) property.shallowCopy(copyBuilder));
+                    properties.add(copyBuilder.shallowCopy(property));
             }
 
             if (multiCurve.getCurveMembers() != null && multiCurve.getCurveMembers().isSetObjects()) {
                 for (AbstractCurve curve : multiCurve.getCurveMembers().getObjects())
-                    properties.add(new CurveProperty((AbstractCurve) curve.shallowCopy(copyBuilder)));
+                    properties.add(new CurveProperty(copyBuilder.shallowCopy(curve)));
             }
 
-            if (properties.size() == 0) {
+            if (properties.isEmpty()) {
                 dest = new GeometricComplexProperty();
             } else {
                 dest = new GeometricComplexProperty(new CompositeCurve(properties));

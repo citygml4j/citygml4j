@@ -22,8 +22,6 @@ package org.citygml4j.core.model.core;
 import org.citygml4j.core.model.CityGMLObject;
 import org.xmlobjects.gml.model.GMLObject;
 import org.xmlobjects.gml.util.matrix.Matrix;
-import org.xmlobjects.util.copy.CopyBuilder;
-import org.xmlobjects.util.copy.Copyable;
 
 import java.util.List;
 
@@ -58,10 +56,5 @@ public abstract class AbstractMatrix extends GMLObject implements CityGMLObject 
 
     public List<Double> toColumnMajor() {
         return matrix.toColumnMajor();
-    }
-
-    @Override
-    public Copyable deepCopy(CopyBuilder builder) {
-        return super.deepCopy(builder.withClone(matrix, () -> matrix.copy()));
     }
 }

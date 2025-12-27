@@ -124,15 +124,15 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
 
             if (multiSurface.isSetSurfaceMember()) {
                 for (SurfaceProperty property : multiSurface.getSurfaceMember())
-                    properties.add((SurfaceProperty) property.shallowCopy(copyBuilder));
+                    properties.add(copyBuilder.shallowCopy(property));
             }
 
             if (multiSurface.getSurfaceMembers() != null && multiSurface.getSurfaceMembers().isSetObjects()) {
                 for (AbstractSurface surface : multiSurface.getSurfaceMembers().getObjects())
-                    properties.add(new SurfaceProperty((AbstractSurface) surface.shallowCopy(copyBuilder)));
+                    properties.add(new SurfaceProperty(copyBuilder.shallowCopy(surface)));
             }
 
-            if (properties.size() == 0) {
+            if (properties.isEmpty()) {
                 dest = new SurfaceProperty();
             } else if (properties.size() == 1) {
                 dest = properties.get(0);

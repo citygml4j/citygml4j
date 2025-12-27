@@ -134,7 +134,8 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         try {
             CityModel cityModel;
             if (cityModelInfo != null) {
-                cityModel = (CityModel) cityModelInfo.getCityModel().shallowCopy(new CopyBuilder());
+                CopyBuilder copyBuilder = new CopyBuilder();
+                cityModel = copyBuilder.shallowCopy(cityModelInfo.getCityModel());
                 cityModel.setADEProperties(null);
             } else
                 cityModel = new CityModel();
