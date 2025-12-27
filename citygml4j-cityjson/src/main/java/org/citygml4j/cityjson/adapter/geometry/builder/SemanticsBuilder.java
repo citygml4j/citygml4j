@@ -47,7 +47,7 @@ import java.util.Map;
 
 public class SemanticsBuilder {
     private final CityJSONBuilderHelper helper;
-    private CopyBuilder copyBuilder;
+    private final CopyBuilder copyBuilder = new CopyBuilder();
 
     SemanticsBuilder(CityJSONBuilderHelper helper) {
         this.helper = helper;
@@ -135,7 +135,6 @@ public class SemanticsBuilder {
         if (!entries.isEmpty()) {
             if (helper.isMapUnsupportedTypesToGenerics()
                     && filter.isValidBoundary(GenericThematicSurface.class)) {
-                CopyBuilder copyBuilder = getOrCreateCopyBuilder();
                 for (Map.Entry<Integer, AbstractThematicSurface> entry : entries) {
                     GenericThematicSurface boundary = new GenericThematicSurface();
                     copyBuilder.shallowCopy(entry.getValue(), boundary, AbstractThematicSurface.class);
@@ -225,13 +224,5 @@ public class SemanticsBuilder {
 
         StringAttribute stringAttribute = new StringAttribute(CityJSONConstants.GENERIC_TYPE_ATTRIBUTE, type);
         boundary.getGenericAttributes().add(new AbstractGenericAttributeProperty(stringAttribute));
-    }
-
-    private CopyBuilder getOrCreateCopyBuilder() {
-        if (copyBuilder == null) {
-            copyBuilder = new CopyBuilder();
-        }
-
-        return copyBuilder;
     }
 }
