@@ -20,7 +20,8 @@
 package org.citygml4j.core.model;
 
 import org.xmlobjects.model.Child;
-import org.xmlobjects.util.copy.Copyable;
 
-public interface CityGMLObject extends Child, Copyable {
+import java.io.Serializable;
+
+public interface CityGMLObject extends Child, Serializable {
 }
