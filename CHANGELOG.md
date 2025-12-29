@@ -1,6 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Fixed
+- Fixed serialization issues with xAL address objects. [xal-objects #4](https://github.com/xmlobjects/xal-objects/issues/4)
+
+### Changed
+- Removed `Copyable` interface from `CityGMLObject`.
+- Updated gml-objects to 1.3.0.
+- Updated xal-objects to 1.3.0.
+- Updated xml-objects to 1.3.0.
 
 ## [3.2.7] - 2025-11-20
 ### Fixed
