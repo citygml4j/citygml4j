@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [3.2.9] - 2026-03-06
+### Changed
+- Updated jackson-databind to 2.21.1.
+
 ## [3.2.8] - 2025-12-29
 ### Fixed
 - Fixed serialization issues with xAL address objects. [xal-objects #4](https://github.com/xmlobjects/xal-objects/issues/4)
@@ -153,7 +157,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.8..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.2.9..HEAD
+[3.2.9]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.9
 [3.2.8]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.8
 [3.2.7]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.7
 [3.2.6]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.6
