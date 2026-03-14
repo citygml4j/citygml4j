@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
-import org.citygml4j.cityjson.model.address.AddressType;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -33,7 +33,10 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.AdministrativeArea;
 import org.xmlobjects.xal.model.types.AdministrativeAreaName;
-import org.xmlobjects.xal.model.types.AdministrativeAreaNameType;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class AdministrativeAreaAdapter implements JsonObjectBuilder<AdministrativeArea>, JsonObjectSerializer<AdministrativeArea> {
 
@@ -44,14 +47,9 @@ public class AdministrativeAreaAdapter implements JsonObjectBuilder<Administrati
 
     @Override
     public void buildObject(AdministrativeArea object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        String propertyName = AddressType.ADMINISTRATIVE_AREA.toTypeName();
-        for (AdministrativeAreaNameType type : AdministrativeAreaNameType.values()) {
-            JsonNode value = type == AdministrativeAreaNameType.NAME ?
-                    node.path(propertyName) :
-                    node.path(propertyName + type.toValue());
-            if (value.isTextual()) {
-                AdministrativeAreaName name = new AdministrativeAreaName(value.asText());
-                name.setNameType(type == AdministrativeAreaNameType.NAME ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.properties()) {
+            if (property.getValue().isValueNode()) {
+                AdministrativeAreaName name = new AdministrativeAreaName(property.getValue().asText());
                 object.getNameElements().add(name);
             }
         }
@@ -60,15 +58,13 @@ public class AdministrativeAreaAdapter implements JsonObjectBuilder<Administrati
     @Override
     public void writeObject(AdministrativeArea object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetNameElements()) {
-            String propertyName = AddressType.ADMINISTRATIVE_AREA.toTypeName();
-            for (AdministrativeAreaName name : object.getNameElements()) {
-                if (name.getContent() != null) {
-                    if (name.getNameType() == null || name.getNameType() == AdministrativeAreaNameType.NAME) {
-                        node.put(propertyName, name.getContent());
-                    } else {
-                        node.put(propertyName + name.getNameType().toValue(), name.getContent());
-                    }
-                }
+            String name = helper.getAddressRegistry().getComponentName(AddressComponent.ADMINISTRATIVE_AREA, helper.getVersion());
+            String value = object.getNameElements().stream()
+                    .map(AdministrativeAreaName::getContent)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.joining(", "));
+            if (!value.isEmpty()) {
+                node.put(name, value);
             }
         }
     }

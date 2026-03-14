@@ -32,6 +32,7 @@ import org.citygml4j.cityjson.adapter.geometry.serializer.GeometrySerializer;
 import org.citygml4j.cityjson.adapter.geometry.serializer.SpaceGeometryBuilder;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.CityJSONVersion;
+import org.citygml4j.cityjson.model.address.AddressRegistry;
 import org.citygml4j.cityjson.model.generics.GenericAttributeTypes;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.model.geometry.Vertex;
@@ -98,6 +99,10 @@ public class CityJSONSerializerHelper {
 
     public CityJSONContext getContext() {
         return context;
+    }
+
+    public AddressRegistry getAddressRegistry() {
+        return AddressRegistry.getInstance();
     }
 
     GeometrySerializer getGeometrySerializer() {

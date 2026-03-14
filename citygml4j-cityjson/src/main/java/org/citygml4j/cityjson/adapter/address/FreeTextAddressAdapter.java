@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
-import org.citygml4j.cityjson.model.address.AddressType;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -60,10 +60,14 @@ public class FreeTextAddressAdapter implements JsonObjectBuilder<FreeTextAddress
     @Override
     public void writeObject(FreeTextAddress object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetAddressLines()) {
-            node.put(AddressType.FREE_TEXT_ADDRESS.toTypeName(), object.getAddressLines().stream()
+            String name = helper.getAddressRegistry().getComponentName(AddressComponent.FREE_TEXT_ADDRESS, helper.getVersion());
+            String value = object.getAddressLines().stream()
                     .map(AddressLine::getContent)
                     .filter(Objects::nonNull)
-                    .collect(Collectors.joining(", ")));
+                    .collect(Collectors.joining(", "));
+            if (!value.isEmpty()) {
+                node.put(name, value);
+            }
         }
     }
 }

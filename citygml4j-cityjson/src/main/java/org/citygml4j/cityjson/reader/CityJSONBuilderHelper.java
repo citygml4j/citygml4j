@@ -37,6 +37,7 @@ import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.builder.TypeMapper;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.CityJSONVersion;
+import org.citygml4j.cityjson.model.address.AddressRegistry;
 import org.citygml4j.cityjson.model.generics.GenericAttributeType;
 import org.citygml4j.cityjson.model.generics.GenericAttributeTypes;
 import org.citygml4j.cityjson.model.metadata.Metadata;
@@ -140,6 +141,10 @@ public class CityJSONBuilderHelper {
 
     public CityJSONContext getContext() {
         return context;
+    }
+
+    public AddressRegistry getAddressRegistry() {
+        return AddressRegistry.getInstance();
     }
 
     ObjectNode getCityObjects() {

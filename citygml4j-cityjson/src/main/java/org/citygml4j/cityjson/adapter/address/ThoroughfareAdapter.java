@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -31,7 +32,12 @@ import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.Thoroughfare;
-import org.xmlobjects.xal.model.types.*;
+import org.xmlobjects.xal.model.types.Identifier;
+import org.xmlobjects.xal.model.types.ThoroughfareName;
+import org.xmlobjects.xal.model.types.ThoroughfareNameOrNumber;
+
+import java.util.Map;
+import java.util.StringJoiner;
 
 public class ThoroughfareAdapter implements JsonObjectBuilder<Thoroughfare>, JsonObjectSerializer<Thoroughfare> {
 
@@ -42,24 +48,16 @@ public class ThoroughfareAdapter implements JsonObjectBuilder<Thoroughfare>, Jso
 
     @Override
     public void buildObject(Thoroughfare object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        for (ThoroughfareNameType type : ThoroughfareNameType.values()) {
-            JsonNode value = type == ThoroughfareNameType.NAME_ONLY ?
-                    node.path("ThoroughfareName") :
-                    node.path("ThoroughfareName" + type.toValue());
-            if (value.isTextual()) {
-                ThoroughfareName name = new ThoroughfareName(value.asText());
-                name.setNameType(type == ThoroughfareNameType.NAME_ONLY ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.path(AddressComponent.THOROUGHFARE_NAME.getPropertyName()).properties()) {
+            if (property.getValue().isValueNode()) {
+                ThoroughfareName name = new ThoroughfareName(property.getValue().asText());
                 object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(name));
             }
         }
 
-        for (IdentifierElementType type : IdentifierElementType.values()) {
-            JsonNode value = type == IdentifierElementType.NUMBER ?
-                    node.path("ThoroughfareNumber") :
-                    node.path("ThoroughfareNumber" + type.toValue());
-            if (value.isTextual()) {
-                Identifier identifier = new Identifier(value.asText());
-                identifier.setType(type == IdentifierElementType.NUMBER ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.path(AddressComponent.THOROUGHFARE_NUMBER.getPropertyName()).properties()) {
+            if (property.getValue().isValueNode()) {
+                Identifier identifier = new Identifier(property.getValue().asText());
                 object.getNameElementOrNumber().add(new ThoroughfareNameOrNumber(identifier));
             }
         }
@@ -68,26 +66,25 @@ public class ThoroughfareAdapter implements JsonObjectBuilder<Thoroughfare>, Jso
     @Override
     public void writeObject(Thoroughfare object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetNameElementOrNumber()) {
+            StringJoiner names = new StringJoiner(", ");
+            StringJoiner numbers = new StringJoiner(", ");
+
             for (ThoroughfareNameOrNumber nameOrNumber : object.getNameElementOrNumber()) {
-                if (nameOrNumber.isSetNameElement()) {
-                    ThoroughfareName name = nameOrNumber.getNameElement();
-                    if (name.getContent() != null) {
-                        if (name.getNameType() == null || name.getNameType() == ThoroughfareNameType.NAME_ONLY) {
-                            node.put("ThoroughfareName", name.getContent());
-                        } else {
-                            node.put("ThoroughfareName" + name.getNameType().toValue(), name.getContent());
-                        }
-                    }
-                } else if (nameOrNumber.isSetNumber()) {
-                    Identifier identifier = nameOrNumber.getNumber();
-                    if (identifier.getContent() != null) {
-                        if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
-                            node.put("ThoroughfareNumber", nameOrNumber.getNumber().getContent());
-                        } else {
-                            node.put("ThoroughfareNumber" + identifier.getType().toValue(), nameOrNumber.getNumber().getContent());
-                        }
-                    }
+                if (nameOrNumber.isSetNameElement() && nameOrNumber.getNameElement().getContent() != null) {
+                    names.add(nameOrNumber.getNameElement().getContent());
+                } else if (nameOrNumber.isSetNumber() && nameOrNumber.getNumber().getContent() != null) {
+                    numbers.add(nameOrNumber.getNumber().getContent());
                 }
+            }
+
+            if (names.length() > 0) {
+                node.put(helper.getAddressRegistry().getComponentName(AddressComponent.THOROUGHFARE_NAME, helper.getVersion()),
+                        names.toString());
+            }
+
+            if (numbers.length() > 0) {
+                node.put(helper.getAddressRegistry().getComponentName(AddressComponent.THOROUGHFARE_NUMBER, helper.getVersion()),
+                        numbers.toString());
             }
         }
     }

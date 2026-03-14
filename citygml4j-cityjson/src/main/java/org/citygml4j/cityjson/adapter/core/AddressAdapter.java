@@ -25,7 +25,7 @@ import org.citygml4j.cityjson.adapter.address.*;
 import org.citygml4j.cityjson.adapter.geometry.builder.GeometryObject;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
-import org.citygml4j.cityjson.model.address.AddressType;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
@@ -62,43 +62,45 @@ public class AddressAdapter implements JsonObjectBuilder<Address>, JsonObjectSer
             }
         }
 
-        Map<AddressType, ObjectNode> properties = new HashMap<>();
+        Map<AddressComponent, ObjectNode> properties = new HashMap<>();
         for (Map.Entry<String, JsonNode> entry : node.properties()) {
-            AddressType type = AddressType.fromPropertyName(entry.getKey());
-            properties.computeIfAbsent(type, v -> helper.createObject()).set(entry.getKey(), entry.getValue());
+            AddressComponent component = helper.getAddressRegistry().getComponent(entry.getKey());
+            switch (component) {
+                case PREMISE_NAME, PREMISE_NUMBER -> properties
+                        .computeIfAbsent(AddressComponent.PREMISE_NAME, v -> helper.createObject())
+                        .putObject(component.getPropertyName())
+                        .set(entry.getKey(), entry.getValue());
+                case THOROUGHFARE_NAME, THOROUGHFARE_NUMBER -> properties
+                        .computeIfAbsent(AddressComponent.THOROUGHFARE_NAME, v -> helper.createObject())
+                        .putObject(component.getPropertyName())
+                        .set(entry.getKey(), entry.getValue());
+                default -> properties.computeIfAbsent(component, v -> helper.createObject())
+                        .set(entry.getKey(), entry.getValue());
+            }
         }
 
-        for (Map.Entry<AddressType, ObjectNode> entry : properties.entrySet()) {
+        for (Map.Entry<AddressComponent, ObjectNode> entry : properties.entrySet()) {
             switch (entry.getKey()) {
-                case ADMINISTRATIVE_AREA:
-                    address.setAdministrativeArea(helper.getObjectUsingBuilder(entry.getValue(), AdministrativeAreaAdapter.class));
-                    break;
-                case COUNTRY:
-                    address.setCountry(helper.getObjectUsingBuilder(entry.getValue(), CountryAdapter.class));
-                    break;
-                case LOCALITY:
-                    address.setLocality(helper.getObjectUsingBuilder(entry.getValue(), LocalityAdapter.class));
-                    break;
-                case POSTAL_DELIVERY_POINT:
-                    address.setPostalDeliveryPoint(helper.getObjectUsingBuilder(entry.getValue(), PostalDeliveryPointAdapter.class));
-                    break;
-                case POST_CODE:
-                case POSTAL_CODE:
-                    address.setPostCode(helper.getObjectUsingBuilder(entry.getValue(), PostCodeAdapter.class));
-                case POST_OFFICE:
-                    address.setPostOffice(helper.getObjectUsingBuilder(entry.getValue(), PostOfficeAdapter.class));
-                    break;
-                case PREMISES:
-                    address.setPremises(helper.getObjectUsingBuilder(entry.getValue(), PremisesAdapter.class));
-                    break;
-                case RURAL_DELIVERY:
-                    address.setRuralDelivery(helper.getObjectUsingBuilder(entry.getValue(), RuralDeliveryAdapter.class));
-                    break;
-                case THOROUGHFARE:
-                    address.setThoroughfare(helper.getObjectUsingBuilder(entry.getValue(), ThoroughfareAdapter.class));
-                    break;
-                default:
-                    address.setFreeTextAddress(helper.getObjectUsingBuilder(entry.getValue(), FreeTextAddressAdapter.class));
+                case ADMINISTRATIVE_AREA ->
+                        address.setAdministrativeArea(helper.getObjectUsingBuilder(entry.getValue(), AdministrativeAreaAdapter.class));
+                case COUNTRY ->
+                        address.setCountry(helper.getObjectUsingBuilder(entry.getValue(), CountryAdapter.class));
+                case LOCALITY ->
+                        address.setLocality(helper.getObjectUsingBuilder(entry.getValue(), LocalityAdapter.class));
+                case POSTAL_DELIVERY_POINT ->
+                        address.setPostalDeliveryPoint(helper.getObjectUsingBuilder(entry.getValue(), PostalDeliveryPointAdapter.class));
+                case POSTAL_CODE ->
+                        address.setPostCode(helper.getObjectUsingBuilder(entry.getValue(), PostalCodeAdapter.class));
+                case POST_OFFICE ->
+                        address.setPostOffice(helper.getObjectUsingBuilder(entry.getValue(), PostOfficeAdapter.class));
+                case PREMISE_NAME ->
+                        address.setPremises(helper.getObjectUsingBuilder(entry.getValue(), PremisesAdapter.class));
+                case RURAL_DELIVERY ->
+                        address.setRuralDelivery(helper.getObjectUsingBuilder(entry.getValue(), RuralDeliveryAdapter.class));
+                case THOROUGHFARE_NAME ->
+                        address.setThoroughfare(helper.getObjectUsingBuilder(entry.getValue(), ThoroughfareAdapter.class));
+                default ->
+                        address.setFreeTextAddress(helper.getObjectUsingBuilder(entry.getValue(), FreeTextAddressAdapter.class));
             }
         }
 
@@ -135,7 +137,7 @@ public class AddressAdapter implements JsonObjectBuilder<Address>, JsonObjectSer
             }
 
             if (address.getPostCode() != null) {
-                node.setAll(helper.getObjectUsingSerializer(address.getPostCode(), PostCodeAdapter.class));
+                node.setAll(helper.getObjectUsingSerializer(address.getPostCode(), PostalCodeAdapter.class));
             }
 
             if (address.getRuralDelivery() != null) {

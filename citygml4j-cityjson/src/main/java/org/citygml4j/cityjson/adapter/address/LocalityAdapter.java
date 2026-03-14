@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
-import org.citygml4j.cityjson.model.address.AddressType;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -33,7 +33,10 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.Locality;
 import org.xmlobjects.xal.model.types.LocalityName;
-import org.xmlobjects.xal.model.types.LocalityNameType;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class LocalityAdapter implements JsonObjectBuilder<Locality>, JsonObjectSerializer<Locality> {
 
@@ -44,14 +47,9 @@ public class LocalityAdapter implements JsonObjectBuilder<Locality>, JsonObjectS
 
     @Override
     public void buildObject(Locality object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        String propertyName = AddressType.LOCALITY.toTypeName();
-        for (LocalityNameType type : LocalityNameType.values()) {
-            JsonNode value = type == LocalityNameType.NAME ?
-                    node.path(propertyName) :
-                    node.path(propertyName + type.toValue());
-            if (value.isTextual()) {
-                LocalityName name = new LocalityName(value.asText());
-                name.setNameType(type == LocalityNameType.NAME ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.properties()) {
+            if (property.getValue().isValueNode()) {
+                LocalityName name = new LocalityName(property.getValue().asText());
                 object.getNameElements().add(name);
             }
         }
@@ -60,15 +58,13 @@ public class LocalityAdapter implements JsonObjectBuilder<Locality>, JsonObjectS
     @Override
     public void writeObject(Locality object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetNameElements()) {
-            String propertyName = AddressType.LOCALITY.toTypeName();
-            for (LocalityName name : object.getNameElements()) {
-                if (name.getContent() != null) {
-                    if (name.getNameType() == null || name.getNameType() == LocalityNameType.NAME) {
-                        node.put(propertyName, name.getContent());
-                    } else {
-                        node.put(propertyName + name.getNameType().toValue(), name.getContent());
-                    }
-                }
+            String name = helper.getAddressRegistry().getComponentName(AddressComponent.LOCALITY, helper.getVersion());
+            String value = object.getNameElements().stream()
+                    .map(LocalityName::getContent)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.joining(", "));
+            if (!value.isEmpty()) {
+                node.put(name, value);
             }
         }
     }

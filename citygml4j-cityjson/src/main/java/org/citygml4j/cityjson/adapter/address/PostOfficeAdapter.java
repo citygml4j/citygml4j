@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
-import org.citygml4j.cityjson.model.address.AddressType;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -33,7 +33,10 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.PostOffice;
 import org.xmlobjects.xal.model.types.Identifier;
-import org.xmlobjects.xal.model.types.IdentifierElementType;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class PostOfficeAdapter implements JsonObjectBuilder<PostOffice>, JsonObjectSerializer<PostOffice> {
 
@@ -44,14 +47,9 @@ public class PostOfficeAdapter implements JsonObjectBuilder<PostOffice>, JsonObj
 
     @Override
     public void buildObject(PostOffice object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        String propertyName = AddressType.POST_OFFICE.toTypeName();
-        for (IdentifierElementType type : IdentifierElementType.values()) {
-            JsonNode value = type == IdentifierElementType.NUMBER ?
-                    node.path(propertyName) :
-                    node.path(propertyName + type.toValue());
-            if (value.isTextual()) {
-                Identifier identifier = new Identifier(value.asText());
-                identifier.setType(type == IdentifierElementType.NUMBER ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.properties()) {
+            if (property.getValue().isValueNode()) {
+                Identifier identifier = new Identifier(property.getValue().asText());
                 object.getIdentifiers().add(identifier);
             }
         }
@@ -60,15 +58,13 @@ public class PostOfficeAdapter implements JsonObjectBuilder<PostOffice>, JsonObj
     @Override
     public void writeObject(PostOffice object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetIdentifiers()) {
-            String propertyName = AddressType.POST_OFFICE.toTypeName();
-            for (Identifier identifier : object.getIdentifiers()) {
-                if (identifier.getContent() != null) {
-                    if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
-                        node.put(propertyName, identifier.getContent());
-                    } else {
-                        node.put(propertyName + identifier.getType().toValue(), identifier.getContent());
-                    }
-                }
+            String name = helper.getAddressRegistry().getComponentName(AddressComponent.POST_OFFICE, helper.getVersion());
+            String value = object.getIdentifiers().stream()
+                    .map(Identifier::getContent)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.joining(", "));
+            if (!value.isEmpty()) {
+                node.put(name, value);
             }
         }
     }

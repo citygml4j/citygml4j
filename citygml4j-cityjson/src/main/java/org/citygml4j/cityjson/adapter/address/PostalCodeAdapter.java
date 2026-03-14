@@ -23,8 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
-import org.citygml4j.cityjson.model.CityJSONVersion;
-import org.citygml4j.cityjson.model.address.AddressType;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -34,11 +33,12 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.PostCode;
 import org.xmlobjects.xal.model.types.Identifier;
-import org.xmlobjects.xal.model.types.IdentifierElementType;
 
-import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class PostCodeAdapter implements JsonObjectBuilder<PostCode>, JsonObjectSerializer<PostCode> {
+public class PostalCodeAdapter implements JsonObjectBuilder<PostCode>, JsonObjectSerializer<PostCode> {
 
     @Override
     public PostCode createObject(JsonNode node, Object parent) throws CityJSONBuildException {
@@ -47,16 +47,10 @@ public class PostCodeAdapter implements JsonObjectBuilder<PostCode>, JsonObjectS
 
     @Override
     public void buildObject(PostCode object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        for (String propertyName : Arrays.asList(AddressType.POST_CODE.toTypeName(), AddressType.POSTAL_CODE.toTypeName())) {
-            for (IdentifierElementType type : IdentifierElementType.values()) {
-                JsonNode value = type == IdentifierElementType.NUMBER ?
-                        node.path(propertyName) :
-                        node.path(propertyName + type.toValue());
-                if (value.isTextual()) {
-                    Identifier identifier = new Identifier(value.asText());
-                    identifier.setType(type == IdentifierElementType.NUMBER ? null : type);
-                    object.getIdentifiers().add(identifier);
-                }
+        for (Map.Entry<String, JsonNode> property : node.properties()) {
+            if (property.getValue().isValueNode()) {
+                Identifier identifier = new Identifier(property.getValue().asText());
+                object.getIdentifiers().add(identifier);
             }
         }
     }
@@ -64,17 +58,13 @@ public class PostCodeAdapter implements JsonObjectBuilder<PostCode>, JsonObjectS
     @Override
     public void writeObject(PostCode object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetIdentifiers()) {
-            String propertyName = helper.getVersion() == CityJSONVersion.v1_0 ?
-                    AddressType.POSTAL_CODE.toTypeName() :
-                    AddressType.POST_CODE.toTypeName();
-            for (Identifier identifier : object.getIdentifiers()) {
-                if (identifier.getContent() != null) {
-                    if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
-                        node.put(propertyName, identifier.getContent());
-                    } else {
-                        node.put(propertyName + identifier.getType().toValue(), identifier.getContent());
-                    }
-                }
+            String name = helper.getAddressRegistry().getComponentName(AddressComponent.POSTAL_CODE, helper.getVersion());
+            String value = object.getIdentifiers().stream()
+                    .map(Identifier::getContent)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.joining(", "));
+            if (!value.isEmpty()) {
+                node.put(name, value);
             }
         }
     }

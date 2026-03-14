@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
-import org.citygml4j.cityjson.model.address.AddressType;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -33,7 +33,10 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.Country;
 import org.xmlobjects.xal.model.types.CountryName;
-import org.xmlobjects.xal.model.types.CountryNameType;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CountryAdapter implements JsonObjectBuilder<Country>, JsonObjectSerializer<Country> {
 
@@ -44,14 +47,9 @@ public class CountryAdapter implements JsonObjectBuilder<Country>, JsonObjectSer
 
     @Override
     public void buildObject(Country object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        String propertyName = AddressType.COUNTRY.toTypeName();
-        for (CountryNameType type : CountryNameType.values()) {
-            JsonNode value = type == CountryNameType.NAME ?
-                    node.path(propertyName) :
-                    node.path(propertyName + type.toValue());
-            if (value.isTextual()) {
-                CountryName name = new CountryName(value.asText());
-                name.setNameType(type == CountryNameType.NAME ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.properties()) {
+            if (property.getValue().isValueNode()) {
+                CountryName name = new CountryName(property.getValue().asText());
                 object.getNameElements().add(name);
             }
         }
@@ -60,15 +58,13 @@ public class CountryAdapter implements JsonObjectBuilder<Country>, JsonObjectSer
     @Override
     public void writeObject(Country object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetNameElements()) {
-            String propertyName = AddressType.COUNTRY.toTypeName();
-            for (CountryName name : object.getNameElements()) {
-                if (name.getContent() != null) {
-                    if (name.getNameType() == null || name.getNameType() == CountryNameType.NAME) {
-                        node.put(propertyName, name.getContent());
-                    } else {
-                        node.put(propertyName + name.getNameType().toValue(), name.getContent());
-                    }
-                }
+            String name = helper.getAddressRegistry().getComponentName(AddressComponent.COUNTRY, helper.getVersion());
+            String value = object.getNameElements().stream()
+                    .map(CountryName::getContent)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.joining(", "));
+            if (!value.isEmpty()) {
+                node.put(name, value);
             }
         }
     }

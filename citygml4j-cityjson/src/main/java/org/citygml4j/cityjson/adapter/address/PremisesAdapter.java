@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
+import org.citygml4j.cityjson.model.address.AddressComponent;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
@@ -31,7 +32,12 @@ import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.Premises;
-import org.xmlobjects.xal.model.types.*;
+import org.xmlobjects.xal.model.types.Identifier;
+import org.xmlobjects.xal.model.types.PremisesName;
+import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
+
+import java.util.Map;
+import java.util.StringJoiner;
 
 public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectSerializer<Premises> {
 
@@ -42,24 +48,16 @@ public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectS
 
     @Override
     public void buildObject(Premises object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        for (PremisesNameType type : PremisesNameType.values()) {
-            JsonNode value = type == PremisesNameType.NAME ?
-                    node.path("PremisesName") :
-                    node.path("PremisesName" + type.toValue());
-            if (value.isTextual()) {
-                PremisesName name = new PremisesName(value.asText());
-                name.setNameType(type == PremisesNameType.NAME ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.path(AddressComponent.PREMISE_NAME.getPropertyName()).properties()) {
+            if (property.getValue().isValueNode()) {
+                PremisesName name = new PremisesName(property.getValue().asText());
                 object.getNameElementOrNumber().add(new PremisesNameOrNumber(name));
             }
         }
 
-        for (IdentifierElementType type : IdentifierElementType.values()) {
-            JsonNode value = type == IdentifierElementType.NUMBER ?
-                    node.path("PremisesNumber") :
-                    node.path("PremisesNumber" + type.toValue());
-            if (value.isTextual()) {
-                Identifier identifier = new Identifier(value.asText());
-                identifier.setType(type == IdentifierElementType.NUMBER ? null : type);
+        for (Map.Entry<String, JsonNode> property : node.path(AddressComponent.PREMISE_NUMBER.getPropertyName()).properties()) {
+            if (property.getValue().isValueNode()) {
+                Identifier identifier = new Identifier(property.getValue().asText());
                 object.getNameElementOrNumber().add(new PremisesNameOrNumber(identifier));
             }
         }
@@ -68,26 +66,25 @@ public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectS
     @Override
     public void writeObject(Premises object, ObjectNode node, CityJSONSerializerHelper helper) throws CityJSONSerializeException, CityJSONWriteException {
         if (object.isSetNameElementOrNumber()) {
+            StringJoiner names = new StringJoiner(", ");
+            StringJoiner numbers = new StringJoiner(", ");
+
             for (PremisesNameOrNumber nameOrNumber : object.getNameElementOrNumber()) {
-                if (nameOrNumber.isSetNameElement()) {
-                    PremisesName name = nameOrNumber.getNameElement();
-                    if (name.getContent() != null) {
-                        if (name.getNameType() == null || name.getNameType() == PremisesNameType.NAME) {
-                            node.put("PremisesName", name.getContent());
-                        } else {
-                            node.put("PremisesName" + name.getNameType().toValue(), name.getContent());
-                        }
-                    }
-                } else if (nameOrNumber.isSetNumber()) {
-                    Identifier identifier = nameOrNumber.getNumber();
-                    if (identifier.getContent() != null) {
-                        if (identifier.getType() == null || identifier.getType() == IdentifierElementType.NUMBER) {
-                            node.put("PremisesNumber", nameOrNumber.getNumber().getContent());
-                        } else {
-                            node.put("PremisesNumber" + identifier.getType().toValue(), nameOrNumber.getNumber().getContent());
-                        }
-                    }
+                if (nameOrNumber.isSetNameElement() && nameOrNumber.getNameElement().getContent() != null) {
+                    names.add(nameOrNumber.getNameElement().getContent());
+                } else if (nameOrNumber.isSetNumber() && nameOrNumber.getNumber().getContent() != null) {
+                    numbers.add(nameOrNumber.getNumber().getContent());
                 }
+            }
+
+            if (names.length() > 0) {
+                node.put(helper.getAddressRegistry().getComponentName(AddressComponent.PREMISE_NAME, helper.getVersion()),
+                        names.toString());
+            }
+
+            if (numbers.length() > 0) {
+                node.put(helper.getAddressRegistry().getComponentName(AddressComponent.PREMISE_NUMBER, helper.getVersion()),
+                        numbers.toString());
             }
         }
     }
