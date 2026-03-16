@@ -40,7 +40,7 @@ public class ReadingADE {
                 .withChunking(ChunkOptions.chunkByFeatures());
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("test_ade_objects_v3.gml");
-        log.print("Reading the TestADE file " + file + " chunk-wise by city model members");
+        log.print("Reading the TestADE file " + file + " chunk-wise by feature by feature");
 
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             while (reader.hasNext()) {
