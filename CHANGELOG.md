@@ -3,8 +3,21 @@
 ## [Unreleased]
 
 ### Changed
-- CityJSON address objects now use a fixed set of properties for address information. Property
-  names start with a lowercase letter for CityJSON 2.0 and 1.1.
+- CityJSON address objects now use a fixed set of properties for address information (CityJSON 2.0 and 1.1 names on
+  the left, CityJSON 1.0 names on the right):
+  - `locality` / `LocalityName`
+  - `country` / `CountryName`
+  - `thoroughfareName` / `ThoroughfareName`
+  - `thoroughfareNumber` / `ThoroughfareNumber`
+  - `premiseName` / `PremiseName`
+  - `premiseNumber` / `PremiseNumber`
+  - `postalCode` / `PostalCode`
+  - `postalDeliveryPoint` / `PostalDeliveryPoint` (more specific variants like `poBox` / `POBox` are also supported)
+  - `postOffice` / `PostOffice`
+  - `ruralDeliveryPoint` / `RuralDeliveryPoint`
+  - `administrativeArea` / `AdministrativeArea`
+- The CityJSON parser supports additional property names and maps them to the above properties where possible.
+  Additional address tokens can be registered programmatically using the new `AddressRegistry`.
 
 ### Fixed
 - Fixed the mapping of CityJSON address objects to xAL elements.
