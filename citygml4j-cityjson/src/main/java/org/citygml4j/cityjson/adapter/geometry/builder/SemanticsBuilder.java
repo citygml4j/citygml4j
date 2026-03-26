@@ -21,10 +21,11 @@ import org.citygml4j.core.model.generics.GenericThematicSurface;
 import org.citygml4j.core.model.generics.StringAttribute;
 import org.citygml4j.core.model.transportation.HoleSurface;
 import org.citygml4j.core.model.transportation.Marking;
+import org.xmlobjects.copy.Copier;
+import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
-import org.xmlobjects.util.copy.CopyBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ import java.util.Map;
 
 public class SemanticsBuilder {
     private final CityJSONBuilderHelper helper;
-    private final CopyBuilder copyBuilder = new CopyBuilder();
+    private final Copier copier = CopierBuilder.newCopier();
 
     SemanticsBuilder(CityJSONBuilderHelper helper) {
         this.helper = helper;
@@ -123,7 +124,7 @@ public class SemanticsBuilder {
                     && filter.isValidBoundary(GenericThematicSurface.class)) {
                 for (Map.Entry<Integer, AbstractThematicSurface> entry : entries) {
                     GenericThematicSurface boundary = new GenericThematicSurface();
-                    copyBuilder.shallowCopy(entry.getValue(), boundary, AbstractThematicSurface.class);
+                    copier.shallowCopy(entry.getValue(), boundary, AbstractThematicSurface.class);
 
                     JsonNode surface = surfaces.get(entry.getKey());
                     addGenericTypeAttribute(surface.path(Fields.TYPE).asText(), boundary);

@@ -26,15 +26,16 @@ import org.citygml4j.core.model.core.AbstractSpaceBoundary;
 import org.citygml4j.core.model.core.AbstractSpaceBoundaryProperty;
 import org.citygml4j.core.model.deprecated.transportation.DeprecatedPropertiesOfAbstractTransportationSpace;
 import org.citygml4j.core.model.transportation.*;
+import org.xmlobjects.copy.Copier;
+import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
-import org.xmlobjects.util.copy.CopyBuilder;
 
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Map;
 
 public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTransportationSpace> extends AbstractUnoccupiedSpaceAdapter<T> {
-    private final CopyBuilder copyBuilder = new CopyBuilder();
+    private final Copier copier = CopierBuilder.newCopier();
     private final EnumSet<GeometryType> allowedTypes = EnumSet.of(GeometryType.MULTI_LINE_STRING,
             GeometryType.MULTI_SURFACE, GeometryType.COMPOSITE_SURFACE);
 
@@ -147,6 +148,6 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
     }
 
     <S extends AbstractTransportationSpace, D extends AbstractTransportationSpace> D shallowCopy(S src, D dest) {
-        return copyBuilder.shallowCopy(src, dest, AbstractTransportationSpace.class);
+        return copier.shallowCopy(src, dest, AbstractTransportationSpace.class);
     }
 }

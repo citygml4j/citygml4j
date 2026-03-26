@@ -17,6 +17,8 @@ import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
+import org.xmlobjects.copy.Copier;
+import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.gml.model.base.AbstractGML;
 import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.DirectPositionList;
@@ -27,7 +29,6 @@ import org.xmlobjects.gml.util.Matrices;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.gml.util.matrix.Matrix;
-import org.xmlobjects.util.copy.CopyBuilder;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -59,8 +60,8 @@ public class AffineTransformation {
         double width = envelope.getUpperCorner().getValue().get(1) - envelope.getLowerCorner().getValue().get(1);
 
         log.print("Creating a deep copy of the building");
-        CopyBuilder builder = new CopyBuilder();
-        Building copy = builder.deepCopy(building);
+        Copier copier = CopierBuilder.newCopier();
+        Building copy = copier.deepCopy(building);
 
         Matrix center = new Matrix(new double[][]{
                 {1, 0, 0, -centerPoint.getValue().get(0)},

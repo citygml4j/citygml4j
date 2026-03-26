@@ -17,6 +17,8 @@ import org.citygml4j.xml.adapter.ade.ADEBuilderHelper;
 import org.citygml4j.xml.adapter.ade.ADESerializerHelper;
 import org.citygml4j.xml.adapter.core.AbstractCityObjectAdapter;
 import org.xmlobjects.builder.ObjectBuildException;
+import org.xmlobjects.copy.Copier;
+import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.gml.adapter.geometry.primitives.SurfacePropertyAdapter;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
@@ -28,7 +30,6 @@ import org.xmlobjects.stream.XMLReadException;
 import org.xmlobjects.stream.XMLReader;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
-import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.xml.Attributes;
 import org.xmlobjects.xml.Element;
 import org.xmlobjects.xml.Namespaces;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThematicSurface> extends AbstractCityObjectAdapter<T> {
-    private final CopyBuilder copyBuilder = new CopyBuilder();
+    private final Copier copier = CopierBuilder.newCopier();
     private final QName[] substitutionGroups = new QName[]{
             new QName(CityGMLConstants.CITYGML_2_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterBoundarySurface"),
             new QName(CityGMLConstants.CITYGML_1_0_WATERBODY_NAMESPACE, "_GenericApplicationPropertyOfWaterBoundarySurface")
@@ -110,12 +111,12 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
 
             if (multiSurface.isSetSurfaceMember()) {
                 for (SurfaceProperty property : multiSurface.getSurfaceMember())
-                    properties.add(copyBuilder.shallowCopy(property));
+                    properties.add(copier.shallowCopy(property));
             }
 
             if (multiSurface.getSurfaceMembers() != null && multiSurface.getSurfaceMembers().isSetObjects()) {
                 for (AbstractSurface surface : multiSurface.getSurfaceMembers().getObjects())
-                    properties.add(new SurfaceProperty(copyBuilder.shallowCopy(surface)));
+                    properties.add(new SurfaceProperty(copier.shallowCopy(surface)));
             }
 
             if (properties.isEmpty()) {

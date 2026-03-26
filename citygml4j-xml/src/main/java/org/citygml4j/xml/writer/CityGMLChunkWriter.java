@@ -12,11 +12,12 @@ import org.citygml4j.xml.module.citygml.CoreModule;
 import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.reader.FeatureInfo;
 import org.xml.sax.ContentHandler;
+import org.xmlobjects.copy.Copier;
+import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.serializer.ObjectSerializeException;
 import org.xmlobjects.stream.XMLWriteException;
 import org.xmlobjects.stream.XMLWriter;
 import org.xmlobjects.stream.XMLWriterFactory;
-import org.xmlobjects.util.copy.CopyBuilder;
 import org.xmlobjects.xml.Element;
 
 import javax.xml.transform.TransformerException;
@@ -120,8 +121,8 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         try {
             CityModel cityModel;
             if (cityModelInfo != null) {
-                CopyBuilder copyBuilder = new CopyBuilder();
-                cityModel = copyBuilder.shallowCopy(cityModelInfo.getCityModel());
+                Copier copier = CopierBuilder.newCopier();
+                cityModel = copier.shallowCopy(cityModelInfo.getCityModel());
                 cityModel.setADEProperties(null);
             } else
                 cityModel = new CityModel();

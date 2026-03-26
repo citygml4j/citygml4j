@@ -5,17 +5,18 @@
 
 package org.citygml4j.xml.converter;
 
+import org.xmlobjects.copy.Copier;
+import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.gml.model.geometry.DirectPositionList;
 import org.xmlobjects.gml.model.geometry.compact.AbstractSimplePolygon;
 import org.xmlobjects.gml.model.geometry.primitives.AbstractSurface;
 import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
-import org.xmlobjects.util.copy.CopyBuilder;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
 public abstract class AbstractSimplePolygonConverter<T extends AbstractSimplePolygonConverter<?>> {
-    private final CopyBuilder builder = new CopyBuilder();
+    private final Copier copier = CopierBuilder.newCopier();
     private final Pattern pattern = Pattern.compile("[-_.\\p{L}0-9]+");
     private String idSuffix;
 
@@ -38,7 +39,7 @@ public abstract class AbstractSimplePolygonConverter<T extends AbstractSimplePol
     }
 
     void copyProperties(AbstractSurface src, AbstractSurface dest) {
-        builder.shallowCopy(src, dest, AbstractSurface.class);
+        copier.shallowCopy(src, dest, AbstractSurface.class);
     }
 
     LinearRing getExteriorRing(AbstractSimplePolygon simplePolygon) {

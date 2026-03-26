@@ -19,7 +19,8 @@ import org.citygml4j.xml.reader.CityGMLReadException;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.citygml4j.xml.writer.CityGMLChunkWriter;
 import org.citygml4j.xml.writer.CityGMLOutputFactory;
-import org.xmlobjects.util.copy.CopyBuilder;
+import org.xmlobjects.copy.Copier;
+import org.xmlobjects.copy.CopierBuilder;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -47,13 +48,13 @@ public class CopyingObjects {
                 throw new CityGMLReadException("Failed to read a building from file " + file);
         }
 
-        CopyBuilder copyBuilder = new CopyBuilder();
+        Copier copier = CopierBuilder.newCopier();
 
         log.print("Creating a shallow copy of the building");
-        Building shallowCopy = copyBuilder.shallowCopy(building);
+        Building shallowCopy = copier.shallowCopy(building);
 
         log.print("Creating a deep copy of the building");
-        Building deepCopy = copyBuilder.deepCopy(building);
+        Building deepCopy = copier.deepCopy(building);
 
         log.print("Checking for boundary surfaces");
         log.print("- Original building has boundary surfaces: " + !building.getBoundaries().isEmpty());
@@ -69,7 +70,7 @@ public class CopyingObjects {
         log.print("Copy the content of the deep-copied building into a new bridge object");
         log.print("The common super-type AbstractConstruction is used as copy template");
         Bridge bridge = new Bridge();
-        copyBuilder.shallowCopy(deepCopy, bridge, AbstractConstruction.class);
+        copier.shallowCopy(deepCopy, bridge, AbstractConstruction.class);
 
         log.print("- Bridge has gml:id: " + bridge.getId());
         log.print("- Bridge has boundary surfaces: " + !bridge.getBoundaries().isEmpty());
