@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-03-31
+### Changed
+- Updated to xml-objects 2.0.0.
+  - **Breaking:** Removes the `CopyBuilder` class and the entire `org.xmlobjects.util.copy` package in favor of the
+    standalone [object-copier](https://github.com/xmlobjects/object-copier) library, which provides a more
+    powerful and flexible copy framework.
+  - Refer to the object-copier [documentation](https://github.com/xmlobjects/object-copier) for migration details
+    and examples.
+- Updated to gml-objects 2.0.0.
+- Updated to xal-objects 2.0.0.
+- Updated to jackson-databind to 2.21.2.
+
 ## [3.3.0] - 2026-03-17
 ### Changed
 - CityJSON address objects now use a fixed set of properties for address information (CityJSON 2.0 and 1.1 names on

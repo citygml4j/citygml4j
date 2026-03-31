@@ -24,7 +24,7 @@ citygml4j is licensed under the [Apache License, Version 2.0](http://www.apache.
 See the `LICENSE` file for more details.
 
 ## Latest release
-The latest release of citygml4j is 3.3.0.
+The latest release of citygml4j is 3.4.0.
 
 Download the latest citygml4j release binaries [here](https://github.com/citygml4j/citygml4j/releases/latest).
 Previous releases are available from the [releases section](https://github.com/citygml4j/citygml4j/releases).
@@ -65,22 +65,16 @@ have to adapt the citygml4j version number.
 <dependency>
   <groupId>org.citygml4j</groupId>
   <artifactId>citygml4j-xml</artifactId>
-  <version>3.3.0</version>
+  <version>3.4.0</version>
 </dependency>
 ```
 
 Here is how you use both `citygml4j-xml` and `citygml4j-cityjson` with your Gradle project. Make sure to use the
 same citygml4j version for both modules to avoid conflicts.
 
-```gradle
-repositories {
-  mavenCentral()
-}
-
-dependencies {
-  implementation 'org.citygml4j:citygml4j-xml:3.3.0'
-  implementation 'org.citygml4j:citygml4j-cityjson:3.3.0'
-}
+```groovy
+implementation 'org.citygml4j:citygml4j-xml:3.4.0'
+implementation 'org.citygml4j:citygml4j-cityjson:3.4.0'
 ```
 
 ## Sample programs
