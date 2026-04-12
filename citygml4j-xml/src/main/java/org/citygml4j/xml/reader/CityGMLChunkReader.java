@@ -70,17 +70,18 @@ public class CityGMLChunkReader extends CityGMLReader {
                     int eventType = streamReader.next();
 
                     if (skipUntil == 0 && eventType == XMLStreamConstants.START_ELEMENT) {
-                        ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(reader.getName(), AbstractFeature.class);
+                        QName name = reader.getName();
+                        ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(name, AbstractFeature.class);
                         if (builder != null) {
                             if (current == null) {
-                                current = new CityGMLChunk(reader.getName(), factory, resolver);
-                            } else if (shouldChunk(reader.getName())) {
+                                current = new CityGMLChunk(name, factory, resolver);
+                            } else if (shouldChunk(name)) {
                                 chunks.push(current);
-                                current = new CityGMLChunk(reader.getName(), factory, current, resolver);
+                                current = new CityGMLChunk(name, factory, current, resolver);
                                 initialize = true;
                             }
 
-                            features.push(reader.getName());
+                            features.push(name);
                         }
                     } else if (eventType == XMLStreamConstants.END_ELEMENT) {
                         if (skipUntil > 0 && skipUntil == reader.getDepth() + 1) {
