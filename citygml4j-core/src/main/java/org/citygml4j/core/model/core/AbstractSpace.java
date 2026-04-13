@@ -69,7 +69,7 @@ public abstract class AbstractSpace extends AbstractCityObject {
     }
 
     public void setAreas(List<QualifiedAreaProperty> areas) {
-        this.areas = areas;
+        this.areas = asChild(areas);
     }
 
     public boolean isValidBoundary(AbstractSpaceBoundary boundary) {
