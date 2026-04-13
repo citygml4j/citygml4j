@@ -15,32 +15,44 @@ import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.util.EnvelopeOptions;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 public class ADEEnvelopeBuilder {
+    private static final ClassValue<List<Field>> FIELDS = new ClassValue<>() {
+        @Override
+        protected List<Field> computeValue(Class<?> type) {
+            return findFields(type);
+        }
+    };
+
+    static final ClassValue<Boolean> HAS_UPDATE_ENVELOPE = new ClassValue<>() {
+        @Override
+        protected Boolean computeValue(Class<?> type) {
+            try {
+                type.getDeclaredMethod("updateEnvelope", Envelope.class, EnvelopeOptions.class);
+                return Boolean.TRUE;
+            } catch (NoSuchMethodException e) {
+                return Boolean.FALSE;
+            }
+        }
+    };
 
     private ADEEnvelopeBuilder() {
     }
 
     static void updateEnvelope(GMLObject object, Envelope envelope, EnvelopeOptions options, Set<Object> visited) {
         Class<?> type = object.getClass();
-
-        do {
-            Field[] fields = type.getDeclaredFields();
-            for (Field field : fields) {
-                try {
-                    field.setAccessible(true);
-                    Object value = field.get(object);
-                    if (value != null)
-                        updateEnvelope(value, envelope, options, visited);
-                } catch (Throwable e) {
-                    throw new RuntimeException("Failed to update envelope for " + object + ".", e);
+        for (Field field : FIELDS.get(type)) {
+            try {
+                Object value = field.get(object);
+                if (value != null) {
+                    updateEnvelope(value, envelope, options, visited);
                 }
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to update envelope for " + type.getSimpleName() + ".", e);
             }
-        } while ((type = type.getSuperclass()) != Object.class && ADEObject.class.isAssignableFrom(type));
+        }
     }
 
     static void updateEnvelope(Object object, Envelope envelope, EnvelopeOptions options, Set<Object> visited) {
@@ -67,6 +79,41 @@ public class ADEEnvelopeBuilder {
             Arrays.stream(array).forEach(v -> updateEnvelope(v, envelope, options, visited));
         } else if (object instanceof Map<?, ?> map) {
             map.values().forEach(v -> updateEnvelope(v, envelope, options, visited));
+        }
+    }
+
+    private static List<Field> findFields(Class<?> type) {
+        Field[] declared = type.getDeclaredFields();
+        List<Field> ownFields = new ArrayList<>(declared.length);
+
+        for (Field field : declared) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || field.isSynthetic())
+                continue;
+
+            try {
+                field.setAccessible(true);
+                ownFields.add(field);
+            } catch (Exception e) {
+                throw new RuntimeException("Cannot access field '" + field.getName() + "'.", e);
+            }
+        }
+
+        Class<?> superclass = type.getSuperclass();
+        List<Field> parentFields = superclass != null
+                && superclass != Object.class
+                && ADEObject.class.isAssignableFrom(superclass) ?
+                FIELDS.get(superclass) : List.of();
+
+        if (ownFields.isEmpty())
+            return parentFields;
+        else if (parentFields.isEmpty())
+            return List.copyOf(ownFields);
+        else {
+            List<Field> combined = new ArrayList<>(ownFields.size() + parentFields.size());
+            combined.addAll(parentFields);
+            combined.addAll(ownFields);
+            return List.copyOf(combined);
         }
     }
 }

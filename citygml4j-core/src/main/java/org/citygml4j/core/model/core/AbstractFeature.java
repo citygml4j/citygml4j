@@ -83,13 +83,9 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
 
     @Override
     protected void updateEnvelope(Envelope envelope, EnvelopeOptions options) {
-        if (this instanceof ADEObject) {
-            try {
-                getClass().getDeclaredMethod("updateEnvelope", Envelope.class, EnvelopeOptions.class);
-            } catch (NoSuchMethodException e) {
-                // update the envelope in a generic way
-                ADEEnvelopeBuilder.updateEnvelope(this, envelope, options, Collections.newSetFromMap(new IdentityHashMap<>()));
-            }
+        if (this instanceof ADEObject && !ADEEnvelopeBuilder.HAS_UPDATE_ENVELOPE.get(getClass())) {
+            ADEEnvelopeBuilder.updateEnvelope(this, envelope, options,
+                    Collections.newSetFromMap(new IdentityHashMap<>()));
         }
 
         if (adeProperties != null) {
@@ -109,7 +105,6 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
 
     public final GeometryInfo getGeometryInfo(boolean includeNestedFeatures) {
         GeometryInfo geometryInfo = new GeometryInfo();
-
         if (!includeNestedFeatures) {
             updateGeometryInfo(geometryInfo);
         } else {
@@ -125,13 +120,8 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
     }
 
     protected void updateGeometryInfo(GeometryInfo geometryInfo) {
-        if (this instanceof ADEObject) {
-            try {
-                getClass().getDeclaredMethod("updateGeometryInfo", GeometryInfo.class);
-            } catch (NoSuchMethodException e) {
-                // update the geometry info in a generic way
-                ADEGeometryInfoBuilder.updateGeometryInfo(this, geometryInfo);
-            }
+        if (this instanceof ADEObject && !ADEGeometryInfoBuilder.HAS_UPDATE_GEOMETRY_INFO.get(getClass())) {
+            ADEGeometryInfoBuilder.updateGeometryInfo(this, geometryInfo);
         }
 
         if (adeProperties != null) {
@@ -142,10 +132,9 @@ public abstract class AbstractFeature extends org.xmlobjects.gml.model.feature.A
     }
 
     protected final void updateGeometryInfo(ADEProperty property, GeometryInfo geometryInfo) {
-        try {
-            property.getClass().getDeclaredMethod("updateGeometryInfo", GeometryInfo.class)
-                    .invoke(property, geometryInfo);
-        } catch (Exception e) {
+        if (ADEGeometryInfoBuilder.HAS_UPDATE_GEOMETRY_INFO.get(property.getClass())) {
+            property.updateGeometryInfo(geometryInfo);
+        } else {
             ADEGeometryInfoBuilder.updateGeometryInfo(property, geometryInfo);
         }
     }
