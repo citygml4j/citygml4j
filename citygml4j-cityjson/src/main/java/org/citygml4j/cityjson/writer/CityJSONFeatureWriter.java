@@ -130,10 +130,6 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
 
         if (state == State.DOCUMENT_STARTED) {
             for (CityObjectGroup group : referenceResolver.getCityObjectGroups()) {
-                if (state == State.INITIAL) {
-                    writeStartDocument(group);
-                }
-
                 writeCityObject(group);
             }
         }
