@@ -18,7 +18,6 @@ import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.util.Properties;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -175,13 +174,6 @@ public class CityJSONInputFactory {
         }
     }
 
-    public CityJSONReader createCityJSONReader(URL url) throws CityJSONReadException {
-        try {
-            return createReader(objectMapper.createParser(url.openStream()));
-        } catch (IOException e) {
-            throw new CityJSONReadException("Caused by:", e);
-        }
-    }
 
     public CityJSONReader createCityJSONReader(InputStream stream) throws CityJSONReadException {
         try {
