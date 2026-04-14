@@ -55,18 +55,17 @@ public class ADEEnvelopeBuilder {
         }
     }
 
-    static void updateEnvelope(Object object, Envelope envelope, EnvelopeOptions options, Set<Object> visited) {
-        if (!visited.add(object))
+    private static void updateEnvelope(Object object, Envelope envelope, EnvelopeOptions options, Set<Object> visited) {
+        if (!visited.add(object)) {
             return;
+        }
 
         if (object instanceof AbstractGeometry geometry) {
             envelope.include(geometry.computeEnvelope());
         } else if (object instanceof org.xmlobjects.gml.model.feature.AbstractFeature feature) {
             envelope.include(feature.computeEnvelope(options));
-        } else if (object instanceof AbstractArrayProperty<?> property) {
-            if (property.isSetObjects()) {
-                property.getObjects().forEach(v -> updateEnvelope(v, envelope, options, visited));
-            }
+        } else if (object instanceof AbstractArrayProperty<?> property && property.isSetObjects()) {
+            property.getObjects().forEach(o -> updateEnvelope(o, envelope, options, visited));
         } else if (object instanceof AbstractInlineOrByReferenceProperty<?> property) {
             updateEnvelope(property.getObject(), envelope, options, visited);
         } else if (object instanceof AbstractInlineProperty<?> property) {
