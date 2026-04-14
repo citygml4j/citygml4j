@@ -125,7 +125,7 @@ public class CityJSONInputFactory {
         return this;
     }
 
-    public String getCodeSpaceForIdentifiers(String codeSpace) {
+    public String getCodeSpaceForIdentifiers() {
         return properties.get(CityJSONConstants.IDENTIFIER_CODE_SPACE, String.class);
     }
 
