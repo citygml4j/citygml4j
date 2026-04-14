@@ -392,7 +392,7 @@ public class CityJSONSerializerHelper {
         if (object != null) {
             String type = serializer.createType(object, version);
             if (type != null) {
-                node.put(Fields.TYPE, serializer.createType(object, version));
+                node.put(Fields.TYPE, type);
             }
 
             serializer.writeObject(object, node, this);
