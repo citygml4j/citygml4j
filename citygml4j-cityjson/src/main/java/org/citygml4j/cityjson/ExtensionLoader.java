@@ -38,7 +38,7 @@ public class ExtensionLoader extends ADELoader<Extension> {
 
     public Extension getExtension(String name, CityJSONVersion version) {
         Extension extension = extensions.get(name);
-        return extension.getCityJSONVersion() == version ? extension : null;
+        return extension != null &&  extension.getCityJSONVersion() == version ? extension : null;
     }
 
     public Set<String> getExtensionNames() {
