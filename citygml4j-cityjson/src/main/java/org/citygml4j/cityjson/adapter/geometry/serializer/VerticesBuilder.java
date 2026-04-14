@@ -9,21 +9,24 @@ import org.citygml4j.cityjson.model.geometry.Transform;
 import org.citygml4j.cityjson.model.geometry.Vertex;
 import org.citygml4j.cityjson.util.ArrayBuffer;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class VerticesBuilder {
-    private Map<String, Integer> indexes = new HashMap<>();
+    private Map<VertexKey, Integer> indexes = new HashMap<>();
     private ArrayBuffer<Vertex> vertices = new ArrayBuffer<>();
     private int precision;
+    private double scaleFactor;
     private Vertex translation;
+
+    private record VertexKey(long x, long y, long z) {
+    }
 
     VerticesBuilder(int precision) {
         this.precision = precision;
+        this.scaleFactor = Math.pow(10, precision);
     }
 
     public int getPrecision() {
@@ -33,6 +36,7 @@ public class VerticesBuilder {
     public void setPrecision(int precision) {
         if (precision >= 0) {
             this.precision = precision;
+            this.scaleFactor = Math.pow(10, precision);
         }
     }
 
@@ -53,15 +57,15 @@ public class VerticesBuilder {
                 break;
             }
 
-            double x = round(vertices.get(i));
-            double y = round(vertices.get(i + 1));
-            double z = round(vertices.get(i + 2));
-            String key = Double.toString(x) + y + z;
+            long lx = Math.round(vertices.get(i) * scaleFactor);
+            long ly = Math.round(vertices.get(i + 1) * scaleFactor);
+            long lz = Math.round(vertices.get(i + 2) * scaleFactor);
+            VertexKey key = new VertexKey(lx, ly, lz);
 
             Integer index = this.indexes.get(key);
             if (index == null) {
                 index = this.vertices.size();
-                this.vertices.add(Vertex.of(x, y, z));
+                this.vertices.add(Vertex.of(lx / scaleFactor, ly / scaleFactor, lz / scaleFactor));
                 this.indexes.put(key, index);
             }
 
@@ -84,19 +88,18 @@ public class VerticesBuilder {
         }
 
         // set scale factor and offset
-        double scale = Math.pow(10, precision);
-        long[] offset = new long[]{(long) (translation.getX() * scale),
-                (long) (translation.getY() * scale),
-                (long) (translation.getZ() * scale)};
+        long[] offset = new long[]{(long) (translation.getX() * scaleFactor),
+                (long) (translation.getY() * scaleFactor),
+                (long) (translation.getZ() * scaleFactor)};
 
         // apply transformation
         for (Vertex vertex : vertices) {
-            vertex.setX((long) (vertex.getX() * scale) - offset[0]);
-            vertex.setY((long) (vertex.getY() * scale) - offset[1]);
-            vertex.setZ((long) (vertex.getZ() * scale) - offset[2]);
+            vertex.setX((long) (vertex.getX() * scaleFactor) - offset[0]);
+            vertex.setY((long) (vertex.getY() * scaleFactor) - offset[1]);
+            vertex.setZ((long) (vertex.getZ() * scaleFactor) - offset[2]);
         }
 
-        scale = 1 / scale;
+        double scale = 1 / scaleFactor;
 
         Transform transform = new Transform();
         transform.setTranslate(translation);
@@ -116,8 +119,6 @@ public class VerticesBuilder {
     }
 
     public double round(double value) {
-        return BigDecimal.valueOf(value)
-                .setScale(precision, RoundingMode.HALF_UP)
-                .doubleValue();
+        return Math.round(value * scaleFactor) / scaleFactor;
     }
 }
