@@ -1,9 +1,17 @@
 # Changelog
 
 ## [Unreleased]
+
 ### Changed
-- `LocalProperties` of `AbstractGML` and `AbstractAssociation` objects are no longer copied by default when using
-  `Copier`.
+- Use `topOfConstruction` as the default high reference for measured height values from CityGML 1.0/2.0 and CityJSON.
+- Removed `CityJSONInputFactory.createCityJSONReader(URL)`. Use `createCityJSONReader(InputStream)` with a manually
+  opened stream to retain control over connection timeouts and size limits.
+- Improved reflection-based computation of envelopes and `GeometryInfo` for ADE classes that do not implement the corresponding interface methods.
+
+### Fixed
+- Fixed incorrect vertex deduplication in CityJSON `VerticesBuilder` and `TextureVerticesBuilder`.
+- Fixed a `NullPointerException` in `ExtensionLoader.getExtension(name, version)` when no extension is registered for
+  the given name.
 
 ## [3.4.0] - 2026-03-31
 ### Changed
