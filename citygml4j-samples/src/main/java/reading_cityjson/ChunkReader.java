@@ -46,7 +46,7 @@ public class ChunkReader {
         // "lod2_buildings_as_CityJSON_features.jsonl" as input instead.
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v2.json");
-        log.print("Reading the file " + file + " chunk-wise feature by top-level features");
+        log.print("Reading the file " + file + " chunk-wise by top-level features");
 
         try (CityJSONReader reader = in.createCityJSONReader(file)) {
             while (reader.hasNext()) {
