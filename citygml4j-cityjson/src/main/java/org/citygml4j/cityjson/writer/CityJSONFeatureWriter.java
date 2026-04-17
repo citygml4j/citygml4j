@@ -105,12 +105,14 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
 
                 writeVertices(false);
                 writeAppearance();
+                writeExtraRootProperties();
 
                 writer.writeEndObject();
             } catch (IOException e) {
                 throw new CityJSONWriteException("Caused by:", e);
             } finally {
                 helper.reset(true);
+                helper.getExtraRootProperties().removeAll();
             }
         }
     }
