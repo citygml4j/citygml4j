@@ -2,14 +2,20 @@
 
 ## [Unreleased]
 
+## [3.4.1] - 2026-04-17
 ### Changed
-- Use `topOfConstruction` as the default high reference for measured height values from CityGML 1.0/2.0 and CityJSON.
+- `topOfConstruction` is now used as the default high reference for measured height values from CityGML 1.0/2.0
+  and CityJSON.
+- Added support for CityJSON 2.0.2, including the following changes:
+  - `CityJSONFeatureWriter` now supports extra properties for `CityJSONFeature` via `withExtraRootProperty`.
+  - CityJSON Extension version numbers can now use X.Y.Z instead of only X.Y.
 - Removed `CityJSONInputFactory.createCityJSONReader(URL)`. Use `createCityJSONReader(InputStream)` with a manually
-  opened stream to retain control over connection timeouts and size limits.
-- Improved reflection-based computation of envelopes and `GeometryInfo` for ADE classes that do not implement the corresponding interface methods.
+  opened stream.
+- Improved the reflection-based computation of envelopes and `GeometryInfo` for ADE classes that do not implement the
+  corresponding interface methods.
 
 ### Fixed
-- Fixed incorrect vertex deduplication in CityJSON `VerticesBuilder` and `TextureVerticesBuilder`.
+- Fixed incorrect vertex deduplication in the CityJSON `VerticesBuilder` and `TextureVerticesBuilder`.
 - Fixed a `NullPointerException` in `ExtensionLoader.getExtension(name, version)` when no extension is registered for
   the given name.
 
@@ -201,7 +207,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.4.0..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.4.1..HEAD
+[3.4.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.4.1
 [3.4.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.4.0
 [3.3.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.3.0
 [3.2.9]: https://github.com/citygml4j/citygml4j/releases/tag/v3.2.9

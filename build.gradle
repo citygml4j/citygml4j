@@ -5,13 +5,13 @@ plugins {
 
 allprojects {
     group = 'org.citygml4j'
-    version = '3.4.0'
+    version = '3.4.1-SNAPSHOT'
     description = 'The Open Source Java API for CityGML'
 
     ext {
-        gmlObjectsVersion = '2.0.1-SNAPSHOT'
-        xalObjectsVersion = '2.0.1-SNAPSHOT'
-        xmlObjectsVersion = '2.0.1-SNAPSHOT'
+        gmlObjectsVersion = '2.0.1'
+        xalObjectsVersion = '2.0.1'
+        xmlObjectsVersion = '2.0.1'
         date = new Date()
     }
 }
