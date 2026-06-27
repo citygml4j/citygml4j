@@ -21,21 +21,21 @@ public class CityFurnitureModule extends CityGMLModule {
         v3_0 = new CityFurnitureModule(
                 CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE,
                 "frn",
-                "http://schemas.opengis.net/citygml/cityfurniture/3.0/cityFurniture.xsd",
+                "https://schemas.opengis.net/citygml/cityfurniture/3.0/cityFurniture.xsd",
                 CityGMLVersion.v3_0
         );
 
         v2_0 = new CityFurnitureModule(
                 CityGMLConstants.CITYGML_2_0_CITYFURNITURE_NAMESPACE,
                 "frn",
-                "http://schemas.opengis.net/citygml/cityfurniture/2.0/cityFurniture.xsd",
+                "https://schemas.opengis.net/citygml/cityfurniture/2.0/cityFurniture.xsd",
                 CityGMLVersion.v2_0
         );
 
         v1_0 = new CityFurnitureModule(
                 CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE,
                 "frn",
-                "http://schemas.opengis.net/citygml/cityfurniture/1.0/cityFurniture.xsd",
+                "https://schemas.opengis.net/citygml/cityfurniture/1.0/cityFurniture.xsd",
                 CityGMLVersion.v1_0
         );
     }

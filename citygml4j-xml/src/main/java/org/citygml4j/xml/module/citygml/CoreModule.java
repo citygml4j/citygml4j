@@ -21,21 +21,21 @@ public class CoreModule extends CityGMLModule {
         v3_0 = new CoreModule(
                 CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE,
                 "core",
-                "http://schemas.opengis.net/citygml/3.0/core.xsd",
+                "https://schemas.opengis.net/citygml/3.0/core.xsd",
                 CityGMLVersion.v3_0
         );
 
         v2_0 = new CoreModule(
                 CityGMLConstants.CITYGML_2_0_CORE_NAMESPACE,
                 "core",
-                "http://schemas.opengis.net/citygml/2.0/cityGMLBase.xsd",
+                "https://schemas.opengis.net/citygml/2.0/cityGMLBase.xsd",
                 CityGMLVersion.v2_0
         );
 
         v1_0 = new CoreModule(
                 CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE,
                 "core",
-                "http://schemas.opengis.net/citygml/1.0/cityGMLBase.xsd",
+                "https://schemas.opengis.net/citygml/1.0/cityGMLBase.xsd",
                 CityGMLVersion.v1_0
         );
     }

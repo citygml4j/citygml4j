@@ -14,7 +14,7 @@ public class XALCommonTypesModule extends XALModule {
         v3_0 = new XALCommonTypesModule(
                 XALConstants.XAL_3_0_CT_NAMESPACE,
                 "ct",
-                XALConstants.XAL_3_0_CT_SCHEMA_LOCATION
+                "https://schemas.opengis.net/citygml/xAL/3.0/CommonTypes.xsd"
         );
     }
 

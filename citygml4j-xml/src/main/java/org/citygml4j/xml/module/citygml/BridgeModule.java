@@ -20,14 +20,14 @@ public class BridgeModule extends CityGMLModule {
         v3_0 = new BridgeModule(
                 CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE,
                 "brid",
-                "http://schemas.opengis.net/citygml/bridge/3.0/bridge.xsd",
+                "https://schemas.opengis.net/citygml/bridge/3.0/bridge.xsd",
                 CityGMLVersion.v3_0
         );
 
         v2_0 = new BridgeModule(
                 CityGMLConstants.CITYGML_2_0_BRIDGE_NAMESPACE,
                 "brid",
-                "http://schemas.opengis.net/citygml/bridge/2.0/bridge.xsd",
+                "https://schemas.opengis.net/citygml/bridge/2.0/bridge.xsd",
                 CityGMLVersion.v2_0
         );
     }

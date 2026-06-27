@@ -19,7 +19,7 @@ public class DynamizerModule extends CityGMLModule {
         v3_0 = new DynamizerModule(
                 CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE,
                 "dyn",
-                "http://schemas.opengis.net/citygml/dynamizer/3.0/dynamizer.xsd",
+                "https://schemas.opengis.net/citygml/dynamizer/3.0/dynamizer.xsd",
                 CityGMLVersion.v3_0
         );
     }

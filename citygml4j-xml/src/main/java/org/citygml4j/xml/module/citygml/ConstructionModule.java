@@ -19,7 +19,7 @@ public class ConstructionModule extends CityGMLModule {
         v3_0 = new ConstructionModule(
                 CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE,
                 "con",
-                "http://schemas.opengis.net/citygml/construction/3.0/construction.xsd",
+                "https://schemas.opengis.net/citygml/construction/3.0/construction.xsd",
                 CityGMLVersion.v3_0
         );
     }

@@ -15,13 +15,13 @@ public class XALCoreModule extends XALModule {
         v3_0 = new XALCoreModule(
                 XALConstants.XAL_3_0_NAMESPACE,
                 "xAL",
-                XALConstants.XAL_3_0_SCHEMA_LOCATION
+                "https://schemas.opengis.net/citygml/xAL/3.0/xAL.xsd"
         );
 
         v2_0 = new XALCoreModule(
                 XALConstants.XAL_2_0_NAMESPACE,
                 "xAL",
-                XALConstants.XAL_2_0_SCHEMA_LOCATION
+                "https://schemas.opengis.net/citygml/xAL/xAL.xsd"
         );
     }
 

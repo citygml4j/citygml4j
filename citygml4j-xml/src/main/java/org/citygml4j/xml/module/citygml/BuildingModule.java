@@ -21,21 +21,21 @@ public class BuildingModule extends CityGMLModule {
         v3_0 = new BuildingModule(
                 CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE,
                 "bldg",
-                "http://schemas.opengis.net/citygml/building/3.0/building.xsd",
+                "https://schemas.opengis.net/citygml/building/3.0/building.xsd",
                 CityGMLVersion.v3_0
         );
 
         v2_0 = new BuildingModule(
                 CityGMLConstants.CITYGML_2_0_BUILDING_NAMESPACE,
                 "bldg",
-                "http://schemas.opengis.net/citygml/building/2.0/building.xsd",
+                "https://schemas.opengis.net/citygml/building/2.0/building.xsd",
                 CityGMLVersion.v2_0
         );
 
         v1_0 = new BuildingModule(
                 CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE,
                 "bldg",
-                "http://schemas.opengis.net/citygml/building/1.0/building.xsd",
+                "https://schemas.opengis.net/citygml/building/1.0/building.xsd",
                 CityGMLVersion.v1_0
         );
     }

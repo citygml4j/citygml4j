@@ -19,7 +19,7 @@ public class PointCloudModule extends CityGMLModule {
         v3_0 = new PointCloudModule(
                 CityGMLConstants.CITYGML_3_0_POINTCLOUD_NAMESPACE,
                 "pcl",
-                "http://schemas.opengis.net/citygml/pointcloud/3.0/pointCloud.xsd",
+                "https://schemas.opengis.net/citygml/pointcloud/3.0/pointCloud.xsd",
                 CityGMLVersion.v3_0
         );
     }

@@ -20,14 +20,14 @@ public class TunnelModule extends CityGMLModule {
         v3_0 = new TunnelModule(
                 CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE,
                 "tun",
-                "http://schemas.opengis.net/citygml/tunnel/3.0/tunnel.xsd",
+                "https://schemas.opengis.net/citygml/tunnel/3.0/tunnel.xsd",
                 CityGMLVersion.v3_0
         );
 
         v2_0 = new TunnelModule(
                 CityGMLConstants.CITYGML_2_0_TUNNEL_NAMESPACE,
                 "tun",
-                "http://schemas.opengis.net/citygml/tunnel/2.0/tunnel.xsd",
+                "https://schemas.opengis.net/citygml/tunnel/2.0/tunnel.xsd",
                 CityGMLVersion.v2_0
         );
     }
