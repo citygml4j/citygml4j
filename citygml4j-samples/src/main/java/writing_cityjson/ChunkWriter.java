@@ -66,7 +66,7 @@ public class ChunkWriter {
                 AbstractFeature feature = reader.next();
 
                 log.print("Writing " + feature.getClass().getSimpleName() + " with gml:id " + feature.getId());
-                writer.writeCityObject(reader.next());
+                writer.writeCityObject(feature);
             }
         }
 
