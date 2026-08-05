@@ -8,20 +8,23 @@ package org.citygml4j.cityjson.adapter.geometry.serializer;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class TemplateInfo {
-    static final TemplateInfo NULL_TEMPLATE = new TemplateInfo(null, -1);
-    private final ObjectNode node;
     private final int index;
+    private ObjectNode node;
 
-    TemplateInfo(ObjectNode node, int index) {
-        this.node = node;
+    TemplateInfo(int index) {
         this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     ObjectNode getNode() {
         return node;
     }
 
-    public int getIndex() {
-        return index;
+    TemplateInfo setNode(ObjectNode node) {
+        this.node = node;
+        return this;
     }
 }

@@ -63,7 +63,6 @@ public class GeometrySerializer {
     public void addTemplateGeometry(ImplicitGeometry geometry, Number lod, ObjectNode object, EnumSet<GeometryType> allowedTypes) {
         if (geometry == null
                 || geometry.getRelativeGeometry() == null
-                || geometry.getRelativeGeometry().getObject() == null
                 || geometry.getReferencePoint() == null
                 || geometry.getReferencePoint().getObject() == null
                 || geometry.getTransformationMatrix() == null) {
@@ -71,7 +70,7 @@ public class GeometrySerializer {
         }
 
         if (!transformTemplateGeometries) {
-            buildTemplateGeometry(geometry, lod, object, allowedTypes);
+            buildTemplateGeometry(geometry, lod, object);
         } else {
             convertTemplateGeometry(geometry, lod, object, allowedTypes);
         }
@@ -79,19 +78,15 @@ public class GeometrySerializer {
 
     public TemplateInfo addTemplateGeometry(AbstractGeometry geometry, Number lod) {
         if (geometry != null) {
-            TemplateInfo templateInfo = templates.get(helper.getOrCreateId(geometry));
-            if (templateInfo == null) {
+            TemplateInfo templateInfo = getOrCreateTemplateInfo(helper.getOrCreateId(geometry));
+            if (templateInfo.getNode() == null) {
                 ObjectNode template = createGeometry(geometry, lod, templatesVerticesBuilder, EnumSet.allOf(GeometryType.class));
-                templateInfo = template != null ?
-                        new TemplateInfo(template, templates.size()) :
-                        TemplateInfo.NULL_TEMPLATE;
-
-                templates.put(geometry.getId(), templateInfo);
+                templates.put(geometry.getId(), templateInfo.setNode(template));
             }
 
             return templateInfo;
         } else {
-            return TemplateInfo.NULL_TEMPLATE;
+            return null;
         }
     }
 
@@ -120,31 +115,20 @@ public class GeometrySerializer {
         }
     }
 
-    private void buildTemplateGeometry(ImplicitGeometry geometry, Number lod, ObjectNode object, EnumSet<GeometryType> allowedTypes) {
+    private void buildTemplateGeometry(ImplicitGeometry geometry, Number lod, ObjectNode object) {
         AbstractGeometry relativeGeometry = geometry.getRelativeGeometry().getObject();
-        TemplateInfo templateInfo = addTemplateGeometry(relativeGeometry, lod);
-        if (templateInfo == TemplateInfo.NULL_TEMPLATE) {
-            return;
-        }
-
-        GeometryType type = GeometryType.fromValue(templateInfo.getNode().path(Fields.TYPE).asText());
-        if (!allowedTypes.contains(type)) {
+        String reference = geometry.getRelativeGeometry().getHref();
+        TemplateInfo templateInfo = relativeGeometry != null
+                ? addTemplateGeometry(relativeGeometry, lod)
+                : getOrCreateTemplateInfo(helper.getIdFromReference(reference));
+        if (templateInfo == null) {
             return;
         }
 
         List<Double> matrix = geometry.getTransformationMatrix().toRowMajor();
-        Point referencePoint = geometry.getReferencePoint().getObject();
-
-        List<Double> coordinates = referencePoint.toCoordinateList3D();
-        coordinates.set(0, coordinates.get(0) + matrix.get(3));
-        coordinates.set(1, coordinates.get(1) + matrix.get(7));
-        coordinates.set(2, coordinates.get(2) + matrix.get(11));
-
-        matrix.set(3, 0.0);
-        matrix.set(7, 0.0);
-        matrix.set(11, 0.0);
-
-        ObjectNode boundary = createGeometry(new Point(new DirectPosition(coordinates)), lod, verticesBuilder, EnumSet.of(GeometryType.MULTI_POINT));
+        List<Double> coordinates = geometry.getReferencePoint().getObject().toCoordinateList3D();
+        ObjectNode boundary = createGeometry(new Point(new DirectPosition(coordinates)), lod, verticesBuilder,
+                EnumSet.of(GeometryType.MULTI_POINT));
         if (boundary == null) {
             return;
         }
@@ -184,6 +168,12 @@ public class GeometrySerializer {
 
         AbstractGeometry relativeGeometry = geometry.getRelativeGeometry().getObject();
         buildGeometry(relativeGeometry, lod, helper.getOrPutArray(Fields.GEOMETRY, object), allowedTypes, builder);
+    }
+
+    private TemplateInfo getOrCreateTemplateInfo(String objectId) {
+        return objectId != null
+                ? templates.computeIfAbsent(objectId, k -> new TemplateInfo(templates.size()))
+                : null;
     }
 
     public void reset(boolean keepTemplates) {

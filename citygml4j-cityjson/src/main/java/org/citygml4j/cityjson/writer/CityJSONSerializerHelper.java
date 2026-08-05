@@ -208,6 +208,15 @@ public class CityJSONSerializerHelper {
         return object.getId();
     }
 
+    public String getIdFromReference(String reference) {
+        if (reference != null) {
+            int index = reference.lastIndexOf("#");
+            return index != -1 ? reference.substring(index + 1) : reference;
+        } else {
+            return null;
+        }
+    }
+
     public ObjectNode createObject() {
         return objectMapper.createObjectNode();
     }

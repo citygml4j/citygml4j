@@ -85,7 +85,7 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
                         && property.getObject().getGroupMember() != null
                         && property.getObject().getGroupMember().getHref() != null) {
                     AbstractCityObjectReference reference = property.getObject().getGroupMember();
-                    addChild(getIdFromReference(reference.getHref()), property.getObject().getRole(), node, helper);
+                    addChild(helper.getIdFromReference(reference.getHref()), property.getObject().getRole(), node, helper);
                 }
             }
         }
@@ -163,10 +163,5 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         }
 
         return true;
-    }
-
-    public String getIdFromReference(String reference) {
-        int index = reference.lastIndexOf("#");
-        return index != -1 ? reference.substring(index + 1) : reference;
     }
 }
