@@ -17,10 +17,8 @@ import org.xmlobjects.gml.model.base.ResolvableAssociation;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.visitor.Visitable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class ReferenceResolver {
     private final List<CityObjectGroup> groups = new ArrayList<>();
@@ -43,6 +41,16 @@ public class ReferenceResolver {
         return templates;
     }
 
+    void consumeAndRemoveTemplateGeometries(Consumer<AbstractGeometry> consumer) {
+        Iterator<AbstractGeometry> iterator = templates.iterator();
+        while (iterator.hasNext()) {
+            AbstractGeometry template = iterator.next();
+            consumer.accept(template);
+            removeProperties(template);
+            iterator.remove();
+        }
+    }
+
     void add(AbstractGeometry geometry) {
         if (geometry.getId() != null) {
             templates.add(geometry);
@@ -60,7 +68,7 @@ public class ReferenceResolver {
     void resolveReferences(Visitable visitable) {
         List<AbstractGML> objects = new ArrayList<>();
         Map<String, List<ResolvableAssociation<?>>> properties = new HashMap<>();
-        populate(visitable, objects, properties);
+        populateProperties(visitable, objects, properties);
 
         objects.forEach(object -> {
             resolveReferences(object, properties);
@@ -86,10 +94,10 @@ public class ReferenceResolver {
     }
 
     private void populateProperties(AbstractFeature feature, Map<String, List<ResolvableAssociation<?>>> properties) {
-        populate(feature, null, properties);
+        populateProperties(feature, null, properties);
     }
 
-    private void populate(Visitable visitable, List<AbstractGML> objects, Map<String, List<ResolvableAssociation<?>>> properties) {
+    private void populateProperties(Visitable visitable, List<AbstractGML> objects, Map<String, List<ResolvableAssociation<?>>> properties) {
         ObjectWalker walker = new ObjectWalker() {
             @Override
             public void visit(AbstractGML object) {
@@ -119,6 +127,17 @@ public class ReferenceResolver {
         };
 
         walker.visit(visitable);
+    }
+
+    private void removeProperties(AbstractGeometry template) {
+        template.accept(new ObjectWalker() {
+            @Override
+            public void visit(AbstractGML object) {
+                if (object.getId() != null) {
+                    globalProperties.remove(object.getId());
+                }
+            }
+        });
     }
 
     void clear() {

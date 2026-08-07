@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
+import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.core.model.core.ImplicitGeometry;
@@ -22,10 +23,12 @@ import java.util.*;
 public class GeometrySerializer {
     public static final int DEFAULT_VERTEX_PRECISION = 3;
     public static final int DEFAULT_TEMPLATE_PRECISION = 3;
+    private static final EnumSet<GeometryType> ALL_GEOMETRY_TYPES = EnumSet.allOf(GeometryType.class);
 
     private final AppearanceSerializer appearanceSerializer;
     private final CityJSONSerializerHelper helper;
-    private final Map<String, TemplateInfo> templates = new HashMap<>();
+    private final Map<String, Integer> templateIndexes = new HashMap<>();
+    private final Map<Integer, ObjectNode> templates = new TreeMap<>();
     private final VerticesBuilder verticesBuilder = new VerticesBuilder(DEFAULT_VERTEX_PRECISION);
     private final VerticesBuilder templatesVerticesBuilder = new VerticesBuilder(DEFAULT_TEMPLATE_PRECISION);
 
@@ -70,24 +73,14 @@ public class GeometrySerializer {
         }
 
         if (!transformTemplateGeometries) {
-            buildTemplateGeometry(geometry, lod, object);
+            buildGeometryInstance(geometry, lod, object);
         } else {
             convertTemplateGeometry(geometry, lod, object, allowedTypes);
         }
     }
 
-    public TemplateInfo addTemplateGeometry(AbstractGeometry geometry, Number lod) {
-        if (geometry != null) {
-            TemplateInfo templateInfo = getOrCreateTemplateInfo(helper.getOrCreateId(geometry));
-            if (templateInfo.getNode() == null) {
-                ObjectNode template = createGeometry(geometry, lod, templatesVerticesBuilder, EnumSet.allOf(GeometryType.class));
-                templates.put(geometry.getId(), templateInfo.setNode(template));
-            }
-
-            return templateInfo;
-        } else {
-            return null;
-        }
+    public void addTemplateGeometry(AbstractGeometry geometry, Number lod) {
+        registerTemplateGeometry(geometry, lod);
     }
 
     public boolean hasTemplates() {
@@ -95,10 +88,7 @@ public class GeometrySerializer {
     }
 
     public Iterator<ObjectNode> getTemplates() {
-        return templates.values().stream()
-                .sorted(Comparator.comparingInt(TemplateInfo::getIndex))
-                .map(TemplateInfo::getNode)
-                .iterator();
+        return templates.values().iterator();
     }
 
     private ObjectNode createGeometry(AbstractGeometry geometry, Number lod, VerticesBuilder verticesBuilder, EnumSet<GeometryType> allowedTypes) {
@@ -115,13 +105,11 @@ public class GeometrySerializer {
         }
     }
 
-    private void buildTemplateGeometry(ImplicitGeometry geometry, Number lod, ObjectNode object) {
-        AbstractGeometry relativeGeometry = geometry.getRelativeGeometry().getObject();
-        String reference = geometry.getRelativeGeometry().getHref();
-        TemplateInfo templateInfo = relativeGeometry != null
-                ? addTemplateGeometry(relativeGeometry, lod)
-                : getOrCreateTemplateInfo(helper.getIdFromReference(reference));
-        if (templateInfo == null) {
+    private void buildGeometryInstance(ImplicitGeometry geometry, Number lod, ObjectNode object) {
+        int index = geometry.getRelativeGeometry().getObject() != null
+                ? registerTemplateGeometry(geometry.getRelativeGeometry().getObject(), lod)
+                : registerTemplateGeometry(helper.getIdFromReference(geometry.getRelativeGeometry().getHref()));
+        if (index < 0) {
             return;
         }
 
@@ -135,7 +123,7 @@ public class GeometrySerializer {
 
         ObjectNode node = helper.getOrPutArray(Fields.GEOMETRY, object).addObject();
         node.put(Fields.TYPE, GeometryType.TEMPLATE_GEOMETRY.toTypeName());
-        node.put(Fields.TEMPLATE, templateInfo.getIndex());
+        node.put(Fields.TEMPLATE, index);
         node.set(Fields.BOUNDARIES, boundary.path(Fields.BOUNDARIES));
         ArrayNode transformationMatrix = node.putArray(Fields.TRANSFORMATION_MATRIX);
         matrix.forEach(transformationMatrix::add);
@@ -170,17 +158,28 @@ public class GeometrySerializer {
         buildGeometry(relativeGeometry, lod, helper.getOrPutArray(Fields.GEOMETRY, object), allowedTypes, builder);
     }
 
-    private TemplateInfo getOrCreateTemplateInfo(String objectId) {
-        return objectId != null
-                ? templates.computeIfAbsent(objectId, k -> new TemplateInfo(templates.size()))
-                : null;
+    private int registerTemplateGeometry(AbstractGeometry geometry, Number lod) {
+        if (geometry != null) {
+            int index = registerTemplateGeometry(helper.getOrCreateId(geometry));
+            templates.computeIfAbsent(index, k ->
+                    createGeometry(geometry, lod, templatesVerticesBuilder, ALL_GEOMETRY_TYPES));
+            return index;
+        }
+
+        return -1;
     }
 
-    public void reset(boolean keepTemplates) {
+    private int registerTemplateGeometry(String objectId) {
+        return objectId != null ? templateIndexes.computeIfAbsent(objectId, k -> templateIndexes.size()) : -1;
+    }
+
+    public void reset() {
         verticesBuilder.reset();
-        if (!keepTemplates) {
-            templatesVerticesBuilder.reset();
-            templates.clear();
+        templatesVerticesBuilder.reset();
+        templates.clear();
+
+        if (helper.getType() != CityJSONType.CITYJSON_FEATURE) {
+            templateIndexes.clear();
         }
     }
 }

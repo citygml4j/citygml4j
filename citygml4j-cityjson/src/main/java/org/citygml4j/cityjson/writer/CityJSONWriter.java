@@ -57,6 +57,7 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             state = State.DOCUMENT_STARTED;
+            templateLods.clear();
         }
     }
 

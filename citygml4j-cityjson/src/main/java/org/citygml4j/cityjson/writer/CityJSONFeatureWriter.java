@@ -15,7 +15,6 @@ import org.citygml4j.cityjson.model.geometry.Transform;
 import org.citygml4j.cityjson.model.geometry.Vertex;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
-import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.Envelope;
 
 import java.io.IOException;
@@ -82,7 +81,8 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             state = State.DOCUMENT_STARTED;
-            helper.reset(true);
+            helper.reset();
+            templateLods.clear();
         }
     }
 
@@ -111,7 +111,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             } catch (IOException e) {
                 throw new CityJSONWriteException("Caused by:", e);
             } finally {
-                helper.reset(true);
+                helper.reset();
                 helper.getExtraRootProperties().removeAll();
             }
         }
@@ -152,10 +152,8 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
     }
 
     private void processGlobalTemplates() {
-        for (AbstractGeometry template : referenceResolver.getTemplateGeometries()) {
-            helper.getGeometrySerializer()
-                    .addTemplateGeometry(template, templateLods.getOrDefault(template.getId(), 0));
-        }
+        referenceResolver.consumeAndRemoveTemplateGeometries(template -> helper.getGeometrySerializer()
+                .addTemplateGeometry(template, templateLods.getOrDefault(template.getId(), 0)));
     }
 
     private Transform computeTransform(AbstractFeature feature) {
