@@ -2,7 +2,21 @@
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** The CityGML writers now use `https` URLs for the default CityGML schema locations.
+- The CityJSON chunk writer now supports implicit geometry references in city objects. Template geometries no longer
+  need to be supplied via `CityJSONWriter.withGlobalTemplateGeometry` when they are included in a city object.
+- Reduced the memory footprint of the `CityJSONFeatureWriter` when writing global template geometries.
+- Relaxed parsing of CityJSON `"version"` strings when reading datasets to allow additional version information
+  after the required `x.y` format defined by the CityJSON specification.
+
+### Fixed
+- Fixed parsing of XML attributes with `XMLStreamReader` implementations that return `null` for the namespace of
+  non-namespaced attributes.
+- Fixed the CityJSON `ChunkWriter` sample to no longer skip features in the output.
+
 ## [3.4.1] - 2026-04-17
+
 ### Changed
 - `topOfConstruction` is now used as the default high reference for measured height values from CityGML 1.0/2.0
   and CityJSON.
@@ -20,6 +34,7 @@
   the given name.
 
 ## [3.4.0] - 2026-03-31
+
 ### Changed
 - Updated to xml-objects 2.0.0.
   - **Breaking:** Removes the `CopyBuilder` class and the entire `org.xmlobjects.util.copy` package in favor of the
@@ -32,6 +47,7 @@
 - Updated to jackson-databind to 2.21.2.
 
 ## [3.3.0] - 2026-03-17
+
 ### Changed
 - CityJSON address objects now use a fixed set of properties for address information (CityJSON 2.0 and 1.1 names on
   the left, CityJSON 1.0 names on the right):
@@ -53,10 +69,12 @@
 - Fixed the mapping of CityJSON address objects to xAL elements.
 
 ## [3.2.9] - 2026-03-06
+
 ### Changed
 - Updated jackson-databind to 2.21.1.
 
 ## [3.2.8] - 2025-12-29
+
 ### Fixed
 - Fixed serialization issues with xAL address objects. [xal-objects #4](https://github.com/xmlobjects/xal-objects/issues/4)
 
@@ -67,6 +85,7 @@
 - Updated xml-objects to 1.3.0.
 
 ## [3.2.7] - 2025-11-20
+
 ### Fixed
 - Fixed `NullPointerException` when parsing GML/XML properties having an empty nil-reason list.
 
@@ -77,6 +96,7 @@
 - Updated jackson-databind to 2.20.1.
 
 ## [3.2.6] - 2025-09-27
+
 ### Changed
 - Updated gml-objects to 1.1.6.
 - Updated xal-objects to 1.1.6.
@@ -84,15 +104,18 @@
 - Updated jackson-databind to 2.20.0.
 
 ## [3.2.5] - 2025-08-15
+
 ### Changed
 - Updated jackson-databind to 2.19.2.
 
 ## [3.2.4] - 2025-03-04
+
 ### Fixed
 - Fixed parsing of `TimePosition` values to support more ISO 8601 compliant representations.
 - Fixed `include` method of `Envelope` to correctly handle empty envelopes.
 
 ## [3.2.3] - 2025-01-19
+
 ### Added
 - Added `updateGeometryInfo` method to `ADEProperty`. This method can be overridden to avoid exposing your subclasses
   of `ADEProperty` to the `org.citygml4j.core` module for reflection.
@@ -108,6 +131,7 @@
 - Updated xml-objects to 1.1.4.
 
 ## [3.2.2] - 2024-12-01
+
 ### Changed
 - Updated jackson-databind to 2.18.2.
 - Updated gml-objects to 1.1.2.
@@ -115,6 +139,7 @@
 - Updated xml-objects to 1.1.2.
 
 ## [3.2.1] - 2024-07-15
+
 ### Changed
 - CityGML `Section` and `Intersection` features are no longer converted to CityJSON due to missing support
   in CityJSON.
@@ -128,6 +153,7 @@
 - Fixed `TimeseriesComponentProperty` to contain a `TimeseriesComponent`.
 
 ## [3.2.0] - 2024-01-29
+
 ### Changed
 - **Breaking:** Java 17 is now the minimum required version for using citygml4j.
 - Improved performance when resolving global references in CityJSON writers.
@@ -138,6 +164,7 @@
 - When writing as CityJSON, surface data sharing identical properties was combined regardless of the appearance theme.
 
 ## [3.1.0] - 2023-11-03
+
 ### Added
 - Added support for [CityJSON 2.0](https://www.cityjson.org/specs/2.0.0/). ([citygml-tools #50](https://github.com/citygml4j/citygml-tools/issues/50))
 - Added mapping of CityGML 2.0 LoD0 point geometries to the `lod0Point` property of `AbstractSpace`.
@@ -154,6 +181,7 @@
   Subsequent `ImplicitGeometry` objects now correctly reference the appearances.
 
 ## [3.0.0] - 2023-04-04
+
 ### Added
 - Added support for providing an XML factory when creating an instance of `CityGMLInputFactory`,
   `CityGMLSchemaHandler`, and `TransformerPipeline`.
@@ -178,6 +206,7 @@
 - Added type checks to `getDeprecatedProperties` methods to avoid class cast exceptions.
 
 ## [3.0.0-rc.5] - 2022-09-09
+
 ### Changed
 - Completely revised object model for processing CityGML data based on the
   [CityGML 3.0 Conceptual Model](https://docs.ogc.org/is/20-010/20-010.html).
@@ -204,6 +233,7 @@
   mapping framework.
 
 ## [Before 3.0.0]
+
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
