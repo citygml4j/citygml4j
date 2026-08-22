@@ -11,6 +11,7 @@
   after the required `x.y` format defined by the CityJSON specification.
 
 ### Fixed
+- Fixed envelope computation for implicit geometries.
 - Fixed parsing of XML attributes with `XMLStreamReader` implementations that return `null` for the namespace of
   non-namespaced attributes.
 - Fixed the CityJSON `ChunkWriter` sample to no longer skip features in the output.
