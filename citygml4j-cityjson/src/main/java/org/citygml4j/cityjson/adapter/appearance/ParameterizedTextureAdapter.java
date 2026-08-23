@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.appearance;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
@@ -24,6 +21,9 @@ import org.citygml4j.core.model.appearance.ParameterizedTexture;
 import org.citygml4j.core.model.appearance.TextureType;
 import org.citygml4j.core.model.appearance.WrapMode;
 import org.xmlobjects.gml.model.basictypes.Code;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Locale;
 
@@ -37,29 +37,29 @@ public class ParameterizedTextureAdapter implements JsonObjectBuilder<Parameteri
     @Override
     public void buildObject(ParameterizedTexture object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         JsonNode image = node.path(Fields.IMAGE);
-        if (image.isTextual()) {
+        if (image.isString()) {
             TextureFileHandler textureFileHandler = helper.getProperties().get(TextureFileHandler.class.getName(), TextureFileHandler.class);
             object.setImageURI(textureFileHandler != null ?
-                    textureFileHandler.getImageURI(image.asText()) :
-                    image.asText());
+                    textureFileHandler.getImageURI(image.asString()) :
+                    image.asString());
         }
 
         JsonNode type = node.path(Fields.TYPE);
-        if (type.isTextual()) {
-            String mimeType = getMimeType(type.asText());
+        if (type.isString()) {
+            String mimeType = getMimeType(type.asString());
             if (mimeType != null) {
                 object.setMimeType(new Code(mimeType));
             }
         }
 
         JsonNode wrapMode = node.path(Fields.WRAP_MODE);
-        if (wrapMode.isTextual()) {
-            object.setWrapMode(WrapMode.fromValue(wrapMode.asText()));
+        if (wrapMode.isString()) {
+            object.setWrapMode(WrapMode.fromValue(wrapMode.asString()));
         }
 
         JsonNode textureType = node.path(Fields.TEXTURE_TYPE);
-        if (textureType.isTextual()) {
-            object.setTextureType(TextureType.fromValue(textureType.asText()));
+        if (textureType.isString()) {
+            object.setTextureType(TextureType.fromValue(textureType.asString()));
         }
 
         JsonNode borderColor = node.path(Fields.BORDER_COLOR);

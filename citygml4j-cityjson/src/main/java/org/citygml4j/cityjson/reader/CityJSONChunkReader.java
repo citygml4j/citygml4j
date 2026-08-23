@@ -5,17 +5,17 @@
 
 package org.citygml4j.cityjson.reader;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.TreeNode;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.core.model.appearance.Appearance;
 import org.citygml4j.core.model.core.AbstractFeature;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.TreeNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
-import java.io.IOException;
 import java.util.*;
 
 public class CityJSONChunkReader extends CityJSONReader {
@@ -24,8 +24,8 @@ public class CityJSONChunkReader extends CityJSONReader {
     private TopLevelIterator iterator;
     private Deque<Appearance> globalAppearances;
 
-    CityJSONChunkReader(JsonParser reader, ObjectMapper mapper, CityJSONContext context) {
-        super(reader, mapper, context);
+    CityJSONChunkReader(JsonParser reader, JsonMapper jsonMapper, CityJSONContext context) {
+        super(reader, jsonMapper, context);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class CityJSONChunkReader extends CityJSONReader {
         if (iterator == null || !iterator.hasNext()) {
             try {
                 iterator = null;
-                TreeNode node = objectMapper.readTree(reader);
+                TreeNode node = jsonMapper.readTree(reader);
                 if (node != null && node.isObject()) {
                     ObjectNode content = (ObjectNode) node;
                     helper = createHelper(content, helper);
@@ -116,7 +116,7 @@ public class CityJSONChunkReader extends CityJSONReader {
                 }
 
                 return iterator != null;
-            } catch (CityJSONBuildException | IOException e) {
+            } catch (CityJSONBuildException | JacksonException e) {
                 throw new CityJSONReadException("Caused by:", e);
             }
         }

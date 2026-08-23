@@ -5,7 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
@@ -13,6 +12,7 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.common.TopLevelFeature;
 import org.citygml4j.core.model.core.AbstractThematicSurface;
 import org.citygml4j.core.model.core.QualifiedAreaProperty;
+import tools.jackson.databind.node.ObjectNode;
 
 public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicSurface> extends AbstractSemanticObjectAdapter<T> {
 

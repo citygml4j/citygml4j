@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.serializer;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
@@ -16,6 +13,9 @@ import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.model.geometry.complexes.CompositeSolid;
 import org.xmlobjects.gml.model.geometry.primitives.ShellProperty;
 import org.xmlobjects.gml.model.geometry.primitives.Solid;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

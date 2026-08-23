@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.serializer;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceInfo;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
@@ -18,6 +16,8 @@ import org.citygml4j.core.model.appearance.TextureCoordinates;
 import org.citygml4j.core.util.reference.Referees;
 import org.xmlobjects.gml.model.geometry.compact.AbstractSimplePolygon;
 import org.xmlobjects.gml.model.geometry.primitives.*;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;

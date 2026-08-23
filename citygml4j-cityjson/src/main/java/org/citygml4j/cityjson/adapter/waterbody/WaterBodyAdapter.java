@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.waterbody;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
@@ -24,6 +22,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.deprecated.waterbody.DeprecatedPropertiesOfWaterBody;
 import org.citygml4j.core.model.waterbody.WaterBody;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.Map;

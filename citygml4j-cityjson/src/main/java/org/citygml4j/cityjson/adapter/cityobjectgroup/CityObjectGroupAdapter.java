@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.cityobjectgroup;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractLogicalSpaceAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
@@ -29,6 +26,9 @@ import org.citygml4j.core.model.core.AbstractCityObject;
 import org.citygml4j.core.model.core.AbstractCityObjectReference;
 import org.citygml4j.core.model.deprecated.cityobjectgroup.DeprecatedPropertiesOfCityObjectGroup;
 import org.citygml4j.core.model.deprecated.cityobjectgroup.GroupMember;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -52,18 +52,18 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
 
         helper.buildStandardObjectClassifier(object, attributes);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         JsonNode roles = attributes.consume(Fields.CHILDREN_ROLES);
         int index = 0;
 
         while (children.hasNext()) {
-            addGroupMember(object, children.next().asText(), roles.get(index), helper);
+            addGroupMember(object, children.next().asString(), roles.get(index), helper);
             children.remove();
             index++;
         }
 
         for (JsonNode member : attributes.consume(Fields.MEMBERS)) {
-            addGroupMember(object, member.asText(), null, helper);
+            addGroupMember(object, member.asString(), null, helper);
         }
     }
 
@@ -133,8 +133,8 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
             helper.buildAsTopLevelObject(member);
 
             Role role = new Role(new AbstractCityObjectReference("#" + member));
-            if (memberRole != null && memberRole.isTextual()) {
-                role.setRole(memberRole.asText());
+            if (memberRole != null && memberRole.isString()) {
+                role.setRole(memberRole.asString());
             }
 
             object.getGroupMembers().add(new RoleProperty(role));

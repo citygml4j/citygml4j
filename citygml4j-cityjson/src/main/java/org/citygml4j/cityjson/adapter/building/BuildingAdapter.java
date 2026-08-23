@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.building;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.building.Building;
 import org.citygml4j.core.model.building.BuildingPart;
 import org.citygml4j.core.model.building.BuildingPartProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
 
@@ -41,9 +41,9 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     public void buildObject(Building object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         super.buildObject(object, attributes, node, parent, helper);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             if ("BuildingPart".equals(helper.getCityObjectType(child))) {
                 object.getBuildingParts().add(new BuildingPartProperty(helper.getCityObject(child, BuildingPart.class)));
                 children.remove();

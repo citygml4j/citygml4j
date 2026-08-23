@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.landuse;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.landuse.LandUse;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 

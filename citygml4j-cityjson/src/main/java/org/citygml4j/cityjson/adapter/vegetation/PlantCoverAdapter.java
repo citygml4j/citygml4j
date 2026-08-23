@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.vegetation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
@@ -24,6 +22,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.deprecated.vegetation.DeprecatedPropertiesOfPlantCover;
 import org.citygml4j.core.model.vegetation.PlantCover;
 import org.xmlobjects.gml.model.measures.Length;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumMap;
 import java.util.EnumSet;

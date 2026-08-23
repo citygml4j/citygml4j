@@ -5,11 +5,11 @@
 
 package org.citygml4j.cityjson.serializer;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.atteo.classindex.IndexSubclasses;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
+import tools.jackson.databind.node.ObjectNode;
 
 @IndexSubclasses
 public interface JsonObjectSerializer<T> {

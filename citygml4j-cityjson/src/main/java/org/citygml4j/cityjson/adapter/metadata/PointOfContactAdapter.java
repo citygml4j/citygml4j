@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.metadata;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.model.CityJSONVersion;
@@ -20,6 +18,8 @@ import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>, JsonObjectSerializer<PointOfContact> {
 
@@ -31,43 +31,43 @@ public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>,
     @Override
     public void buildObject(PointOfContact object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         JsonNode contactName = node.path("contactName");
-        if (contactName.isTextual() && !contactName.asText().isEmpty()) {
-            object.setContactName(contactName.asText());
+        if (contactName.isString() && !contactName.asString().isEmpty()) {
+            object.setContactName(contactName.asString());
         }
 
         JsonNode phone = node.path("phone");
-        if (phone.isTextual()) {
-            object.setPhone(phone.asText());
+        if (phone.isString()) {
+            object.setPhone(phone.asString());
         }
 
         JsonNode address = node.path("address");
-        if (address.isTextual()) {
-            object.setAddress(address.asText());
+        if (address.isString()) {
+            object.setAddress(address.asString());
         }
 
         JsonNode emailAddress = node.path("emailAddress");
-        if (emailAddress.isTextual()) {
-            object.setEmailAddress(emailAddress.asText());
+        if (emailAddress.isString()) {
+            object.setEmailAddress(emailAddress.asString());
         }
 
         JsonNode contactType = node.path("contactType");
-        if (contactType.isTextual()) {
-            object.setContactType(ContactType.fromValue(contactType.asText()));
+        if (contactType.isString()) {
+            object.setContactType(ContactType.fromValue(contactType.asString()));
         }
 
         JsonNode role = node.path("role");
-        if (role.isTextual()) {
-            object.setRole(Role.fromValue(role.asText()));
+        if (role.isString()) {
+            object.setRole(Role.fromValue(role.asString()));
         }
 
         JsonNode organization = node.path("organization");
-        if (organization.isTextual()) {
-            object.setOrganization(organization.asText());
+        if (organization.isString()) {
+            object.setOrganization(organization.asString());
         }
 
         JsonNode website = node.path("website");
-        if (website.isTextual()) {
-            object.setWebsite(website.asText());
+        if (website.isString()) {
+            object.setWebsite(website.asString());
         }
     }
 

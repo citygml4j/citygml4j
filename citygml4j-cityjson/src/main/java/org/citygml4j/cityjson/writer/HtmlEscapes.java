@@ -5,8 +5,8 @@
 
 package org.citygml4j.cityjson.writer;
 
-import com.fasterxml.jackson.core.SerializableString;
-import com.fasterxml.jackson.core.io.CharacterEscapes;
+import tools.jackson.core.SerializableString;
+import tools.jackson.core.io.CharacterEscapes;
 
 public class HtmlEscapes extends CharacterEscapes {
     private final int[] escapes;

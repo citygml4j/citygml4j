@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.transportation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
@@ -29,6 +27,8 @@ import org.citygml4j.core.model.transportation.*;
 import org.xmlobjects.copy.Copier;
 import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.gml.model.feature.FeatureProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -45,8 +45,8 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
         super.buildObject(object, attributes, node, parent, helper);
 
         JsonNode trafficDirection = attributes.consume("trafficDirection");
-        if (trafficDirection.isTextual()) {
-            object.setTrafficDirection(TrafficDirectionValue.fromValue(trafficDirection.asText()));
+        if (trafficDirection.isString()) {
+            object.setTrafficDirection(TrafficDirectionValue.fromValue(trafficDirection.asString()));
         }
 
         helper.addGeometries(object, geometries, type -> object.isValidBoundary(type)

@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.tunnel;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.tunnel.Tunnel;
 import org.citygml4j.core.model.tunnel.TunnelPart;
 import org.citygml4j.core.model.tunnel.TunnelPartProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
 
@@ -41,9 +41,9 @@ public class TunnelAdapter extends AbstractTunnelAdapter<Tunnel> {
     public void buildObject(Tunnel object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         super.buildObject(object, attributes, node, parent, helper);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             if ("TunnelPart".equals(helper.getCityObjectType(child))) {
                 object.getTunnelParts().add(new TunnelPartProperty(helper.getCityObject(child, TunnelPart.class)));
                 children.remove();

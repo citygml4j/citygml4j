@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.util.BoundaryFilter;
@@ -15,6 +13,8 @@ import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPoint;
 import org.xmlobjects.gml.model.geometry.primitives.Point;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.util.List;
 

@@ -5,10 +5,10 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceInfo;
 import org.citygml4j.core.model.appearance.Appearance;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.util.*;
 

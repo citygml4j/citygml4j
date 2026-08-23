@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.geometry.MultiCurveProvider;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
@@ -23,6 +21,8 @@ import org.citygml4j.core.model.core.AbstractSpace;
 import org.citygml4j.core.model.core.QualifiedAreaProperty;
 import org.citygml4j.core.model.core.QualifiedVolumeProperty;
 import org.citygml4j.core.model.core.SpaceType;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.Map;
@@ -34,8 +34,8 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
         super.buildObject(object, attributes, node, parent, helper);
 
         JsonNode spaceType = attributes.consume("spaceType");
-        if (spaceType.isTextual()) {
-            object.setSpaceType(SpaceType.fromValue(spaceType.asText()));
+        if (spaceType.isString()) {
+            object.setSpaceType(SpaceType.fromValue(spaceType.asString()));
         }
 
         helper.addGeometries(object, node.get(Fields.GEOMETRY));

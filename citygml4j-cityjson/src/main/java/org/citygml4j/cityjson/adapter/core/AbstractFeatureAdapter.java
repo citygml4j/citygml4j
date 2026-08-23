@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
@@ -27,25 +24,28 @@ import org.xmlobjects.gml.model.deprecated.StringOrRef;
 import org.xmlobjects.gml.model.feature.BoundingShape;
 import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.Envelope;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public abstract class AbstractFeatureAdapter<T extends AbstractFeature> implements JsonObjectBuilder<T>, JsonObjectSerializer<T> {
 
     @Override
     public void buildObject(T object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         JsonNode identifier = attributes.consume("identifier");
-        if (identifier.isTextual()) {
-            object.setIdentifier(new CodeWithAuthority(identifier.asText(),
+        if (identifier.isString()) {
+            object.setIdentifier(new CodeWithAuthority(identifier.asString(),
                     helper.getProperties().getOrDefault(CityJSONConstants.IDENTIFIER_CODE_SPACE, String.class, () -> "")));
         }
 
         JsonNode description = attributes.consume("description");
-        if (description.isTextual()) {
-            object.setDescription(new StringOrRef(description.asText()));
+        if (description.isString()) {
+            object.setDescription(new StringOrRef(description.asString()));
         }
 
         JsonNode name = attributes.consume("name");
-        if (name.isTextual()) {
-            object.getNames().add(new Code(name.asText()));
+        if (name.isString()) {
+            object.getNames().add(new Code(name.asString()));
         }
 
         JsonNode extent = attributes.consume(Fields.GEOGRAPHICAL_EXTENT);

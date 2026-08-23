@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.generics.GenericThematicSurfaceAdapter;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
@@ -26,6 +24,8 @@ import org.xmlobjects.copy.CopierBuilder;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class SemanticsBuilder {
         for (int i = 0; i < surfaces.size(); i++) {
             try {
                 JsonNode surface = surfaces.get(i);
-                String type = surface.path(Fields.TYPE).asText();
+                String type = surface.path(Fields.TYPE).asString();
 
                 AbstractThematicSurface boundary = helper.getObject(type, surface, AbstractThematicSurface.class);
                 if (boundary == null
@@ -127,7 +127,7 @@ public class SemanticsBuilder {
                     copier.shallowCopy(entry.getValue(), boundary, AbstractThematicSurface.class);
 
                     JsonNode surface = surfaces.get(entry.getKey());
-                    addGenericTypeAttribute(surface.path(Fields.TYPE).asText(), boundary);
+                    addGenericTypeAttribute(surface.path(Fields.TYPE).asString(), boundary);
                     entry.setValue(boundary);
                 }
             } else {

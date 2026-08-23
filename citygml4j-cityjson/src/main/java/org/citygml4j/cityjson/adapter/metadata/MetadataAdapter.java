@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.metadata;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
@@ -21,6 +18,9 @@ import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,8 +39,8 @@ public class MetadataAdapter implements JsonObjectBuilder<Metadata>, JsonObjectS
         CityJSONVersion version = helper.getVersion();
 
         JsonNode identifier = node.path(version == CityJSONVersion.v1_0 ? "fileIdentifier" : "identifier");
-        if (identifier.isTextual()) {
-            object.setIdentifier(identifier.asText());
+        if (identifier.isString()) {
+            object.setIdentifier(identifier.asString());
         }
 
         JsonNode pointOfContact = node.path(version == CityJSONVersion.v1_0 ? "datasetPointOfContact" : "pointOfContact");
@@ -49,17 +49,17 @@ public class MetadataAdapter implements JsonObjectBuilder<Metadata>, JsonObjectS
         }
 
         JsonNode referenceDate = node.path(version == CityJSONVersion.v1_0 ? "datasetReferenceDate" : "referenceDate");
-        if (referenceDate.isTextual()) {
+        if (referenceDate.isString()) {
             try {
-                object.setReferenceDate(LocalDate.parse(referenceDate.asText(), DateTimeFormatter.ISO_LOCAL_DATE));
+                object.setReferenceDate(LocalDate.parse(referenceDate.asString(), DateTimeFormatter.ISO_LOCAL_DATE));
             } catch (Exception e) {
                 //
             }
         }
 
         JsonNode title = node.path(version == CityJSONVersion.v1_0 ? "datasetTitle" : "title");
-        if (title.isTextual()) {
-            object.setTitle(title.asText());
+        if (title.isString()) {
+            object.setTitle(title.asString());
         }
 
         JsonNode geographicalExtent = node.path(Fields.GEOGRAPHICAL_EXTENT);
@@ -73,8 +73,8 @@ public class MetadataAdapter implements JsonObjectBuilder<Metadata>, JsonObjectS
         }
 
         JsonNode referenceSystem = node.path("referenceSystem");
-        if (referenceSystem.isTextual()) {
-            object.setReferenceSystem(ReferenceSystem.parse(referenceSystem.asText()));
+        if (referenceSystem.isString()) {
+            object.setReferenceSystem(ReferenceSystem.parse(referenceSystem.asString()));
         }
     }
 

@@ -5,12 +5,12 @@
 
 package org.citygml4j.cityjson.util.composite;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
+import tools.jackson.databind.JsonNode;
 
 import java.util.Objects;
 

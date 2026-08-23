@@ -5,7 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.model.CityJSONVersion;
@@ -17,6 +16,7 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.ade.ADEProperty;
 import org.citygml4j.core.model.core.AbstractCityObjectProperty;
 import org.citygml4j.core.model.core.CityModel;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "CityModel", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),

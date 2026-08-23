@@ -5,7 +5,6 @@
 
 package org.citygml4j.cityjson.writer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
 import org.citygml4j.cityjson.adapter.geometry.serializer.GeometrySerializer;
@@ -15,6 +14,8 @@ import org.citygml4j.cityjson.util.texture.DefaultTextureFileHandler;
 import org.citygml4j.cityjson.util.texture.TextureFileHandler;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.util.Properties;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -22,7 +23,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public class CityJSONOutputFactory {
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
     private final CityJSONContext context;
     private final Properties properties = new Properties();
 
@@ -37,9 +38,9 @@ public class CityJSONOutputFactory {
     private boolean writeGenericAttributeTypes;
     private String fallbackTheme = AppearanceSerializer.FALLBACK_THEME;
 
-    public CityJSONOutputFactory(CityJSONVersion version, ObjectMapper objectMapper, CityJSONContext context) {
+    public CityJSONOutputFactory(CityJSONVersion version, JsonMapper jsonMapper, CityJSONContext context) {
         this.version = version;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
         this.context = context;
 
         withTextureFileHandler(new DefaultTextureFileHandler());
@@ -180,8 +181,8 @@ public class CityJSONOutputFactory {
 
     public CityJSONWriter createCityJSONWriter(File file, OutputEncoding encoding) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONWriter(objectMapper.createGenerator(file, encoding.toJsonEncoding())));
-        } catch (IOException e) {
+            return initialize(new CityJSONWriter(jsonMapper.createGenerator(file, encoding.toJsonEncoding())));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
@@ -204,24 +205,24 @@ public class CityJSONOutputFactory {
 
     public CityJSONWriter createCityJSONWriter(OutputStream stream, OutputEncoding encoding) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONWriter(objectMapper.createGenerator(stream, encoding.toJsonEncoding())));
-        } catch (IOException e) {
+            return initialize(new CityJSONWriter(jsonMapper.createGenerator(stream, encoding.toJsonEncoding())));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
 
     public CityJSONWriter createCityJSONWriter(Writer writer) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONWriter(objectMapper.createGenerator(writer)));
-        } catch (IOException e) {
+            return initialize(new CityJSONWriter(jsonMapper.createGenerator(writer)));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
 
     public CityJSONWriter createCityJSONWriter(DataOutput dataOutput) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONWriter(objectMapper.createGenerator(dataOutput)));
-        } catch (IOException e) {
+            return initialize(new CityJSONWriter(jsonMapper.createGenerator(dataOutput)));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
@@ -232,8 +233,8 @@ public class CityJSONOutputFactory {
 
     public CityJSONFeatureWriter createCityJSONFeatureWriter(File file, OutputEncoding encoding) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONFeatureWriter(objectMapper.createGenerator(file, encoding.toJsonEncoding())));
-        } catch (IOException e) {
+            return initialize(new CityJSONFeatureWriter(jsonMapper.createGenerator(file, encoding.toJsonEncoding())));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
@@ -256,24 +257,24 @@ public class CityJSONOutputFactory {
 
     public CityJSONFeatureWriter createCityJSONFeatureWriter(OutputStream stream, OutputEncoding encoding) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONFeatureWriter(objectMapper.createGenerator(stream, encoding.toJsonEncoding())));
-        } catch (IOException e) {
+            return initialize(new CityJSONFeatureWriter(jsonMapper.createGenerator(stream, encoding.toJsonEncoding())));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
 
     public CityJSONFeatureWriter createCityJSONFeatureWriter(Writer writer) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONFeatureWriter(objectMapper.createGenerator(writer)));
-        } catch (IOException e) {
+            return initialize(new CityJSONFeatureWriter(jsonMapper.createGenerator(writer)));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
 
     public CityJSONFeatureWriter createCityJSONFeatureWriter(DataOutput dataOutput) throws CityJSONWriteException {
         try {
-            return initialize(new CityJSONFeatureWriter(objectMapper.createGenerator(dataOutput)));
-        } catch (IOException e) {
+            return initialize(new CityJSONFeatureWriter(jsonMapper.createGenerator(dataOutput)));
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
@@ -284,7 +285,7 @@ public class CityJSONOutputFactory {
                 CityJSONVersion.max(version, CityJSONVersion.v1_1) :
                 version;
 
-        CityJSONSerializerHelper helper = new CityJSONSerializerHelper(writer, targetVersion, objectMapper, context);
+        CityJSONSerializerHelper helper = new CityJSONSerializerHelper(writer, targetVersion, jsonMapper, context);
 
         helper.setProperties(properties);
         helper.setApplyTransformation(targetVersion != CityJSONVersion.v1_0 || applyTransformation);

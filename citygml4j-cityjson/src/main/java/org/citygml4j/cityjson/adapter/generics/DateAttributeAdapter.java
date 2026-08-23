@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.generics;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -20,6 +18,8 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.generics.DateAttribute;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.time.LocalDate;
 
@@ -37,7 +37,7 @@ public class DateAttributeAdapter extends AbstractGenericAttributeAdapter<DateAt
 
     @Override
     public void buildObject(DateAttribute object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
-        String[] items = node.asText().split("-");
+        String[] items = node.asString().split("-");
         if (items.length == 3 && items[0].length() == 4 && items[1].length() == 2 && items[2].length() == 2) {
             try {
                 object.setValue(LocalDate.of(Integer.parseInt(items[0]),

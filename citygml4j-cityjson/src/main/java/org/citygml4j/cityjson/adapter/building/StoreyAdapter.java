@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.building;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.building.BuildingUnit;
 import org.citygml4j.core.model.building.BuildingUnitProperty;
 import org.citygml4j.core.model.building.Storey;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
 
@@ -40,9 +40,9 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
     public void buildObject(Storey object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         super.buildObject(object, attributes, node, parent, helper);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             if ("BuildingUnit".equals(helper.getCityObjectType(child))) {
                 object.getBuildingUnits().add(new BuildingUnitProperty(helper.getCityObject(child, BuildingUnit.class)));
                 children.remove();

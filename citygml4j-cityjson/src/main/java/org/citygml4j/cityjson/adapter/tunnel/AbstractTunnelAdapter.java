@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.tunnel;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.construction.AbstractConstructionAdapter;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.construction.RelationToConstruction;
 import org.citygml4j.core.model.deprecated.tunnel.DeprecatedPropertiesOfAbstractTunnel;
 import org.citygml4j.core.model.tunnel.*;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -46,9 +46,9 @@ public abstract class AbstractTunnelAdapter<T extends AbstractTunnel> extends Ab
 
         helper.buildStandardObjectClassifier(object, attributes);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             switch (helper.getCityObjectType(child)) {
                 case "TunnelInstallation":
                     object.getTunnelInstallations().add(new TunnelInstallationProperty(helper.getCityObject(child, TunnelInstallation.class)));

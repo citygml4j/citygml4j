@@ -5,8 +5,8 @@
 
 package org.citygml4j.cityjson.reader;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.MissingNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.MissingNode;
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;

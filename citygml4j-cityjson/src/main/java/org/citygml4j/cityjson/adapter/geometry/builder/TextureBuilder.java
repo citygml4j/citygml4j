@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.adapter.appearance.builder.TextureVerticesBuilder;
@@ -15,6 +13,8 @@ import org.citygml4j.core.model.appearance.*;
 import org.xmlobjects.gml.model.geometry.primitives.LinearRing;
 import org.xmlobjects.gml.model.geometry.primitives.Polygon;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.address;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.model.address.AddressComponent;
@@ -19,6 +17,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.PostOffice;
 import org.xmlobjects.xal.model.types.Identifier;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Map;
 import java.util.Objects;
@@ -35,7 +35,7 @@ public class PostOfficeAdapter implements JsonObjectBuilder<PostOffice>, JsonObj
     public void buildObject(PostOffice object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         for (Map.Entry<String, JsonNode> property : node.properties()) {
             if (property.getValue().isValueNode()) {
-                Identifier identifier = new Identifier(property.getValue().asText());
+                Identifier identifier = new Identifier(property.getValue().asString());
                 object.getIdentifiers().add(identifier);
             }
         }

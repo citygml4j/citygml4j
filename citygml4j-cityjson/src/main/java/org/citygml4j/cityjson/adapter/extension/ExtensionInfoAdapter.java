@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.extension;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.reader.Attributes;
@@ -16,6 +14,8 @@ import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public class ExtensionInfoAdapter implements JsonObjectBuilder<ExtensionInfo>, JsonObjectSerializer<ExtensionInfo> {
 
@@ -27,13 +27,13 @@ public class ExtensionInfoAdapter implements JsonObjectBuilder<ExtensionInfo>, J
     @Override
     public void buildObject(ExtensionInfo object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         JsonNode url = node.path("url");
-        if (url.isTextual()) {
-            object.setSchemaLocation(url.asText());
+        if (url.isString()) {
+            object.setSchemaLocation(url.asString());
         }
 
         JsonNode version = node.path("version");
-        if (version.isTextual()) {
-            object.setVersion(version.asText());
+        if (version.isString()) {
+            object.setVersion(version.asString());
         }
     }
 

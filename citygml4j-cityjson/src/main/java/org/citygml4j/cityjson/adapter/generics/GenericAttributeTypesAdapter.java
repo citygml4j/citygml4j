@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.generics;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Map;
 
@@ -40,7 +40,7 @@ public class GenericAttributeTypesAdapter implements JsonObjectBuilder<GenericAt
     @Override
     public void buildObject(GenericAttributeTypes object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         for (Map.Entry<String, JsonNode> entry : node.properties()) {
-            GenericAttributeType type = GenericAttributeType.fromValue(entry.getValue().asText());
+            GenericAttributeType type = GenericAttributeType.fromValue(entry.getValue().asString());
             if (type != null) {
                 object.addType(entry.getKey(), type);
             }

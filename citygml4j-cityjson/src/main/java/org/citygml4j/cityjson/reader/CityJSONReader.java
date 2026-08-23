@@ -5,10 +5,6 @@
 
 package org.citygml4j.cityjson.reader;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.extension.ExtensionInfo;
@@ -24,13 +20,17 @@ import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.util.Properties;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
-import java.io.IOException;
 import java.util.*;
 
 public abstract class CityJSONReader implements AutoCloseable {
     final JsonParser reader;
-    final ObjectMapper objectMapper;
+    final JsonMapper jsonMapper;
     final CityJSONContext context;
     final ObjectNode globalScope;
     final Deque<String> topLevelObjects = new ArrayDeque<>();
@@ -49,11 +49,11 @@ public abstract class CityJSONReader implements AutoCloseable {
     IdCreator idCreator;
     Properties properties;
 
-    CityJSONReader(JsonParser reader, ObjectMapper mapper, CityJSONContext context) {
+    CityJSONReader(JsonParser reader, JsonMapper jsonMapper, CityJSONContext context) {
         this.reader = reader;
-        this.objectMapper = mapper;
+        this.jsonMapper = jsonMapper;
         this.context = context;
-        globalScope = mapper.createObjectNode();
+        globalScope = jsonMapper.createObjectNode();
     }
 
     public abstract boolean hasNext() throws CityJSONReadException;
@@ -99,7 +99,7 @@ public abstract class CityJSONReader implements AutoCloseable {
     public void close() throws CityJSONReadException {
         try {
             reader.close();
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONReadException("Caused by:", e);
         } finally {
             globalScope.removeAll();
@@ -122,7 +122,7 @@ public abstract class CityJSONReader implements AutoCloseable {
     }
 
     CityJSONBuilderHelper createHelper(ObjectNode content, CityJSONBuilderHelper previous) throws CityJSONBuildException, CityJSONReadException {
-        CityJSONBuilderHelper helper = CityJSONBuilderHelper.buildFor(this, content, globalScope, objectMapper, context);
+        CityJSONBuilderHelper helper = CityJSONBuilderHelper.buildFor(this, content, globalScope, jsonMapper, context);
         helper.setTargetCityGMLVersion(targetCityGMLVersion);
         helper.setMapUnsupportedTypesToGenerics(mapUnsupportedTypesToGenerics);
         helper.setTransformTemplateGeometries(transformTemplateGeometries);
@@ -233,7 +233,7 @@ public abstract class CityJSONReader implements AutoCloseable {
                         JsonNode parents = object.path(Fields.PARENTS);
                         if (parents.isEmpty()) {
                             iterator.remove();
-                            String type = object.path(Fields.TYPE).asText();
+                            String type = object.path(Fields.TYPE).asString();
                             if (filter == null || filter.accept(type)) {
                                 next = entry;
                                 break;

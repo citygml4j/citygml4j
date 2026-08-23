@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.transportation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -20,6 +18,8 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.transportation.*;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
 
@@ -41,12 +41,12 @@ public class RailwayAdapter extends AbstractTransportationSpaceAdapter<Railway> 
 
         helper.buildStandardObjectClassifier(object, attributes);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             ObjectNode childNode = helper.getCityObjectNode(child);
-            if ("Railway".equals(childNode.path(Fields.TYPE).asText())) {
-                String classifier = childNode.path(Fields.ATTRIBUTES).path("class").asText();
+            if ("Railway".equals(childNode.path(Fields.TYPE).asString())) {
+                String classifier = childNode.path(Fields.ATTRIBUTES).path("class").asString();
                 if ("Section".equalsIgnoreCase(classifier)) {
                     Railway section = helper.getCityObject(child, Railway.class);
                     object.getSections().add(new SectionProperty(shallowCopy(section, new Section())));

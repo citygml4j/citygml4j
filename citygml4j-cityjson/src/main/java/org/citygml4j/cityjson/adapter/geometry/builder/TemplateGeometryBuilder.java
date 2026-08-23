@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
@@ -23,6 +21,8 @@ import org.xmlobjects.gml.model.geometry.aggregates.MultiPoint;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 import org.xmlobjects.gml.util.Matrices;
 import org.xmlobjects.gml.util.matrix.Matrix;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
 
 import java.util.ArrayList;
 import java.util.List;

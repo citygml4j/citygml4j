@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.address;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.model.address.AddressComponent;
@@ -21,6 +19,8 @@ import org.xmlobjects.xal.model.Premises;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PremisesName;
 import org.xmlobjects.xal.model.types.PremisesNameOrNumber;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Map;
 import java.util.StringJoiner;
@@ -36,14 +36,14 @@ public class PremisesAdapter implements JsonObjectBuilder<Premises>, JsonObjectS
     public void buildObject(Premises object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         for (Map.Entry<String, JsonNode> property : node.path(AddressComponent.PREMISE_NAME.getPropertyName()).properties()) {
             if (property.getValue().isValueNode()) {
-                PremisesName name = new PremisesName(property.getValue().asText());
+                PremisesName name = new PremisesName(property.getValue().asString());
                 object.getNameElementOrNumber().add(new PremisesNameOrNumber(name));
             }
         }
 
         for (Map.Entry<String, JsonNode> property : node.path(AddressComponent.PREMISE_NUMBER.getPropertyName()).properties()) {
             if (property.getValue().isValueNode()) {
-                Identifier identifier = new Identifier(property.getValue().asText());
+                Identifier identifier = new Identifier(property.getValue().asString());
                 object.getNameElementOrNumber().add(new PremisesNameOrNumber(identifier));
             }
         }

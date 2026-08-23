@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.generics;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -23,6 +20,9 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.core.AbstractGenericAttribute;
 import org.citygml4j.core.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.core.model.generics.GenericAttributeSet;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Map;
 
@@ -82,7 +82,7 @@ public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<
                     ObjectNode genericAttribute = helper.getObject(property.getObject());
                     if (genericAttribute != null && !genericAttribute.isEmpty()) {
                         if (asArray) {
-                            JsonNode value = genericAttribute.get(genericAttribute.fieldNames().next());
+                            JsonNode value = genericAttribute.values().iterator().next();
                             ((ArrayNode) genericAttributeSet).add(value);
                         } else {
                             ((ObjectNode) genericAttributeSet).setAll(genericAttribute);

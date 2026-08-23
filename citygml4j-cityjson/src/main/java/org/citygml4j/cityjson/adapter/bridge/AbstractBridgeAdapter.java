@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.bridge;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.construction.AbstractConstructionAdapter;
 import org.citygml4j.cityjson.adapter.core.AddressAdapter;
@@ -25,6 +22,9 @@ import org.citygml4j.core.model.bridge.*;
 import org.citygml4j.core.model.construction.RelationToConstruction;
 import org.citygml4j.core.model.core.AddressProperty;
 import org.citygml4j.core.model.deprecated.bridge.DeprecatedPropertiesOfAbstractBridge;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -63,9 +63,9 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
             object.getAddresses().add(new AddressProperty(helper.getObjectUsingBuilder(address, AddressAdapter.class)));
         }
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             switch (helper.getCityObjectType(child)) {
                 case "BridgeInstallation":
                     object.getBridgeInstallations().add(new BridgeInstallationProperty(helper.getCityObject(child, BridgeInstallation.class)));

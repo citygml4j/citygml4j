@@ -5,11 +5,6 @@
 
 package org.citygml4j.cityjson.reader;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.TreeNode;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.core.model.appearance.Appearance;
@@ -18,8 +13,13 @@ import org.citygml4j.core.model.core.*;
 import org.xmlobjects.gml.model.feature.BoundingShape;
 import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.Envelope;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.TreeNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
-import java.io.IOException;
 import java.util.*;
 
 public class CityJSONSimpleReader extends CityJSONReader {
@@ -27,8 +27,8 @@ public class CityJSONSimpleReader extends CityJSONReader {
     private CityModel cityModel;
     private CityJSONBuilderHelper helper;
 
-    CityJSONSimpleReader(JsonParser reader, ObjectMapper mapper, CityJSONContext context) {
-        super(reader, mapper, context);
+    CityJSONSimpleReader(JsonParser reader, JsonMapper jsonMapper, CityJSONContext context) {
+        super(reader, jsonMapper, context);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CityJSONSimpleReader extends CityJSONReader {
                 cityModel = new CityModel();
 
                 TreeNode node;
-                while ((node = objectMapper.readTree(reader)) != null && node.isObject()) {
+                while ((node = jsonMapper.readTree(reader)) != null && node.isObject()) {
                     ObjectNode content = (ObjectNode) node;
                     helper = createHelper(content, helper);
 
@@ -82,7 +82,7 @@ public class CityJSONSimpleReader extends CityJSONReader {
                         }
                     }
                 }
-            } catch (CityJSONBuildException | IOException e) {
+            } catch (CityJSONBuildException | JacksonException e) {
                 throw new CityJSONReadException("Caused by:", e);
             }
         }

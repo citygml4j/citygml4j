@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.generics;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -21,6 +19,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.generics.MeasureAttribute;
 import org.xmlobjects.gml.model.basictypes.Measure;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "MeasureAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
@@ -40,8 +40,8 @@ public class MeasureAttributeAdapter extends AbstractGenericAttributeAdapter<Mea
         if (node.isObject()) {
             measure = new Measure(node.path("value").asDouble());
             JsonNode uom = node.path("uom");
-            if (uom.isTextual()) {
-                measure.setUom(uom.asText());
+            if (uom.isString()) {
+                measure.setUom(uom.asString());
             }
         } else {
             measure = new Measure(node.asDouble());

@@ -5,13 +5,13 @@
 
 package org.citygml4j.cityjson.adapter.geometry.serializer;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import org.xmlobjects.gml.visitor.GeometryWalker;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.function.BiConsumer;
 

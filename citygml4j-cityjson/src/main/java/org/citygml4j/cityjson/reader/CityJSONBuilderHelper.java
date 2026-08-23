@@ -5,10 +5,6 @@
 
 package org.citygml4j.cityjson.reader;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractFeatureAdapter;
@@ -39,6 +35,10 @@ import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.util.Properties;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.lang.ref.WeakReference;
 import java.util.*;
@@ -48,7 +48,7 @@ public class CityJSONBuilderHelper {
     private final CityJSONReader reader;
     private final CityJSONType type;
     private final CityJSONVersion version;
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
     private final CityJSONContext context;
     private final Map<Class<?>, JsonObjectBuilder<?>> builderCache = new IdentityHashMap<>();
 
@@ -65,16 +65,16 @@ public class CityJSONBuilderHelper {
     private GenericAttributeTypes genericAttributeTypes = new GenericAttributeTypes();
     private Properties properties;
 
-    private CityJSONBuilderHelper(CityJSONReader reader, CityJSONType type, CityJSONVersion version, ObjectMapper objectMapper, CityJSONContext context) {
+    private CityJSONBuilderHelper(CityJSONReader reader, CityJSONType type, CityJSONVersion version, JsonMapper jsonMapper, CityJSONContext context) {
         this.reader = reader;
         this.type = type;
         this.version = version;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
         this.context = context;
     }
 
-    static CityJSONBuilderHelper buildFor(CityJSONReader reader, ObjectNode content, ObjectNode globalScope, ObjectMapper objectMapper, CityJSONContext context) throws CityJSONBuildException {
-        CityJSONType type = CityJSONType.fromValue(content.path(Fields.TYPE).asText());
+    static CityJSONBuilderHelper buildFor(CityJSONReader reader, ObjectNode content, ObjectNode globalScope, JsonMapper jsonMapper, CityJSONContext context) throws CityJSONBuildException {
+        CityJSONType type = CityJSONType.fromValue(content.path(Fields.TYPE).asString());
         if (type == null) {
             throw new CityJSONBuildException("Expected \"" + Fields.TYPE + "\" property with one of the values: " +
                     Arrays.stream(CityJSONType.values())
@@ -95,14 +95,14 @@ public class CityJSONBuilderHelper {
             globalScope.set(Fields.APPEARANCE, content.path(Fields.APPEARANCE));
         }
 
-        CityJSONVersion version = CityJSONVersion.fromValue(globalScope.path(Fields.VERSION).asText());
+        CityJSONVersion version = CityJSONVersion.fromValue(globalScope.path(Fields.VERSION).asString());
         if (version == null) {
             throw new CityJSONBuildException(globalScope.get(Fields.VERSION) == null ?
                     "No CityJSON version found in document." :
                     "Unsupported CityJSON version " + globalScope.get(Fields.VERSION) + ".");
         }
 
-        CityJSONBuilderHelper helper = new CityJSONBuilderHelper(reader, type, version, objectMapper, context);
+        CityJSONBuilderHelper helper = new CityJSONBuilderHelper(reader, type, version, jsonMapper, context);
         helper.cityObjects = helper.getOrPutObject(Fields.CITY_OBJECTS, content);
 
         ArrayNode vertices = helper.getOrPutArray(Fields.VERTICES, content);
@@ -269,7 +269,7 @@ public class CityJSONBuilderHelper {
     }
 
     public ObjectNode createObject() {
-        return objectMapper.createObjectNode();
+        return jsonMapper.createObjectNode();
     }
 
     public ObjectNode getOrPutObject(String propertyName, ObjectNode node) {
@@ -280,7 +280,7 @@ public class CityJSONBuilderHelper {
     }
 
     public ArrayNode createArray() {
-        return objectMapper.createArrayNode();
+        return jsonMapper.createArrayNode();
     }
 
     public ArrayNode getOrPutArray(String propertyName, ObjectNode node) {
@@ -308,10 +308,10 @@ public class CityJSONBuilderHelper {
                 } else {
                     type = GenericAttributeType.DOUBLE_ATTRIBUTE;
                 }
-            } else if (node.isTextual()) {
-                if (GenericAttributeTypeParser.isLocalDate(node.asText())) {
+            } else if (node.isString()) {
+                if (GenericAttributeTypeParser.isLocalDate(node.asString())) {
                     type = GenericAttributeType.DATE_ATTRIBUTE;
-                } else if (GenericAttributeTypeParser.isUri(node.asText())) {
+                } else if (GenericAttributeTypeParser.isUri(node.asString())) {
                     type = GenericAttributeType.URI_ATTRIBUTE;
                 } else {
                     type = GenericAttributeType.STRING_ATTRIBUTE;
@@ -321,9 +321,9 @@ public class CityJSONBuilderHelper {
             } else if (node.isObject()) {
                 JsonNode value = node.get("value");
                 if (value != null) {
-                    if (value.isNumber() && node.path("uom").isTextual()) {
+                    if (value.isNumber() && node.path("uom").isString()) {
                         type = GenericAttributeType.MEASURE_ATTRIBUTE;
-                    } else if (value.isTextual() && node.path("codeSpace").isTextual()) {
+                    } else if (value.isString() && node.path("codeSpace").isString()) {
                         type = GenericAttributeType.CODE_ATTRIBUTE;
                     } else {
                         return getGenericAttribute(name, value);
@@ -379,18 +379,18 @@ public class CityJSONBuilderHelper {
 
     public void buildStandardObjectClassifier(StandardObjectClassifier object, Attributes attributes) {
         JsonNode classifier = attributes.consume("class");
-        if (classifier.isTextual()) {
-            object.setClassifier(new Code(classifier.asText()));
+        if (classifier.isString()) {
+            object.setClassifier(new Code(classifier.asString()));
         }
 
         JsonNode function = attributes.consume("function");
-        if (function.isTextual()) {
-            object.getFunctions().add(new Code(function.asText()));
+        if (function.isString()) {
+            object.getFunctions().add(new Code(function.asString()));
         }
 
         JsonNode usage = attributes.consume("usage");
-        if (usage.isTextual()) {
-            object.getUsages().add(new Code(usage.asText()));
+        if (usage.isString()) {
+            object.getUsages().add(new Code(usage.asString()));
         }
     }
 
@@ -404,7 +404,7 @@ public class CityJSONBuilderHelper {
     }
 
     public String getCityObjectType(String identifier) {
-        return cityObjects.path(identifier).path(Fields.TYPE).asText();
+        return cityObjects.path(identifier).path(Fields.TYPE).asString();
     }
 
     public AbstractFeature getCityObject(String identifier) throws CityJSONBuildException, CityJSONReadException {
@@ -421,7 +421,7 @@ public class CityJSONBuilderHelper {
     }
 
     public <T> T getObject(JsonNode node, Class<T> type) throws CityJSONBuildException, CityJSONReadException {
-        return node != null ? getObject(node.path(Fields.TYPE).asText(), node, type) : null;
+        return node != null ? getObject(node.path(Fields.TYPE).asString(), node, type) : null;
     }
 
     public <T> T getObject(String name, JsonNode node, Class<T> type) throws CityJSONBuildException, CityJSONReadException {
@@ -468,7 +468,7 @@ public class CityJSONBuilderHelper {
             }
 
             parent = new WeakReference<>(object);
-            boolean isObject = node.isObject() && node.path(Fields.TYPE).isTextual();
+            boolean isObject = node.isObject() && node.path(Fields.TYPE).isString();
             boolean isCityObject = isObject && builder instanceof AbstractFeatureAdapter;
             boolean isSemanticObject = isObject && builder instanceof AbstractSemanticObjectAdapter;
 
@@ -528,10 +528,10 @@ public class CityJSONBuilderHelper {
 
     private void processChildren(JsonNode node) throws CityJSONBuildException, CityJSONReadException {
         for (JsonNode child : node.path(Fields.CHILDREN)) {
-            String type = getCityObjectType(child.asText());
+            String type = getCityObjectType(child.asString());
             JsonObjectBuilder<?> childBuilder = context.getBuilder(type, version);
             if (childBuilder != null) {
-                processObject(getCityObjectNode(child.asText()), childBuilder);
+                processObject(getCityObjectNode(child.asString()), childBuilder);
             }
         }
     }
@@ -555,14 +555,14 @@ public class CityJSONBuilderHelper {
         JsonNode children = parent.path(Fields.CHILDREN);
         if (children.isArray()) {
             for (JsonNode element : children) {
-                String childId = element.asText();
+                String childId = element.asString();
                 if (!retain.contains(childId)) {
                     JsonNode child = cityObjects.path(childId);
                     JsonNode parents = child.path(Fields.PARENTS);
                     if (parents.size() > 1) {
-                        Iterator<JsonNode> iter = parents.elements();
+                        Iterator<JsonNode> iter = parents.values().iterator();
                         while (iter.hasNext()) {
-                            if (parentId.equals(iter.next().asText())) {
+                            if (parentId.equals(iter.next().asString())) {
                                 iter.remove();
                                 break;
                             }

@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.waterbody;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -21,6 +19,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.waterbody.WaterSurface;
 import org.xmlobjects.gml.model.basictypes.Code;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "WaterSurface", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
@@ -39,8 +39,8 @@ public class WaterSurfaceAdapter extends AbstractThematicSurfaceAdapter<WaterSur
         super.buildObject(object, attributes, node, parent, helper);
 
         JsonNode waterLevel = attributes.consume("waterLevel");
-        if (waterLevel.isTextual()) {
-            object.setWaterLevel(new Code(waterLevel.asText()));
+        if (waterLevel.isString()) {
+            object.setWaterLevel(new Code(waterLevel.asString()));
         }
     }
 

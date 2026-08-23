@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.transportation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -21,6 +19,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.transportation.Marking;
 import org.xmlobjects.gml.model.basictypes.Code;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "TransportationMarking", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
@@ -38,8 +38,8 @@ public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
         super.buildObject(object, attributes, node, parent, helper);
 
         JsonNode classifier = attributes.consume("class");
-        if (classifier.isTextual()) {
-            object.setClassifier(new Code(classifier.asText()));
+        if (classifier.isString()) {
+            object.setClassifier(new Code(classifier.asString()));
         }
     }
 

@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.model.CityJSONType;
@@ -22,6 +20,8 @@ import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.cityobjectgroup.Role;
 import org.citygml4j.core.model.core.*;
 import org.citygml4j.core.util.reference.Referees;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> extends AbstractFeatureWithLifespanAdapter<T> {
 
@@ -30,13 +30,13 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
         super.buildObject(object, attributes, node, parent, helper);
 
         JsonNode relativeToTerrain = attributes.consume("relativeToTerrain");
-        if (relativeToTerrain.isTextual()) {
-            object.setRelativeToTerrain(RelativeToTerrain.fromValue(relativeToTerrain.asText()));
+        if (relativeToTerrain.isString()) {
+            object.setRelativeToTerrain(RelativeToTerrain.fromValue(relativeToTerrain.asString()));
         }
 
         JsonNode relativeToWater = attributes.consume("relativeToWater");
-        if (relativeToWater.isTextual()) {
-            object.setRelativeToWater(RelativeToWater.fromValue(relativeToWater.asText()));
+        if (relativeToWater.isString()) {
+            object.setRelativeToWater(RelativeToWater.fromValue(relativeToWater.asString()));
         }
     }
 

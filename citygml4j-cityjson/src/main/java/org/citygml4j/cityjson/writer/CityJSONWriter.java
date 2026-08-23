@@ -5,17 +5,16 @@
 
 package org.citygml4j.cityjson.writer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.PrettyPrinter;
-import com.fasterxml.jackson.core.util.DefaultIndenter;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
-
-import java.io.IOException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.PrettyPrinter;
+import tools.jackson.core.util.DefaultIndenter;
+import tools.jackson.core.util.DefaultPrettyPrinter;
+import tools.jackson.databind.node.ObjectNode;
 
 public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     private String indent;
@@ -48,12 +47,12 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
         super.writeStartDocument(feature);
         try {
             writer.writeStartObject();
-            writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
-            writer.writeStringField(Fields.VERSION, helper.getVersion().toValue());
-            writer.writeObjectFieldStart(Fields.CITY_OBJECTS);
+            writer.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
+            writer.writeStringProperty(Fields.VERSION, helper.getVersion().toValue());
+            writer.writeObjectPropertyStart(Fields.CITY_OBJECTS);
 
             getAndSetReferenceSystem(feature);
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             state = State.DOCUMENT_STARTED;
@@ -64,8 +63,9 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     @Override
     void writeCityObject(String id, ObjectNode node) throws CityJSONWriteException {
         try {
-            writer.writeObjectField(id, node);
-        } catch (IOException e) {
+            writer.writeName(id);
+            writer.writeTree(node);
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
@@ -93,7 +93,7 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
             writeTemplates();
             writeExtraRootProperties();
             writer.writeEndObject();
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }

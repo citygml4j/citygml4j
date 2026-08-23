@@ -5,11 +5,11 @@
 
 package org.citygml4j.cityjson.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.atteo.classindex.IndexSubclasses;
 import org.citygml4j.cityjson.reader.Attributes;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.cityjson.reader.CityJSONReadException;
+import tools.jackson.databind.JsonNode;
 
 @IndexSubclasses
 public interface JsonObjectBuilder<T> {

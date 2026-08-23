@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.bridge;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.bridge.Bridge;
 import org.citygml4j.core.model.bridge.BridgePart;
 import org.citygml4j.core.model.bridge.BridgePartProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
 
@@ -41,9 +41,9 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
     public void buildObject(Bridge object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         super.buildObject(object, attributes, node, parent, helper);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             if ("BridgePart".equals(helper.getCityObjectType(child))) {
                 object.getBridgeParts().add(new BridgePartProperty(helper.getCityObject(child, BridgePart.class)));
                 children.remove();

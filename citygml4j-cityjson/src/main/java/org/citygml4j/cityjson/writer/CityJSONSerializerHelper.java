@@ -5,11 +5,6 @@
 
 package org.citygml4j.cityjson.writer;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.NullNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
@@ -39,6 +34,11 @@ import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.model.Child;
 import org.xmlobjects.util.Properties;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.NullNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.*;
 
@@ -49,7 +49,7 @@ public class CityJSONSerializerHelper {
     private final AbstractCityJSONWriter<?> writer;
     private final CityJSONType type;
     private final CityJSONVersion version;
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
     private final CityJSONContext context;
     private final GeometrySerializer geometrySerializer;
     private final AppearanceSerializer appearanceSerializer;
@@ -64,10 +64,10 @@ public class CityJSONSerializerHelper {
     private ObjectNode extraRootProperties;
     private Properties properties;
 
-    CityJSONSerializerHelper(AbstractCityJSONWriter<?> writer, CityJSONVersion version, ObjectMapper objectMapper, CityJSONContext context) {
+    CityJSONSerializerHelper(AbstractCityJSONWriter<?> writer, CityJSONVersion version, JsonMapper jsonMapper, CityJSONContext context) {
         this.writer = writer;
         this.version = version;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
         this.context = context;
 
         type = writer instanceof CityJSONFeatureWriter ? CityJSONType.CITYJSON_FEATURE : CityJSONType.CITYJSON;
@@ -218,7 +218,7 @@ public class CityJSONSerializerHelper {
     }
 
     public ObjectNode createObject() {
-        return objectMapper.createObjectNode();
+        return jsonMapper.createObjectNode();
     }
 
     public ObjectNode getOrPutObject(String propertyName, ObjectNode node) {
@@ -229,7 +229,7 @@ public class CityJSONSerializerHelper {
     }
 
     public ArrayNode createArray() {
-        return objectMapper.createArrayNode();
+        return jsonMapper.createArrayNode();
     }
 
     public ArrayNode getOrPutArray(String propertyName, ObjectNode node) {
@@ -394,7 +394,7 @@ public class CityJSONSerializerHelper {
     }
 
     public <T> ObjectNode getObjectUsingSerializer(T object, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
-        return getObjectUsingSerializer(object, objectMapper.createObjectNode(), serializer);
+        return getObjectUsingSerializer(object, jsonMapper.createObjectNode(), serializer);
     }
 
     private <T> ObjectNode getObjectUsingSerializer(T object, ObjectNode node, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
@@ -499,7 +499,7 @@ public class CityJSONSerializerHelper {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private <T extends AbstractFeature> ObjectNode getCityObjectUsingSerializer(T object, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
-        ObjectNode node = objectMapper.createObjectNode();
+        ObjectNode node = jsonMapper.createObjectNode();
         node.set(Fields.TYPE, NullNode.getInstance());
         node.set(Fields.GEOGRAPHICAL_EXTENT, createArray());
         node.set(Fields.ATTRIBUTES, createObject());

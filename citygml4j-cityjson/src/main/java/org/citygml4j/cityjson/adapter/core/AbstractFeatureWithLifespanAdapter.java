@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.model.CityJSONVersion;
@@ -17,6 +15,8 @@ import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.core.AbstractFeatureWithLifespan;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.time.OffsetDateTime;
 import java.time.chrono.IsoChronology;
@@ -34,23 +34,23 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
         super.buildObject(object, attributes, node, parent, helper);
 
         JsonNode creationDate = attributes.consume("creationDate");
-        if (creationDate.isTextual()) {
-            object.setCreationDate(toOffsetDateTime(creationDate.asText()));
+        if (creationDate.isString()) {
+            object.setCreationDate(toOffsetDateTime(creationDate.asString()));
         }
 
         JsonNode terminationDate = attributes.consume("terminationDate");
-        if (terminationDate.isTextual()) {
-            object.setTerminationDate(toOffsetDateTime(terminationDate.asText()));
+        if (terminationDate.isString()) {
+            object.setTerminationDate(toOffsetDateTime(terminationDate.asString()));
         }
 
         JsonNode validFrom = attributes.consume("validFrom");
-        if (validFrom.isTextual()) {
-            object.setValidFrom(toOffsetDateTime(validFrom.asText()));
+        if (validFrom.isString()) {
+            object.setValidFrom(toOffsetDateTime(validFrom.asString()));
         }
 
         JsonNode validTo = attributes.consume("validTo");
-        if (validTo.isTextual()) {
-            object.setValidTo(toOffsetDateTime(validTo.asText()));
+        if (validTo.isString()) {
+            object.setValidTo(toOffsetDateTime(validTo.asString()));
         }
     }
 

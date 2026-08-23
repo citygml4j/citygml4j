@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.address;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.model.address.AddressComponent;
@@ -20,6 +18,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.PostalDeliveryPoint;
 import org.xmlobjects.xal.model.types.Identifier;
 import org.xmlobjects.xal.model.types.PostalDeliveryPointType;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -42,7 +42,7 @@ public class PostalDeliveryPointAdapter implements JsonObjectBuilder<PostalDeliv
         int size = node.size();
         for (Map.Entry<String, JsonNode> property : node.properties()) {
             if (property.getValue().isValueNode()) {
-                Identifier identifier = new Identifier(property.getValue().asText());
+                Identifier identifier = new Identifier(property.getValue().asString());
                 object.getIdentifiers().add(identifier);
                 if (size == 1) {
                     PostalDeliveryPointType type = types.get(property.getKey().toLowerCase(Locale.ROOT));

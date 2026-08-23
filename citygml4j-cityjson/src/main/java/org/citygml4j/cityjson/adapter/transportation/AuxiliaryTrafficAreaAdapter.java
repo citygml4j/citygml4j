@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.transportation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.core.AbstractThematicSurfaceAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -21,6 +19,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.transportation.AuxiliaryTrafficArea;
 import org.xmlobjects.gml.model.basictypes.Code;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "AuxiliaryTrafficArea", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
@@ -41,8 +41,8 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
         helper.buildStandardObjectClassifier(object, attributes);
 
         JsonNode surfaceMaterial = attributes.consume("surfaceMaterial");
-        if (surfaceMaterial.isTextual()) {
-            object.setSurfaceMaterial(new Code(surfaceMaterial.asText()));
+        if (surfaceMaterial.isString()) {
+            object.setSurfaceMaterial(new Code(surfaceMaterial.asString()));
         }
     }
 

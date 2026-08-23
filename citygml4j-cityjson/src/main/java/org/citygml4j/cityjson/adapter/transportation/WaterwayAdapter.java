@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.transportation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -21,6 +19,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.transportation.*;
 import org.xmlobjects.gml.model.basictypes.Code;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
 
@@ -41,12 +41,12 @@ public class WaterwayAdapter extends AbstractTransportationSpaceAdapter<Waterway
 
         helper.buildStandardObjectClassifier(object, attributes);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             ObjectNode childNode = helper.getCityObjectNode(child);
-            if ("Waterway".equals(childNode.path(Fields.TYPE).asText())) {
-                String classifier = childNode.path(Fields.ATTRIBUTES).path("class").asText();
+            if ("Waterway".equals(childNode.path(Fields.TYPE).asString())) {
+                String classifier = childNode.path(Fields.ATTRIBUTES).path("class").asString();
                 if ("Section".equalsIgnoreCase(classifier)) {
                     Waterway section = helper.getCityObject(child, Waterway.class);
                     object.getSections().add(new SectionProperty(shallowCopy(section, new Section())));

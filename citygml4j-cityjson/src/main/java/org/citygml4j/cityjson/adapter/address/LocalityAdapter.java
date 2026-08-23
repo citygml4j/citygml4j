@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.address;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
 import org.citygml4j.cityjson.model.address.AddressComponent;
@@ -19,6 +17,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.xmlobjects.xal.model.Locality;
 import org.xmlobjects.xal.model.types.LocalityName;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Map;
 import java.util.Objects;
@@ -35,7 +35,7 @@ public class LocalityAdapter implements JsonObjectBuilder<Locality>, JsonObjectS
     public void buildObject(Locality object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         for (Map.Entry<String, JsonNode> property : node.properties()) {
             if (property.getValue().isValueNode()) {
-                LocalityName name = new LocalityName(property.getValue().asText());
+                LocalityName name = new LocalityName(property.getValue().asString());
                 object.getNameElements().add(name);
             }
         }

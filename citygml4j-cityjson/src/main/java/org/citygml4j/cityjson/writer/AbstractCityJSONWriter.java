@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.writer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.ExtensionLoader;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
@@ -31,8 +28,11 @@ import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.ADEOfCityModel;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.AbstractGeometry;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -152,7 +152,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     public void flush() throws CityJSONWriteException {
         try {
             writer.flush();
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
@@ -161,7 +161,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     public void close() throws CityJSONWriteException {
         try {
             writer.close();
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             helper.reset();
@@ -169,7 +169,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
     }
 
-    void writeVertices(boolean writeTransform) throws IOException {
+    void writeVertices(boolean writeTransform) {
         GeometrySerializer geometrySerializer = helper.getGeometrySerializer();
         ArrayBuffer<Vertex> vertices = geometrySerializer.getVerticesBuilder().build();
         if (!vertices.isEmpty()) {
@@ -192,23 +192,23 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 writeTransform(new Transform());
             }
 
-            writer.writeArrayFieldStart(Fields.VERTICES);
+            writer.writeArrayPropertyStart(Fields.VERTICES);
             writer.writeEndArray();
         }
     }
 
-    void writeTransform(Transform transform) throws IOException {
+    void writeTransform(Transform transform) {
         Vertex scale = transform.getScale();
         Vertex translate = transform.getTranslate();
 
-        writer.writeObjectFieldStart(Fields.TRANSFORM);
-        writer.writeArrayFieldStart(Fields.SCALE);
+        writer.writeObjectPropertyStart(Fields.TRANSFORM);
+        writer.writeArrayPropertyStart(Fields.SCALE);
         writer.writeNumber(scale.getX());
         writer.writeNumber(scale.getY());
         writer.writeNumber(scale.getZ());
         writer.writeEndArray();
 
-        writer.writeArrayFieldStart(Fields.TRANSLATE);
+        writer.writeArrayPropertyStart(Fields.TRANSLATE);
         writer.writeNumber(translate.getX());
         writer.writeNumber(translate.getY());
         writer.writeNumber(translate.getZ());
@@ -216,21 +216,23 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         writer.writeEndObject();
     }
 
-    void writeExtensions() throws CityJSONWriteException, IOException {
+    void writeExtensions() throws CityJSONWriteException {
         ExtensionLoader loader = ADERegistry.getInstance().getADELoader(ExtensionLoader.class);
         if (loader.hasExtensions() || helper.hasExtensions()) {
             try {
-                writer.writeObjectFieldStart(Fields.EXTENSIONS);
+                writer.writeObjectPropertyStart(Fields.EXTENSIONS);
                 for (Extension extension : loader.getExtensions()) {
                     ObjectNode node = helper.getObjectUsingSerializer(ExtensionInfo.of(extension), ExtensionInfoAdapter.class);
                     if (node != null) {
-                        writer.writeObjectField(extension.getName(), node);
+                        writer.writeName(extension.getName());
+                        writer.writeTree(node);
                     }
                 }
 
                 for (Map.Entry<String, ObjectNode> entry : helper.getExternalExtensions().entrySet()) {
                     if (loader.getExtension(entry.getKey()) == null) {
-                        writer.writeObjectField(entry.getKey(), entry.getValue());
+                        writer.writeName(entry.getKey());
+                        writer.writeTree(entry.getValue());
                     }
                 }
 
@@ -241,12 +243,13 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
     }
 
-    void writeMetadata() throws CityJSONWriteException, IOException {
+    void writeMetadata() throws CityJSONWriteException {
         if (helper.hasMetadata()) {
             try {
                 ObjectNode metadata = helper.getObjectUsingSerializer(helper.getMetadata(), MetadataAdapter.class);
                 if (!metadata.isEmpty()) {
-                    writer.writeObjectField(Fields.METADATA, metadata);
+                    writer.writeName(Fields.METADATA);
+                    writer.writeTree(metadata);
                 }
             } catch (CityJSONSerializeException e) {
                 throw new CityJSONWriteException("Failed to serialize the metadata property.", e);
@@ -254,10 +257,10 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
     }
 
-    void writeAppearance() throws IOException {
+    void writeAppearance() {
         AppearanceSerializer appearanceSerializer = helper.getAppearanceSerializer();
         if (appearanceSerializer.hasMaterials() || appearanceSerializer.hasTextures()) {
-            writer.writeObjectFieldStart(Fields.APPEARANCE);
+            writer.writeObjectPropertyStart(Fields.APPEARANCE);
 
             if (appearanceSerializer.hasMaterials()) {
                 writeAsArray(Fields.MATERIALS, appearanceSerializer.getMaterials());
@@ -267,7 +270,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 writeAsArray(Fields.TEXTURES, appearanceSerializer.getTextures());
                 ArrayBuffer<TextureVertex> textureVertices = appearanceSerializer.getTextureVerticesBuilder().build();
                 if (!textureVertices.isEmpty()) {
-                    writer.writeArrayFieldStart(Fields.VERTICES_TEXTURE);
+                    writer.writeArrayPropertyStart(Fields.VERTICES_TEXTURE);
                     for (TextureVertex textureVertex : textureVertices) {
                         writer.writeStartArray();
                         writer.writeNumber(textureVertex.getS());
@@ -283,17 +286,17 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
     }
 
-    void writeTemplates() throws IOException {
+    void writeTemplates() {
         GeometrySerializer geometrySerializer = helper.getGeometrySerializer();
         if (geometrySerializer.hasTemplates()) {
-            writer.writeObjectFieldStart(Fields.GEOMETRY_TEMPLATES);
+            writer.writeObjectPropertyStart(Fields.GEOMETRY_TEMPLATES);
             writeAsArray(Fields.TEMPLATES, geometrySerializer.getTemplates());
             writeVertices(Fields.VERTICES_TEMPLATES, geometrySerializer.getTemplatesVerticesBuilder().build());
             writer.writeEndObject();
         }
     }
 
-    void writeExtraRootProperties() throws IOException {
+    void writeExtraRootProperties() {
         if (helper.isWriteGenericAttributeTypes()) {
             try {
                 helper.addExtraRootProperty(helper.getProperties().get(GenericAttributeTypes.class.getName(), ADEOfCityModel.class));
@@ -304,22 +307,23 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
         if (helper.hasExtraRootProperties()) {
             for (Map.Entry<String, JsonNode> entry : helper.getExtraRootProperties().properties()) {
-                writer.writeObjectField(entry.getKey(), entry.getValue());
+                writer.writeName(entry.getKey());
+                writer.writeTree(entry.getValue());
             }
         }
     }
 
-    void writeAsArray(String propertyName, Iterator<ObjectNode> iterator) throws IOException {
-        writer.writeArrayFieldStart(propertyName);
+    void writeAsArray(String propertyName, Iterator<ObjectNode> iterator) {
+        writer.writeArrayPropertyStart(propertyName);
         while (iterator.hasNext()) {
-            writer.writeObject(iterator.next());
+            writer.writeTree(iterator.next());
         }
 
         writer.writeEndArray();
     }
 
-    void writeVertices(String propertyName, ArrayBuffer<Vertex> vertices) throws IOException {
-        writer.writeArrayFieldStart(propertyName);
+    void writeVertices(String propertyName, ArrayBuffer<Vertex> vertices) {
+        writer.writeArrayPropertyStart(propertyName);
         for (Vertex vertex : vertices) {
             writer.writeStartArray();
             writer.writeNumber(vertex.getX());
@@ -331,8 +335,8 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         writer.writeEndArray();
     }
 
-    void writeTransformedVertices(String propertyName, ArrayBuffer<Vertex> vertices) throws IOException {
-        writer.writeArrayFieldStart(propertyName);
+    void writeTransformedVertices(String propertyName, ArrayBuffer<Vertex> vertices) {
+        writer.writeArrayPropertyStart(propertyName);
         for (Vertex vertex : vertices) {
             writer.writeStartArray();
             writer.writeNumber((long) vertex.getX());

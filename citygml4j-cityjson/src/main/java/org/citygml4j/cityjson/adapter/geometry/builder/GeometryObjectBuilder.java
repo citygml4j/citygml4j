@@ -5,10 +5,10 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.util.BoundaryFilter;
 import org.citygml4j.core.model.core.AbstractFeature;
+import tools.jackson.databind.JsonNode;
 
 public abstract class GeometryObjectBuilder {
     final AbstractFeature object;

@@ -5,7 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
@@ -22,6 +21,7 @@ import org.xmlobjects.gml.model.geometry.primitives.Shell;
 import org.xmlobjects.gml.model.geometry.primitives.Solid;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import tools.jackson.databind.JsonNode;
 
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +96,7 @@ public class SpaceGeometryBuilder {
                         space.setLod1Solid(new SolidProperty(solid));
                     }
                 } else {
-                    space.setMultiSurface(lod, new MultiSurfaceProperty((MultiSurface) geometry));
+                    space.setMultiSurface(lod, new MultiSurfaceProperty(multiSurface));
                 }
             }
         } else if (geometry instanceof MultiCurve multiCurve) {

@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.vegetation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -22,6 +20,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.vegetation.SolitaryVegetationObject;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.measures.Length;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "SolitaryVegetationObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
@@ -42,8 +42,8 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
         helper.buildStandardObjectClassifier(object, attributes);
 
         JsonNode species = attributes.consume("species");
-        if (species.isTextual()) {
-            object.setSpecies(new Code(species.asText()));
+        if (species.isString()) {
+            object.setSpecies(new Code(species.asString()));
         }
 
         JsonNode height = attributes.consume("height");

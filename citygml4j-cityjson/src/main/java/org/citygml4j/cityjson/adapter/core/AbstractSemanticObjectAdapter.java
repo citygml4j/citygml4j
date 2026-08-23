@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
@@ -27,30 +25,32 @@ import org.citygml4j.core.model.core.AbstractSpaceBoundaryProperty;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.CodeWithAuthority;
 import org.xmlobjects.gml.model.deprecated.StringOrRef;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBoundary> implements JsonObjectBuilder<T>, JsonObjectSerializer<T> {
 
     @Override
     public void buildObject(T object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         JsonNode id = attributes.consume("id");
-        if (id.isTextual()) {
-            object.setId(id.asText());
+        if (id.isString()) {
+            object.setId(id.asString());
         }
 
         JsonNode identifier = attributes.consume("identifier");
-        if (identifier.isTextual()) {
-            object.setIdentifier(new CodeWithAuthority(identifier.asText(),
+        if (identifier.isString()) {
+            object.setIdentifier(new CodeWithAuthority(identifier.asString(),
                     helper.getProperties().getOrDefault(CityJSONConstants.IDENTIFIER_CODE_SPACE, String.class, () -> "")));
         }
 
         JsonNode description = attributes.consume("description");
-        if (description.isTextual()) {
-            object.setDescription(new StringOrRef(description.asText()));
+        if (description.isString()) {
+            object.setDescription(new StringOrRef(description.asString()));
         }
 
         JsonNode name = attributes.consume("name");
-        if (name.isTextual()) {
-            object.getNames().add(new Code(name.asText()));
+        if (name.isString()) {
+            object.getNames().add(new Code(name.asString()));
         }
     }
 

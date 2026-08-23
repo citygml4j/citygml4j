@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.generics;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
@@ -23,6 +21,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.core.AbstractGenericAttributeProperty;
 import org.citygml4j.core.model.generics.GenericOccupiedSpace;
 import org.citygml4j.core.model.generics.StringAttribute;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "GenericCityObject", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
@@ -43,7 +43,7 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
         helper.buildStandardObjectClassifier(object, attributes);
 
         if (helper.isMapUnsupportedTypesToGenerics()) {
-            String type = node.path(Fields.TYPE).asText();
+            String type = node.path(Fields.TYPE).asString();
             if ((helper.getVersion() == CityJSONVersion.v1_1 && !type.equals("+GenericCityObject"))
                     || !type.equals("GenericCityObject")) {
                 if (type.startsWith("+")) {

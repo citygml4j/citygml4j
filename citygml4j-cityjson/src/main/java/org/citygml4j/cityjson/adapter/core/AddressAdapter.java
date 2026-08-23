@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.core;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.address.*;
 import org.citygml4j.cityjson.adapter.geometry.builder.GeometryObject;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -24,6 +22,8 @@ import org.citygml4j.core.model.core.Address;
 import org.citygml4j.core.model.core.XALAddressProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPoint;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.HashMap;

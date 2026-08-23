@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.tunnel;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractUnoccupiedSpaceAdapter;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
@@ -24,6 +22,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.deprecated.tunnel.DeprecatedPropertiesOfHollowSpace;
 import org.citygml4j.core.model.tunnel.*;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -48,9 +48,9 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
 
         helper.buildStandardObjectClassifier(object, attributes);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             switch (helper.getCityObjectType(child)) {
                 case "TunnelInstallation":
                     object.getTunnelInstallations().add(new TunnelInstallationProperty(helper.getCityObject(child, TunnelInstallation.class)));

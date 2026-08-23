@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.atteo.classindex.ClassIndex;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -21,6 +18,9 @@ import org.citygml4j.cityjson.writer.CityJSONOutputFactory;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.core.ade.ADEException;
 import org.citygml4j.core.ade.ADERegistry;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class CityJSONContext {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final JsonMapper jsonMapper = JsonMapper.builder().build();
     private final Map<String, Map<CityJSONVersion, BuilderInfo>> builders = new ConcurrentHashMap<>();
     private final Map<String, Map<CityJSONVersion, SerializerInfo>> serializers = new ConcurrentHashMap<>();
 
@@ -64,11 +64,11 @@ public class CityJSONContext {
     }
 
     public CityJSONInputFactory createCityJSONInputFactory() {
-        return new CityJSONInputFactory(objectMapper, this);
+        return new CityJSONInputFactory(jsonMapper, this);
     }
 
     public CityJSONOutputFactory createCityJSONOutputFactory(CityJSONVersion version) {
-        return new CityJSONOutputFactory(version, objectMapper, this);
+        return new CityJSONOutputFactory(version, jsonMapper, this);
     }
 
     public CityJSONOutputFactory createCityJSONOutputFactory() {

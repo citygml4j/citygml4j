@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.construction;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -19,6 +17,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.construction.*;
 import org.xmlobjects.gml.model.measures.Length;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.time.LocalDate;
 import java.time.chrono.IsoChronology;
@@ -38,15 +38,15 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
         CityJSONVersion version = helper.getVersion();
 
         JsonNode conditionOfConstruction = attributes.consume("conditionOfConstruction");
-        if (conditionOfConstruction.isTextual()) {
-            object.setConditionOfConstruction(ConditionOfConstructionValue.fromValue(conditionOfConstruction.asText()));
+        if (conditionOfConstruction.isString()) {
+            object.setConditionOfConstruction(ConditionOfConstructionValue.fromValue(conditionOfConstruction.asString()));
         }
 
         JsonNode dateOfConstruction = attributes.consume(version == CityJSONVersion.v1_0 ?
                 "yearOfConstruction" :
                 "dateOfConstruction");
-        if (dateOfConstruction.isTextual()) {
-            object.setDateOfConstruction(toLocalDate(dateOfConstruction.asText()));
+        if (dateOfConstruction.isString()) {
+            object.setDateOfConstruction(toLocalDate(dateOfConstruction.asString()));
         } else if (dateOfConstruction.isInt()) {
             object.setDateOfConstruction(toLocalDate(dateOfConstruction.asInt()));
         }
@@ -54,8 +54,8 @@ public abstract class AbstractConstructionAdapter<T extends AbstractConstruction
         JsonNode dateOfDemolition = attributes.consume(version == CityJSONVersion.v1_0 ?
                 "yearOfDemolition" :
                 "dateOfDemolition");
-        if (dateOfDemolition.isTextual()) {
-            object.setDateOfDemolition(toLocalDate(dateOfDemolition.asText()));
+        if (dateOfDemolition.isString()) {
+            object.setDateOfDemolition(toLocalDate(dateOfDemolition.asString()));
         } else if (dateOfDemolition.isInt()) {
             object.setDateOfDemolition(toLocalDate(dateOfDemolition.asInt()));
         }

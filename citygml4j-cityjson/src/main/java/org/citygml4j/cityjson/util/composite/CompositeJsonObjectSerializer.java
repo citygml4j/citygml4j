@@ -5,11 +5,11 @@
 
 package org.citygml4j.cityjson.util.composite;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Objects;
 

@@ -5,13 +5,13 @@
 
 package org.citygml4j.cityjson.adapter.appearance.builder;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.ParameterizedTextureAdapter;
 import org.citygml4j.cityjson.adapter.appearance.X3DMaterialAdapter;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
 import org.citygml4j.core.model.appearance.*;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public class AppearanceBuilder {
     private final CityJSONBuilderHelper helper;

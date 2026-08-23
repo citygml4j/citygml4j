@@ -5,7 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.appearance.serializer;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.appearance.ParameterizedTextureAdapter;
 import org.citygml4j.cityjson.adapter.appearance.X3DMaterialAdapter;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
@@ -13,6 +12,7 @@ import org.citygml4j.core.model.appearance.AbstractSurfaceData;
 import org.citygml4j.core.model.appearance.Appearance;
 import org.citygml4j.core.model.appearance.ParameterizedTexture;
 import org.citygml4j.core.model.appearance.X3DMaterial;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.*;
 

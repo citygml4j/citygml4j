@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.construction;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractOccupiedSpaceAdapter;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -18,6 +16,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.construction.AbstractInstallation;
 import org.citygml4j.core.model.construction.RelationToConstruction;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public abstract class AbstractInstallationAdapter<T extends AbstractInstallation> extends AbstractOccupiedSpaceAdapter<T> {
 
@@ -26,8 +26,8 @@ public abstract class AbstractInstallationAdapter<T extends AbstractInstallation
         super.buildObject(object, attributes, node, parent, helper);
 
         JsonNode relationToConstruction = attributes.consume("relationToConstruction");
-        if (relationToConstruction.isTextual()) {
-            object.setRelationToConstruction(RelationToConstruction.fromValue(relationToConstruction.asText()));
+        if (relationToConstruction.isString()) {
+            object.setRelationToConstruction(RelationToConstruction.fromValue(relationToConstruction.asString()));
         }
     }
 

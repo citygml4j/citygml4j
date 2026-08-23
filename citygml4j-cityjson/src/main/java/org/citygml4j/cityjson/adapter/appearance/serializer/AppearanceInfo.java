@@ -5,7 +5,7 @@
 
 package org.citygml4j.cityjson.adapter.appearance.serializer;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public class AppearanceInfo {
     private final ObjectNode node;

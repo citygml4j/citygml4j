@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.adapter.geometry.MultiSurfaceProvider;
@@ -28,6 +25,9 @@ import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurfaceProperty;
 import org.xmlobjects.gml.model.geometry.complexes.CompositeSurface;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.*;
 
@@ -137,7 +137,7 @@ public class GeometryBuilder {
     void getGeometry(AbstractFeature object, GeometryObject geometryObject, JsonNode geometry, int lod,
                      BoundaryFilter filter, AppearanceBuilder appearanceBuilder, VerticesBuilder verticesBuilder) {
         if (geometry != null && geometry.isObject()) {
-            GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asText());
+            GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asString());
 
             GeometryObjectBuilder builder = null;
             if (GeometryType.SURFACE_TYPES.contains(type)) {
@@ -229,7 +229,7 @@ public class GeometryBuilder {
         if (!geometries.isEmpty()) {
             Map<Double, List<JsonNode>> geometriesByLod = new HashMap<>();
             for (JsonNode geometry : geometries) {
-                GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asText());
+                GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asString());
                 JsonNode lod = type != GeometryType.TEMPLATE_GEOMETRY ?
                         geometry.path(Fields.LOD) :
                         templateInfo.getTemplate(geometry.path(Fields.TEMPLATE).asInt(-1)).path(Fields.LOD);

@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.appearance;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
 import org.citygml4j.cityjson.builder.JsonObjectBuilder;
@@ -22,6 +19,9 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.appearance.Color;
 import org.citygml4j.core.model.appearance.X3DMaterial;
 import org.xmlobjects.gml.model.basictypes.Code;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 public class X3DMaterialAdapter implements JsonObjectBuilder<X3DMaterial>, JsonObjectSerializer<X3DMaterial> {
 
@@ -33,8 +33,8 @@ public class X3DMaterialAdapter implements JsonObjectBuilder<X3DMaterial>, JsonO
     @Override
     public void buildObject(X3DMaterial object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         JsonNode name = node.path(Fields.NAME);
-        if (name.isTextual()) {
-            object.getNames().add(new Code(name.asText()));
+        if (name.isString()) {
+            object.getNames().add(new Code(name.asString()));
         }
 
         JsonNode ambientIntensity = node.path(Fields.AMBIENT_INTENSITY);

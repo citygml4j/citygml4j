@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.generics;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -21,6 +19,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.generics.CodeAttribute;
 import org.xmlobjects.gml.model.basictypes.Code;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 @CityJSONElements({
         @CityJSONElement(name = "CodeAttribute", schema = CityJSONConstants.CORE_SCHEMA, version = CityJSONVersion.v2_0),
@@ -38,13 +38,13 @@ public class CodeAttributeAdapter extends AbstractGenericAttributeAdapter<CodeAt
     public void buildObject(CodeAttribute object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         Code code;
         if (node.isObject()) {
-            code = new Code(node.path("value").asText());
+            code = new Code(node.path("value").asString());
             JsonNode uom = node.path("codeSpace");
-            if (uom.isTextual()) {
-                code.setCodeSpace(uom.asText());
+            if (uom.isString()) {
+                code.setCodeSpace(uom.asString());
             }
         } else {
-            code = new Code(node.asText());
+            code = new Code(node.asString());
         }
 
         object.setValue(code);

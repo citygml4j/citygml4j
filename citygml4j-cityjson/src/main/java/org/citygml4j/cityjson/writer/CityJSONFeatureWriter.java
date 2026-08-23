@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.writer;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.geometry.serializer.VerticesBuilder;
 import org.citygml4j.cityjson.model.CityJSONType;
@@ -16,8 +13,11 @@ import org.citygml4j.cityjson.model.geometry.Vertex;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.Envelope;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.core.util.MinimalPrettyPrinter;
+import tools.jackson.databind.node.ObjectNode;
 
-import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -54,15 +54,15 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
         super.writeStartDocument(feature);
         try {
             writer.writeStartObject();
-            writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
-            writer.writeStringField(Fields.VERSION, helper.getVersion().toValue());
+            writer.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
+            writer.writeStringProperty(Fields.VERSION, helper.getVersion().toValue());
 
             // write empty CityObjects field
-            writer.writeObjectFieldStart(Fields.CITY_OBJECTS);
+            writer.writeObjectPropertyStart(Fields.CITY_OBJECTS);
             writer.writeEndObject();
 
             // write empty vertices field
-            writer.writeArrayFieldStart(Fields.VERTICES);
+            writer.writeArrayPropertyStart(Fields.VERTICES);
             writer.writeEndArray();
 
             writeTransform(computeTransform(feature));
@@ -77,7 +77,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             }
 
             writer.writeEndObject();
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
             state = State.DOCUMENT_STARTED;
@@ -99,16 +99,17 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
                 topLevelObject.set(id, node);
 
                 writer.writeStartObject();
-                writer.writeStringField(Fields.TYPE, CityJSONType.CITYJSON_FEATURE.toTypeName());
-                writer.writeStringField(Fields.ID, id);
-                writer.writeObjectField(Fields.CITY_OBJECTS, topLevelObject);
+                writer.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON_FEATURE.toTypeName());
+                writer.writeStringProperty(Fields.ID, id);
+                writer.writeName(Fields.CITY_OBJECTS);
+                writer.writeTree(topLevelObject);
 
                 writeVertices(false);
                 writeAppearance();
                 writeExtraRootProperties();
 
                 writer.writeEndObject();
-            } catch (IOException e) {
+            } catch (JacksonException e) {
                 throw new CityJSONWriteException("Caused by:", e);
             } finally {
                 helper.reset();
@@ -118,7 +119,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
     }
 
     @Override
-    void writeChildObject(String id, ObjectNode node) throws CityJSONWriteException {
+    void writeChildObject(String id, ObjectNode node) {
         ObjectNode topLevelObject = topLevelObjects.peek();
         if (topLevelObject != null) {
             topLevelObject.set(id, node);

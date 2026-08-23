@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.relief;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.geometry.builder.GeometryObject;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -24,6 +22,8 @@ import org.citygml4j.core.model.relief.TINRelief;
 import org.citygml4j.core.model.relief.TinProperty;
 import org.xmlobjects.gml.model.geometry.complexes.CompositeSurface;
 import org.xmlobjects.gml.model.geometry.primitives.*;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -45,7 +45,7 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
     @Override
     public void buildObject(TINRelief object, Attributes attributes, JsonNode node, Object parent, CityJSONBuilderHelper helper) throws CityJSONBuildException, CityJSONReadException {
         for (JsonNode geometry : node.path(Fields.GEOMETRY)) {
-            GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asText());
+            GeometryType type = GeometryType.fromValue(geometry.path(Fields.TYPE).asString());
             if (type == GeometryType.COMPOSITE_SURFACE) {
                 GeometryObject geometryObject = helper.getGeometry(object, geometry);
                 if (geometryObject != null

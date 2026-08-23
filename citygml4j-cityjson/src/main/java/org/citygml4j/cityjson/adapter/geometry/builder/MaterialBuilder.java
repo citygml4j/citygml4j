@@ -5,7 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.geometry.builder;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.builder.AppearanceBuilder;
 import org.citygml4j.cityjson.reader.CityJSONBuilderHelper;
@@ -17,6 +16,7 @@ import org.xmlobjects.gml.model.geometry.primitives.AbstractSurface;
 import org.xmlobjects.gml.model.geometry.primitives.Shell;
 import org.xmlobjects.gml.model.geometry.primitives.SurfaceProperty;
 import org.xmlobjects.gml.visitor.GeometryWalker;
+import tools.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.transportation;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
 import org.citygml4j.cityjson.annotation.CityJSONElements;
@@ -21,6 +19,8 @@ import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.transportation.*;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Iterator;
 
@@ -42,12 +42,12 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> implem
 
         helper.buildStandardObjectClassifier(object, attributes);
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             ObjectNode childNode = helper.getCityObjectNode(child);
-            if ("Road".equals(childNode.path(Fields.TYPE).asText())) {
-                String classifier = childNode.path(Fields.ATTRIBUTES).path("class").asText();
+            if ("Road".equals(childNode.path(Fields.TYPE).asString())) {
+                String classifier = childNode.path(Fields.ATTRIBUTES).path("class").asString();
                 if ("Section".equalsIgnoreCase(classifier)) {
                     Road section = helper.getCityObject(child, Road.class);
                     object.getSections().add(new SectionProperty(shallowCopy(section, new Section())));
@@ -65,7 +65,7 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> implem
 
     @Override
     public String mapType(JsonNode node, Class<?> type) {
-        String classifier = node.path(Fields.ATTRIBUTES).path("class").asText();
+        String classifier = node.path(Fields.ATTRIBUTES).path("class").asString();
         return "Track".equalsIgnoreCase(classifier) && type.isAssignableFrom(Track.class) ? "Track" : "Road";
     }
 

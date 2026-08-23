@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.relief;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractSpaceBoundaryAdapter;
 import org.citygml4j.cityjson.annotation.CityJSONElement;
@@ -24,6 +22,8 @@ import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.relief.AbstractReliefComponentProperty;
 import org.citygml4j.core.model.relief.ReliefFeature;
 import org.citygml4j.core.model.relief.TINRelief;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.Collections;
 import java.util.List;

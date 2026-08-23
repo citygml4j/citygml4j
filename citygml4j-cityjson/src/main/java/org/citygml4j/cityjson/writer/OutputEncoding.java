@@ -5,7 +5,7 @@
 
 package org.citygml4j.cityjson.writer;
 
-import com.fasterxml.jackson.core.JsonEncoding;
+import tools.jackson.core.JsonEncoding;
 
 public enum OutputEncoding {
     UTF8(JsonEncoding.UTF8),

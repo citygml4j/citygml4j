@@ -5,9 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.building;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.construction.AbstractConstructionAdapter;
 import org.citygml4j.cityjson.adapter.core.AddressAdapter;
@@ -28,6 +25,9 @@ import org.citygml4j.core.model.deprecated.building.DeprecatedPropertiesOfAbstra
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.DoubleOrNilReason;
 import org.xmlobjects.gml.model.basictypes.MeasureOrNilReasonList;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -53,8 +53,8 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         helper.buildStandardObjectClassifier(object, attributes);
 
         JsonNode roofType = attributes.consume("roofType");
-        if (roofType.isTextual()) {
-            object.setRoofType(new Code(roofType.asText()));
+        if (roofType.isString()) {
+            object.setRoofType(new Code(roofType.asString()));
         }
 
         JsonNode storeysAboveGround = attributes.consume("storeysAboveGround");
@@ -106,9 +106,9 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
             object.getAddresses().add(new AddressProperty(helper.getObjectUsingBuilder(address, AddressAdapter.class)));
         }
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             switch (helper.getCityObjectType(child)) {
                 case "BuildingInstallation":
                     object.getBuildingInstallations().add(new BuildingInstallationProperty(helper.getCityObject(child, BuildingInstallation.class)));

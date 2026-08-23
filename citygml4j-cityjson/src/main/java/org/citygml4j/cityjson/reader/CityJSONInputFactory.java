@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.reader;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.citygml4j.cityjson.CityJSONContext;
 import org.citygml4j.cityjson.util.CityJSONConstants;
 import org.citygml4j.cityjson.util.lod.LodMapper;
@@ -16,6 +14,8 @@ import org.citygml4j.core.model.CityGMLVersion;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.util.Properties;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -23,7 +23,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public class CityJSONInputFactory {
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
     private final CityJSONContext context;
     private final Properties properties = new Properties();
 
@@ -36,8 +36,8 @@ public class CityJSONInputFactory {
     private LodMapper lodMapper;
     private IdCreator idCreator;
 
-    public CityJSONInputFactory(ObjectMapper objectMapper, CityJSONContext context) {
-        this.objectMapper = objectMapper;
+    public CityJSONInputFactory(JsonMapper jsonMapper, CityJSONContext context) {
+        this.jsonMapper = jsonMapper;
         this.context = context;
         withTextureFileHandler(new DefaultTextureFileHandler());
     }
@@ -144,7 +144,7 @@ public class CityJSONInputFactory {
 
     public CityJSONReader createCityJSONReader(File file) throws CityJSONReadException {
         try {
-            return createReader(objectMapper.createParser(file));
+            return createReader(jsonMapper.createParser(file));
         } catch (IOException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
@@ -152,7 +152,7 @@ public class CityJSONInputFactory {
 
     public CityJSONReader createCityJSONReader(File file, String encoding) throws CityJSONReadException {
         try {
-            return createReader(objectMapper.createParser(new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding))));
+            return createReader(jsonMapper.createParser(new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding))));
         } catch (IOException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
@@ -160,7 +160,7 @@ public class CityJSONInputFactory {
 
     public CityJSONReader createCityJSONReader(Path path) throws CityJSONReadException {
         try {
-            return createReader(objectMapper.createParser(new BufferedInputStream(Files.newInputStream(path))));
+            return createReader(jsonMapper.createParser(new BufferedInputStream(Files.newInputStream(path))));
         } catch (IOException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
@@ -168,7 +168,7 @@ public class CityJSONInputFactory {
 
     public CityJSONReader createCityJSONReader(Path path, String encoding) throws CityJSONReadException {
         try {
-            return createReader(objectMapper.createParser(new BufferedReader(new InputStreamReader(Files.newInputStream(path), encoding))));
+            return createReader(jsonMapper.createParser(new BufferedReader(new InputStreamReader(Files.newInputStream(path), encoding))));
         } catch (IOException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
@@ -177,7 +177,7 @@ public class CityJSONInputFactory {
 
     public CityJSONReader createCityJSONReader(InputStream stream) throws CityJSONReadException {
         try {
-            return createReader(objectMapper.createParser(stream));
+            return createReader(jsonMapper.createParser(stream));
         } catch (IOException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
@@ -185,7 +185,7 @@ public class CityJSONInputFactory {
 
     public CityJSONReader createCityJSONReader(Reader reader) throws CityJSONReadException {
         try {
-            return createReader(objectMapper.createParser(reader));
+            return createReader(jsonMapper.createParser(reader));
         } catch (IOException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
@@ -198,8 +198,8 @@ public class CityJSONInputFactory {
 
     private CityJSONReader createReader(JsonParser jsonReader) throws CityJSONReadException {
         CityJSONReader reader = chunkByTopLevelCityObjects ?
-                new CityJSONChunkReader(jsonReader, objectMapper, context) :
-                new CityJSONSimpleReader(jsonReader, objectMapper, context);
+                new CityJSONChunkReader(jsonReader, jsonMapper, context) :
+                new CityJSONSimpleReader(jsonReader, jsonMapper, context);
 
         reader.targetCityGMLVersion = targetCityGMLVersion;
         reader.mapUnsupportedTypesToGenerics = mapUnsupportedTypesToGenerics;

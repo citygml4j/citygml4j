@@ -5,8 +5,6 @@
 
 package org.citygml4j.cityjson.adapter.building;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.core.AbstractLogicalSpaceAdapter;
 import org.citygml4j.cityjson.builder.CityJSONBuildException;
@@ -19,6 +17,8 @@ import org.citygml4j.cityjson.serializer.CityJSONSerializeException;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.building.*;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -38,9 +38,9 @@ public abstract class AbstractBuildingSubdivisionAdapter<T extends AbstractBuild
             object.setSortKey(sortKey.asDouble());
         }
 
-        Iterator<JsonNode> children = node.path(Fields.CHILDREN).elements();
+        Iterator<JsonNode> children = node.path(Fields.CHILDREN).values().iterator();
         while (children.hasNext()) {
-            String child = children.next().asText();
+            String child = children.next().asString();
             switch (helper.getCityObjectType(child)) {
                 case "BuildingInstallation":
                     object.getBuildingInstallations().add(new BuildingInstallationProperty(helper.getCityObject(child, BuildingInstallation.class)));
