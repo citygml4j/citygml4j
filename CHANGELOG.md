@@ -9,6 +9,7 @@
 - Reduced the memory footprint of the `CityJSONFeatureWriter` when writing global template geometries.
 - Relaxed parsing of CityJSON `"version"` strings when reading datasets to allow additional version information
   after the required `x.y` format defined by the CityJSON specification.
+- Updated `jackson-databind` to version 3 for CityJSON parsing and writing..
 
 ### Fixed
 - Fixed envelope computation for implicit geometries.
