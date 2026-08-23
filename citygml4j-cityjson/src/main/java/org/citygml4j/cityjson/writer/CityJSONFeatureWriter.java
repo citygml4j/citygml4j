@@ -14,8 +14,8 @@ import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.xmlobjects.gml.model.geometry.Envelope;
 import tools.jackson.core.JacksonException;
-import tools.jackson.core.JsonGenerator;
 import tools.jackson.core.util.MinimalPrettyPrinter;
+import tools.jackson.databind.ObjectWriter;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayDeque;
@@ -26,9 +26,8 @@ import java.util.Objects;
 public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatureWriter> {
     private final Deque<ObjectNode> topLevelObjects = new ArrayDeque<>();
 
-    CityJSONFeatureWriter(JsonGenerator writer) {
-        super(writer);
-        writer.setPrettyPrinter(new MinimalPrettyPrinter("\n"));
+    CityJSONFeatureWriter(ObjectWriter objectWriter, JsonGeneratorCreator generatorCreator) {
+        super(objectWriter, generatorCreator);
     }
 
     public boolean isSetExternalExtension(String name) {
@@ -50,20 +49,25 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
     }
 
     @Override
+    ObjectWriter configureObjectWriter(ObjectWriter objectWriter) throws JacksonException {
+        return objectWriter.with(new MinimalPrettyPrinter("\n"));
+    }
+
+    @Override
     void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
         super.writeStartDocument(feature);
         try {
-            writer.writeStartObject();
-            writer.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
-            writer.writeStringProperty(Fields.VERSION, helper.getVersion().toValue());
+            generator.writeStartObject();
+            generator.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
+            generator.writeStringProperty(Fields.VERSION, helper.getVersion().toValue());
 
             // write empty CityObjects field
-            writer.writeObjectPropertyStart(Fields.CITY_OBJECTS);
-            writer.writeEndObject();
+            generator.writeObjectPropertyStart(Fields.CITY_OBJECTS);
+            generator.writeEndObject();
 
             // write empty vertices field
-            writer.writeArrayPropertyStart(Fields.VERTICES);
-            writer.writeEndArray();
+            generator.writeArrayPropertyStart(Fields.VERTICES);
+            generator.writeEndArray();
 
             writeTransform(computeTransform(feature));
             getAndSetReferenceSystem(feature);
@@ -76,7 +80,7 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
                 writeTemplates();
             }
 
-            writer.writeEndObject();
+            generator.writeEndObject();
         } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
@@ -98,17 +102,17 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             try {
                 topLevelObject.set(id, node);
 
-                writer.writeStartObject();
-                writer.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON_FEATURE.toTypeName());
-                writer.writeStringProperty(Fields.ID, id);
-                writer.writeName(Fields.CITY_OBJECTS);
-                writer.writeTree(topLevelObject);
+                generator.writeStartObject();
+                generator.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON_FEATURE.toTypeName());
+                generator.writeStringProperty(Fields.ID, id);
+                generator.writeName(Fields.CITY_OBJECTS);
+                generator.writeTree(topLevelObject);
 
                 writeVertices(false);
                 writeAppearance();
                 writeExtraRootProperties();
 
-                writer.writeEndObject();
+                generator.writeEndObject();
             } catch (JacksonException e) {
                 throw new CityJSONWriteException("Caused by:", e);
             } finally {

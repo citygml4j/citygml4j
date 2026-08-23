@@ -14,6 +14,7 @@ import org.citygml4j.core.model.CityGMLVersion;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.util.Properties;
+import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonParser;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -145,7 +146,7 @@ public class CityJSONInputFactory {
     public CityJSONReader createCityJSONReader(File file) throws CityJSONReadException {
         try {
             return createReader(jsonMapper.createParser(file));
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
     }
@@ -178,7 +179,7 @@ public class CityJSONInputFactory {
     public CityJSONReader createCityJSONReader(InputStream stream) throws CityJSONReadException {
         try {
             return createReader(jsonMapper.createParser(stream));
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
     }
@@ -186,7 +187,7 @@ public class CityJSONInputFactory {
     public CityJSONReader createCityJSONReader(Reader reader) throws CityJSONReadException {
         try {
             return createReader(jsonMapper.createParser(reader));
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
     }

@@ -36,7 +36,6 @@ import org.xmlobjects.gml.util.id.DefaultIdCreator;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.util.Properties;
 import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
@@ -48,7 +47,6 @@ public class CityJSONBuilderHelper {
     private final CityJSONReader reader;
     private final CityJSONType type;
     private final CityJSONVersion version;
-    private final JsonMapper jsonMapper;
     private final CityJSONContext context;
     private final Map<Class<?>, JsonObjectBuilder<?>> builderCache = new IdentityHashMap<>();
 
@@ -65,15 +63,14 @@ public class CityJSONBuilderHelper {
     private GenericAttributeTypes genericAttributeTypes = new GenericAttributeTypes();
     private Properties properties;
 
-    private CityJSONBuilderHelper(CityJSONReader reader, CityJSONType type, CityJSONVersion version, JsonMapper jsonMapper, CityJSONContext context) {
+    private CityJSONBuilderHelper(CityJSONReader reader, CityJSONType type, CityJSONVersion version, CityJSONContext context) {
         this.reader = reader;
         this.type = type;
         this.version = version;
-        this.jsonMapper = jsonMapper;
         this.context = context;
     }
 
-    static CityJSONBuilderHelper buildFor(CityJSONReader reader, ObjectNode content, ObjectNode globalScope, JsonMapper jsonMapper, CityJSONContext context) throws CityJSONBuildException {
+    static CityJSONBuilderHelper buildFor(CityJSONReader reader, ObjectNode content, ObjectNode globalScope, CityJSONContext context) throws CityJSONBuildException {
         CityJSONType type = CityJSONType.fromValue(content.path(Fields.TYPE).asString());
         if (type == null) {
             throw new CityJSONBuildException("Expected \"" + Fields.TYPE + "\" property with one of the values: " +
@@ -102,7 +99,7 @@ public class CityJSONBuilderHelper {
                     "Unsupported CityJSON version " + globalScope.get(Fields.VERSION) + ".");
         }
 
-        CityJSONBuilderHelper helper = new CityJSONBuilderHelper(reader, type, version, jsonMapper, context);
+        CityJSONBuilderHelper helper = new CityJSONBuilderHelper(reader, type, version, context);
         helper.cityObjects = helper.getOrPutObject(Fields.CITY_OBJECTS, content);
 
         ArrayNode vertices = helper.getOrPutArray(Fields.VERTICES, content);
@@ -269,7 +266,7 @@ public class CityJSONBuilderHelper {
     }
 
     public ObjectNode createObject() {
-        return jsonMapper.createObjectNode();
+        return reader.jsonMapper.createObjectNode();
     }
 
     public ObjectNode getOrPutObject(String propertyName, ObjectNode node) {
@@ -280,7 +277,7 @@ public class CityJSONBuilderHelper {
     }
 
     public ArrayNode createArray() {
-        return jsonMapper.createArrayNode();
+        return reader.jsonMapper.createArrayNode();
     }
 
     public ArrayNode getOrPutArray(String propertyName, ObjectNode node) {

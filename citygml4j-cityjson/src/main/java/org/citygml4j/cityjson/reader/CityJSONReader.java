@@ -122,7 +122,7 @@ public abstract class CityJSONReader implements AutoCloseable {
     }
 
     CityJSONBuilderHelper createHelper(ObjectNode content, CityJSONBuilderHelper previous) throws CityJSONBuildException, CityJSONReadException {
-        CityJSONBuilderHelper helper = CityJSONBuilderHelper.buildFor(this, content, globalScope, jsonMapper, context);
+        CityJSONBuilderHelper helper = CityJSONBuilderHelper.buildFor(this, content, globalScope, context);
         helper.setTargetCityGMLVersion(targetCityGMLVersion);
         helper.setMapUnsupportedTypesToGenerics(mapUnsupportedTypesToGenerics);
         helper.setTransformTemplateGeometries(transformTemplateGeometries);

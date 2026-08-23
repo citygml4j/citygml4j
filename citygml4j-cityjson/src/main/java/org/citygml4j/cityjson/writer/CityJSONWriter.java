@@ -10,17 +10,17 @@ import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.core.model.cityobjectgroup.CityObjectGroup;
 import org.citygml4j.core.model.core.AbstractFeature;
 import tools.jackson.core.JacksonException;
-import tools.jackson.core.JsonGenerator;
 import tools.jackson.core.PrettyPrinter;
 import tools.jackson.core.util.DefaultIndenter;
 import tools.jackson.core.util.DefaultPrettyPrinter;
+import tools.jackson.databind.ObjectWriter;
 import tools.jackson.databind.node.ObjectNode;
 
 public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     private String indent;
 
-    CityJSONWriter(JsonGenerator writer) {
-        super(writer);
+    CityJSONWriter(ObjectWriter objectWriter, JsonGeneratorCreator generatorCreator) {
+        super(objectWriter, generatorCreator);
     }
 
     public String getIndent() {
@@ -29,27 +29,31 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
 
     public CityJSONWriter withIndent(String indent) {
         this.indent = indent;
+        return this;
+    }
 
-        PrettyPrinter printer = null;
-        if (indent != null) {
-            DefaultIndenter indenter = new DefaultIndenter(this.indent, "\n");
-            printer = new DefaultPrettyPrinter()
-                    .withObjectIndenter(indenter)
-                    .withArrayIndenter(indenter);
+    @Override
+    ObjectWriter configureObjectWriter(ObjectWriter objectWriter) throws JacksonException {
+        if (indent == null) {
+            return objectWriter;
         }
 
-        writer.setPrettyPrinter(printer);
-        return this;
+        DefaultIndenter indenter = new DefaultIndenter(indent, "\n");
+        PrettyPrinter prettyPrinter = new DefaultPrettyPrinter()
+                .withObjectIndenter(indenter)
+                .withArrayIndenter(indenter);
+
+        return objectWriter.with(prettyPrinter);
     }
 
     @Override
     void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
         super.writeStartDocument(feature);
         try {
-            writer.writeStartObject();
-            writer.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
-            writer.writeStringProperty(Fields.VERSION, helper.getVersion().toValue());
-            writer.writeObjectPropertyStart(Fields.CITY_OBJECTS);
+            generator.writeStartObject();
+            generator.writeStringProperty(Fields.TYPE, CityJSONType.CITYJSON.toTypeName());
+            generator.writeStringProperty(Fields.VERSION, helper.getVersion().toValue());
+            generator.writeObjectPropertyStart(Fields.CITY_OBJECTS);
 
             getAndSetReferenceSystem(feature);
         } catch (JacksonException e) {
@@ -63,8 +67,8 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     @Override
     void writeCityObject(String id, ObjectNode node) throws CityJSONWriteException {
         try {
-            writer.writeName(id);
-            writer.writeTree(node);
+            generator.writeName(id);
+            generator.writeTree(node);
         } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
@@ -85,14 +89,14 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
         }
 
         try {
-            writer.writeEndObject();
+            generator.writeEndObject();
             writeVertices(true);
             writeMetadata();
             writeExtensions();
             writeAppearance();
             writeTemplates();
             writeExtraRootProperties();
-            writer.writeEndObject();
+            generator.writeEndObject();
         } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }

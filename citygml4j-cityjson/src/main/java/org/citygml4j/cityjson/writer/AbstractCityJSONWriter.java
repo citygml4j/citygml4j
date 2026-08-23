@@ -31,6 +31,7 @@ import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectWriter;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.util.HashMap;
@@ -39,12 +40,15 @@ import java.util.Map;
 import java.util.Objects;
 
 public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>> implements AutoCloseable {
-    final JsonGenerator writer;
+    final ObjectWriter objectWriter;
+    final JsonGeneratorCreator generatorCreator;
     final ReferenceResolver referenceResolver = new ReferenceResolver();
     final Map<String, Number> templateLods = new HashMap<>();
 
+    JsonGenerator generator;
     CityJSONSerializerHelper helper;
     State state = State.INITIAL;
+    boolean htmlSafe;
 
     enum State {
         INITIAL,
@@ -52,9 +56,12 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         CLOSED
     }
 
-    AbstractCityJSONWriter(JsonGenerator writer) {
-        this.writer = writer;
+    AbstractCityJSONWriter(ObjectWriter objectWriter, JsonGeneratorCreator generatorCreator) {
+        this.objectWriter = objectWriter;
+        this.generatorCreator = generatorCreator;
     }
+
+    abstract ObjectWriter configureObjectWriter(ObjectWriter objectWriter) throws JacksonException;
 
     abstract void writeCityObject(String id, ObjectNode node) throws CityJSONWriteException;
 
@@ -112,11 +119,11 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     }
 
     public boolean isHtmlSafe() {
-        return writer.getCharacterEscapes() instanceof HtmlEscapes;
+        return htmlSafe;
     }
 
     public T setHtmlSafe(boolean htmlSafe) {
-        writer.setCharacterEscapes(htmlSafe ? new HtmlEscapes() : null);
+        this.htmlSafe = htmlSafe;
         return self();
     }
 
@@ -126,6 +133,12 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     void writeStartDocument(AbstractFeature feature) throws CityJSONWriteException {
         if (state != State.INITIAL) {
             throw new CityJSONWriteException("The document has already been started.");
+        }
+
+        try {
+            ensureGenerator();
+        } catch (JacksonException e) {
+            throw new CityJSONWriteException("Caused by:", e);
         }
 
         referenceResolver.initialize();
@@ -151,7 +164,8 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
     public void flush() throws CityJSONWriteException {
         try {
-            writer.flush();
+            ensureGenerator();
+            generator.flush();
         } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
@@ -160,7 +174,8 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     @Override
     public void close() throws CityJSONWriteException {
         try {
-            writer.close();
+            ensureGenerator();
+            generator.close();
         } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
         } finally {
@@ -192,8 +207,8 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 writeTransform(new Transform());
             }
 
-            writer.writeArrayPropertyStart(Fields.VERTICES);
-            writer.writeEndArray();
+            generator.writeArrayPropertyStart(Fields.VERTICES);
+            generator.writeEndArray();
         }
     }
 
@@ -201,42 +216,42 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         Vertex scale = transform.getScale();
         Vertex translate = transform.getTranslate();
 
-        writer.writeObjectPropertyStart(Fields.TRANSFORM);
-        writer.writeArrayPropertyStart(Fields.SCALE);
-        writer.writeNumber(scale.getX());
-        writer.writeNumber(scale.getY());
-        writer.writeNumber(scale.getZ());
-        writer.writeEndArray();
+        generator.writeObjectPropertyStart(Fields.TRANSFORM);
+        generator.writeArrayPropertyStart(Fields.SCALE);
+        generator.writeNumber(scale.getX());
+        generator.writeNumber(scale.getY());
+        generator.writeNumber(scale.getZ());
+        generator.writeEndArray();
 
-        writer.writeArrayPropertyStart(Fields.TRANSLATE);
-        writer.writeNumber(translate.getX());
-        writer.writeNumber(translate.getY());
-        writer.writeNumber(translate.getZ());
-        writer.writeEndArray();
-        writer.writeEndObject();
+        generator.writeArrayPropertyStart(Fields.TRANSLATE);
+        generator.writeNumber(translate.getX());
+        generator.writeNumber(translate.getY());
+        generator.writeNumber(translate.getZ());
+        generator.writeEndArray();
+        generator.writeEndObject();
     }
 
     void writeExtensions() throws CityJSONWriteException {
         ExtensionLoader loader = ADERegistry.getInstance().getADELoader(ExtensionLoader.class);
         if (loader.hasExtensions() || helper.hasExtensions()) {
             try {
-                writer.writeObjectPropertyStart(Fields.EXTENSIONS);
+                generator.writeObjectPropertyStart(Fields.EXTENSIONS);
                 for (Extension extension : loader.getExtensions()) {
                     ObjectNode node = helper.getObjectUsingSerializer(ExtensionInfo.of(extension), ExtensionInfoAdapter.class);
                     if (node != null) {
-                        writer.writeName(extension.getName());
-                        writer.writeTree(node);
+                        generator.writeName(extension.getName());
+                        generator.writeTree(node);
                     }
                 }
 
                 for (Map.Entry<String, ObjectNode> entry : helper.getExternalExtensions().entrySet()) {
                     if (loader.getExtension(entry.getKey()) == null) {
-                        writer.writeName(entry.getKey());
-                        writer.writeTree(entry.getValue());
+                        generator.writeName(entry.getKey());
+                        generator.writeTree(entry.getValue());
                     }
                 }
 
-                writer.writeEndObject();
+                generator.writeEndObject();
             } catch (CityJSONSerializeException e) {
                 throw new CityJSONWriteException("Failed to serialize the extensions property.", e);
             }
@@ -248,8 +263,8 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
             try {
                 ObjectNode metadata = helper.getObjectUsingSerializer(helper.getMetadata(), MetadataAdapter.class);
                 if (!metadata.isEmpty()) {
-                    writer.writeName(Fields.METADATA);
-                    writer.writeTree(metadata);
+                    generator.writeName(Fields.METADATA);
+                    generator.writeTree(metadata);
                 }
             } catch (CityJSONSerializeException e) {
                 throw new CityJSONWriteException("Failed to serialize the metadata property.", e);
@@ -260,7 +275,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     void writeAppearance() {
         AppearanceSerializer appearanceSerializer = helper.getAppearanceSerializer();
         if (appearanceSerializer.hasMaterials() || appearanceSerializer.hasTextures()) {
-            writer.writeObjectPropertyStart(Fields.APPEARANCE);
+            generator.writeObjectPropertyStart(Fields.APPEARANCE);
 
             if (appearanceSerializer.hasMaterials()) {
                 writeAsArray(Fields.MATERIALS, appearanceSerializer.getMaterials());
@@ -270,29 +285,29 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 writeAsArray(Fields.TEXTURES, appearanceSerializer.getTextures());
                 ArrayBuffer<TextureVertex> textureVertices = appearanceSerializer.getTextureVerticesBuilder().build();
                 if (!textureVertices.isEmpty()) {
-                    writer.writeArrayPropertyStart(Fields.VERTICES_TEXTURE);
+                    generator.writeArrayPropertyStart(Fields.VERTICES_TEXTURE);
                     for (TextureVertex textureVertex : textureVertices) {
-                        writer.writeStartArray();
-                        writer.writeNumber(textureVertex.getS());
-                        writer.writeNumber(textureVertex.getT());
-                        writer.writeEndArray();
+                        generator.writeStartArray();
+                        generator.writeNumber(textureVertex.getS());
+                        generator.writeNumber(textureVertex.getT());
+                        generator.writeEndArray();
                     }
 
-                    writer.writeEndArray();
+                    generator.writeEndArray();
                 }
             }
 
-            writer.writeEndObject();
+            generator.writeEndObject();
         }
     }
 
     void writeTemplates() {
         GeometrySerializer geometrySerializer = helper.getGeometrySerializer();
         if (geometrySerializer.hasTemplates()) {
-            writer.writeObjectPropertyStart(Fields.GEOMETRY_TEMPLATES);
+            generator.writeObjectPropertyStart(Fields.GEOMETRY_TEMPLATES);
             writeAsArray(Fields.TEMPLATES, geometrySerializer.getTemplates());
             writeVertices(Fields.VERTICES_TEMPLATES, geometrySerializer.getTemplatesVerticesBuilder().build());
-            writer.writeEndObject();
+            generator.writeEndObject();
         }
     }
 
@@ -307,45 +322,45 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
         if (helper.hasExtraRootProperties()) {
             for (Map.Entry<String, JsonNode> entry : helper.getExtraRootProperties().properties()) {
-                writer.writeName(entry.getKey());
-                writer.writeTree(entry.getValue());
+                generator.writeName(entry.getKey());
+                generator.writeTree(entry.getValue());
             }
         }
     }
 
     void writeAsArray(String propertyName, Iterator<ObjectNode> iterator) {
-        writer.writeArrayPropertyStart(propertyName);
+        generator.writeArrayPropertyStart(propertyName);
         while (iterator.hasNext()) {
-            writer.writeTree(iterator.next());
+            generator.writeTree(iterator.next());
         }
 
-        writer.writeEndArray();
+        generator.writeEndArray();
     }
 
     void writeVertices(String propertyName, ArrayBuffer<Vertex> vertices) {
-        writer.writeArrayPropertyStart(propertyName);
+        generator.writeArrayPropertyStart(propertyName);
         for (Vertex vertex : vertices) {
-            writer.writeStartArray();
-            writer.writeNumber(vertex.getX());
-            writer.writeNumber(vertex.getY());
-            writer.writeNumber(vertex.getZ());
-            writer.writeEndArray();
+            generator.writeStartArray();
+            generator.writeNumber(vertex.getX());
+            generator.writeNumber(vertex.getY());
+            generator.writeNumber(vertex.getZ());
+            generator.writeEndArray();
         }
 
-        writer.writeEndArray();
+        generator.writeEndArray();
     }
 
     void writeTransformedVertices(String propertyName, ArrayBuffer<Vertex> vertices) {
-        writer.writeArrayPropertyStart(propertyName);
+        generator.writeArrayPropertyStart(propertyName);
         for (Vertex vertex : vertices) {
-            writer.writeStartArray();
-            writer.writeNumber((long) vertex.getX());
-            writer.writeNumber((long) vertex.getY());
-            writer.writeNumber((long) vertex.getZ());
-            writer.writeEndArray();
+            generator.writeStartArray();
+            generator.writeNumber((long) vertex.getX());
+            generator.writeNumber((long) vertex.getY());
+            generator.writeNumber((long) vertex.getZ());
+            generator.writeEndArray();
         }
 
-        writer.writeEndArray();
+        generator.writeEndArray();
     }
 
     void getAndSetReferenceSystem(AbstractFeature feature) {
@@ -354,6 +369,17 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
             if (referenceSystem != null) {
                 helper.getMetadata().setReferenceSystem(ReferenceSystem.parse(referenceSystem));
             }
+        }
+    }
+
+    final void ensureGenerator() throws JacksonException {
+        if (generator == null) {
+            ObjectWriter configuredWriter = htmlSafe
+                    ? objectWriter.with(new HtmlEscapes())
+                    : objectWriter;
+
+            configuredWriter = configureObjectWriter(configuredWriter);
+            generator = generatorCreator.create(configuredWriter);
         }
     }
 }

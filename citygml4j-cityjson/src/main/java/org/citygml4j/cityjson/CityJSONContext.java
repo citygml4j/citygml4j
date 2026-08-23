@@ -18,6 +18,9 @@ import org.citygml4j.cityjson.writer.CityJSONOutputFactory;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.core.ade.ADEException;
 import org.citygml4j.core.ade.ADERegistry;
+import tools.jackson.core.json.JsonFactory;
+import tools.jackson.core.util.JsonRecyclerPools;
+import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ObjectNode;
@@ -29,11 +32,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class CityJSONContext {
-    private final JsonMapper jsonMapper = JsonMapper.builder().build();
+    private final JsonMapper jsonMapper;
     private final Map<String, Map<CityJSONVersion, BuilderInfo>> builders = new ConcurrentHashMap<>();
     private final Map<String, Map<CityJSONVersion, SerializerInfo>> serializers = new ConcurrentHashMap<>();
 
-    private CityJSONContext(ClassLoader classLoader) throws CityJSONContextException {
+    private CityJSONContext(JsonMapper jsonMapper, ClassLoader classLoader) throws CityJSONContextException {
+        this.jsonMapper = Objects.requireNonNull(jsonMapper, "The JSON mapper must not be null.")
+                .rebuild()
+                .disable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
+                .build();
+
         loadBuilders(classLoader, true);
         loadSerializers(classLoader, true);
 
@@ -60,7 +68,23 @@ public class CityJSONContext {
     }
 
     public static CityJSONContext newInstance(ClassLoader classLoader) throws CityJSONContextException {
-        return new CityJSONContext(classLoader);
+        JsonFactory factory = JsonFactory.builder()
+                .recyclerPool(JsonRecyclerPools.threadLocalPool())
+                .build();
+
+        return new CityJSONContext(JsonMapper.builder(factory).build(), classLoader);
+    }
+
+    public static CityJSONContext newInstance(JsonMapper jsonMapper) throws CityJSONContextException {
+        return newInstance(jsonMapper, Thread.currentThread().getContextClassLoader());
+    }
+
+    public static CityJSONContext newInstance(JsonMapper jsonMapper, ClassLoader classLoader) throws CityJSONContextException {
+        return new CityJSONContext(jsonMapper, classLoader);
+    }
+
+    public JsonMapper getJsonMapper() {
+        return jsonMapper;
     }
 
     public CityJSONInputFactory createCityJSONInputFactory() {
