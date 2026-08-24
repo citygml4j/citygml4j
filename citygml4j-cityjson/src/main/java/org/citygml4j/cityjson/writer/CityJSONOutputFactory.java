@@ -14,8 +14,6 @@ import org.citygml4j.cityjson.util.texture.DefaultTextureFileHandler;
 import org.citygml4j.cityjson.util.texture.TextureFileHandler;
 import org.xmlobjects.gml.util.id.IdCreator;
 import org.xmlobjects.util.Properties;
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.ObjectWriter;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.io.*;
@@ -24,7 +22,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 public class CityJSONOutputFactory {
-    private final ObjectWriter objectWriter;
+    private final JsonMapper jsonMapper;
     private final CityJSONContext context;
     private final Properties properties = new Properties();
 
@@ -41,9 +39,9 @@ public class CityJSONOutputFactory {
 
     public CityJSONOutputFactory(CityJSONVersion version, JsonMapper jsonMapper, CityJSONContext context) {
         this.version = version;
+        this.jsonMapper = jsonMapper;
         this.context = context;
 
-        objectWriter = jsonMapper.writer();
         withTextureFileHandler(new DefaultTextureFileHandler());
         useMaterialDefaults(true);
     }
@@ -176,17 +174,13 @@ public class CityJSONOutputFactory {
         return this;
     }
 
-    public CityJSONWriter createCityJSONWriter(File file) throws CityJSONWriteException {
+    public CityJSONWriter createCityJSONWriter(File file) {
         return createCityJSONWriter(file, OutputEncoding.UTF8);
     }
 
-    public CityJSONWriter createCityJSONWriter(File file, OutputEncoding encoding) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(file, encoding.toJsonEncoding())));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONWriter createCityJSONWriter(File file, OutputEncoding encoding) {
+        return initialize(new CityJSONWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(file, encoding.toJsonEncoding())));
     }
 
     public CityJSONWriter createCityJSONWriter(Path path) throws CityJSONWriteException {
@@ -195,54 +189,39 @@ public class CityJSONOutputFactory {
 
     public CityJSONWriter createCityJSONWriter(Path path, OutputEncoding encoding) throws CityJSONWriteException {
         try {
-            return createCityJSONWriter(new OutputStreamWriter(Files.newOutputStream(path), encoding.toJsonEncoding().getJavaName()));
+            return createCityJSONWriter(new OutputStreamWriter(Files.newOutputStream(path),
+                    encoding.toJsonEncoding().getJavaName()));
         } catch (IOException e) {
             throw new CityJSONWriteException("Caused by:", e);
         }
     }
 
-    public CityJSONWriter createCityJSONWriter(OutputStream stream) throws CityJSONWriteException {
+    public CityJSONWriter createCityJSONWriter(OutputStream stream) {
         return createCityJSONWriter(stream, OutputEncoding.UTF8);
     }
 
-    public CityJSONWriter createCityJSONWriter(OutputStream stream, OutputEncoding encoding) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(stream, encoding.toJsonEncoding())));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONWriter createCityJSONWriter(OutputStream stream, OutputEncoding encoding) {
+        return initialize(new CityJSONWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(stream, encoding.toJsonEncoding())));
     }
 
-    public CityJSONWriter createCityJSONWriter(Writer writer) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(writer)));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONWriter createCityJSONWriter(Writer writer) {
+        return initialize(new CityJSONWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(writer)));
     }
 
-    public CityJSONWriter createCityJSONWriter(DataOutput dataOutput) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(dataOutput)));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONWriter createCityJSONWriter(DataOutput dataOutput) {
+        return initialize(new CityJSONWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(dataOutput)));
     }
 
-    public CityJSONFeatureWriter createCityJSONFeatureWriter(File file) throws CityJSONWriteException {
+    public CityJSONFeatureWriter createCityJSONFeatureWriter(File file) {
         return createCityJSONFeatureWriter(file, OutputEncoding.UTF8);
     }
 
-    public CityJSONFeatureWriter createCityJSONFeatureWriter(File file, OutputEncoding encoding) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONFeatureWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(file, encoding.toJsonEncoding())));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONFeatureWriter createCityJSONFeatureWriter(File file, OutputEncoding encoding) {
+        return initialize(new CityJSONFeatureWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(file, encoding.toJsonEncoding())));
     }
 
     public CityJSONFeatureWriter createCityJSONFeatureWriter(Path path) throws CityJSONWriteException {
@@ -257,35 +236,23 @@ public class CityJSONOutputFactory {
         }
     }
 
-    public CityJSONFeatureWriter createCityJSONFeatureWriter(OutputStream stream) throws CityJSONWriteException {
+    public CityJSONFeatureWriter createCityJSONFeatureWriter(OutputStream stream) {
         return createCityJSONFeatureWriter(stream, OutputEncoding.UTF8);
     }
 
-    public CityJSONFeatureWriter createCityJSONFeatureWriter(OutputStream stream, OutputEncoding encoding) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONFeatureWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(stream, encoding.toJsonEncoding())));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONFeatureWriter createCityJSONFeatureWriter(OutputStream stream, OutputEncoding encoding) {
+        return initialize(new CityJSONFeatureWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(stream, encoding.toJsonEncoding())));
     }
 
-    public CityJSONFeatureWriter createCityJSONFeatureWriter(Writer writer) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONFeatureWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(writer)));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONFeatureWriter createCityJSONFeatureWriter(Writer writer) {
+        return initialize(new CityJSONFeatureWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(writer)));
     }
 
-    public CityJSONFeatureWriter createCityJSONFeatureWriter(DataOutput dataOutput) throws CityJSONWriteException {
-        try {
-            return initialize(new CityJSONFeatureWriter(objectWriter, objectWriter ->
-                    objectWriter.createGenerator(dataOutput)));
-        } catch (JacksonException e) {
-            throw new CityJSONWriteException("Caused by:", e);
-        }
+    public CityJSONFeatureWriter createCityJSONFeatureWriter(DataOutput dataOutput) {
+        return initialize(new CityJSONFeatureWriter(jsonMapper, objectWriter ->
+                objectWriter.createGenerator(dataOutput)));
     }
 
     private <T extends AbstractCityJSONWriter<?>> T initialize(T writer) {

@@ -215,7 +215,7 @@ public class CityJSONSerializerHelper {
     }
 
     public ObjectNode createObject() {
-        return writer.objectWriter.createObjectNode();
+        return writer.jsonMapper.createObjectNode();
     }
 
     public ObjectNode getOrPutObject(String propertyName, ObjectNode node) {
@@ -226,7 +226,7 @@ public class CityJSONSerializerHelper {
     }
 
     public ArrayNode createArray() {
-        return writer.objectWriter.createArrayNode();
+        return writer.jsonMapper.createArrayNode();
     }
 
     public ArrayNode getOrPutArray(String propertyName, ObjectNode node) {
@@ -391,7 +391,7 @@ public class CityJSONSerializerHelper {
     }
 
     public <T> ObjectNode getObjectUsingSerializer(T object, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
-        return getObjectUsingSerializer(object, writer.objectWriter.createObjectNode(), serializer);
+        return getObjectUsingSerializer(object, writer.jsonMapper.createObjectNode(), serializer);
     }
 
     private <T> ObjectNode getObjectUsingSerializer(T object, ObjectNode node, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
@@ -496,7 +496,7 @@ public class CityJSONSerializerHelper {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private <T extends AbstractFeature> ObjectNode getCityObjectUsingSerializer(T object, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
-        ObjectNode node = writer.objectWriter.createObjectNode();
+        ObjectNode node = writer.jsonMapper.createObjectNode();
         node.set(Fields.TYPE, NullNode.getInstance());
         node.set(Fields.GEOGRAPHICAL_EXTENT, createArray());
         node.set(Fields.ATTRIBUTES, createObject());

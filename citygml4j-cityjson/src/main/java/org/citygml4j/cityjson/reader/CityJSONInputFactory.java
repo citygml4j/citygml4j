@@ -154,7 +154,7 @@ public class CityJSONInputFactory {
     public CityJSONReader createCityJSONReader(File file, String encoding) throws CityJSONReadException {
         try {
             return createReader(jsonMapper.createParser(new BufferedReader(new InputStreamReader(new FileInputStream(file), encoding))));
-        } catch (IOException e) {
+        } catch (IOException | JacksonException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
     }
@@ -162,7 +162,7 @@ public class CityJSONInputFactory {
     public CityJSONReader createCityJSONReader(Path path) throws CityJSONReadException {
         try {
             return createReader(jsonMapper.createParser(new BufferedInputStream(Files.newInputStream(path))));
-        } catch (IOException e) {
+        } catch (IOException | JacksonException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
     }
@@ -170,7 +170,7 @@ public class CityJSONInputFactory {
     public CityJSONReader createCityJSONReader(Path path, String encoding) throws CityJSONReadException {
         try {
             return createReader(jsonMapper.createParser(new BufferedReader(new InputStreamReader(Files.newInputStream(path), encoding))));
-        } catch (IOException e) {
+        } catch (IOException | JacksonException e) {
             throw new CityJSONReadException("Caused by:", e);
         }
     }

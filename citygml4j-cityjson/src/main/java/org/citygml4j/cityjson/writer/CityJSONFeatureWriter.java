@@ -16,6 +16,7 @@ import org.xmlobjects.gml.model.geometry.Envelope;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.util.MinimalPrettyPrinter;
 import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayDeque;
@@ -26,8 +27,8 @@ import java.util.Objects;
 public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatureWriter> {
     private final Deque<ObjectNode> topLevelObjects = new ArrayDeque<>();
 
-    CityJSONFeatureWriter(ObjectWriter objectWriter, JsonGeneratorCreator generatorCreator) {
-        super(objectWriter, generatorCreator);
+    CityJSONFeatureWriter(JsonMapper jsonMapper, JsonGeneratorFactory generatorFactory) {
+        super(jsonMapper, generatorFactory);
     }
 
     public boolean isSetExternalExtension(String name) {

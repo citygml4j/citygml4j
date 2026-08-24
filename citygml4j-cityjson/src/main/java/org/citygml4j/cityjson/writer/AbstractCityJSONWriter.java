@@ -32,6 +32,7 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.util.HashMap;
@@ -40,8 +41,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>> implements AutoCloseable {
-    final ObjectWriter objectWriter;
-    final JsonGeneratorCreator generatorCreator;
+    final JsonMapper jsonMapper;
+    final JsonGeneratorFactory generatorFactory;
     final ReferenceResolver referenceResolver = new ReferenceResolver();
     final Map<String, Number> templateLods = new HashMap<>();
 
@@ -56,9 +57,9 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         CLOSED
     }
 
-    AbstractCityJSONWriter(ObjectWriter objectWriter, JsonGeneratorCreator generatorCreator) {
-        this.objectWriter = objectWriter;
-        this.generatorCreator = generatorCreator;
+    AbstractCityJSONWriter(JsonMapper jsonMapper, JsonGeneratorFactory generatorFactory) {
+        this.jsonMapper = jsonMapper;
+        this.generatorFactory = generatorFactory;
     }
 
     abstract ObjectWriter configureObjectWriter(ObjectWriter objectWriter) throws JacksonException;
@@ -375,11 +376,16 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
     final void ensureGenerator() throws JacksonException {
         if (generator == null) {
             ObjectWriter configuredWriter = htmlSafe
-                    ? objectWriter.with(new HtmlEscapes())
-                    : objectWriter;
+                    ? jsonMapper.writer().with(new HtmlEscapes())
+                    : jsonMapper.writer();
 
             configuredWriter = configureObjectWriter(configuredWriter);
-            generator = generatorCreator.create(configuredWriter);
+            generator = generatorFactory.create(configuredWriter);
         }
+    }
+
+    @FunctionalInterface
+    interface JsonGeneratorFactory {
+        JsonGenerator create(ObjectWriter objectWriter) throws JacksonException;
     }
 }

@@ -14,13 +14,14 @@ import tools.jackson.core.PrettyPrinter;
 import tools.jackson.core.util.DefaultIndenter;
 import tools.jackson.core.util.DefaultPrettyPrinter;
 import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.node.ObjectNode;
 
 public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
     private String indent;
 
-    CityJSONWriter(ObjectWriter objectWriter, JsonGeneratorCreator generatorCreator) {
-        super(objectWriter, generatorCreator);
+    CityJSONWriter(JsonMapper jsonMapper, JsonGeneratorFactory generatorFactory) {
+        super(jsonMapper, generatorFactory);
     }
 
     public String getIndent() {
