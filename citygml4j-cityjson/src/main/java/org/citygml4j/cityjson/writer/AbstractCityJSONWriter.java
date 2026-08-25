@@ -373,7 +373,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
     }
 
-    final void ensureGenerator() throws JacksonException {
+    private void ensureGenerator() {
         if (generator == null) {
             ObjectWriter configuredWriter = htmlSafe
                     ? jsonMapper.writer().with(new HtmlEscapes())
@@ -386,6 +386,6 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
     @FunctionalInterface
     interface JsonGeneratorFactory {
-        JsonGenerator create(ObjectWriter objectWriter) throws JacksonException;
+        JsonGenerator create(ObjectWriter objectWriter);
     }
 }
