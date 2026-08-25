@@ -391,7 +391,7 @@ public class CityJSONSerializerHelper {
     }
 
     public <T> ObjectNode getObjectUsingSerializer(T object, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
-        return getObjectUsingSerializer(object, writer.jsonMapper.createObjectNode(), serializer);
+        return getObjectUsingSerializer(object, createObject(), serializer);
     }
 
     private <T> ObjectNode getObjectUsingSerializer(T object, ObjectNode node, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
@@ -496,7 +496,7 @@ public class CityJSONSerializerHelper {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private <T extends AbstractFeature> ObjectNode getCityObjectUsingSerializer(T object, JsonObjectSerializer<T> serializer) throws CityJSONSerializeException, CityJSONWriteException {
-        ObjectNode node = writer.jsonMapper.createObjectNode();
+        ObjectNode node = createObject();
         node.set(Fields.TYPE, NullNode.getInstance());
         node.set(Fields.GEOGRAPHICAL_EXTENT, createArray());
         node.set(Fields.ATTRIBUTES, createObject());
