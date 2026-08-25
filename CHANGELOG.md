@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [3.5.0] - 2026-08-25
+
 ### Changed
 - **Breaking:** The CityGML writers now use `https` URLs for the default CityGML schema locations.
 - The CityJSON chunk writer now supports implicit geometry references in city objects. Template geometries no longer
@@ -240,7 +242,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.4.1..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.5.0..HEAD
+[3.5.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.0
 [3.4.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.4.1
 [3.4.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.4.0
 [3.3.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.3.0
