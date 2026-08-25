@@ -5,7 +5,8 @@
 ### Changed
 - **Breaking:** The CityGML writers now use `https` URLs for the default CityGML schema locations.
 - The CityJSON chunk writer now supports implicit geometry references in city objects. Template geometries no longer
-  need to be supplied via `CityJSONWriter.withGlobalTemplateGeometry` when they are included in a city object.
+  need to be supplied via `CityJSONWriter.withGlobalTemplateGeometry` when they are included in a city object. When
+  using `CityJSONFeatureWriter`, template geometries still need to be registered using `withGlobalTemplateGeometry`.
 - Reduced the memory footprint of the `CityJSONFeatureWriter` when writing global template geometries.
 - Relaxed parsing of CityJSON `"version"` strings when reading datasets to allow additional version information
   after the required `x.y` format defined by the CityJSON specification.
