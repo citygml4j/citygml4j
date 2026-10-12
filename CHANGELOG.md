@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [3.5.1] - 2026-10-12
+
+### Changed
+- Updated `jackson-databind` to 3.2.3.
+
 ## [3.5.0] - 2026-08-25
 
 ### Changed
@@ -242,7 +247,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.5.0..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.5.1..HEAD
+[3.5.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.1
 [3.5.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.0
 [3.4.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.4.1
 [3.4.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.4.0
