@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- Added `relativeToTerrain` and `relativeToWater` attributes for CityJSON semantic objects.
+
 ## [3.5.1] - 2026-10-12
 
 ### Changed
