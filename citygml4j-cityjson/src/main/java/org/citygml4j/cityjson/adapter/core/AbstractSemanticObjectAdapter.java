@@ -18,10 +18,7 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import org.citygml4j.core.model.ade.ADEProperty;
 import org.citygml4j.core.model.common.TopLevelFeature;
-import org.citygml4j.core.model.core.AbstractGenericAttribute;
-import org.citygml4j.core.model.core.AbstractGenericAttributeProperty;
-import org.citygml4j.core.model.core.AbstractSpaceBoundary;
-import org.citygml4j.core.model.core.AbstractSpaceBoundaryProperty;
+import org.citygml4j.core.model.core.*;
 import org.xmlobjects.gml.model.basictypes.Code;
 import org.xmlobjects.gml.model.basictypes.CodeWithAuthority;
 import org.xmlobjects.gml.model.deprecated.StringOrRef;
@@ -52,6 +49,16 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
         if (name.isString()) {
             object.getNames().add(new Code(name.asString()));
         }
+
+        JsonNode relativeToTerrain = attributes.consume("relativeToTerrain");
+        if (relativeToTerrain.isString()) {
+            object.setRelativeToTerrain(RelativeToTerrain.fromValue(relativeToTerrain.asString()));
+        }
+
+        JsonNode relativeToWater = attributes.consume("relativeToWater");
+        if (relativeToWater.isString()) {
+            object.setRelativeToWater(RelativeToWater.fromValue(relativeToWater.asString()));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -80,6 +87,14 @@ public abstract class AbstractSemanticObjectAdapter<T extends AbstractSpaceBound
                     break;
                 }
             }
+        }
+
+        if (object.getRelativeToTerrain() != null) {
+            attributes.put("relativeToTerrain", object.getRelativeToTerrain().toValue());
+        }
+
+        if (object.getRelativeToWater() != null) {
+            attributes.put("relativeToWater", object.getRelativeToWater().toValue());
         }
 
         if (object.isSetGenericAttributes()) {
