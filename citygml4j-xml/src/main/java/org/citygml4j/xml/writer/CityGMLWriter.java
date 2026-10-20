@@ -26,16 +26,18 @@ public class CityGMLWriter extends AbstractCityGMLWriter<CityGMLWriter> {
             throw new CityGMLWriteException("CityGMLWriter cannot be used to write more than one feature.");
 
         try {
-            XMLWriter writer;
             if (transformer != null) {
-                writer = factory.createWriter(transformer.getRootHandler());
-                transformer.setResult(new SAXResult(this.writer.getContentHandler()));
-            } else
-                writer = this.writer;
-
-            writer.writeStartDocument();
-            writer.writeObject(feature, namespaces);
-            writer.writeEndDocument();
+                try (XMLWriter writer = factory.createWriter(transformer.getRootHandler())) {
+                    transformer.setResult(new SAXResult(this.writer.getContentHandler()));
+                    writer.writeStartDocument();
+                    writer.writeObject(feature, namespaces);
+                    writer.writeEndDocument();
+                }
+            } else {
+                writer.writeStartDocument();
+                writer.writeObject(feature, namespaces);
+                writer.writeEndDocument();
+            }
         } catch (ObjectSerializeException | XMLWriteException e) {
             throw new CityGMLWriteException("Caused by:", e);
         } finally {

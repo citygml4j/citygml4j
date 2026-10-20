@@ -8,6 +8,7 @@
 ### Fixed
 - Fixed writing of CityGML 1.0 datasets by omitting unsupported content and correctly serializing properties whose
   types differ from later CityGML versions.
+- Fixed a possible resource leak in `CityGMLWriter` when writing with a transformer.
 
 ## [3.5.1] - 2026-10-12
 
