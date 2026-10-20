@@ -49,7 +49,9 @@ public class CeilingSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Ce
     public void writeChildElements(CeilingSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfCeilingSurface property : object.getADEProperties(ADEOfCeilingSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfCeilingSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfCeilingSurface property : object.getADEProperties(ADEOfCeilingSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfCeilingSurface"), property, namespaces, writer);
+        }
     }
 }

@@ -79,7 +79,9 @@ public class TrackAdapter extends AbstractTransportationSpaceAdapter<Track> {
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTrack property : object.getADEProperties(ADEOfTrack.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrack"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTrack property : object.getADEProperties(ADEOfTrack.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrack"), property, namespaces, writer);
+        }
     }
 }

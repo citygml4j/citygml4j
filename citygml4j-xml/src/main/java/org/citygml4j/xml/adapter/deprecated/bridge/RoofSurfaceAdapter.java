@@ -58,7 +58,9 @@ public class RoofSurfaceAdapter extends AbstractBoundarySurfaceAdapter<RoofSurfa
     public void writeChildElements(RoofSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfRoofSurface property : object.getADEProperties(ADEOfRoofSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfRoofSurface property : object.getADEProperties(ADEOfRoofSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

@@ -108,7 +108,9 @@ public class TrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<TrafficS
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "clearanceSpace"), property, ClearanceSpacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTrafficSpace property : object.getADEProperties(ADEOfTrafficSpace.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrafficSpace"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTrafficSpace property : object.getADEProperties(ADEOfTrafficSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfTrafficSpace"), property, namespaces, writer);
+        }
     }
 }

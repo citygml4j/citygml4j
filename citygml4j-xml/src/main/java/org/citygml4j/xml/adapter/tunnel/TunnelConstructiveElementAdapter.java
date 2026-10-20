@@ -60,7 +60,9 @@ public class TunnelConstructiveElementAdapter extends AbstractConstructiveElemen
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, namespaces, writer);
 
-        for (ADEOfTunnelConstructiveElement property : object.getADEProperties(ADEOfTunnelConstructiveElement.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnelConstructiveElement"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTunnelConstructiveElement property : object.getADEProperties(ADEOfTunnelConstructiveElement.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnelConstructiveElement"), property, namespaces, writer);
+        }
     }
 }

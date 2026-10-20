@@ -40,8 +40,10 @@ public abstract class AbstractLogicalSpaceAdapter<T extends AbstractLogicalSpace
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractLogicalSpace property : object.getADEProperties(ADEOfAbstractLogicalSpace.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractLogicalSpace"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractLogicalSpace property : object.getADEProperties(ADEOfAbstractLogicalSpace.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractLogicalSpace"), property, namespaces, writer);
+            }
         }
     }
 }

@@ -99,7 +99,9 @@ public class CityModelAdapter extends AbstractFeatureWithLifespanAdapter<CityMod
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfCityModel"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfCityModel"), property, namespaces, writer);
+        }
     }
 }

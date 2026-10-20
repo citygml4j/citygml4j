@@ -86,8 +86,10 @@ public abstract class AbstractFeatureWithLifespanAdapter<T extends AbstractFeatu
             if (object.getValidTo() != null)
                 writer.writeElement(Element.of(coreNamespace, "validTo").addTextContent(TextContent.ofDateTime(object.getValidTo())));
 
-            for (ADEOfAbstractFeatureWithLifespan property : object.getADEProperties(ADEOfAbstractFeatureWithLifespan.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractFeatureWithLifespan"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractFeatureWithLifespan property : object.getADEProperties(ADEOfAbstractFeatureWithLifespan.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractFeatureWithLifespan"), property, namespaces, writer);
+            }
         }
     }
 }

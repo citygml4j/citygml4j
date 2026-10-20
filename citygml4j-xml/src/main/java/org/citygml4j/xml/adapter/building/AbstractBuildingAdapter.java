@@ -132,7 +132,9 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAbstractBuilding property : object.getADEProperties(ADEOfAbstractBuilding.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuilding"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractBuilding property : object.getADEProperties(ADEOfAbstractBuilding.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfAbstractBuilding"), property, namespaces, writer);
+        }
     }
 }

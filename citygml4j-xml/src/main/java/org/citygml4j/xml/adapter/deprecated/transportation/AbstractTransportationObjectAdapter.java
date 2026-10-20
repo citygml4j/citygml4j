@@ -166,8 +166,10 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
         if (properties != null && properties.getLod4MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractTransportationSpace property : object.getADEProperties(ADEOfAbstractTransportationSpace.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractTransportationSpace property : object.getADEProperties(ADEOfAbstractTransportationSpace.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 
     private MultiCurveProperty getMultiCurveProperty(CompositeCurve src) {

@@ -62,12 +62,14 @@ public abstract class AbstractSurfaceDataAdapter<T extends AbstractSurfaceData> 
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
 
         if (object.isSetIsFront())
             writer.writeElement(Element.of(appearanceNamespace, "isFront").addTextContent(TextContent.ofBoolean(object.getIsFront())));
 
-        for (ADEOfAbstractSurfaceData property : object.getADEProperties(ADEOfAbstractSurfaceData.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractSurfaceData") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
+            for (ADEOfAbstractSurfaceData property : object.getADEProperties(ADEOfAbstractSurfaceData.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractSurfaceData") : null, property, namespaces, writer);
+        }
     }
 }

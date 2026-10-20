@@ -65,7 +65,9 @@ public class ClearanceSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<Cleara
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), classifier, CodeAdapter.class, namespaces);
         }
 
-        for (ADEOfClearanceSpace property : object.getADEProperties(ADEOfClearanceSpace.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfClearanceSpace"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfClearanceSpace property : object.getADEProperties(ADEOfClearanceSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfClearanceSpace"), property, namespaces, writer);
+        }
     }
 }

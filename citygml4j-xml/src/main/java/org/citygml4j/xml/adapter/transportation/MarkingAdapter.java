@@ -62,7 +62,9 @@ public class MarkingAdapter extends AbstractThematicSurfaceAdapter<Marking> {
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfMarking property : object.getADEProperties(ADEOfMarking.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfMarking"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfMarking property : object.getADEProperties(ADEOfMarking.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfMarking"), property, namespaces, writer);
+        }
     }
 }

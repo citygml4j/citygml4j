@@ -51,8 +51,10 @@ public abstract class AbstractInstallationAdapter<T extends AbstractInstallation
             if (object.getRelationToConstruction() != null)
                 writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "relationToConstruction").addTextContent(object.getRelationToConstruction().toValue()));
 
-            for (ADEOfAbstractInstallation property : object.getADEProperties(ADEOfAbstractInstallation.class))
-                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractInstallation"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractInstallation property : object.getADEProperties(ADEOfAbstractInstallation.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractInstallation"), property, namespaces, writer);
+            }
         }
     }
 }

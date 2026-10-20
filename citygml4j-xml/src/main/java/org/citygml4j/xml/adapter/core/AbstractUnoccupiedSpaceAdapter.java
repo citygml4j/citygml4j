@@ -40,8 +40,10 @@ public abstract class AbstractUnoccupiedSpaceAdapter<T extends AbstractUnoccupie
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractUnoccupiedSpace property : object.getADEProperties(ADEOfAbstractUnoccupiedSpace.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractUnoccupiedSpace"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractUnoccupiedSpace property : object.getADEProperties(ADEOfAbstractUnoccupiedSpace.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractUnoccupiedSpace"), property, namespaces, writer);
+            }
         }
     }
 }

@@ -53,8 +53,10 @@ public abstract class AbstractConstructionSurfaceAdapter<T extends AbstractConst
                     writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "fillingSurface"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
             }
 
-            for (ADEOfAbstractConstructionSurface property : object.getADEProperties(ADEOfAbstractConstructionSurface.class))
-                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructionSurface"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractConstructionSurface property : object.getADEProperties(ADEOfAbstractConstructionSurface.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructionSurface"), property, namespaces, writer);
+            }
         }
     }
 }

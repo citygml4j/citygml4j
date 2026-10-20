@@ -180,8 +180,10 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSolid"), properties.getLod4MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfPlantCover property : object.getADEProperties(ADEOfPlantCover.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfPlantCover") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfPlantCover property : object.getADEProperties(ADEOfPlantCover.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfPlantCover") : null, property, namespaces, writer);
+        }
     }
 
     private MultiSolidProperty getMultiSolidProperty(SolidProperty src) {

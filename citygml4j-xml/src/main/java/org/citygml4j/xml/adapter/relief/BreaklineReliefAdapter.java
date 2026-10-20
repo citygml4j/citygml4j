@@ -81,7 +81,6 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
     public void writeChildElements(BreaklineRelief object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         if (object.getRidgeOrValleyLines() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "ridgeOrValleyLines"), object.getRidgeOrValleyLines(), MultiCurvePropertyAdapter.class, namespaces);
@@ -89,7 +88,10 @@ public class BreaklineReliefAdapter extends AbstractReliefComponentAdapter<Break
         if (object.getBreaklines() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "breaklines"), object.getBreaklines(), MultiCurvePropertyAdapter.class, namespaces);
 
-        for (ADEOfBreaklineRelief property : object.getADEProperties(ADEOfBreaklineRelief.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfBreaklineRelief") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
+            for (ADEOfBreaklineRelief property : object.getADEProperties(ADEOfBreaklineRelief.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfBreaklineRelief") : null, property, namespaces, writer);
+        }
     }
 }

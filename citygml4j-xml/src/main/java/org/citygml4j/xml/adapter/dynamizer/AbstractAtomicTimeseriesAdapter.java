@@ -54,7 +54,9 @@ public abstract class AbstractAtomicTimeseriesAdapter<T extends AbstractAtomicTi
         if (object.getUom() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "uom").addTextContent(object.getUom()));
 
-        for (ADEOfAbstractAtomicTimeseries property : object.getADEProperties(ADEOfAbstractAtomicTimeseries.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfAbstractAtomicTimeseries"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractAtomicTimeseries property : object.getADEProperties(ADEOfAbstractAtomicTimeseries.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfAbstractAtomicTimeseries"), property, namespaces, writer);
+        }
     }
 }

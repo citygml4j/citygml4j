@@ -139,7 +139,9 @@ public class CityObjectGroupAdapter extends AbstractLogicalSpaceAdapter<CityObje
         if (!isCityGML3 && properties != null && properties.getGeometry() != null)
             writer.writeElementUsingSerializer(Element.of(cityObjectGroupNamespace, "geometry"), properties.getGeometry(), GeometryPropertyAdapter.class, namespaces);
 
-        for (ADEOfCityObjectGroup property : object.getADEProperties(ADEOfCityObjectGroup.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(cityObjectGroupNamespace, "adeOfCityObjectGroup") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfCityObjectGroup property : object.getADEProperties(ADEOfCityObjectGroup.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(cityObjectGroupNamespace, "adeOfCityObjectGroup") : null, property, namespaces, writer);
+        }
     }
 }

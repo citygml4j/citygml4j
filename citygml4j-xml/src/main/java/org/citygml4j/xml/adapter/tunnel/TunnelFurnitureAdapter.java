@@ -97,7 +97,9 @@ public class TunnelFurnitureAdapter extends AbstractFurnitureAdapter<TunnelFurni
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTunnelFurniture property : object.getADEProperties(ADEOfTunnelFurniture.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelFurniture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTunnelFurniture property : object.getADEProperties(ADEOfTunnelFurniture.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelFurniture") : null, property, namespaces, writer);
+        }
     }
 }

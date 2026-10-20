@@ -60,7 +60,9 @@ public class GenericThematicSurfaceAdapter extends AbstractThematicSurfaceAdapte
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEOfGenericThematicSurface property : object.getADEProperties(ADEOfGenericThematicSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericThematicSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfGenericThematicSurface property : object.getADEProperties(ADEOfGenericThematicSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericThematicSurface"), property, namespaces, writer);
+        }
     }
 }

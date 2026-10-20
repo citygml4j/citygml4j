@@ -58,7 +58,9 @@ public class OuterFloorSurfaceAdapter extends AbstractBoundarySurfaceAdapter<Out
     public void writeChildElements(OuterFloorSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfOuterFloorSurface property : object.getADEProperties(ADEOfOuterFloorSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfOuterFloorSurface property : object.getADEProperties(ADEOfOuterFloorSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

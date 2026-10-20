@@ -60,7 +60,9 @@ public class GenericLogicalSpaceAdapter extends AbstractLogicalSpaceAdapter<Gene
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEOfGenericLogicalSpace property : object.getADEProperties(ADEOfGenericLogicalSpace.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericLogicalSpace"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfGenericLogicalSpace property : object.getADEProperties(ADEOfGenericLogicalSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericLogicalSpace"), property, namespaces, writer);
+        }
     }
 }

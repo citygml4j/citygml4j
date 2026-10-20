@@ -165,7 +165,9 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "dynamizer"), property, AbstractDynamizerPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAbstractCityObject property : object.getADEProperties(ADEOfAbstractCityObject.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(coreNamespace, "adeOfAbstractCityObject") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractCityObject property : object.getADEProperties(ADEOfAbstractCityObject.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(coreNamespace, "adeOfAbstractCityObject") : null, property, namespaces, writer);
+        }
     }
 }

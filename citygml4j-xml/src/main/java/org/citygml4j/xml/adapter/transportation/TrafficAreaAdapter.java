@@ -121,7 +121,9 @@ public class TrafficAreaAdapter extends AbstractThematicSurfaceAdapter<TrafficAr
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTrafficArea property : object.getADEProperties(ADEOfTrafficArea.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(transportationNamespace, "adeOfTrafficArea") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTrafficArea property : object.getADEProperties(ADEOfTrafficArea.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(transportationNamespace, "adeOfTrafficArea") : null, property, namespaces, writer);
+        }
     }
 }

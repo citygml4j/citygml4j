@@ -95,7 +95,9 @@ public class AppearanceAdapter extends AbstractAppearanceAdapter<Appearance> {
                         property, AbstractSurfaceDataPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAppearance property : object.getADEProperties(ADEOfAppearance.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAppearance") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAppearance property : object.getADEProperties(ADEOfAppearance.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAppearance") : null, property, namespaces, writer);
+        }
     }
 }

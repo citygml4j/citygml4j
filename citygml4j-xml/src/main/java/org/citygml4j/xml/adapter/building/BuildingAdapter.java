@@ -63,7 +63,9 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingPart"), property, BuildingPartPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBuilding property : object.getADEProperties(ADEOfBuilding.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBuilding property : object.getADEProperties(ADEOfBuilding.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), property, namespaces, writer);
+        }
     }
 }

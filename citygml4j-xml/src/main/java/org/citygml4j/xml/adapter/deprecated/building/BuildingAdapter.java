@@ -65,7 +65,9 @@ public class BuildingAdapter extends AbstractBuildingAdapter<Building> {
     public void writeChildElements(Building object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfBuilding property : object.getADEProperties(ADEOfBuilding.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBuilding property : object.getADEProperties(ADEOfBuilding.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

@@ -60,8 +60,10 @@ public abstract class AbstractConstructiveElementAdapter<T extends AbstractConst
                     writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "filling"), property, AbstractFillingElementPropertyAdapter.class, namespaces);
             }
 
-            for (ADEOfAbstractConstructiveElement property : object.getADEProperties(ADEOfAbstractConstructiveElement.class))
-                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructiveElement"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractConstructiveElement property : object.getADEProperties(ADEOfAbstractConstructiveElement.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfAbstractConstructiveElement"), property, namespaces, writer);
+            }
         }
     }
 }

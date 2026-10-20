@@ -60,7 +60,9 @@ public class BuildingConstructiveElementAdapter extends AbstractConstructiveElem
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, namespaces, writer);
 
-        for (ADEOfBuildingConstructiveElement property : object.getADEProperties(ADEOfBuildingConstructiveElement.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBuildingConstructiveElement property : object.getADEProperties(ADEOfBuildingConstructiveElement.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuilding"), property, namespaces, writer);
+        }
     }
 }

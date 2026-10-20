@@ -58,7 +58,9 @@ public class OuterCeilingSurfaceAdapter extends AbstractBoundarySurfaceAdapter<O
     public void writeChildElements(OuterCeilingSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfOuterCeilingSurface property : object.getADEProperties(ADEOfOuterCeilingSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfOuterCeilingSurface property : object.getADEProperties(ADEOfOuterCeilingSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

@@ -65,7 +65,9 @@ public class InteriorWallSurfaceAdapter extends AbstractBoundarySurfaceAdapter<I
     public void writeChildElements(InteriorWallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfInteriorWallSurface property : object.getADEProperties(ADEOfInteriorWallSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfInteriorWallSurface property : object.getADEProperties(ADEOfInteriorWallSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

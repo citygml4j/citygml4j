@@ -61,7 +61,9 @@ public class IntersectionAdapter extends AbstractTransportationSpaceAdapter<Inte
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfIntersection property : object.getADEProperties(ADEOfIntersection.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfIntersection"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfIntersection property : object.getADEProperties(ADEOfIntersection.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfIntersection"), property, namespaces, writer);
+        }
     }
 }

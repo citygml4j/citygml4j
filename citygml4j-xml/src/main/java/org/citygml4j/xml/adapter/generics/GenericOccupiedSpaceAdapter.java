@@ -187,8 +187,10 @@ public class GenericOccupiedSpaceAdapter extends AbstractOccupiedSpaceAdapter<Ge
             if (properties != null && properties.getLod4ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(genericsNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         } else {
-            for (ADEOfGenericOccupiedSpace property : object.getADEProperties(ADEOfGenericOccupiedSpace.class))
-                ADESerializerHelper.writeADEProperty(Element.of(genericsNamespace, "adeOfGenericOccupiedSpace"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfGenericOccupiedSpace property : object.getADEProperties(ADEOfGenericOccupiedSpace.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(genericsNamespace, "adeOfGenericOccupiedSpace"), property, namespaces, writer);
+            }
         }
     }
 }

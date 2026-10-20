@@ -162,7 +162,9 @@ public class BridgeInstallationAdapter extends AbstractInstallationAdapter<Bridg
             }
         }
 
-        for (ADEOfBridgeInstallation property : object.getADEProperties(ADEOfBridgeInstallation.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeInstallation") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBridgeInstallation property : object.getADEProperties(ADEOfBridgeInstallation.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeInstallation") : null, property, namespaces, writer);
+        }
     }
 }

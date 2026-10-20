@@ -37,7 +37,9 @@ public abstract class AbstractPointCloudAdapter<T extends AbstractPointCloud> ex
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractPointCloud property : object.getADEProperties(ADEOfAbstractPointCloud.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractPointCloud"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractPointCloud property : object.getADEProperties(ADEOfAbstractPointCloud.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractPointCloud"), property, namespaces, writer);
+        }
     }
 }

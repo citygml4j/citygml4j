@@ -58,7 +58,9 @@ public class GroundSurfaceAdapter extends AbstractBoundarySurfaceAdapter<GroundS
     public void writeChildElements(GroundSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfGroundSurface property : object.getADEProperties(ADEOfGroundSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfGroundSurface property : object.getADEProperties(ADEOfGroundSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

@@ -49,7 +49,9 @@ public class ClosureSurfaceAdapter extends AbstractThematicSurfaceAdapter<Closur
     public void writeChildElements(ClosureSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfClosureSurface property : object.getADEProperties(ADEOfClosureSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfClosureSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfClosureSurface property : object.getADEProperties(ADEOfClosureSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfClosureSurface"), property, namespaces, writer);
+        }
     }
 }

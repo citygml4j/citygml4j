@@ -79,7 +79,9 @@ public class RailwayAdapter extends AbstractTransportationSpaceAdapter<Railway> 
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfRailway property : object.getADEProperties(ADEOfRailway.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRailway"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfRailway property : object.getADEProperties(ADEOfRailway.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRailway"), property, namespaces, writer);
+        }
     }
 }

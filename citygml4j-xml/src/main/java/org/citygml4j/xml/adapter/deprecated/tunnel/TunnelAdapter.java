@@ -58,7 +58,9 @@ public class TunnelAdapter extends AbstractTunnelAdapter<Tunnel> {
     public void writeChildElements(Tunnel object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfTunnel property : object.getADEProperties(ADEOfTunnel.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTunnel property : object.getADEProperties(ADEOfTunnel.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

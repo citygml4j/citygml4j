@@ -70,8 +70,10 @@ public abstract class AbstractPhysicalSpaceAdapter<T extends AbstractPhysicalSpa
             if (object.getPointCloud() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractPhysicalSpace property : object.getADEProperties(ADEOfAbstractPhysicalSpace.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractPhysicalSpace"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractPhysicalSpace property : object.getADEProperties(ADEOfAbstractPhysicalSpace.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractPhysicalSpace"), property, namespaces, writer);
+            }
         }
     }
 }

@@ -50,7 +50,9 @@ public class HoleSurfaceAdapter extends AbstractThematicSurfaceAdapter<HoleSurfa
     public void writeChildElements(HoleSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfHoleSurface property : object.getADEProperties(ADEOfHoleSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfHoleSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfHoleSurface property : object.getADEProperties(ADEOfHoleSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfHoleSurface"), property, namespaces, writer);
+        }
     }
 }

@@ -52,8 +52,10 @@ public abstract class AbstractFeatureAdapter<T extends AbstractFeature> extends 
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractFeature property : object.getADEProperties(ADEOfAbstractFeature.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractFeature"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractFeature property : object.getADEProperties(ADEOfAbstractFeature.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractFeature"), property, namespaces, writer);
+            }
         }
     }
 }

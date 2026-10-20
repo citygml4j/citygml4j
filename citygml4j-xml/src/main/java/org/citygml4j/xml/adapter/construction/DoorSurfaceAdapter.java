@@ -64,7 +64,9 @@ public class DoorSurfaceAdapter extends AbstractFillingSurfaceAdapter<DoorSurfac
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoorSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfDoorSurface"), property, namespaces, writer);
+        }
     }
 }

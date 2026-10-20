@@ -83,7 +83,9 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
         if (properties != null && properties.getLod4ImplicitRepresentation() != null)
             writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractFillingSurface property : object.getADEProperties(ADEOfAbstractFillingSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractFillingSurface property : object.getADEProperties(ADEOfAbstractFillingSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

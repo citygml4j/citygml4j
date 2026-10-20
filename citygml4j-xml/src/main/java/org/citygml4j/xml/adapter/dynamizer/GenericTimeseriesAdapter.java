@@ -70,7 +70,9 @@ public class GenericTimeseriesAdapter extends AbstractAtomicTimeseriesAdapter<Ge
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "timeValuePair"), property, TimeValuePairPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfGenericTimeseries property : object.getADEProperties(ADEOfGenericTimeseries.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfGenericTimeseries"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfGenericTimeseries property : object.getADEProperties(ADEOfGenericTimeseries.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfGenericTimeseries"), property, namespaces, writer);
+        }
     }
 }

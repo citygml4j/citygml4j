@@ -79,7 +79,9 @@ public class RoadAdapter extends AbstractTransportationSpaceAdapter<Road> {
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "intersection"), property, IntersectionPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfRoad property : object.getADEProperties(ADEOfRoad.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRoad"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfRoad property : object.getADEProperties(ADEOfRoad.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfRoad"), property, namespaces, writer);
+        }
     }
 }

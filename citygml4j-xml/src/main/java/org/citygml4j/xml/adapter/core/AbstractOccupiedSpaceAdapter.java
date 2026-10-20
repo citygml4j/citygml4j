@@ -63,8 +63,10 @@ public abstract class AbstractOccupiedSpaceAdapter<T extends AbstractOccupiedSpa
             if (object.getLod3ImplicitRepresentation() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractOccupiedSpace property : object.getADEProperties(ADEOfAbstractOccupiedSpace.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractOccupiedSpace"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractOccupiedSpace property : object.getADEProperties(ADEOfAbstractOccupiedSpace.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractOccupiedSpace"), property, namespaces, writer);
+            }
         }
     }
 }

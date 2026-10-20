@@ -88,12 +88,16 @@ public abstract class AbstractWaterBoundarySurfaceAdapter<T extends AbstractThem
             writer.writeElementUsingSerializer(Element.of(waterBodyNamespace, "lod4Surface"), getSurfaceProperty(object.getDeprecatedProperties().getLod4MultiSurface()), SurfacePropertyAdapter.class, namespaces);
 
         if (object instanceof AbstractWaterBoundarySurface surface) {
-            for (ADEOfAbstractWaterBoundarySurface property : surface.getADEProperties(ADEOfAbstractWaterBoundarySurface.class))
-                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+            if (surface.hasADEProperties()) {
+                for (ADEOfAbstractWaterBoundarySurface property : surface.getADEProperties(ADEOfAbstractWaterBoundarySurface.class))
+                    ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+            }
         }
 
-        for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 
     private MultiSurfaceProperty getMultiSurfaceProperty(SurfaceProperty src) {

@@ -71,7 +71,9 @@ public class DoorAdapter extends AbstractOpeningAdapter<DoorSurface> {
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfDoorSurface property : object.getADEProperties(ADEOfDoorSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

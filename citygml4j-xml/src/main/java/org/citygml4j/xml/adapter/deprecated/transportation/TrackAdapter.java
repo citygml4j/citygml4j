@@ -66,7 +66,9 @@ public class TrackAdapter extends AbstractTransportationObjectAdapter<Track> {
     public void writeChildElements(Track object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfTrack property : object.getADEProperties(ADEOfTrack.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTrack property : object.getADEProperties(ADEOfTrack.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

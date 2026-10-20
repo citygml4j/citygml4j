@@ -49,7 +49,9 @@ public class FloorSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Floo
     public void writeChildElements(FloorSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfFloorSurface property : object.getADEProperties(ADEOfFloorSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfFloorSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfFloorSurface property : object.getADEProperties(ADEOfFloorSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfFloorSurface"), property, namespaces, writer);
+        }
     }
 }

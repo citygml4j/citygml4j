@@ -60,7 +60,9 @@ public class GenericUnoccupiedSpaceAdapter extends AbstractUnoccupiedSpaceAdapte
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, namespaces, writer);
 
-        for (ADEOfGenericUnoccupiedSpace property : object.getADEProperties(ADEOfGenericUnoccupiedSpace.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericUnoccupiedSpace"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfGenericUnoccupiedSpace property : object.getADEProperties(ADEOfGenericUnoccupiedSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE, "adeOfGenericUnoccupiedSpace"), property, namespaces, writer);
+        }
     }
 }

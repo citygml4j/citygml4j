@@ -95,7 +95,9 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
         if (object.getBorderColor() != null)
             writer.writeElement(Element.of(appearanceNamespace, "borderColor").addTextContent(TextContent.ofDoubleList(object.getBorderColor().toList())));
 
-        for (ADEOfAbstractTexture property : object.getADEProperties(ADEOfAbstractTexture.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractTexture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractTexture property : object.getADEProperties(ADEOfAbstractTexture.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfAbstractTexture") : null, property, namespaces, writer);
+        }
     }
 }

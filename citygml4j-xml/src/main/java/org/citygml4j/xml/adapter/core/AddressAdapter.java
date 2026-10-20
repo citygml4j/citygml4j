@@ -81,7 +81,6 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
     public void writeChildElements(Address object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace);
 
         if (object.getXALAddress() != null)
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "xalAddress"), object.getXALAddress(), XALAddressPropertyAdapter.class, namespaces);
@@ -89,7 +88,10 @@ public class AddressAdapter extends AbstractFeatureAdapter<Address> {
         if (object.getMultiPoint() != null)
             writer.writeElementUsingSerializer(Element.of(coreNamespace, "multiPoint"), object.getMultiPoint(), MultiPointPropertyAdapter.class, namespaces);
 
-        for (ADEOfAddress property : object.getADEProperties(ADEOfAddress.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(coreNamespace, "adeOfAddress") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace);
+            for (ADEOfAddress property : object.getADEProperties(ADEOfAddress.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(coreNamespace, "adeOfAddress") : null, property, namespaces, writer);
+        }
     }
 }

@@ -61,7 +61,9 @@ public class SectionAdapter extends AbstractTransportationSpaceAdapter<Section> 
         if (object.getClassifier() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
 
-        for (ADEOfSection property : object.getADEProperties(ADEOfSection.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSection"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfSection property : object.getADEProperties(ADEOfSection.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfSection"), property, namespaces, writer);
+        }
     }
 }

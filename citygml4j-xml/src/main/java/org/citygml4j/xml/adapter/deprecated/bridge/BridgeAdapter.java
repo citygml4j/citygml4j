@@ -58,7 +58,9 @@ public class BridgeAdapter extends AbstractBridgeAdapter<Bridge> {
     public void writeChildElements(Bridge object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfBridge property : object.getADEProperties(ADEOfBridge.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBridge property : object.getADEProperties(ADEOfBridge.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

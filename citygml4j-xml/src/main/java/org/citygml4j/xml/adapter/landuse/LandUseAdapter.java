@@ -115,7 +115,9 @@ public class LandUseAdapter extends AbstractThematicSurfaceAdapter<LandUse> {
                 writer.writeElementUsingSerializer(Element.of(landUseNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfLandUse property : object.getADEProperties(ADEOfLandUse.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(landUseNamespace, "adeOfLandUse") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfLandUse property : object.getADEProperties(ADEOfLandUse.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(landUseNamespace, "adeOfLandUse") : null, property, namespaces, writer);
+        }
     }
 }

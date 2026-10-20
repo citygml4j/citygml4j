@@ -83,7 +83,6 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
     public void writeChildElements(ReliefFeature object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         writer.writeElement(Element.of(reliefNamespace, "lod").addTextContent(TextContent.ofInteger(object.getLod())));
 
@@ -92,7 +91,10 @@ public class ReliefFeatureAdapter extends AbstractSpaceBoundaryAdapter<ReliefFea
                 writer.writeElementUsingSerializer(Element.of(reliefNamespace, "reliefComponent"), property, AbstractReliefComponentPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfReliefFeature property : object.getADEProperties(ADEOfReliefFeature.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfReliefFeature") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
+            for (ADEOfReliefFeature property : object.getADEProperties(ADEOfReliefFeature.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfReliefFeature") : null, property, namespaces, writer);
+        }
     }
 }

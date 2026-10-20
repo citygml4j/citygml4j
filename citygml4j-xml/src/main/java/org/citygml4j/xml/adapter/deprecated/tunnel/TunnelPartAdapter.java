@@ -58,7 +58,9 @@ public class TunnelPartAdapter extends AbstractTunnelAdapter<TunnelPart> {
     public void writeChildElements(TunnelPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfTunnelPart property : object.getADEProperties(ADEOfTunnelPart.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTunnelPart property : object.getADEProperties(ADEOfTunnelPart.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

@@ -98,7 +98,9 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfAbstractBridge"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BRIDGE_NAMESPACE, "adeOfAbstractBridge"), property, namespaces, writer);
+        }
     }
 }

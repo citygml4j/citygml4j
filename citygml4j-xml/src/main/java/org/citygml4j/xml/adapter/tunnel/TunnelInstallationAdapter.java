@@ -163,7 +163,9 @@ public class TunnelInstallationAdapter extends AbstractInstallationAdapter<Tunne
             }
         }
 
-        for (ADEOfTunnelInstallation property : object.getADEProperties(ADEOfTunnelInstallation.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelInstallation") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTunnelInstallation property : object.getADEProperties(ADEOfTunnelInstallation.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfTunnelInstallation") : null, property, namespaces, writer);
+        }
     }
 }

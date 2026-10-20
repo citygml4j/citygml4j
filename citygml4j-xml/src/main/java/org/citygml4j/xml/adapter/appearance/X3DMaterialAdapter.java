@@ -101,7 +101,6 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
     public void writeChildElements(X3DMaterial object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
 
         if (object.isSetAmbientIntensity())
             writer.writeElement(Element.of(appearanceNamespace, "ambientIntensity").addTextContent(TextContent.ofDouble(object.getAmbientIntensity())));
@@ -131,7 +130,10 @@ public class X3DMaterialAdapter extends AbstractSurfaceDataAdapter<X3DMaterial> 
             }
         }
 
-        for (ADEOfX3DMaterial property : object.getADEProperties(ADEOfX3DMaterial.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfX3DMaterial") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
+            for (ADEOfX3DMaterial property : object.getADEProperties(ADEOfX3DMaterial.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfX3DMaterial") : null, property, namespaces, writer);
+        }
     }
 }

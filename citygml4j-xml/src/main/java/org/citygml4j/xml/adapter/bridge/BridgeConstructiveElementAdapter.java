@@ -187,7 +187,9 @@ public class BridgeConstructiveElementAdapter extends AbstractConstructiveElemen
             }
         }
 
-        for (ADEOfBridgeConstructiveElement property : object.getADEProperties(ADEOfBridgeConstructiveElement.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeConstructiveElement") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBridgeConstructiveElement property : object.getADEProperties(ADEOfBridgeConstructiveElement.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeConstructiveElement") : null, property, namespaces, writer);
+        }
     }
 }

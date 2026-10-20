@@ -65,14 +65,16 @@ public abstract class AbstractReliefComponentAdapter<T extends AbstractReliefCom
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         writer.writeElement(Element.of(reliefNamespace, "lod").addTextContent(TextContent.ofInteger(object.getLod())));
 
         if (object.getExtent() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "extent"), object.getExtent(), ExtentPropertyAdapter.class, namespaces);
 
-        for (ADEOfAbstractReliefComponent property : object.getADEProperties(ADEOfAbstractReliefComponent.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfAbstractReliefComponent") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
+            for (ADEOfAbstractReliefComponent property : object.getADEProperties(ADEOfAbstractReliefComponent.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfAbstractReliefComponent") : null, property, namespaces, writer);
+        }
     }
 }

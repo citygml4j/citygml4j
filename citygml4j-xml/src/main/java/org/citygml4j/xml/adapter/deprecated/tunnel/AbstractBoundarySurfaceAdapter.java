@@ -86,11 +86,15 @@ public abstract class AbstractBoundarySurfaceAdapter<T extends AbstractThematicS
                     writer.writeElementUsingSerializer(Element.of(tunnelNamespace, "opening"), property, AbstractFillingSurfacePropertyAdapter.class, namespaces);
             }
 
-            for (ADEOfAbstractConstructionSurface property : object.getADEProperties(ADEOfAbstractConstructionSurface.class))
-                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractConstructionSurface property : object.getADEProperties(ADEOfAbstractConstructionSurface.class))
+                    ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+            }
         }
 
-        for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

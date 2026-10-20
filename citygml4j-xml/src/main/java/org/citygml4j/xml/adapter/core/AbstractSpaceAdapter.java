@@ -138,8 +138,10 @@ public abstract class AbstractSpaceAdapter<T extends AbstractSpace> extends Abst
             if (object.getLod3MultiCurve() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "lod3MultiCurve"), object.getLod3MultiCurve(), MultiCurvePropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractSpace property : object.getADEProperties(ADEOfAbstractSpace.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractSpace"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractSpace property : object.getADEProperties(ADEOfAbstractSpace.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractSpace"), property, namespaces, writer);
+            }
         }
     }
 }

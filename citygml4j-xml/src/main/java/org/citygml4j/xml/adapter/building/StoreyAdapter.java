@@ -63,7 +63,9 @@ public class StoreyAdapter extends AbstractBuildingSubdivisionAdapter<Storey> {
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "buildingUnit"), property, BuildingUnitPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfStorey property : object.getADEProperties(ADEOfStorey.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfStorey"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfStorey property : object.getADEProperties(ADEOfStorey.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfStorey"), property, namespaces, writer);
+        }
     }
 }

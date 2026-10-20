@@ -49,7 +49,9 @@ public class RoofSurfaceAdapter extends AbstractConstructionSurfaceAdapter<RoofS
     public void writeChildElements(RoofSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfRoofSurface property : object.getADEProperties(ADEOfRoofSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfRoofSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfRoofSurface property : object.getADEProperties(ADEOfRoofSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfRoofSurface"), property, namespaces, writer);
+        }
     }
 }

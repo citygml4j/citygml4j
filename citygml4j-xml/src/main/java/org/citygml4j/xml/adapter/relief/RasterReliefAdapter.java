@@ -77,12 +77,14 @@ public class RasterReliefAdapter extends AbstractReliefComponentAdapter<RasterRe
     public void writeChildElements(RasterRelief object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         if (object.getGrid() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "grid"), object.getGrid(), GridPropertyAdapter.class, namespaces);
 
-        for (ADEOfRasterRelief property : object.getADEProperties(ADEOfRasterRelief.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfRasterRelief") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
+            for (ADEOfRasterRelief property : object.getADEProperties(ADEOfRasterRelief.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfRasterRelief") : null, property, namespaces, writer);
+        }
     }
 }

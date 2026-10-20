@@ -65,7 +65,9 @@ public class SquareAdapter extends AbstractTransportationObjectAdapter<Square> {
     public void writeChildElements(Square object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfSquare property : object.getADEProperties(ADEOfSquare.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfSquare property : object.getADEProperties(ADEOfSquare.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

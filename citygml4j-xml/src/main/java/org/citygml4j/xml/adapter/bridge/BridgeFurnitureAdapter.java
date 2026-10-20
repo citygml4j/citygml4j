@@ -97,7 +97,9 @@ public class BridgeFurnitureAdapter extends AbstractFurnitureAdapter<BridgeFurni
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBridgeFurniture property : object.getADEProperties(ADEOfBridgeFurniture.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeFurniture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBridgeFurniture property : object.getADEProperties(ADEOfBridgeFurniture.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeFurniture") : null, property, namespaces, writer);
+        }
     }
 }

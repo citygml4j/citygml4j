@@ -106,7 +106,9 @@ public class ParameterizedTextureAdapter extends AbstractTextureAdapter<Paramete
                 writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "target"), reference, TextureAssociationReferenceAdapter.class, namespaces);
         }
 
-        for (ADEOfParameterizedTexture property : object.getADEProperties(ADEOfParameterizedTexture.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfParameterizedTexture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfParameterizedTexture property : object.getADEProperties(ADEOfParameterizedTexture.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfParameterizedTexture") : null, property, namespaces, writer);
+        }
     }
 }

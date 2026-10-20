@@ -90,7 +90,9 @@ public class MassPointReliefAdapter extends AbstractReliefComponentAdapter<MassP
         if (object.getPointCloud() != null && isCityGML3)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-        for (ADEOfMassPointRelief property : object.getADEProperties(ADEOfMassPointRelief.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfMassPointRelief") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfMassPointRelief property : object.getADEProperties(ADEOfMassPointRelief.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfMassPointRelief") : null, property, namespaces, writer);
+        }
     }
 }

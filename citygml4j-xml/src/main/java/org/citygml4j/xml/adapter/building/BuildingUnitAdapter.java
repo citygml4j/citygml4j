@@ -73,7 +73,9 @@ public class BuildingUnitAdapter extends AbstractBuildingSubdivisionAdapter<Buil
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "address"), property, AddressPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBuildingUnit property : object.getADEProperties(ADEOfBuildingUnit.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingUnit"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBuildingUnit property : object.getADEProperties(ADEOfBuildingUnit.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingUnit"), property, namespaces, writer);
+        }
     }
 }

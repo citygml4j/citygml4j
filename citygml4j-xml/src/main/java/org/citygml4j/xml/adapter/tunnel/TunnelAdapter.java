@@ -63,7 +63,9 @@ public class TunnelAdapter extends AbstractTunnelAdapter<Tunnel> {
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "tunnelPart"), property, TunnelPartPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfTunnel property : object.getADEProperties(ADEOfTunnel.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnel"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTunnel property : object.getADEProperties(ADEOfTunnel.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TUNNEL_NAMESPACE, "adeOfTunnel"), property, namespaces, writer);
+        }
     }
 }

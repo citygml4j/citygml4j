@@ -60,7 +60,9 @@ public class WaterBodyAdapter extends AbstractOccupiedSpaceAdapter<WaterBody> {
 
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, namespaces, writer);
 
-        for (ADEOfWaterBody property : object.getADEProperties(ADEOfWaterBody.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterBody"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfWaterBody property : object.getADEProperties(ADEOfWaterBody.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterBody"), property, namespaces, writer);
+        }
     }
 }

@@ -49,7 +49,9 @@ public class GroundSurfaceAdapter extends AbstractConstructionSurfaceAdapter<Gro
     public void writeChildElements(GroundSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfGroundSurface property : object.getADEProperties(ADEOfGroundSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfGroundSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfGroundSurface property : object.getADEProperties(ADEOfGroundSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfGroundSurface"), property, namespaces, writer);
+        }
     }
 }

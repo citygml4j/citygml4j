@@ -77,12 +77,14 @@ public class TINReliefAdapter extends AbstractReliefComponentAdapter<TINRelief> 
     public void writeChildElements(TINRelief object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String reliefNamespace = CityGMLSerializerHelper.getReliefNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
 
         if (object.getTin() != null)
             writer.writeElementUsingSerializer(Element.of(reliefNamespace, "tin"), object.getTin(), TinPropertyAdapter.class, namespaces);
 
-        for (ADEOfTINRelief property : object.getADEProperties(ADEOfTINRelief.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfTINRelief") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_RELIEF_NAMESPACE.equals(reliefNamespace);
+            for (ADEOfTINRelief property : object.getADEProperties(ADEOfTINRelief.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(reliefNamespace, "adeOfTINRelief") : null, property, namespaces, writer);
+        }
     }
 }

@@ -170,7 +170,9 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
             }
         }
 
-        for (ADEOfBuildingInstallation property : object.getADEProperties(ADEOfBuildingInstallation.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingFurniture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBuildingInstallation property : object.getADEProperties(ADEOfBuildingInstallation.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingFurniture") : null, property, namespaces, writer);
+        }
     }
 }

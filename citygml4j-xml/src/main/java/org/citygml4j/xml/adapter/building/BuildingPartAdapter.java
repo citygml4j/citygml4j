@@ -49,7 +49,9 @@ public class BuildingPartAdapter extends AbstractBuildingAdapter<BuildingPart> {
     public void writeChildElements(BuildingPart object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfBuildingPart property : object.getADEProperties(ADEOfBuildingPart.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingPart"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBuildingPart property : object.getADEProperties(ADEOfBuildingPart.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_BUILDING_NAMESPACE, "adeOfBuildingPart"), property, namespaces, writer);
+        }
     }
 }

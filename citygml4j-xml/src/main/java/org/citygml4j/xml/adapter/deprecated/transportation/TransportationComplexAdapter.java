@@ -65,7 +65,9 @@ public class TransportationComplexAdapter extends AbstractTransportationObjectAd
     public void writeChildElements(TransportationComplex object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfTransportationComplex property : object.getADEProperties(ADEOfTransportationComplex.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTransportationComplex property : object.getADEProperties(ADEOfTransportationComplex.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

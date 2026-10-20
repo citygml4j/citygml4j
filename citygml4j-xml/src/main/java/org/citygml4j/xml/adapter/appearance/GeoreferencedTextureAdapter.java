@@ -90,7 +90,6 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
     public void writeChildElements(GeoreferencedTexture object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
 
         if (object.isSetPreferWorldFile())
             writer.writeElement(Element.of(appearanceNamespace, "preferWorldFile").addTextContent(TextContent.ofBoolean(object.getPreferWorldFile())));
@@ -108,7 +107,10 @@ public class GeoreferencedTextureAdapter extends AbstractTextureAdapter<Georefer
             }
         }
 
-        for (ADEOfGeoreferencedTexture property : object.getADEProperties(ADEOfGeoreferencedTexture.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfGeoreferencedTexture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
+            for (ADEOfGeoreferencedTexture property : object.getADEProperties(ADEOfGeoreferencedTexture.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(appearanceNamespace, "adeOfGeoreferencedTexture") : null, property, namespaces, writer);
+        }
     }
 }

@@ -130,7 +130,9 @@ public class HollowSpaceAdapter extends AbstractUnoccupiedSpaceAdapter<HollowSpa
                 writer.writeElementUsingSerializer(Element.of(tunnelNamespace, isCityGML3 ? "tunnelInstallation" : "hollowSpaceInstallation"), property, TunnelInstallationPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfHollowSpace property : object.getADEProperties(ADEOfHollowSpace.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfHollowSpace") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfHollowSpace property : object.getADEProperties(ADEOfHollowSpace.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(tunnelNamespace, "adeOfHollowSpace") : null, property, namespaces, writer);
+        }
     }
 }

@@ -61,7 +61,9 @@ public class WaterSurfaceAdapter extends AbstractWaterBoundarySurfaceAdapter<Wat
         if (object.getWaterLevel() != null)
             writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "waterLevel"), object.getWaterLevel(), CodeAdapter.class, namespaces);
 
-        for (ADEOfWaterSurface property : object.getADEProperties(ADEOfWaterSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfWaterSurface property : object.getADEProperties(ADEOfWaterSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_WATERBODY_NAMESPACE, "adeOfWaterSurface"), property, namespaces, writer);
+        }
     }
 }

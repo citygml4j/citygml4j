@@ -202,7 +202,9 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfSolitaryVegetationObject property : object.getADEProperties(ADEOfSolitaryVegetationObject.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfSolitaryVegetationObject") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfSolitaryVegetationObject property : object.getADEProperties(ADEOfSolitaryVegetationObject.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfSolitaryVegetationObject") : null, property, namespaces, writer);
+        }
     }
 }

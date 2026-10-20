@@ -250,7 +250,9 @@ public abstract class AbstractBridgeAdapter<T extends AbstractBridge> extends Ab
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, "address"), property, AddressPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractBridge property : object.getADEProperties(ADEOfAbstractBridge.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

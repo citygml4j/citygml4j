@@ -141,7 +141,9 @@ public class TabulatedFileTimeseriesAdapter extends AbstractAtomicTimeseriesAdap
         if (object.getValueColumnName() != null)
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "valueColumnName").addTextContent(object.getValueColumnName()));
 
-        for (ADEOfTabulatedFileTimeseries property : object.getADEProperties(ADEOfTabulatedFileTimeseries.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfTabulatedFileTimeseries"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfTabulatedFileTimeseries property : object.getADEProperties(ADEOfTabulatedFileTimeseries.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_DYNAMIZER_NAMESPACE, "adeOfTabulatedFileTimeseries"), property, namespaces, writer);
+        }
     }
 }

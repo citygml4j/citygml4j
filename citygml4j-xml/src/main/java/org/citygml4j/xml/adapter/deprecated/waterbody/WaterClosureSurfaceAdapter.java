@@ -65,7 +65,9 @@ public class WaterClosureSurfaceAdapter extends AbstractWaterBoundarySurfaceAdap
     public void writeChildElements(ClosureSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfClosureSurface property : object.getADEProperties(ADEOfClosureSurface.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfClosureSurface property : object.getADEProperties(ADEOfClosureSurface.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

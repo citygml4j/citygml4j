@@ -101,7 +101,9 @@ public class BuildingFurnitureAdapter extends AbstractFurnitureAdapter<BuildingF
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBuildingFurniture property : object.getADEProperties(ADEOfBuildingFurniture.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingFurniture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBuildingFurniture property : object.getADEProperties(ADEOfBuildingFurniture.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(buildingNamespace, "adeOfBuildingFurniture") : null, property, namespaces, writer);
+        }
     }
 }

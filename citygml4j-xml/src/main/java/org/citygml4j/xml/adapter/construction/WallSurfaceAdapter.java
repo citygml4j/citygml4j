@@ -49,7 +49,9 @@ public class WallSurfaceAdapter extends AbstractConstructionSurfaceAdapter<WallS
     public void writeChildElements(WallSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfWallSurface property : object.getADEProperties(ADEOfWallSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfWallSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfWallSurface property : object.getADEProperties(ADEOfWallSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfWallSurface"), property, namespaces, writer);
+        }
     }
 }

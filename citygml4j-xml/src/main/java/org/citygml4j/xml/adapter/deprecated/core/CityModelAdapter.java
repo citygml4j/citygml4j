@@ -115,7 +115,9 @@ public class CityModelAdapter extends AbstractFeatureAdapter<CityModel> {
                 writer.writeElementUsingSerializer(Element.of(GMLConstants.GML_3_1_NAMESPACE, "featureMember"), property, AbstractFeaturePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfCityModel property : object.getADEProperties(ADEOfCityModel.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

@@ -37,7 +37,9 @@ public abstract class AbstractVersionTransitionAdapter<T extends AbstractVersion
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractVersionTransition property : object.getADEProperties(ADEOfAbstractVersionTransition.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractVersionTransition"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractVersionTransition property : object.getADEProperties(ADEOfAbstractVersionTransition.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE, "adeOfAbstractVersionTransition"), property, namespaces, writer);
+        }
     }
 }

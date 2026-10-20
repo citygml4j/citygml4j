@@ -120,7 +120,9 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
                 writer.writeElementUsingSerializer(Element.of(transportationNamespace, "lod4MultiSurface"), object.getDeprecatedProperties().getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAuxiliaryTrafficArea property : object.getADEProperties(ADEOfAuxiliaryTrafficArea.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(transportationNamespace, "adeOfAuxiliaryTrafficArea") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAuxiliaryTrafficArea property : object.getADEProperties(ADEOfAuxiliaryTrafficArea.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(transportationNamespace, "adeOfAuxiliaryTrafficArea") : null, property, namespaces, writer);
+        }
     }
 }

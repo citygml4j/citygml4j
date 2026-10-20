@@ -73,7 +73,9 @@ public class VersionAdapter extends AbstractVersionAdapter<Version> {
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "versionMember"), reference, AbstractFeatureWithLifespanReferenceAdapter.class, namespaces);
         }
 
-        for (ADEOfVersion property : object.getADEProperties(ADEOfVersion.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfVersion property : object.getADEProperties(ADEOfVersion.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersion"), property, namespaces, writer);
+        }
     }
 }

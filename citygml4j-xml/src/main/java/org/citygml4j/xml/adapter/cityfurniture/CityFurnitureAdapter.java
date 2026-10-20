@@ -183,7 +183,9 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
                 writer.writeElementUsingSerializer(Element.of(cityFurnitureNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfCityFurniture property : object.getADEProperties(ADEOfCityFurniture.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(cityFurnitureNamespace, "adeOfCityFurniture") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfCityFurniture property : object.getADEProperties(ADEOfCityFurniture.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(cityFurnitureNamespace, "adeOfCityFurniture") : null, property, namespaces, writer);
+        }
     }
 }

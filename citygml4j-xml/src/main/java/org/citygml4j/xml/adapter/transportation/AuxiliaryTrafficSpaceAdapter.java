@@ -70,7 +70,9 @@ public class AuxiliaryTrafficSpaceAdapter extends AbstractUnoccupiedSpaceAdapter
             writer.writeElement(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "granularity").addTextContent(object.getGranularity().toValue()));
         }
 
-        for (ADEOfAuxiliaryTrafficSpace property : object.getADEProperties(ADEOfAuxiliaryTrafficSpace.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAuxiliaryTrafficSpace"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAuxiliaryTrafficSpace property : object.getADEProperties(ADEOfAuxiliaryTrafficSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAuxiliaryTrafficSpace"), property, namespaces, writer);
+        }
     }
 }

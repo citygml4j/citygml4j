@@ -40,8 +40,10 @@ public abstract class AbstractSpaceBoundaryAdapter<T extends AbstractSpaceBounda
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
 
         if (CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace)) {
-            for (ADEOfAbstractSpaceBoundary property : object.getADEProperties(ADEOfAbstractSpaceBoundary.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractSpaceBoundary"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractSpaceBoundary property : object.getADEProperties(ADEOfAbstractSpaceBoundary.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractSpaceBoundary"), property, namespaces, writer);
+            }
         }
     }
 }

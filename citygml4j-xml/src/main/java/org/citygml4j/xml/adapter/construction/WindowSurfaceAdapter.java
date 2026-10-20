@@ -49,7 +49,9 @@ public class WindowSurfaceAdapter extends AbstractFillingSurfaceAdapter<WindowSu
     public void writeChildElements(WindowSurface object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfWindowSurface property : object.getADEProperties(ADEOfWindowSurface.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfWindowSurface"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfWindowSurface property : object.getADEProperties(ADEOfWindowSurface.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_CONSTRUCTION_NAMESPACE, "adeOfWindowSurface"), property, namespaces, writer);
+        }
     }
 }

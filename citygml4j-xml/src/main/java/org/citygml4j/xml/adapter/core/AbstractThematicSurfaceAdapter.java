@@ -92,8 +92,10 @@ public abstract class AbstractThematicSurfaceAdapter<T extends AbstractThematicS
             if (object.getPointCloud() != null)
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "pointCloud"), object.getPointCloud(), AbstractPointCloudPropertyAdapter.class, namespaces);
 
-            for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
-                ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractThematicSurface"), property, namespaces, writer);
+            if (object.hasADEProperties()) {
+                for (ADEOfAbstractThematicSurface property : object.getADEProperties(ADEOfAbstractThematicSurface.class))
+                    ADESerializerHelper.writeADEProperty(Element.of(coreNamespace, "adeOfAbstractThematicSurface"), property, namespaces, writer);
+            }
         }
     }
 }

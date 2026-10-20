@@ -90,7 +90,9 @@ public abstract class AbstractTransportationSpaceAdapter<T extends AbstractTrans
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "marking"), property, MarkingPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfAbstractTransportationSpace property : object.getADEProperties(ADEOfAbstractTransportationSpace.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAbstractTransportationSpace"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractTransportationSpace property : object.getADEProperties(ADEOfAbstractTransportationSpace.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE, "adeOfAbstractTransportationSpace"), property, namespaces, writer);
+        }
     }
 }

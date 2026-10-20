@@ -130,7 +130,9 @@ public class BridgeRoomAdapter extends AbstractUnoccupiedSpaceAdapter<BridgeRoom
                 writer.writeElementUsingSerializer(Element.of(bridgeNamespace, isCityGML3 ? "bridgeInstallation" : "bridgeRoomInstallation"), property, BridgeInstallationPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfBridgeRoom property : object.getADEProperties(ADEOfBridgeRoom.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeRoom") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfBridgeRoom property : object.getADEProperties(ADEOfBridgeRoom.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(bridgeNamespace, "adeOfBridgeRoom") : null, property, namespaces, writer);
+        }
     }
 }

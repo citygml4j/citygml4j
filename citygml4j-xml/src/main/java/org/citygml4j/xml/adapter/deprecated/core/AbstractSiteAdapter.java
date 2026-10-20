@@ -48,7 +48,9 @@ public abstract class AbstractSiteAdapter<T extends AbstractConstruction> extend
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
 
-        for (ADEOfAbstractConstruction property : object.getADEProperties(ADEOfAbstractConstruction.class))
-            ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfAbstractConstruction property : object.getADEProperties(ADEOfAbstractConstruction.class))
+                ADESerializerHelper.writeADEProperty(property, namespaces, writer);
+        }
     }
 }

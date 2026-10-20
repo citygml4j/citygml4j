@@ -52,9 +52,11 @@ public abstract class AbstractVegetationObjectAdapter<T extends AbstractVegetati
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String vegetationNamespace = CityGMLSerializerHelper.getVegetationNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
 
-        for (ADEOfAbstractVegetationObject property : object.getADEProperties(ADEOfAbstractVegetationObject.class))
-            ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfAbstractVegetationObject") : null, property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
+            for (ADEOfAbstractVegetationObject property : object.getADEProperties(ADEOfAbstractVegetationObject.class))
+                ADESerializerHelper.writeADEProperty(isCityGML3 ? Element.of(vegetationNamespace, "adeOfAbstractVegetationObject") : null, property, namespaces, writer);
+        }
     }
 }

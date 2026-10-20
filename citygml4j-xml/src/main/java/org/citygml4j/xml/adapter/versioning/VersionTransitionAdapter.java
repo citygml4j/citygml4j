@@ -95,7 +95,9 @@ public class VersionTransitionAdapter extends AbstractVersionTransitionAdapter<V
                 writer.writeElementUsingSerializer(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "transaction"), property, TransactionPropertyAdapter.class, namespaces);
         }
 
-        for (ADEOfVersionTransition property : object.getADEProperties(ADEOfVersionTransition.class))
-            ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersionTransition"), property, namespaces, writer);
+        if (object.hasADEProperties()) {
+            for (ADEOfVersionTransition property : object.getADEProperties(ADEOfVersionTransition.class))
+                ADESerializerHelper.writeADEProperty(Element.of(CityGMLConstants.CITYGML_3_0_VERSIONING_NAMESPACE, "adeOfVersionTransition"), property, namespaces, writer);
+        }
     }
 }
