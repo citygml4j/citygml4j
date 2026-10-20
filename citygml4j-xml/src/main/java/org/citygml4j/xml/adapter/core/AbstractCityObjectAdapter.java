@@ -102,6 +102,7 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
         super.writeChildElements(object, namespaces, writer);
         String coreNamespace = CityGMLSerializerHelper.getCoreNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CORE_NAMESPACE.equals(coreNamespace);
+        boolean isCityGML1 = !isCityGML3 && CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE.equals(coreNamespace);
 
         if (object.isSetExternalReferences()) {
             for (ExternalReferenceProperty property : object.getExternalReferences()) {
@@ -124,11 +125,13 @@ public abstract class AbstractCityObjectAdapter<T extends AbstractCityObject> ex
                 writer.writeElementUsingSerializer(Element.of(coreNamespace, "generalizesTo"), property, AbstractCityObjectPropertyAdapter.class, namespaces);
         }
 
-        if (object.getRelativeToTerrain() != null)
-            writer.writeElement(Element.of(coreNamespace, "relativeToTerrain").addTextContent(object.getRelativeToTerrain().toValue()));
+        if (!isCityGML1) {
+            if (object.getRelativeToTerrain() != null)
+                writer.writeElement(Element.of(coreNamespace, "relativeToTerrain").addTextContent(object.getRelativeToTerrain().toValue()));
 
-        if (object.getRelativeToWater() != null)
-            writer.writeElement(Element.of(coreNamespace, "relativeToWater").addTextContent(object.getRelativeToWater().toValue()));
+            if (object.getRelativeToWater() != null)
+                writer.writeElement(Element.of(coreNamespace, "relativeToWater").addTextContent(object.getRelativeToWater().toValue()));
+        }
 
         if (isCityGML3 && object.isSetRelatedTo()) {
             for (CityObjectRelationProperty property : object.getRelatedTo())

@@ -101,8 +101,13 @@ public class ImplicitGeometryAdapter extends AbstractGMLAdapter<ImplicitGeometry
                     writer.writeElementUsingSerializer(Element.of(coreNamespace, "appearance"), member, AbstractAppearancePropertyAdapter.class, namespaces);
             }
         } else {
-            if (object.getMimeType() != null)
-                writer.writeElementUsingSerializer(Element.of(coreNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
+            if (object.getMimeType() != null) {
+                if (CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE.equals(coreNamespace)) {
+                    writer.writeElement(Element.of(coreNamespace, "mimeType").addTextContent(object.getMimeType().getValue()));
+                } else {
+                    writer.writeElementUsingSerializer(Element.of(coreNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
+                }
+            }
 
             if (object.getTransformationMatrix() != null)
                 writer.writeElement(Element.of(coreNamespace, "transformationMatrix").addTextContent(TextContent.ofDoubleList(object.getTransformationMatrix().toRowMajor())));

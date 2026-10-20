@@ -130,6 +130,7 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
         CityGMLSerializerHelper.writeStandardObjectClassifier(object, buildingNamespace, namespaces, writer);
 
         if (!isCityGML3) {
+            boolean isCityGML1 = CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE.equals(buildingNamespace);
             boolean isInterior = object.getRelationToConstruction() == RelationToConstruction.INSIDE;
             DeprecatedPropertiesOfBuildingInstallation properties = object.hasDeprecatedProperties() ?
                     object.getDeprecatedProperties() :
@@ -150,20 +151,22 @@ public class BuildingInstallationAdapter extends AbstractInstallationAdapter<Bui
             if (properties != null && properties.getLod4Geometry() != null)
                 writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4Geometry"), properties.getLod4Geometry(), GeometryPropertyAdapter.class, namespaces);
 
-            if (!isInterior) {
-                if (object.getLod2ImplicitRepresentation() != null)
-                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2ImplicitRepresentation"), object.getLod2ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (!isCityGML1) {
+                if (!isInterior) {
+                    if (object.getLod2ImplicitRepresentation() != null)
+                        writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod2ImplicitRepresentation"), object.getLod2ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-                if (object.getLod3ImplicitRepresentation() != null)
-                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
-            }
+                    if (object.getLod3ImplicitRepresentation() != null)
+                        writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), object.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+                }
 
-            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
-                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+                if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-            if (object.isSetBoundaries()) {
-                for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
-                    writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+                if (object.isSetBoundaries()) {
+                    for (AbstractSpaceBoundaryProperty property : object.getBoundaries())
+                        writer.writeElementUsingSerializer(Element.of(buildingNamespace, "boundedBy"), property, AbstractBoundarySurfacePropertyAdapter.class, namespaces);
+                }
             }
         }
 

@@ -93,11 +93,21 @@ public class AuxiliaryTrafficAreaAdapter extends AbstractThematicSurfaceAdapter<
         super.writeChildElements(object, namespaces, writer);
         String transportationNamespace = CityGMLSerializerHelper.getTransportationNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_TRANSPORTATION_NAMESPACE.equals(transportationNamespace);
+        boolean isCityGML1 = !isCityGML3 && CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE.equals(transportationNamespace);
 
-        CityGMLSerializerHelper.writeStandardObjectClassifier(object, transportationNamespace, namespaces, writer);
+        if (!isCityGML1) {
+            CityGMLSerializerHelper.writeStandardObjectClassifier(object, transportationNamespace, namespaces, writer);
+        } else {
+            CityGMLSerializerHelper.writeFunctionProperties(object, transportationNamespace, true, namespaces, writer);
+        }
 
-        if (object.getSurfaceMaterial() != null)
-            writer.writeElementUsingSerializer(Element.of(transportationNamespace, "surfaceMaterial"), object.getSurfaceMaterial(), CodeAdapter.class, namespaces);
+        if (object.getSurfaceMaterial() != null) {
+            if (isCityGML1) {
+                writer.writeElement(Element.of(transportationNamespace, "surfaceMaterial").addTextContent(object.getSurfaceMaterial().getValue()));
+            } else {
+                writer.writeElementUsingSerializer(Element.of(transportationNamespace, "surfaceMaterial"), object.getSurfaceMaterial(), CodeAdapter.class, namespaces);
+            }
+        }
 
         if (!isCityGML3) {
             if (object.getLod2MultiSurface() != null)

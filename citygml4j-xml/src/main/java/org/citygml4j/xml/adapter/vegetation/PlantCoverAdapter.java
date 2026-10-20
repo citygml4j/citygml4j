@@ -124,8 +124,14 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
         super.writeChildElements(object, namespaces, writer);
         String vegetationNamespace = CityGMLSerializerHelper.getVegetationNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
+        boolean isCityGML1 = !isCityGML3 && CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
 
-        CityGMLSerializerHelper.writeStandardObjectClassifier(object, vegetationNamespace, namespaces, writer);
+        if (!isCityGML1) {
+            CityGMLSerializerHelper.writeStandardObjectClassifier(object, vegetationNamespace, namespaces, writer);
+        } else {
+            CityGMLSerializerHelper.writeClassProperty(object, vegetationNamespace, true, namespaces, writer);
+            CityGMLSerializerHelper.writeFunctionProperties(object, vegetationNamespace, true, namespaces, writer);
+        }
 
         if (object.getAverageHeight() != null)
             writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "averageHeight"), object.getAverageHeight(), LengthAdapter.class, namespaces);
@@ -170,7 +176,7 @@ public class PlantCoverAdapter extends AbstractVegetationObjectAdapter<PlantCove
             else if (object.getLod3Solid() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod3MultiSolid"), getMultiSolidProperty(object.getLod3Solid()), MultiSolidPropertyAdapter.class, namespaces);
 
-            if (properties != null && properties.getLod4MultiSolid() != null)
+            if (!isCityGML1 && properties != null && properties.getLod4MultiSolid() != null)
                 writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "lod4MultiSolid"), properties.getLod4MultiSolid(), MultiSolidPropertyAdapter.class, namespaces);
         }
 

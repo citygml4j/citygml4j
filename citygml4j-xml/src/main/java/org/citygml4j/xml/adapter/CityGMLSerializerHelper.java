@@ -136,17 +136,40 @@ public class CityGMLSerializerHelper {
     }
 
     public static void writeStandardObjectClassifier(StandardObjectClassifier object, String namespaceURI, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
-        if (object.getClassifier() != null)
-            writer.writeElementUsingSerializer(Element.of(namespaceURI, "class"), object.getClassifier(), CodeAdapter.class, namespaces);
+        boolean isCityGML1 = namespaces.contains(CityGMLConstants.CITYGML_1_0_CORE_NAMESPACE);
+        writeClassProperty(object, namespaceURI, isCityGML1, namespaces, writer);
+        writeFunctionProperties(object, namespaceURI, isCityGML1, namespaces, writer);
+        writeUsageProperties(object, namespaceURI, isCityGML1, namespaces, writer);
+    }
 
-        if (object.isSetFunctions()) {
-            for (Code function : object.getFunctions())
-                writer.writeElementUsingSerializer(Element.of(namespaceURI, "function"), function, CodeAdapter.class, namespaces);
+    public static void writeClassProperty(StandardObjectClassifier object, String namespaceURI, boolean isCityGML1, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        if (object.getClassifier() != null) {
+            writeClassifierProperty("class", object.getClassifier(), namespaceURI, isCityGML1, namespaces, writer);
         }
+    }
 
+    public static void writeFunctionProperties(StandardObjectClassifier object, String namespaceURI, boolean isCityGML1, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        if (object.isSetFunctions()) {
+            for (Code function : object.getFunctions()) {
+                writeClassifierProperty("function", function, namespaceURI, isCityGML1, namespaces, writer);
+            }
+        }
+    }
+
+    public static void writeUsageProperties(StandardObjectClassifier object, String namespaceURI, boolean isCityGML1, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         if (object.isSetUsages()) {
-            for (Code usage : object.getUsages())
-                writer.writeElementUsingSerializer(Element.of(namespaceURI, "usage"), usage, CodeAdapter.class, namespaces);
+            for (Code usage : object.getUsages()) {
+                writeClassifierProperty("usage", usage, namespaceURI, isCityGML1, namespaces, writer);
+            }
+        }
+    }
+
+    private static void writeClassifierProperty(String name, Code value, String namespaceURI, boolean isCityGML1, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
+        Element element = Element.of(namespaceURI, name);
+        if (isCityGML1) {
+            writer.writeElement(element.addTextContent(value.getValue()));
+        } else {
+            writer.writeElementUsingSerializer(element, value, CodeAdapter.class, namespaces);
         }
     }
 

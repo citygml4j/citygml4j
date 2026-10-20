@@ -5,6 +5,10 @@
 ### Changed
 - Added `relativeToTerrain` and `relativeToWater` attributes for CityJSON semantic objects.
 
+### Fixed
+- Fixed writing of CityGML 1.0 datasets by omitting unsupported content and correctly serializing properties whose
+  types differ from later CityGML versions.
+
 ## [3.5.1] - 2026-10-12
 
 ### Changed

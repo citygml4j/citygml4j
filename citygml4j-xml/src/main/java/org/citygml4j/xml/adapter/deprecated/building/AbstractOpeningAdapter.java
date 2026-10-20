@@ -70,6 +70,7 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
+        boolean isCityGML1 = CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE.equals(buildingNamespace);
         DeprecatedPropertiesOfAbstractFillingSurface properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;
@@ -80,11 +81,13 @@ public abstract class AbstractOpeningAdapter<T extends AbstractFillingSurface> e
         if (properties != null && properties.getLod4MultiSurface() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4MultiSurface"), properties.getLod4MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (properties != null && properties.getLod3ImplicitRepresentation() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), properties.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+        if (!isCityGML1) {
+            if (properties != null && properties.getLod3ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod3ImplicitRepresentation"), properties.getLod3ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
 
-        if (properties != null && properties.getLod4ImplicitRepresentation() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod4ImplicitRepresentation() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod4ImplicitRepresentation"), properties.getLod4ImplicitRepresentation(), ImplicitGeometryPropertyAdapter.class, namespaces);
+        }
 
         for (ADEOfAbstractFillingSurface property : object.getADEProperties(ADEOfAbstractFillingSurface.class))
             ADESerializerHelper.writeADEProperty(property, namespaces, writer);

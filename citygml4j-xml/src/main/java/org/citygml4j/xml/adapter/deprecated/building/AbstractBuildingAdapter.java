@@ -177,6 +177,7 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String buildingNamespace = CityGMLSerializerHelper.getBuildingNamespace(namespaces);
+        boolean isCityGML1 = CityGMLConstants.CITYGML_1_0_BUILDING_NAMESPACE.equals(buildingNamespace);
         DeprecatedPropertiesOfAbstractBuilding properties = object.hasDeprecatedProperties() ?
                 object.getDeprecatedProperties() :
                 null;
@@ -189,8 +190,13 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getDateOfDemolition() != null)
             writer.writeElement(Element.of(buildingNamespace, "yearOfDemolition").addTextContent(TextContent.ofGYear(OffsetDateTime.of(object.getDateOfDemolition(), LocalTime.MIN, ZoneOffset.UTC))));
 
-        if (object.getRoofType() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roofType"), object.getRoofType(), CodeAdapter.class, namespaces);
+        if (object.getRoofType() != null) {
+            if (isCityGML1) {
+                writer.writeElement(Element.of(buildingNamespace, "roofType").addTextContent(object.getRoofType().getValue()));
+            } else {
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "roofType"), object.getRoofType(), CodeAdapter.class, namespaces);
+            }
+        }
 
         if (object.isSetHeights()) {
             Height height = object.getHeights().get(0).getObject();
@@ -210,11 +216,13 @@ public abstract class AbstractBuildingAdapter<T extends AbstractBuilding> extend
         if (object.getStoreyHeightsBelowGround() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "storeyHeightsBelowGround"), object.getStoreyHeightsBelowGround(), MeasureOrNilReasonListAdapter.class, namespaces);
 
-        if (object.getLod0MultiSurface() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0FootPrint"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
+        if (!isCityGML1) {
+            if (object.getLod0MultiSurface() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0FootPrint"), object.getLod0MultiSurface(), MultiSurfacePropertyAdapter.class, namespaces);
 
-        if (properties != null && properties.getLod0RoofEdge() != null)
-            writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0RoofEdge"), properties.getLod0RoofEdge(), MultiSurfacePropertyAdapter.class, namespaces);
+            if (properties != null && properties.getLod0RoofEdge() != null)
+                writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod0RoofEdge"), properties.getLod0RoofEdge(), MultiSurfacePropertyAdapter.class, namespaces);
+        }
 
         if (object.getLod1Solid() != null)
             writer.writeElementUsingSerializer(Element.of(buildingNamespace, "lod1Solid"), object.getLod1Solid(), SolidPropertyAdapter.class, namespaces);

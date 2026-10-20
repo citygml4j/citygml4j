@@ -28,8 +28,7 @@ import javax.xml.namespace.QName;
 
 @XMLElements({
         @XMLElement(name = "GenericAttributeSet", namespaceURI = CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE),
-        @XMLElement(name = "genericAttributeSet", namespaceURI = CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE),
-        @XMLElement(name = "genericAttributeSet", namespaceURI = CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE)
+        @XMLElement(name = "genericAttributeSet", namespaceURI = CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE)
 })
 public class GenericAttributeSetAdapter extends AbstractGenericAttributeAdapter<GenericAttributeSet> {
 

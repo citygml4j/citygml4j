@@ -126,8 +126,14 @@ public class CityFurnitureAdapter extends AbstractOccupiedSpaceAdapter<CityFurni
         super.writeChildElements(object, namespaces, writer);
         String cityFurnitureNamespace = CityGMLSerializerHelper.getCityFurnitureNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_CITYFURNITURE_NAMESPACE.equals(cityFurnitureNamespace);
+        boolean isCityGML1 = !isCityGML3 && CityGMLConstants.CITYGML_1_0_CITYFURNITURE_NAMESPACE.equals(cityFurnitureNamespace);
 
-        CityGMLSerializerHelper.writeStandardObjectClassifier(object, cityFurnitureNamespace, namespaces, writer);
+        if (!isCityGML1) {
+            CityGMLSerializerHelper.writeStandardObjectClassifier(object, cityFurnitureNamespace, namespaces, writer);
+        } else {
+            CityGMLSerializerHelper.writeClassProperty(object, cityFurnitureNamespace, true, namespaces, writer);
+            CityGMLSerializerHelper.writeFunctionProperties(object, cityFurnitureNamespace, true, namespaces, writer);
+        }
 
         if (!isCityGML3) {
             DeprecatedPropertiesOfCityFurniture properties = object.hasDeprecatedProperties() ?

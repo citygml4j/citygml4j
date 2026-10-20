@@ -27,8 +27,7 @@ import javax.xml.namespace.QName;
 
 @XMLElements({
         @XMLElement(name = "MeasureAttribute", namespaceURI = CityGMLConstants.CITYGML_3_0_GENERICS_NAMESPACE),
-        @XMLElement(name = "measureAttribute", namespaceURI = CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE),
-        @XMLElement(name = "measureAttribute", namespaceURI = CityGMLConstants.CITYGML_1_0_GENERICS_NAMESPACE)
+        @XMLElement(name = "measureAttribute", namespaceURI = CityGMLConstants.CITYGML_2_0_GENERICS_NAMESPACE)
 })
 public class MeasureAttributeAdapter extends AbstractGenericAttributeAdapter<MeasureAttribute> {
 

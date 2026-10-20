@@ -132,11 +132,22 @@ public class SolitaryVegetationObjectAdapter extends AbstractVegetationObjectAda
         super.writeChildElements(object, namespaces, writer);
         String vegetationNamespace = CityGMLSerializerHelper.getVegetationNamespace(namespaces);
         boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
+        boolean isCityGML1 = !isCityGML3 && CityGMLConstants.CITYGML_1_0_VEGETATION_NAMESPACE.equals(vegetationNamespace);
 
-        CityGMLSerializerHelper.writeStandardObjectClassifier(object, vegetationNamespace, namespaces, writer);
+        if (!isCityGML1) {
+            CityGMLSerializerHelper.writeStandardObjectClassifier(object, vegetationNamespace, namespaces, writer);
+        } else {
+            CityGMLSerializerHelper.writeClassProperty(object, vegetationNamespace, true, namespaces, writer);
+            CityGMLSerializerHelper.writeFunctionProperties(object, vegetationNamespace, true, namespaces, writer);
+        }
 
-        if (object.getSpecies() != null)
-            writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "species"), object.getSpecies(), CodeAdapter.class, namespaces);
+        if (object.getSpecies() != null) {
+            if (isCityGML1) {
+                writer.writeElement(Element.of(vegetationNamespace, "species").addTextContent(object.getSpecies().getValue()));
+            } else {
+                writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "species"), object.getSpecies(), CodeAdapter.class, namespaces);
+            }
+        }
 
         if (object.getHeight() != null)
             writer.writeElementUsingSerializer(Element.of(vegetationNamespace, "height"), object.getHeight(), LengthAdapter.class, namespaces);

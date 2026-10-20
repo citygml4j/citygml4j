@@ -112,8 +112,14 @@ public abstract class AbstractTransportationObjectAdapter<T extends AbstractTran
                 object.getDeprecatedProperties() :
                 null;
 
-        if (object instanceof StandardObjectClassifier classifier)
-            CityGMLSerializerHelper.writeStandardObjectClassifier(classifier, transportationNamespace, namespaces, writer);
+        if (object instanceof StandardObjectClassifier classifier) {
+            if (!CityGMLConstants.CITYGML_1_0_TRANSPORTATION_NAMESPACE.equals(transportationNamespace)) {
+                CityGMLSerializerHelper.writeStandardObjectClassifier(classifier, transportationNamespace, namespaces, writer);
+            } else {
+                CityGMLSerializerHelper.writeFunctionProperties(classifier, transportationNamespace, true, namespaces, writer);
+                CityGMLSerializerHelper.writeUsageProperties(classifier, transportationNamespace, true, namespaces, writer);
+            }
+        }
 
         if (object.isSetTrafficSpaces()) {
             for (TrafficSpaceProperty property : object.getTrafficSpaces()) {

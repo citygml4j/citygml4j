@@ -73,13 +73,18 @@ public abstract class AbstractTextureAdapter<T extends AbstractTexture> extends 
     public void writeChildElements(T object, Namespaces namespaces, XMLWriter writer) throws ObjectSerializeException, XMLWriteException {
         super.writeChildElements(object, namespaces, writer);
         String appearanceNamespace = CityGMLSerializerHelper.getAppearanceNamespace(namespaces);
-        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equalsIgnoreCase(appearanceNamespace);
+        boolean isCityGML3 = CityGMLConstants.CITYGML_3_0_APPEARANCE_NAMESPACE.equals(appearanceNamespace);
 
         if (object.getImageURI() != null)
             writer.writeElement(Element.of(appearanceNamespace, "imageURI").addTextContent(object.getImageURI()));
 
-        if (object.getMimeType() != null)
-            writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
+        if (object.getMimeType() != null) {
+            if (!isCityGML3 && CityGMLConstants.CITYGML_1_0_APPEARANCE_NAMESPACE.equals(appearanceNamespace)) {
+                writer.writeElement(Element.of(appearanceNamespace, "mimeType").addTextContent(object.getMimeType().getValue()));
+            } else {
+                writer.writeElementUsingSerializer(Element.of(appearanceNamespace, "mimeType"), object.getMimeType(), CodeAdapter.class, namespaces);
+            }
+        }
 
         if (object.getTextureType() != null)
             writer.writeElement(Element.of(appearanceNamespace, "textureType").addTextContent(object.getTextureType().toValue()));
