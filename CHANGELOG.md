@@ -2,8 +2,11 @@
 
 ## [Unreleased]
 
+## [3.5.2] - 2026-10-26
+
 ### Changed
 - Added `relativeToTerrain` and `relativeToWater` attributes for CityJSON semantic objects.
+- Updated `jackson-databind` to 3.2.4.
 
 ### Fixed
 - Fixed writing of CityGML 1.0 datasets by omitting unsupported content and correctly serializing properties whose
@@ -255,7 +258,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.5.1..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.5.2..HEAD
+[3.5.2]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.2
 [3.5.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.1
 [3.5.0]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.0
 [3.4.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.4.1
