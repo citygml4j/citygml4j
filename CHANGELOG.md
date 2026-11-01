@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Fixed reflective access failures in `GMLObject.unsetProperty` under modular applications.
+
 ## [3.5.2] - 2026-10-26
 
 ### Changed
