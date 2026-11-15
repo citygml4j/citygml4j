@@ -8,17 +8,22 @@ package org.citygml4j.cityjson.model.metadata;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.util.CityJSONPatterns;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 
 public class ReferenceSystem {
     private final String authority;
     private final String version;
-    private final int code;
+    private final String code;
 
-    public ReferenceSystem(String authority, String version, int code) {
+    public ReferenceSystem(String authority, String version, String code) {
         this.authority = authority != null && !authority.isEmpty() ? authority : "EPSG";
         this.version = version != null && !version.isEmpty() ? version : "0";
-        this.code = code;
+        this.code = Objects.requireNonNull(code, "The code must not be null.");
+    }
+
+    public ReferenceSystem(String authority, String version, int code) {
+        this(authority, version, String.valueOf(code));
     }
 
     public ReferenceSystem(String authority, int code) {
@@ -33,11 +38,11 @@ public class ReferenceSystem {
         if (referenceSystem != null) {
             Matcher matcher = CityJSONPatterns.CRS_URL.matcher(referenceSystem);
             if (matcher.matches()) {
-                return new ReferenceSystem(matcher.group(1), matcher.group(2), Integer.parseInt(matcher.group(3)));
+                return new ReferenceSystem(matcher.group(1), matcher.group(2), matcher.group(3));
             } else if (matcher.usePattern(CityJSONPatterns.CRS_URN).matches()) {
-                return new ReferenceSystem(matcher.group(1), matcher.group(2), Integer.parseInt(matcher.group(3)));
+                return new ReferenceSystem(matcher.group(1), matcher.group(2), matcher.group(3));
             } else if (matcher.usePattern(CityJSONPatterns.CRS_SHORT).matches()) {
-                return new ReferenceSystem(matcher.group(1), Integer.parseInt(matcher.group(2)));
+                return new ReferenceSystem(matcher.group(1), null, matcher.group(2));
             }
         }
 
@@ -52,7 +57,7 @@ public class ReferenceSystem {
         return version;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -65,8 +70,6 @@ public class ReferenceSystem {
     }
 
     public String toURI(CityJSONVersion version) {
-        return version == CityJSONVersion.v1_0 ?
-                "urn:ogc:def:crs:EPSG::" + code :
-                toURL();
+        return version == CityJSONVersion.v1_0 ? toURN() : toURL();
     }
 }
