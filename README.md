@@ -35,7 +35,7 @@ Previous releases are available from the [releases section](https://github.com/c
 * To propose a new feature create a GitHub issue and open a discussion.
 
 ## Building
-citygml4j requires Java 17 or higher. The project uses [Gradle](https://gradle.org/) as build system. To build the
+citygml4j requires Java 21 or higher. The project uses [Gradle](https://gradle.org/) as build system. To build the
 library from source, clone the repository to your local machine and run the following command from the root of the
 repository.
 

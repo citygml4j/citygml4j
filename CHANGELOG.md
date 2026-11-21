@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** Java 21 is now the minimum required version for using citygml4j.
+
 ## [3.5.3] - 2026-11-02
 
 ### Fixed
