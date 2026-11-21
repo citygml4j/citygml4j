@@ -11,6 +11,8 @@ import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.core.model.appearance.AbstractSurfaceData;
 import org.citygml4j.core.model.appearance.Appearance;
 import org.citygml4j.core.model.appearance.ParameterizedTexture;
+import org.citygml4j.core.model.appearance.TextureType;
+import org.citygml4j.core.model.appearance.WrapMode;
 import org.citygml4j.core.model.appearance.X3DMaterial;
 import tools.jackson.databind.node.ObjectNode;
 
@@ -21,8 +23,18 @@ public class AppearanceSerializer {
     public static final int DEFAULT_TEXTURE_VERTEX_PRECISION = 7;
 
     private final CityJSONSerializerHelper helper;
-    private final Map<Integer, AppearanceInfo> materials = new HashMap<>();
-    private final Map<Integer, AppearanceInfo> textures = new HashMap<>();
+    private final Map<MaterialKey, AppearanceInfo> materials = new HashMap<>();
+    private final Map<TextureKey, AppearanceInfo> textures = new HashMap<>();
+
+    private record MaterialKey(String theme, Double ambientIntensity, List<Double> diffuseColor,
+                               List<Double> emissiveColor, List<Double> specularColor, Double shininess,
+                               Double transparency, Boolean isSmooth) {
+    }
+
+    private record TextureKey(String theme, String imageURI, String mimeType, TextureType textureType,
+                              WrapMode wrapMode, List<Double> borderColor) {
+    }
+
     private final TextureVerticesBuilder textureVerticesBuilder = new TextureVerticesBuilder(DEFAULT_TEXTURE_VERTEX_PRECISION);
 
     private String fallbackTheme = FALLBACK_THEME;
@@ -103,8 +115,8 @@ public class AppearanceSerializer {
         textureVerticesBuilder.reset();
     }
 
-    private int computeKey(X3DMaterial material) {
-        return Objects.hash(getTheme(material),
+    private MaterialKey computeKey(X3DMaterial material) {
+        return new MaterialKey(getTheme(material),
                 material.getAmbientIntensity(),
                 material.getDiffuseColor().toList(),
                 material.getEmissiveColor().toList(),
@@ -114,8 +126,8 @@ public class AppearanceSerializer {
                 material.getIsSmooth());
     }
 
-    private int computeKey(ParameterizedTexture texture) {
-        return Objects.hash(getTheme(texture),
+    private TextureKey computeKey(ParameterizedTexture texture) {
+        return new TextureKey(getTheme(texture),
                 texture.getImageURI(),
                 texture.getMimeType() != null ? texture.getMimeType().getValue() : null,
                 texture.getTextureType(),
