@@ -169,18 +169,24 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
         double scale = 1 / Math.pow(10, builder.getPrecision());
         transform.setScale(Vertex.of(scale, scale, scale));
 
-        if (feature != null && builder.getTranslation() == null) {
-            Envelope envelope = feature.computeEnvelope();
-            List<Double> lowerCorner = envelope.getLowerCorner().toCoordinateList3D();
-            if (!lowerCorner.isEmpty()) {
-                transform.setTranslate(Vertex.of(
-                        builder.round(lowerCorner.get(0)),
-                        builder.round(lowerCorner.get(1)),
-                        builder.round(lowerCorner.get(2))));
+        Vertex translation = builder.getTranslation();
+        if (translation == null) {
+            translation = Vertex.of(0, 0, 0);
+            if (feature != null) {
+                Envelope envelope = feature.computeEnvelope();
+                List<Double> lowerCorner = envelope.getLowerCorner().toCoordinateList3D();
+                if (!lowerCorner.isEmpty()) {
+                    translation = Vertex.of(
+                            builder.round(lowerCorner.get(0)),
+                            builder.round(lowerCorner.get(1)),
+                            builder.round(lowerCorner.get(2)));
+                }
             }
 
-            builder.setTranslation(transform.getTranslate());
+            builder.setTranslation(translation);
         }
+
+        transform.setTranslate(translation);
 
         return transform;
     }
