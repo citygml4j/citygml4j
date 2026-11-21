@@ -14,6 +14,7 @@ import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.primitives.*;
 import org.xmlobjects.gml.util.id.IdCreator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -207,12 +208,14 @@ public class GeometryFactory {
             }
         }
 
+        List<Double> ring = new ArrayList<>(coordinates.size() + (closeRing ? dimension : 0));
+        ring.addAll(coordinates);
         if (closeRing) {
             for (int i = 0; i < dimension; i++)
-                coordinates.add(coordinates.get(i));
+                ring.add(coordinates.get(i));
         }
 
-        return postprocess(new LinearRing(createDirectPositionList(coordinates, dimension)));
+        return postprocess(new LinearRing(toDirectPositionList(ring, dimension)));
     }
 
     public LinearRing createLinearRing(double[] coordinates, int dimension) {
@@ -220,6 +223,10 @@ public class GeometryFactory {
     }
 
     public DirectPositionList createDirectPositionList(List<Double> coordinates, int dimension) {
+        return toDirectPositionList(new ArrayList<>(coordinates), dimension);
+    }
+
+    private DirectPositionList toDirectPositionList(List<Double> coordinates, int dimension) {
         if (coordinates.size() % dimension != 0)
             throw new GeometryException("Dimension mismatch.");
 
@@ -242,7 +249,7 @@ public class GeometryFactory {
         if (coordinates.size() != dimension)
             throw new GeometryException("Dimension mismatch.");
 
-        DirectPosition posList = new DirectPosition(coordinates);
+        DirectPosition posList = new DirectPosition(new ArrayList<>(coordinates));
 
         if (setSrsDimension)
             posList.setSrsDimension(dimension);
