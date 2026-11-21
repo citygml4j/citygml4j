@@ -16,6 +16,7 @@ import org.xmlobjects.gml.model.geometry.primitives.Point;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
 import org.xmlobjects.serializer.ObjectSerializeException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultSimpleMultiPointConverter implements SimpleMultiPointConverter {
@@ -29,7 +30,7 @@ public class DefaultSimpleMultiPointConverter implements SimpleMultiPointConvert
         List<Double> coordinates = object.getPosList().toCoordinateList3D();
         if (!coordinates.isEmpty()) {
             for (int i = 0; i < coordinates.size(); i += 3) {
-                DirectPosition pos = new DirectPosition(coordinates.subList(i, i + 3));
+                DirectPosition pos = new DirectPosition(new ArrayList<>(coordinates.subList(i, i + 3)));
                 pos.setSrsDimension(3);
 
                 multiPoint.getPointMember().add(new PointProperty(new Point(pos)));
