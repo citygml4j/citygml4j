@@ -88,15 +88,15 @@ public class VerticesBuilder {
         }
 
         // set scale factor and offset
-        long[] offset = new long[]{(long) (translation.getX() * scaleFactor),
-                (long) (translation.getY() * scaleFactor),
-                (long) (translation.getZ() * scaleFactor)};
+        long offsetX = Math.round(translation.getX() * scaleFactor);
+        long offsetY = Math.round(translation.getY() * scaleFactor);
+        long offsetZ = Math.round(translation.getZ() * scaleFactor);
 
         // apply transformation
         for (Vertex vertex : vertices) {
-            vertex.setX((long) (vertex.getX() * scaleFactor) - offset[0]);
-            vertex.setY((long) (vertex.getY() * scaleFactor) - offset[1]);
-            vertex.setZ((long) (vertex.getZ() * scaleFactor) - offset[2]);
+            vertex.setX(Math.round(vertex.getX() * scaleFactor) - offsetX);
+            vertex.setY(Math.round(vertex.getY() * scaleFactor) - offsetY);
+            vertex.setZ(Math.round(vertex.getZ() * scaleFactor) - offsetZ);
         }
 
         double scale = 1 / scaleFactor;
