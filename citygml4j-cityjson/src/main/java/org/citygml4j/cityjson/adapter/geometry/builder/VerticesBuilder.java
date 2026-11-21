@@ -54,14 +54,14 @@ public class VerticesBuilder {
 
         Transform transform = new Transform();
         transform.setScale(Vertex.of(
-                scale.get(0).asDouble(0),
-                scale.get(1).asDouble(0),
-                scale.get(2).asDouble(0)));
+                scale.get(0).asDouble(1),
+                scale.get(1).asDouble(1),
+                scale.get(2).asDouble(1)));
 
         transform.setTranslate(Vertex.of(
-                translate.get(0).asDouble(1),
-                translate.get(1).asDouble(1),
-                translate.get(2).asDouble(1)));
+                translate.get(0).asDouble(0),
+                translate.get(1).asDouble(0),
+                translate.get(2).asDouble(0)));
 
         for (int i = 0; i < vertices.size(); i++) {
             JsonNode node = vertices.get(i);

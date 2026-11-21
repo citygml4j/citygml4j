@@ -18,7 +18,7 @@ public class Transform {
     }
 
     public Vertex getScale() {
-        return scale != null ? scale : Vertex.of(0, 0, 0);
+        return scale != null ? scale : Vertex.of(1, 1, 1);
     }
 
     public void setScale(Vertex scale) {
@@ -26,7 +26,7 @@ public class Transform {
     }
 
     public Vertex getTranslate() {
-        return translate != null ? translate : Vertex.of(1, 1, 1);
+        return translate != null ? translate : Vertex.of(0, 0, 0);
     }
 
     public void setTranslate(Vertex translate) {
