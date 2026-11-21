@@ -111,7 +111,7 @@ public class CityJSONChunkReader extends CityJSONReader {
                     ObjectNode content = (ObjectNode) node;
                     helper = createHelper(content, helper);
                     iterator = TopLevelIterator.of(helper, filter);
-                } else if (globalAppearances == null && helper.hasGlobalAppearances()) {
+                } else if (helper != null && globalAppearances == null && helper.hasGlobalAppearances()) {
                     globalAppearances = new ArrayDeque<>(helper.getGlobalAppearances());
                 }
 
