@@ -15,8 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class ExtensionLoader extends ADELoader<Extension> {
-    private final Map<String, Extension> extensions = new ConcurrentHashMap<>();
+    private final Map<Key, Extension> extensions = new ConcurrentHashMap<>();
     private final Map<CityJSONContext, Boolean> listeners = Collections.synchronizedMap(new WeakHashMap<>());
+
+    private record Key(String name, CityJSONVersion version) {
+    }
 
     public boolean hasExtensions() {
         return !extensions.isEmpty();
@@ -33,16 +36,29 @@ public class ExtensionLoader extends ADELoader<Extension> {
     }
 
     public Extension getExtension(String name) {
-        return extensions.get(name);
+        // prefer the most recent CityJSON version if the extension is registered for several versions
+        for (CityJSONVersion version : CityJSONVersion.values()) {
+            Extension extension = extensions.get(new Key(name, version));
+            if (extension != null) {
+                return extension;
+            }
+        }
+
+        return null;
     }
 
     public Extension getExtension(String name, CityJSONVersion version) {
-        Extension extension = extensions.get(name);
-        return extension != null && extension.getCityJSONVersion() == version ? extension : null;
+        return extensions.get(new Key(name, version));
     }
 
     public Set<String> getExtensionNames() {
-        return new HashSet<>(extensions.keySet());
+        return extensions.keySet().stream()
+                .map(Key::name)
+                .collect(Collectors.toSet());
+    }
+
+    boolean hasExtension(String name, CityJSONVersion version) {
+        return extensions.containsKey(new Key(name, version));
     }
 
     @Override
@@ -55,27 +71,30 @@ public class ExtensionLoader extends ADELoader<Extension> {
             throw new ADEException("The CityJSON version of extension " + extension.getClass().getName() + " must not be null.");
         }
 
-        Extension current = extensions.get(extension.getName());
-        if (current != null && current.getCityJSONVersion() == extension.getCityJSONVersion()) {
+        if (extensions.putIfAbsent(new Key(extension.getName(), extension.getCityJSONVersion()), extension) != null) {
             throw new ADEException("An extension has already been registered for the name '" + extension.getName() +
                     "' and the CityJSON version " + extension.getCityJSONVersion() + ".");
         }
 
-        extensions.put(extension.getName(), extension);
-
-        for (CityJSONContext listener : listeners.keySet()) {
+        for (CityJSONContext listener : getListeners()) {
             listener.loadExtension(extension);
         }
     }
 
     @Override
     protected void unloadADE(Extension extension) throws ADEException {
-        if (extensions.remove(extension.getName()) != null) {
-            listeners.keySet().forEach(v -> v.unloadExtension(extension));
+        if (extensions.remove(new Key(extension.getName(), extension.getCityJSONVersion()), extension)) {
+            getListeners().forEach(v -> v.unloadExtension(extension));
         }
     }
 
     void addListener(CityJSONContext context) {
         listeners.put(context, Boolean.TRUE);
+    }
+
+    private List<CityJSONContext> getListeners() {
+        synchronized (listeners) {
+            return new ArrayList<>(listeners.keySet());
+        }
     }
 }

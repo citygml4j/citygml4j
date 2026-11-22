@@ -37,6 +37,7 @@ import tools.jackson.databind.node.ObjectNode;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -234,10 +235,11 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
     void writeExtensions() throws CityJSONWriteException {
         ExtensionLoader loader = ADERegistry.getInstance().getADELoader(ExtensionLoader.class);
-        if (loader.hasExtensions() || helper.hasExtensions()) {
+        List<Extension> extensions = loader.getExtensions(helper.getVersion());
+        if (!extensions.isEmpty() || helper.hasExtensions()) {
             try {
                 generator.writeObjectPropertyStart(Fields.EXTENSIONS);
-                for (Extension extension : loader.getExtensions()) {
+                for (Extension extension : extensions) {
                     ObjectNode node = helper.getObjectUsingSerializer(ExtensionInfo.of(extension), ExtensionInfoAdapter.class);
                     if (node != null) {
                         generator.writeName(extension.getName());
@@ -246,7 +248,7 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
                 }
 
                 for (Map.Entry<String, ObjectNode> entry : helper.getExternalExtensions().entrySet()) {
-                    if (loader.getExtension(entry.getKey()) == null) {
+                    if (loader.getExtension(entry.getKey(), helper.getVersion()) == null) {
                         generator.writeName(entry.getKey());
                         generator.writeTree(entry.getValue());
                     }

@@ -29,6 +29,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class CityJSONContext {
@@ -298,7 +299,7 @@ public class CityJSONContext {
     }
 
     void unloadExtension(Extension extension) {
-        unloadExtensionObjects(extension.getName());
+        unloadExtensionObjects(extension.getName(), extension.getCityJSONVersion());
     }
 
     private void loadExtensionObjects(ClassLoader classLoader) throws CityJSONContextException {
@@ -307,24 +308,24 @@ public class CityJSONContext {
         removeUnregisteredExtensionObjects();
     }
 
-    private void unloadExtensionObjects(String name) {
-        builders.values().forEach(v -> v.values().removeIf(info -> info.schema.equals(name)));
-        serializers.values().forEach(v -> v.values().removeIf(info -> info.schema.equals(name)));
+    private void unloadExtensionObjects(String name, CityJSONVersion version) {
+        builders.values().forEach(v -> v.entrySet().removeIf(e -> e.getKey() == version
+                && e.getValue().schema.equals(name)));
+        serializers.values().forEach(v -> v.entrySet().removeIf(e -> e.getKey() == version
+                && e.getValue().schema.equals(name)));
     }
 
     private void removeUnregisteredExtensionObjects() {
         ExtensionLoader loader = ADERegistry.getInstance().getADELoader(ExtensionLoader.class);
-        Set<String> extensionNames = loader.getExtensionNames();
-        Set<String> schemas = serializers.values().stream()
-                .flatMap(map -> map.values().stream())
-                .map(info -> info.schema).collect(Collectors.toSet());
+        removeUnregisteredExtensionObjects(builders, loader, info -> info.schema);
+        removeUnregisteredExtensionObjects(serializers, loader, info -> info.schema);
+    }
 
-        for (String schema : schemas) {
-            if (!CityJSONConstants.CORE_SCHEMA.equals(schema)
-                    && !extensionNames.contains(schema)) {
-                unloadExtensionObjects(schema);
-            }
-        }
+    private <T> void removeUnregisteredExtensionObjects(Map<String, Map<CityJSONVersion, T>> objects, ExtensionLoader loader, Function<T, String> schema) {
+        objects.values().forEach(v -> v.entrySet().removeIf(e -> {
+            String name = schema.apply(e.getValue());
+            return !CityJSONConstants.CORE_SCHEMA.equals(name) && !loader.hasExtension(name, e.getKey());
+        }));
     }
 
     private static class BuilderInfo {
