@@ -10,6 +10,7 @@ import org.citygml4j.core.model.ade.ADEObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 public class ADEWalkerHelper {
@@ -67,9 +68,20 @@ public class ADEWalkerHelper {
         }
     }
 
-    void visitFields(ADEObject adeObject) {
+    void visitFields(ADEObject adeObject, Class<?> stop) {
         Class<?> type = adeObject.getClass();
-        Field[] fields = this.fields.computeIfAbsent(type.getName(), v -> type.getDeclaredFields());
+        Field[] fields = this.fields.computeIfAbsent(type.getName() + '/' + stop.getName(), v -> {
+            List<Field> candidates = new ArrayList<>();
+            for (Class<?> current = type; current != null && current != stop; current = current.getSuperclass()) {
+                for (Field field : current.getDeclaredFields()) {
+                    if (!Modifier.isStatic(field.getModifiers()) && !field.isSynthetic()) {
+                        candidates.add(field);
+                    }
+                }
+            }
+
+            return candidates.toArray(new Field[0]);
+        });
 
         for (Field field : fields) {
             try {

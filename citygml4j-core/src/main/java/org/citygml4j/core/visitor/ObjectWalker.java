@@ -1716,7 +1716,8 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
                     break;
             }
 
-            adeWalkerHelper.visitFields(adeObject);
+            // visit the fields of all classes below the superclass handled by a visit method
+            adeWalkerHelper.visitFields(adeObject, parent != Object.class ? parent : adeObject.getClass().getSuperclass());
         }
     }
 
