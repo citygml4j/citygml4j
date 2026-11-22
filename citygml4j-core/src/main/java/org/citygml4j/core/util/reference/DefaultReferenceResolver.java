@@ -184,7 +184,7 @@ public class DefaultReferenceResolver implements ReferenceResolver {
 
     @Override
     public <T extends Child> Map<String, T> getObjectsById(Class<T> type, Visitable... scopes) {
-        return scopes != null ? getObjectsById(type, Arrays.asList(scopes)) : null;
+        return scopes != null ? getObjectsById(type, Arrays.asList(scopes)) : Collections.emptyMap();
     }
 
     @Override
