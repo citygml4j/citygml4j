@@ -82,7 +82,7 @@ public class CityGMLContext {
         return new CityGMLOutputFactory(CityGMLVersion.v3_0, this);
     }
 
-    public CityGMLSchemaHandler getDefaultSchemaHandler() throws SchemaHandlerException {
+    public synchronized CityGMLSchemaHandler getDefaultSchemaHandler() throws SchemaHandlerException {
         if (schemaHandler == null) {
             schemaHandler = CityGMLSchemaHandler.newInstance();
         }
@@ -91,6 +91,7 @@ public class CityGMLContext {
     }
 
     void loadADE(CityGMLADE ade) throws ADEException {
+        invalidateSchemaHandler();
         try {
             loadADEObjects(ade.getClass().getClassLoader());
         } catch (XMLObjectsException e) {
@@ -99,9 +100,15 @@ public class CityGMLContext {
     }
 
     void unloadADE(CityGMLADE ade) {
+        invalidateSchemaHandler();
         for (ADEModule module : ade.getADEModules()) {
             unloadADEObjects(module.getNamespaceURI());
         }
+    }
+
+    private synchronized void invalidateSchemaHandler() {
+        // the default schema handler includes the schemas of the ADEs loaded at creation time
+        schemaHandler = null;
     }
 
     private void loadADEObjects(ClassLoader classLoader) throws XMLObjectsException {
