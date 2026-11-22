@@ -29,6 +29,7 @@ public class GeometrySerializer {
     private final CityJSONSerializerHelper helper;
     private final Map<String, Integer> templateIndexes = new HashMap<>();
     private final TreeMap<Integer, ObjectNode> templates = new TreeMap<>();
+    private Set<Integer> headerTemplates;
     private final VerticesBuilder verticesBuilder = new VerticesBuilder(DEFAULT_VERTEX_PRECISION);
     private final VerticesBuilder templatesVerticesBuilder = new VerticesBuilder(DEFAULT_TEMPLATE_PRECISION);
 
@@ -127,7 +128,9 @@ public class GeometrySerializer {
         int index = geometry.getRelativeGeometry().getObject() != null
                 ? registerTemplateGeometry(geometry.getRelativeGeometry().getObject(), lod)
                 : registerTemplateGeometry(helper.getIdFromReference(geometry.getRelativeGeometry().getHref()));
-        if (index < 0) {
+        if (index < 0 || (headerTemplates != null && !headerTemplates.contains(index))) {
+            // skip instances whose template cannot be written anymore, since CityJSON features
+            // can only use templates from the header
             return;
         }
 
@@ -203,12 +206,22 @@ public class GeometrySerializer {
     }
 
     public void reset() {
+        if (helper.getType() == CityJSONType.CITYJSON_FEATURE) {
+            // the first reset follows the header, which contains all templates available to features
+            if (headerTemplates == null) {
+                headerTemplates = new HashSet<>();
+                if (!templates.isEmpty()) {
+                    for (int index = 0; index <= templates.lastKey(); index++) {
+                        headerTemplates.add(index);
+                    }
+                }
+            }
+        } else {
+            templateIndexes.clear();
+        }
+
         verticesBuilder.reset();
         templatesVerticesBuilder.reset();
         templates.clear();
-
-        if (helper.getType() != CityJSONType.CITYJSON_FEATURE) {
-            templateIndexes.clear();
-        }
     }
 }
