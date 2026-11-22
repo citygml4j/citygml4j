@@ -5,10 +5,12 @@
 
 package org.citygml4j.cityjson.model.metadata;
 
+import java.util.Map;
+
 public class PointOfContact {
     private String contactName;
     private String phone;
-    private String address;
+    private Map<String, Object> address;
     private String emailAddress;
     private ContactType contactType;
     private Role role;
@@ -31,11 +33,16 @@ public class PointOfContact {
         this.phone = phone;
     }
 
-    public String getAddress() {
+    /**
+     * Returns the address. Its members are not prescribed by CityJSON 2.0, and values are plain Java
+     * objects: {@code String}, {@code Number}, {@code Boolean}, {@code List} and {@code Map}. A CityJSON
+     * 1.x address string is represented by a single member named {@code address}.
+     */
+    public Map<String, Object> getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Map<String, Object> address) {
         this.address = address;
     }
 

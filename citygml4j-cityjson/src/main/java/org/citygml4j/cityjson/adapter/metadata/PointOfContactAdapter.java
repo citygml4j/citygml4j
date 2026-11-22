@@ -19,7 +19,11 @@ import org.citygml4j.cityjson.serializer.JsonObjectSerializer;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.cityjson.writer.CityJSONWriteException;
 import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.node.*;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.*;
 
 public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>, JsonObjectSerializer<PointOfContact> {
 
@@ -41,8 +45,13 @@ public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>,
         }
 
         JsonNode address = node.path("address");
-        if (address.isString()) {
-            object.setAddress(address.asString());
+        if (address.isObject()) {
+            // CityJSON 2.0 uses an address object with arbitrary members
+            object.setAddress(toMap(address));
+        } else if (address.isString()) {
+            Map<String, Object> details = new LinkedHashMap<>();
+            details.put("address", address.asString());
+            object.setAddress(details);
         }
 
         JsonNode emailAddress = node.path("emailAddress");
@@ -85,8 +94,15 @@ public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>,
             node.put("phone", object.getPhone());
         }
 
-        if (object.getAddress() != null) {
-            node.put("address", object.getAddress());
+        if (object.getAddress() != null && !object.getAddress().isEmpty()) {
+            if (version != CityJSONVersion.v1_0 && version != CityJSONVersion.v1_1) {
+                node.set("address", toJson(object.getAddress(), helper));
+            } else {
+                String text = toText(object.getAddress());
+                if (text != null) {
+                    node.put("address", text);
+                }
+            }
         }
 
         if (object.getEmailAddress() != null) {
@@ -126,6 +142,78 @@ public class PointOfContactAdapter implements JsonObjectBuilder<PointOfContact>,
 
             if (object.getWebsite() != null) {
                 node.put("website", object.getWebsite());
+            }
+        }
+    }
+
+    private Map<String, Object> toMap(JsonNode node) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        for (Map.Entry<String, JsonNode> entry : node.properties()) {
+            map.put(entry.getKey(), toJava(entry.getValue()));
+        }
+
+        return map;
+    }
+
+    private Object toJava(JsonNode node) {
+        if (node.isObject()) {
+            return toMap(node);
+        } else if (node.isArray()) {
+            List<Object> list = new ArrayList<>(node.size());
+            node.forEach(element -> list.add(toJava(element)));
+            return list;
+        } else if (node.isString()) {
+            return node.asString();
+        } else if (node.isNumber()) {
+            return node.numberValue();
+        } else if (node.isBoolean()) {
+            return node.asBoolean();
+        } else {
+            return null;
+        }
+    }
+
+    private JsonNode toJson(Object value, CityJSONSerializerHelper helper) {
+        return switch (value) {
+            case Map<?, ?> map -> {
+                ObjectNode node = helper.createObject();
+                map.forEach((k, v) -> node.set(String.valueOf(k), toJson(v, helper)));
+                yield node;
+            }
+            case Collection<?> collection -> {
+                ArrayNode node = helper.createArray();
+                collection.forEach(v -> node.add(toJson(v, helper)));
+                yield node;
+            }
+            case String string -> StringNode.valueOf(string);
+            case Integer number -> IntNode.valueOf(number);
+            case Long number -> LongNode.valueOf(number);
+            case BigInteger number -> BigIntegerNode.valueOf(number);
+            case BigDecimal number -> DecimalNode.valueOf(number);
+            case Number number -> DoubleNode.valueOf(number.doubleValue());
+            case Boolean bool -> BooleanNode.valueOf(bool);
+            case null -> NullNode.getInstance();
+            default -> StringNode.valueOf(value.toString());
+        };
+    }
+
+    private String toText(Map<String, Object> details) {
+        StringJoiner joiner = new StringJoiner(", ");
+        collectText(details, joiner);
+        return joiner.length() > 0 ? joiner.toString() : null;
+    }
+
+    private void collectText(Object value, StringJoiner joiner) {
+        switch (value) {
+            case Map<?, ?> map -> map.values().forEach(v -> collectText(v, joiner));
+            case Collection<?> collection -> collection.forEach(v -> collectText(v, joiner));
+            case null -> {
+            }
+            default -> {
+                String text = value.toString();
+                if (!text.isEmpty()) {
+                    joiner.add(text);
+                }
             }
         }
     }

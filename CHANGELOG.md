@@ -4,6 +4,9 @@
 
 ### Changed
 - **Breaking:** Java 21 is now the minimum required version for using citygml4j.
+- **Breaking:** The address of the CityJSON metadata `pointOfContact` is now a `Map<String, Object>` instead of a
+  `String`, since CityJSON 2.0 defines it as an object with arbitrary members. A CityJSON 1.x address string is
+  represented by a single `address` member, and the values are joined into a string when writing CityJSON 1.x.
 
 ## [3.5.3] - 2026-11-02
 
