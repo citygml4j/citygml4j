@@ -21,6 +21,7 @@ public class SemanticsBuilder {
     private final CityJSONSerializerHelper helper;
     private final Map<AbstractSpaceBoundary, Integer> boundaries = new IdentityHashMap<>();
     private final List<ObjectNode> surfaces = new ArrayList<>();
+    private final List<AbstractSpaceBoundary> surfaceBoundaries = new ArrayList<>();
     private final ArrayNode values;
 
     SemanticsBuilder(CityJSONSerializerHelper helper) {
@@ -50,6 +51,7 @@ public class SemanticsBuilder {
                 if (surface != null) {
                     value = surfaces.size();
                     surfaces.add(surface);
+                    surfaceBoundaries.add(boundary);
                 } else {
                     value = -1;
                 }
@@ -66,17 +68,15 @@ public class SemanticsBuilder {
 
     ObjectNode build(int index) {
         if (!surfaces.isEmpty()) {
-            // build hierarchy
-            for (Map.Entry<AbstractSpaceBoundary, Integer> entry : boundaries.entrySet()) {
-                if (entry.getValue() != -1) {
-                    AbstractSpaceBoundary parent = entry.getKey();
-                    while ((parent = parent.getParent(AbstractSpaceBoundary.class)) != null) {
-                        Integer parentIndex = boundaries.get(parent);
-                        if (parentIndex != null && parentIndex != -1) {
-                            surfaces.get(entry.getValue()).put(Fields.PARENT, parentIndex);
-                            helper.getOrPutArray(Fields.CHILDREN, surfaces.get(parentIndex)).add(entry.getValue());
-                            break;
-                        }
+            // build hierarchy in surface order, so that children are written in a deterministic order
+            for (int i = 0; i < surfaceBoundaries.size(); i++) {
+                AbstractSpaceBoundary parent = surfaceBoundaries.get(i);
+                while ((parent = parent.getParent(AbstractSpaceBoundary.class)) != null) {
+                    Integer parentIndex = boundaries.get(parent);
+                    if (parentIndex != null && parentIndex != -1) {
+                        surfaces.get(i).put(Fields.PARENT, parentIndex);
+                        helper.getOrPutArray(Fields.CHILDREN, surfaces.get(parentIndex)).add(i);
+                        break;
                     }
                 }
             }
