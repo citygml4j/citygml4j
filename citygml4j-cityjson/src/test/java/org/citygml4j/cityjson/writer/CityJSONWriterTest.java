@@ -6,7 +6,10 @@
 package org.citygml4j.cityjson.writer;
 
 import org.citygml4j.cityjson.CityJSONContext;
+import org.citygml4j.core.model.building.Building;
 import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.core.model.core.Address;
+import org.citygml4j.core.model.core.AddressProperty;
 import org.citygml4j.core.model.core.ImplicitGeometry;
 import org.citygml4j.core.model.core.ImplicitGeometryProperty;
 import org.citygml4j.core.model.core.TransformationMatrix4x4;
@@ -15,6 +18,8 @@ import org.citygml4j.core.util.geometry.GeometryFactory;
 import org.junit.jupiter.api.Test;
 import org.xmlobjects.gml.model.geometry.DirectPosition;
 import org.xmlobjects.gml.model.geometry.GeometryProperty;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiPoint;
+import org.xmlobjects.gml.model.geometry.aggregates.MultiPointProperty;
 import org.xmlobjects.gml.model.geometry.aggregates.MultiSurface;
 import org.xmlobjects.gml.model.geometry.primitives.Point;
 import org.xmlobjects.gml.model.geometry.primitives.PointProperty;
@@ -83,5 +88,20 @@ class CityJSONWriterTest {
         int index = templateIndex(json, "t2");
         assertTrue(index < templates.size(), templates.toString());
         assertEquals("MultiSurface", templates.get(index).path("type").asString());
+    }
+
+    @Test
+    void addressLocationWithoutXALAddressIsWritten() throws Exception {
+        Address address = new Address();
+        address.setMultiPoint(new MultiPointProperty(new MultiPoint(List.of(
+                new PointProperty(new Point(new DirectPosition(1, 2, 3)))))));
+        Building building = new Building();
+        building.setId("b1");
+        building.getAddresses().add(new AddressProperty(address));
+
+        JsonNode json = write(building);
+        JsonNode addresses = json.path("CityObjects").path("b1").path("address");
+        assertFalse(addresses.isMissingNode(), json.toString());
+        assertTrue(addresses.get(0).has("location"), addresses.toString());
     }
 }
