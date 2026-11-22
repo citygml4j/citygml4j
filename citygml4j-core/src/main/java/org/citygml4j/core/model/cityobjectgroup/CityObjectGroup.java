@@ -92,7 +92,7 @@ public class CityObjectGroup extends AbstractLogicalSpace implements TopLevelFea
     }
 
     public void setGroupMembers(List<RoleProperty> groupMembers) {
-        this.groupMembers = groupMembers;
+        this.groupMembers = asChild(groupMembers);
     }
 
     public AbstractCityObjectReference getGroupParent() {
