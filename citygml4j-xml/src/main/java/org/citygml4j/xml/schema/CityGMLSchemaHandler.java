@@ -25,13 +25,15 @@ public class CityGMLSchemaHandler extends SchemaHandler {
 
     public static synchronized CityGMLSchemaHandler newInstance(SAXParserFactory factory) throws SchemaHandlerException {
         if (instance == null) {
-            instance = new CityGMLSchemaHandler(factory);
             URL schemaResource = CityGMLContext.class.getResource("/org/citygml4j/schemas/citygml4j.xsd");
             if (schemaResource == null) {
                 throw new SchemaHandlerException("Failed to find resource citygml4j.xsd.");
             }
 
-            instance.parseSchema(schemaResource);
+            // only cache the handler once parsing succeeded
+            CityGMLSchemaHandler handler = new CityGMLSchemaHandler(factory);
+            handler.parseSchema(schemaResource);
+            instance = handler;
         }
 
         CityGMLSchemaHandler schemaHandler = new CityGMLSchemaHandler(factory);

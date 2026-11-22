@@ -101,6 +101,7 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
                 writeHeader();
         }
 
+        CityGMLWriteException failure = null;
         try {
             XMLWriter writer = getWriter(this.writer.getContentHandler(true));
             writer.writeStartDocument();
@@ -108,9 +109,11 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
             writer.writeObject(feature, namespaces);
             writer.writeEndElement();
             writer.writeEndDocument();
-            resetTransformer();
-        } catch (XMLWriteException | ObjectSerializeException | TransformerException e) {
-            throw new CityGMLWriteException("Caused by:", e);
+        } catch (XMLWriteException | ObjectSerializeException e) {
+            failure = new CityGMLWriteException("Caused by:", e);
+            throw failure;
+        } finally {
+            resetTransformer(failure);
         }
     }
 
@@ -118,6 +121,7 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         if (state != State.INITIAL)
             throw new CityGMLWriteException("The document has already been started.");
 
+        CityGMLWriteException failure = null;
         try {
             CityModel cityModel;
             if (cityModelInfo != null) {
@@ -135,11 +139,12 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
             writer.writeStartDocument();
             writer.writeObject(cityModel, namespaces);
             writer.writeEndDocument();
-            resetTransformer();
-        } catch (XMLWriteException | ObjectSerializeException | TransformerException e) {
-            throw new CityGMLWriteException("Caused by:", e);
+        } catch (XMLWriteException | ObjectSerializeException e) {
+            failure = new CityGMLWriteException("Caused by:", e);
+            throw failure;
         } finally {
             state = State.DOCUMENT_STARTED;
+            resetTransformer(failure);
         }
     }
 
@@ -176,9 +181,20 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
         }
     }
 
-    private void resetTransformer() throws TransformerException {
-        if (transformer != null)
-            transformer.reset();
+    private void resetTransformer(CityGMLWriteException failure) throws CityGMLWriteException {
+        // also reset after a failed write so that the next write starts from a clean pipeline
+        if (transformer != null) {
+            try {
+                transformer.reset();
+            } catch (TransformerException e) {
+                CityGMLWriteException exception = new CityGMLWriteException("Failed to reset the transformer.", e);
+                if (failure != null) {
+                    failure.addSuppressed(exception);
+                } else {
+                    throw exception;
+                }
+            }
+        }
     }
 
     @Override
@@ -188,9 +204,19 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
 
         try {
             writeFooter();
-            super.close();
+        } catch (CityGMLWriteException | RuntimeException e) {
+            // close the underlying writer even if the footer could not be written
+            try {
+                super.close();
+            } catch (CityGMLWriteException suppressed) {
+                e.addSuppressed(suppressed);
+            }
+
+            throw e;
         } finally {
             state = State.CLOSED;
         }
+
+        super.close();
     }
 }
