@@ -54,6 +54,13 @@ class CityJSONChunkReaderTest {
     }
 
     @Test
+    void readsManyChildrenListedFirstInLinearTime() {
+        // the top-level iterator used to rescan all leading children on every call
+        String json = parentsAndChildren(10000, 4, true);
+        assertEquals(10000, assertTimeoutPreemptively(Duration.ofSeconds(10), () -> countFeatures(json)));
+    }
+
+    @Test
     void buildsAllChildren() throws Exception {
         CityJSONInputFactory in = CityJSONContext.newInstance().createCityJSONInputFactory()
                 .chunkByTopLevelCityObjects(true);

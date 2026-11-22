@@ -210,6 +210,7 @@ public abstract class CityJSONReader implements AutoCloseable {
     static class TopLevelIterator implements Iterator<Map.Entry<String, JsonNode>> {
         private final CityJSONBuilderHelper helper;
         private final CityJSONInputFilter filter;
+        private Iterator<String> identifiers;
         private Map.Entry<String, JsonNode> next;
 
         private TopLevelIterator(CityJSONBuilderHelper helper, CityJSONInputFilter filter) {
@@ -223,23 +224,33 @@ public abstract class CityJSONReader implements AutoCloseable {
 
         @Override
         public boolean hasNext() {
-            if (next == null) {
+            if (identifiers == null) {
+                // collect top-level objects in a single pass, since rescanning the CityObjects for
+                // every object is quadratic. Objects never become top-level while reading, as parents
+                // arrays only shrink to a single remaining parent.
+                List<String> topLevel = new ArrayList<>();
                 Iterator<Map.Entry<String, JsonNode>> iterator = helper.getCityObjects().properties().iterator();
                 while (iterator.hasNext()) {
                     Map.Entry<String, JsonNode> entry = iterator.next();
                     JsonNode object = entry.getValue();
-
-                    if (object.isObject()) {
-                        JsonNode parents = object.path(Fields.PARENTS);
-                        if (parents.isEmpty()) {
+                    if (object.isObject() && object.path(Fields.PARENTS).isEmpty()) {
+                        String type = object.path(Fields.TYPE).asString();
+                        if (filter == null || filter.accept(type)) {
+                            topLevel.add(entry.getKey());
+                        } else {
                             iterator.remove();
-                            String type = object.path(Fields.TYPE).asString();
-                            if (filter == null || filter.accept(type)) {
-                                next = entry;
-                                break;
-                            }
                         }
                     }
+                }
+
+                identifiers = topLevel.iterator();
+            }
+
+            while (next == null && identifiers.hasNext()) {
+                String identifier = identifiers.next();
+                JsonNode object = helper.getCityObjects().remove(identifier);
+                if (object != null && object.isObject()) {
+                    next = Map.entry(identifier, object);
                 }
             }
 
