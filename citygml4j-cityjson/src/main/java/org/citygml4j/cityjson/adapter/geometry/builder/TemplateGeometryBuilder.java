@@ -49,7 +49,7 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
     @Override
     void build(JsonNode node, GeometryType type, int lod, GeometryObject geometryObject) {
         int template = node.path(Fields.TEMPLATE).asInt(-1);
-        PointProperty referencePoint = getReferencePoint(node, lod, geometryObject);
+        PointProperty referencePoint = getReferencePoint(node, lod);
         TransformationMatrix4x4 matrix = getTransformationMatrix(node.path(Fields.TRANSFORMATION_MATRIX));
         if (template == -1 || referencePoint == null || matrix == null) {
             return;
@@ -127,9 +127,12 @@ public class TemplateGeometryBuilder extends GeometryObjectBuilder {
                 templatesAppearanceBuilder, verticesBuilder);
     }
 
-    private PointProperty getReferencePoint(JsonNode geometry, int lod, GeometryObject geometryObject) {
-        pointGeometryBuilder.build(geometry, GeometryType.MULTI_POINT, lod, geometryObject);
-        MultiPoint multiPoint = geometryObject.getGeometry(MultiPoint.class);
+    private PointProperty getReferencePoint(JsonNode geometry, int lod) {
+        // build the reference point separately, so that it does not end up as geometry of the
+        // city object if the template geometry cannot be created
+        GeometryObject pointObject = GeometryObject.newInstance();
+        pointGeometryBuilder.build(geometry, GeometryType.MULTI_POINT, lod, pointObject);
+        MultiPoint multiPoint = pointObject.getGeometry(MultiPoint.class);
         return multiPoint != null ?
                 multiPoint.getPointMember().get(0) :
                 null;
