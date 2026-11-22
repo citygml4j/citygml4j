@@ -111,10 +111,20 @@ public class CityJSONWriter extends AbstractCityJSONWriter<CityJSONWriter> {
 
         try {
             writeEndDocument();
-            super.close();
+        } catch (CityJSONWriteException | RuntimeException e) {
+            // close the underlying writer even if the end of the document could not be written
+            try {
+                super.close();
+            } catch (CityJSONWriteException suppressed) {
+                e.addSuppressed(suppressed);
+            }
+
+            throw e;
         } finally {
             state = State.CLOSED;
         }
+
+        super.close();
     }
 
     @Override
