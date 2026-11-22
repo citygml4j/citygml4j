@@ -7,6 +7,41 @@
 - **Breaking:** The address of the CityJSON metadata `pointOfContact` is now a `Map<String, Object>` instead of a
   `String`, since CityJSON 2.0 defines it as an object with arbitrary members. A CityJSON 1.x address string is
   represented by a single `address` member, and the values are joined into a string when writing CityJSON 1.x.
+- An input filter on a non-chunking `CityGMLReader` now returns every feature it accepts, also when nested in
+  rejected elements. For example, a filter accepting only buildings returns the buildings of a city model one by one,
+  like a chunking reader. Filters accepting the `CityModel` behave as before.
+- `CityJSONFeatureWriter` skips geometry instances whose template is not part of the header line, instead of writing
+  template indexes that do not exist. Templates must be registered with `withGlobalTemplateGeometry` to be available.
+- CityJSON writers only write extensions registered for the CityJSON version being written.
+- `GeometryFactory` no longer modifies or shares the coordinate lists passed to it, and rejects invalid input
+  (non-positive dimension, `null` coordinates, rings with fewer than three distinct control points) with a
+  `GeometryException`.
+- Implementations of `ADE.getADEWalker` must return a new walker instance on each call.
+
+### Fixed
+- Fixed quadratic runtime when reading CityJSON files with many child objects or with child objects listed before
+  their parents.
+- Fixed rounding of quantized CityJSON vertices, which were truncated instead of rounded.
+- Fixed the default `scale` and `translate` values of the CityJSON `transform`, which were swapped.
+- Fixed the `translate` value written to the header of CityJSON feature streams.
+- Fixed an exception when reading empty CityJSON feature streams or streams starting with an empty line.
+- Fixed CityJSON materials and textures being shared by mistake when their hash codes collide.
+- Fixed CityJSON texture coordinates being assigned to the wrong rings when an interior ring has no texture.
+- Fixed CityJSON template indexes pointing to the wrong template when a template could not be written.
+- Fixed the reference point of an invalid CityJSON geometry instance being returned as `MultiPoint` geometry.
+- Fixed an exception when writing CityJSON semantic surfaces whose parent surface could not be written.
+- Fixed the CityJSON address `location` being lost when the address has no xAL address.
+- Fixed loading CityJSON extensions with the same name for different CityJSON versions, which replaced each other.
+- Fixed loading of CityGML ADEs leaving modules partially registered when the ADE is invalid.
+- Fixed the default `CityGMLSchemaHandler` not including the schemas of ADEs loaded later, and an empty schema handler
+  being cached forever after a failed initialization.
+- Fixed `CityGMLChunkWriter`, `CityJSONWriter` and `CityJSONFeatureWriter` not closing the output on errors, and
+  `CityGMLChunkWriter` not resetting the transformer after a failed write.
+- Fixed `DirectPosition` objects created by the simple multi point conversion sharing their coordinate lists.
+- Fixed `CityObjectGroup.setGroupMembers` not setting the group as parent of the members.
+- Fixed `ObjectWalker` skipping fields of ADE superclasses and walking static fields of ADE objects.
+- Fixed `DefaultReferenceResolver.getObjectsById` returning `null` instead of an empty map for `null` scopes.
+- Fixed thread safety issues when iterating the listeners of the CityGML and CityJSON ADE loaders.
 
 ## [3.5.3] - 2026-11-02
 
