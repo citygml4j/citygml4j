@@ -197,6 +197,7 @@ public class GeometryFactory {
     }
 
     public LinearRing createLinearRing(List<Double> coordinates, int dimension) {
+        checkCoordinates(coordinates, dimension);
         if (coordinates.size() < 3 * dimension)
             throw new GeometryException("A linear ring requires at least three control points.");
 
@@ -215,6 +216,10 @@ public class GeometryFactory {
                 ring.add(coordinates.get(i));
         }
 
+        // an already closed input of three positions only has two distinct control points
+        if (ring.size() < 4 * dimension)
+            throw new GeometryException("A linear ring requires at least three control points.");
+
         return postprocess(new LinearRing(toDirectPositionList(ring, dimension)));
     }
 
@@ -227,6 +232,7 @@ public class GeometryFactory {
     }
 
     private DirectPositionList toDirectPositionList(List<Double> coordinates, int dimension) {
+        checkCoordinates(coordinates, dimension);
         if (coordinates.size() % dimension != 0)
             throw new GeometryException("Dimension mismatch.");
 
@@ -246,6 +252,7 @@ public class GeometryFactory {
     }
 
     public DirectPosition createDirectPosition(List<Double> coordinates, int dimension) {
+        checkCoordinates(coordinates, dimension);
         if (coordinates.size() != dimension)
             throw new GeometryException("Dimension mismatch.");
 
@@ -259,6 +266,20 @@ public class GeometryFactory {
 
     public DirectPosition createDirectPosition(double[] coordinates, int dimension) {
         return createDirectPosition(Arrays.stream(coordinates).boxed().collect(Collectors.toList()), dimension);
+    }
+
+    private void checkCoordinates(List<Double> coordinates, int dimension) {
+        if (dimension < 1)
+            throw new GeometryException("The dimension must be positive.");
+
+        if (coordinates == null)
+            throw new GeometryException("The coordinates must not be null.");
+
+        // List.contains(null) throws for immutable lists
+        for (Double coordinate : coordinates) {
+            if (coordinate == null)
+                throw new GeometryException("The coordinates must not contain null values.");
+        }
     }
 
     private <T extends AbstractGeometry> T postprocess(T object) {
