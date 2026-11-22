@@ -70,6 +70,9 @@ public class DefaultReferenceResolver implements ReferenceResolver {
 
         for (Visitable scope : scopes) {
             walker.visit(scope);
+            if (target[0] != null) {
+                break;
+            }
         }
 
         return type.cast(target[0]);
