@@ -39,6 +39,8 @@ public class CityGMLSimpleReader extends CityGMLReader {
                 XMLObjects xmlObjects = reader.getXMLObjects();
                 while (reader.hasNext()) {
                     if (reader.nextTag() == EventType.START_ELEMENT) {
+                        // return the first feature accepted by the filter, and descend into
+                        // rejected elements to search for accepted features inside them
                         QName name = reader.getName();
                         if (filter == null || filter.accept(name)) {
                             ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(name, AbstractFeature.class);
@@ -46,10 +48,6 @@ public class CityGMLSimpleReader extends CityGMLReader {
                                 hasNext = true;
                                 break;
                             }
-                        } else {
-                            int skipUntil = reader.getDepth() - 1;
-                            while (reader.getDepth() != skipUntil)
-                                reader.nextTag();
                         }
                     }
                 }
