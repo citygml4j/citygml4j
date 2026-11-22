@@ -90,9 +90,25 @@ public class TextureBuilder {
         if (exterior != null && exterior.getObject() != null) {
             indexes = createTexturesCoordinates(exterior.getObject(), reverse);
             if (indexes != null && interior != null) {
+                // keep ring positions aligned per theme: an interior ring without a texture
+                // for a theme gets a null entry instead of being left out
+                int rings = 1;
                 for (AbstractRingProperty property : interior) {
                     if (property.getObject() != null) {
-                        createTexturesCoordinates(property.getObject(), reverse, indexes);
+                        Map<String, List<List<Integer>>> ringIndexes = createTexturesCoordinates(property.getObject(), reverse);
+                        for (Map.Entry<String, List<List<Integer>>> entry : indexes.entrySet()) {
+                            List<List<Integer>> surface = entry.getValue();
+                            List<List<Integer>> ring = ringIndexes != null ? ringIndexes.get(entry.getKey()) : null;
+                            while (surface.size() < rings) {
+                                surface.add(null);
+                            }
+
+                            if (ring != null) {
+                                surface.add(ring.get(0));
+                            }
+                        }
+
+                        rings++;
                     }
                 }
             }
@@ -102,10 +118,7 @@ public class TextureBuilder {
     }
 
     private Map<String, List<List<Integer>>> createTexturesCoordinates(AbstractRing ring, boolean reverse) {
-        return createTexturesCoordinates(ring, reverse, null);
-    }
-
-    private Map<String, List<List<Integer>>> createTexturesCoordinates(AbstractRing ring, boolean reverse, Map<String, List<List<Integer>>> indexes) {
+        Map<String, List<List<Integer>>> indexes = null;
         Referees referees = ring.hasLocalProperties() ?
                 ring.getLocalProperties().get(Referees.PROPERTY_NAME, Referees.class) :
                 null;
@@ -166,7 +179,11 @@ public class TextureBuilder {
                 ArrayNode surface = values.addArray();
                 for (List<Integer> element : entry.getValue()) {
                     ArrayNode ring = surface.addArray();
-                    element.forEach(ring::add);
+                    if (element != null) {
+                        element.forEach(ring::add);
+                    } else {
+                        ring.addNull();
+                    }
                 }
             }
         }
