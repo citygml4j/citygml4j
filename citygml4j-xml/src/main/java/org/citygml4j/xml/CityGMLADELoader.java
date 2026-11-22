@@ -59,6 +59,8 @@ public class CityGMLADELoader extends ADELoader<CityGMLADE> {
             throw new ADEException("No ADE modules defined for the ADE " + ade.getClass().getName() + ".");
         }
 
+        // validate all modules before registering any of them, so that a failure leaves no partial registration
+        Set<String> keys = new HashSet<>();
         for (ADEModule module : modules) {
             if (module.getNamespaceURI() == null || module.getNamespaceURI().isEmpty()) {
                 throw new ADEException("The ADE " + ade.getClass().getName() + " defines an ADE module without a namespace URI.");
@@ -68,15 +70,18 @@ public class CityGMLADELoader extends ADELoader<CityGMLADE> {
                 throw new ADEException("The ADE " + ade.getClass().getName() + " defines an ADE module without a CityGML version.");
             }
 
-            if (this.modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).get(module.getNamespaceURI()) != null) {
+            if (!keys.add(module.getCityGMLVersion() + " " + module.getNamespaceURI())
+                    || getADEModule(module.getNamespaceURI(), module.getCityGMLVersion()) != null) {
                 throw new ADEException("An ADE module has already been registered for the namespace '" + module.getNamespaceURI() +
                         "' and the CityGML version " + module.getCityGMLVersion() + ".");
             }
+        }
 
+        for (ADEModule module : modules) {
             this.modules.computeIfAbsent(module.getCityGMLVersion(), v -> new ConcurrentHashMap<>()).put(module.getNamespaceURI(), module);
         }
 
-        for (CityGMLContext listener : listeners.keySet()) {
+        for (CityGMLContext listener : getListeners()) {
             listener.loadADE(ade);
         }
     }
@@ -87,7 +92,13 @@ public class CityGMLADELoader extends ADELoader<CityGMLADE> {
             modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).remove(module.getNamespaceURI());
         }
 
-        listeners.keySet().forEach(v -> v.unloadADE(ade));
+        getListeners().forEach(v -> v.unloadADE(ade));
+    }
+
+    private List<CityGMLContext> getListeners() {
+        synchronized (listeners) {
+            return new ArrayList<>(listeners.keySet());
+        }
     }
 
     void addListener(CityGMLContext context) {
