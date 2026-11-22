@@ -28,7 +28,7 @@ public class GeometrySerializer {
     private final AppearanceSerializer appearanceSerializer;
     private final CityJSONSerializerHelper helper;
     private final Map<String, Integer> templateIndexes = new HashMap<>();
-    private final Map<Integer, ObjectNode> templates = new TreeMap<>();
+    private final TreeMap<Integer, ObjectNode> templates = new TreeMap<>();
     private final VerticesBuilder verticesBuilder = new VerticesBuilder(DEFAULT_VERTEX_PRECISION);
     private final VerticesBuilder templatesVerticesBuilder = new VerticesBuilder(DEFAULT_TEMPLATE_PRECISION);
 
@@ -88,7 +88,25 @@ public class GeometrySerializer {
     }
 
     public Iterator<ObjectNode> getTemplates() {
-        return templates.values().iterator();
+        // template indexes are referenced by position, so fill gaps left by templates that could not
+        // be created (e.g., references to unknown templates) with empty placeholders
+        List<ObjectNode> result = new ArrayList<>();
+        if (!templates.isEmpty()) {
+            int last = templates.lastKey();
+            for (int index = 0; index <= last; index++) {
+                ObjectNode template = templates.get(index);
+                if (template == null) {
+                    template = helper.createObject();
+                    template.put(Fields.TYPE, GeometryType.MULTI_POINT.toTypeName());
+                    template.put(Fields.LOD, "0");
+                    template.putArray(Fields.BOUNDARIES);
+                }
+
+                result.add(template);
+            }
+        }
+
+        return result.iterator();
     }
 
     private ObjectNode createGeometry(AbstractGeometry geometry, Number lod, VerticesBuilder verticesBuilder, EnumSet<GeometryType> allowedTypes) {
@@ -160,10 +178,21 @@ public class GeometrySerializer {
 
     private int registerTemplateGeometry(AbstractGeometry geometry, Number lod) {
         if (geometry != null) {
-            int index = registerTemplateGeometry(helper.getOrCreateId(geometry));
-            templates.computeIfAbsent(index, k ->
-                    createGeometry(geometry, lod, templatesVerticesBuilder, ALL_GEOMETRY_TYPES));
-            return index;
+            String id = helper.getOrCreateId(geometry);
+            Integer index = templateIndexes.get(id);
+            if (index != null && templates.containsKey(index)) {
+                return index;
+            }
+
+            ObjectNode template = createGeometry(geometry, lod, templatesVerticesBuilder, ALL_GEOMETRY_TYPES);
+            if (template != null) {
+                index = registerTemplateGeometry(id);
+                templates.put(index, template);
+                return index;
+            }
+
+            // keep an index that has already been handed out for a reference to this template
+            return index != null ? index : -1;
         }
 
         return -1;
