@@ -17,6 +17,8 @@
   (non-positive dimension, `null` coordinates, rings with fewer than three distinct control points) with a
   `GeometryException`.
 - Implementations of `ADE.getADEWalker` must return a new walker instance on each call.
+- CityJSON writers write the `children` of semantic surfaces in ascending order, so that the same input always
+  produces the same output.
 
 ### Fixed
 - Fixed quadratic runtime when reading CityJSON files with many child objects or with child objects listed before
