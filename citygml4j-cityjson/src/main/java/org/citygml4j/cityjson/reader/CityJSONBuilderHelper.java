@@ -548,26 +548,43 @@ public class CityJSONBuilderHelper {
         }
     }
 
-    void removeChildren(JsonNode parent, String parentId, Set<String> retain) {
-        JsonNode children = parent.path(Fields.CHILDREN);
-        if (children.isArray()) {
-            for (JsonNode element : children) {
+    Map<String, List<String>> collectChildren(JsonNode parent, String parentId) {
+        // builders consume child references from the children arrays while building,
+        // so the hierarchy must be collected before the parent is built
+        Map<String, List<String>> children = new HashMap<>();
+        collectChildren(parent, parentId, children);
+        return children;
+    }
+
+    private void collectChildren(JsonNode parent, String parentId, Map<String, List<String>> children) {
+        JsonNode childIds = parent.path(Fields.CHILDREN);
+        if (childIds.isArray() && !childIds.isEmpty() && !children.containsKey(parentId)) {
+            List<String> ids = new ArrayList<>(childIds.size());
+            children.put(parentId, ids);
+            for (JsonNode element : childIds) {
                 String childId = element.asString();
-                if (!retain.contains(childId)) {
-                    JsonNode child = cityObjects.path(childId);
-                    JsonNode parents = child.path(Fields.PARENTS);
-                    if (parents.size() > 1) {
-                        Iterator<JsonNode> iter = parents.values().iterator();
-                        while (iter.hasNext()) {
-                            if (parentId.equals(iter.next().asString())) {
-                                iter.remove();
-                                break;
-                            }
+                ids.add(childId);
+                collectChildren(cityObjects.path(childId), childId, children);
+            }
+        }
+    }
+
+    void removeChildren(String parentId, Map<String, List<String>> children, Set<String> retain) {
+        for (String childId : children.getOrDefault(parentId, Collections.emptyList())) {
+            if (!retain.contains(childId)) {
+                JsonNode child = cityObjects.path(childId);
+                JsonNode parents = child.path(Fields.PARENTS);
+                if (parents.size() > 1) {
+                    Iterator<JsonNode> iter = parents.values().iterator();
+                    while (iter.hasNext()) {
+                        if (parentId.equals(iter.next().asString())) {
+                            iter.remove();
+                            break;
                         }
-                    } else {
-                        cityObjects.remove(childId);
-                        removeChildren(child, childId, retain);
                     }
+                } else {
+                    cityObjects.remove(childId);
+                    removeChildren(childId, children, retain);
                 }
             }
         }

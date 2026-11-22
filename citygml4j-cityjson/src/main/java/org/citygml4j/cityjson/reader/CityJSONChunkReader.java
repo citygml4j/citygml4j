@@ -90,8 +90,9 @@ public class CityJSONChunkReader extends CityJSONReader {
     }
 
     private AbstractFeature processCityObject(JsonNode topLevelObject, String identifier) throws CityJSONReadException, CityJSONBuildException {
+        Map<String, List<String>> children = helper.collectChildren(topLevelObject, identifier);
         AbstractFeature object = helper.getObject(topLevelObject, AbstractFeature.class);
-        helper.removeChildren(topLevelObject, identifier, !topLevelObjects.isEmpty() ?
+        helper.removeChildren(identifier, children, !topLevelObjects.isEmpty() ?
                 new HashSet<>(topLevelObjects) :
                 Collections.emptySet());
 
