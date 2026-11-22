@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+### Breaking changes
+- `ReferenceSystem.getCode()` now returns `String` instead of `int` to support non-numeric CRS codes
+  (e.g. `OGC:CRS84`).
+
+### Added
+- Added support for non-numeric CRS codes in the CityJSON reference system (URL, URN and short forms).
+
 ## [3.5.3] - 2026-11-02
 
 ### Fixed

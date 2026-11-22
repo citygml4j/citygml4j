@@ -12,5 +12,5 @@ public class CityJSONPatterns {
     public static final Pattern EXTENSION_VERSION = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:\\.(0|[1-9]\\d*))?$");
     public static final Pattern CRS_URL = Pattern.compile("^https?://www.opengis.net/def/crs/(.+?)/(.*?)/([^/]+)$");
     public static final Pattern CRS_URN = Pattern.compile("^urn:ogc:def:crs(?:,crs)?:(.+?):(.*?):([^:,]+).*");
-    public static final Pattern CRS_SHORT = Pattern.compile("^([^:]+):(\\d+)$");
+    public static final Pattern CRS_SHORT = Pattern.compile("^([^:]+):([^:]+)$");
 }
