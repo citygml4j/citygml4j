@@ -60,24 +60,22 @@ public class ADEEnvelopeBuilder {
             return;
         }
 
-        if (object instanceof AbstractGeometry geometry) {
-            envelope.include(geometry.computeEnvelope());
-        } else if (object instanceof org.xmlobjects.gml.model.feature.AbstractFeature feature) {
-            envelope.include(feature.computeEnvelope(options));
-        } else if (object instanceof AbstractArrayProperty<?> property && property.isSetObjects()) {
-            property.getObjects().forEach(o -> updateEnvelope(o, envelope, options, visited));
-        } else if (object instanceof AbstractInlineOrByReferenceProperty<?> property) {
-            updateEnvelope(property.getObject(), envelope, options, visited);
-        } else if (object instanceof AbstractInlineProperty<?> property) {
-            updateEnvelope(property.getObject(), envelope, options, visited);
-        } else if (object instanceof GMLObject gmlObject && object instanceof ADEObject) {
-            updateEnvelope(gmlObject, envelope, options, visited);
-        } else if (object instanceof Collection<?> collection) {
-            collection.forEach(v -> updateEnvelope(v, envelope, options, visited));
-        } else if (object instanceof Object[] array) {
-            Arrays.stream(array).forEach(v -> updateEnvelope(v, envelope, options, visited));
-        } else if (object instanceof Map<?, ?> map) {
-            map.values().forEach(v -> updateEnvelope(v, envelope, options, visited));
+        switch (object) {
+            case AbstractGeometry geometry -> envelope.include(geometry.computeEnvelope());
+            case org.xmlobjects.gml.model.feature.AbstractFeature feature ->
+                    envelope.include(feature.computeEnvelope(options));
+            case AbstractArrayProperty<?> property when property.isSetObjects() ->
+                    property.getObjects().forEach(o -> updateEnvelope(o, envelope, options, visited));
+            case AbstractInlineOrByReferenceProperty<?> property ->
+                    updateEnvelope(property.getObject(), envelope, options, visited);
+            case AbstractInlineProperty<?> property -> updateEnvelope(property.getObject(), envelope, options, visited);
+            case GMLObject gmlObject when object instanceof ADEObject ->
+                    updateEnvelope(gmlObject, envelope, options, visited);
+            case Collection<?> collection -> collection.forEach(v -> updateEnvelope(v, envelope, options, visited));
+            case Object[] array -> Arrays.stream(array).forEach(v -> updateEnvelope(v, envelope, options, visited));
+            case Map<?, ?> map -> map.values().forEach(v -> updateEnvelope(v, envelope, options, visited));
+            case null, default -> {
+            }
         }
     }
 

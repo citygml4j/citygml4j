@@ -148,10 +148,10 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
 
     public void writeCityObject(AbstractFeature feature) throws CityJSONWriteException {
         switch (state) {
-            case CLOSED:
-                throw new CityJSONWriteException("Illegal to write city objects after writer has been closed.");
-            case INITIAL:
-                writeStartDocument(feature);
+            case CLOSED -> throw new CityJSONWriteException("Illegal to write city objects after writer has been closed.");
+            case INITIAL -> writeStartDocument(feature);
+            default -> {
+            }
         }
 
         if (feature != null) {

@@ -1743,41 +1743,33 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
 
     @Override
     protected void visitObject(Object object) {
-        if (object instanceof ADEObject ade)
-            visit(ade);
-        else if (object instanceof VisitableObject visitable)
-            visitable.accept(this);
-        else if (object instanceof org.xmlobjects.gml.visitor.VisitableObject visitable)
-            visitable.accept(this);
-        else if (object instanceof VisitableGeometry visitable)
-            visitable.accept(this);
-        else if (object instanceof AbstractAssociation<?> association)
-            visitProperty(association);
+        switch (object) {
+            case ADEObject ade -> visit(ade);
+            case VisitableObject visitable -> visitable.accept(this);
+            case org.xmlobjects.gml.visitor.VisitableObject visitable -> visitable.accept(this);
+            case VisitableGeometry visitable -> visitable.accept(this);
+            case AbstractAssociation<?> association -> visitProperty(association);
+            case null, default -> {
+            }
+        }
     }
 
     private void visitProperty(AbstractAssociation<?> association) {
-        if (association instanceof FeatureProperty<?> property)
-            visit(property);
-        else if (association instanceof GeometryProperty<?> property)
-            visit(property);
-        else if (association instanceof AbstractFeatureMember<?> member)
-            visit(member);
-        else if (association instanceof AbstractReference<?> reference)
-            visit(reference);
-        else if (association instanceof GeometryArrayProperty<?> property)
-            visit(property);
-        else if (association instanceof SurfacePatchArrayProperty<?> property)
-            visit(property);
-        else if (association instanceof AbstractInlineGeometryProperty<?> property)
-            visit(property);
-        else if (association instanceof AbstractInlineProperty<?> property)
-            visit(property);
-        else if (association instanceof AbstractProperty<?> property)
-            visit(property);
-        else if (association instanceof AbstractInlineOrByReferenceProperty<?> property)
-            visit(property);
-        else if (association instanceof AbstractArrayProperty<?> property)
-            visit(property);
+        switch (association) {
+            case FeatureProperty<?> property -> visit(property);
+            case GeometryProperty<?> property -> visit(property);
+            case AbstractFeatureMember<?> member -> visit(member);
+            case AbstractReference<?> reference -> visit(reference);
+            case GeometryArrayProperty<?> property -> visit(property);
+            case SurfacePatchArrayProperty<?> property -> visit(property);
+            case AbstractInlineGeometryProperty<?> property -> visit(property);
+            case AbstractInlineProperty<?> property -> visit(property);
+            case AbstractProperty<?> property -> visit(property);
+            case AbstractInlineOrByReferenceProperty<?> property -> visit(property);
+            case AbstractArrayProperty<?> property -> visit(property);
+            default -> {
+            }
+        }
     }
 
     private void visit(Value value) {
@@ -1792,10 +1784,12 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
     }
 
     private void visit(AbstractValue value) {
-        if (value instanceof ADEObject ade)
-            visit(ade);
-        else if (value instanceof CompositeValue compositeValue)
-            compositeValue.accept(this);
+        switch (value) {
+            case ADEObject ade -> visit(ade);
+            case CompositeValue compositeValue -> compositeValue.accept(this);
+            case null, default -> {
+            }
+        }
     }
 
     private void visit(TimeInstantProperty property) {

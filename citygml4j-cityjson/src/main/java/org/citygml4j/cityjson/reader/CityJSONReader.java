@@ -182,16 +182,12 @@ public abstract class CityJSONReader implements AutoCloseable {
             String name = entry.getKey();
 
             switch (name) {
-                case Fields.TYPE:
-                case Fields.VERSION:
-                case Fields.TRANSFORM:
-                case Fields.CITY_OBJECTS:
-                case Fields.VERTICES:
-                case Fields.METADATA:
-                case Fields.EXTENSIONS:
-                case Fields.APPEARANCE:
-                case Fields.GEOMETRY_TEMPLATES:
+                case Fields.TYPE, Fields.VERSION, Fields.TRANSFORM, Fields.CITY_OBJECTS, Fields.VERTICES,
+                     Fields.METADATA, Fields.EXTENSIONS, Fields.APPEARANCE, Fields.GEOMETRY_TEMPLATES -> {
                     continue;
+                }
+                default -> {
+                }
             }
 
             ADEOfCityModel property = helper.getObject(name, entry.getValue(), ADEOfCityModel.class);

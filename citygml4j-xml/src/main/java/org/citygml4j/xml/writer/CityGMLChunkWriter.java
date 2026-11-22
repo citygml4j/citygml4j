@@ -74,31 +74,28 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
     }
 
     public void writeMember(AbstractFeature feature) throws CityGMLWriteException {
-        if (feature instanceof AbstractCityObject) {
-            writeMember(feature, CoreModule.of(version).getNamespaceURI(), "cityObjectMember");
-        } else if (feature instanceof AbstractAppearance) {
-            writeMember(feature, version != CityGMLVersion.v3_0 ?
+        String coreNamespace = CoreModule.of(version).getNamespaceURI();
+        switch (feature) {
+            case AbstractCityObject cityObject -> writeMember(feature, coreNamespace, "cityObjectMember");
+            case AbstractAppearance appearance -> writeMember(feature, version != CityGMLVersion.v3_0 ?
                     AppearanceModule.of(version).getNamespaceURI() :
-                    CoreModule.of(version).getNamespaceURI(), "appearanceMember");
-        } else if (version == CityGMLVersion.v3_0) {
-            if (feature instanceof AbstractVersion) {
-                writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "versionMember");
-            } else if (feature instanceof AbstractVersionTransition) {
-                writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "versionTransitionMember");
-            } else {
-                writeMember(feature, CoreModule.v3_0.getNamespaceURI(), "featureMember");
-            }
-        } else {
-            writeMember(feature, GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
+                    coreNamespace, "appearanceMember");
+            case AbstractVersion object when version == CityGMLVersion.v3_0 ->
+                    writeMember(feature, coreNamespace, "versionMember");
+            case AbstractVersionTransition transition when version == CityGMLVersion.v3_0 ->
+                    writeMember(feature, coreNamespace, "versionTransitionMember");
+            default -> writeMember(feature, version == CityGMLVersion.v3_0 ?
+                    coreNamespace :
+                    GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
         }
     }
 
     private void writeMember(AbstractFeature feature, String namespaceURI, String propertyName) throws CityGMLWriteException {
         switch (state) {
-            case CLOSED:
-                throw new CityGMLWriteException("Illegal to write features after writer has been closed.");
-            case INITIAL:
-                writeHeader();
+            case CLOSED -> throw new CityGMLWriteException("Illegal to write features after writer has been closed.");
+            case INITIAL -> writeHeader();
+            default -> {
+            }
         }
 
         CityGMLWriteException failure = null;

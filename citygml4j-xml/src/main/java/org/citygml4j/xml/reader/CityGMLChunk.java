@@ -67,13 +67,13 @@ public class CityGMLChunk {
 
         mapper.bridgeEvent(reader);
         switch (eventType) {
-            case XMLStreamConstants.START_ELEMENT:
+            case XMLStreamConstants.START_ELEMENT -> {
                 lastElement = reader.getName();
                 depth++;
-                break;
-            case XMLStreamConstants.END_ELEMENT:
-                depth--;
-                break;
+            }
+            case XMLStreamConstants.END_ELEMENT -> depth--;
+            default -> {
+            }
         }
     }
 

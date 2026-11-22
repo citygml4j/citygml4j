@@ -56,16 +56,15 @@ public class ADEGeometryInfoBuilder {
     }
 
     static void updateGeometryInfo(Object object, LevelOfDetail lod, String name, GeometryInfo geometryInfo) {
-        if (object instanceof GeometryProperty<?> property) {
-            geometryInfo.addGeometry(getLodFromProperty(lod, name), property);
-        } else if (object instanceof ImplicitGeometryProperty property) {
-            geometryInfo.addImplicitGeometry(getLodFromProperty(lod, name), property);
-        } else if (object instanceof Collection<?> collection) {
-            collection.forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
-        } else if (object instanceof Object[] array) {
-            Arrays.stream(array).forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
-        } else if (object instanceof Map<?, ?> map) {
-            map.values().forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
+        switch (object) {
+            case GeometryProperty<?> property -> geometryInfo.addGeometry(getLodFromProperty(lod, name), property);
+            case ImplicitGeometryProperty property ->
+                    geometryInfo.addImplicitGeometry(getLodFromProperty(lod, name), property);
+            case Collection<?> collection -> collection.forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
+            case Object[] array -> Arrays.stream(array).forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
+            case Map<?, ?> map -> map.values().forEach(v -> updateGeometryInfo(v, lod, name, geometryInfo));
+            case null, default -> {
+            }
         }
     }
 

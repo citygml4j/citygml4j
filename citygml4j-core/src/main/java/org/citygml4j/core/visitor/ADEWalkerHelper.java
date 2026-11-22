@@ -16,8 +16,15 @@ import java.util.*;
 public class ADEWalkerHelper {
     private final ObjectWalker parent;
     private final Deque<Walker> walkers = new ArrayDeque<>();
-    private final Map<String, AbstractMap.SimpleEntry<Walker, Method>> methods = new HashMap<>();
-    private final Map<String, Field[]> fields = new HashMap<>();
+    private final Map<Class<?>, Visitor> methods = new HashMap<>();
+    private final Map<FieldsKey, Field[]> fields = new HashMap<>();
+
+    private record Visitor(Walker walker, Method method) {
+        static final Visitor NONE = new Visitor(null, null);
+    }
+
+    private record FieldsKey(Class<?> type, Class<?> stop) {
+    }
 
     ADEWalkerHelper(ObjectWalker parent) {
         this.parent = parent;
@@ -30,47 +37,37 @@ public class ADEWalkerHelper {
     }
 
     boolean visitObject(ADEObject adeObject, Class<?> type) {
-        Walker walker = null;
-        Method method = null;
-
-        String key = type.getName() + '.' + "visit";
-        AbstractMap.SimpleEntry<Walker, Method> entry = methods.get(key);
-        if (entry == null) {
-            for (Walker candidate : walkers) {
-                try {
-                    method = candidate.getClass().getMethod("visit", type);
-                    method.setAccessible(true);
-                    walker = candidate;
-                    methods.put(key, new AbstractMap.SimpleEntry<>(walker, method));
-                    break;
-                } catch (NoSuchMethodException e) {
-                    //
-                }
-            }
-        } else {
-            walker = entry.getKey();
-            method = entry.getValue();
-        }
-
-        if (method != null) {
+        Visitor visitor = methods.computeIfAbsent(type, this::findVisitor);
+        if (visitor.method() != null) {
             try {
-                method.invoke(walker, adeObject);
+                visitor.method().invoke(visitor.walker(), adeObject);
             } catch (InvocationTargetException | IllegalAccessException e) {
                 throw new RuntimeException("Failed to visit " + adeObject + ".", e);
             }
 
             return true;
         } else {
-            if (entry == null)
-                methods.put(key, new AbstractMap.SimpleEntry<>(null, null));
-
             return false;
         }
     }
 
+    private Visitor findVisitor(Class<?> type) {
+        for (Walker candidate : walkers) {
+            try {
+                Method method = candidate.getClass().getMethod("visit", type);
+                method.setAccessible(true);
+                return new Visitor(candidate, method);
+            } catch (NoSuchMethodException e) {
+                //
+            }
+        }
+
+        return Visitor.NONE;
+    }
+
     void visitFields(ADEObject adeObject, Class<?> stop) {
         Class<?> type = adeObject.getClass();
-        Field[] fields = this.fields.computeIfAbsent(type.getName() + '/' + stop.getName(), v -> {
+        Field[] fields = this.fields.computeIfAbsent(new FieldsKey(type, stop), v -> {
             List<Field> candidates = new ArrayList<>();
             for (Class<?> current = type; current != null && current != stop; current = current.getSuperclass()) {
                 for (Field field : current.getDeclaredFields()) {
@@ -88,12 +85,13 @@ public class ADEWalkerHelper {
                 field.setAccessible(true);
                 Object value = field.get(adeObject);
 
-                if (value instanceof Collection<?> collection)
-                    new ArrayList<>(collection).forEach(parent::visitObject);
-                else if (value instanceof Object[] array)
-                    Arrays.stream(array).forEach(parent::visitObject);
-                else if (value != null)
-                    parent.visitObject(value);
+                switch (value) {
+                    case null -> {
+                    }
+                    case Collection<?> collection -> new ArrayList<>(collection).forEach(parent::visitObject);
+                    case Object[] array -> Arrays.stream(array).forEach(parent::visitObject);
+                    default -> parent.visitObject(value);
+                }
             } catch (Throwable e) {
                 throw new RuntimeException("Failed to visit " + adeObject + ".", e);
             }

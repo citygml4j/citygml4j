@@ -600,19 +600,15 @@ public class CityJSONBuilderHelper {
             JsonNode value = entry.getValue();
 
             switch (name) {
-                case Fields.TYPE:
-                case Fields.GEOMETRY:
-                case Fields.CHILDREN:
-                case Fields.PARENTS:
-                case Fields.PARENT:
+                case Fields.TYPE, Fields.GEOMETRY, Fields.CHILDREN, Fields.PARENTS, Fields.PARENT -> {
                     continue;
-                case Fields.ATTRIBUTES:
+                }
+                case Fields.ATTRIBUTES -> {
                     for (Map.Entry<String, JsonNode> attribute : value.properties()) {
                         attributes.add(attribute.getKey(), attribute.getValue());
                     }
-                    break;
-                default:
-                    attributes.add(name, value);
+                }
+                default -> attributes.add(name, value);
             }
 
             iterator.remove();

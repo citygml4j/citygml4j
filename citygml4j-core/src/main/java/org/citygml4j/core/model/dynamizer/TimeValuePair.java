@@ -177,30 +177,14 @@ public class TimeValuePair extends GMLObject implements CityGMLObject {
     public void setValue(TimeseriesValue valueType, Object value) {
         if (value != null && valueType.getType().isAssignableFrom(value.getClass())) {
             switch (valueType) {
-                case INTEGER:
-                    setIntValue((Integer) value);
-                    break;
-                case DOUBLE:
-                    setDoubleValue((Double) value);
-                    break;
-                case STRING:
-                    setStringValue((String) value);
-                    break;
-                case GEOMETRY:
-                    setGeometryValue((GeometryProperty<?>) value);
-                    break;
-                case URI:
-                    setUriValue((String) value);
-                    break;
-                case BOOL:
-                    setBoolValue((Boolean) value);
-                    break;
-                case IMPLICIT_GEOMETRY:
-                    setImplicitGeometryValue((ImplicitGeometryProperty) value);
-                    break;
-                case APPEARANCE:
-                    setAppearanceValue((AbstractAppearanceProperty) value);
-                    break;
+                case INTEGER -> setIntValue((Integer) value);
+                case DOUBLE -> setDoubleValue((Double) value);
+                case STRING -> setStringValue((String) value);
+                case GEOMETRY -> setGeometryValue((GeometryProperty<?>) value);
+                case URI -> setUriValue((String) value);
+                case BOOL -> setBoolValue((Boolean) value);
+                case IMPLICIT_GEOMETRY -> setImplicitGeometryValue((ImplicitGeometryProperty) value);
+                case APPEARANCE -> setAppearanceValue((AbstractAppearanceProperty) value);
             }
         }
     }
