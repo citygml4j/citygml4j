@@ -72,7 +72,7 @@ public class SemanticsBuilder {
                     AbstractSpaceBoundary parent = entry.getKey();
                     while ((parent = parent.getParent(AbstractSpaceBoundary.class)) != null) {
                         Integer parentIndex = boundaries.get(parent);
-                        if (parentIndex != null) {
+                        if (parentIndex != null && parentIndex != -1) {
                             surfaces.get(entry.getValue()).put(Fields.PARENT, parentIndex);
                             helper.getOrPutArray(Fields.CHILDREN, surfaces.get(parentIndex)).add(entry.getValue());
                             break;
