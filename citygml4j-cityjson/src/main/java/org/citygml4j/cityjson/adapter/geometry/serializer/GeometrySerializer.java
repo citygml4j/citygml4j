@@ -8,6 +8,7 @@ package org.citygml4j.cityjson.adapter.geometry.serializer;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
 import org.citygml4j.cityjson.model.CityJSONType;
+import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.core.model.core.ImplicitGeometry;
@@ -99,7 +100,11 @@ public class GeometrySerializer {
                 if (template == null) {
                     template = helper.createObject();
                     template.put(Fields.TYPE, GeometryType.MULTI_POINT.toTypeName());
-                    template.put(Fields.LOD, "0");
+                    if (helper.getVersion() == CityJSONVersion.v1_0) {
+                        template.put(Fields.LOD, 0);
+                    } else {
+                        template.put(Fields.LOD, "0");
+                    }
                     template.putArray(Fields.BOUNDARIES);
                 }
 

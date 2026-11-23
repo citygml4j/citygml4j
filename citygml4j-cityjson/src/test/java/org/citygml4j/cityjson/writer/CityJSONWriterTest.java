@@ -6,6 +6,7 @@
 package org.citygml4j.cityjson.writer;
 
 import org.citygml4j.cityjson.CityJSONContext;
+import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.core.model.building.Building;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.citygml4j.core.model.core.Address;
@@ -35,8 +36,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class CityJSONWriterTest {
 
     private JsonNode write(AbstractFeature... features) throws Exception {
+        return write(CityJSONVersion.v2_0, features);
+    }
+
+    private JsonNode write(CityJSONVersion version, AbstractFeature... features) throws Exception {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         try (CityJSONWriter writer = CityJSONContext.newInstance().createCityJSONOutputFactory()
+                .withCityJSONVersion(version)
                 .createCityJSONWriter(output)) {
             for (AbstractFeature feature : features) {
                 writer.writeCityObject(feature);
@@ -103,5 +109,25 @@ class CityJSONWriterTest {
         JsonNode addresses = json.path("CityObjects").path("b1").path("address");
         assertFalse(addresses.isMissingNode(), json.toString());
         assertTrue(addresses.get(0).has("location"), addresses.toString());
+    }
+
+    @Test
+    void placeholderTemplateLodMatchesVersion() throws Exception {
+        for (CityJSONVersion version : CityJSONVersion.values()) {
+            JsonNode json = write(version,
+                    tree("t1", new GeometryProperty<>("#unknown")),
+                    tree("t2", new GeometryProperty<>(template())));
+
+            JsonNode templates = json.path("geometry-templates").path("templates");
+            int index = templateIndex(json, "t2");
+            boolean numeric = version == CityJSONVersion.v1_0;
+            for (int i = 0; i < templates.size(); i++) {
+                JsonNode lod = templates.get(i).path("lod");
+                assertEquals(numeric, lod.isNumber(), version + ": " + templates);
+                assertEquals(!numeric, lod.isString(), version + ": " + templates);
+            }
+
+            assertEquals("MultiSurface", templates.get(index).path("type").asString(), version.toString());
+        }
     }
 }
