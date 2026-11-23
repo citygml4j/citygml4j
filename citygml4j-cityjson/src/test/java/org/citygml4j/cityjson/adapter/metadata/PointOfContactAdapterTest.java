@@ -28,9 +28,9 @@ class PointOfContactAdapterTest {
     private PointOfContact read(String address, String version) throws Exception {
         String json = """
                 {"type":"CityJSON","version":"%s","transform":{"scale":[1,1,1],"translate":[0,0,0]},
-                 "metadata":{"pointOfContact":{"contactName":"Jane","emailAddress":"jane@example.org","address":%s}},
+                 "metadata":{"%s":{"contactName":"Jane","emailAddress":"jane@example.org","address":%s}},
                  "CityObjects":{},"vertices":[]}
-                """.formatted(version, address);
+                """.formatted(version, propertyName(version), address);
 
         try (CityJSONReader reader = CityJSONContext.newInstance().createCityJSONInputFactory()
                 .createCityJSONReader(new StringReader(json))) {
@@ -54,7 +54,12 @@ class PointOfContactAdapterTest {
         }
 
         return JsonMapper.builder().build().readTree(output.toString(StandardCharsets.UTF_8))
-                .path("metadata").path("pointOfContact").path("address");
+                .path("metadata").path(propertyName(version.toString())).path("address");
+    }
+
+    // CityJSON 1.0 names the point of contact "datasetPointOfContact"
+    private String propertyName(String version) {
+        return version.equals("1.0") ? "datasetPointOfContact" : "pointOfContact";
     }
 
     @Test
@@ -87,10 +92,10 @@ class PointOfContactAdapterTest {
     }
 
     @Test
-    void version11AddressRoundTrips() throws Exception {
-        PointOfContact pointOfContact = read("\"24 Sussex Drive, Ottawa\"", "1.1");
+    void version10AddressRoundTrips() throws Exception {
+        PointOfContact pointOfContact = read("\"24 Sussex Drive, Ottawa\"", "1.0");
 
-        JsonNode address = writeAddress(pointOfContact, CityJSONVersion.v1_1);
+        JsonNode address = writeAddress(pointOfContact, CityJSONVersion.v1_0);
         assertEquals("24 Sussex Drive, Ottawa", address.asString());
 
         address = writeAddress(pointOfContact, CityJSONVersion.v2_0);
@@ -98,11 +103,21 @@ class PointOfContactAdapterTest {
     }
 
     @Test
-    void writesAddressStringForVersion11() throws Exception {
+    void writesAddressObjectForVersion11() throws Exception {
         PointOfContact pointOfContact = new PointOfContact();
         pointOfContact.setAddress(Map.of("thoroughfareName", "Sussex Drive", "locality", "Ottawa"));
 
         JsonNode address = writeAddress(pointOfContact, CityJSONVersion.v1_1);
+        assertTrue(address.isObject(), address.toString());
+        assertEquals("Ottawa", address.path("locality").asString());
+    }
+
+    @Test
+    void writesAddressStringForVersion10() throws Exception {
+        PointOfContact pointOfContact = new PointOfContact();
+        pointOfContact.setAddress(Map.of("thoroughfareName", "Sussex Drive", "locality", "Ottawa"));
+
+        JsonNode address = writeAddress(pointOfContact, CityJSONVersion.v1_0);
         assertTrue(address.isString(), address.toString());
         assertTrue(address.asString().contains("Sussex Drive") && address.asString().contains("Ottawa"), address.asString());
     }

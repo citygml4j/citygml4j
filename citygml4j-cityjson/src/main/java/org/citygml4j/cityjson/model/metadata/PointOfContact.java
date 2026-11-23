@@ -33,11 +33,6 @@ public class PointOfContact {
         this.phone = phone;
     }
 
-    /**
-     * Returns the address. Its members are not prescribed by CityJSON 2.0, and values are plain Java
-     * objects: {@code String}, {@code Number}, {@code Boolean}, {@code List} and {@code Map}. A CityJSON
-     * 1.x address string is represented by a single member named {@code address}.
-     */
     public Map<String, Object> getAddress() {
         return address;
     }
