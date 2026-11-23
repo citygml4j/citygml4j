@@ -7,7 +7,6 @@ package org.citygml4j.cityjson.adapter.geometry.serializer;
 
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
-import org.citygml4j.cityjson.model.CityJSONType;
 import org.citygml4j.cityjson.model.CityJSONVersion;
 import org.citygml4j.cityjson.model.geometry.GeometryType;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
@@ -30,7 +29,7 @@ public class GeometrySerializer {
     private final CityJSONSerializerHelper helper;
     private final Map<String, Integer> templateIndexes = new HashMap<>();
     private final TreeMap<Integer, ObjectNode> templates = new TreeMap<>();
-    private Set<Integer> headerTemplates;
+    private int headerTemplates = -1;
     private final VerticesBuilder verticesBuilder = new VerticesBuilder(DEFAULT_VERTEX_PRECISION);
     private final VerticesBuilder templatesVerticesBuilder = new VerticesBuilder(DEFAULT_TEMPLATE_PRECISION);
 
@@ -133,9 +132,7 @@ public class GeometrySerializer {
         int index = geometry.getRelativeGeometry().getObject() != null
                 ? registerTemplateGeometry(geometry.getRelativeGeometry().getObject(), lod)
                 : registerTemplateGeometry(helper.getIdFromReference(geometry.getRelativeGeometry().getHref()));
-        if (index < 0 || (headerTemplates != null && !headerTemplates.contains(index))) {
-            // skip instances whose template cannot be written anymore, since CityJSON features
-            // can only use templates from the header
+        if (index < 0 || (headerTemplates >= 0 && index >= headerTemplates)) {
             return;
         }
 
@@ -188,7 +185,9 @@ public class GeometrySerializer {
         if (geometry != null) {
             String id = helper.getOrCreateId(geometry);
             Integer index = templateIndexes.get(id);
-            if (index != null && templates.containsKey(index)) {
+            if (headerTemplates >= 0) {
+                return index != null ? index : -1;
+            } else if (index != null && templates.containsKey(index)) {
                 return index;
             }
 
@@ -199,7 +198,6 @@ public class GeometrySerializer {
                 return index;
             }
 
-            // keep an index that has already been handed out for a reference to this template
             return index != null ? index : -1;
         }
 
@@ -207,21 +205,25 @@ public class GeometrySerializer {
     }
 
     private int registerTemplateGeometry(String objectId) {
-        return objectId != null ? templateIndexes.computeIfAbsent(objectId, k -> templateIndexes.size()) : -1;
+        if (objectId == null) {
+            return -1;
+        } else if (headerTemplates >= 0) {
+            return templateIndexes.getOrDefault(objectId, -1);
+        } else {
+            return templateIndexes.computeIfAbsent(objectId, k -> templateIndexes.size());
+        }
+    }
+
+    public void freezeHeaderTemplates(int count) {
+        if (headerTemplates >= 0) {
+            throw new IllegalStateException("Header templates have already been frozen.");
+        }
+
+        headerTemplates = Math.max(count, 0);
     }
 
     public void reset() {
-        if (helper.getType() == CityJSONType.CITYJSON_FEATURE) {
-            // the first reset follows the header, which contains all templates available to features
-            if (headerTemplates == null) {
-                headerTemplates = new HashSet<>();
-                if (!templates.isEmpty()) {
-                    for (int index = 0; index <= templates.lastKey(); index++) {
-                        headerTemplates.add(index);
-                    }
-                }
-            }
-        } else {
+        if (headerTemplates < 0) {
             templateIndexes.clear();
         }
 

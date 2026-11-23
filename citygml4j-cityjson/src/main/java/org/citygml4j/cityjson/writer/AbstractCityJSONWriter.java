@@ -304,14 +304,17 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
     }
 
-    void writeTemplates() {
+    int writeTemplates() {
+        int count = 0;
         GeometrySerializer geometrySerializer = helper.getGeometrySerializer();
         if (geometrySerializer.hasTemplates()) {
             generator.writeObjectPropertyStart(Fields.GEOMETRY_TEMPLATES);
-            writeAsArray(Fields.TEMPLATES, geometrySerializer.getTemplates());
+            count = writeAsArray(Fields.TEMPLATES, geometrySerializer.getTemplates());
             writeVertices(Fields.VERTICES_TEMPLATES, geometrySerializer.getTemplatesVerticesBuilder().build());
             generator.writeEndObject();
         }
+
+        return count;
     }
 
     void writeExtraRootProperties() {
@@ -331,13 +334,16 @@ public abstract class AbstractCityJSONWriter<T extends AbstractCityJSONWriter<?>
         }
     }
 
-    void writeAsArray(String propertyName, Iterator<ObjectNode> iterator) {
+    int writeAsArray(String propertyName, Iterator<ObjectNode> iterator) {
+        int count = 0;
         generator.writeArrayPropertyStart(propertyName);
         while (iterator.hasNext()) {
             generator.writeTree(iterator.next());
+            count++;
         }
 
         generator.writeEndArray();
+        return count;
     }
 
     void writeVertices(String propertyName, ArrayBuffer<Vertex> vertices) {

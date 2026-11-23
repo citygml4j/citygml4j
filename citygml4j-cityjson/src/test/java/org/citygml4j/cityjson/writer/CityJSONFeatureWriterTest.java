@@ -106,4 +106,32 @@ class CityJSONFeatureWriterTest {
         assertTrue(mapper.readTree(lines[2]).path("CityObjects").path("t2").path("geometry").isEmpty(), lines[2]);
         assertTrue(mapper.readTree(lines[3]).path("CityObjects").path("t3").path("geometry").isEmpty(), lines[3]);
     }
+
+    @Test
+    void inlineHeaderTemplateIsReferencedAndUnknownTemplatesAreSkipped() throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try (CityJSONFeatureWriter writer = CityJSONContext.newInstance().createCityJSONOutputFactory()
+                .createCityJSONFeatureWriter(output)
+                .withGlobalTemplateGeometry(template("global"), 2)) {
+            writer.writeCityObject(tree("t1", new GeometryProperty<>(template("global"))));
+            writer.writeCityObject(tree("t2", new GeometryProperty<>(template("local1"))));
+            writer.writeCityObject(tree("t3", new GeometryProperty<>(template("local2"))));
+            writer.writeCityObject(tree("t4", new GeometryProperty<>("#global")));
+        }
+
+        String[] lines = output.toString(StandardCharsets.UTF_8).split("\n");
+        ObjectMapper mapper = JsonMapper.builder().build();
+        assertEquals(1, mapper.readTree(lines[0]).path("geometry-templates").path("templates").size(), lines[0]);
+
+        for (int i = 1; i <= 4; i++) {
+            String id = "t" + i;
+            JsonNode geometry = mapper.readTree(lines[i]).path("CityObjects").path(id).path("geometry");
+            if (i == 2 || i == 3) {
+                assertTrue(geometry.isEmpty(), lines[i]);
+                assertFalse(mapper.readTree(lines[i]).has("geometry-templates"), lines[i]);
+            } else {
+                assertEquals(0, geometry.get(0).path("template").asInt(), lines[i]);
+            }
+        }
+    }
 }

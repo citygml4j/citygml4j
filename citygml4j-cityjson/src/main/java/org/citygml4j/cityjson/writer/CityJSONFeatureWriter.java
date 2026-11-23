@@ -75,12 +75,14 @@ public class CityJSONFeatureWriter extends AbstractCityJSONWriter<CityJSONFeatur
             writeMetadata();
             writeExtensions();
 
+            int templates = 0;
             if (!helper.getGeometrySerializer().isTransformTemplateGeometries()) {
                 processGlobalTemplates();
                 writeAppearance();
-                writeTemplates();
+                templates = writeTemplates();
             }
 
+            helper.getGeometrySerializer().freezeHeaderTemplates(templates);
             generator.writeEndObject();
         } catch (JacksonException e) {
             throw new CityJSONWriteException("Caused by:", e);
