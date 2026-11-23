@@ -14,12 +14,6 @@ public interface ADE {
 
     String getVersion();
 
-    /**
-     * Returns a walker for the objects of this ADE, or {@code null} if the ADE does not provide one.
-     * <p>
-     * Every {@code ObjectWalker} registers itself as parent of the returned walker, so implementations
-     * must return a new instance on each call.
-     */
     default ADEWalker getADEWalker() {
         return null;
     }

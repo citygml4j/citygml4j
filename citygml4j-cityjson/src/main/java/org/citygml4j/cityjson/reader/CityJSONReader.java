@@ -221,9 +221,6 @@ public abstract class CityJSONReader implements AutoCloseable {
         @Override
         public boolean hasNext() {
             if (identifiers == null) {
-                // collect top-level objects in a single pass, since rescanning the CityObjects for
-                // every object is quadratic. Objects never become top-level while reading, as parents
-                // arrays only shrink to a single remaining parent.
                 List<String> topLevel = new ArrayList<>();
                 Iterator<Map.Entry<String, JsonNode>> iterator = helper.getCityObjects().properties().iterator();
                 while (iterator.hasNext()) {

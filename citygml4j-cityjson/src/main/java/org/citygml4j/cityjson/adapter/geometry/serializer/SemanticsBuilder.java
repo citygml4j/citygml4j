@@ -68,7 +68,6 @@ public class SemanticsBuilder {
 
     ObjectNode build(int index) {
         if (!surfaces.isEmpty()) {
-            // build hierarchy in surface order, so that children are written in a deterministic order
             for (int i = 0; i < surfaceBoundaries.size(); i++) {
                 AbstractSpaceBoundary parent = surfaceBoundaries.get(i);
                 while ((parent = parent.getParent(AbstractSpaceBoundary.class)) != null) {

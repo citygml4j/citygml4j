@@ -139,7 +139,6 @@ public class AddressAdapter implements JsonObjectBuilder<Address>, JsonObjectSer
             }
         }
 
-        // the location does not depend on the xAL address
         if (object.getMultiPoint() != null) {
             ObjectNode location = helper.getGeometry(object.getMultiPoint(), 1, EnumSet.of(GeometryType.MULTI_POINT));
             if (location != null && !location.isEmpty()) {

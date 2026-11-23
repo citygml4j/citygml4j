@@ -549,8 +549,6 @@ public class CityJSONBuilderHelper {
     }
 
     Map<String, List<String>> collectChildren(JsonNode parent, String parentId) {
-        // builders consume child references from the children arrays while building,
-        // so the hierarchy must be collected before the parent is built
         Map<String, List<String>> children = new HashMap<>();
         collectChildren(parent, parentId, children);
         return children;

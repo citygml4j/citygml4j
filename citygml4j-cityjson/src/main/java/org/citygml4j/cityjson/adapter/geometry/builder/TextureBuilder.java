@@ -43,8 +43,6 @@ public class TextureBuilder {
                     JsonNode ring = surface.get(ringNo);
                     int textureIndex = ring.path(0).asInt(-1);
                     if (textureIndex == -1) {
-                        // an untextured exterior means an untextured surface, but
-                        // an untextured interior ring must not hide the following rings
                         if (ringNo == 0) {
                             break;
                         } else {

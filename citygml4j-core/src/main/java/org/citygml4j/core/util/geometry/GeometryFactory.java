@@ -275,7 +275,6 @@ public class GeometryFactory {
         if (coordinates == null)
             throw new GeometryException("The coordinates must not be null.");
 
-        // List.contains(null) throws for immutable lists
         for (Double coordinate : coordinates) {
             if (coordinate == null)
                 throw new GeometryException("The coordinates must not contain null values.");
