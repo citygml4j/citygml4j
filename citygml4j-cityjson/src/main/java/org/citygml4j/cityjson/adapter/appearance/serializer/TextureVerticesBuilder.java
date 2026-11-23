@@ -47,21 +47,25 @@ public class TextureVerticesBuilder {
                 break;
             }
 
-            long ls = Math.round(vertices.get(i) * scaleFactor);
-            long lt = Math.round(vertices.get(i + 1) * scaleFactor);
-            TextureVertexKey key = new TextureVertexKey(ls, lt);
-
-            Integer index = this.indexes.get(key);
-            if (index == null) {
-                index = this.vertices.size();
-                this.vertices.add(TextureVertex.of(ls / scaleFactor, lt / scaleFactor));
-                this.indexes.put(key, index);
-            }
-
-            indexes.add(index);
+            indexes.add(addTextureVertex(vertices.get(i), vertices.get(i + 1)));
         }
 
         return indexes;
+    }
+
+    public int addTextureVertex(double s, double t) {
+        long ls = Math.round(s * scaleFactor);
+        long lt = Math.round(t * scaleFactor);
+        TextureVertexKey key = new TextureVertexKey(ls, lt);
+
+        Integer index = indexes.get(key);
+        if (index == null) {
+            index = vertices.size();
+            vertices.add(TextureVertex.of(ls / scaleFactor, lt / scaleFactor));
+            indexes.put(key, index);
+        }
+
+        return index;
     }
 
     public ArrayBuffer<TextureVertex> build() {

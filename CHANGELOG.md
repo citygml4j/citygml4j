@@ -31,6 +31,8 @@
 - Fixed an exception when reading empty CityJSON feature streams or streams starting with an empty line.
 - Fixed CityJSON materials and textures being shared by mistake when their hash codes collide.
 - Fixed CityJSON texture coordinates being assigned to the wrong rings when an interior ring has no texture.
+- Fixed CityJSON texture coordinates not being reversed together with the vertices of reversed surfaces, which
+  assigned back-side textures to the wrong vertices.
 - Fixed CityJSON template indexes pointing to the wrong template when a template could not be written.
 - Fixed the reference point of an invalid CityJSON geometry instance being returned as `MultiPoint` geometry.
 - Fixed an exception when writing CityJSON semantic surfaces whose parent surface could not be written.

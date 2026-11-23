@@ -8,6 +8,7 @@ package org.citygml4j.cityjson.adapter.geometry.serializer;
 import org.citygml4j.cityjson.adapter.Fields;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceInfo;
 import org.citygml4j.cityjson.adapter.appearance.serializer.AppearanceSerializer;
+import org.citygml4j.cityjson.adapter.appearance.serializer.TextureVerticesBuilder;
 import org.citygml4j.cityjson.writer.CityJSONSerializerHelper;
 import org.citygml4j.core.model.appearance.ParameterizedTexture;
 import org.citygml4j.core.model.appearance.TexCoordList;
@@ -43,7 +44,10 @@ public class TextureBuilder {
     }
 
     void addTextures(LinearRing linearRing, boolean reverse, int index) {
-        addTextures(List.of(createTextureCoordinates(linearRing, reverse)), index);
+        Map<String, ArrayNode> rings = createTextureCoordinates(linearRing, reverse);
+        if (rings != null) {
+            rings.forEach((theme, ring) -> addSurface(theme, index).add(ring));
+        }
     }
 
     void addTextures(AbstractSimplePolygon simplePolygon, boolean reverse, int index) {
@@ -86,40 +90,74 @@ public class TextureBuilder {
     }
 
     private void addTextures(AbstractRingProperty exterior, List<AbstractRingProperty> interior, boolean reverse, int index) {
-        if (exterior != null && exterior.getObject() != null) {
-            List<Map<String, List<Integer>>> rings = new ArrayList<>();
-            rings.add(createTextureCoordinates(exterior.getObject(), reverse));
-            if (interior != null) {
-                for (AbstractRingProperty property : interior) {
-                    if (property.getObject() != null) {
-                        rings.add(createTextureCoordinates(property.getObject(), reverse));
+        if (exterior == null || exterior.getObject() == null) {
+            return;
+        }
+
+        // the themes of the exterior ring define the textures of the surface
+        Map<String, ArrayNode> surfaces = createTextureCoordinates(exterior.getObject(), reverse);
+        if (surfaces == null) {
+            return;
+        }
+
+        for (Map.Entry<String, ArrayNode> entry : surfaces.entrySet()) {
+            ArrayNode surface = addSurface(entry.getKey(), index);
+            surface.add(entry.getValue());
+            entry.setValue(surface);
+        }
+
+        if (interior != null) {
+            for (AbstractRingProperty property : interior) {
+                if (property.getObject() != null) {
+                    Map<String, ArrayNode> rings = createTextureCoordinates(property.getObject(), reverse);
+                    for (Map.Entry<String, ArrayNode> entry : surfaces.entrySet()) {
+                        ArrayNode ring = rings != null ? rings.get(entry.getKey()) : null;
+                        if (ring != null) {
+                            entry.getValue().add(ring);
+                        } else {
+                            entry.getValue().addArray().addNull();
+                        }
                     }
                 }
             }
-
-            addTextures(rings, index);
         }
     }
 
-    private Map<String, List<Integer>> createTextureCoordinates(AbstractRing ring, boolean reverse) {
+    private ArrayNode addSurface(String theme, int index) {
+        ObjectNode texture = textures.computeIfAbsent(theme, k -> {
+            ObjectNode node = helper.createObject();
+            node.putArray(Fields.VALUES);
+            return node;
+        });
+
+        ArrayNode values = (ArrayNode) texture.get(Fields.VALUES);
+        appendNullValues(values, index);
+        return values.addArray();
+    }
+
+    private Map<String, ArrayNode> createTextureCoordinates(AbstractRing ring, boolean reverse) {
         Referees referees = ring.hasLocalProperties() ?
                 ring.getLocalProperties().get(Referees.PROPERTY_NAME, Referees.class) :
                 null;
 
         if (referees == null) {
-            return Map.of();
+            return null;
         }
 
-        Map<String, List<Integer>> textureCoordinates = new LinkedHashMap<>();
+        Map<String, ArrayNode> textureCoordinates = null;
         for (TextureCoordinates coordinates : referees.get(TextureCoordinates.class)) {
             ParameterizedTexture texture = coordinates.getParent(ParameterizedTexture.class);
             if (texture != null && texture.getIsFront() != reverse && coordinates.isSetValue()) {
                 AppearanceInfo textureInfo = appearanceSerializer.getOrCreateTexture(texture);
-                if (textureInfo != null && !textureCoordinates.containsKey(textureInfo.getTheme())) {
-                    List<Integer> element = new ArrayList<>();
-                    element.add(textureInfo.getIndex());
-                    element.addAll(appearanceSerializer.getTextureVerticesBuilder()
-                            .addTextureVertices(toTextureVertices(coordinates.getValue(), reverse)));
+                if (textureInfo != null) {
+                    if (textureCoordinates == null) {
+                        textureCoordinates = new LinkedHashMap<>();
+                    } else if (textureCoordinates.containsKey(textureInfo.getTheme())) {
+                        continue;
+                    }
+
+                    ArrayNode element = helper.createArray().add(textureInfo.getIndex());
+                    addTextureVertices(element, coordinates.getValue(), reverse);
                     textureCoordinates.put(textureInfo.getTheme(), element);
                 }
             }
@@ -128,47 +166,21 @@ public class TextureBuilder {
         return textureCoordinates;
     }
 
-    private List<Double> toTextureVertices(List<Double> value, boolean reverse) {
-        List<Double> vertices = new ArrayList<>(value.size());
+    private void addTextureVertices(ArrayNode element, List<Double> value, boolean reverse) {
+        TextureVerticesBuilder builder = appearanceSerializer.getTextureVerticesBuilder();
+        int vertices = value.size() / 2;
+        int skip = vertices > 1
+                && value.get(0).equals(value.get(2 * vertices - 2))
+                && value.get(1).equals(value.get(2 * vertices - 1)) ? 1 : 0;
+
+        // omit the closing vertex and keep the first vertex of the possibly reversed ring
         if (reverse) {
-            for (int i = value.size() - 2; i >= 0; i -= 2) {
-                vertices.add(value.get(i));
-                vertices.add(value.get(i + 1));
+            for (int i = vertices - 1; i >= skip; i--) {
+                element.add(builder.addTextureVertex(value.get(2 * i), value.get(2 * i + 1)));
             }
         } else {
-            vertices.addAll(value);
-        }
-
-        int size = vertices.size();
-        if (size > 3
-                && vertices.get(0).equals(vertices.get(size - 2))
-                && vertices.get(1).equals(vertices.get(size - 1))) {
-            vertices = vertices.subList(0, size - 2);
-        }
-
-        return vertices;
-    }
-
-    private void addTextures(List<Map<String, List<Integer>>> rings, int index) {
-        for (String theme : rings.getFirst().keySet()) {
-            ObjectNode texture = textures.computeIfAbsent(theme, k -> {
-                ObjectNode node = helper.createObject();
-                node.putArray(Fields.VALUES);
-                return node;
-            });
-
-            ArrayNode values = (ArrayNode) texture.get(Fields.VALUES);
-            appendNullValues(values, index);
-
-            ArrayNode surface = values.addArray();
-            for (Map<String, List<Integer>> ring : rings) {
-                ArrayNode element = surface.addArray();
-                List<Integer> coordinates = ring.get(theme);
-                if (coordinates != null) {
-                    coordinates.forEach(element::add);
-                } else {
-                    element.addNull();
-                }
+            for (int i = 0; i < vertices - skip; i++) {
+                element.add(builder.addTextureVertex(value.get(2 * i), value.get(2 * i + 1)));
             }
         }
     }
