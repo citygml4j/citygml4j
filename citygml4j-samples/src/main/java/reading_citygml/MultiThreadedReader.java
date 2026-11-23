@@ -15,10 +15,11 @@ import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 
 import java.nio.file.Path;
-import java.util.concurrent.Callable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Future;
 
 public class MultiThreadedReader {
 
@@ -35,25 +36,31 @@ public class MultiThreadedReader {
 
         int threads = Runtime.getRuntime().availableProcessors();
         log.print("Starting thread pool with " + threads + " threads");
-        ExecutorService service = Executors.newFixedThreadPool(threads);
+        List<Future<AbstractFeature>> features = new ArrayList<>();
 
-        try (CityGMLReader reader = in.createCityGMLReader(file)) {
+        // closing the executor service waits until all submitted tasks have completed
+        try (ExecutorService service = Executors.newFixedThreadPool(threads);
+             CityGMLReader reader = in.createCityGMLReader(file)) {
             while (reader.hasNext()) {
+                // reading chunks is sequential, but building objects from chunks
+                // is the expensive part and can run in parallel
                 CityGMLChunk chunk = reader.nextChunk();
 
-                service.submit((Callable<Void>) () -> {
+                features.add(service.submit(() -> {
                     AbstractFeature feature = chunk.build();
                     log.print("[" + Thread.currentThread().getName() + "]" +
                             " Created " + feature.getClass().getSimpleName() + " object from chunk");
-                    return null;
-                });
+                    return feature;
+                }));
             }
         }
 
-        log.print("Shutting down thread pool");
-        service.shutdown();
-        service.awaitTermination(120, TimeUnit.SECONDS);
+        // get() rethrows any exception that occurred while building an object
+        for (Future<AbstractFeature> feature : features) {
+            feature.get();
+        }
 
+        log.print("Created " + features.size() + " objects");
         log.finish();
     }
 }

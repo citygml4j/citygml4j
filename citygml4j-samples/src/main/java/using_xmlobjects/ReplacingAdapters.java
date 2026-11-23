@@ -52,6 +52,8 @@ public class ReplacingAdapters {
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
 
         log.print("Replacing the predefined CityModel serializer with our own serializer to write a WFS 2.0 feature collection");
+        // the serializer is registered with the CityGML context, so it replaces the predefined one
+        // for all writers that are created from this context afterwards
         XMLObjects xmlObjects = context.getXMLObjects();
         xmlObjects.registerSerializer(new WFSFeatureCollectionSerializer(),
                 CityModel.class,

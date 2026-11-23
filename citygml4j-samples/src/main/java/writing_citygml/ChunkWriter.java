@@ -72,7 +72,7 @@ public class ChunkWriter {
                     .map(Tunnel::computeEnvelope)
                     .forEach(envelope::include);
 
-            log.print("Writing the tunnel objects chunk-wise ony by one");
+            log.print("Writing the tunnel objects chunk-wise one by one");
             for (Tunnel tunnel : tunnels) {
                 log.print("- Writing tunnel with gml:id " + tunnel.getId());
                 writer.writeMember(tunnel);

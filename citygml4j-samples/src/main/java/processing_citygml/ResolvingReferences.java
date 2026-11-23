@@ -40,6 +40,7 @@ public class ResolvingReferences {
         CityModel cityModel;
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             cityModel = (CityModel) reader.next();
+            log.print("Found " + reader.getName().getLocalPart());
         }
 
         DefaultReferenceResolver resolver = DefaultReferenceResolver.newInstance();
@@ -70,7 +71,7 @@ public class ResolvingReferences {
         // Ok, so let's resolve all references inside the city model with just one method call.
         resolver.resolveReferences(cityModel);
 
-        log.print("Retrieving the X3DMaterial feature with gml:id UUID_56c58629-e1fc-4043-9c01-002a9865308c");
+        log.print("Retrieving the X3DMaterial object with gml:id UUID_56c58629-e1fc-4043-9c01-002a9865308c");
         X3DMaterial material = resolver.resolveReference("UUID_56c58629-e1fc-4043-9c01-002a9865308c", X3DMaterial.class, cityModel);
 
         log.print("Iterating through the targets of the X3DMaterial and printing the referenced surface geometries");

@@ -50,7 +50,11 @@ public class ChunkWriter {
 
         CityJSONContext cityJSONContext = CityJSONContext.newInstance();
 
+        // any supported CityJSON version can be chosen for the output; this sample writes CityJSON 1.0
         CityJSONVersion version = CityJSONVersion.v1_0;
+
+        // by default, the writer computes the geographical extent from all vertices and adds it to
+        // the metadata of the city model; this sample shows how to turn this off
         CityJSONOutputFactory out = cityJSONContext.createCityJSONOutputFactory(version)
                 .computeCityModelExtent(false);
 
@@ -61,7 +65,7 @@ public class ChunkWriter {
              CityJSONWriter writer = out.createCityJSONWriter(output)) {
             writer.withIndent("  ");
 
-            log.print("Writing the top-level features chunk-wise ony by one");
+            log.print("Writing the top-level features chunk-wise one by one");
             while (reader.hasNext()) {
                 AbstractFeature feature = reader.next();
 

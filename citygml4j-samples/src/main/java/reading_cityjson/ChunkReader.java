@@ -51,13 +51,13 @@ public class ChunkReader {
         try (CityJSONReader reader = in.createCityJSONReader(file)) {
             while (reader.hasNext()) {
                 AbstractFeature topLevelFeature = reader.next();
-                log.print("Found " + topLevelFeature.getClass().getSimpleName() + " with gml:id " + topLevelFeature.getId());
+                log.print("Found " + topLevelFeature.getClass().getSimpleName() + " with id " + topLevelFeature.getId());
 
                 topLevelFeature.accept(new ObjectWalker() {
                     @Override
                     public void visit(AbstractFeature feature) {
                         if (feature != topLevelFeature) {
-                            log.print("- child " + feature.getClass().getSimpleName() + " with gml:id " + feature.getId());
+                            log.print("- child " + feature.getClass().getSimpleName() + " with id " + feature.getId());
                         }
 
                         super.visit(feature);

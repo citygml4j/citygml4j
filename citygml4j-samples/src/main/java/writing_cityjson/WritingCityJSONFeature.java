@@ -43,6 +43,9 @@ public class WritingCityJSONFeature {
         log.print("Reading the file " + file + " chunk-wise by top-level features");
 
         CityJSONContext cityJSONContext = CityJSONContext.newInstance();
+        // CityJSONFeature objects can only reference templates that are registered with
+        // withGlobalTemplateGeometry and written to the first line of the output. Implicit geometries
+        // with unregistered templates are skipped, so transform them into real geometries instead
         CityJSONOutputFactory out = cityJSONContext.createCityJSONOutputFactory()
                 .transformTemplateGeometries(true);
 
@@ -52,6 +55,7 @@ public class WritingCityJSONFeature {
                 "new line of the output file");
 
         try (CityGMLReader reader = in.createCityGMLReader(file);
+             // no indentation, since every object must be written on a single line
              CityJSONFeatureWriter writer = out.createCityJSONFeatureWriter(output)) {
             while (reader.hasNext()) {
                 writer.writeCityObject(reader.next());

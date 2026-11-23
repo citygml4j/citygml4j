@@ -39,6 +39,7 @@ public class ApplyingXSLT {
         log.print("Loading the XSLT stylesheet " + stylesheet);
         TransformerPipeline pipeline = TransformerPipeline.newInstance(new StreamSource(stylesheet));
 
+        // the transformer is applied by all readers that are created from the input factory afterwards
         in.withTransformer(pipeline);
 
         log.print("Reading the building once more and removing its address by applying the stylesheet");
@@ -51,10 +52,11 @@ public class ApplyingXSLT {
     public static Building readBuilding(CityGMLInputFactory in, Path file) throws CityGMLReadException {
         try (CityGMLReader reader = in.createFilteredCityGMLReader(in.createCityGMLReader(file),
                 name -> name.getLocalPart().equals("Building"))) {
-            if (reader.hasNext())
+            if (reader.hasNext()) {
                 return (Building) reader.next();
-            else
+            } else {
                 throw new CityGMLReadException("Failed to read a building from file " + file);
+            }
         }
     }
 }

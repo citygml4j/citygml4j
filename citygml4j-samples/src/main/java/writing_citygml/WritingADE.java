@@ -50,8 +50,9 @@ public class WritingADE {
             if (reader.hasNext()) {
                 building = (Building) reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
-            } else
+            } else {
                 throw new CityGMLReadException("Failed to read a building from file " + file);
+            }
         }
 
         log.print("Enriching the building with TestADE properties and features");
@@ -90,8 +91,9 @@ public class WritingADE {
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndent("  ")
+                    .withDefaultSchemaLocations()
                     .withSchemaLocation(TestADEModule.TESTADE_NAMESPACE, Util.OUTPUT_DIR.relativize(
-                            Util.SCHEMAS_DIR.resolve("testADE.xsd")).toString())
+                            Util.SCHEMAS_DIR.resolve("testADE.xsd")).toString().replace('\\', '/'))
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
                     .writeMember(building);

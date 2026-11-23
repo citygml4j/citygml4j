@@ -54,6 +54,8 @@ public class SimpleBBoxFilter {
                     .withDefaultPrefixes()
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI());
 
+            // a chunk writer writes the city model header before any member, so the bounding box filter
+            // is used as extent of the output instead of the actual extent of the written features
             writer.getCityModelInfo().setBoundedBy(new BoundingShape(filter));
 
             while (reader.hasNext()) {

@@ -43,8 +43,9 @@ public class AccessingLoD4 {
             if (reader.hasNext()) {
                 building = (Building) reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
-            } else
+            } else {
                 throw new CityGMLReadException("Failed to read a building from file " + file);
+            }
         }
 
         log.print("Checking for an LoD 1-3 solid geometry using explicit instance methods");
@@ -55,7 +56,7 @@ public class AccessingLoD4 {
         log.print("Checking for an LoD4 solid geometry stored as deprecated property");
         DeprecatedPropertiesOfAbstractBuilding deprecatedProperties = building.getDeprecatedProperties();
         log.print("Building has an LoD4 solid property: " + (deprecatedProperties.getLod4Solid() != null));
-        if (deprecatedProperties.getLod4Solid().getObject() != null)
+        if (deprecatedProperties.getLod4Solid() != null && deprecatedProperties.getLod4Solid().getObject() != null)
             log.print("- Found a " + deprecatedProperties.getLod4Solid().getObject().getClass().getSimpleName() + " geometry object");
 
         log.print("Accessing all geometries of the building using a GeometryInfo helper");

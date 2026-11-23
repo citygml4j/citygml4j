@@ -57,8 +57,9 @@ public class WritingGenericADE {
             if (reader.hasNext()) {
                 building = (Building) reader.next();
                 log.print("Found " + reader.getName().getLocalPart() + " with gml:id " + building.getId());
-            } else
+            } else {
                 throw new CityGMLReadException("Failed to read a building from file " + file);
+            }
         }
 
         log.print("Enriching the building with TestADE properties and features");
@@ -109,9 +110,11 @@ public class WritingGenericADE {
 
         try (CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndent("  ")
+                    .withDefaultSchemaLocations()
                     .withSchemaLocation(TestADEModule.TESTADE_NAMESPACE, Util.OUTPUT_DIR.relativize(
-                            Util.SCHEMAS_DIR.resolve("testADE.xsd")).toString())
+                            Util.SCHEMAS_DIR.resolve("testADE.xsd")).toString().replace('\\', '/'))
                     .withDefaultPrefixes()
+                    // the ADE is not loaded, so its prefix is not known to withDefaultPrefixes
                     .withPrefix("test", TestADEModule.TESTADE_NAMESPACE)
                     .withDefaultNamespace(CoreModule.of(version).getNamespaceURI())
                     .writeMember(building);

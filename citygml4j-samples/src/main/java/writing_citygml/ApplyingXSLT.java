@@ -61,7 +61,7 @@ public class ApplyingXSLT {
                 AbstractFeature feature = reader.next();
 
                 if (feature instanceof AbstractCityObject) {
-                    log.print("Applying stylesheet to " + reader.getName().getLocalPart() + " with gml:id " + feature.getId());
+                    log.print("Writing " + reader.getName().getLocalPart() + " with gml:id " + feature.getId());
                     writer.writeMember(feature);
                 }
             }

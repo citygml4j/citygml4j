@@ -22,6 +22,7 @@ import org.xmlobjects.gml.model.geometry.Envelope;
 import org.xmlobjects.gml.model.geometry.primitives.Solid;
 import org.xmlobjects.gml.model.geometry.primitives.SolidProperty;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class AddingLoD1 {
 
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod2_buildings_v3.gml");
         log.print("Reading the file " + file + " chunk-wise by city model members");
-        log.print("Adding a simplified LoD1 representation to each feature based on its bounding box");
+        log.print("Adding a simplified LoD1 representation to each space feature based on its bounding box");
 
         CityGMLVersion version = CityGMLVersion.v3_0;
         CityGMLOutputFactory out = context.createCityGMLOutputFactory(version);
@@ -48,7 +49,7 @@ public class AddingLoD1 {
         GeometryFactory factory = GeometryFactory.newInstance();
 
         try (CityGMLReader reader = in.createCityGMLReader(file);
-             CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output)) {
+             CityGMLChunkWriter writer = out.createCityGMLChunkWriter(output, StandardCharsets.UTF_8.name())) {
             writer.withIndent("  ")
                     .withDefaultSchemaLocations()
                     .withDefaultPrefixes()
@@ -83,7 +84,7 @@ public class AddingLoD1 {
 
                     space.setLod1Solid(new SolidProperty(solid));
 
-                    log.print("Writing the feature to the output file");
+                    log.print("Writing the space feature to the output file");
                     writer.writeMember(feature);
                 }
             }

@@ -22,17 +22,20 @@ import org.citygml4j.xml.module.gml.GMLCoreModule;
 import org.citygml4j.xml.reader.CityGMLInputFactory;
 import org.citygml4j.xml.reader.CityGMLReader;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xmlobjects.gml.model.common.GenericElement;
 import org.xmlobjects.schema.SchemaHandler;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadingGenericADE {
-    static Logger log = Logger.start(ReadingGenericADE.class);
+    static Logger log;
 
     public static void main(String[] args) throws Exception {
+        log = Logger.start(ReadingGenericADE.class);
+
         CityGMLContext context = CityGMLContext.newInstance();
 
         CityGMLInputFactory in = context.createCityGMLInputFactory()
@@ -78,7 +81,7 @@ public class ReadingGenericADE {
         log.finish();
     }
 
-    static void printADEInfo(SchemaHandler handler, Element element, XSType cityObjectType, XSType featureType, XSType geometryType, int level) {
+    static void printADEInfo(SchemaHandler handler, Element element, XSType cityObjectType, XSType gmlObjectType, XSType geometryType, int level) {
         String info = " ".repeat(level) + element.getLocalName();
 
         XSSchemaSet schemas = handler.getSchemaSet(element.getNamespaceURI());
@@ -89,21 +92,25 @@ public class ReadingGenericADE {
                 info += " [CityObject]";
             else if (type.isDerivedFrom(geometryType))
                 info += " [Geometry]";
-            else if (type.isDerivedFrom(featureType))
+            else if (type.isDerivedFrom(gmlObjectType))
                 info += " [GML Object]";
         }
 
+        List<Element> childElements = new ArrayList<>();
         NodeList children = element.getChildNodes();
-        if (children.getLength() > 1) {
+        for (int i = 0; i < children.getLength(); i++) {
+            if (children.item(i) instanceof Element child)
+                childElements.add(child);
+        }
+
+        if (!childElements.isEmpty()) {
             log.print(info);
-            for (int i = 0; i < children.getLength(); i++) {
-                Node child = children.item(i);
-                if (child.getNodeType() == Node.ELEMENT_NODE)
-                    printADEInfo(handler, (Element) child, cityObjectType, featureType, geometryType, level + 1);
-            }
+            for (Element child : childElements)
+                printADEInfo(handler, child, cityObjectType, gmlObjectType, geometryType, level + 1);
         } else {
-            if (element.getFirstChild().getNodeType() == Node.TEXT_NODE)
-                info += ": " + element.getFirstChild().getNodeValue();
+            String text = element.getTextContent().trim();
+            if (!text.isEmpty())
+                info += ": " + text;
 
             log.print(info);
         }

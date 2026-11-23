@@ -34,6 +34,7 @@ public class GeneratingStatistics {
         AbstractFeature feature;
         try (CityGMLReader reader = in.createCityGMLReader(file)) {
             feature = reader.next();
+            log.print("Found " + reader.getName().getLocalPart());
         }
 
         log.print("Walking through the dataset and counting features, geometries and present LoDs");
@@ -47,6 +48,7 @@ public class GeneratingStatistics {
             public void visit(AbstractFeature feature) {
                 features.merge(feature.getClass().getSimpleName(), 1, Integer::sum);
 
+                // CityGML 3.0 defines LoD 0 to 3; CityGML 2.0 datasets can also contain LoD 4
                 GeometryInfo geometryInfo = feature.getGeometryInfo();
                 for (int lod = 0; lod < 4; lod++)
                     lods.merge(lod, geometryInfo.hasGeometries(lod) ? 1 : 0, Integer::sum);
@@ -65,7 +67,7 @@ public class GeneratingStatistics {
         features.forEach((key, value) -> log.print(key + ": " + value + " instance(s)"));
 
         log.print("-- LoDs present in the dataset:");
-        lods.forEach((key, value) -> log.print(key + ": " + value + " instance(s)"));
+        lods.forEach((key, value) -> log.print("LoD" + key + ": " + value + " feature(s)"));
 
         log.print("-- Geometries present in the dataset:");
         geometries.forEach((key, value) -> log.print(key + ": " + value + " instance(s)"));

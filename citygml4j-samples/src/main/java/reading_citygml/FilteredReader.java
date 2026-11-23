@@ -30,6 +30,8 @@ public class FilteredReader {
         Path file = Util.SAMPLE_DATA_DIR.resolve("lod3_railway_v3.gml");
         log.print("Reading only bridges from the file " + file + " by using a filtered reader");
 
+        // the filter is applied to the top-level features of the city model and works with or without
+        // chunking; a bridge is returned including all its nested features
         CityGMLInputFilter filter = name -> name.getLocalPart().equals("Bridge")
                 && CityGMLModules.isCityGMLNamespace(name.getNamespaceURI());
 

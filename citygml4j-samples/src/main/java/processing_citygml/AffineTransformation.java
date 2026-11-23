@@ -53,11 +53,13 @@ public class AffineTransformation {
             log.print("Found Building with gml:id " + building.getId());
         }
 
+        // remove the appearances, since the copy gets new gml:ids below and textures and materials
+        // would still target the surfaces of the original building
         building.setAppearances(null);
 
         Envelope envelope = building.computeEnvelope();
         DirectPosition centerPoint = envelope.getCenter();
-        double width = envelope.getUpperCorner().getValue().get(1) - envelope.getLowerCorner().getValue().get(1);
+        double depth = envelope.getUpperCorner().getValue().get(1) - envelope.getLowerCorner().getValue().get(1);
 
         log.print("Creating a deep copy of the building");
         Copier copier = CopierBuilder.newCopier();
@@ -87,7 +89,7 @@ public class AffineTransformation {
 
         Matrix move = new Matrix(new double[][]{
                 {1, 0, 0, centerPoint.getValue().get(0)},
-                {0, 1, 0, centerPoint.getValue().get(1) - width},
+                {0, 1, 0, centerPoint.getValue().get(1) - depth},
                 {0, 0, 1, centerPoint.getValue().get(2)},
                 {0, 0, 0, 1},
         });
@@ -95,6 +97,8 @@ public class AffineTransformation {
         Matrix transform = move.times(rotate.times(scale.times(center)));
 
         log.print("Scaling, rotating and translating the geometry of the copied building");
+        // assign new gml:ids so that the copy can be stored next to the original; note that
+        // xlink references inside the copy are not updated and still point to the old gml:ids
         IdCreator idCreator = DefaultIdCreator.getInstance();
         copy.accept(new ObjectWalker() {
             @Override

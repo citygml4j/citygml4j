@@ -85,6 +85,8 @@ public class ADEObjectWalker {
             }
         };
 
+        // the ADE walkers of all loaded ADEs are registered automatically when an ObjectWalker is created;
+        // a walker added with withADEWalker is called before them and can therefore override them
         building.accept(walker.withADEWalker(adeWalker));
 
         log.finish();
