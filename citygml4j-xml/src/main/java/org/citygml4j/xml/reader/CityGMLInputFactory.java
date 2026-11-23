@@ -39,6 +39,7 @@ public class CityGMLInputFactory {
     private TransformerPipeline transformer;
     private ReferenceResolver resolver;
     private IdCreator idCreator;
+    private boolean hasUserSchemaHandler;
 
     public CityGMLInputFactory(CityGMLContext context, XMLInputFactory factory) throws CityGMLReadException {
         this.context = Objects.requireNonNull(context, "CityGML context must not be null.");
@@ -56,6 +57,7 @@ public class CityGMLInputFactory {
 
     public CityGMLInputFactory withSchemaHandler(CityGMLSchemaHandler schemaHandler) {
         factory.withSchemaHandler(schemaHandler);
+        hasUserSchemaHandler = schemaHandler != null;
         return this;
     }
 
@@ -261,7 +263,8 @@ public class CityGMLInputFactory {
     }
 
     private CityGMLInputFactory validate() throws SchemaHandlerException {
-        if (isCreateGenericADEContent() && getSchemaHandler() == null)
+        // get the default schema handler for every reader, since it is replaced when ADEs are loaded
+        if (isCreateGenericADEContent() && !hasUserSchemaHandler)
             factory.withSchemaHandler(context.getDefaultSchemaHandler());
 
         if (chunkOptions != null && idCreator == null)
