@@ -20,14 +20,14 @@ import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TextureBuilder {
     private final AppearanceSerializer appearanceSerializer;
     private final CityJSONSerializerHelper helper;
-    private final Map<String, ObjectNode> textures = new HashMap<>();
+    private final Map<String, ObjectNode> textures = new LinkedHashMap<>();
 
     TextureBuilder(AppearanceSerializer appearanceSerializer, CityJSONSerializerHelper helper) {
         this.appearanceSerializer = appearanceSerializer;
@@ -110,7 +110,7 @@ public class TextureBuilder {
             return Map.of();
         }
 
-        Map<String, List<Integer>> textureCoordinates = new HashMap<>();
+        Map<String, List<Integer>> textureCoordinates = new LinkedHashMap<>();
         for (TextureCoordinates coordinates : referees.get(TextureCoordinates.class)) {
             ParameterizedTexture texture = coordinates.getParent(ParameterizedTexture.class);
             if (texture != null && texture.getIsFront() != reverse && coordinates.isSetValue()) {

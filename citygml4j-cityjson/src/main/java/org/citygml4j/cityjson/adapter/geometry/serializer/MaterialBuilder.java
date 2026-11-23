@@ -15,13 +15,13 @@ import org.xmlobjects.gml.model.geometry.AbstractGeometry;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MaterialBuilder {
     private final AppearanceSerializer appearanceSerializer;
     private final CityJSONSerializerHelper helper;
-    private final Map<String, ObjectNode> materials = new HashMap<>();
+    private final Map<String, ObjectNode> materials = new LinkedHashMap<>();
 
     MaterialBuilder(AppearanceSerializer appearanceSerializer, CityJSONSerializerHelper helper) {
         this.appearanceSerializer = appearanceSerializer;
@@ -39,7 +39,7 @@ public class MaterialBuilder {
                             AppearanceInfo materialInfo = appearanceSerializer.getOrCreateMaterial(material);
                             if (materialInfo != null) {
                                 if (materialInfos == null) {
-                                    materialInfos = new HashMap<>();
+                                    materialInfos = new LinkedHashMap<>();
                                 }
 
                                 materialInfos.putIfAbsent(materialInfo.getTheme(), materialInfo);
