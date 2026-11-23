@@ -53,4 +53,13 @@ class CityGMLChunkWriterTest {
         assertTrue(xml.contains(":id=\"good\""), xml);
         assertTrue(xml.trim().endsWith("CityModel>"), xml);
     }
+
+    @Test
+    void nullMemberAfterCloseFailsWithWriteException() throws Exception {
+        CityGMLOutputFactory out = CityGMLContext.newInstance().createCityGMLOutputFactory(CityGMLVersion.v3_0);
+        CityGMLChunkWriter writer = out.createCityGMLChunkWriter(new ByteArrayOutputStream(), StandardCharsets.UTF_8.name());
+        writer.close();
+
+        assertThrows(CityGMLWriteException.class, () -> writer.writeMember(null));
+    }
 }

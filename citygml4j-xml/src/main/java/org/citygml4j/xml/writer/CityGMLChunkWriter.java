@@ -84,7 +84,7 @@ public class CityGMLChunkWriter extends AbstractCityGMLWriter<CityGMLChunkWriter
                     writeMember(feature, coreNamespace, "versionMember");
             case AbstractVersionTransition transition when version == CityGMLVersion.v3_0 ->
                     writeMember(feature, coreNamespace, "versionTransitionMember");
-            default -> writeMember(feature, version == CityGMLVersion.v3_0 ?
+            case null, default -> writeMember(feature, version == CityGMLVersion.v3_0 ?
                     coreNamespace :
                     GMLCoreModule.v3_1.getNamespaceURI(), "featureMember");
         }
