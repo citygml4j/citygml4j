@@ -10,8 +10,7 @@
   single `address` member, and the values are joined into a string when writing CityJSON 1.0.
 - An input filter on a non-chunking `CityGMLReader` is applied to the top-level features of a root `CityModel`, which
   is itself neither filtered nor returned. Accepted features are returned with their nested features, rejected
-  features are skipped together with their nested features. For example, a filter accepting only buildings returns
-  the buildings of a city model one by one, like a chunking reader with default chunk options.
+  features are skipped together with their nested features.
 - `CityJSONFeatureWriter` skips geometry instances whose template is not part of the header line, instead of writing
   template indexes that do not exist. Templates must be registered with `withGlobalTemplateGeometry` to be available.
 - CityJSON writers only write extensions registered for the CityJSON version being written.
