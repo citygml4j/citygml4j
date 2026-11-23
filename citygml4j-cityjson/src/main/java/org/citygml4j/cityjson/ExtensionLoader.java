@@ -76,8 +76,13 @@ public class ExtensionLoader extends ADELoader<Extension> {
                     "' and the CityJSON version " + extension.getCityJSONVersion() + ".");
         }
 
-        for (CityJSONContext listener : getListeners()) {
-            listener.loadExtension(extension);
+        try {
+            for (CityJSONContext listener : getListeners()) {
+                listener.loadExtension(extension);
+            }
+        } catch (ADEException | RuntimeException e) {
+            unloadADE(extension);
+            throw e;
         }
     }
 

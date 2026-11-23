@@ -81,18 +81,27 @@ public class CityGMLADELoader extends ADELoader<CityGMLADE> {
             this.modules.computeIfAbsent(module.getCityGMLVersion(), v -> new ConcurrentHashMap<>()).put(module.getNamespaceURI(), module);
         }
 
-        for (CityGMLContext listener : getListeners()) {
-            listener.loadADE(ade);
+        try {
+            for (CityGMLContext listener : getListeners()) {
+                listener.loadADE(ade);
+            }
+        } catch (ADEException | RuntimeException e) {
+            unloadADE(ade);
+            throw e;
         }
     }
 
     @Override
     protected void unloadADE(CityGMLADE ade) throws ADEException {
+        boolean removed = false;
         for (ADEModule module : ade.getADEModules()) {
-            modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap()).remove(module.getNamespaceURI());
+            removed |= modules.getOrDefault(module.getCityGMLVersion(), Collections.emptyMap())
+                    .remove(module.getNamespaceURI(), module);
         }
 
-        getListeners().forEach(v -> v.unloadADE(ade));
+        if (removed) {
+            getListeners().forEach(v -> v.unloadADE(ade));
+        }
     }
 
     private List<CityGMLContext> getListeners() {

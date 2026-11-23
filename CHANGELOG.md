@@ -36,6 +36,8 @@
 - Fixed the CityJSON address `location` being lost when the address has no xAL address.
 - Fixed loading CityJSON extensions with the same name for different CityJSON versions, which replaced each other.
 - Fixed loading of CityGML ADEs leaving modules partially registered when the ADE is invalid.
+- Fixed a failed ADE load leaving the ADE registered, so that unloading it removed the modules of another ADE
+  with the same namespace.
 - Fixed the default `CityGMLSchemaHandler` not including the schemas of ADEs loaded later, and an empty schema handler
   being cached forever after a failed initialization.
 - Fixed `CityGMLChunkWriter`, `CityJSONWriter` and `CityJSONFeatureWriter` not closing the output on errors, and

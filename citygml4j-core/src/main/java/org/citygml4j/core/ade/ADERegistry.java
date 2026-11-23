@@ -59,14 +59,18 @@ public class ADERegistry {
 
     public void loadADE(ADE ade) throws ADEException {
         Class<? extends ADE> type = ade.getClass();
-        ADE current = ades.put(type.getName(), ade);
-        if (current != null) {
+        if (ades.putIfAbsent(type.getName(), ade) != null) {
             throw new ADEException("An ADE of type " + type.getName() + " is already loaded.");
         }
 
         ADELoader<ADE> loader = getADELoaderFor(type);
         if (loader != null) {
-            loader.loadADE(ade);
+            try {
+                loader.loadADE(ade);
+            } catch (ADEException | RuntimeException e) {
+                ades.remove(type.getName(), ade);
+                throw e;
+            }
         }
     }
 
