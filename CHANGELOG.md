@@ -8,9 +8,10 @@
 - **Breaking:** The address of the CityJSON metadata `pointOfContact` is now a `Map<String, Object>` instead of a
   `String`, since CityJSON 1.1 and 2.0 define it as an object. A CityJSON 1.0 address string is represented by a
   single `address` member, and the values are joined into a string when writing CityJSON 1.0.
-- An input filter on a non-chunking `CityGMLReader` now returns every feature it accepts, also when nested in
-  rejected elements. For example, a filter accepting only buildings returns the buildings of a city model one by one,
-  like a chunking reader. Filters accepting the `CityModel` behave as before.
+- An input filter on a non-chunking `CityGMLReader` is applied to the top-level features of a root `CityModel`, which
+  is itself neither filtered nor returned. Accepted features are returned with their nested features, rejected
+  features are skipped together with their nested features. For example, a filter accepting only buildings returns
+  the buildings of a city model one by one, like a chunking reader with default chunk options.
 - `CityJSONFeatureWriter` skips geometry instances whose template is not part of the header line, instead of writing
   template indexes that do not exist. Templates must be registered with `withGlobalTemplateGeometry` to be available.
 - CityJSON writers only write extensions registered for the CityJSON version being written.

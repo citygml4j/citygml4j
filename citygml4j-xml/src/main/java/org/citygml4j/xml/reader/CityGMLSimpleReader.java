@@ -39,14 +39,26 @@ public class CityGMLSimpleReader extends CityGMLReader {
                 XMLObjects xmlObjects = reader.getXMLObjects();
                 while (reader.hasNext()) {
                     if (reader.nextTag() == EventType.START_ELEMENT) {
-                        // return the first feature accepted by the filter, and descend into
-                        // rejected elements to search for accepted features inside them
                         QName name = reader.getName();
-                        if (filter == null || filter.accept(name)) {
-                            ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(name, AbstractFeature.class);
-                            if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(name.getNamespaceURI(), builder))) {
+                        ObjectBuilder<AbstractFeature> builder = xmlObjects.getBuilder(name, AbstractFeature.class);
+                        if (builder != null && CityGMLObject.class.isAssignableFrom(xmlObjects.getObjectType(name.getNamespaceURI(), builder))) {
+                            if (filter == null) {
                                 hasNext = true;
                                 break;
+                            }
+
+                            // a root city model is not filtered, but its top-level features are
+                            if (reader.getDepth() > 1 || !isCityModel(name)) {
+                                if (filter.accept(name)) {
+                                    hasNext = true;
+                                    break;
+                                }
+
+                                // skip rejected features including their content
+                                int skipUntil = reader.getDepth() - 1;
+                                while (reader.getDepth() != skipUntil) {
+                                    reader.nextTag();
+                                }
                             }
                         }
                     }

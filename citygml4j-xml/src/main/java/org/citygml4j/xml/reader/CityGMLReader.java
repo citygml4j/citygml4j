@@ -6,6 +6,7 @@
 package org.citygml4j.xml.reader;
 
 import org.citygml4j.core.model.core.AbstractFeature;
+import org.citygml4j.xml.module.citygml.CityGMLModules;
 import org.citygml4j.xml.transform.TransformerPipeline;
 import org.xmlobjects.gml.util.reference.ReferenceResolver;
 import org.xmlobjects.stream.XMLReadException;
@@ -66,6 +67,11 @@ public abstract class CityGMLReader implements AutoCloseable {
 
     public FeatureInfo getParentInfo() throws CityGMLReadException {
         return null;
+    }
+
+    static boolean isCityModel(QName name) {
+        return "CityModel".equals(name.getLocalPart())
+                && CityGMLModules.isCityGMLNamespace(name.getNamespaceURI());
     }
 
     @Override

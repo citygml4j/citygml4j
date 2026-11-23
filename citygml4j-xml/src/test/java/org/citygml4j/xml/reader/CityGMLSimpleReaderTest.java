@@ -5,6 +5,7 @@
 
 package org.citygml4j.xml.reader;
 
+import org.citygml4j.core.model.building.Building;
 import org.citygml4j.core.model.core.AbstractFeature;
 import org.citygml4j.core.model.core.CityModel;
 import org.citygml4j.xml.CityGMLContext;
@@ -77,9 +78,17 @@ class CityGMLSimpleReaderTest {
     }
 
     @Test
-    void acceptedCityModelIsReturnedWithAllMembers() throws Exception {
-        assertEntireCityModel(read(CITY_MODEL, Set.of("CityModel")));
-        assertEntireCityModel(read(CITY_MODEL, Set.of("CityModel", "Building")));
+    void rootCityModelIsNotFiltered() throws Exception {
+        assertEquals(List.of(), ids(read(CITY_MODEL, Set.of("CityModel"))));
+        assertEquals(List.of("b1", "b2"), ids(read(CITY_MODEL, Set.of("CityModel", "Building"))));
+    }
+
+    @Test
+    void acceptedFeatureIsReturnedWithNestedFeatures() throws Exception {
+        List<AbstractFeature> features = read(CITY_MODEL, Set.of("Building", "BuildingPart"));
+        assertEquals(List.of("b1", "b2"), ids(features));
+        Building b1 = assertInstanceOf(Building.class, features.get(0));
+        assertEquals("p1", b1.getBuildingParts().get(0).getObject().getId());
     }
 
     @Test
@@ -88,8 +97,18 @@ class CityGMLSimpleReaderTest {
     }
 
     @Test
-    void nestedFeaturesInsideRejectedFeatureAreReturned() throws Exception {
-        assertEquals(List.of("p1"), ids(read(CITY_MODEL, Set.of("BuildingPart"))));
+    void nestedFeaturesInsideRejectedFeatureAreSkipped() throws Exception {
+        assertEquals(List.of(), ids(read(CITY_MODEL, Set.of("BuildingPart"))));
+        assertEquals(List.of("r1"), ids(read(CITY_MODEL, Set.of("BuildingPart", "Road"))));
+    }
+
+    @Test
+    void rejectedNonRootCityModelIsSkipped() throws Exception {
+        String xml = "<wfs:FeatureCollection " + NAMESPACES + ">" +
+                "<wfs:member>" + CITY_MODEL.replace(NAMESPACES, "") + "</wfs:member>" +
+                "<wfs:member><bldg:Building gml:id=\"b3\"/></wfs:member>" +
+                "</wfs:FeatureCollection>";
+        assertEquals(List.of("b3"), ids(read(xml, Set.of("Building"))));
     }
 
     @Test
