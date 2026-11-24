@@ -8,13 +8,14 @@
   writing and reading with fewer allocations per element, attribute, and text value.
 - **Breaking:** The address of the CityJSON metadata `pointOfContact` is now a `Map<String, Object>` instead of a
   `String`, since CityJSON 1.1 and 2.0 define it as an object. CityJSON 1.0 address strings are still supported.
+- **Breaking:** Renamed `ADE.getADEWalker` to `ADE.createADEWalker`. Implementations must return a new walker instance
+  on each call.
 - An input filter on a non-chunking `CityGMLReader` is applied to the top-level features of a root `CityModel`, which
   is itself neither filtered nor returned.
 - `CityJSONFeatureWriter` skips geometry instances whose template is not part of the header line. Templates must be
   registered with `withGlobalTemplateGeometry` to be available.
 - CityJSON writers only write extensions registered for the CityJSON version being written.
 - `GeometryFactory` no longer modifies or shares the coordinate lists passed to it, and rejects invalid input.
-- Implementations of `ADE.getADEWalker` must return a new walker instance on each call.
 - CityJSON writers write the `children` of semantic surfaces in ascending order, so that the same input always
   produces the same output.
 

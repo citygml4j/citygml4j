@@ -95,7 +95,7 @@ public class ObjectWalker extends GeometryWalker implements ObjectVisitor, Walke
         ADERegistry registry = ADERegistry.getInstance();
         if (registry.hasADEs()) {
             for (ADE ade : registry.getADEs())
-                withADEWalker(ade.getADEWalker());
+                withADEWalker(ade.createADEWalker());
         }
     }
 

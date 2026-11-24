@@ -32,7 +32,7 @@ public class TestADE implements CityGMLADE {
     }
 
     @Override
-    public ADEWalker getADEWalker() {
+    public ADEWalker createADEWalker() {
         return new TestADEWalker();
     }
 }

@@ -14,7 +14,7 @@ public interface ADE {
 
     String getVersion();
 
-    default ADEWalker getADEWalker() {
+    default ADEWalker createADEWalker() {
         return null;
     }
 }
