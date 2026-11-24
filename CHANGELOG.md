@@ -4,19 +4,16 @@
 
 ### Changed
 - **Breaking:** Java 21 is now the minimum required version for using citygml4j.
-- **Breaking:** Updated to xml-objects 3.0.0, gml-objects 3.0.0 and xal-objects 3.0.0.
+- **Breaking:** Updated to xml-objects, gml-objects, and xal-objects 3.0.0. xml-objects 3.0.0 provides faster XML
+  writing and reading with fewer allocations per element, attribute, and text value.
 - **Breaking:** The address of the CityJSON metadata `pointOfContact` is now a `Map<String, Object>` instead of a
-  `String`, since CityJSON 1.1 and 2.0 define it as an object. A CityJSON 1.0 address string is represented by a
-  single `address` member, and the values are joined into a string when writing CityJSON 1.0.
+  `String`, since CityJSON 1.1 and 2.0 define it as an object. CityJSON 1.0 address strings are still supported.
 - An input filter on a non-chunking `CityGMLReader` is applied to the top-level features of a root `CityModel`, which
-  is itself neither filtered nor returned. Accepted features are returned with their nested features, rejected
-  features are skipped together with their nested features.
-- `CityJSONFeatureWriter` skips geometry instances whose template is not part of the header line, instead of writing
-  template indexes that do not exist. Templates must be registered with `withGlobalTemplateGeometry` to be available.
+  is itself neither filtered nor returned.
+- `CityJSONFeatureWriter` skips geometry instances whose template is not part of the header line. Templates must be
+  registered with `withGlobalTemplateGeometry` to be available.
 - CityJSON writers only write extensions registered for the CityJSON version being written.
-- `GeometryFactory` no longer modifies or shares the coordinate lists passed to it, and rejects invalid input
-  (non-positive dimension, `null` coordinates, rings with fewer than three distinct control points) with a
-  `GeometryException`.
+- `GeometryFactory` no longer modifies or shares the coordinate lists passed to it, and rejects invalid input.
 - Implementations of `ADE.getADEWalker` must return a new walker instance on each call.
 - CityJSON writers write the `children` of semantic surfaces in ascending order, so that the same input always
   produces the same output.
