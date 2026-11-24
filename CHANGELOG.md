@@ -20,6 +20,8 @@
 - `GeometryFactory` no longer modifies or shares the coordinate lists passed to it, and rejects invalid input.
 - CityJSON writers write the `children` of semantic surfaces in ascending order, so that the same input always
   produces the same output.
+- Added support for non-numeric CRS codes such as `OGC:CRS84` in the CityJSON reference system (URL, URN and
+  short forms).
 
 ### Fixed
 - Fixed quadratic runtime when reading CityJSON files with many child objects or with child objects listed before
