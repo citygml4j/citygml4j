@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-11-24
+
 ### Changed
 - **Breaking:** Java 21 is now the minimum required version for using citygml4j.
 - **Breaking:** Updated to xml-objects, gml-objects, and xal-objects 3.0.0. xml-objects 3.0.0 provides faster XML
@@ -309,7 +311,8 @@
 The changelog of previous citygml4j releases before version 3.0 is available
 [here](https://github.com/citygml4j/citygml4j/blob/citygml4j-v2/CHANGES.md).
 
-[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v3.5.3..HEAD
+[Unreleased]: https://github.com/citygml4j/citygml4j/compare/v4.0.0..HEAD
+[4.0.0]: https://github.com/citygml4j/citygml4j/releases/tag/v4.0.0
 [3.5.3]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.3
 [3.5.2]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.2
 [3.5.1]: https://github.com/citygml4j/citygml4j/releases/tag/v3.5.1
